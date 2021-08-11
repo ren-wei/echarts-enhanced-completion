@@ -46,7 +46,7 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
     if (res.status === 200) {
         // 解析类型信息的数据并保存
         const typeMsgList = JSON.parse(res.data.slice(33)).children;
-        fs.writeFile(path.resolve(__dirname, '../assets/options_outline.json'), JSON.stringify(typeMsgList), () => {
+        fs.writeFile(path.resolve(__dirname, '../assets/options_outline.json'), JSON.stringify(typeMsgList, null, 4), () => {
             console.log('options_outline.json saved successfully.');
         });
         // 获取顶级选项的数据
