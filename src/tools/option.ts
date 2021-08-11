@@ -25,15 +25,16 @@ export function getCompletionItemList(root: AstNode, node: AstNode, record: Reco
         return [];
     } else {
         // 记录长度为0，说明为顶级选项下
-        const typeMsg = getOptionType();
+        const typeMsgList = getOptionType();
         const descObject = getOptionDesc();
         return filterOptions(descObject, node).map((key, index) => {
             return {
                 label: key,
                 kind: vscode.CompletionItemKind.Property,
                 detail: 'echarts options',
-                documentation: descObject[key].desc,
-                sortText: String(index).length > 1 ? String(index) : '0' + String(index)
+                documentation: new vscode.MarkdownString(descObject[key].desc),
+                sortText: String(index).length > 1 ? String(index) : '0' + String(index),
+                insertText: new vscode.SnippetString(`${key}: ${getInsertValueForTop(key, typeMsgList)}`)
             };
         });
     }
@@ -84,4 +85,35 @@ function filterOptions(descObject: DescMsgObject, node: AstNode): string[] {
     return Object.keys(descObject).filter(key => {
         return !hasKey.some(str => key.includes(str));
     });
+}
+
+/** 为顶级选项获取获取插入的代码片段的值部分 */
+function getInsertValueForTop(prop: string, typeMsgList: TypeMsg[]): string {
+    const target = typeMsgList.find(item => item.prop === prop);
+    if (target && target.isObject) {
+        return '{$0},';
+    } else if (target && target.isArray) {
+        return '[$0],';
+    } else if (target && target.default) {
+        return '${0:' + target.default + '},';
+    } else if (target && target.type === 'boolean') {
+        return '${0|true,false|},';
+    } else {
+        return '';
+    }
+}
+
+/** 获取需要插入的代码片段的值部分，非顶级选项 */
+function getInsertValue(uiControl: UiControl | undefined, typeMsgList: TypeMsg[]): string {
+    if (!uiControl) return '';
+
+    let defaultValue = uiControl.default;
+    if (uiControl.type === 'vector' && defaultValue) {
+        defaultValue = '[' + defaultValue.replace(',', ', ') + ']';
+    }
+    if (uiControl.options) {
+        return '${0|' + uiControl.options + '|}';
+    } else {
+        return defaultValue || '';
+    }
 }
