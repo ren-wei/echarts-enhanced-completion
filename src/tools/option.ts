@@ -20,24 +20,42 @@ export function getOptionsRange(rows: string[], keyword: string): [number, numbe
 
 /** 根据所在的位置获取补全列表 */
 export function getCompletionItemList(root: AstNode, node: AstNode, record: RecordItem[]): vscode.CompletionItem[] {
+    // 根据 record 获取对应的 key
+    let key = [];
     if (record.length) {
-        // TODO: 非顶级选项时
-        return [];
-    } else {
-        // 记录长度为0，说明为顶级选项下
-        const typeMsgList = getOptionType();
-        const descObject = getOptionDesc();
-        return filterOptions(descObject, node).map((key, index) => {
-            return {
-                label: key,
-                kind: vscode.CompletionItemKind.Property,
-                detail: 'echarts options',
-                documentation: new vscode.MarkdownString(descObject[key].desc),
-                sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                insertText: new vscode.SnippetString(`${key}: ${getInsertValueForTop(key, typeMsgList)}`)
-            };
-        });
+        const mapping: KeyFunc = {
+            'properties-value': (node: AstNode, recordItem0: RecordItem, recordItem1: RecordItem): PathMsg => {
+                const targetNode = node.properties[recordItem0.index as number];
+                return {
+                    name: targetNode.key.name,
+                    target: targetNode.value
+                };
+            }
+        };
+        let targetNode = root;
+        for (let i = 0; i < record.length; i += 2) {
+            const name = record.slice(i, i + 2).map(v => v.key).join('-');
+            if (!mapping[name]) {
+                return [];
+            }
+            const nodeMsg = mapping[name](targetNode, record[i], record[i + 1]);
+            key.push(nodeMsg.name);
+            targetNode = nodeMsg.target;
+        }
     }
+
+    const typeMsgList = getOptionType(key.join('.'));
+    const descObject = getOptionDesc(key);
+    return filterOptions(descObject, node).map((name, index) => {
+        return {
+            label: name,
+            kind: vscode.CompletionItemKind.Property,
+            detail: 'echarts options',
+            documentation: new vscode.MarkdownString(descObject[name].desc),
+            sortText: String(index).length > 1 ? String(index) : '0' + String(index),
+            insertText: new vscode.SnippetString(`${name}: ${key.length ? getInsertValueForTop(name, typeMsgList) : getInsertValue(descObject[name].uiControl, typeMsgList)}`)
+        };
+    });
 }
 
 /**
@@ -59,12 +77,29 @@ function getOptionType(key: string = ''): TypeMsg[] {
 
 /**
  * 获取选项的描述信息
- * @param key 选项的key，多层使用时用 . 连接
+ * @param key 选项的key
  */
-function getOptionDesc(key: string = ''): DescMsgObject {
-    if (key) {
-        // TODO: 存在key时
-        return {};
+function getOptionDesc(key: string[]): DescMsgObject {
+    if (key.length) {
+        const datas = getFileData(key[0]);
+        // 将返回的文件数据转换为options.json一致的格式
+        if (key.length === 1) {
+            const keyList = Object.keys(datas).filter(name => !name.includes('.'));
+            let result: DescMsgObject = {};
+            keyList.forEach(name => {
+                result[name] = datas[name];
+            });
+            return result;
+        } else {
+            key.shift();
+            const keyList = Object.keys(datas).filter(name => name.includes(key.join('.')) && name.split('.').length === key.length + 1);
+            let result: DescMsgObject = {};
+            keyList.forEach(name => {
+                const nameList = name.split('.');
+                result[nameList[nameList.length - 1]] = datas[name];
+            });
+            return result;
+        }
     } else {
         return getFileData('option');
     }

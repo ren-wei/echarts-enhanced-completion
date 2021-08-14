@@ -50,3 +50,12 @@ interface DescMsg {
 interface DescMsgObject {
 	[propName: string]: DescMsg;
 }
+
+interface PathMsg {
+	name: string;
+	target: AstNode
+}
+
+interface KeyFunc {
+	[propName: string]: Function;
+}
