@@ -35,7 +35,12 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
         }
 
         // 根据所在的位置获取补全列表
-        return getCompletionItemList(expression, targetAst, record);
+        try {
+            return getCompletionItemList(expression, targetAst, record);
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
     }
 
     return [];
@@ -50,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const disposable = vscode.languages.registerCompletionItemProvider('vue', {
         provideCompletionItems,
-        resolveCompletionItem
+        resolveCompletionItem,
     }, '\n');
 
     context.subscriptions.push(disposable);

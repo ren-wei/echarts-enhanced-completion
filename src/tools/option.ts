@@ -24,7 +24,7 @@ export function getCompletionItemList(root: AstNode, node: AstNode, record: Reco
         return [];
     }
     // 根据 record 获取对应的 key
-    let key: string[] = [];
+    const key: string[] = [];
     if (record.length) {
         let targetNode = root;
         for (let i = 0; i < record.length; i++) {
@@ -51,12 +51,16 @@ export function getCompletionItemList(root: AstNode, node: AstNode, record: Reco
         const typeMsg = typeMsgList.find(item => item.prop === name);
         const typeOfValue = typeMsg?.type || descObject[name].uiControl?.type;
         return {
-            label: name,
+            label: {
+                label: name,
+                description: typeOfValue,
+            },
             kind: vscode.CompletionItemKind.Property,
-            detail: `echarts options ${typeOfValue ? '-- Type of value: ' + typeOfValue : ''}`,
+            detail: 'echarts options',
+            preselect: true,
             documentation: new vscode.MarkdownString(descObject[name].desc),
             sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-            insertText: new vscode.SnippetString(`${name}: ${getInsertValue(name, typeMsg, descObject[name].uiControl)},`)
+            insertText: new vscode.SnippetString(`${name}: ${getInsertValue(name, typeMsg, descObject[name].uiControl)},`),
         };
     });
 }
@@ -88,7 +92,7 @@ function getOptionDesc(key: string[]): DescMsgObject {
         // 将返回的文件数据转换为options.json一致的格式
         if (key.length === 1) {
             const keyList = Object.keys(datas).filter(name => !name.includes('.'));
-            let result: DescMsgObject = {};
+            const result: DescMsgObject = {};
             keyList.forEach(name => {
                 result[name] = datas[name];
             });
@@ -96,7 +100,7 @@ function getOptionDesc(key: string[]): DescMsgObject {
         } else {
             key.shift();
             const keyList = Object.keys(datas).filter(name => name.includes(key.join('.')) && name.split('.').length === key.length + 1);
-            let result: DescMsgObject = {};
+            const result: DescMsgObject = {};
             keyList.forEach(name => {
                 const nameList = name.split('.');
                 result[nameList[nameList.length - 1]] = datas[name];
@@ -110,7 +114,7 @@ function getOptionDesc(key: string[]): DescMsgObject {
 
 /** 获取文件的内容并解析为js值 */
 function getFileData(name: string): any {
-    const fileName = path.resolve(__dirname + `../../assets/${name}.json`);
+    const fileName = path.resolve(__dirname, `../../assets/${name}.json`);
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
 
