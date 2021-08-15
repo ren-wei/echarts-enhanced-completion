@@ -48,13 +48,15 @@ export function getCompletionItemList(root: AstNode, node: AstNode, record: Reco
     const typeMsgList = getOptionType(key.join('.'));
     const descObject = getOptionDesc(key);
     return filterOptions(descObject, node).map((name, index) => {
+        const typeMsg = typeMsgList.find(item => item.prop === name);
+        const typeOfValue = typeMsg?.type || descObject[name].uiControl?.type;
         return {
             label: name,
             kind: vscode.CompletionItemKind.Property,
-            detail: 'echarts options',
+            detail: `echarts options ${typeOfValue ? '-- Type of value: ' + typeOfValue : ''}`,
             documentation: new vscode.MarkdownString(descObject[name].desc),
             sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-            insertText: new vscode.SnippetString(`${name}: ${key.length ? getInsertValueForTop(name, typeMsgList) : getInsertValue(descObject[name].uiControl, typeMsgList)}`)
+            insertText: new vscode.SnippetString(`${name}: ${getInsertValue(name, typeMsg, descObject[name].uiControl)},`)
         };
     });
 }
@@ -123,33 +125,29 @@ function filterOptions(descObject: DescMsgObject, node: AstNode): string[] {
     });
 }
 
-/** 为顶级选项获取获取插入的代码片段的值部分 */
-function getInsertValueForTop(prop: string, typeMsgList: TypeMsg[]): string {
-    const target = typeMsgList.find(item => item.prop === prop);
-    if (target && target.isObject) {
-        return '{$0},';
-    } else if (target && target.isArray) {
-        return '[$0],';
-    } else if (target && target.default) {
-        return '${0:' + target.default + '},';
-    } else if (target && target.type === 'boolean') {
-        return '${0|true,false|},';
-    } else {
-        return '';
+/** 获取需要插入的代码片段的值部分 */
+function getInsertValue(prop: string, typeMsg: TypeMsg | undefined, uiControl: UiControl | undefined): string {
+    if (uiControl) {
+        let defaultValue = uiControl.default;
+        if (uiControl.type === 'vector' && defaultValue) {
+            defaultValue = '[' + defaultValue + ']';
+        }
+        if (uiControl.options) {
+            return '\'${1|' + uiControl.options + '|}\'';
+        } else if (defaultValue) {
+            return defaultValue;
+        }
     }
-}
-
-/** 获取需要插入的代码片段的值部分，非顶级选项 */
-function getInsertValue(uiControl: UiControl | undefined, typeMsgList: TypeMsg[]): string {
-    if (!uiControl) return '';
-
-    let defaultValue = uiControl.default;
-    if (uiControl.type === 'vector' && defaultValue) {
-        defaultValue = '[' + defaultValue.replace(',', ', ') + ']';
+    if (typeMsg) {
+        if (typeMsg.isObject) {
+            return '{$0}';
+        } else if (typeMsg.isArray) {
+            return '[$0]';
+        } else if (typeMsg.default) {
+            return '${0:' + typeMsg.default + '}';
+        } else if (typeMsg && typeMsg.type === 'boolean') {
+            return '${1|true,false|}';
+        }
     }
-    if (uiControl.options) {
-        return '${0|' + uiControl.options + '|}';
-    } else {
-        return defaultValue || '';
-    }
+    return '${0}';
 }
