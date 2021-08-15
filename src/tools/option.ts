@@ -20,27 +20,28 @@ export function getOptionsRange(rows: string[], keyword: string): [number, numbe
 
 /** 根据所在的位置获取补全列表 */
 export function getCompletionItemList(root: AstNode, node: AstNode, record: RecordItem[]): vscode.CompletionItem[] {
+    if (node.type !== 'ObjectExpression') {
+        return [];
+    }
     // 根据 record 获取对应的 key
-    let key = [];
+    let key: string[] = [];
     if (record.length) {
-        const mapping: KeyFunc = {
-            'properties-value': (node: AstNode, recordItem0: RecordItem, recordItem1: RecordItem): PathMsg => {
-                const targetNode = node.properties[recordItem0.index as number];
-                return {
-                    name: targetNode.key.name,
-                    target: targetNode.value
-                };
-            }
-        };
         let targetNode = root;
-        for (let i = 0; i < record.length; i += 2) {
-            const name = record.slice(i, i + 2).map(v => v.key).join('-');
-            if (!mapping[name]) {
-                return [];
+        for (let i = 0; i < record.length; i++) {
+            switch (record[i].key) {
+                case 'properties':
+                    targetNode = targetNode.properties[record[i].index as number];
+                    key.push(targetNode.key.name);
+                    break;
+                case 'value':
+                    targetNode = targetNode.value;
+                    break;
+                case 'elements':
+                    targetNode = targetNode.elements[record[i].index as number];
+                    break;
+                default:
+                    return [];
             }
-            const nodeMsg = mapping[name](targetNode, record[i], record[i + 1]);
-            key.push(nodeMsg.name);
-            targetNode = nodeMsg.target;
         }
     }
 
