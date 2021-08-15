@@ -22,7 +22,7 @@ async function getData(key) {
             Object.keys(datas).forEach(name => {
                 const item = datas[name];
                 try {
-                    item.desc = html2markdown(item.desc?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, ''));
+                    item.desc = html2markdown(item.desc?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '\n\n暂时无法显示\n\n'));
                 } catch(e) {
                     console.warn(key, '\t' ,name);
                 }

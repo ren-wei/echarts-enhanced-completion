@@ -54,7 +54,7 @@
         }
     },
     "layout": {
-        "desc": "树图的布局，有 正交 和 径向 两种。这里的 正交布局 就是我们通常所说的 水平 和 垂直 方向，对应的参数取值为 &#39;orthogonal&#39; 。而 径向布局 是指以根节点为圆心，每一层节点为环，一层层向外发散绘制而成的布局，对应的参数取值为 &#39;radial&#39; 。\n\n**正交布局示例：**\n\n**径向布局示例：**\n\n",
+        "desc": "树图的布局，有 正交 和 径向 两种。这里的 正交布局 就是我们通常所说的 水平 和 垂直 方向，对应的参数取值为 &#39;orthogonal&#39; 。而 径向布局 是指以根节点为圆心，每一层节点为环，一层层向外发散绘制而成的布局，对应的参数取值为 &#39;radial&#39; 。\n\n**正交布局示例：**\n\n暂时无法显示 \n\n**径向布局示例：**\n\n暂时无法显示 ",
         "uiControl": {
             "type": "enum",
             "options": "orthogonal,radial",
@@ -759,10 +759,10 @@
         "desc": "> 从 > v5.0.0>  开始支持\n\n标签的统一布局配置。\n\n该配置项是在每个系列默认的标签布局基础上，统一调整标签的(x, y)位置，标签对齐等属性以实现想要的标签布局效果。\n\n该配置项也可以是一个有如下参数的回调函数\n\n    // 标签对应数据的 dataIndex\n    dataIndex: number\n    // 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\n    dataType?: string\n    // 标签对应的系列的 index\n    seriesIndex: number\n    // 标签显示的文本\n    text: string\n    // 默认的标签的包围盒，由系列默认的标签布局决定\n    labelRect: {x: number, y: number, width: number, height: number}\n    // 默认的标签水平对齐\n    align: &#39;left&#39; | &#39;center&#39; | &#39;right&#39;\n    // 默认的标签垂直对齐\n    verticalAlign: &#39;top&#39; | &#39;middle&#39; | &#39;bottom&#39;\n    // 标签所对应的数据图形的包围盒，可用于定位标签位置\n    rect: {x: number, y: number, width: number, height: number}\n    // 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n    // 如果没有该值则为 null\n    labelLinePoints?: number[][]\n    \n\n**示例：**\n\n将标签显示在图形右侧 10px 的位置，并且垂直居中：\n\n    labelLayout(params) {\n        return {\n            x: params.rect.x + 10,\n            y: params.rect.y + params.rect.height / 2,\n            verticalAlign: &#39;middle&#39;,\n            align: &#39;left&#39;\n        }\n    }\n    \n\n根据图形的包围盒尺寸决定文本尺寸\n\n    \n    labelLayout(params) {\n        return {\n            fontSize: Math.max(params.rect.width / 10, 5)\n        };\n    }\n    \n\n"
     },
     "labelLayout.hideOverlap": {
-        "desc": "是否隐藏重叠的标签。\n\n下面示例演示了在关系图中开启该配置后，在缩放时可以实现自动的标签隐藏。\n\n"
+        "desc": "是否隐藏重叠的标签。\n\n下面示例演示了在关系图中开启该配置后，在缩放时可以实现自动的标签隐藏。\n\n暂时无法显示 "
     },
     "labelLayout.moveOverlap": {
-        "desc": "在标签重叠的时候是否挪动标签位置以防止重叠。\n\n目前支持配置为：\n\n* &#39;shiftX&#39; 水平方向依次位移，在水平方向对齐时使用\n* &#39;shiftY&#39; 垂直方向依次位移，在垂直方向对齐时使用\n\n下面是标签右对齐并配置垂直方向依次位移以防止重叠的示例。\n\n"
+        "desc": "在标签重叠的时候是否挪动标签位置以防止重叠。\n\n目前支持配置为：\n\n* &#39;shiftX&#39; 水平方向依次位移，在水平方向对齐时使用\n* &#39;shiftY&#39; 垂直方向依次位移，在垂直方向对齐时使用\n\n下面是标签右对齐并配置垂直方向依次位移以防止重叠的示例。\n\n暂时无法显示 "
     },
     "labelLayout.x": {
         "desc": "标签的 x 位置。支持绝对的像素值或者&#39;20%&#39;这样的相对值。\n\n"
@@ -862,7 +862,7 @@
         "desc": "树图中个图形和标签高亮的样式。\n\n"
     },
     "emphasis.focus": {
-        "desc": "> 从 > v5.0.0>  开始支持\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n* &#39;none&#39; 不淡出其它图形，默认使用该配置。\n* &#39;self&#39; 只聚焦（不淡出）当前高亮的数据的图形。\n* &#39;series&#39; 聚焦当前高亮的数据所在的系列的所有图形。\n\n* &#39;ancestor&#39; 聚焦所有祖先节点\n* &#39;descendant&#39; 聚焦所有子孙节点\n\n**示例：**\n\n下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。\n\n    emphasis: {\n        focus: &#39;series&#39;,\n        blurScope: &#39;coordinateSystem&#39;\n    }\n    \n\n"
+        "desc": "> 从 > v5.0.0>  开始支持\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n* &#39;none&#39; 不淡出其它图形，默认使用该配置。\n* &#39;self&#39; 只聚焦（不淡出）当前高亮的数据的图形。\n* &#39;series&#39; 聚焦当前高亮的数据所在的系列的所有图形。\n\n* &#39;ancestor&#39; 聚焦所有祖先节点\n* &#39;descendant&#39; 聚焦所有子孙节点\n\n**示例：**\n\n下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。\n\n    emphasis: {\n        focus: &#39;series&#39;,\n        blurScope: &#39;coordinateSystem&#39;\n    }\n    \n\n暂时无法显示 "
     },
     "emphasis.blurScope": {
         "desc": "> 从 > v5.0.0>  开始支持\n\n在开启focus的时候，可以通过blurScope配置淡出的范围。支持如下配置\n\n* &#39;coordinateSystem&#39; 淡出范围为坐标系，默认使用该配置。\n* &#39;series&#39; 淡出范围为系列。\n* &#39;global&#39; 淡出范围为全局。\n\n"
