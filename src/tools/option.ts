@@ -60,7 +60,7 @@ export function getCompletionItemList(root: AstNode, node: AstNode, record: Reco
             preselect: true,
             documentation: new vscode.MarkdownString(descObject[name].desc),
             sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-            insertText: new vscode.SnippetString(`${name}: ${getInsertValue(name, typeMsg, descObject[name].uiControl)},`),
+            insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${getInsertValue(name, typeMsg, descObject[name].uiControl)},`),
         };
     });
 }
@@ -131,6 +131,16 @@ function filterOptions(descObject: DescMsgObject, node: AstNode): string[] {
 
 /** 获取需要插入的代码片段的值部分 */
 function getInsertValue(prop: string, typeMsg: TypeMsg | undefined, uiControl: UiControl | undefined): string {
+    if (prop.includes('-')) {
+        return [
+            '[',
+            '\t{',
+            `\t\ttype: '${prop.split('-')[1]}',`,
+            '\t\t$0',
+            '\t}',
+            ']',
+        ].join('\n');
+    }
     if (uiControl) {
         let defaultValue = uiControl.default;
         if (uiControl.type === 'vector' && defaultValue) {
