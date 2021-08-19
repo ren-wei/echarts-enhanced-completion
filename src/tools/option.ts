@@ -46,7 +46,7 @@ export function getCompletionItemList(root: AstNode, node: AstNode, record: Reco
     }
 
     const typeMsgList = getOptionType(key.join('.'));
-    const descObject = getOptionDesc(key);
+    const descObject = getOptionDesc(key, node);
     return filterOptions(descObject, node).map((name, index) => {
         const typeMsg = typeMsgList.find(item => item.prop === name);
         const typeOfValue = typeMsg?.type || descObject[name].uiControl?.type;
@@ -86,9 +86,9 @@ function getOptionType(key: string = ''): TypeMsg[] {
  * 获取选项的描述信息
  * @param key 选项的key
  */
-function getOptionDesc(key: string[]): DescMsgObject {
+function getOptionDesc(key: string[], node: AstNode): DescMsgObject {
     if (key.length) {
-        const datas = getFileData(key[0]);
+        const datas = getFileData(key[0], node);
         // 将返回的文件数据转换为options.json一致的格式
         if (key.length === 1) {
             const keyList = Object.keys(datas).filter(name => !name.includes('.'));
@@ -113,7 +113,19 @@ function getOptionDesc(key: string[]): DescMsgObject {
 }
 
 /** 获取文件的内容并解析为js值 */
-function getFileData(name: string): any {
+function getFileData(name: string, node: AstNode | null = null): any {
+    if (['dataZoom', 'visualMap', 'series'].includes(name)) {
+        if (node && node.type === 'ObjectExpression' && node.properties.length) {
+            const typeName = node.properties.find(v => v.key.name === 'type')?.value.value;
+            if (typeName) {
+                name += '-' + typeName;
+            } else {
+                return {};
+            }
+        } else {
+            return {};
+        }
+    }
     const fileName = path.resolve(__dirname + `../../assets/${name}.json`);
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
@@ -135,8 +147,7 @@ function getInsertValue(prop: string, typeMsg: TypeMsg | undefined, uiControl: U
         return [
             '[',
             '\t{',
-            `\t\ttype: '${prop.split('-')[1]}',`,
-            '\t\t$0',
+            `\t\ttype: '${prop.split('-')[1]}',$0`,
             '\t}',
             ']',
         ].join('\n');
