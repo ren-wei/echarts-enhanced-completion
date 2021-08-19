@@ -22,20 +22,24 @@ async function getData(key) {
             Object.keys(datas).forEach(name => {
                 const item = datas[name];
                 try {
-                    item.desc = html2markdown(item.desc?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '\n\n暂时无法显示\n\n'));
-                } catch(e) {
-                    console.warn(key, '\t' ,name);
+                    item.desc = html2markdown(item.desc?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '\n\n暂时无法显示\n\n').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
+                } catch (e) {
+                    /* eslint-disable-next-line no-console  */
+                    console.warn('html2markdown error:', key, '\t', name);
                 }
                 result[name] = item;
             });
             fs.writeFile(path.resolve(__dirname, `../assets/${key}.json`), JSON.stringify(result, null, 4), () => {
+                /* eslint-disable-next-line no-console  */
                 console.log(`${key}.json saved successfully.`);
             });
         }
     }).catch(e => {
         if (e && e.response) {
-            console.warn(key ,e.response?.status);
+            /* eslint-disable-next-line no-console  */
+            console.warn(key, e.response?.status);
         } else {
+            /* eslint-disable-next-line no-console  */
             console.warn(key);
         }
     });
@@ -47,6 +51,7 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
         // 解析类型信息的数据并保存
         const typeMsgList = JSON.parse(res.data.slice(33)).children;
         fs.writeFile(path.resolve(__dirname, '../assets/options_outline.json'), JSON.stringify(typeMsgList, null, 4), () => {
+            /* eslint-disable-next-line no-console  */
             console.log('options_outline.json saved successfully.');
         });
         // 获取顶级选项的数据
@@ -56,10 +61,11 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
             const result = {};
             Object.keys(datas).forEach(key => {
                 const item = datas[key];
-                item.desc = html2markdown(item.desc.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, ''));
+                item.desc = html2markdown(item.desc.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
                 result[key] = item;
             });
             fs.writeFile(path.resolve(__dirname, '../assets/option.json'), JSON.stringify(result, null, 4), () => {
+                /* eslint-disable-next-line no-console  */
                 console.log('option.json saved successfully.');
             });
             const options = Object.keys(JSON.parse(r.data.slice(25)));
@@ -67,9 +73,11 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
                 getData(key);
             });
         } else {
+            /* eslint-disable-next-line no-console  */
             console.log('option.js', r.status);
         }
     } else {
+        /* eslint-disable-next-line no-console  */
         console.log('options_outline.json Error!');
     }
 });
