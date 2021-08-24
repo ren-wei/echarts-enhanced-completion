@@ -1,2 +1,3 @@
 export { getAstNode, checkNode } from './ast';
-export { getOptionsRange, getCompletionItemList } from './option';
+export { getOptionsRange, getCompletionItemListInObject } from './objectOption';
+export { getCompletionItemListInArray } from './arrayOption';

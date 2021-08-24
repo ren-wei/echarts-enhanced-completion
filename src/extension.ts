@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { getAstNode, getOptionsRange, checkNode, getCompletionItemList } from './tools';
+import { getAstNode, getOptionsRange, checkNode, getCompletionItemListInObject, getCompletionItemListInArray } from './tools';
 const espree = require('espree');
 
 function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[]> {
@@ -36,7 +36,11 @@ function provideCompletionItems(document: vscode.TextDocument, position: vscode.
 
         // 根据所在的位置获取补全列表
         try {
-            return getCompletionItemList(expression, targetAst, record);
+            if (targetAst.type === 'ObjectExpression') {
+                return getCompletionItemListInObject(expression, targetAst, record);
+            } else if (targetAst.type === 'ArrayExpression') {
+                return getCompletionItemListInArray(expression, targetAst, record);
+            }
         } catch (e) {
             console.log(e);
             return [];
