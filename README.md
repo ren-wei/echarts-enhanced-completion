@@ -1,70 +1,61 @@
-# echarts-enhanced-completion README
+# echarts-enhanced-completion
 
-This is the README for your extension "echarts-enhanced-completion". After writing up a brief description, we recommend including the following sections.
+这是一个用于编辑 `echarts` 的配置项时进行补全提示的 `vscode` 的扩展。
+
+## Installed extensions
+
+在 `vscode` 扩展中搜索 `echarts-enhanced-completion`，然后点击安装即可。
+
+## Getting Started
+
+安装并启用插件后，在你需要用作 `echarts` 配置项的对象的上一行添加一行注释： `/** @type EChartsOption */`，用于定义该对象为配置项对象。现在，在配置项对象中按下 `Enter` 键时，插件会显示你可能需要的配置项的列表，并且提示中有对该配置项的详细说明。
+
+![使用示例](./images/GettingStarted.gif)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* 支持嵌套的对象和数组
 
-For example if there is an image subfolder under your extension project workspace:
+* 对嵌套的不同层级的对象显示与之匹配的候选项
 
-\!\[feature X\]\(images/feature-x.png\)
+* 对每一个候选项都有与官网一致的详细说明
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+* 候选项中排除已有的配置项
+
+* `series`、`dataZoom` 和 `visualMap` 数组值中允许相同 `type` 的候选项
+
+## Todo
+
+* 支持更多类型的嵌套
+
+* 支持单文件中多个配置项对象
+
+* 支持对属性值的补全提示
+
+* 支持多类型值的补全提示
+
+* 支持对函数作为值的补全提示
+
+* 支持富文本选项的补全提示
+
+* 支持 `hover` 属性显示提示
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* 支持的文件类型：`html`、`javascript`、`typescript` 和 `vue`。
+
+* 配置项对象中需要正确的缩进。因为结束标志是根据缩进来判断的。
+
+* 配置项对象中不能存在语法错误。因为插件工作时需要对配置项对象进行解析。
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+此扩展目前不提供设置项。
 
-For example:
+## Issues
 
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+如果您在使用过程中遇到问题，您可以创建一个 `Issues` ，我们会尽快为您解决。
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
