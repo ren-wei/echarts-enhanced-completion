@@ -14,15 +14,28 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "echarts-enhanced-completion" is now active!');
-
     store = new Store();
 
-    const disposable = vscode.languages.registerCompletionItemProvider('vue', {
+    const disposableHtml = vscode.languages.registerCompletionItemProvider('html', {
         provideCompletionItems,
     }, '\n');
 
-    context.subscriptions.push(disposable);
+    const disposableJS = vscode.languages.registerCompletionItemProvider('javascript', {
+        provideCompletionItems,
+    }, '\n');
+
+    const disposableTS = vscode.languages.registerCompletionItemProvider('typescript', {
+        provideCompletionItems,
+    }, '\n');
+
+    const disposableVue = vscode.languages.registerCompletionItemProvider('vue', {
+        provideCompletionItems,
+    }, '\n');
+
+    context.subscriptions.push(disposableHtml);
+    context.subscriptions.push(disposableJS);
+    context.subscriptions.push(disposableTS);
+    context.subscriptions.push(disposableVue);
 }
 
 // this method is called when your extension is deactivated
