@@ -5,7 +5,7 @@ import Options from './options';
 
 let store: Store;
 
-function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[]> {
+export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[]> {
     const keyword = '/** @type EChartsOption */';
     const ast = new Ast(keyword, document, position);
     if (!ast.validate) return [];

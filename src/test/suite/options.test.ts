@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 
-import * as myExtension from '../../extension';
+import Options from '../../options';
 
-suite('Extension Test Suite', () => {
+suite('Test class Options Suite', () => {
     test('test function provideCompletionItems', () => {
     });
 });
