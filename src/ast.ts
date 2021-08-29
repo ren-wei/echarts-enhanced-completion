@@ -24,10 +24,8 @@ export default class Ast {
         const startSpaceNum = rows[startRow].length - rows[startRow].trimStart().length;
         for (let i = startRow + 1; i < rows.length; i++) {
             const curSpaceNum = rows[i].length - rows[i].trimStart().length;
-            if (curSpaceNum && curSpaceNum <= startSpaceNum) {
-                endRow = i + 1;
-                break;
-            }
+            endRow = i + 1;
+            if (curSpaceNum <= startSpaceNum) break;
         }
         // 当前位置是否在范围内
         this.validate = !rows[position.line].trim() && position.line >= startRow && position.line < endRow;
