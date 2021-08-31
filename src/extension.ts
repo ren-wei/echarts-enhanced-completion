@@ -16,26 +16,11 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
 export function activate(context: vscode.ExtensionContext) {
     store = new Store();
 
-    const disposableHtml = vscode.languages.registerCompletionItemProvider('html', {
+    const disposable = vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
     }, '\n');
 
-    const disposableJS = vscode.languages.registerCompletionItemProvider('javascript', {
-        provideCompletionItems,
-    }, '\n');
-
-    const disposableTS = vscode.languages.registerCompletionItemProvider('typescript', {
-        provideCompletionItems,
-    }, '\n');
-
-    const disposableVue = vscode.languages.registerCompletionItemProvider('vue', {
-        provideCompletionItems,
-    }, '\n');
-
-    context.subscriptions.push(disposableHtml);
-    context.subscriptions.push(disposableJS);
-    context.subscriptions.push(disposableTS);
-    context.subscriptions.push(disposableVue);
+    context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
