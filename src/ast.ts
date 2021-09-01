@@ -33,6 +33,8 @@ export default class Ast {
         // 获取目标字符串
         const targetRows = rows.slice(startRow, endRow);
         targetRows[0] = targetRows[0].replace(/^[^{]*/, '');
+        const lastRow = targetRows[targetRows.length - 1];
+        targetRows[targetRows.length - 1] = lastRow.slice(0, lastRow.indexOf('}') + 1);
         const options = '(' + targetRows.join('\n') + ')';
         // 计算光标位置
         let index = 0;
