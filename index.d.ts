@@ -32,7 +32,7 @@ interface BaseOptions {
 }
 
 interface UiControl {
-	type: string;
+	type: string | string[];
 	default?: string
 	options?: string;
 	min?: string;

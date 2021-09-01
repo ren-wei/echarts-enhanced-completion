@@ -1,0 +1,346 @@
+{
+    "type": {
+        "desc": " 类型为分段型。 "
+    },
+    "id": {
+        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 "
+    },
+    "splitNumber": {
+        "desc": " 对于连续型数据，自动平均切分成几段。默认为5段。 连续数据的范围需要 [max][0] 和 [min][1] 来指定。 如果设置了 [visualMap-piecewise.pieces][2] 或者 [visualMap-piecewise.categories][3]，则 splitNumber 无效。\n\n[0]: #visualMap-piecewise.max\n[1]: #visualMap-piecewise.min\n[2]: #visualMap-piecewise.pieces\n[3]: #visualMap-piecewise.categories",
+        "uiControl": {
+            "type": "number",
+            "default": "5",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "pieces": {
+        "desc": " 自定义『分段式视觉映射组件（visualMapPiecewise）』的每一段的范围，以及每一段的文字，以及每一段的特别的样式。例如： \n\n    pieces: [\n        {min: 1500}, // 不指定 max，表示 max 为无限大（Infinity）。\n        {min: 900, max: 1500},\n        {min: 310, max: 1000},\n        {min: 200, max: 300},\n        {min: 10, max: 200, label: '10 到 200（自定义label）'},\n        {value: 123, label: '123（自定义特殊颜色）', color: 'grey'}, // 表示 value 等于 123 的情况。\n        {max: 5}     // 不指定 min，表示 min 为无限大（-Infinity）。\n    ]\n    \n\n或者，更精确得，可以使用 lt（小于，less than），gt（大于，greater than），lte（小于等于 less than or equals），gte（大于等于，greater than or equals）来表达边界： \n\n    pieces: [\n        {gt: 1500},            // (1500, Infinity]\n        {gt: 900, lte: 1500},  // (900, 1500]\n        {gt: 310, lte: 1000},  // (310, 1000]\n        {gt: 200, lte: 300},   // (200, 300]\n        {gt: 10, lte: 200, label: '10 到 200（自定义label）'},       // (10, 200]\n        {value: 123, label: '123（自定义特殊颜色）', color: 'grey'},  // [123, 123]\n        {lt: 5}                 // (-Infinity, 5)\n    ]\n    \n\n注意，如果两个 piece 的区间重叠，则会自动进行去重。 在每个 piece 中支持的 visualMap 属性有： \n\n* symbol: 图元的图形类别。\n* symbolSize: 图元的大小。\n* color: 图元的颜色。\n* colorAlpha: 图元的颜色的透明度。\n* opacity: 图元以及其附属物（如文字标签）的透明度。\n* colorLightness: 颜色的明暗度，参见 [HSL][0]。\n* colorSaturation: 颜色的饱和度，参见 [HSL][0]。\n* colorHue: 颜色的色调，参见 [HSL][0]。\n\n[参见示例][1] （注：在 ECharts2 中，pieces 叫做 splitList。现在后者仍兼容，但推荐使用 pieces） pieces 中的顺序，其实试试就知道。若要看详细的规则，参见 [visualMap.inverse][2]。\n\n[0]: https://en.wikipedia.org/wiki/HSL_and_HSV\n[1]: https://echarts.apache.org/examples/zh/editor.html?c=doc-example/map-visualMap-pieces&amp;edit=1&amp;reset=1\n[2]: #visualMap.inverse"
+    },
+    "categories": {
+        "desc": " 用于表示离散型数据（或可以称为类别型数据、枚举型数据）的全集。 当所指定的维度（[visualMap-piecewise.dimension][0]）的数据为离散型数据时，例如数据值为『优』、『良』等，那么可如下配置： \n\n    categories: ['严重污染', '重度污染', '中度污染', '轻度污染', '良', '优'],\n    \n\n[参见示例][1]categories 中的顺序，其实试试就知道。若要看详细的规则，参见 [visualMap.inverse][2]。\n\n[0]: #visualMap-piecewise.dimension\n[1]: https://echarts.apache.org/examples/zh/editor.html?c=doc-example/scatter-visualMap-categories&amp;edit=1&amp;reset=1\n[2]: #visualMap.inverse"
+    },
+    "min": {
+        "desc": " 指定 visualMapPiecewise 组件的最小值。 在 **连续型数据自定义分段** 模式（即 [visualMap-piecewise.pieces][0] 被使用）或 **离散数据根据类别分段** 模式（即 [visualMap-piecewise.categories][1] 被使用）时，max 和 min 不需指定。 在 **连续型数据平均分段** 模式（即 (that is, when [visualMap-piecewise.splitNumber][2] 被使用时）需指定 min、max，如果不指定，则默认为 [0, 200]（注意并不是默认为 series.data 的 dataMin 和 dataMax）。\n\n[0]: #visualMap-piecewise.pieces\n[1]: #visualMap-piecewise.categories\n[2]: #visualMap-piecewise.splitNumber",
+        "uiControl": {
+            "type": "number"
+        }
+    },
+    "max": {
+        "desc": " 指定 visualMapPiecewise 组件的最大值。参见 [visualMap-piecewise.splitNumber][0]**连续型数据自定义分段** 模式（即 [visualMap-piecewise.pieces][1] 被使用）或 **离散数据根据类别分段** 模式（即 [visualMap-piecewise.categories][2] 被使用），max 和 min 不需指定。 **连续型数据平均分段** 模式（即 (that is, when [visualMap-piecewise.splitNumber][0] 被使用时）需指定 min、max，如果不指定，则默认为 [0, 200]（注意并不是默认为 series.data 的 dataMin 和 dataMax）。\n\n[0]: #visualMap-piecewise.splitNumber\n[1]: #visualMap-piecewise.pieces\n[2]: #visualMap-piecewise.categories",
+        "uiControl": {
+            "type": "number"
+        }
+    },
+    "minOpen": {
+        "desc": " 当 type 为 piecewise 且使用 min/max/splitNumber 时，此参数有效。当值为 true 时，界面上会额外多出一个『&lt; min』的选块。 ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "maxOpen": {
+        "desc": " 当 type 为 piecewise 且使用 min/max/splitNumber 时，此参数有效。当值为 true 时，界面上会额外多出一个『&gt; max』的选块。 ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "selectedMode": {
+        "desc": " 选择模式，可以是： \n\n* 'multiple'（多选）。\n* 'single'（单选）。\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "single,multiple"
+        }
+    },
+    "inverse": {
+        "desc": " 是否反转。 \n\n* **连续型数据平均分段** 模式（即 (that is, when [visualMap-piecewise.splitNumber][0] 被使用时），数据排布规则，同 [visualMap-continuous.inverse][1]。\n* **连续型数据自定义分段** 模式（即 [visualMap-piecewise.pieces][2] 被使用）或 **离散数据根据类别分段** 模式（即 [visualMap-piecewise.categories][3] 被使用），每个块的排布位置，取决于 pieces 或 categories 列表的定义顺序，即： \n  * 当inverse为false时： \n    * 当 [visualMap.orient][4] 为 'vertical' 时，pieces[0] 或 categories[0]对应『上方』\n    * 当 [visualMap.orient][4] 为 'horizontal' 时，pieces[0] 或 categories[0] 对应『左方』。\n  * 当 inverse 为 true 时，与上面相反。\n\n其实没有那么复杂，使用时候，试试就知道了。\n\n[0]: #visualMap-piecewise.splitNumber\n[1]: #visualMap-continuous.inverse\n[2]: #visualMap-piecewise.pieces\n[3]: #visualMap-piecewise.categories\n[4]: #visualMap.orient",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "precision": {
+        "desc": " 数据展示的小数精度。 \n\n* **连续型数据平均分段** 模式（即 (that is, when [visualMap-piecewise.splitNumber][0] 被使用时），精度根据数据自动适应。\n* **连续型数据自定义分段** 模式（即 [visualMap-piecewise.pieces][1] 被使用）或 **离散数据根据类别分段** 模式（即 [visualMap-piecewise.categories][2] 被使用），精度默认为0（没有小数）。\n\n\n\n[0]: #visualMap-piecewise.splitNumber\n[1]: #visualMap-piecewise.pieces\n[2]: #visualMap-piecewise.categories",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1"
+        }
+    },
+    "itemWidth": {
+        "desc": " 图形的宽度，即每个小块的宽度。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "20",
+            "min": "0"
+        }
+    },
+    "itemHeight": {
+        "desc": " 图形的高度，即每个小块的高度。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "14",
+            "min": "0"
+        }
+    },
+    "align": {
+        "desc": " 指定组件中图形（比如小方块）和文字的摆放关系，可选值为： \n\n* 'auto' 自动决定。\n* 'left' 图形在左文字在右。\n* 'right' 图形在右文字在左。\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "auto,left,right"
+        }
+    },
+    "text": {
+        "desc": " 两端的文本，如['High', 'Low']。[参见例子][0]。 text 中的顺序，其实试试就知道。若要看详细的规则，参见 [visualMap.inverse][1]。 兼容 ECharts2，当有 text 时，label不显示。\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=doc-example/map-visualMap-piecewise-text&amp;edit=1&amp;reset=1\n[1]: #visualMap.inverse"
+    },
+    "textGap": {
+        "desc": " 两端文字主体之间的距离，单位为px。参见 [visualMap-piecewise.text][0]\n\n[0]: #visualMap-piecewise.text",
+        "uiControl": {
+            "type": "number",
+            "default": "10"
+        }
+    },
+    "showLabel": {
+        "desc": " 是否显示每项的文本标签。默认情况是，如果 [visualMap-piecewise.text][0] 被使用则不显示文本标签，否则显示。\n\n[0]: #visualMap-piecewise.text",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "itemGap": {
+        "desc": " 每两个图元之间的间隔距离，单位为px。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "10"
+        }
+    },
+    "itemSymbol": {
+        "desc": " 默认的图形。可选值为： 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 。 symbol的设置参见 [visualMap-piecewise.inRange][0] 和 [visualMap-piecewise.outOfRange][1]。 当他们没有进行指定时，取此 itemSymbol 为默认值（但是只在 visualMap 组件上使用，不在 chart 中使用）。\n\n[0]: #visualMap-piecewise.inRange\n[1]: #visualMap-piecewise.outOfRange"
+    },
+    "show": {
+        "desc": " 是否显示 visualMap-piecewise 组件。如果设置为 false，不会显示，但是数据映射的功能还存在。 "
+    },
+    "dimension": {
+        "desc": " 指定用数据的『哪个维度』，映射到视觉元素上。『数据』即 [series.data][0]。 可以把 [series.data][0] 理解成一个二维数组，例如： \n\n    [\n        [12, 23, 43],\n        [12, 23, 43],\n        [43, 545, 65],\n        [92, 23, 33]\n    ]\n    \n\n其中每个列是一个维度，即 dimension。 例如 dimension 为 1 时，取第二列（即 23，23，545，23），映射到视觉元素上。 默认取 data 中最后一个维度。\n\n[0]: #series.data"
+    },
+    "seriesIndex": {
+        "desc": " 指定取哪个系列的数据，即哪个系列的 [series.data][0]。 默认取所有系列。\n\n[0]: #series.data"
+    },
+    "hoverLink": {
+        "desc": " 打开 hoverLink 功能时，鼠标悬浮到 visualMap 组件上时，鼠标位置对应的数值 在 图表中对应的图形元素，会高亮。 反之，鼠标悬浮到图表中的图形元素上时，在 visualMap 组件的相应位置会有三角提示其所对应的数值。 "
+    },
+    "inRange": {
+        "desc": " 定义 **在选中范围中** 的视觉元素。（用户可以和 visualMap 组件交互，用鼠标或触摸选择范围） 可选的视觉元素有： \n\n* symbol: 图元的图形类别。\n* symbolSize: 图元的大小。\n* color: 图元的颜色。\n* colorAlpha: 图元的颜色的透明度。\n* opacity: 图元以及其附属物（如文字标签）的透明度。\n* colorLightness: 颜色的明暗度，参见 [HSL][0]。\n* colorSaturation: 颜色的饱和度，参见 [HSL][0]。\n* colorHue: 颜色的色调，参见 [HSL][0]。\n\ninRange 能定义目标系列（参见 [visualMap-piecewise.seriesIndex][1]）视觉形式，也同时定义了 visualMap-piecewise 本身的视觉样式。通俗来讲就是，假如 visualMap-piecewise控制的是散点图，那么 inRange 同时定义了散点图的 颜色、尺寸 等，也定义了 visualMap-piecewise 本身的 颜色、尺寸 等。这二者能对应上。 定义方式，例如： \n\n    visualMap: [\n        {\n            ...,\n            inRange: {\n                color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],\n                symbolSize: [30, 100]\n            }\n        }\n    ]\n    \n\n如果想分别定义 visualMap-piecewise 本身的视觉样式和 目标系列 的视觉样式，则这样定义： \n\n    visualMap: [\n        {\n            ...,\n            // 表示 目标系列 的视觉样式。\n            target: {\n                inRange: {\n                    color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],\n                    symbolSize: [60, 200]\n                }\n            },\n            // 表示 visualMap-piecewise 本身的视觉样式。\n            controller: {\n                inRange: {\n                    symbolSize: [30, 100]\n                }\n            }\n        }\n    ]\n    \n\n或者这样定义： \n\n    visualMap: [\n        {\n            ...,\n            // 表示 目标系列 的视觉样式 和 visualMap-piecewise 共有的视觉样式。\n            inRange: {\n                color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],\n                symbolSize: [60, 200]\n            },\n            // 表示 visualMap-piecewise 本身的视觉样式，会覆盖共有的视觉样式。比如，symbolSize 覆盖成为 [30, 100]，而 color 不变。\n            controller: {\n                inRange: {\n                    symbolSize: [30, 100]\n                }\n            }\n        }\n    ]\n    \n\n**✦ 关于视觉通道 ✦*** inRange 中，可以有任意几个的『视觉通道』定义（如 color、symbolSize 等）。这些视觉通道，会被同时采用。\n* 一般来说，建议使用 透明度（opacity） ，而非 颜色透明度（colorAlpha） （他们细微的差异在于，前者能也同时控制图元中的附属物（如 label）的透明度，而后者只能控制图元本身颜色的透明度）。\n* 视觉映射的方式：支持两种方式：线性映射、查表映射。\n\n**✦ 视觉通道 -- 线性映射 ✦**线性映射 表示 series.data 中的每一个值（dataValue）会经过线性映射计算，从 [visualMap.min, visualMap.max] 映射到设定的 [visual value 1, visual value 2] 区间中的某一个视觉的值（下称 visual value）。 例如，我们设置了 [visualMap.min, visualMap.max] 为 [0, 100]，并且我们有 series.data: [50, 10, 100]。我们想将其映射到范围为 [0.4, 1] 的 opacity 上，从而达到用透明度表达数值大小的目的。那么 visualMap 组件会对 series.data 中的每一个 dataValue 做线性映射计算，得到一个 opacityValue。最终得到的 opacityValues 为 [0.7, 0.44, 1]。 visual 范围也可以反向，例如上例，可以设定 opacity 范围为 [1, 0.4]，则上例得到的 opacityValues 为 [0.7, 0.96, 0.4]。 注意，[visualMap.min, visualMap.max] 须手动设置，不设置则默认取 [0, 100]，而非 series.data 中的 dataMin 和 dataMax。 如何设定为线性映射？以下情况时，会设定为 线性映射： \n\n* 当 visualMap 为 [visualMap-continuous][2] 时，或者\n* 当 visualMap 为 [visualMap-piecewise][3] 且 未设置 [visualMap-piecewise.categories][4] 时。\n\n视觉通道的值（visual value）： \n\n* 视觉通道的值一般都以 Array 形式表示，例如：color: ['#333', '#777']。\n* 如果写成 number 或 string，会转成 Array。例如，写成 opacity: 0.4 会转成 opacity: [0.4, 0.4]，color: '#333' 会转成 color: ['#333', '#333']。\n* 对于 图形大小（symbolSize）、透明度（opacity）、颜色透明度（colorAlpha）、颜色明暗度（colorLightness）、颜色饱和度（colorSaturation）、色调（colorHue）：形如Array 的视觉范围总是表示：[最小数据值对应的视觉值, 最大数据值对应的视觉值]。比如：colorLightness: [0.8, 0.2]，表示 series.data 中，和 visualMap.min 相等的值（如果有的话）映射到 颜色明暗 的 0.8，和 visualMap.max 相等的值（如果有的话）映射到 颜色明暗 的 0.2，中间其他数据值，按照线性计算出映射结果。\n* 对于 颜色（color），使用数组表示例如：['#333', '#78ab23', 'blue']。意思就是以这三个点作为基准，形成一种『渐变』的色带，数据映射到这个色带上。也就是说，与 visualMap.min 相等的值会映射到 '#333'，与 visualMap.max 相等的值会映射到 'blue'。对于 visualMap.min 和 visualMap.max 中间的其他点，以所给定的 '#333', '#78ab23', 'blue' 这三个颜色作为基准点进行分段线性插值，得到映射结果。\n* 对于 图形类别（symbol）：使用数据表示例如：['circle', 'rect', 'diamond']。与 visualMap.min 相等的值会映射到 'circle'，与 visualMap.max 相等的值会映射到 'diamond'。对于 中间的其他点，会根据他们和 visualMap.min 和 visualMap.max 的数值距离，映射到 'circle', 'rect', 'diamond' 中某个值上。\n\nvisual value 的取值范围： \n\n* 透明度（opacity）、颜色透明度（colorAlpha）、颜色明暗度（colorLightness）、颜色饱和度（colorSaturation）、visual value 取值范围是 [0, 1]。\n* 色调（colorHue）： 取值范围是 [0, 360]。\n* 颜色（color）： 颜色可以使用 RGB 表示，比如 'rgb(128, 128, 128)'，如果想要加上 alpha 通道，可以使用 RGBA，比如 'rgba(128, 128, 128, 0.5)'，也可以使用十六进制格式，比如 '#ccc'。\n* 图形类别（symbol）：\n\nECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][5]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n**✦ 视觉通道 -- 查表映射 ✦**查表映射 表示 series.data 中的所有值（dataValue）是可枚举的，会根据给定的映射表查表得到映射结果。 例如，在 [visualMap-piecewise][3] 中，我们设定了 [visualMap-piecewise.categories][4] 为 ['Demon Hunter', 'Blademaster', 'Death Knight', 'Warden', 'Paladin']。我们有 series.data: ['Demon Hunter', 'Death Knight', 'Warden', 'Paladin']。然后我们可以定立查表映射规则：color: {'Warden': 'red', 'Demon Hunter': 'black'}，于是 visualMap 组件会按照表来将 dataValue 映射到 color。 如何设定为查表映射？当 visualMap 为 [visualMap-piecewise][3] 且 设置了 [visualMap-piecewise.categories][4] 时，会进行查表映射。 视觉通道的值（visual value）：一般使用 Object 或 Array 来表示，例如： \n\n    visualMap: {\n        type: 'piecewise',\n        // categories 定义了 visualMap-piecewise 组件显示出来的项。\n        categories: [\n            'Demon Hunter', 'Blademaster', 'Death Knight', 'Warden', 'Paladin'\n        ],\n        inRange: {\n            // visual value 可以配成 Object：\n            color: {\n                'Warden': 'red',\n                'Demon Hunter': 'black',\n                '': 'green' // 空字串，表示除了'Warden'、'Demon Hunter'外，都对应到 'green'。\n            }\n            // visual value 也可以只配一个单值，表示所有都映射到一个值，如：\n            color: 'green',\n            // visual value 也可以配成数组，这个数组须和 categories 数组等长，\n            // 每个数组项和 categories 数组项一一对应：\n            color: ['red', 'black', 'green', 'yellow', 'white']\n        }\n    }\n    \n\n[参见示例][6]**✦ 修改视觉编码 ✦** 如果在图表被渲染后（即已经使用 setOption 设置了初始 option 之后），想修改 visualMap 的各种 视觉编码，按照惯例，再次使用 setOption 即可。例如： \n\n    chart.setOption({\n        visualMap: {\n            inRange: {color: ['red', 'blue']}\n        }\n    });\n    \n\n但请注意： \n\n* visualMap option 中的这几个属性，inRange, outOfRange, target, controller，在 setOption 时不支持 merge。否则会带来过于复杂的 merge 逻辑。也就是说，setOption 时，一旦修改了以上几个属性中的一项，其他项也会被清空，而非保留当前状态。所以，设置 visual 值时，请一次性全部设置，而非只设置一部分。\n* **不推荐使用 getOption -&gt; 修改option -&gt; setOption 的方式：**\n\n    // 不推荐这样做（尽管也能达到和上面的例子相同的结果）：\n    var option = chart.getOption(); // 获取所有option。\n    option.visualMap.inRange.color = ['red', 'blue']; // 改动color（我想要改变 color）。\n    \n    // 如下两处也要进行同步改动，否则可能达不到期望效果。\n    option.visualMap.target.inRange.color = ['red', 'blue'];\n    option.visualMap.controller.inRange.color = ['red', 'blue'];\n    \n    chart.setOption(option); // option设置回 visualMap\n    \n\n**注意**，inRange 没有指定，则会默认会设置 color: ['#f6efa6', '#d88273', '#bf444c']，如果你不想要这个color，可以 inRange: {color: null} 来去除。\n\n[0]: https://en.wikipedia.org/wiki/HSL_and_HSV\n[1]: #visualMap-piecewise.seriesIndex\n[2]: #visualMap-continuous\n[3]: #visualMap-piecewise\n[4]: #visualMap-piecewise.categories\n[5]: http://www.w3.org/TR/SVG/paths.html#PathData\n[6]: https://echarts.apache.org/examples/zh/editor.html?c=doc-example/scatter-visualMap-categories&amp;edit=1&amp;reset=1"
+    },
+    "outOfRange": {
+        "desc": " 定义 **在选中范围外** 的视觉元素。（用户可以和 visualMap 组件交互，用鼠标或触摸选择范围） 配置参考 [visualMap-piecewise.inRange][0]\n\n[0]: #visualMap-piecewise.inRange"
+    },
+    "controller": {
+        "desc": " visualMap 组件中，控制器 的 inRangeoutOfRange 设置。如果没有这个 controller 设置，控制器 会使用外层的 inRangeoutOfRange 设置；如果有这个 controller 设置，则会采用这个设置。适用于一些控制器视觉效果需要特殊定制或调整的场景。 "
+    },
+    "controller.inRange": {
+        "desc": " 定义 **在选中范围中** 的视觉元素。（用户可以和 visualMap 组件交互，用鼠标或触摸选择范围） 配置参考 [visualMap-piecewise.inRange][0]\n\n[0]: #visualMap-piecewise.inRange"
+    },
+    "controller.outOfRange": {
+        "desc": " 定义 **在选中范围外** 的视觉元素。（用户可以和 visualMap 组件交互，用鼠标或触摸选择范围） 配置参考 [visualMap-piecewise.inRange][0]\n\n[0]: #visualMap-piecewise.inRange"
+    },
+    "zlevel": {
+        "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
+    },
+    "z": {
+        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 "
+    },
+    "left": {
+        "desc": " visualMap 组件离容器左侧的距离。 left 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'left', 'center', 'right'。 如果 left 的值为'left', 'center', 'right'，组件会根据相应的位置自动对齐。 ",
+        "uiControl": {
+            "type": "percent",
+            "default": "0%"
+        }
+    },
+    "top": {
+        "desc": " visualMap 组件离容器上侧的距离。 top 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'top', 'middle', 'bottom'。 如果 top 的值为'top', 'middle', 'bottom'，组件会根据相应的位置自动对齐。 ",
+        "uiControl": {
+            "type": "percent",
+            "default": "0%"
+        }
+    },
+    "right": {
+        "desc": " visualMap 组件离容器右侧的距离。 right 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比。 ",
+        "uiControl": {
+            "type": "percent",
+            "default": "0%"
+        }
+    },
+    "bottom": {
+        "desc": " visualMap 组件离容器下侧的距离。 bottom 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比。 ",
+        "uiControl": {
+            "type": "percent",
+            "default": "0%"
+        }
+    },
+    "orient": {
+        "desc": " 如何放置 visualMap 组件，水平（'horizontal'）或者竖直（'vertical'）。 "
+    },
+    "padding": {
+        "desc": " visualMap-piecewise内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。 使用示例： \n\n    // 设置内边距为 5\n    padding: 5\n    // 设置上下的内边距为 5，左右的内边距为 10\n    padding: [5, 10]\n    // 分别设置四个方向的内边距\n    padding: [\n        5,  // 上\n        10, // 右\n        5,  // 下\n        10, // 左\n    ]\n    \n\n",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L"
+        }
+    },
+    "backgroundColor": {
+        "desc": " 背景色。 "
+    },
+    "borderColor": {
+        "desc": " 边框颜色。 "
+    },
+    "borderWidth": {
+        "desc": " 边框线宽，单位px。 "
+    },
+    "color": {
+        "desc": " 这个配置项，是为了兼容 ECharts2 而存在，ECharts3 中已经不推荐使用。它的功能已经移到了 [visualMap-piecewise.inRange][0] 和 [visualMap-piecewise.outOfRange][1] 中。 如果要使用，则须注意，color属性中的顺序是由数值 大 到 小，但是 [visualMap-piecewise.inRange][0] 或 [visualMap-piecewise.outOfRange][1] 中 color 的顺序，总是由数值 小 到 大。二者不一致。\n\n[0]: #visualMap-piecewise.inRange\n[1]: #visualMap-piecewise.outOfRange"
+    },
+    "textStyle.color": {
+        "desc": " visualMap 文字的颜色。 ",
+        "uiControl": {
+            "type": "color",
+            "default": "#333"
+        }
+    },
+    "textStyle.fontStyle": {
+        "desc": " visualMap 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "default": "normal",
+            "options": "normal,italic,oblique"
+        }
+    },
+    "textStyle.fontWeight": {
+        "desc": " visualMap 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "default": "normal",
+            "options": "normal,bold,bolder,lighter"
+        }
+    },
+    "textStyle.fontFamily": {
+        "desc": " visualMap 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "uiControl": {
+            "type": "enum",
+            "default": "sans-serif",
+            "options": "sans-serif,serif,monospace,Arial,Courier New"
+        }
+    },
+    "textStyle.fontSize": {
+        "desc": " visualMap 文字的字体大小。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "textStyle.lineHeight": {
+        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "textStyle.width": {
+        "desc": " 文本显示宽度。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "textStyle.height": {
+        "desc": " 文本显示高度。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "textStyle.textBorderColor": {
+        "desc": " 文字本身的描边颜色。 ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "textStyle.textBorderWidth": {
+        "desc": " 文字本身的描边宽度。 ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "textStyle.textBorderType": {
+        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "default": "solid",
+            "options": "solid,dashed,dotted"
+        }
+    },
+    "textStyle.textBorderDashOffset": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "textStyle.textShadowColor": {
+        "desc": " 文字本身的阴影颜色。 ",
+        "uiControl": {
+            "type": "color",
+            "default": "#000"
+        }
+    },
+    "textStyle.textShadowBlur": {
+        "desc": " 文字本身的阴影长度。 ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "textStyle.textShadowOffsetX": {
+        "desc": " 文字本身的阴影 X 偏移。 ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.textShadowOffsetY": {
+        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.overflow": {
+        "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "truncate,break,breakAll"
+        }
+    },
+    "textStyle.ellipsis": {
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+    },
+    "textStyle.lineOverflow": {
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+    },
+    "formatter": {
+        "desc": " 标签的格式化工具。 \n\n* 如果为string，表示模板，例如：aaaa{value}bbbb{value2}。其中 {value} 和 {value2} 是当前的范围边界值。\n* 如果为 Function，表示回调函数，形如：\n\n    formatter: function (value, value2) {\n        return 'aaaa' + value + 'bbbb' + value2; // 范围标签显示内容。\n    }\n    \n\n"
+    }
+}

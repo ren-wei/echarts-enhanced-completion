@@ -1,0 +1,533 @@
+{
+    "id": {
+        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 "
+    },
+    "coordinateSystem": {
+        "desc": " 该系列使用的坐标系，可选： \n\n* 'parallel' 使用平行坐标系，通过 [parallelIndex][0] 指定相应的平行坐标系组件。\n\n\n\n[0]: #series-parallel.parallelIndex"
+    },
+    "parallelIndex": {
+        "desc": " 使用的[平行坐标系][0]的 index，在单个图表实例中存在多个平行坐标系的时候有用。\n\n[0]: #parallel"
+    },
+    "name": {
+        "desc": " 系列名称，用于[tooltip][0]的显示，[legend][1] 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。\n\n[0]: #tooltip\n[1]: #legend"
+    },
+    "colorBy": {
+        "desc": ">  从 > v5.2.0>  开始支持 从调色盘 [option.color][0] 中取色的策略，可取值为： \n\n* 'series'：按照系列分配调色盘中的颜色，同一系列中的所有数据都是用相同的颜色；\n* 'data'：按照数据项分配调色盘中的颜色，每个数据项都使用不同的颜色。\n\n\n\n[0]: #color"
+    },
+    "lineStyle": {
+        "desc": " 线条样式。 "
+    },
+    "lineStyle.color": {
+        "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "lineStyle.width": {
+        "desc": " 线宽。 ",
+        "uiControl": {
+            "type": "number",
+            "value": "2",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.type": {
+        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "default": "solid",
+            "options": "solid,dashed,dotted"
+        }
+    },
+    "lineStyle.dashOffset": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "lineStyle.cap": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "default": "butt",
+            "options": "butt,round,square"
+        }
+    },
+    "lineStyle.join": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "default": "bevel",
+            "options": "bevel,round,miter"
+        }
+    },
+    "lineStyle.miterLimit": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "lineStyle.shadowBlur": {
+        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.shadowColor": {
+        "desc": " 阴影颜色。支持的格式同color。 ",
+        "uiControl": {
+            "type": "color",
+            "default": ""
+        }
+    },
+    "lineStyle.shadowOffsetX": {
+        "desc": " 阴影水平方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.shadowOffsetY": {
+        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.opacity": {
+        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0.45",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "emphasis.lineStyle.color": {
+        "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "emphasis.lineStyle.width": {
+        "desc": " 线宽。 ",
+        "uiControl": {
+            "type": "number",
+            "value": "2",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "emphasis.lineStyle.type": {
+        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "default": "solid",
+            "options": "solid,dashed,dotted"
+        }
+    },
+    "emphasis.lineStyle.dashOffset": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "emphasis.lineStyle.cap": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "default": "butt",
+            "options": "butt,round,square"
+        }
+    },
+    "emphasis.lineStyle.join": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "default": "bevel",
+            "options": "bevel,round,miter"
+        }
+    },
+    "emphasis.lineStyle.miterLimit": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "emphasis.lineStyle.shadowBlur": {
+        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "emphasis.lineStyle.shadowColor": {
+        "desc": " 阴影颜色。支持的格式同color。 ",
+        "uiControl": {
+            "type": "color",
+            "default": ""
+        }
+    },
+    "emphasis.lineStyle.shadowOffsetX": {
+        "desc": " 阴影水平方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "emphasis.lineStyle.shadowOffsetY": {
+        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "emphasis.lineStyle.opacity": {
+        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0.45",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "inactiveOpacity": {
+        "desc": " 框选时，未被选中的条线会设置成这个『透明度』（从而可以达到变暗的效果）。 ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "max": "1",
+            "default": "0.05",
+            "step": "0.01"
+        }
+    },
+    "activeOpacity": {
+        "desc": " 框选时，选中的条线会设置成这个『透明度』（从而可以达到高亮的效果）。 ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "max": "1",
+            "default": "1",
+            "step": "0.01"
+        }
+    },
+    "realtime": {
+        "desc": " 是否实时刷新。 ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "smooth": {
+        "desc": " 是否使用平滑曲线。默认为 false，可以设置为 true 或者一个范围为 0 到 1 的小数值，指定平滑程度。 ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "progressive": {
+        "desc": " 渐进式渲染时每一帧绘制图形数量，设为 0 时不启用渐进式渲染，支持每个系列单独配置。 在图中有数千到几千万图形元素的时候，一下子把图形绘制出来，或者交互重绘的时候可能会造成界面的卡顿甚至假死。ECharts 4 开始全流程支持渐进渲染（progressive rendering），渲染的时候会把创建好的图形分到数帧中渲染，每一帧渲染只渲染指定数量的图形。 该配置项就是用于配置该系列每一帧渲染的图形数，可以根据图表图形复杂度的需要适当调整这个数字使得在不影响交互流畅性的前提下达到绘制速度的最大化。比如在 lines 图或者平行坐标中线宽大于 1 的 polyline 绘制会很慢，这个数字就可以设置小一点，而线宽小于等于 1 的 polyline 绘制非常快，该配置项就可以相对调得比较大。 "
+    },
+    "progressiveThreshold": {
+        "desc": " 启用渐进式渲染的图形数量阈值，在单个系列的图形数量超过该阈值时启用渐进式渲染。 "
+    },
+    "progressiveChunkMode": {
+        "desc": " 分片的方式。可选值： \n\n* 'sequential': 按照数据的顺序分片。缺点是渲染过程不自然。\n* 'mod': 取模分片，即每个片段中的点会遍布于整个数据，从而能够视觉上均匀得渲染。\n\n"
+    },
+    "data": {
+        "desc": " 例如 [series-parallel.data][0] 中有如下数据： \n\n    [\n        [1,  55,  9,   56,  0.46,  18,  6,  '良'],\n        [2,  25,  11,  21,  0.65,  34,  9,  '优'],\n        [3,  56,  7,   63,  0.3,   14,  5,  '良'],\n        [4,  33,  7,   29,  0.33,  16,  6,  '优'],\n        { // 数据项也可以是 Object，从而里面能含有对线条的特殊设置。\n            value: [5,  42,  24,  44,  0.76,  40,  16, '优']\n            lineStyle: {...},\n        }\n        ...\n    ]\n    \n\n数据中，每一行是一个『数据项』，每一列属于一个『维度』。（例如上面数据每一列的含义分别是：『日期』,『AQI指数』, 『PM2.5』, 『PM10』, 『一氧化碳值』, 『二氧化氮值』, 『二氧化硫值』）。\n\n[0]: #series-parallel.data"
+    },
+    "data.name": {
+        "desc": " 数据项名称。 "
+    },
+    "data.value": {
+        "desc": " 数据项值。 "
+    },
+    "data.lineStyle": {
+        "desc": " 线条样式。 "
+    },
+    "data.color": {
+        "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "data.width": {
+        "desc": " 线宽。 ",
+        "uiControl": {
+            "type": "number",
+            "value": "2",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "data.type": {
+        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "default": "solid",
+            "options": "solid,dashed,dotted"
+        }
+    },
+    "data.dashOffset": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "data.cap": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "default": "butt",
+            "options": "butt,round,square"
+        }
+    },
+    "data.join": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "default": "bevel",
+            "options": "bevel,round,miter"
+        }
+    },
+    "data.miterLimit": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "data.shadowBlur": {
+        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "data.shadowColor": {
+        "desc": " 阴影颜色。支持的格式同color。 ",
+        "uiControl": {
+            "type": "color",
+            "default": ""
+        }
+    },
+    "data.shadowOffsetX": {
+        "desc": " 阴影水平方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "data.shadowOffsetY": {
+        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "data.opacity": {
+        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0.45",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "data.emphasis.lineStyle.color": {
+        "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "data.emphasis.lineStyle.width": {
+        "desc": " 线宽。 ",
+        "uiControl": {
+            "type": "number",
+            "value": "2",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "data.emphasis.lineStyle.type": {
+        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "default": "solid",
+            "options": "solid,dashed,dotted"
+        }
+    },
+    "data.emphasis.lineStyle.dashOffset": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "data.emphasis.lineStyle.cap": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "default": "butt",
+            "options": "butt,round,square"
+        }
+    },
+    "data.emphasis.lineStyle.join": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "default": "bevel",
+            "options": "bevel,round,miter"
+        }
+    },
+    "data.emphasis.lineStyle.miterLimit": {
+        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "data.emphasis.lineStyle.shadowBlur": {
+        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "data.emphasis.lineStyle.shadowColor": {
+        "desc": " 阴影颜色。支持的格式同color。 ",
+        "uiControl": {
+            "type": "color",
+            "default": ""
+        }
+    },
+    "data.emphasis.lineStyle.shadowOffsetX": {
+        "desc": " 阴影水平方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "data.emphasis.lineStyle.shadowOffsetY": {
+        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "data.emphasis.lineStyle.opacity": {
+        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "uiControl": {
+            "type": "number",
+            "default": "0.45",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "zlevel": {
+        "desc": " 平行坐标所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
+    },
+    "z": {
+        "desc": " 平行坐标组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 "
+    },
+    "silent": {
+        "desc": " 图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。 ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "animation": {
+        "desc": " 是否开启动画。 ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true",
+            "clean": "true"
+        }
+    },
+    "animationThreshold": {
+        "desc": " 是否开启动画的阈值，当单个系列显示的图形数量大于这个阈值时会关闭动画。 "
+    },
+    "animationDuration": {
+        "desc": " 初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果： \n\n    animationDuration: function (idx) {\n        // 越往后的数据时长越大\n        return idx * 100;\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "default": "1000",
+            "step": "20",
+            "clean": "true"
+        }
+    },
+    "animationEasing": {
+        "desc": " 初始动画的缓动效果。不同的缓动效果可以参考 [缓动示例][0]。\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=line-easing",
+        "uiControl": {
+            "type": "enum",
+            "options": "linear,quadraticIn,quadraticOut,quadraticInOut,cubicIn,cubicOut,cubicInOut,quarticIn,quarticOut,quarticInOut,quinticIn,quinticOut,quinticInOut,sinusoidalIn,sinusoidalOut,sinusoidalInOut,exponentialIn,exponentialOut,exponentialInOut,circularIn,circularOut,circularInOut,elasticIn,elasticOut,elasticInOut,backIn,backOut,backInOut,bounceIn,bounceOut,bounceInOut",
+            "clean": "true"
+        }
+    },
+    "animationDelay": {
+        "desc": " 初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。 如下示例： \n\n    animationDelay: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay"
+    },
+    "animationDurationUpdate": {
+        "desc": " 数据更新动画的时长。 支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果： \n\n    animationDurationUpdate: function (idx) {\n        // 越往后的数据时长越大\n        return idx * 100;\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "default": "1000",
+            "step": "20"
+        }
+    },
+    "animationEasingUpdate": {
+        "desc": " 数据更新动画的缓动效果。 ",
+        "uiControl": {
+            "type": "enum",
+            "options": "linear,quadraticIn,quadraticOut,quadraticInOut,cubicIn,cubicOut,cubicInOut,quarticIn,quarticOut,quarticInOut,quinticIn,quinticOut,quinticInOut,sinusoidalIn,sinusoidalOut,sinusoidalInOut,exponentialIn,exponentialOut,exponentialInOut,circularIn,circularOut,circularInOut,elasticIn,elasticOut,elasticInOut,backIn,backOut,backInOut,bounceIn,bounceOut,bounceInOut"
+        }
+    },
+    "animationDelayUpdate": {
+        "desc": " 数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。 如下示例： \n\n    animationDelayUpdate: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay"
+    }
+}

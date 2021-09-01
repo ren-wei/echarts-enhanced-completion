@@ -6,21 +6,13 @@ const fs = require('fs');
 import Store from '../../store';
 
 suite('Test class Store Suite', () => {
-    const store = new Store();
+    const store = new Store('echarts-options');
 
     test('test constructor', () => {
-        assert.deepStrictEqual(store.allOptionType, getFileData('options_outline'));
-        assert.deepStrictEqual(store.topOptionDesc, getFileData('option'));
-    });
-
-    test('test public method getOptionType', () => {
-        assert.strictEqual(store.getOptionType(''), store.allOptionType);
-        assert.strictEqual(store.getOptionType('title'), store.allOptionType.find(v => v.prop === 'title')?.children);
-        assert.strictEqual(store.getOptionType('title.textStyle'), store.allOptionType.find(v => v.prop === 'title')?.children?.find(v => v.prop === 'textStyle')?.children);
     });
 
     test('test public method getOptionDesc', () => {
-        assert.strictEqual(store.getOptionDesc([], { } as AstNode), store.topOptionDesc);
+        assert.strictEqual(store.getOptionDesc([], {} as AstNode), store.topOptionDesc);
     });
 });
 

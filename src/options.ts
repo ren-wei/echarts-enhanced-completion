@@ -39,22 +39,20 @@ export default class Options {
             }
         }
 
-        const typeMsgList = this.store.getOptionType(key.join('.'));
         const descObject = this.store.getOptionDesc(key, node);
         this.completionItems = this.filterOptions(descObject, node).map((name, index) => {
-            const typeMsg = typeMsgList.find(item => item.prop === name);
-            const typeOfValue = typeMsg?.type || descObject[name].uiControl?.type;
+            const typeOfValue = descObject[name].uiControl?.type;
             return {
                 label: {
                     label: name,
-                    description: typeOfValue,
+                    description: String(typeOfValue || ''),
                 },
                 kind: vscode.CompletionItemKind.Property,
                 detail: 'echarts options',
                 preselect: true,
                 documentation: new vscode.MarkdownString(descObject[name].desc),
                 sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, typeMsg, descObject[name].uiControl)},`),
+                insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, undefined, descObject[name].uiControl)},`),
             };
         });
     }
@@ -62,15 +60,13 @@ export default class Options {
     private setCompletionItemListInArray(root: AstNode, node: AstNode, record: RecordItem[]) {
         if (record.length === 2 && record[0].key === 'properties' && record[1].key === 'value') {
             const name = root.properties[record[0].index as number].key.name;
-            const typeMsgList = this.store.allOptionType;
             const descObject = this.store.getOptionDesc([], node);
             this.completionItems = Object.keys(descObject).filter(key => key.includes(name)).map((name, index) => {
-                const typeMsg = typeMsgList.find(item => item.prop === name);
-                const typeOfValue = typeMsg?.type || descObject[name].uiControl?.type;
+                const typeOfValue = descObject[name].uiControl?.type;
                 return {
                     label: {
                         label: name,
-                        description: typeOfValue,
+                        description: String(typeOfValue || ''),
                     },
                     kind: vscode.CompletionItemKind.Property,
                     detail: 'echarts options',
@@ -123,17 +119,17 @@ export default class Options {
                 return defaultValue;
             }
         }
-        if (typeMsg) {
-            if (typeMsg.isObject) {
-                return '{$0}';
-            } else if (typeMsg.isArray) {
-                return '[$0]';
-            } else if (typeMsg.default) {
-                return '${0:' + typeMsg.default + '}';
-            } else if (typeMsg && typeMsg.type === 'boolean') {
-                return '${1|true,false|}';
-            }
-        }
+        // if (typeMsg) {
+        //     if (typeMsg.isObject) {
+        //         return '{$0}';
+        //     } else if (typeMsg.isArray) {
+        //         return '[$0]';
+        //     } else if (typeMsg.default) {
+        //         return '${0:' + typeMsg.default + '}';
+        //     } else if (typeMsg && typeMsg.type === 'boolean') {
+        //         return '${1|true,false|}';
+        //     }
+        // }
         return '${0}';
     }
 }

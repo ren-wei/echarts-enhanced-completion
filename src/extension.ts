@@ -14,7 +14,7 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    store = new Store();
+    store = new Store('echarts-options');
 
     const disposable = vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
