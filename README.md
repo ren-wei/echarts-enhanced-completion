@@ -10,7 +10,7 @@
 
 安装并启用插件后，在你需要用作 `echarts` 配置项的对象的上一行添加一行注释： `/** @type EChartsOption */`，用于定义该对象为配置项对象。现在，在配置项对象中按下 `Enter` 键时，插件会显示你可能需要的配置项的列表，并且提示中有对该配置项的详细说明。
 
-![使用示例](./images/GettingStarted.gif)
+![使用示例](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/GettingStarted.gif)
 
 ## Features
 
