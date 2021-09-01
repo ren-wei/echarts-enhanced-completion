@@ -52,7 +52,7 @@ export default class Options {
                 preselect: true,
                 documentation: new vscode.MarkdownString(descObject[name].desc),
                 sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, undefined, descObject[name].uiControl)},`),
+                insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, descObject[name].uiControl)},`),
             };
         });
     }
@@ -91,7 +91,7 @@ export default class Options {
     }
 
     /** 获取需要插入的代码片段的值部分 */
-    private getInsertValue(prop: string, typeMsg: TypeMsg | undefined = undefined, uiControl: UiControl | undefined = undefined): string {
+    private getInsertValue(prop: string, uiControl: UiControl | undefined = undefined): string {
         if (this.type === 'ArrayExpression') {
             return [
                 '{',
@@ -113,23 +113,18 @@ export default class Options {
             if (uiControl.type === 'vector' && defaultValue) {
                 defaultValue = '[' + defaultValue + ']';
             }
+            if (uiControl.type === 'Object') {
+                return '{$0}';
+            }
+            if (uiControl.type === 'Array') {
+                return '[$0]';
+            }
             if (uiControl.options) {
                 return '\'${1|' + uiControl.options + '|}\'';
             } else if (defaultValue) {
                 return defaultValue;
             }
         }
-        // if (typeMsg) {
-        //     if (typeMsg.isObject) {
-        //         return '{$0}';
-        //     } else if (typeMsg.isArray) {
-        //         return '[$0]';
-        //     } else if (typeMsg.default) {
-        //         return '${0:' + typeMsg.default + '}';
-        //     } else if (typeMsg && typeMsg.type === 'boolean') {
-        //         return '${1|true,false|}';
-        //     }
-        // }
         return '${0}';
     }
 }
