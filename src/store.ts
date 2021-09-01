@@ -17,6 +17,7 @@ export default class Store {
 
     /** 获取文件的内容并解析为对象或数组 */
     private getFileData(name: string, node: AstNode | null = null): DescMsgObject {
+        // TODO: 通用化处理
         if (['dataZoom', 'visualMap', 'series'].includes(name)) {
             if (node && node.type === 'ObjectExpression' && node.properties.length) {
                 const typeName = node.properties.find(v => v.key.name === 'type')?.value.value;

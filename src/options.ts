@@ -61,7 +61,7 @@ export default class Options {
         if (record.length === 2 && record[0].key === 'properties' && record[1].key === 'value') {
             const name = root.properties[record[0].index as number].key.name;
             const descObject = this.store.getOptionDesc([], node);
-            this.completionItems = Object.keys(descObject).filter(key => key.includes(name)).map((name, index) => {
+            this.completionItems = Object.keys(descObject).filter(key => key.includes(name) && key !== name).map((name, index) => {
                 const typeOfValue = descObject[name].uiControl?.type;
                 return {
                     label: {
