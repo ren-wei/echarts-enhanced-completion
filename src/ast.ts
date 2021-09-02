@@ -46,7 +46,7 @@ export default class Ast {
             }
         }
         // 获取光标所在的最小Ast节点和访问节点的路径记录
-        const ast = espree.parse(options, { ecmaVersion: 6 });
+        const ast = espree.parse(options, { ecmaVersion: 'latest' });
         this.expression = ast.body[0].expression;
         if (this.expression) {
             [this.minAst, this.record] = this.getAstNode(this.expression, index);
