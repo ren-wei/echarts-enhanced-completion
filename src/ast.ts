@@ -8,49 +8,55 @@ export default class Ast {
     public record: RecordItem[] = []; // 访问节点的路径记录
 
     constructor(keyword: string, document: vscode.TextDocument, position: vscode.Position) {
-        // 获取目标的范围 [startRow, endRow)
-        const rows = document.getText().split('\n');
-        let startRow;
-        let endRow;
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
-            if (row.trim() === keyword) {
-                startRow = i + 1;
-                break;
-            }
-        }
-        if (!startRow) return;
-        endRow = startRow;
-        const startSpaceNum = rows[startRow].length - rows[startRow].trimStart().length;
-        for (let i = startRow + 1; i < rows.length; i++) {
-            const curSpaceNum = rows[i].length - rows[i].trimStart().length;
-            endRow = i + 1;
-            if (curSpaceNum <= startSpaceNum) break;
-        }
+        // 获取目标的范围
+        const range = this.getRange(keyword, document, position);
         // 当前位置是否在范围内
-        this.validate = !rows[position.line].trim() && position.line >= startRow && position.line < endRow;
-        if (!this.validate) return;
-        // 获取目标字符串
-        const targetRows = rows.slice(startRow, endRow);
-        targetRows[0] = targetRows[0].replace(/^[^{]*/, '');
-        const lastRow = targetRows[targetRows.length - 1];
-        targetRows[targetRows.length - 1] = lastRow.slice(0, lastRow.indexOf('}') + 1);
-        const options = '(' + targetRows.join('\n') + ')';
-        // 计算光标位置
-        let index = 0;
-        for (let i = 0; i < targetRows.length; i++) {
-            if (i < position.line - startRow) {
-                index += targetRows[i].length + 1; // +1 是加上去掉的'\n'
-            } else {
-                break;
-            }
-        }
+        this.validate = range !== null;
+        if (!range) return;
         // 获取光标所在的最小Ast节点和访问节点的路径记录
-        const ast = espree.parse(options, { ecmaVersion: 'latest' });
+        const ast = espree.parse('(' + document.getText(range) + ')', { ecmaVersion: 'latest' });
         this.expression = ast.body[0].expression;
         if (this.expression) {
-            [this.minAst, this.record] = this.getAstNode(this.expression, index);
+            [this.minAst, this.record] = this.getAstNode(this.expression, document.offsetAt(position) - document.offsetAt(range.start));
         }
+    }
+
+    /** 获取选项对象所在的范围 */
+    private getRange(keyword: string, document: vscode.TextDocument, position: vscode.Position): vscode.Range | null {
+        let start: vscode.Position | null = null;
+        let curRowStart = false;
+        let startRowSpaceCount: number = 0;
+        for (let line = 0; line < document.lineCount; line++) {
+            const textLine = document.lineAt(line);
+            if (curRowStart) {
+                // 运行到这里，则当前行为开始行
+                if (position.line <= line) return null;
+                const index = textLine.text.indexOf('{');
+                if (index !== -1) {
+                    start = new vscode.Position(line, index);
+                    startRowSpaceCount = textLine.firstNonWhitespaceCharacterIndex;
+                }
+                curRowStart = false;
+            } else if (start && !textLine.isEmptyOrWhitespace && textLine.firstNonWhitespaceCharacterIndex <= startRowSpaceCount) {
+                // 运行到这里，则当前行应为结束行
+                if (position.line < line) {
+                    const index = textLine.text.indexOf('}');
+                    if (index !== -1) {
+                        const end = new vscode.Position(line, index + 1);
+                        return new vscode.Range(start, end);
+                    }
+                    // 结束行没有 '}'，说明存在格式错误或语法错误
+                    return null;
+                } else if (position.line === line) {
+                    return null;
+                }
+                start = null;
+            } else if (textLine.text.trim() === keyword) {
+                // 将下一行标记为开始行
+                curRowStart = true;
+            }
+        }
+        return null;
     }
 
     /** 位置是否在节点中 */
