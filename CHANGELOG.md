@@ -4,13 +4,26 @@ All notable changes to the "echarts-enhanced-completion" extension will be docum
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [Released]
+
+## 1.0.3 (2021-09-04)
+
+### Added
+
+- 增加注释的代码片段
+
+![注释的代码片段使用示例](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Snippets.gif)
+
+- 支持多个配置项对象
+
+![多个配置项对象使用示例](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/MultipleOptions.gif)
+
 
 ## 1.0.2 (2021-09-02)
 
 ### Fixed
 
-- fix: 修复新语法不能解析的问题，使用最新语法选项
+- 修复新语法不能解析的问题，使用最新语法选项
 
 ## 1.0.1 (2021-09-02)
 
