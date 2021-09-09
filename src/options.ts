@@ -36,7 +36,7 @@ export default class Options {
                 });
             case 'ArrayExpression':
                 const name = this.root.properties[this.record[0].index as number].key.name;
-                Object.keys(this.descObject).filter(key => key.includes(name) && key !== name).map((name, index) => {
+                return Object.keys(this.descObject).filter(key => key.includes(name) && key !== name).map((name, index) => {
                     const typeOfValue = this.descObject[name].uiControl?.type;
                     return {
                         label: {
