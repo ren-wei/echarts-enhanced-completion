@@ -4,6 +4,7 @@ import Store from './store';
 export default class Options {
     private descObject: DescMsgObject = {};
     private store: Store;
+    private keys: string[] = [];
     private root: AstNode;
     private node: AstNode;
     private record: RecordItem[];
@@ -17,6 +18,7 @@ export default class Options {
     }
 
     public getCompletionItem(): vscode.CompletionItem[] {
+        this.descObject = this.store.getOptionDesc(this.keys, this.node);
         switch (this.node.type) {
             case 'ObjectExpression':
                 return this.filterOptions(this.descObject, this.node).map((name, index) => {
@@ -55,37 +57,36 @@ export default class Options {
         return [];
     }
 
+    public getHover(): vscode.Hover | null {
+        if (this.record.length && this.record[this.record.length - 1].key === 'key') {
+            this.descObject = this.store.getOptionDesc(this.keys.slice(0, -1));
+            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name].desc));
+        }
+        return null;
+    }
+
     private parse() {
-        switch (this.node.type) {
-            case 'ObjectExpression':
-                // 根据 record 获取对应的 key
-                const key: string[] = [];
-                if (this.record.length) {
-                    let targetNode = this.root;
-                    for (let i = 0; i < this.record.length; i++) {
-                        switch (this.record[i].key) {
-                            case 'properties':
-                                targetNode = targetNode.properties[this.record[i].index as number];
-                                key.push(targetNode.key.name);
-                                break;
-                            case 'value':
-                                targetNode = targetNode.value;
-                                break;
-                            case 'elements':
-                                targetNode = targetNode.elements[this.record[i].index as number];
-                                break;
-                            default:
-                                return [];
-                        }
-                    }
+        // 根据 record 获取对应的 key
+        if (this.record.length) {
+            let targetNode = this.root;
+            let breakLoop = false;
+            for (let i = 0; i < this.record.length; i++) {
+                switch (this.record[i].key) {
+                    case 'properties':
+                        targetNode = targetNode.properties[this.record[i].index as number];
+                        this.keys.push(targetNode.key.name);
+                        break;
+                    case 'value':
+                        targetNode = targetNode.value;
+                        break;
+                    case 'elements':
+                        targetNode = targetNode.elements[this.record[i].index as number];
+                        break;
+                    default:
+                        breakLoop = true;
                 }
-                this.descObject = this.store.getOptionDesc(key, this.node);
-                break;
-            case 'ArrayExpression':
-                if (this.record.length === 2 && this.record[0].key === 'properties' && this.record[1].key === 'value') {
-                    this.descObject = this.store.getOptionDesc([], this.node);
-                }
-                break;
+                if (breakLoop) break;
+            }
         }
     }
 

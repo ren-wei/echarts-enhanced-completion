@@ -42,7 +42,7 @@ export default class Store {
      * 获取选项的描述信息
      * @param key 选项的key
      */
-    public getOptionDesc(key: string[], node: AstNode): DescMsgObject {
+    public getOptionDesc(key: string[], node: AstNode | null = null): DescMsgObject {
         if (key.length) {
             const datas = this.getFileData(key[0], node);
             // 将返回的文件数据转换为 index.json 一致的格式

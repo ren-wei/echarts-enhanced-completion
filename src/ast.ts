@@ -17,7 +17,7 @@ export default class Ast {
         const ast = espree.parse('(' + document.getText(range) + ')', { ecmaVersion: 'latest' });
         this.expression = ast.body[0].expression;
         if (this.expression) {
-            [this.minAst, this.record] = this.getAstNode(this.expression, document.offsetAt(position) - document.offsetAt(range.start));
+            [this.minAst, this.record] = this.getAstNode(this.expression, document.offsetAt(position) - document.offsetAt(range.start) + 2);
         }
     }
 
