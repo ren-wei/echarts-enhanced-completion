@@ -10,17 +10,15 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
     const ast = new Ast(keyword, document, position);
     if (!ast.validate) return [];
     const options = new Options(ast.expression as AstNode, ast.minAst as AstNode, ast.record, store);
-    return options.completionItems;
+    return options.getCompletionItem();
 }
 
 export function activate(context: vscode.ExtensionContext) {
     store = new Store('echarts-options');
 
-    const disposable = vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
-    }, '\n');
-
-    context.subscriptions.push(disposable);
+    }, '\n'));
 }
 
 // this method is called when your extension is deactivated

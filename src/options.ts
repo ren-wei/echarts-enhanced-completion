@@ -2,80 +2,90 @@ import * as vscode from 'vscode';
 import Store from './store';
 
 export default class Options {
-    public completionItems: vscode.CompletionItem[] = [];
-    private type: string;
+    private descObject: DescMsgObject = {};
     private store: Store;
+    private root: AstNode;
+    private node: AstNode;
+    private record: RecordItem[];
 
     constructor(root: AstNode, node: AstNode, record: RecordItem[], store: Store) {
         this.store = store;
-        this.type = node.type;
-        if (node.type === 'ObjectExpression') {
-            this.setCompletionItemListInObject(root, node, record);
-        } else if (node.type === 'ArrayExpression') {
-            this.setCompletionItemListInArray(root, node, record);
-        }
+        this.root = root;
+        this.node = node;
+        this.record = record;
+        this.parse();
     }
 
-    private setCompletionItemListInObject(root: AstNode, node: AstNode, record: RecordItem[]) {
-        // 根据 record 获取对应的 key
-        const key: string[] = [];
-        if (record.length) {
-            let targetNode = root;
-            for (let i = 0; i < record.length; i++) {
-                switch (record[i].key) {
-                    case 'properties':
-                        targetNode = targetNode.properties[record[i].index as number];
-                        key.push(targetNode.key.name);
-                        break;
-                    case 'value':
-                        targetNode = targetNode.value;
-                        break;
-                    case 'elements':
-                        targetNode = targetNode.elements[record[i].index as number];
-                        break;
-                    default:
-                        return [];
+    public getCompletionItem(): vscode.CompletionItem[] {
+        switch (this.node.type) {
+            case 'ObjectExpression':
+                return this.filterOptions(this.descObject, this.node).map((name, index) => {
+                    const typeOfValue = this.descObject[name].uiControl?.type;
+                    return {
+                        label: {
+                            label: name,
+                            description: String(typeOfValue || ''),
+                        },
+                        kind: vscode.CompletionItemKind.Property,
+                        detail: 'echarts options',
+                        preselect: true,
+                        documentation: new vscode.MarkdownString(this.descObject[name].desc),
+                        sortText: String(index).length > 1 ? String(index) : '0' + String(index),
+                        insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, this.descObject[name].uiControl)},`),
+                    };
+                });
+            case 'ArrayExpression':
+                const name = this.root.properties[this.record[0].index as number].key.name;
+                Object.keys(this.descObject).filter(key => key.includes(name) && key !== name).map((name, index) => {
+                    const typeOfValue = this.descObject[name].uiControl?.type;
+                    return {
+                        label: {
+                            label: name,
+                            description: String(typeOfValue || ''),
+                        },
+                        kind: vscode.CompletionItemKind.Property,
+                        detail: 'echarts options',
+                        preselect: true,
+                        documentation: new vscode.MarkdownString(this.descObject[name].desc),
+                        sortText: String(index).length > 1 ? String(index) : '0' + String(index),
+                        insertText: new vscode.SnippetString(`${this.getInsertValue(name)},`),
+                    };
+                });
+        }
+        return [];
+    }
+
+    private parse() {
+        switch (this.node.type) {
+            case 'ObjectExpression':
+                // 根据 record 获取对应的 key
+                const key: string[] = [];
+                if (this.record.length) {
+                    let targetNode = this.root;
+                    for (let i = 0; i < this.record.length; i++) {
+                        switch (this.record[i].key) {
+                            case 'properties':
+                                targetNode = targetNode.properties[this.record[i].index as number];
+                                key.push(targetNode.key.name);
+                                break;
+                            case 'value':
+                                targetNode = targetNode.value;
+                                break;
+                            case 'elements':
+                                targetNode = targetNode.elements[this.record[i].index as number];
+                                break;
+                            default:
+                                return [];
+                        }
+                    }
                 }
-            }
-        }
-
-        const descObject = this.store.getOptionDesc(key, node);
-        this.completionItems = this.filterOptions(descObject, node).map((name, index) => {
-            const typeOfValue = descObject[name].uiControl?.type;
-            return {
-                label: {
-                    label: name,
-                    description: String(typeOfValue || ''),
-                },
-                kind: vscode.CompletionItemKind.Property,
-                detail: 'echarts options',
-                preselect: true,
-                documentation: new vscode.MarkdownString(descObject[name].desc),
-                sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, descObject[name].uiControl)},`),
-            };
-        });
-    }
-
-    private setCompletionItemListInArray(root: AstNode, node: AstNode, record: RecordItem[]) {
-        if (record.length === 2 && record[0].key === 'properties' && record[1].key === 'value') {
-            const name = root.properties[record[0].index as number].key.name;
-            const descObject = this.store.getOptionDesc([], node);
-            this.completionItems = Object.keys(descObject).filter(key => key.includes(name) && key !== name).map((name, index) => {
-                const typeOfValue = descObject[name].uiControl?.type;
-                return {
-                    label: {
-                        label: name,
-                        description: String(typeOfValue || ''),
-                    },
-                    kind: vscode.CompletionItemKind.Property,
-                    detail: 'echarts options',
-                    preselect: true,
-                    documentation: new vscode.MarkdownString(descObject[name].desc),
-                    sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                    insertText: new vscode.SnippetString(`${this.getInsertValue(name)},`),
-                };
-            });
+                this.descObject = this.store.getOptionDesc(key, this.node);
+                break;
+            case 'ArrayExpression':
+                if (this.record.length === 2 && this.record[0].key === 'properties' && this.record[1].key === 'value') {
+                    this.descObject = this.store.getOptionDesc([], this.node);
+                }
+                break;
         }
     }
 
@@ -92,7 +102,7 @@ export default class Options {
 
     /** 获取需要插入的代码片段的值部分 */
     private getInsertValue(prop: string, uiControl: UiControl | undefined = undefined): string {
-        if (this.type === 'ArrayExpression') {
+        if (this.node.type === 'ArrayExpression') {
             return [
                 '{',
                 `\ttype: '${prop.split('-')[1]}',$0`,
