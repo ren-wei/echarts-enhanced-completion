@@ -18,43 +18,22 @@ export default class Options {
     }
 
     public getCompletionItem(): vscode.CompletionItem[] {
-        this.descObject = this.store.getOptionDesc(this.keys, this.node);
-        switch (this.node.type) {
-            case 'ObjectExpression':
-                return this.filterOptions(this.descObject, this.node).map((name, index) => {
-                    const typeOfValue = this.descObject[name].uiControl?.type;
-                    return {
-                        label: {
-                            label: name,
-                            description: String(typeOfValue || ''),
-                        },
-                        kind: vscode.CompletionItemKind.Property,
-                        detail: 'echarts options',
-                        preselect: true,
-                        documentation: new vscode.MarkdownString(this.descObject[name].desc),
-                        sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                        insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, this.descObject[name].uiControl)},`),
-                    };
-                });
-            case 'ArrayExpression':
-                const name = this.root.properties[this.record[0].index as number].key.name;
-                return Object.keys(this.descObject).filter(key => key.includes(name) && key !== name).map((name, index) => {
-                    const typeOfValue = this.descObject[name].uiControl?.type;
-                    return {
-                        label: {
-                            label: name,
-                            description: String(typeOfValue || ''),
-                        },
-                        kind: vscode.CompletionItemKind.Property,
-                        detail: 'echarts options',
-                        preselect: true,
-                        documentation: new vscode.MarkdownString(this.descObject[name].desc),
-                        sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                        insertText: new vscode.SnippetString(`${this.getInsertValue(name)},`),
-                    };
-                });
-        }
-        return [];
+        this.descObject = this.store.getOptionDesc(this.keys);
+        return this.filterOptions(this.descObject, this.node).map((name, index) => {
+            const typeOfValue = this.descObject[name].uiControl?.type;
+            return {
+                label: {
+                    label: name,
+                    description: String(typeOfValue || ''),
+                },
+                kind: vscode.CompletionItemKind.Property,
+                detail: 'echarts options',
+                preselect: true,
+                documentation: new vscode.MarkdownString(this.descObject[name].desc),
+                sortText: String(index).length > 1 ? String(index) : '0' + String(index),
+                insertText: new vscode.SnippetString(`${name.split('-')[0]}: ${this.getInsertValue(name, this.descObject[name].uiControl)},`),
+            };
+        });
     }
 
     public getHover(): vscode.Hover | null {

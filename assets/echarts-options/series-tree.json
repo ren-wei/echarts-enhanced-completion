@@ -9,7 +9,10 @@
         "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
     },
     "z": {
-        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 "
+        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "left": {
         "desc": " tree组件离容器左侧的距离。 left 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'left', 'center', 'right'。 如果 left 的值为'left', 'center', 'right'，组件会根据相应的位置自动对齐。 ",
@@ -146,7 +149,10 @@
         }
     },
     "itemStyle": {
-        "desc": " 树图中每个节点的样式，其中 [itemStyle.color][0] 表示节点的填充色，用来区别当前节点所对应的子树折叠或展开的状态。\n\n[0]: #series-tree.itemStyle.color"
+        "desc": " 树图中每个节点的样式，其中 [itemStyle.color][0] 表示节点的填充色，用来区别当前节点所对应的子树折叠或展开的状态。\n\n[0]: #series-tree.itemStyle.color",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -254,7 +260,10 @@
         }
     },
     "label": {
-        "desc": "label 描述了每个节点所对应的文本标签的样式。 "
+        "desc": "label 描述了每个节点所对应的文本标签的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "label.show": {
         "desc": " 是否显示标签。 ",
@@ -541,7 +550,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -756,7 +768,10 @@
         }
     },
     "labelLayout": {
-        "desc": ">  从 > v5.0.0>  开始支持 标签的统一布局配置。 该配置项是在每个系列默认的标签布局基础上，统一调整标签的(x, y)位置，标签对齐等属性以实现想要的标签布局效果。 该配置项也可以是一个有如下参数的回调函数 \n\n    // 标签对应数据的 dataIndex\n    dataIndex: number\n    // 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\n    dataType?: string\n    // 标签对应的系列的 index\n    seriesIndex: number\n    // 标签显示的文本\n    text: string\n    // 默认的标签的包围盒，由系列默认的标签布局决定\n    labelRect: {x: number, y: number, width: number, height: number}\n    // 默认的标签水平对齐\n    align: 'left' | 'center' | 'right'\n    // 默认的标签垂直对齐\n    verticalAlign: 'top' | 'middle' | 'bottom'\n    // 标签所对应的数据图形的包围盒，可用于定位标签位置\n    rect: {x: number, y: number, width: number, height: number}\n    // 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n    // 如果没有该值则为 null\n    labelLinePoints?: number[][]\n    \n\n**示例：** 将标签显示在图形右侧 10px 的位置，并且垂直居中： \n\n    labelLayout(params) {\n        return {\n            x: params.rect.x + 10,\n            y: params.rect.y + params.rect.height / 2,\n            verticalAlign: 'middle',\n            align: 'left'\n        }\n    }\n    \n\n根据图形的包围盒尺寸决定文本尺寸 \n\n    \n    labelLayout(params) {\n        return {\n            fontSize: Math.max(params.rect.width / 10, 5)\n        };\n    }\n    \n\n"
+        "desc": ">  从 > v5.0.0>  开始支持 标签的统一布局配置。 该配置项是在每个系列默认的标签布局基础上，统一调整标签的(x, y)位置，标签对齐等属性以实现想要的标签布局效果。 该配置项也可以是一个有如下参数的回调函数 \n\n    // 标签对应数据的 dataIndex\n    dataIndex: number\n    // 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\n    dataType?: string\n    // 标签对应的系列的 index\n    seriesIndex: number\n    // 标签显示的文本\n    text: string\n    // 默认的标签的包围盒，由系列默认的标签布局决定\n    labelRect: {x: number, y: number, width: number, height: number}\n    // 默认的标签水平对齐\n    align: 'left' | 'center' | 'right'\n    // 默认的标签垂直对齐\n    verticalAlign: 'top' | 'middle' | 'bottom'\n    // 标签所对应的数据图形的包围盒，可用于定位标签位置\n    rect: {x: number, y: number, width: number, height: number}\n    // 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n    // 如果没有该值则为 null\n    labelLinePoints?: number[][]\n    \n\n**示例：** 将标签显示在图形右侧 10px 的位置，并且垂直居中： \n\n    labelLayout(params) {\n        return {\n            x: params.rect.x + 10,\n            y: params.rect.y + params.rect.height / 2,\n            verticalAlign: 'middle',\n            align: 'left'\n        }\n    }\n    \n\n根据图形的包围盒尺寸决定文本尺寸 \n\n    \n    labelLayout(params) {\n        return {\n            fontSize: Math.max(params.rect.width / 10, 5)\n        };\n    }\n    \n\n",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "labelLayout.hideOverlap": {
         "desc": " 是否隐藏重叠的标签。 下面示例演示了在关系图中开启该配置后，在缩放时可以实现自动的标签隐藏。 暂时无法显示 "
@@ -801,7 +816,10 @@
         "desc": " 标签引导线三个点的位置。格式为： \n\n    [[x, y], [x, y], [x, y]]\n    \n\n在饼图中常用来微调已经计算好的引导线，其它情况一般不建议设置。 "
     },
     "lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -859,7 +877,10 @@
         }
     },
     "emphasis": {
-        "desc": " 树图中个图形和标签高亮的样式。 "
+        "desc": " 树图中个图形和标签高亮的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.focus": {
         "desc": ">  从 > v5.0.0>  开始支持 在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置： \n\n* 'none' 不淡出其它图形，默认使用该配置。\n* 'self' 只聚焦（不淡出）当前高亮的数据的图形。\n\n* 'series' 聚焦当前高亮的数据所在的系列的所有图形。\n\n* 'ancestor' 聚焦所有祖先节点\n* 'descendant' 聚焦所有子孙节点\n\n**示例：** 下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。 \n\n    emphasis: {\n        focus: 'series',\n        blurScope: 'coordinateSystem'\n    }\n    \n\n暂时无法显示 "
@@ -868,7 +889,10 @@
         "desc": ">  从 > v5.0.0>  开始支持 在开启focus的时候，可以通过blurScope配置淡出的范围。支持如下配置 \n\n* 'coordinateSystem' 淡出范围为坐标系，默认使用该配置。\n* 'series' 淡出范围为系列。\n* 'global' 淡出范围为全局。\n\n"
     },
     "emphasis.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.itemStyle.color": {
         "desc": " 图形的颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -976,7 +1000,10 @@
         }
     },
     "emphasis.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -1318,7 +1345,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "emphasis.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -1533,10 +1563,16 @@
         }
     },
     "blur": {
-        "desc": ">  从 > v5.0.0>  开始支持 淡出状态的相关配置。开启 [emphasis.focus][0] 后有效。\n\n[0]: #series-tree.emphasis.focus"
+        "desc": ">  从 > v5.0.0>  开始支持 淡出状态的相关配置。开启 [emphasis.focus][0] 后有效。\n\n[0]: #series-tree.emphasis.focus",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "blur.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -1644,7 +1680,10 @@
         }
     },
     "blur.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "blur.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -1986,7 +2025,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "blur.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2201,10 +2243,16 @@
         }
     },
     "select": {
-        "desc": ">  从 > v5.0.0>  开始支持 选中状态的相关配置。开启 [selectedMode][0] 后有效。\n\n[0]: #series-tree.selectedMode"
+        "desc": ">  从 > v5.0.0>  开始支持 选中状态的相关配置。开启 [selectedMode][0] 后有效。\n\n[0]: #series-tree.selectedMode",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "select.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "select.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -2312,7 +2360,10 @@
         }
     },
     "select.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "select.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -2654,7 +2705,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "select.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2876,10 +2930,16 @@
         }
     },
     "leaves": {
-        "desc": " 叶子节点的特殊配置，如上面的树图实例中，叶子节点和非叶子节点的标签位置不同。 "
+        "desc": " 叶子节点的特殊配置，如上面的树图实例中，叶子节点和非叶子节点的标签位置不同。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.label": {
-        "desc": " 描述了叶子节点所对应的文本标签的样式。 "
+        "desc": " 描述了叶子节点所对应的文本标签的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.label.show": {
         "desc": " 是否显示标签。 ",
@@ -3166,7 +3226,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "leaves.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -3381,7 +3444,10 @@
         }
     },
     "leaves.itemStyle": {
-        "desc": " 树图中叶子节点的样式。 "
+        "desc": " 树图中叶子节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -3489,10 +3555,16 @@
         }
     },
     "leaves.emphasis": {
-        "desc": " 叶子节点高亮状态的配置。 "
+        "desc": " 叶子节点高亮状态的配置。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.emphasis.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -3600,7 +3672,10 @@
         }
     },
     "leaves.emphasis.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.emphasis.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -3939,7 +4014,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "leaves.emphasis.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -4154,10 +4232,16 @@
         }
     },
     "leaves.blur": {
-        "desc": ">  从 > v5.0.0>  开始支持 叶子节点淡出状态的配置。 "
+        "desc": ">  从 > v5.0.0>  开始支持 叶子节点淡出状态的配置。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.blur.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -4265,7 +4349,10 @@
         }
     },
     "leaves.blur.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.blur.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -4604,7 +4691,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "leaves.blur.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -4819,10 +4909,16 @@
         }
     },
     "leaves.select": {
-        "desc": ">  从 > v5.0.0>  开始支持 叶子节点选中状态的配置。 "
+        "desc": ">  从 > v5.0.0>  开始支持 叶子节点选中状态的配置。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.select.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.select.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -4930,7 +5026,10 @@
         }
     },
     "leaves.select.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.select.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -5269,7 +5368,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "leaves.select.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "leaves.select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -5484,7 +5586,10 @@
         }
     },
     "data": {
-        "desc": "[series-tree.data][0] 的数据格式是树状结构的，例如： \n\n    { // 注意，最外层是一个对象，代表树的根节点\n        name: &quot;flare&quot;,    // 节点的名称，当前节点 label 对应的文本\n        label: {          // 此节点特殊的 label 配置（如果需要的话）。\n            ...           // label的格式参见 series-tree.label。\n        },\n        itemStyle: {      // 此节点特殊的 itemStyle 配置（如果需要的话）。\n            ...           // label的格式参见 series-tree.itemStyle。\n        },\n        children: [\n            {\n                name: &quot;flex&quot;,\n                value: 4116,    // value 值，只在 tooltip 中显示\n                label: {\n                    ...\n                },\n                itemStyle: {\n                    ...\n                },\n                collapsed: null, // 如果为 true，表示此节点默认折叠。\n                children: [...] // 叶子节点没有 children, 可以不写\n            },\n            ...\n        ]\n    };\n    \n\n\n\n[0]: #series-tree.data"
+        "desc": "[series-tree.data][0] 的数据格式是树状结构的，例如： \n\n    { // 注意，最外层是一个对象，代表树的根节点\n        name: &quot;flare&quot;,    // 节点的名称，当前节点 label 对应的文本\n        label: {          // 此节点特殊的 label 配置（如果需要的话）。\n            ...           // label的格式参见 series-tree.label。\n        },\n        itemStyle: {      // 此节点特殊的 itemStyle 配置（如果需要的话）。\n            ...           // label的格式参见 series-tree.itemStyle。\n        },\n        children: [\n            {\n                name: &quot;flex&quot;,\n                value: 4116,    // value 值，只在 tooltip 中显示\n                label: {\n                    ...\n                },\n                itemStyle: {\n                    ...\n                },\n                collapsed: null, // 如果为 true，表示此节点默认折叠。\n                children: [...] // 叶子节点没有 children, 可以不写\n            },\n            ...\n        ]\n    };\n    \n\n\n\n[0]: #series-tree.data",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.name": {
         "desc": " 树节点的名称，用来标识每一个节点。 "
@@ -5493,7 +5598,10 @@
         "desc": " 节点的值，在 tooltip 中显示。 "
     },
     "data.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -5601,7 +5709,10 @@
         }
     },
     "data.lineStyle": {
-        "desc": " 该节点对应的边的样式。 "
+        "desc": " 该节点对应的边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -5659,7 +5770,10 @@
         }
     },
     "data.label": {
-        "desc": " 该节点的标签。 "
+        "desc": " 该节点的标签。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.label.show": {
         "desc": " 是否显示标签。 ",
@@ -5943,7 +6057,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "data.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -6158,10 +6275,16 @@
         }
     },
     "data.emphasis": {
-        "desc": " 节点高亮状态的配置。 "
+        "desc": " 节点高亮状态的配置。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.emphasis.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -6269,7 +6392,10 @@
         }
     },
     "data.emphasis.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.emphasis.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -6608,7 +6734,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "data.emphasis.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -6823,10 +6952,16 @@
         }
     },
     "data.blur": {
-        "desc": ">  从 > v5.0.0>  开始支持 节点淡出状态的配置。 "
+        "desc": ">  从 > v5.0.0>  开始支持 节点淡出状态的配置。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.blur.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -6934,7 +7069,10 @@
         }
     },
     "data.blur.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.blur.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -7273,7 +7411,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "data.blur.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -7488,10 +7629,16 @@
         }
     },
     "data.select": {
-        "desc": ">  从 > v5.0.0>  开始支持 节点选中状态的配置。 "
+        "desc": ">  从 > v5.0.0>  开始支持 节点选中状态的配置。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.select.itemStyle": {
-        "desc": " 该节点的样式。 "
+        "desc": " 该节点的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.select.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -7599,7 +7746,10 @@
         }
     },
     "data.select.lineStyle": {
-        "desc": " 定义树图边的样式。 "
+        "desc": " 定义树图边的样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.select.lineStyle.color": {
         "desc": " 树图边的颜色。 ",
@@ -7938,7 +8088,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "data.select.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -8153,7 +8306,10 @@
         }
     },
     "data.tooltip": {
-        "desc": " 本系列每个数据项中特定的 tooltip 设定。 "
+        "desc": " 本系列每个数据项中特定的 tooltip 设定。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.tooltip.position": {
         "desc": "**> 注意：**> series.data.tooltip>  仅在 [> tooltip.trigger][0]>  为 > 'item'>  时有效。  \n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。 可选： \n\n* Array 通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。 示例: \n\n      // 绝对位置，相对于容器左侧 10px, 上侧 10 px\n      position: [10, 10]\n      // 相对位置，放置在容器正中间\n      position: ['50%', '50%']\n* Function 回调函数，格式如下： \n\n      (point: Array, params: Object|Array.&lt;Object&gt;, dom: HTMLDomElement, rect: Object, size: Object) =&gt; Array\n    \n\n**参数：**  \npoint: 鼠标位置，如 [20, 40]。  \nparams: 同 formatter 的参数相同。  \ndom: tooltip 的 dom 对象。  \nrect: 只有鼠标在图形上时有效，是一个用x, y, width, height四个属性表达的图形包围盒。  \nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。  \n**返回值：**  \n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。  \n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。  \n如下示例： \n\n      position: function (point, params, dom, rect, size) {\n          // 固定在顶部\n          return [point[0], '10%'];\n      }\n    \n\n或者： \n\n      position: function (pos, params, dom, rect, size) {\n          // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n          var obj = {top: 60};\n          obj[['left', 'right'][+(pos[0] &lt; size.viewSize[0] / 2)]] = 5;\n          return obj;\n      }\n\n* 'inside' 鼠标所在图形的内部中心位置，只在 [trigger][0] 为'item'的时候有效。\n* 'top' 鼠标所在图形上侧，只在 [trigger][0] 为'item'的时候有效。\n* 'left' 鼠标所在图形左侧，只在 [trigger][0] 为'item'的时候有效。\n* 'right' 鼠标所在图形右侧，只在 [trigger][0] 为'item'的时候有效。\n* 'bottom' 鼠标所在图形底侧，只在 [trigger][0] 为'item'的时候有效。\n\n\n\n[0]: #tooltip.trigger"
@@ -8188,7 +8344,10 @@
         }
     },
     "data.tooltip.textStyle": {
-        "desc": "**> 注意：**> series.data.tooltip>  仅在 [> tooltip.trigger][0]>  为 > 'item'>  时有效。  \n提示框浮层的文本样式。\n\n[0]: #tooltip.trigger"
+        "desc": "**> 注意：**> series.data.tooltip>  仅在 [> tooltip.trigger][0]>  为 > 'item'>  时有效。  \n提示框浮层的文本样式。\n\n[0]: #tooltip.trigger",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.tooltip.textStyle.color": {
         "desc": " 文字的颜色。 ",
@@ -8368,7 +8527,10 @@
         }
     },
     "data.animationDelay": {
-        "desc": " 初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。 如下示例： \n\n    animationDelay: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay"
+        "desc": " 初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。 如下示例： \n\n    animationDelay: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.animationDurationUpdate": {
         "desc": " 数据更新动画的时长。 支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果： \n\n    animationDurationUpdate: function (idx) {\n        // 越往后的数据时长越大\n        return idx * 100;\n    }\n    \n\n",
@@ -8390,7 +8552,10 @@
         "desc": " 数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。 如下示例： \n\n    animationDelayUpdate: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay"
     },
     "tooltip": {
-        "desc": " 本系列特定的 tooltip 设定。 "
+        "desc": " 本系列特定的 tooltip 设定。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "tooltip.position": {
         "desc": "  \n**> 注意：**> series.tooltip>  仅在 [> tooltip.trigger][0]>  为 > 'item'>  时有效。  \n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。 可选： \n\n* Array 通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。 示例: \n\n      // 绝对位置，相对于容器左侧 10px, 上侧 10 px\n      position: [10, 10]\n      // 相对位置，放置在容器正中间\n      position: ['50%', '50%']\n* Function 回调函数，格式如下： \n\n      (point: Array, params: Object|Array.&lt;Object&gt;, dom: HTMLDomElement, rect: Object, size: Object) =&gt; Array\n    \n\n**参数：**  \npoint: 鼠标位置，如 [20, 40]。  \nparams: 同 formatter 的参数相同。  \ndom: tooltip 的 dom 对象。  \nrect: 只有鼠标在图形上时有效，是一个用x, y, width, height四个属性表达的图形包围盒。  \nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。  \n**返回值：**  \n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。  \n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。  \n如下示例： \n\n      position: function (point, params, dom, rect, size) {\n          // 固定在顶部\n          return [point[0], '10%'];\n      }\n    \n\n或者： \n\n      position: function (pos, params, dom, rect, size) {\n          // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n          var obj = {top: 60};\n          obj[['left', 'right'][+(pos[0] &lt; size.viewSize[0] / 2)]] = 5;\n          return obj;\n      }\n\n* 'inside' 鼠标所在图形的内部中心位置，只在 [trigger][0] 为'item'的时候有效。\n* 'top' 鼠标所在图形上侧，只在 [trigger][0] 为'item'的时候有效。\n* 'left' 鼠标所在图形左侧，只在 [trigger][0] 为'item'的时候有效。\n* 'right' 鼠标所在图形右侧，只在 [trigger][0] 为'item'的时候有效。\n* 'bottom' 鼠标所在图形底侧，只在 [trigger][0] 为'item'的时候有效。\n\n\n\n[0]: #tooltip.trigger"
@@ -8425,7 +8590,10 @@
         }
     },
     "tooltip.textStyle": {
-        "desc": "  \n**> 注意：**> series.tooltip>  仅在 [> tooltip.trigger][0]>  为 > 'item'>  时有效。  \n提示框浮层的文本样式。\n\n[0]: #tooltip.trigger"
+        "desc": "  \n**> 注意：**> series.tooltip>  仅在 [> tooltip.trigger][0]>  为 > 'item'>  时有效。  \n提示框浮层的文本样式。\n\n[0]: #tooltip.trigger",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "tooltip.textStyle.color": {
         "desc": " 文字的颜色。 ",

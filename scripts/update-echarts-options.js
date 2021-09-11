@@ -15,17 +15,22 @@ const path = require('path');
 
 /** 向接口请求数据，并保存到assets目录 */
 async function getData(key) {
-    await axios.get(`${baseUrl}option.${key}.js?${token}`).then(res => {
+    try {
+        const res = await axios.get(`${baseUrl}option.${key}.js?${token}`);
         if (res.status === 200) {
             const datas = JSON.parse(res.data.slice(26 + key.length));
             const result = {};
-            Object.keys(datas).forEach(name => {
-                const item = datas[name];
+            Object.entries(datas).forEach(([name, item]) => {
                 try {
                     item.desc = html2markdown(item.desc?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '\n\n暂时无法显示\n\n').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
                 } catch (e) {
                     /* eslint-disable-next-line no-console  */
                     console.warn('html2markdown error:', key, '\t', name);
+                }
+                if (!item.uiControl && Object.keys(datas).some(k => k !== name && k.slice(0, name.length) === name)) {
+                    item.uiControl = {
+                        type: 'Object',
+                    };
                 }
                 result[name] = item;
             });
@@ -33,8 +38,9 @@ async function getData(key) {
                 /* eslint-disable-next-line no-console  */
                 console.log(`${key}.json saved successfully.`);
             });
+            return true;
         }
-    }).catch(e => {
+    } catch (e) {
         if (e && e.response) {
             /* eslint-disable-next-line no-console  */
             console.warn(key, e.response?.status);
@@ -42,7 +48,8 @@ async function getData(key) {
             /* eslint-disable-next-line no-console  */
             console.warn(key);
         }
-    });
+    }
+    return false;
 }
 
 // 获取所有选项的类型信息
@@ -50,34 +57,25 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
     if (res.status === 200) {
         // 解析类型信息的数据并保存
         const typeMsgList = JSON.parse(res.data.slice(33)).children;
-        fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/options_outline.json'), JSON.stringify(typeMsgList, null, 4), () => {
-            /* eslint-disable-next-line no-console  */
-            console.log('options_outline.json saved successfully.');
-        });
         // 获取顶级选项的数据
         const r = await axios.get(baseUrl + 'option.js?' + token);
         if (r.status === 200) {
             const datas = JSON.parse(r.data.slice(25));
-            const result = {};
-            Object.keys(datas).forEach(key => {
-                const item = datas[key];
-                item.desc = html2markdown(item.desc.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
-                const target = typeMsgList.find(v => v.prop === key);
-                if (target && !item.uiControl) {
-                    item.uiControl = {
-                        type: target.type,
-                        default: target.default,
-                    };
+            const indexFileData = dealIndex(datas, typeMsgList);
+            // 获取顶级选项下所有选项的数据
+            const keys = Object.keys(datas);
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                if (await getData(key) && indexFileData[key]) {
+                    if (!indexFileData[key].uiControl) {
+                        indexFileData[key].uiControl = {};
+                    }
+                    indexFileData[key].uiControl.detailFileName = key;
                 }
-                result[key] = item;
-            });
-            fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/index.json'), JSON.stringify(result, null, 4), () => {
+            }
+            fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/index.json'), JSON.stringify(indexFileData, null, 4), () => {
                 /* eslint-disable-next-line no-console  */
                 console.log('index.json saved successfully.');
-            });
-            const options = Object.keys(JSON.parse(r.data.slice(25)));
-            options.forEach(async key => {
-                getData(key);
             });
         } else {
             /* eslint-disable-next-line no-console  */
@@ -88,3 +86,91 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
         console.log('options_outline.json Error!');
     }
 });
+
+/** 处理 index.json 文件 */
+function dealIndex(datas, typeMsgList) {
+    const result = {};
+    const seriesOption = {};
+    const dataZoomOption = {};
+    const visualMapOption = {};
+    let exampleBaseOptions = [];
+    Object.keys(datas).forEach(key => {
+        const item = datas[key];
+        item.desc = html2markdown(item.desc.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
+        const target = typeMsgList.find(v => v.prop === key);
+        if (target && !item.uiControl) {
+            item.uiControl = {
+                type: target.type,
+                default: target.default,
+            };
+        }
+        if (item.exampleBaseOptions) {
+            exampleBaseOptions = exampleBaseOptions.concat(...item.exampleBaseOptions);
+            delete item.exampleBaseOptions;
+        }
+        if (key.includes('series')) {
+            item.uiControl = {
+                type: 'Object',
+                required: [{
+                    key: 'type',
+                    value: key.split('-')[1],
+                }],
+                detailFileName: key,
+            };
+            seriesOption[key] = item;
+        } else if (key !== 'dataZoom' && key.includes('dataZoom')) {
+            item.uiControl = {
+                type: 'Object',
+                required: [{
+                    key: 'type',
+                    value: key.split('-')[1],
+                }],
+                detailFileName: key,
+            };
+            dataZoomOption[key] = item;
+        } else if (key !== 'visualMap' && key.includes('visualMap')) {
+            item.uiControl = {
+                type: 'Object',
+                required: [{
+                    key: 'type',
+                    value: key.split('-')[1],
+                }],
+                detailFileName: key,
+            };
+            visualMapOption[key] = item;
+        } else {
+            if (['dataZoom', 'visualMap'].includes(key)) {
+                item.uiControl.detailFileName = key;
+            }
+            result[key] = item;
+        }
+    });
+    result.series = {
+        desc: '图形系列',
+        uiControl: {
+            type: 'Array',
+            detailFileName: 'series',
+        },
+    };
+    // 保存 exampleBaseOptions
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/exampleBaseOptions/index.json'), JSON.stringify(exampleBaseOptions, null, 4), () => {
+        /* eslint-disable-next-line no-console  */
+        console.log('exampleBaseOptions.json saved successfully.');
+    });
+    // 创建一个 series.json 文件
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/series.json'), JSON.stringify(seriesOption, null, 4), () => {
+        /* eslint-disable-next-line no-console  */
+        console.log('series.json saved successfully.');
+    });
+    // 创建一个 dataZoom.json 文件
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/dataZoom.json'), JSON.stringify(dataZoomOption, null, 4), () => {
+        /* eslint-disable-next-line no-console  */
+        console.log('series.json saved successfully.');
+    });
+    // 创建一个 visualMap.json 文件
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/visualMap.json'), JSON.stringify(visualMapOption, null, 4), () => {
+        /* eslint-disable-next-line no-console  */
+        console.log('series.json saved successfully.');
+    });
+    return result;
+}

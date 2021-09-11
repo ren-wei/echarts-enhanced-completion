@@ -31,6 +31,11 @@ interface BaseOptions {
 	title: string;
 }
 
+interface RequiredRule {
+	key: string;
+	value: string;
+}
+
 interface UiControl {
 	type: string | string[];
 	default?: string
@@ -39,6 +44,9 @@ interface UiControl {
 	max?: string;
 	step?: string;
 	dims?: string;
+	realName: string;
+	required: Array<RequiredRule>;
+	detailFileName?: string;
 }
 
 interface DescMsg {

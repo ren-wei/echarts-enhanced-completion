@@ -20,7 +20,10 @@
         "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
     },
     "z": {
-        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 "
+        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "left": {
         "desc": " 图例组件离容器左侧的距离。 left 的值可以是像 20 这样的具体像素值，可以是像 '20%' 这样相对于容器高宽的百分比，也可以是 'left', 'center', 'right'。 如果 left 的值为'left', 'center', 'right'，组件会根据相应的位置自动对齐。 ",
@@ -116,7 +119,10 @@
         }
     },
     "itemStyle": {
-        "desc": " 图例的图形样式。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 "
+        "desc": " 图例的图形样式。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -224,10 +230,16 @@
         }
     },
     "itemStyle.decal": {
-        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show"
+        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "itemStyle.decal.symbol": {
-        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData"
+        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "itemStyle.decal.symbolSize": {
         "desc": " 取值范围：0 到 1，表示占图案区域的百分比。 "
@@ -257,7 +269,10 @@
         "desc": " 生成的图案在未重复之前的高度上限。通常不需要设置该值，当你发现图案在重复的时候出现不连续的接缝时，可以尝试提高该值。 "
     },
     "lineStyle": {
-        "desc": " 图例图形中线的样式，用于诸如折线图图例横线的样式设置。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 "
+        "desc": " 图例图形中线的样式，用于诸如折线图图例横线的样式设置。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -393,10 +408,16 @@
         }
     },
     "selected": {
-        "desc": " 图例选中状态表。 示例： \n\n    selected: {\n        // 选中'系列1'\n        '系列1': true,\n        // 不选中'系列2'\n        '系列2': false\n    }\n    \n\n"
+        "desc": " 图例选中状态表。 示例： \n\n    selected: {\n        // 选中'系列1'\n        '系列1': true,\n        // 不选中'系列2'\n        '系列2': false\n    }\n    \n\n",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "textStyle": {
-        "desc": " 图例的公用文本样式。 "
+        "desc": " 图例的公用文本样式。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "textStyle.color": {
         "desc": " 文字的颜色。 ",
@@ -624,7 +645,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "textStyle.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "textStyle.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
@@ -848,7 +872,10 @@
         }
     },
     "data": {
-        "desc": " 图例的数据数组。数组项通常为一个字符串，每一项代表一个系列的 name（如果是[饼图][0]，也可以是饼图单个数据的 name）。图例组件会自动根据对应系列的图形标记（symbol）来绘制自己的颜色和标记，特殊字符串 ''（空字符串）或者 '\\n'（换行字符串）用于图例的换行。 如果 data 没有被指定，会自动从当前系列中获取。多数系列会取自 [series.name][1] 或者 [series.encode][2] 的 seriesName 所指定的维度。如 [饼图][0] and [漏斗图][3] 等会取自 series.data 中的 name。 如果要设置单独一项的样式，也可以把该项写成配置项对象。此时必须使用 name 属性对应表示系列的 name。 示例 \n\n    data: [{\n        name: '系列1',\n        // 强制设置图形为圆。\n        icon: 'circle',\n        // 设置文本为红色\n        textStyle: {\n            color: 'red'\n        }\n    }]\n    \n\n[0]: #series-pie\n[1]: #series.name\n[2]: #series.encode\n[3]: #series-funnel"
+        "desc": " 图例的数据数组。数组项通常为一个字符串，每一项代表一个系列的 name（如果是[饼图][0]，也可以是饼图单个数据的 name）。图例组件会自动根据对应系列的图形标记（symbol）来绘制自己的颜色和标记，特殊字符串 ''（空字符串）或者 '\\n'（换行字符串）用于图例的换行。 如果 data 没有被指定，会自动从当前系列中获取。多数系列会取自 [series.name][1] 或者 [series.encode][2] 的 seriesName 所指定的维度。如 [饼图][0] and [漏斗图][3] 等会取自 series.data 中的 name。 如果要设置单独一项的样式，也可以把该项写成配置项对象。此时必须使用 name 属性对应表示系列的 name。 示例 \n\n    data: [{\n        name: '系列1',\n        // 强制设置图形为圆。\n        icon: 'circle',\n        // 设置文本为红色\n        textStyle: {\n            color: 'red'\n        }\n    }]\n    \n\n[0]: #series-pie\n[1]: #series.name\n[2]: #series.encode\n[3]: #series-funnel",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.name": {
         "desc": " 图例项的名称，应等于某系列的name值（如果是饼图，也可以是饼图单个数据的 name）。 "
@@ -857,7 +884,10 @@
         "desc": " 图例项的 icon。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData"
     },
     "data.itemStyle": {
-        "desc": " 图例项的图形样式。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 "
+        "desc": " 图例项的图形样式。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -965,10 +995,16 @@
         }
     },
     "data.itemStyle.decal": {
-        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show"
+        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.itemStyle.decal.symbol": {
-        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData"
+        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.itemStyle.decal.symbolSize": {
         "desc": " 取值范围：0 到 1，表示占图案区域的百分比。 "
@@ -998,7 +1034,10 @@
         "desc": " 生成的图案在未重复之前的高度上限。通常不需要设置该值，当你发现图案在重复的时候出现不连续的接缝时，可以尝试提高该值。 "
     },
     "data.lineStyle": {
-        "desc": " 图例项图形中线的样式，用于诸如折线图图例横线的样式设置。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 "
+        "desc": " 图例项图形中线的样式，用于诸如折线图图例横线的样式设置。其属性的取值为 'inherit' 时，表示继承系列中的属性值。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -1183,7 +1222,10 @@
         "desc": "[legend.type][0] 为 'scroll' 时有效。 图例控制块中，页信息的显示格式。默认为 '{current}/{total}'，其中 {current} 是当前页号（从 1 开始计数），{total} 是总页数。 如果 pageFormatter 使用函数，须返回字符串，参数为： \n\n    {\n        current: number\n        total: number\n    }\n    \n\n参见 [滚动图例（垂直）][1] 或 [滚动图例（水平）][2]。\n\n[0]: #legend.type\n[1]: https://echarts.apache.org/examples/zh/editor.html?c=pie-legend&amp;edit=1&amp;reset=1\n[2]: https://echarts.apache.org/examples/zh/editor.html?c=radar2&amp;edit=1&amp;reset=1"
     },
     "pageIcons": {
-        "desc": "[legend.type][0] 为 'scroll' 时有效。 图例控制块的图标。\n\n[0]: #legend.type"
+        "desc": "[legend.type][0] 为 'scroll' 时有效。 图例控制块的图标。\n\n[0]: #legend.type",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "pageIcons.horizontal": {
         "desc": "[legend.orient][0] 为 'horizontal' 时的翻页按钮图标。 是一个数组，表示 [previous page button, next page button]。默认值为 ['M0,0L12,-10L12,10z', 'M0,0L-12,-10L-12,10z']，。 数组中每项， 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][1]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n参见 [滚动图例（垂直）][2] 或 [滚动图例（水平）][3]。\n\n[0]: #legend.orient\n[1]: http://www.w3.org/TR/SVG/paths.html#PathData\n[2]: https://echarts.apache.org/examples/zh/editor.html?c=pie-legend&amp;edit=1&amp;reset=1\n[3]: https://echarts.apache.org/examples/zh/editor.html?c=radar2&amp;edit=1&amp;reset=1"
@@ -1214,7 +1256,10 @@
         }
     },
     "pageTextStyle": {
-        "desc": "[legend.type][0] 为 'scroll' 时有效。 图例页信息的文字样式。\n\n[0]: #legend.type"
+        "desc": "[legend.type][0] 为 'scroll' 时有效。 图例页信息的文字样式。\n\n[0]: #legend.type",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "pageTextStyle.color": {
         "desc": " 文字的颜色。 ",
@@ -1375,7 +1420,10 @@
         }
     },
     "emphasis.selectorLabel": {
-        "desc": ">  从 > v4.4.0>  开始支持 "
+        "desc": ">  从 > v4.4.0>  开始支持 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.selectorLabel.show": {
         "desc": " 是否显示标签。 ",
@@ -1652,7 +1700,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "emphasis.selectorLabel.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.selectorLabel.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -1867,10 +1918,16 @@
         }
     },
     "selector": {
-        "desc": ">  从 > v4.4.0>  开始支持 图例组件中的选择器按钮，目前包括全选和反选两种功能。默认不显示，用户可手动开启，也可以手动配置每个按钮的标题。 使用方式如下： \n\n    selector: [\n        {\n            type: 'all or inverse',\n            // 可以是任意你喜欢的 title\n            title: '全选'\n        },\n        {\n            type: 'inverse',\n            title: '反选'\n        }\n    ]\n    \n    // 或\n    selector: true\n    \n    // 或\n    selector: ['all', 'inverse']\n    \n\n"
+        "desc": ">  从 > v4.4.0>  开始支持 图例组件中的选择器按钮，目前包括全选和反选两种功能。默认不显示，用户可手动开启，也可以手动配置每个按钮的标题。 使用方式如下： \n\n    selector: [\n        {\n            type: 'all or inverse',\n            // 可以是任意你喜欢的 title\n            title: '全选'\n        },\n        {\n            type: 'inverse',\n            title: '反选'\n        }\n    ]\n    \n    // 或\n    selector: true\n    \n    // 或\n    selector: ['all', 'inverse']\n    \n\n",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "selectorLabel": {
-        "desc": ">  从 > v4.4.0>  开始支持 选择器按钮的文本标签样式，默认显示。 "
+        "desc": ">  从 > v4.4.0>  开始支持 选择器按钮的文本标签样式，默认显示。 ",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "selectorLabel.show": {
         "desc": " 是否显示标签。 ",
@@ -2147,7 +2204,10 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "selectorLabel.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "selectorLabel.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",

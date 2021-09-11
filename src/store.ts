@@ -16,20 +16,7 @@ export default class Store {
     }
 
     /** 获取文件的内容并解析为对象或数组 */
-    private getFileData(name: string, node: AstNode | null = null): DescMsgObject {
-        // TODO: 通用化处理
-        if (['dataZoom', 'visualMap', 'series'].includes(name)) {
-            if (node && node.type === 'ObjectExpression' && node.properties.length) {
-                const typeName = node.properties.find(v => v.key.name === 'type')?.value.value;
-                if (typeName) {
-                    name += '-' + typeName;
-                } else {
-                    return {};
-                }
-            } else {
-                return {};
-            }
-        }
+    private getFileData(name: string): DescMsgObject {
         if (this.cache.has(name)) {
             return this.cache.get(name) as DescMsgObject;
         }
@@ -39,32 +26,29 @@ export default class Store {
         return result;
     }
     /**
-     * 获取选项的描述信息
-     * @param key 选项的key
+     * 获取选项下各项的描述对象
+     * @param keys 选项的 key 列表
      */
-    public getOptionDesc(key: string[], node: AstNode | null = null): DescMsgObject {
-        if (key.length) {
-            const datas = this.getFileData(key[0], node);
-            // 将返回的文件数据转换为 index.json 一致的格式
-            if (key.length === 1) {
-                const keyList = Object.keys(datas).filter(name => !name.includes('.'));
-                const result: DescMsgObject = {};
-                keyList.forEach(name => {
-                    result[name] = datas[name];
-                });
-                return result;
+    public getOptionDesc(keys: string[]): DescMsgObject {
+        let data: DescMsgObject = this.topOptionDesc;
+        let prop: string = '';
+        for (let i = 0; i < keys.length; i++) {
+            const detailFileName = data[keys[i]]?.uiControl?.detailFileName;
+            if (detailFileName) {
+                data = this.getFileData(detailFileName);
             } else {
-                key.shift();
-                const keyList = Object.keys(datas).filter(name => name.includes(key.join('.')) && name.split('.').length === key.length + 1);
-                const result: DescMsgObject = {};
-                keyList.forEach(name => {
-                    const nameList = name.split('.');
-                    result[nameList[nameList.length - 1]] = datas[name];
-                });
-                return result;
+                prop = keys.slice(i).join('.');
+                break;
             }
-        } else {
-            return this.topOptionDesc;
         }
+        const result: DescMsgObject = {};
+        // 过滤其他层级的属性
+        Object.entries(data).forEach(([key, item]) => {
+            if (key.includes(prop) && (!prop && key.split('.').length === 1 || prop && key.split('.').length === prop.split('.').length + 1)) {
+                const keyList = key.split('.');
+                result[keyList[keyList.length - 1]] = item;
+            }
+        });
+        return result;
     }
 }
