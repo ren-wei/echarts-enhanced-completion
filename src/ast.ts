@@ -5,7 +5,7 @@ export default class Ast {
     public validate: boolean = false; // 目标是否存在
     public expression: AstNode | null = null; // 目标的 ast 表达式
     public minAst: AstNode | null = null; // 光标所在的最小 Ast 节点
-    public record: RecordItem[] = []; // 访问节点的路径记录
+    public paths: Paths = []; // 访问节点的路径
 
     constructor(keyword: string, document: vscode.TextDocument, position: vscode.Position) {
         // 获取目标的范围
@@ -13,11 +13,12 @@ export default class Ast {
         // 当前位置是否在范围内
         this.validate = range !== null;
         if (!range) return;
-        // 获取光标所在的最小Ast节点和访问节点的路径记录
-        const ast = espree.parse('(' + document.getText(range) + ')', { ecmaVersion: 'latest' });
+        // 获取光标所在的最小Ast节点和访问节点的路径
+        const targetText = '(' + document.getText(range) + ')';
+        const ast = espree.parse(targetText, { ecmaVersion: 'latest' });
         this.expression = ast.body[0].expression;
         if (this.expression) {
-            [this.minAst, this.record] = this.getAstNode(this.expression, document.offsetAt(position) - document.offsetAt(range.start) + 2);
+            [this.minAst, this.paths] = this.getAstNode(this.expression, document.offsetAt(position) - document.offsetAt(range.start) + 2);
         }
     }
 
@@ -65,36 +66,35 @@ export default class Ast {
     }
 
     /** 根据位置获取最小节点，并记录获取路径 */
-    private getAstNode(node: AstNode, index: number, record: RecordItem[] = []): [AstNode, RecordItem[]] {
+    private getAstNode(node: AstNode, index: number, paths: Paths = []): [AstNode, Paths] {
         const keyList: Key[] = espree.VisitorKeys[node.type];
-        let targetKey: Key | '' = '';
-        let isArray: boolean = false;
         for (let i = 0; i < keyList.length; i++) {
             const key = keyList[i];
             if (Array.isArray(node[key])) {
                 const i = (node[key] as Array<AstNode>).findIndex(item => this.isNodeContainIndex(item, index));
                 if (i !== -1) {
-                    targetKey = key;
-                    isArray = true;
-                    record.push({ key: key, index: i });
-                    break;
+                    const targetNode = (node[key] as Array<AstNode>)[i];
+                    switch (targetNode.type) {
+                        case 'Property':
+                            paths.push(targetNode.key.name);
+                            return this.getAstNode(targetNode, index, paths);
+                        case 'ObjectExpression':
+                            const item: SimpleObject = {};
+                            targetNode.properties.forEach((property) => {
+                                if (property.value.raw) {
+                                    item[property.key.name] = property.value.raw;
+                                }
+                            });
+                            paths.push(item);
+                            return this.getAstNode(targetNode, index, paths);
+                    }
                 }
             } else {
                 if (this.isNodeContainIndex(node[key] as AstNode, index)) {
-                    targetKey = key;
-                    record.push({ key: key, index: null });
-                    break;
+                    return this.getAstNode(node[key] as AstNode, index, paths);
                 }
             }
         }
-        if (targetKey) {
-            if (isArray) {
-                return this.getAstNode((node[targetKey] as Array<AstNode>)[record[record.length - 1].index as number], index, record);
-            } else {
-                return this.getAstNode(node[targetKey] as AstNode, index, record);
-            }
-        } else {
-            return [node, record];
-        }
+        return [node, paths];
     }
 }

@@ -9,7 +9,7 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
     const keyword = '/** @type EChartsOption */';
     const ast = new Ast(keyword, document, position);
     if (!ast.validate) return [];
-    const options = new Options(ast.expression as AstNode, ast.minAst as AstNode, ast.record, store);
+    const options = new Options(ast, store);
     return options.getCompletionItem();
 }
 
@@ -17,7 +17,7 @@ export function provideHover(document: vscode.TextDocument, position: vscode.Pos
     const keyword = '/** @type EChartsOption */';
     const ast = new Ast(keyword, document, position);
     if (!ast.validate) return null;
-    const options = new Options(ast.expression as AstNode, ast.minAst as AstNode, ast.record, store);
+    const options = new Options(ast, store);
     return options.getHover();
 }
 

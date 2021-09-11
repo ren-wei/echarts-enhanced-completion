@@ -113,7 +113,7 @@ function dealIndex(datas, typeMsgList) {
                 type: 'Object',
                 required: [{
                     key: 'type',
-                    value: key.split('-')[1],
+                    value: `'${key.split('-')[1]}'`,
                 }],
                 detailFileName: key,
             };
@@ -123,7 +123,7 @@ function dealIndex(datas, typeMsgList) {
                 type: 'Object',
                 required: [{
                     key: 'type',
-                    value: key.split('-')[1],
+                    value: `'${key.split('-')[1]}'`,
                 }],
                 detailFileName: key,
             };
@@ -133,7 +133,7 @@ function dealIndex(datas, typeMsgList) {
                 type: 'Object',
                 required: [{
                     key: 'type',
-                    value: key.split('-')[1],
+                    value: `'${key.split('-')[1]}'`,
                 }],
                 detailFileName: key,
             };

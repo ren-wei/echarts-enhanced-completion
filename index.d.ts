@@ -7,14 +7,12 @@ interface AstNode {
 	elements: [AstNode];
 	key: AstNode;
 	value: AstNode;
+	raw: string;
 }
 
 type Key = 'type' | 'start' | 'end' | 'properties' | 'elements' | 'key' | 'value';
 
-interface RecordItem {
-	key: string;
-	index: number | null;
-}
+type Paths = Array<string | SimpleObject>;
 
 interface TypeMsg {
 	type: string;
@@ -44,8 +42,7 @@ interface UiControl {
 	max?: string;
 	step?: string;
 	dims?: string;
-	realName: string;
-	required: Array<RequiredRule>;
+	required?: Array<RequiredRule>;
 	detailFileName?: string;
 }
 
@@ -66,4 +63,8 @@ interface PathMsg {
 
 interface KeyFunc {
 	[propName: string]: Function;
+}
+
+interface SimpleObject {
+	[propName: string]: string | number | boolean;
 }

@@ -25,30 +25,45 @@ export default class Store {
         this.cache.set(name, result);
         return result;
     }
-    /**
-     * 获取选项下各项的描述对象
-     * @param keys 选项的 key 列表
-     */
-    public getOptionDesc(keys: string[]): DescMsgObject {
+    /** 获取选项下各项的描述对象 */
+    public getOptionDesc(paths: Paths): [DescMsgObject, boolean] {
         let data: DescMsgObject = this.topOptionDesc;
         let prop: string = '';
-        for (let i = 0; i < keys.length; i++) {
-            const detailFileName = data[keys[i]]?.uiControl?.detailFileName;
-            if (detailFileName) {
-                data = this.getFileData(detailFileName);
+        let isArray: boolean = false;
+        for (let i = 0; i < paths.length; i++) {
+            if (typeof paths[i] === 'string') {
+                const path = paths[i] as string;
+                isArray = data[path]?.uiControl?.type === 'Array';
+                const detailFileName = data[path]?.uiControl?.detailFileName;
+                if (detailFileName) {
+                    data = this.getFileData(detailFileName);
+                } else {
+                    prop = paths.slice(i).filter(v => typeof v === 'string').join('.');
+                    break;
+                }
             } else {
-                prop = keys.slice(i).join('.');
-                break;
+                const path = paths[i] as SimpleObject;
+                isArray = false;
+                const target = Object.values(data).find(item => {
+                    return item.uiControl?.required?.every(v => {
+                        return path[v.key] === v.value;
+                    });
+                });
+                if (target?.uiControl?.detailFileName) {
+                    data = this.getFileData(target.uiControl.detailFileName);
+                } else {
+                    return [{}, false];
+                }
             }
         }
         const result: DescMsgObject = {};
         // 过滤其他层级的属性
         Object.entries(data).forEach(([key, item]) => {
-            if (key.includes(prop) && (!prop && key.split('.').length === 1 || prop && key.split('.').length === prop.split('.').length + 1)) {
+            if (key !== prop && key.slice(0, prop.length) === prop && !key.slice(prop.length + 1).includes('.')) {
                 const keyList = key.split('.');
                 result[keyList[keyList.length - 1]] = item;
             }
         });
-        return result;
+        return [result, isArray];
     }
 }
