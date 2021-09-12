@@ -13,6 +13,8 @@ const html2markdown = require('html2markdown');
 const fs = require('fs');
 const path = require('path');
 
+const otherDesc = require('./data/echartsOptionOhterDesc');
+
 /** 向接口请求数据，并保存到assets目录 */
 async function getData(key) {
     try {
@@ -22,15 +24,44 @@ async function getData(key) {
             const result = {};
             Object.entries(datas).forEach(([name, item]) => {
                 try {
-                    item.desc = html2markdown(item.desc?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '\n\n暂时无法显示\n\n').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
+                    item.desc = html2markdown(item.desc
+                        ?.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '\n\n暂时无法显示\n\n')
+                        .replace(/<p>|<\/p>/g, '\n')
+                        .replace(/&#39;/g, "'")
+                        .replace(/&lt;/g, '<')
+                        .replace(/&gt;/g, '>')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&amp;/g, '&'));
                 } catch (e) {
-                    /* eslint-disable-next-line no-console  */
-                    console.warn('html2markdown error:', key, '\t', name);
+                    switch (name) {
+                        case 'radius':
+                            item.desc = otherDesc.radiusDesc;
+                            break;
+                        case 'minOpen':
+                            item.desc = otherDesc.minOpenDesc;
+                            break;
+                        case 'data.target':
+                            item.desc = otherDesc.targetDesc;
+                            break;
+                        case 'feature.dataView.optionToContent':
+                            item.desc = otherDesc.optionToContentDesc;
+                            break;
+                        default:
+                            if (name.split('.')[name.split('.').length - 1] === 'position') {
+                                item.desc = otherDesc.positionDesc;
+                            } else {
+                                /* eslint-disable-next-line no-console  */
+                                console.warn('html2markdown error:', key, '\t', name);
+                            }
+                    }
                 }
                 if (!item.uiControl && Object.keys(datas).some(k => k !== name && k.slice(0, name.length) === name)) {
                     item.uiControl = {
                         type: 'Object',
                     };
+                }
+                if (item.uiControl?.default) {
+                    item.uiControl.default.replace(/&#39;/g, "'");
                 }
                 result[name] = item;
             });
@@ -165,12 +196,12 @@ function dealIndex(datas, typeMsgList) {
     // 创建一个 dataZoom.json 文件
     fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/dataZoom.json'), JSON.stringify(dataZoomOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
-        console.log('series.json saved successfully.');
+        console.log('dataZoom.json saved successfully.');
     });
     // 创建一个 visualMap.json 文件
     fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/visualMap.json'), JSON.stringify(visualMapOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
-        console.log('series.json saved successfully.');
+        console.log('visualMap.json saved successfully.');
     });
     return result;
 }
