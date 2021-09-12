@@ -6,6 +6,20 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.1.0 (2021-09-12)
+
+### Added
+
+- 增加 hover 属性显示说明
+
+### Fixed
+
+- 修复部分属性无法显示的问题
+
+- 修复 html 转移字符没有正确显示的问题
+
+- 修复部分属性显示的说明与官网不对应的问题
+
 ## 1.0.3 (2021-09-04)
 
 ### Added
