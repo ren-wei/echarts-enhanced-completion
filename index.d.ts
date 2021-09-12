@@ -32,6 +32,7 @@ interface BaseOptions {
 interface RequiredRule {
 	key: string;
 	value: string;
+	valueRegExp: string; 
 }
 
 interface UiControl {

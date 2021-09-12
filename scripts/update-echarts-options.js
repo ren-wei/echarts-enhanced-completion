@@ -145,6 +145,7 @@ function dealIndex(datas, typeMsgList) {
                 required: [{
                     key: 'type',
                     value: `'${key.split('-')[1]}'`,
+                    valueRegExp: `^['"]${key.split('-')[1]}['"]$`,
                 }],
                 detailFileName: key,
             };
@@ -155,6 +156,7 @@ function dealIndex(datas, typeMsgList) {
                 required: [{
                     key: 'type',
                     value: `'${key.split('-')[1]}'`,
+                    valueRegExp: `^['"]${key.split('-')[1]}['"]$`,
                 }],
                 detailFileName: key,
             };
@@ -165,6 +167,7 @@ function dealIndex(datas, typeMsgList) {
                 required: [{
                     key: 'type',
                     value: `'${key.split('-')[1]}'`,
+                    valueRegExp: `^['"]${key.split('-')[1]}['"]$`,
                 }],
                 detailFileName: key,
             };

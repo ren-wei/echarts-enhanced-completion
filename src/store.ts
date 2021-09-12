@@ -46,7 +46,7 @@ export default class Store {
                 isArray = false;
                 const target = Object.values(data).find(item => {
                     return item.uiControl?.required?.every(v => {
-                        return path[v.key] === v.value;
+                        return RegExp(v.valueRegExp).test(String(path[v.key]));
                     });
                 });
                 if (target?.uiControl?.detailFileName) {
