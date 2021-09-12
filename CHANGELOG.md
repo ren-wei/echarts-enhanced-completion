@@ -16,7 +16,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - 修复部分属性无法显示的问题
 
-- 修复 html 转移字符没有正确显示的问题
+- 修复 html 转义字符没有正确显示的问题
 
 - 修复部分属性显示的说明与官网不对应的问题
 
