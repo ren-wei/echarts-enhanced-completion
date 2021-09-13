@@ -9,10 +9,7 @@
         "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
     },
     "z": {
-        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 "
     },
     "center": {
         "desc": " 旭日图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标。 支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度。 **使用示例：**    // 设置成绝对的像素值\n    center: [400, 300]\n    // 设置成相对的百分比\n    center: ['50%', '50%']\n    \n\n",
@@ -30,10 +27,7 @@
         }
     },
     "data": {
-        "desc": "[series-sunburst.data][0] 的数据格式是树状的，例如： \n\n    [{\n        name: 'parent1',\n        value: 10,          // 可以不写父元素的 value，则为子元素之和；\n                            // 如果写了，并且大于子元素之和，可以用来表示还有其他子元素未显示\n        children: [{\n            value: 5,\n            name: 'child1',\n            children: [{\n                value: 2,\n                name: 'grandchild1',\n                itemStyle: {\n                    // 每个数据可以有自己的样式，覆盖 series.itemStyle 和 level.itemStyle\n                },\n                label: {\n                    // 标签样式，同上\n                }\n            }]\n        }, {\n            value: 3,\n            name: 'child2'\n        }],\n        itemStyle: {\n            // parent1 的图形样式，不会被后代继承\n        },\n        label: {\n            // parent1 的标签样式，不会被后代继承\n        }\n    }, {\n        name: 'parent2',\n        value: 4\n    }]\n    \n\n\n\n[0]: #series-sunburst.data",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "[series-sunburst.data][0] 的数据格式是树状的，例如： \n\n    [{\n        name: 'parent1',\n        value: 10,          // 可以不写父元素的 value，则为子元素之和；\n                            // 如果写了，并且大于子元素之和，可以用来表示还有其他子元素未显示\n        children: [{\n            value: 5,\n            name: 'child1',\n            children: [{\n                value: 2,\n                name: 'grandchild1',\n                itemStyle: {\n                    // 每个数据可以有自己的样式，覆盖 series.itemStyle 和 level.itemStyle\n                },\n                label: {\n                    // 标签样式，同上\n                }\n            }]\n        }, {\n            value: 3,\n            name: 'child2'\n        }],\n        itemStyle: {\n            // parent1 的图形样式，不会被后代继承\n        },\n        label: {\n            // parent1 的标签样式，不会被后代继承\n        }\n    }, {\n        name: 'parent2',\n        value: 4\n    }]\n    \n\n\n\n[0]: #series-sunburst.data"
     },
     "data.value": {
         "desc": " 数据值，如果包含 children，则可以不写 value 值。这时，将使用子元素的 value 之和作为父元素的 value。如果 value 大于子元素之和，可以用来表示还有其他子元素未显示。 "
@@ -48,10 +42,7 @@
         "desc": "意义同 HTML 标签中的 target，参见 [series-sunburst.data.link][0]。可选值为：'blank' 或 'self'。\n\n[0]: #series-sunburst.data.link"
     },
     "data.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "data.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -346,10 +337,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "data.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "data.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -564,10 +552,7 @@
         }
     },
     "data.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "data.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -696,10 +681,7 @@
         }
     },
     "data.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "data.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -807,16 +789,10 @@
         }
     },
     "data.itemStyle.decal": {
-        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show"
     },
     "data.itemStyle.decal.symbol": {
-        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData"
     },
     "data.itemStyle.decal.symbolSize": {
         "desc": " 取值范围：0 到 1，表示占图案区域的百分比。 "
@@ -846,10 +822,7 @@
         "desc": " 生成的图案在未重复之前的高度上限。通常不需要设置该值，当你发现图案在重复的时候出现不连续的接缝时，可以尝试提高该值。 "
     },
     "label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "label.rotate": {
         "desc": " 如果是 number 类型，则表示标签的旋转角，从 -90 度到 90 度，正值是逆时针。 除此之外，还可以是字符串 'radial' 表示径向旋转、'tangential' 表示切向旋转。 默认径向旋转，如果不需要文字旋转，可以将其设为 0。 下面的例子展示了不同的 rotate 设置方法： 暂时无法显示 ",
@@ -1144,10 +1117,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -1362,10 +1332,7 @@
         }
     },
     "labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -1494,10 +1461,7 @@
         }
     },
     "itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -1605,16 +1569,10 @@
         }
     },
     "itemStyle.decal": {
-        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 图形的贴花图案，在 [aria.enabled][0] 与 [aria.decal.show][1] 都是 true 的情况下才生效。 如果为 'none' 表示不使用贴花图案。\n\n[0]: #aria.enabled\n[1]: #aria.decal.show"
     },
     "itemStyle.decal.symbol": {
-        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 贴花的图案，如果是 string[] 表示循环使用数组中的图案。 ECharts 提供的标记类型包括 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none' 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData"
     },
     "itemStyle.decal.symbolSize": {
         "desc": " 取值范围：0 到 1，表示占图案区域的百分比。 "
@@ -1666,10 +1624,7 @@
         }
     },
     "emphasis": {
-        "desc": " 高亮状态配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 高亮状态配置。 "
     },
     "emphasis.focus": {
         "desc": ">  从 > v5.0.0>  开始支持 在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置： \n\n* 'none' 不淡出其它图形，默认使用该配置。\n* 'self' 只聚焦（不淡出）当前高亮的数据的图形。\n\n* 'series' 聚焦当前高亮的数据所在的系列的所有图形。\n\n* 'ancestor' 聚焦所有祖先节点\n* 'descendant' 聚焦所有子孙节点\n\n**示例：** 下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。 \n\n    emphasis: {\n        focus: 'series',\n        blurScope: 'coordinateSystem'\n    }\n    \n\n暂时无法显示 "
@@ -1678,10 +1633,7 @@
         "desc": ">  从 > v5.0.0>  开始支持 在开启focus的时候，可以通过blurScope配置淡出的范围。支持如下配置 \n\n* 'coordinateSystem' 淡出范围为坐标系，默认使用该配置。\n* 'series' 淡出范围为系列。\n* 'global' 淡出范围为全局。\n\n"
     },
     "emphasis.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "emphasis.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -1976,10 +1928,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "emphasis.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2194,10 +2143,7 @@
         }
     },
     "emphasis.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "emphasis.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -2305,10 +2251,7 @@
         }
     },
     "emphasis.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -2416,16 +2359,10 @@
         }
     },
     "blur": {
-        "desc": " 淡出状态配置。开启 [emphasis.focus][0] 后有效。\n\n[0]: #series-sunburst.emphasis.focus",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 淡出状态配置。开启 [emphasis.focus][0] 后有效。\n\n[0]: #series-sunburst.emphasis.focus"
     },
     "blur.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "blur.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -2720,10 +2657,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "blur.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2938,10 +2872,7 @@
         }
     },
     "blur.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "blur.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -3049,10 +2980,7 @@
         }
     },
     "blur.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "blur.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -3160,16 +3088,10 @@
         }
     },
     "select": {
-        "desc": " 选中状态配置。开启 [selectedMode][0] 后有效。\n\n[0]: #series-sunburst.selectedMode",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 选中状态配置。开启 [selectedMode][0] 后有效。\n\n[0]: #series-sunburst.selectedMode"
     },
     "select.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "select.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -3464,10 +3386,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "select.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -3682,10 +3601,7 @@
         }
     },
     "select.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "select.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -3793,10 +3709,7 @@
         }
     },
     "select.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "select.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -3911,16 +3824,10 @@
         }
     },
     "levels": {
-        "desc": "**多层配置** 旭日图是一种有层次的结构，为了方便同一层样式的配置，我们提供了 levels 配置项。它是一个数组，其中的第 0 项表示数据下钻后返回上级的图形，其后的每一项分别表示从圆心向外层的层级。 例如，假设我们没有数据下钻功能，并且希望将最内层的扇形块的颜色设为红色，文字设为蓝色，可以这样设置： \n\n    series: {\n        // ...\n        levels: [\n            {\n                // 留给数据下钻点的空白配置\n            },\n            {\n                // 最靠内测的第一层\n                itemStyle: {\n                    color: 'red'\n                },\n                label: {\n                    color: 'blue'\n                }\n            },\n            {\n                // 第二层 ...\n            }\n        ]\n    }\n    \n\n",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "**多层配置** 旭日图是一种有层次的结构，为了方便同一层样式的配置，我们提供了 levels 配置项。它是一个数组，其中的第 0 项表示数据下钻后返回上级的图形，其后的每一项分别表示从圆心向外层的层级。 例如，假设我们没有数据下钻功能，并且希望将最内层的扇形块的颜色设为红色，文字设为蓝色，可以这样设置： \n\n    series: {\n        // ...\n        levels: [\n            {\n                // 留给数据下钻点的空白配置\n            },\n            {\n                // 最靠内测的第一层\n                itemStyle: {\n                    color: 'red'\n                },\n                label: {\n                    color: 'blue'\n                }\n            },\n            {\n                // 第二层 ...\n            }\n        ]\n    }\n    \n\n"
     },
     "levels.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "levels.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -4215,10 +4122,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "levels.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "levels.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -4433,10 +4337,7 @@
         }
     },
     "levels.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "levels.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -4544,10 +4445,7 @@
         }
     },
     "levels.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "levels.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -4655,16 +4553,10 @@
         }
     },
     "levels.emphasis": {
-        "desc": " 高亮状态配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 高亮状态配置。 "
     },
     "levels.emphasis.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "levels.emphasis.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -4959,10 +4851,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "levels.emphasis.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "levels.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -5177,10 +5066,7 @@
         }
     },
     "levels.emphasis.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "levels.emphasis.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -5288,10 +5174,7 @@
         }
     },
     "levels.emphasis.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "levels.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -5399,16 +5282,10 @@
         }
     },
     "levels.blur": {
-        "desc": " 淡出状态配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 淡出状态配置。 "
     },
     "levels.blur.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "levels.blur.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -5703,10 +5580,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "levels.blur.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "levels.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -5921,10 +5795,7 @@
         }
     },
     "levels.blur.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "levels.blur.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -6032,10 +5903,7 @@
         }
     },
     "levels.blur.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "levels.blur.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -6143,16 +6011,10 @@
         }
     },
     "levels.select": {
-        "desc": " 选中状态配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 选中状态配置。 "
     },
     "levels.select.label": {
-        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
     "levels.select.label.rotate": {
         "desc": " 同 [label.rotate][0]\n\n[0]: #sunburst.label.rotate",
@@ -6447,10 +6309,7 @@
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
     },
     "levels.select.label.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
     "levels.select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -6665,10 +6524,7 @@
         }
     },
     "levels.select.labelLine": {
-        "desc": " 标签的视觉引导线配置。 ",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 标签的视觉引导线配置。 "
     },
     "levels.select.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
@@ -6776,10 +6632,7 @@
         }
     },
     "levels.select.itemStyle": {
-        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "levels.select.itemStyle.color": {
         "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -6916,10 +6769,7 @@
         }
     },
     "animationDelay": {
-        "desc": " 初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。 如下示例： \n\n    animationDelay: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay",
-        "uiControl": {
-            "type": "Object"
-        }
+        "desc": " 初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。 如下示例： \n\n    animationDelay: function (idx) {\n        // 越往后的数据延迟越大\n        return idx * 100;\n    }\n    \n\n也可以看[该示例][0]\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=bar-animation-delay"
     },
     "animationDurationUpdate": {
         "desc": " 数据更新动画的时长。 支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果： \n\n    animationDurationUpdate: function (idx) {\n        // 越往后的数据时长越大\n        return idx * 100;\n    }\n    \n\n",

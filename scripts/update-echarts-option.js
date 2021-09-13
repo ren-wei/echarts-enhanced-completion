@@ -16,7 +16,7 @@ const path = require('path');
 const patch = require('./data/echartsOptionPatch');
 
 /** 向接口请求数据，并保存到assets目录 */
-async function getData(key) {
+async function getData(key, typeMsg) {
     try {
         const res = await axios.get(`${baseUrl}option.${key}.js?${token}`);
         if (res.status === 200) {
@@ -55,12 +55,30 @@ async function getData(key) {
                             }
                     }
                 }
-                if (!item.uiControl && Object.keys(datas).some(k => k !== name && k.slice(0, name.length) === name)) {
-                    item.uiControl = {
-                        type: 'Object',
-                    };
+                // 增加类型信息
+                if (typeMsg && !item.uiControl?.type) {
+                    const propList = name.split('.');
+                    let target = typeMsg;
+                    for (let i = 0; i < propList.length; i++) {
+                        const prop = propList[i];
+                        target = target.children.find(v => v.prop === prop);
+                        if (!target) {
+                            break;
+                        }
+                    }
+                    // 补充类型信息和默认值
+                    if (target && target !== typeMsg) {
+                        if (target.default !== undefined && !item.uiControl?.default) {
+                            if (!item.uiControl) item.uiControl = {};
+                            item.uiControl.default = target.default;
+                        }
+                        if (target.type) {
+                            if (!item.uiControl) item.uiControl = {};
+                            item.uiControl.type = target.type;
+                        }
+                    }
                 }
-                if (item.uiControl?.default) {
+                if (item.uiControl?.default && typeof item.uiControl.default === 'string') {
                     item.uiControl.default.replace(/&#39;/g, "'");
                 }
                 result[name] = item;
@@ -77,7 +95,7 @@ async function getData(key) {
             console.warn(key, e.response?.status);
         } else {
             /* eslint-disable-next-line no-console  */
-            console.warn(key);
+            console.warn(key, e);
         }
     }
     return false;
@@ -97,7 +115,8 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
             const keys = Object.keys(datas);
             for (let i = 0; i < keys.length; i++) {
                 const key = keys[i];
-                if (await getData(key) && indexFileData[key]) {
+                const typeMsg = typeMsgList.find(v => v.prop === key);
+                if (await getData(key, typeMsg) && indexFileData[key]) {
                     if (!indexFileData[key].uiControl) {
                         indexFileData[key].uiControl = {};
                     }

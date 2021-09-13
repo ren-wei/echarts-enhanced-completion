@@ -1,12 +1,21 @@
 {
     "id": {
-        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 "
+        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 ",
+        "uiControl": {
+            "type": "string"
+        }
     },
     "show": {
-        "desc": " 是否显示地理坐标系组件。 "
+        "desc": " 是否显示地理坐标系组件。 ",
+        "uiControl": {
+            "default": true
+        }
     },
     "map": {
-        "desc": " 使用 [registerMap][0] 注册的地图名称。 **geoJSON 引入示例**    $.get('map/china_geo.json', function (chinaJson) {\n        echarts.registerMap('china', {geoJSON: geoJson});\n        var chart = echarts.init(document.getElementById('main'));\n        chart.setOption({\n            geo: [{\n                map: 'china',\n                ...\n            }]\n        });\n    });\n    \n\n也参见示例 [geoJSON hexbin][1]。 如上所示，ECharts 可以使用 [GeoJSON][2] 格式的数据作为地图的轮廓，你可以获取第三方的 [GeoJSON][2] 数据注册到 ECharts 中。例如第三方资源 [maps][3]。 **SVG 引入示例**    $.get('map/topographic_map.svg', function (svg) {\n        echarts.registerMap('topo', {svg: svg});\n        var chart = echarts.init(document.getElementById('main'));\n        chart.setOption({\n            geo: [{\n                map: 'topo',\n                ...\n            }]\n        });\n    });\n    \n\n也参见示例 [Flight Seatmap][4]。 如上所示，ECharts 也可以使用 SVG 格式的地图。详情参见：[SVG 底图][5]。\n\n[0]: api.html#echarts.registerMap\n[1]: https://echarts.apache.org/examples/zh/editor.html?c=custom-hexbin\n[2]: http://geojson.org/\n[3]: https://github.com/echarts-maps\n[4]: https://echarts.apache.org/examples/zh/editor.html?c=geo-seatmap-flight\n[5]: tutorial.html#%E5%9C%B0%E7%90%86%E5%9D%90%E6%A0%87%E7%B3%BB%E5%92%8C%E5%9C%B0%E5%9B%BE%E7%B3%BB%E5%88%97%E7%9A%84%20SVG%20%E5%BA%95%E5%9B%BE"
+        "desc": " 使用 [registerMap][0] 注册的地图名称。 **geoJSON 引入示例**    $.get('map/china_geo.json', function (chinaJson) {\n        echarts.registerMap('china', {geoJSON: geoJson});\n        var chart = echarts.init(document.getElementById('main'));\n        chart.setOption({\n            geo: [{\n                map: 'china',\n                ...\n            }]\n        });\n    });\n    \n\n也参见示例 [geoJSON hexbin][1]。 如上所示，ECharts 可以使用 [GeoJSON][2] 格式的数据作为地图的轮廓，你可以获取第三方的 [GeoJSON][2] 数据注册到 ECharts 中。例如第三方资源 [maps][3]。 **SVG 引入示例**    $.get('map/topographic_map.svg', function (svg) {\n        echarts.registerMap('topo', {svg: svg});\n        var chart = echarts.init(document.getElementById('main'));\n        chart.setOption({\n            geo: [{\n                map: 'topo',\n                ...\n            }]\n        });\n    });\n    \n\n也参见示例 [Flight Seatmap][4]。 如上所示，ECharts 也可以使用 SVG 格式的地图。详情参见：[SVG 底图][5]。\n\n[0]: api.html#echarts.registerMap\n[1]: https://echarts.apache.org/examples/zh/editor.html?c=custom-hexbin\n[2]: http://geojson.org/\n[3]: https://github.com/echarts-maps\n[4]: https://echarts.apache.org/examples/zh/editor.html?c=geo-seatmap-flight\n[5]: tutorial.html#%E5%9C%B0%E7%90%86%E5%9D%90%E6%A0%87%E7%B3%BB%E5%92%8C%E5%9C%B0%E5%9B%BE%E7%B3%BB%E5%88%97%E7%9A%84%20SVG%20%E5%BA%95%E5%9B%BE",
+        "uiControl": {
+            "default": "''"
+        }
     },
     "roam": {
         "desc": " 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'。设置成 true 为都开启 ",
@@ -16,16 +25,28 @@
         }
     },
     "center": {
-        "desc": " 当前视角的中心点，用经纬度表示 例如： \n\n    center: [115.97, 29.71]\n    \n\n"
+        "desc": " 当前视角的中心点，用经纬度表示 例如： \n\n    center: [115.97, 29.71]\n    \n\n",
+        "uiControl": {
+            "type": "Array"
+        }
     },
     "aspectScale": {
-        "desc": " 这个参数用于 scale 地图的长宽比。 最终的 aspect 的计算方式是：geoBoundingRect.width / geoBoundingRect.height * aspectScale"
+        "desc": " 这个参数用于 scale 地图的长宽比。 最终的 aspect 的计算方式是：geoBoundingRect.width / geoBoundingRect.height * aspectScale",
+        "uiControl": {
+            "default": 0.75
+        }
     },
     "boundingCoords": {
-        "desc": " 二维数组，定义定位的左上角以及右下角分别所对应的经纬度。例如 \n\n    // 设置为一张完整经纬度的世界地图\n    map: 'world',\n    left: 0, top: 0, right: 0, bottom: 0,\n    boundingCoords: [\n        // 定位左上角经纬度\n        [-180, 90],\n        // 定位右下角经纬度\n        [180, -90]\n    ],\n    \n\n"
+        "desc": " 二维数组，定义定位的左上角以及右下角分别所对应的经纬度。例如 \n\n    // 设置为一张完整经纬度的世界地图\n    map: 'world',\n    left: 0, top: 0, right: 0, bottom: 0,\n    boundingCoords: [\n        // 定位左上角经纬度\n        [-180, 90],\n        // 定位右下角经纬度\n        [180, -90]\n    ],\n    \n\n",
+        "uiControl": {
+            "type": "Array"
+        }
     },
     "zoom": {
-        "desc": " 当前视角的缩放比例。 "
+        "desc": " 当前视角的缩放比例。 ",
+        "uiControl": {
+            "default": 1
+        }
     },
     "scaleLimit": {
         "desc": " 滚轮缩放的极限控制，通过min, max最小和最大的缩放值，默认的缩放为1。 ",
@@ -34,19 +55,38 @@
         }
     },
     "scaleLimit.min": {
-        "desc": " 最小的缩放值 "
+        "desc": " 最小的缩放值 ",
+        "uiControl": {
+            "type": "number"
+        }
     },
     "scaleLimit.max": {
-        "desc": " 最大的缩放值 "
+        "desc": " 最大的缩放值 ",
+        "uiControl": {
+            "type": "number"
+        }
     },
     "nameMap": {
-        "desc": " 自定义地区的名称映射，如： \n\n    {\n        'China' : '中国'\n    }\n    \n\n"
+        "desc": " 自定义地区的名称映射，如： \n\n    {\n        'China' : '中国'\n    }\n    \n\n",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "nameProperty": {
-        "desc": ">  从 > v4.8.0>  开始支持 默认是 'name'，针对 GeoJSON 要素的自定义属性名称，作为主键用于关联数据点和 GeoJSON 地理要素。 例如： \n\n    {\n        nameProperty: 'NAME', // 数据点中的 name：Alabama 会关联到 GeoJSON 中 NAME 属性值为 Alabama 的地理要素{\"type\":\"Feature\",\"id\":\"01\",\"properties\":{\"NAME\":\"Alabama\"}, \"geometry\": { ... }}\n        data:[\n            {name: 'Alabama', value: 4822023},\n            {name: 'Alaska', value: 731449},\n        ]\n    }\n    \n\n"
+        "desc": ">  从 > v4.8.0>  开始支持 默认是 'name'，针对 GeoJSON 要素的自定义属性名称，作为主键用于关联数据点和 GeoJSON 地理要素。 例如： \n\n    {\n        nameProperty: 'NAME', // 数据点中的 name：Alabama 会关联到 GeoJSON 中 NAME 属性值为 Alabama 的地理要素{\"type\":\"Feature\",\"id\":\"01\",\"properties\":{\"NAME\":\"Alabama\"}, \"geometry\": { ... }}\n        data:[\n            {name: 'Alabama', value: 4822023},\n            {name: 'Alaska', value: 731449},\n        ]\n    }\n    \n\n",
+        "uiControl": {
+            "default": "'name'"
+        }
     },
     "selectedMode": {
-        "desc": " 选中模式，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选'single'表示单选，或者'multiple'表示多选。 "
+        "desc": " 选中模式，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选'single'表示单选，或者'multiple'表示多选。 ",
+        "uiControl": {
+            "default": false,
+            "type": [
+                "boolean",
+                "string"
+            ]
+        }
     },
     "label": {
         "desc": " 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。 ",
@@ -97,7 +137,13 @@
         }
     },
     "label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -333,10 +379,16 @@
         }
     },
     "label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -491,10 +543,22 @@
         }
     },
     "label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -563,7 +627,11 @@
         }
     },
     "itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "default": "'#eee'",
+            "type": "Color"
+        }
     },
     "itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -677,7 +745,10 @@
         }
     },
     "emphasis.focus": {
-        "desc": ">  从 > v5.1.0>  开始支持 在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置： \n\n* 'none' 不淡出其它图形，默认使用该配置。\n* 'self' 只聚焦（不淡出）当前高亮的数据的图形。\n\n**示例：** 下面代码配置了 geo 在高亮一个图形的时候，淡出所有其它的图形。 \n\n    emphasis: {\n        focus: 'self'\n    }\n    \n\n暂时无法显示 "
+        "desc": ">  从 > v5.1.0>  开始支持 在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置： \n\n* 'none' 不淡出其它图形，默认使用该配置。\n* 'self' 只聚焦（不淡出）当前高亮的数据的图形。\n\n**示例：** 下面代码配置了 geo 在高亮一个图形的时候，淡出所有其它的图形。 \n\n    emphasis: {\n        focus: 'self'\n    }\n    \n\n暂时无法显示 ",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "emphasis.label.show": {
         "desc": " 是否显示标签。 ",
@@ -722,7 +793,13 @@
         }
     },
     "emphasis.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "emphasis.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -958,10 +1035,16 @@
         }
     },
     "emphasis.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "emphasis.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -1116,10 +1199,22 @@
         }
     },
     "emphasis.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "emphasis.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "emphasis.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -1182,7 +1277,11 @@
         }
     },
     "emphasis.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "default": "'#eee'",
+            "type": "Color"
+        }
     },
     "emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -1338,7 +1437,13 @@
         }
     },
     "select.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "select.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -1574,10 +1679,16 @@
         }
     },
     "select.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "select.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "select.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -1732,10 +1843,22 @@
         }
     },
     "select.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "select.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "select.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -1798,7 +1921,11 @@
         }
     },
     "select.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "default": "'#eee'",
+            "type": "Color"
+        }
     },
     "select.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -1954,7 +2081,13 @@
         }
     },
     "blur.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "blur.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2190,10 +2323,16 @@
         }
     },
     "blur.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "blur.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -2348,10 +2487,22 @@
         }
     },
     "blur.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "blur.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "blur.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2414,7 +2565,11 @@
         }
     },
     "blur.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "default": "'#eee'",
+            "type": "Color"
+        }
     },
     "blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -2522,12 +2677,15 @@
         }
     },
     "zlevel": {
-        "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
+        "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 ",
+        "uiControl": {
+            "default": 0
+        }
     },
     "z": {
         "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
         "uiControl": {
-            "type": "Object"
+            "default": 2
         }
     },
     "left": {
@@ -2559,22 +2717,37 @@
         }
     },
     "layoutCenter": {
-        "desc": "layoutCenter 和 layoutSize 提供了除了 left/right/top/bottom/width/height 之外的布局手段。 在使用 left/right/top/bottom/width/height 的时候，可能很难在保持地图高宽比的情况下把地图放在某个盒形区域的正中间，并且保证不超出盒形的范围。此时可以通过 layoutCenter 属性定义地图中心在屏幕中的位置，layoutSize 定义地图的大小。如下示例 \n\n    layoutCenter: ['30%', '30%'],\n    // 如果宽高比大于 1 则宽度为 100，如果小于 1 则高度为 100，保证了不超过 100x100 的区域\n    layoutSize: 100\n    \n\n设置这两个值后 left/right/top/bottom/width/height 无效。 "
+        "desc": "layoutCenter 和 layoutSize 提供了除了 left/right/top/bottom/width/height 之外的布局手段。 在使用 left/right/top/bottom/width/height 的时候，可能很难在保持地图高宽比的情况下把地图放在某个盒形区域的正中间，并且保证不超出盒形的范围。此时可以通过 layoutCenter 属性定义地图中心在屏幕中的位置，layoutSize 定义地图的大小。如下示例 \n\n    layoutCenter: ['30%', '30%'],\n    // 如果宽高比大于 1 则宽度为 100，如果小于 1 则高度为 100，保证了不超过 100x100 的区域\n    layoutSize: 100\n    \n\n设置这两个值后 left/right/top/bottom/width/height 无效。 ",
+        "uiControl": {
+            "type": "Array"
+        }
     },
     "layoutSize": {
-        "desc": " 地图的大小，见 layoutCenter。支持相对于屏幕宽高的百分比或者绝对的像素大小。 "
+        "desc": " 地图的大小，见 layoutCenter。支持相对于屏幕宽高的百分比或者绝对的像素大小。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions": {
         "desc": " 在地图中对特定的区域配置样式。 例如： \n\n    regions: [{\n        name: '广东',\n        itemStyle: {\n            areaColor: 'red',\n            color: 'red'\n        }\n    }]\n    \n\ngeo 区域的颜色也可以被 map series 所控制，参见 [series-map.geoIndex][0]。\n\n[0]: #series-map.geoIndex",
         "uiControl": {
-            "type": "Object"
+            "type": "Array"
         }
     },
     "regions.name": {
-        "desc": " 地图区域的名称，例如 '广东'，'浙江'。 "
+        "desc": " 地图区域的名称，例如 '广东'，'浙江'。 ",
+        "uiControl": {
+            "type": "string"
+        }
     },
     "regions.selected": {
-        "desc": " 该区域是否选中。 "
+        "desc": " 该区域是否选中。 ",
+        "uiControl": {
+            "default": false
+        }
     },
     "regions.itemStyle": {
         "desc": " 该区域的多边形样式设置 ",
@@ -2583,7 +2756,10 @@
         }
     },
     "regions.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "Color"
+        }
     },
     "regions.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -2739,7 +2915,13 @@
         }
     },
     "regions.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "regions.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -2975,10 +3157,16 @@
         }
     },
     "regions.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "regions.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "regions.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -3133,10 +3321,22 @@
         }
     },
     "regions.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -3205,7 +3405,10 @@
         }
     },
     "regions.emphasis.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "Color"
+        }
     },
     "regions.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -3355,7 +3558,13 @@
         }
     },
     "regions.emphasis.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "regions.emphasis.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -3591,10 +3800,16 @@
         }
     },
     "regions.emphasis.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "regions.emphasis.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "regions.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -3749,10 +3964,22 @@
         }
     },
     "regions.emphasis.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.emphasis.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.emphasis.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -3821,7 +4048,10 @@
         }
     },
     "regions.select.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "Color"
+        }
     },
     "regions.select.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -3971,7 +4201,13 @@
         }
     },
     "regions.select.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "regions.select.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -4207,10 +4443,16 @@
         }
     },
     "regions.select.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "regions.select.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "regions.select.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -4365,10 +4607,22 @@
         }
     },
     "regions.select.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.select.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.select.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -4437,7 +4691,10 @@
         }
     },
     "regions.blur.itemStyle.areaColor": {
-        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color"
+        "desc": " 地图区域的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "uiControl": {
+            "type": "Color"
+        }
     },
     "regions.blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -4587,7 +4844,13 @@
         }
     },
     "regions.blur.label.formatter": {
-        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
+        "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {@score}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "regions.blur.label.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -4823,10 +5086,16 @@
         }
     },
     "regions.blur.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "regions.blur.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "regions.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -4981,10 +5250,22 @@
         }
     },
     "regions.blur.label.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.blur.label.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "regions.blur.label.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -5049,7 +5330,7 @@
     "regions.tooltip": {
         "desc": ">  从 > v5.1.0>  开始支持 本 region 中特定的 tooltip 设定。 ",
         "uiControl": {
-            "type": "Object"
+            "type": "*"
         }
     },
     "regions.tooltip.show": {
@@ -5060,13 +5341,30 @@
         }
     },
     "regions.tooltip.position": {
-        "desc": "\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n* Array\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n```javascript\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n* Function\n\n回调函数，格式如下：\n\n```javascript\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数**\npoint: 鼠标位置，如 [20, 40]。\nparams: 同 formatter 的参数相同。\ndom: tooltip 的 dom 对象。\nrect: 只有鼠标在图形上时有效，是一个用 x , y , width , height四个属性表达的图形包围盒。\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。\n\n**返回值：**\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。\n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。\n\n如下示例：\n\n```javascript\nposition: function (point, params, dom, rect, size) {\n    // 固定在顶部\n    return [point[0], '10%'];\n}\n```\n\n或者：\n\n```javascript\nposition: function (pos, params, dom, rect, size) {\n    // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n    var obj = {top: 60};\n    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\n    return obj;\n}\n```\n\n* 'inside'\n    鼠标所在图形的内部中心位置，只在 trigger 为 'item' 的时候有效。\n\n* 'top'\n    鼠标所在图形上侧，只在 trigger 为 'item' 的时候有效。\n\n* 'left'\n    鼠标所在图形左侧，只在 trigger 为 'item' 的时候有效。\n\n* 'right'\n    鼠标所在图形右侧，只在 trigger 为 'item' 的时候有效。\n\n* 'bottom'\n    鼠标所在图形底侧，只在 trigger 为 'item' 的时候有效。\n"
+        "desc": "\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n* Array\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n```javascript\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n* Function\n\n回调函数，格式如下：\n\n```javascript\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数**\npoint: 鼠标位置，如 [20, 40]。\nparams: 同 formatter 的参数相同。\ndom: tooltip 的 dom 对象。\nrect: 只有鼠标在图形上时有效，是一个用 x , y , width , height四个属性表达的图形包围盒。\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。\n\n**返回值：**\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。\n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。\n\n如下示例：\n\n```javascript\nposition: function (point, params, dom, rect, size) {\n    // 固定在顶部\n    return [point[0], '10%'];\n}\n```\n\n或者：\n\n```javascript\nposition: function (pos, params, dom, rect, size) {\n    // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n    var obj = {top: 60};\n    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\n    return obj;\n}\n```\n\n* 'inside'\n    鼠标所在图形的内部中心位置，只在 trigger 为 'item' 的时候有效。\n\n* 'top'\n    鼠标所在图形上侧，只在 trigger 为 'item' 的时候有效。\n\n* 'left'\n    鼠标所在图形左侧，只在 trigger 为 'item' 的时候有效。\n\n* 'right'\n    鼠标所在图形右侧，只在 trigger 为 'item' 的时候有效。\n\n* 'bottom'\n    鼠标所在图形底侧，只在 trigger 为 'item' 的时候有效。\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Array",
+                "Function"
+            ]
+        }
     },
     "regions.tooltip.formatter": {
-        "desc": " 提示框浮层内容格式器，支持字符串模板和回调函数两种形式。 **1. 字符串模板** 模板变量有 {a}, {b}，{c}，{d}，{e}，分别表示系列名，数据名，数据值等。 在 [trigger][0] 为 'axis' 的时候，会有多个系列的数据，此时可以通过 {a0}, {a1}, {a2} 这种后面加索引的方式表示系列的索引。 不同图表类型下的 {a}，{b}，{c}，{d} 含义不一样。 其中变量{a}, {b}, {c}, {d}在不同图表类型下代表数据含义为： \n\n* 折线（区域）图、柱状（条形）图、K线图 : {a}（系列名称），{b}（类目值），{c}（数值）, {d}（无）\n* 散点图（气泡）图 : {a}（系列名称），{b}（数据名称），{c}（数值数组）, {d}（无）\n* 地图 : {a}（系列名称），{b}（区域名称），{c}（合并数值）, {d}（无）\n* 饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。 **示例：**    formatter: '{b0}: {c0}  \n{b1}: {c1}'\n    \n\n**2. 回调函数** 回调函数格式： \n\n    (params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n    \n\n支持返回 HTML 字符串或者创建的 DOM 实例。 第一个参数 params 是 formatter 需要的数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 饼图的百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n在 [trigger][0] 为 'axis' 的时候，或者 tooltip 被 [axisPointer][1] 触发的时候，params 是多个系列的数据数组。其中每项内容格式同上，并且， \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n**注：** ECharts 2.x 使用数组表示各参数的方式不再支持。 第二个参数 ticket 是异步回调标识，配合第三个参数 callback 使用。 第三个参数 callback 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 ticket 和 html 更新提示框浮层内容。 示例： \n\n    formatter: function (params, ticket, callback) {\n        $.get('detail?name=' + params.name, function (content) {\n            callback(ticket, toHTML(content));\n        });\n        return 'Loading';\n    }\n    \n\n\n\n[0]: #tooltip.trigger\n[1]: #xAxis.axisPointer"
+        "desc": " 提示框浮层内容格式器，支持字符串模板和回调函数两种形式。 **1. 字符串模板** 模板变量有 {a}, {b}，{c}，{d}，{e}，分别表示系列名，数据名，数据值等。 在 [trigger][0] 为 'axis' 的时候，会有多个系列的数据，此时可以通过 {a0}, {a1}, {a2} 这种后面加索引的方式表示系列的索引。 不同图表类型下的 {a}，{b}，{c}，{d} 含义不一样。 其中变量{a}, {b}, {c}, {d}在不同图表类型下代表数据含义为： \n\n* 折线（区域）图、柱状（条形）图、K线图 : {a}（系列名称），{b}（类目值），{c}（数值）, {d}（无）\n* 散点图（气泡）图 : {a}（系列名称），{b}（数据名称），{c}（数值数组）, {d}（无）\n* 地图 : {a}（系列名称），{b}（区域名称），{c}（合并数值）, {d}（无）\n* 饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。 **示例：**    formatter: '{b0}: {c0}  \n{b1}: {c1}'\n    \n\n**2. 回调函数** 回调函数格式： \n\n    (params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n    \n\n支持返回 HTML 字符串或者创建的 DOM 实例。 第一个参数 params 是 formatter 需要的数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 饼图的百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n在 [trigger][0] 为 'axis' 的时候，或者 tooltip 被 [axisPointer][1] 触发的时候，params 是多个系列的数据数组。其中每项内容格式同上，并且， \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n**注：** ECharts 2.x 使用数组表示各参数的方式不再支持。 第二个参数 ticket 是异步回调标识，配合第三个参数 callback 使用。 第三个参数 callback 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 ticket 和 html 更新提示框浮层内容。 示例： \n\n    formatter: function (params, ticket, callback) {\n        $.get('detail?name=' + params.name, function (content) {\n            callback(ticket, toHTML(content));\n        });\n        return 'Loading';\n    }\n    \n\n\n\n[0]: #tooltip.trigger\n[1]: #xAxis.axisPointer",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "regions.tooltip.backgroundColor": {
-        "desc": " 提示框浮层的背景颜色。 "
+        "desc": " 提示框浮层的背景颜色。 ",
+        "uiControl": {
+            "default": "'rgba(50,50,50,0.7)'",
+            "type": "Color"
+        }
     },
     "regions.tooltip.borderColor": {
         "desc": " 提示框浮层的边框颜色。 ",
@@ -5234,10 +5532,16 @@
         }
     },
     "regions.tooltip.textStyle.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "regions.tooltip.textStyle.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "regions.tooltip.extraCssText": {
         "desc": " 额外附加到浮层的 css 样式。如下为浮层添加阴影的示例： \n\n    extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n    \n\n",
@@ -5265,13 +5569,30 @@
         }
     },
     "tooltip.position": {
-        "desc": "\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n* Array\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n```javascript\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n* Function\n\n回调函数，格式如下：\n\n```javascript\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数**\npoint: 鼠标位置，如 [20, 40]。\nparams: 同 formatter 的参数相同。\ndom: tooltip 的 dom 对象。\nrect: 只有鼠标在图形上时有效，是一个用 x , y , width , height四个属性表达的图形包围盒。\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。\n\n**返回值：**\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。\n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。\n\n如下示例：\n\n```javascript\nposition: function (point, params, dom, rect, size) {\n    // 固定在顶部\n    return [point[0], '10%'];\n}\n```\n\n或者：\n\n```javascript\nposition: function (pos, params, dom, rect, size) {\n    // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n    var obj = {top: 60};\n    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\n    return obj;\n}\n```\n\n* 'inside'\n    鼠标所在图形的内部中心位置，只在 trigger 为 'item' 的时候有效。\n\n* 'top'\n    鼠标所在图形上侧，只在 trigger 为 'item' 的时候有效。\n\n* 'left'\n    鼠标所在图形左侧，只在 trigger 为 'item' 的时候有效。\n\n* 'right'\n    鼠标所在图形右侧，只在 trigger 为 'item' 的时候有效。\n\n* 'bottom'\n    鼠标所在图形底侧，只在 trigger 为 'item' 的时候有效。\n"
+        "desc": "\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n* Array\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n```javascript\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n* Function\n\n回调函数，格式如下：\n\n```javascript\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数**\npoint: 鼠标位置，如 [20, 40]。\nparams: 同 formatter 的参数相同。\ndom: tooltip 的 dom 对象。\nrect: 只有鼠标在图形上时有效，是一个用 x , y , width , height四个属性表达的图形包围盒。\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。\n\n**返回值：**\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。\n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。\n\n如下示例：\n\n```javascript\nposition: function (point, params, dom, rect, size) {\n    // 固定在顶部\n    return [point[0], '10%'];\n}\n```\n\n或者：\n\n```javascript\nposition: function (pos, params, dom, rect, size) {\n    // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n    var obj = {top: 60};\n    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\n    return obj;\n}\n```\n\n* 'inside'\n    鼠标所在图形的内部中心位置，只在 trigger 为 'item' 的时候有效。\n\n* 'top'\n    鼠标所在图形上侧，只在 trigger 为 'item' 的时候有效。\n\n* 'left'\n    鼠标所在图形左侧，只在 trigger 为 'item' 的时候有效。\n\n* 'right'\n    鼠标所在图形右侧，只在 trigger 为 'item' 的时候有效。\n\n* 'bottom'\n    鼠标所在图形底侧，只在 trigger 为 'item' 的时候有效。\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Array",
+                "Function"
+            ]
+        }
     },
     "tooltip.formatter": {
-        "desc": " 提示框浮层内容格式器，支持字符串模板和回调函数两种形式。 **1. 字符串模板** 模板变量有 {a}, {b}，{c}，{d}，{e}，分别表示系列名，数据名，数据值等。 在 [trigger][0] 为 'axis' 的时候，会有多个系列的数据，此时可以通过 {a0}, {a1}, {a2} 这种后面加索引的方式表示系列的索引。 不同图表类型下的 {a}，{b}，{c}，{d} 含义不一样。 其中变量{a}, {b}, {c}, {d}在不同图表类型下代表数据含义为： \n\n* 折线（区域）图、柱状（条形）图、K线图 : {a}（系列名称），{b}（类目值），{c}（数值）, {d}（无）\n* 散点图（气泡）图 : {a}（系列名称），{b}（数据名称），{c}（数值数组）, {d}（无）\n* 地图 : {a}（系列名称），{b}（区域名称），{c}（合并数值）, {d}（无）\n* 饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。 **示例：**    formatter: '{b0}: {c0}  \n{b1}: {c1}'\n    \n\n**2. 回调函数** 回调函数格式： \n\n    (params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n    \n\n支持返回 HTML 字符串或者创建的 DOM 实例。 第一个参数 params 是 formatter 需要的数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 饼图的百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n在 [trigger][0] 为 'axis' 的时候，或者 tooltip 被 [axisPointer][1] 触发的时候，params 是多个系列的数据数组。其中每项内容格式同上，并且， \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n**注：** ECharts 2.x 使用数组表示各参数的方式不再支持。 第二个参数 ticket 是异步回调标识，配合第三个参数 callback 使用。 第三个参数 callback 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 ticket 和 html 更新提示框浮层内容。 示例： \n\n    formatter: function (params, ticket, callback) {\n        $.get('detail?name=' + params.name, function (content) {\n            callback(ticket, toHTML(content));\n        });\n        return 'Loading';\n    }\n    \n\n\n\n[0]: #tooltip.trigger\n[1]: #xAxis.axisPointer"
+        "desc": " 提示框浮层内容格式器，支持字符串模板和回调函数两种形式。 **1. 字符串模板** 模板变量有 {a}, {b}，{c}，{d}，{e}，分别表示系列名，数据名，数据值等。 在 [trigger][0] 为 'axis' 的时候，会有多个系列的数据，此时可以通过 {a0}, {a1}, {a2} 这种后面加索引的方式表示系列的索引。 不同图表类型下的 {a}，{b}，{c}，{d} 含义不一样。 其中变量{a}, {b}, {c}, {d}在不同图表类型下代表数据含义为： \n\n* 折线（区域）图、柱状（条形）图、K线图 : {a}（系列名称），{b}（类目值），{c}（数值）, {d}（无）\n* 散点图（气泡）图 : {a}（系列名称），{b}（数据名称），{c}（数值数组）, {d}（无）\n* 地图 : {a}（系列名称），{b}（区域名称），{c}（合并数值）, {d}（无）\n* 饼图、仪表盘、漏斗图: {a}（系列名称），{b}（数据项名称），{c}（数值）, {d}（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。 **示例：**    formatter: '{b0}: {c0}  \n{b1}: {c1}'\n    \n\n**2. 回调函数** 回调函数格式： \n\n    (params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n    \n\n支持返回 HTML 字符串或者创建的 DOM 实例。 第一个参数 params 是 formatter 需要的数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 饼图的百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n在 [trigger][0] 为 'axis' 的时候，或者 tooltip 被 [axisPointer][1] 触发的时候，params 是多个系列的数据数组。其中每项内容格式同上，并且， \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n**注：** ECharts 2.x 使用数组表示各参数的方式不再支持。 第二个参数 ticket 是异步回调标识，配合第三个参数 callback 使用。 第三个参数 callback 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 ticket 和 html 更新提示框浮层内容。 示例： \n\n    formatter: function (params, ticket, callback) {\n        $.get('detail?name=' + params.name, function (content) {\n            callback(ticket, toHTML(content));\n        });\n        return 'Loading';\n    }\n    \n\n\n\n[0]: #tooltip.trigger\n[1]: #xAxis.axisPointer",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "tooltip.backgroundColor": {
-        "desc": " 提示框浮层的背景颜色。 "
+        "desc": " 提示框浮层的背景颜色。 ",
+        "uiControl": {
+            "default": "'rgba(50,50,50,0.7)'",
+            "type": "Color"
+        }
     },
     "tooltip.borderColor": {
         "desc": " 提示框浮层的边框颜色。 ",
@@ -5439,10 +5760,16 @@
         }
     },
     "tooltip.textStyle.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "tooltip.textStyle.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "tooltip.extraCssText": {
         "desc": " 额外附加到浮层的 css 样式。如下为浮层添加阴影的示例： \n\n    extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n    \n\n",

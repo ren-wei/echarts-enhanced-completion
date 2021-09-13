@@ -1,6 +1,9 @@
 {
     "id": {
-        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 "
+        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 ",
+        "uiControl": {
+            "type": "string"
+        }
     },
     "show": {
         "desc": " 默认不显示。但是如果 [tooltip.trigger][0] 设置为 'axis' 或者 [tooltip.axisPointer.type][1] 设置为 'cross'，则自动显示 axisPointer。坐标系会自动选择显示显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis][2] 改变这种选择。\n\n[0]: #tooltip.trigger\n[1]: #tooltip.axisPointer.type\n[2]: #tooltip.axisPointer.axis",
@@ -16,10 +19,16 @@
         }
     },
     "snap": {
-        "desc": " 坐标轴指示器是否自动吸附到点上。默认自动判断。 这个功能在数值轴和时间轴上比较有意义，可以自动寻找细小的数值点。 "
+        "desc": " 坐标轴指示器是否自动吸附到点上。默认自动判断。 这个功能在数值轴和时间轴上比较有意义，可以自动寻找细小的数值点。 ",
+        "uiControl": {
+            "type": "boolean"
+        }
     },
     "z": {
-        "desc": " 坐标轴指示器的 z 值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 "
+        "desc": " 坐标轴指示器的 z 值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 ",
+        "uiControl": {
+            "type": "number"
+        }
     },
     "label": {
         "desc": " 坐标轴指示器的文本标签。 ",
@@ -28,16 +37,36 @@
         }
     },
     "label.show": {
-        "desc": " 是否显示文本标签。如果 [tooltip.axisPointer.type][0] 设置为 'cross' 则默认显示标签，否则默认不显示。\n\n[0]: #tooltip.axisPointer.type"
+        "desc": " 是否显示文本标签。如果 [tooltip.axisPointer.type][0] 设置为 'cross' 则默认显示标签，否则默认不显示。\n\n[0]: #tooltip.axisPointer.type",
+        "uiControl": {
+            "default": false
+        }
     },
     "label.precision": {
-        "desc": " 文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 2 表示保留两位小数。 "
+        "desc": " 文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 2 表示保留两位小数。 ",
+        "uiControl": {
+            "default": "'auto'",
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "label.formatter": {
-        "desc": " 文本标签文字的格式化器。 如果为 string，可以是例如：formatter: 'some text {value} some text，其中 {value} 会被自动替换为轴的值。 如果为 function，可以是例如： **参数：**{Object} params: 含有： {Object} params.value: 轴当前值，如果 axis.type 为 'category' 时，其值为 axis.data 里的数值。如果 axis.type 为 'time'，其值为时间戳。 {Array.} params.seriesData: 一个数组，是当前 axisPointer 最近的点的信息，每项内容为 {string} params.axisDimension: 轴的维度名，例如直角坐标系中是 'x'、'y'，极坐标系中是 'radius'、'angle'。 {number} params.axisIndex: 轴的 index，0、1、2、... \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n每项内容还包括轴的信息： \n\n    {\n        axisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\n        axisId: 'xxx',\n        axisName: 'xxx',\n        axisIndex: 3,\n        axisValue: 121, // 当前 axisPointer 对应的 value。\n        axisValueLabel: '文本'\n    }\n    \n\n**返回值：** 显示的 string。 例如： \n\n    formatter: function (params) {\n        // 假设此轴的 type 为 'time'。\n        return 'some text' + echarts.format.formatTime(params.value);\n    }\n    \n\n"
+        "desc": " 文本标签文字的格式化器。 如果为 string，可以是例如：formatter: 'some text {value} some text，其中 {value} 会被自动替换为轴的值。 如果为 function，可以是例如： **参数：**{Object} params: 含有： {Object} params.value: 轴当前值，如果 axis.type 为 'category' 时，其值为 axis.data 里的数值。如果 axis.type 为 'time'，其值为时间戳。 {Array.} params.seriesData: 一个数组，是当前 axisPointer 最近的点的信息，每项内容为 {string} params.axisDimension: 轴的维度名，例如直角坐标系中是 'x'、'y'，极坐标系中是 'radius'、'angle'。 {number} params.axisIndex: 轴的 index，0、1、2、... \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n每项内容还包括轴的信息： \n\n    {\n        axisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\n        axisId: 'xxx',\n        axisName: 'xxx',\n        axisIndex: 3,\n        axisValue: 121, // 当前 axisPointer 对应的 value。\n        axisValueLabel: '文本'\n    }\n    \n\n**返回值：** 显示的 string。 例如： \n\n    formatter: function (params) {\n        // 假设此轴的 type 为 'time'。\n        return 'some text' + echarts.format.formatTime(params.value);\n    }\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "label.margin": {
-        "desc": " label 距离轴的距离。 "
+        "desc": " label 距离轴的距离。 ",
+        "uiControl": {
+            "default": 3,
+            "type": "boolean"
+        }
     },
     "label.color": {
         "desc": " 文字的颜色。 ",
@@ -176,10 +205,16 @@
         }
     },
     "label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "label.padding": {
         "desc": " axisPointer内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。 使用示例： \n\n    // 设置内边距为 5\n    padding: 5\n    // 设置上下的内边距为 5，左右的内边距为 10\n    padding: [5, 10]\n    // 分别设置四个方向的内边距\n    padding: [\n        5,  // 上\n        10, // 右\n        5,  // 下\n        10, // 左\n    ]\n    \n\n",
@@ -190,13 +225,23 @@
         }
     },
     "label.backgroundColor": {
-        "desc": " 文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color][0] 相同。\n\n[0]: #xAxis.axisLine.lineStyle.color"
+        "desc": " 文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color][0] 相同。\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "uiControl": {
+            "default": "'auto'"
+        }
     },
     "label.borderColor": {
-        "desc": " 文本标签的边框颜色。 "
+        "desc": " 文本标签的边框颜色。 ",
+        "uiControl": {
+            "type": "string"
+        }
     },
     "label.borderWidth": {
-        "desc": " 文本标签的边框宽度。 "
+        "desc": " 文本标签的边框宽度。 ",
+        "uiControl": {
+            "default": 0,
+            "type": "string"
+        }
     },
     "label.shadowBlur": {
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
@@ -397,7 +442,10 @@
         }
     },
     "value": {
-        "desc": " 当前的 value。在使用 [axisPointer.handle][0] 时，可以设置此值进行初始值设定，从而决定 axisPointer 的初始位置。\n\n[0]: xAxisPointer.handle"
+        "desc": " 当前的 value。在使用 [axisPointer.handle][0] 时，可以设置此值进行初始值设定，从而决定 axisPointer 的初始位置。\n\n[0]: xAxisPointer.handle",
+        "uiControl": {
+            "type": "number"
+        }
     },
     "status": {
         "desc": " 当前的状态，可取值为 'show' 和 'hide'。 ",
@@ -492,7 +540,10 @@
         }
     },
     "link": {
-        "desc": " 不同轴的 axisPointer 可以进行联动，在这里设置。联动表示轴能同步一起活动。轴依据他们的 axisPointer 当前对应的值来联动。 联动的效果可以看这两个例子：[例子A][0]，[例子B][1]。 link 是一个数组，其中每一项表示一个 link group，一个 group 中的坐标轴互相联动。例如： \n\n    link: [\n        {\n            // 表示所有 xAxisIndex 为 0、3、4 和 yAxisName 为 'someName' 的坐标轴联动。\n            xAxisIndex: [0, 3, 4],\n            yAxisName: 'someName'\n        },\n        {\n            // 表示左右 xAxisId 为 'aa'、'cc' 以及所有的 angleAxis 联动。\n            xAxisId: ['aa', 'cc'],\n            angleAxis: 'all'\n        },\n        ...\n    ]\n    \n\n如上所示，每个 link group 中可以用这些方式引用坐标轴： \n\n    {\n        // 以下的 'some' 均表示轴的维度，也就是表示 'x', 'y', 'radius', 'angle', 'single'\n        someAxisIndex: [...], // 可以是一个数组或单值或 'all'\n        someAxisName: [...],  // 可以是一个数组或单值或 'all'\n        someAxisId: [...],    // 可以是一个数组或单值或 'all'\n    }\n    \n\n- - -\n\n**如何联动不同类型（[axis.type][2]）的轴？** 如果 axis 的类型不同，比如 axisA type 为 'category'，axisB type 为 'time'，可以在每个 link group 中写转换函数（mapper）来进行值的转换，例如： \n\n    link: [{\n        xAxisIndex: [0, 1],\n        yAxisName: ['yy'],\n        mapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\n            if (sourceAxisInfo.axisName === 'yy') {\n                // from timestamp to '2012-02-05'\n                return echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n            }\n            else if (targetAxisInfo.axisName === 'yy') {\n                // from '2012-02-05' to date\n                return echarts.number.parseDate(dates[sourceVal]);\n            }\n            else {\n                return sourceVal;\n            }\n        }\n    }]\n    \n\nmapper 的输入参数： {number} sourceVal {Object} sourceAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息 {Object} targetAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息 mapper 的返回值： {number} 转换结果\n\n[0]: https://echarts.apache.org/examples/zh/view.html?c=candlestick-brush&edit=1&reset=1\n[1]: https://echarts.apache.org/examples/zh/view.html?c=scatter-nutrients-matrix&edit=1&reset=1\n[2]: #xAxis.type"
+        "desc": " 不同轴的 axisPointer 可以进行联动，在这里设置。联动表示轴能同步一起活动。轴依据他们的 axisPointer 当前对应的值来联动。 联动的效果可以看这两个例子：[例子A][0]，[例子B][1]。 link 是一个数组，其中每一项表示一个 link group，一个 group 中的坐标轴互相联动。例如： \n\n    link: [\n        {\n            // 表示所有 xAxisIndex 为 0、3、4 和 yAxisName 为 'someName' 的坐标轴联动。\n            xAxisIndex: [0, 3, 4],\n            yAxisName: 'someName'\n        },\n        {\n            // 表示左右 xAxisId 为 'aa'、'cc' 以及所有的 angleAxis 联动。\n            xAxisId: ['aa', 'cc'],\n            angleAxis: 'all'\n        },\n        ...\n    ]\n    \n\n如上所示，每个 link group 中可以用这些方式引用坐标轴： \n\n    {\n        // 以下的 'some' 均表示轴的维度，也就是表示 'x', 'y', 'radius', 'angle', 'single'\n        someAxisIndex: [...], // 可以是一个数组或单值或 'all'\n        someAxisName: [...],  // 可以是一个数组或单值或 'all'\n        someAxisId: [...],    // 可以是一个数组或单值或 'all'\n    }\n    \n\n- - -\n\n**如何联动不同类型（[axis.type][2]）的轴？** 如果 axis 的类型不同，比如 axisA type 为 'category'，axisB type 为 'time'，可以在每个 link group 中写转换函数（mapper）来进行值的转换，例如： \n\n    link: [{\n        xAxisIndex: [0, 1],\n        yAxisName: ['yy'],\n        mapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\n            if (sourceAxisInfo.axisName === 'yy') {\n                // from timestamp to '2012-02-05'\n                return echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n            }\n            else if (targetAxisInfo.axisName === 'yy') {\n                // from '2012-02-05' to date\n                return echarts.number.parseDate(dates[sourceVal]);\n            }\n            else {\n                return sourceVal;\n            }\n        }\n    }]\n    \n\nmapper 的输入参数： {number} sourceVal {Object} sourceAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息 {Object} targetAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息 mapper 的返回值： {number} 转换结果\n\n[0]: https://echarts.apache.org/examples/zh/view.html?c=candlestick-brush&edit=1&reset=1\n[1]: https://echarts.apache.org/examples/zh/view.html?c=scatter-nutrients-matrix&edit=1&reset=1\n[2]: #xAxis.type",
+        "uiControl": {
+            "type": "Array"
+        }
     },
     "triggerOn": {
         "desc": " 提示框触发的条件，可选： \n\n* 'mousemove' 鼠标移动时触发。\n* 'click' 鼠标点击时触发。\n* 'none' 不在 'mousemove' 或 'click' 时触发。\n\n",

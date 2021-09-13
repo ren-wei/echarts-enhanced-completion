@@ -1,14 +1,20 @@
 {
     "id": {
-        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 "
+        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 ",
+        "uiControl": {
+            "type": "string"
+        }
     },
     "zlevel": {
-        "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 "
+        "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 ",
+        "uiControl": {
+            "default": 0
+        }
     },
     "z": {
         "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
         "uiControl": {
-            "type": "Object"
+            "default": 2
         }
     },
     "left": {
@@ -56,7 +62,14 @@
         }
     },
     "range": {
-        "desc": " 必填，日历坐标的范围 支持多种格式 使用示例： \n\n    \n    // 某一年\n    range: 2017\n    \n    // 某个月\n    range: '2017-02'\n    \n    // 某个区间\n    range: ['2017-01-02', '2017-02-23']\n    \n    // 注意 此写法会识别为['2017-01-01', '2017-02-01']\n    range: ['2017-01', '2017-02']\n    \n    \n\n"
+        "desc": " 必填，日历坐标的范围 支持多种格式 使用示例： \n\n    \n    // 某一年\n    range: 2017\n    \n    // 某个月\n    range: '2017-02'\n    \n    // 某个区间\n    range: ['2017-01-02', '2017-02-23']\n    \n    // 注意 此写法会识别为['2017-01-01', '2017-02-01']\n    range: ['2017-01', '2017-02']\n    \n    \n\n",
+        "uiControl": {
+            "type": [
+                "number",
+                "string",
+                "Array"
+            ]
+        }
     },
     "cellSize": {
         "desc": " 日历每格框的大小，可设置单值 或数组 第一个元素是宽 第二个元素是高。 支持设置自适应：auto, 默认为高宽均为20 使用示例： \n\n    \n    // 设置宽高均为20\n    cellSize: 20\n    \n    // 设置宽为20，高为40\n    cellSize: [20, 40]\n    \n    // 设置宽高均为40\n    cellSize: [40]\n    \n    // 设置宽高均自适应\n    cellSize: 'auto'\n    \n    // 设置宽自适应，高为40\n    cellSize: ['auto', 40]\n    \n    \n\n",
@@ -578,10 +591,16 @@
         }
     },
     "dayLabel.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "dayLabel.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "dayLabel.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -736,10 +755,22 @@
         }
     },
     "dayLabel.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "dayLabel.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "dayLabel.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 ",
@@ -846,7 +877,13 @@
         }
     },
     "monthLabel.formatter": {
-        "desc": " 用来格式化月份文本，支持字符串模板和回调函数两种形式。 示例： \n\n    // 使用字符串模板，例如：2017-02\n    /*\n        模板变量{nameMap} 月份原本名称 eg：'Feb'\n        模板变量{yyyy}   四位数年份 eg: 2017\n        模板变量{yy}   后两位数年份 eg: 17\n        模板变量{MM}   两位数月份 eg: 02\n        模板变量{M}   一位数月份 eg: 2\n    */\n    formatter: '{yyyy}-{MM}'\n    // 使用回调函数\n    /*\n        param.nameMap 月份原本名称 eg：'Feb'\n        param.yyyy   四位数年份 eg: 2017\n        param.yy   后两位数年份 eg: 17\n        param.MM   两位数月份 eg: 02\n        param.M   一位数月份 eg: 2\n    */\n    formatter: function (param) {\n        // ...\n        return param.MM;\n    }\n    \n\n"
+        "desc": " 用来格式化月份文本，支持字符串模板和回调函数两种形式。 示例： \n\n    // 使用字符串模板，例如：2017-02\n    /*\n        模板变量{nameMap} 月份原本名称 eg：'Feb'\n        模板变量{yyyy}   四位数年份 eg: 2017\n        模板变量{yy}   后两位数年份 eg: 17\n        模板变量{MM}   两位数月份 eg: 02\n        模板变量{M}   一位数月份 eg: 2\n    */\n    formatter: '{yyyy}-{MM}'\n    // 使用回调函数\n    /*\n        param.nameMap 月份原本名称 eg：'Feb'\n        param.yyyy   四位数年份 eg: 2017\n        param.yy   后两位数年份 eg: 17\n        param.MM   两位数月份 eg: 02\n        param.M   一位数月份 eg: 2\n    */\n    formatter: function (param) {\n        // ...\n        return param.MM;\n    }\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "monthLabel.color": {
         "desc": " 文字的颜色。 ",
@@ -1075,10 +1112,16 @@
         }
     },
     "monthLabel.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "monthLabel.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "monthLabel.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -1233,10 +1276,22 @@
         }
     },
     "monthLabel.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "monthLabel.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "monthLabel.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 ",
@@ -1327,7 +1382,13 @@
         }
     },
     "yearLabel.formatter": {
-        "desc": " 用来格式化年份文本，支持字符串模板和回调函数两种形式。 默认显示当前范围的年 若区间跨年 显示('start-end') 示例： \n\n    // 使用字符串模板，例如：['2017-10-11', '2018-01-21']\n    /*\n        模板变量{nameMap} 年份原本名称 eg：'2017-2018'\n        模板变量{start}   开始年份 eg: 2017\n        模板变量{end}   结束年份 eg: 2018\n    */\n    \n    formatter: '{start}-{end}'\n    // 使用回调函数\n    /*\n        param.nameMap 年份原本名称 eg：'2017-2018'\n        param.start   开始年份 eg: 2017\n        param.end   结束年份 eg: 2018\n    */\n    formatter: function (param) {\n        // ...\n        return param.end;\n    }\n    \n\n"
+        "desc": " 用来格式化年份文本，支持字符串模板和回调函数两种形式。 默认显示当前范围的年 若区间跨年 显示('start-end') 示例： \n\n    // 使用字符串模板，例如：['2017-10-11', '2018-01-21']\n    /*\n        模板变量{nameMap} 年份原本名称 eg：'2017-2018'\n        模板变量{start}   开始年份 eg: 2017\n        模板变量{end}   结束年份 eg: 2018\n    */\n    \n    formatter: '{start}-{end}'\n    // 使用回调函数\n    /*\n        param.nameMap 年份原本名称 eg：'2017-2018'\n        param.start   开始年份 eg: 2017\n        param.end   结束年份 eg: 2018\n    */\n    formatter: function (param) {\n        // ...\n        return param.end;\n    }\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
     },
     "yearLabel.color": {
         "desc": " 文字的颜色。 ",
@@ -1563,10 +1624,16 @@
         }
     },
     "yearLabel.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 "
+        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "uiControl": {
+            "default": "'...'"
+        }
     },
     "yearLabel.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n"
+        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "uiControl": {
+            "default": "'none'"
+        }
     },
     "yearLabel.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
@@ -1721,10 +1788,22 @@
         }
     },
     "yearLabel.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "yearLabel.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 "
+        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
     },
     "yearLabel.rich.<style_name>.textBorderColor": {
         "desc": " 文字本身的描边颜色。 ",
