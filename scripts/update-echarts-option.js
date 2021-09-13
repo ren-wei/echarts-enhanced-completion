@@ -13,7 +13,7 @@ const html2markdown = require('html2markdown');
 const fs = require('fs');
 const path = require('path');
 
-const otherDesc = require('./data/echartsOptionOhterDesc');
+const patch = require('./data/echartsOptionPatch');
 
 /** 向接口请求数据，并保存到assets目录 */
 async function getData(key) {
@@ -35,20 +35,20 @@ async function getData(key) {
                 } catch (e) {
                     switch (name) {
                         case 'radius':
-                            item.desc = otherDesc.radiusDesc;
+                            item.desc = patch.radiusDesc;
                             break;
                         case 'minOpen':
-                            item.desc = otherDesc.minOpenDesc;
+                            item.desc = patch.minOpenDesc;
                             break;
                         case 'data.target':
-                            item.desc = otherDesc.targetDesc;
+                            item.desc = patch.targetDesc;
                             break;
                         case 'feature.dataView.optionToContent':
-                            item.desc = otherDesc.optionToContentDesc;
+                            item.desc = patch.optionToContentDesc;
                             break;
                         default:
                             if (name.split('.')[name.split('.').length - 1] === 'position') {
-                                item.desc = otherDesc.positionDesc;
+                                item.desc = patch.positionDesc;
                             } else {
                                 /* eslint-disable-next-line no-console  */
                                 console.warn('html2markdown error:', key, '\t', name);
