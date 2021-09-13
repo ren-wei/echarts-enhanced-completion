@@ -65,7 +65,7 @@ async function getData(key) {
                 }
                 result[name] = item;
             });
-            fs.writeFile(path.resolve(__dirname, `../assets/echarts-options/${key}.json`), JSON.stringify(result, null, 4), () => {
+            fs.writeFile(path.resolve(__dirname, `../assets/echarts-option/${key}.json`), JSON.stringify(result, null, 4), () => {
                 /* eslint-disable-next-line no-console  */
                 console.log(`${key}.json saved successfully.`);
             });
@@ -104,7 +104,7 @@ axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
                     indexFileData[key].uiControl.detailFileName = key;
                 }
             }
-            fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/index.json'), JSON.stringify(indexFileData, null, 4), () => {
+            fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/index.json'), JSON.stringify(indexFileData, null, 4), () => {
                 /* eslint-disable-next-line no-console  */
                 console.log('index.json saved successfully.');
             });
@@ -187,22 +187,22 @@ function dealIndex(datas, typeMsgList) {
         },
     };
     // 保存 exampleBaseOptions
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/exampleBaseOptions/index.json'), JSON.stringify(exampleBaseOptions, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/exampleBaseOptions/index.json'), JSON.stringify(exampleBaseOptions, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('exampleBaseOptions.json saved successfully.');
     });
     // 创建一个 series.json 文件
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/series.json'), JSON.stringify(seriesOption, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/series.json'), JSON.stringify(seriesOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('series.json saved successfully.');
     });
     // 创建一个 dataZoom.json 文件
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/dataZoom.json'), JSON.stringify(dataZoomOption, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/dataZoom.json'), JSON.stringify(dataZoomOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('dataZoom.json saved successfully.');
     });
     // 创建一个 visualMap.json 文件
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-options/visualMap.json'), JSON.stringify(visualMapOption, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/visualMap.json'), JSON.stringify(visualMapOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('visualMap.json saved successfully.');
     });

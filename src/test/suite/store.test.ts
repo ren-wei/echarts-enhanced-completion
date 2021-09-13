@@ -6,7 +6,7 @@ const fs = require('fs');
 import Store from '../../store';
 
 suite('Test class Store Suite', () => {
-    const store = new Store('echarts-options');
+    const store = new Store('echarts-option');
 
     test('test constructor', () => {
     });

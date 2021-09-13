@@ -22,7 +22,7 @@ export function provideHover(document: vscode.TextDocument, position: vscode.Pos
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    store = new Store('echarts-options');
+    store = new Store('echarts-option');
 
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
