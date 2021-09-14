@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.1.1 (2021-09-14)
+
+### Added
+
+- 将注释的代码片段的提示改为中文
+
+### Fixed
+
+- 修复部分属性值类型错误
+
+- 修复在数组中出现错误补全项的问题
+
 ## 1.1.0 (2021-09-12)
 
 ### Added
