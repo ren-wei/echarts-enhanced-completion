@@ -26,14 +26,12 @@ export default class Store {
         return result;
     }
     /** 获取选项下各项的描述对象 */
-    public getOptionDesc(paths: Paths): [DescMsgObject, boolean] {
+    public getOptionDesc(paths: Paths, isArray: boolean = false): DescMsgObject {
         let data: DescMsgObject = this.topOptionDesc;
         let prop: string = '';
-        let isArray: boolean = false;
         for (let i = 0; i < paths.length; i++) {
             if (typeof paths[i] === 'string') {
                 const path = paths[i] as string;
-                isArray = data[path]?.uiControl?.type === 'Array';
                 const detailFileName = data[path]?.uiControl?.detailFileName;
                 if (detailFileName) {
                     data = this.getFileData(detailFileName);
@@ -43,7 +41,6 @@ export default class Store {
                 }
             } else {
                 const path = paths[i] as SimpleObject;
-                isArray = false;
                 const target = Object.values(data).find(item => {
                     return item.uiControl?.required?.every(v => {
                         return RegExp(v.valueRegExp).test(String(path[v.key]));
@@ -52,18 +49,22 @@ export default class Store {
                 if (target?.uiControl?.detailFileName) {
                     data = this.getFileData(target.uiControl.detailFileName);
                 } else {
-                    return [{}, false];
+                    return {};
                 }
             }
         }
+        // 从 data 中寻找符合的属性
         const result: DescMsgObject = {};
-        // 过滤其他层级的属性
         Object.entries(data).forEach(([key, item]) => {
-            if (key !== prop && key.slice(0, prop.length) === prop && !key.slice(prop.length + 1).includes('.')) {
+            // 如果父节点是数组，那么只有存在 required 时才显示
+            const validate = isArray ? item.uiControl?.required !== undefined : true;
+            // 必须是直接子属性
+            const isChildren = prop ? key.slice(0, prop.length + 1) === prop + '.' && !key.slice(prop.length + 1).includes('.') : !key.includes('.');
+            if (validate && isChildren) {
                 const keyList = key.split('.');
                 result[keyList[keyList.length - 1]] = item;
             }
         });
-        return [result, isArray];
+        return result;
     }
 }
