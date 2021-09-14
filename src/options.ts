@@ -15,8 +15,8 @@ export default class Options {
     }
 
     public getCompletionItem(): vscode.CompletionItem[] {
-        let isArray: boolean;
-        [this.descObject, isArray] = this.store.getOptionDesc(this.paths);
+        const isArray = this.node.type === 'ArrayExpression';
+        this.descObject = this.store.getOptionDesc(this.paths, isArray);
         return this.filterOptions(this.descObject, this.node).map((name, index) => {
             const typeOfValue = this.descObject[name].uiControl?.type;
             return {
@@ -36,7 +36,7 @@ export default class Options {
 
     public getHover(): vscode.Hover | null {
         if (this.node.type === 'Identifier') {
-            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1))[0];
+            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1));
             return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name].desc));
         }
         return null;

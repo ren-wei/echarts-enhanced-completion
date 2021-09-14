@@ -65,6 +65,20 @@ export default class Ast {
         return node.start < index && index < node.end;
     }
 
+    private toSimpleObject(node: AstNode): SimpleObject {
+        const item: SimpleObject = {};
+        switch (node.type) {
+            case 'ObjectExpression':
+                node.properties.forEach((property) => {
+                    if (property.value.raw) {
+                        item[property.key.name] = property.value.raw;
+                    }
+                });
+                break;
+        }
+        return item;
+    }
+
     /** 根据位置获取最小节点，并记录获取路径 */
     private getAstNode(node: AstNode, index: number, paths: Paths = []): [AstNode, Paths] {
         const keyList: Key[] = espree.VisitorKeys[node.type];
@@ -79,13 +93,7 @@ export default class Ast {
                             paths.push(targetNode.key.name);
                             return this.getAstNode(targetNode, index, paths);
                         case 'ObjectExpression':
-                            const item: SimpleObject = {};
-                            targetNode.properties.forEach((property) => {
-                                if (property.value.raw) {
-                                    item[property.key.name] = property.value.raw;
-                                }
-                            });
-                            paths.push(item);
+                            paths.push(this.toSimpleObject(targetNode));
                             return this.getAstNode(targetNode, index, paths);
                     }
                 }
