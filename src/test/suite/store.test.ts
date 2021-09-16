@@ -12,7 +12,6 @@ suite('Test class Store Suite', () => {
     });
 
     test('test public method getOptionDesc', () => {
-        assert.strictEqual(store.getOptionDesc([]), store.topOptionDesc);
     });
 });
 
