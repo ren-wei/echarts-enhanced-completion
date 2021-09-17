@@ -2,13 +2,15 @@ import * as vscode from 'vscode';
 import * as assert from 'assert';
 import * as path from 'path';
 
-import { provideCompletionItems } from '../../extension';
+import { start, provideCompletionItems } from '../../extension';
 
-suite('Extension Completion Base Test Suite', async() => {
-    const document = await vscode.workspace.openTextDocument(path.resolve(__dirname, '../../../src/test/template/index.js'));
-    const initText = document.getText();
-    const textEditor = await vscode.window.showTextDocument(document);
-    let position = new vscode.Position(2, 17); // 光标位置
+start();
+
+suite('Extension Completion Base Test Suite', () => {
+    let document: vscode.TextDocument;
+    let textEditor: vscode.TextEditor;
+    let position: vscode.Position;
+    let initText: string;
     const token: vscode.CancellationToken = {
         isCancellationRequested: false,
         onCancellationRequested(e) {
@@ -19,8 +21,13 @@ suite('Extension Completion Base Test Suite', async() => {
         triggerKind: 0,
     };
 
-    beforeEach(async() => {
-        // 将文件还原为初始状态
+    setup(async() => {
+        const uri = vscode.Uri.file(path.resolve(__dirname, '../../../src/test/template/index.js'));
+        textEditor = await vscode.window.showTextDocument(uri);
+        document = textEditor.document;
+        if (!initText) initText = document.getText();
+        position = new vscode.Position(2, 17); // 光标位置
+        // 将内容还原为初始状态
         const startPosition = new vscode.Position(0, 0);
         const endTextLine = document.lineAt(document.getText().split('\n').length - 1);
         const endPosition = new vscode.Position(endTextLine.lineNumber, endTextLine.text.length + 1);
@@ -35,7 +42,7 @@ suite('Extension Completion Base Test Suite', async() => {
             position = position.translate(1);
         });
         const result = await provideCompletionItems(document, position, token, content) as vscode.CompletionItem[];
-        assert.strictEqual(0, result.length);
+        assert.strictEqual(43, result.length);
     });
 
     test('对应层级的选项应该只包含对应的所有选项', async() => {

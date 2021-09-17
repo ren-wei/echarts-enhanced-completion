@@ -21,9 +21,12 @@ export function provideHover(document: vscode.TextDocument, position: vscode.Pos
     return options.getHover();
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export function start() {
     store = new Store('echarts-option');
+}
 
+export function activate(context: vscode.ExtensionContext) {
+    start();
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
     }, '\n'));
