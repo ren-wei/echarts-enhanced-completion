@@ -1,3 +1,4 @@
 // @ts-nocheck
 /** @type EChartsOption */
-const options = {};
+const options = {
+};
