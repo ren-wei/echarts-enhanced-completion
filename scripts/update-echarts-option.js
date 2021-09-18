@@ -203,15 +203,17 @@ function dealIndex(datas, typeMsgList) {
                 item.uiControl.detailFileName = key;
             }
             result[key] = item;
+            if (key === 'aria') {
+                result.series = {
+                    desc: '图形系列',
+                    uiControl: {
+                        type: 'Array',
+                        detailFileName: 'series',
+                    },
+                };
+            }
         }
     });
-    result.series = {
-        desc: '图形系列',
-        uiControl: {
-            type: 'Array',
-            detailFileName: 'series',
-        },
-    };
     // 保存 exampleBaseOptions
     fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/exampleBaseOptions/index.json'), JSON.stringify(exampleBaseOptions, null, 4), () => {
         /* eslint-disable-next-line no-console  */
