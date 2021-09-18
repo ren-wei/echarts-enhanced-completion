@@ -87,6 +87,8 @@ export default class Options {
                 value = "'${1|" + uiControl.options + "|}',";
             } else if (defaultValue) {
                 value = defaultValue + ',';
+            } else if (uiControl.type === 'string') {
+                value = "'$0',";
             }
         }
         return isArray ? value : `${prop}: ${value}`;

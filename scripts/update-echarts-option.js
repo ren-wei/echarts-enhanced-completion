@@ -82,6 +82,13 @@ async function getData(key, typeMsg) {
                     item.uiControl.default.replace(/&#39;/g, "'");
                 }
                 result[name] = item;
+                // 额外添加选项
+                const appendObject = patch.appendPatch[key] && patch.appendPatch[key][name];
+                if (appendObject) {
+                    Object.entries(appendObject).forEach(([k, v]) => {
+                        result[k] = v;
+                    });
+                }
             });
             fs.writeFile(path.resolve(__dirname, `../assets/echarts-option/${key}.json`), JSON.stringify(result, null, 4), () => {
                 /* eslint-disable-next-line no-console  */

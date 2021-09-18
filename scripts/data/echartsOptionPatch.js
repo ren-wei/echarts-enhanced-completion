@@ -117,10 +117,25 @@ optionToContent: function(opt) {
 \`\`\`
 `;
 
+/** 在指定选项后添加选项 */
+const appendPatch = {
+    'angleAxis': {
+        'axisLine.symbolOffset': {
+            'axisLine.lineStyle': {
+                desc: '坐标轴线的样式',
+                uiControl: {
+                    type: 'Object',
+                },
+            },
+        },
+    },
+};
+
 module.exports = {
     positionDesc,
     radiusDesc,
     minOpenDesc,
     targetDesc,
     optionToContentDesc,
+    appendPatch,
 };

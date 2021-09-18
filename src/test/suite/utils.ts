@@ -4,7 +4,7 @@ import * as fs from 'fs';
 
 /** 获取json文件并解析为对象 */
 export function getFileData(name: string): DescMsgObject {
-    const fileName = path.resolve(__dirname + `../../../../assets/${name}.json`);
+    const fileName = path.resolve(__dirname + `../../../../assets/echarts-option/${name}.json`);
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
 
