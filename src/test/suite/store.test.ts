@@ -14,8 +14,3 @@ suite('Test class Store Suite', () => {
     test('test public method getOptionDesc', () => {
     });
 });
-
-function getFileData(name: string): any {
-    const fileName = path.resolve(__dirname + `../../../../assets/${name}.json`);
-    return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
-}
