@@ -6,7 +6,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
-## 1.1.1 (2021-09-14)
+## 1.1.3 (2021-09-19)
+
+### Fixed
+
+- 修复部分选项的父级选项没有出现在补全列表的问题
+
+## 1.1.2 (2021-09-14)
 
 ### Added
 
