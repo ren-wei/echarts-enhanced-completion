@@ -517,6 +517,12 @@
     "label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -799,6 +805,12 @@
     },
     "labelLine.minTurnAngle": {
         "desc": " 通过调整第二段线的长度，限制引导线两端之间最小的夹角，以防止过小的夹角导致显示不美观。 可以设置为 0 - 180 度。 "
+    },
+    "labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "labelLine.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
@@ -1121,6 +1133,12 @@
     "emphasis.blurScope": {
         "desc": ">  从 > v5.0.0>  开始支持 在开启focus的时候，可以通过blurScope配置淡出的范围。支持如下配置 \n\n* 'coordinateSystem' 淡出范围为坐标系，默认使用该配置。\n* 'series' 淡出范围为系列。\n* 'global' 淡出范围为全局。\n\n"
     },
+    "emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "emphasis.label.formatter": {
         "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板****字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {d}：百分比。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {d}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
     },
@@ -1369,6 +1387,12 @@
     "emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -1581,10 +1605,22 @@
             "step": "0.5"
         }
     },
+    "emphasis.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "emphasis.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "emphasis.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "emphasis.labelLine.lineStyle.color": {
@@ -1684,6 +1720,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "emphasis.itemStyle.color": {
@@ -1802,6 +1844,12 @@
     },
     "blur": {
         "desc": ">  从 > v5.0.0>  开始支持 淡出状态的扇区和标签样式。开启 [emphasis.focus][0] 后有效。\n\n[0]: #series-pie.emphasis.focus"
+    },
+    "blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "blur.label.formatter": {
         "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板****字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {d}：百分比。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {d}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
@@ -2051,6 +2099,12 @@
     "blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -2263,10 +2317,22 @@
             "step": "0.5"
         }
     },
+    "blur.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "blur.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "blur.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "blur.labelLine.lineStyle.color": {
@@ -2366,6 +2432,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "blur.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "blur.itemStyle.color": {
@@ -2484,6 +2556,12 @@
     },
     "select": {
         "desc": ">  从 > v5.0.0>  开始支持 选中状态的扇区和标签样式。开启 [selectedMode][0] 后有效。\n\n[0]: #series-pie.selectedMode"
+    },
+    "select.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "select.label.formatter": {
         "desc": " 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \\n 换行。 **字符串模板****字符串模板** 模板变量有： \n\n* {a}：系列名。\n* {b}：数据名。\n* {c}：数据值。\n* {d}：百分比。\n* {@xxx}：数据中名为 'xxx' 的维度的值，如 {@product} 表示名为 'product' 的维度的值。\n* {@[n]}：数据中维度 n 的值，如 {@[3]} 表示维度 3 的值，从 0 开始计数。\n\n**示例：**    formatter: '{b}: {d}'\n    \n\n**回调函数** 回调函数格式： \n\n    (params: Object|Array) => string\n    \n\n参数 params 是 formatter 需要的单个数据集。格式如下： \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n        // 百分比\n        percent: number,\n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n"
@@ -2733,6 +2811,12 @@
     "select.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "select.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -2945,10 +3029,22 @@
             "step": "0.5"
         }
     },
+    "select.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "select.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "select.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "select.labelLine.lineStyle.color": {
@@ -3048,6 +3144,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "select.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "select.itemStyle.color": {
@@ -3460,6 +3562,12 @@
     "data.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "data.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -3672,6 +3780,12 @@
             "step": "0.5"
         }
     },
+    "data.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
@@ -3700,6 +3814,12 @@
         "desc": " 是否平滑视觉引导线，默认不平滑，可以设置成 true 平滑显示，也可以设置为 0 到 1 的值，表示平滑程度。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "data.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.labelLine.lineStyle.color": {
@@ -3951,6 +4071,12 @@
             "default": "0,0"
         }
     },
+    "data.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.emphasis.label.rotate": {
         "desc": " 标签旋转： \n\n* 如果为 true，则为径向排布。\n* 如果为 number ，旋转指定角度，从 -90 度到 90 度。正值是逆时针。\n\n"
     },
@@ -4196,6 +4322,12 @@
     "data.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "data.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -4408,10 +4540,22 @@
             "step": "0.5"
         }
     },
+    "data.emphasis.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.emphasis.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "data.emphasis.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.emphasis.labelLine.lineStyle.color": {
@@ -4511,6 +4655,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "data.emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.emphasis.itemStyle.color": {
@@ -4629,6 +4779,12 @@
     },
     "data.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 "
+    },
+    "data.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.blur.label.rotate": {
         "desc": " 标签旋转： \n\n* 如果为 true，则为径向排布。\n* 如果为 number ，旋转指定角度，从 -90 度到 90 度。正值是逆时针。\n\n"
@@ -4875,6 +5031,12 @@
     "data.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "data.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -5087,10 +5249,22 @@
             "step": "0.5"
         }
     },
+    "data.blur.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.blur.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "data.blur.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.blur.labelLine.lineStyle.color": {
@@ -5190,6 +5364,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "data.blur.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.blur.itemStyle.color": {
@@ -5308,6 +5488,12 @@
     },
     "data.select": {
         "desc": ">  从 > v5.0.0>  开始支持 "
+    },
+    "data.select.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "data.select.label.rotate": {
         "desc": " 标签旋转： \n\n* 如果为 true，则为径向排布。\n* 如果为 number ，旋转指定角度，从 -90 度到 90 度。正值是逆时针。\n\n"
@@ -5554,6 +5740,12 @@
     "data.select.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "data.select.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.select.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 ",
         "uiControl": {
@@ -5766,10 +5958,22 @@
             "step": "0.5"
         }
     },
+    "data.select.labelLine": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "data.select.labelLine.show": {
         "desc": " 是否显示视觉引导线。 ",
         "uiControl": {
             "type": "boolean"
+        }
+    },
+    "data.select.labelLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.select.labelLine.lineStyle.color": {
@@ -5869,6 +6073,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "data.select.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "data.select.itemStyle.color": {
@@ -6508,6 +6718,12 @@
     "markPoint.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markPoint.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -6831,6 +7047,12 @@
     "markPoint.emphasis": {
         "desc": " 标注的高亮样式。 "
     },
+    "markPoint.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.emphasis.label.show": {
         "desc": " 是否显示标签。 ",
         "uiControl": {
@@ -7118,6 +7340,12 @@
     "markPoint.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markPoint.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -7330,6 +7558,12 @@
             "step": "0.5"
         }
     },
+    "markPoint.emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -7437,6 +7671,12 @@
     },
     "markPoint.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 标注的淡出样式。淡出的规则跟随所在系列。 "
+    },
+    "markPoint.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markPoint.blur.label.show": {
         "desc": " 是否显示标签。 ",
@@ -7725,6 +7965,12 @@
     "markPoint.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markPoint.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -7935,6 +8181,12 @@
         "uiControl": {
             "type": "number",
             "step": "0.5"
+        }
+    },
+    "markPoint.blur.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markPoint.blur.itemStyle.color": {
@@ -8209,6 +8461,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "markPoint.data.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markPoint.data.label.show": {
@@ -8495,6 +8753,12 @@
     "markPoint.data.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markPoint.data.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.data.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -8705,6 +8969,12 @@
         "uiControl": {
             "type": "number",
             "step": "0.5"
+        }
+    },
+    "markPoint.data.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markPoint.data.emphasis.label.show": {
@@ -8991,6 +9261,12 @@
     "markPoint.data.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markPoint.data.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markPoint.data.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -9201,6 +9477,12 @@
         "uiControl": {
             "type": "number",
             "step": "0.5"
+        }
+    },
+    "markPoint.data.emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markPoint.data.emphasis.itemStyle.color": {
@@ -9620,6 +9902,12 @@
     "markLine.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -9947,6 +10235,12 @@
     "markLine.emphasis": {
         "desc": " 标线的高亮样式。 "
     },
+    "markLine.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.emphasis.label.show": {
         "desc": " 是否显示标签。 "
     },
@@ -10187,6 +10481,12 @@
     "markLine.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -10399,6 +10699,12 @@
             "step": "0.5"
         }
     },
+    "markLine.emphasis.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.emphasis.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -10500,6 +10806,12 @@
     },
     "markLine.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 标线的淡出样式。淡出的规则跟随所在系列。 "
+    },
+    "markLine.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markLine.blur.label.show": {
         "desc": " 是否显示标签。 "
@@ -10741,6 +11053,12 @@
     "markLine.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -10951,6 +11269,12 @@
         "uiControl": {
             "type": "number",
             "step": "0.5"
+        }
+    },
+    "markLine.blur.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markLine.blur.lineStyle.color": {
@@ -11477,6 +11801,12 @@
     "markLine.data.0.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.data.0.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.0.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -11689,6 +12019,12 @@
             "step": "0.5"
         }
     },
+    "markLine.data.0.emphasis.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.0.emphasis.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -11796,6 +12132,12 @@
             "max": "1",
             "step": "0.01",
             "default": "0"
+        }
+    },
+    "markLine.data.0.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markLine.data.0.emphasis.label.show": {
@@ -12038,6 +12380,12 @@
     "markLine.data.0.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.data.0.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.0.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -12253,6 +12601,12 @@
     "markLine.data.0.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 "
     },
+    "markLine.data.0.blur.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.0.blur.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -12360,6 +12714,12 @@
             "max": "1",
             "step": "0.01",
             "default": "0"
+        }
+    },
+    "markLine.data.0.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markLine.data.0.blur.label.show": {
@@ -12601,6 +12961,12 @@
     },
     "markLine.data.0.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+    },
+    "markLine.data.0.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markLine.data.0.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -13236,6 +13602,12 @@
     "markLine.data.1.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.data.1.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.1.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -13448,6 +13820,12 @@
             "step": "0.5"
         }
     },
+    "markLine.data.1.emphasis.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.1.emphasis.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -13555,6 +13933,12 @@
             "max": "1",
             "step": "0.01",
             "default": "0"
+        }
+    },
+    "markLine.data.1.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markLine.data.1.emphasis.label.show": {
@@ -13797,6 +14181,12 @@
     "markLine.data.1.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markLine.data.1.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.1.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -14012,6 +14402,12 @@
     "markLine.data.1.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 "
     },
+    "markLine.data.1.blur.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markLine.data.1.blur.lineStyle.color": {
         "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -14119,6 +14515,12 @@
             "max": "1",
             "step": "0.01",
             "default": "0"
+        }
+    },
+    "markLine.data.1.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markLine.data.1.blur.label.show": {
@@ -14360,6 +14762,12 @@
     },
     "markLine.data.1.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+    },
+    "markLine.data.1.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markLine.data.1.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -14920,6 +15328,12 @@
     "markArea.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -15243,6 +15657,12 @@
     "markArea.emphasis": {
         "desc": " 高亮的标域样式 "
     },
+    "markArea.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.emphasis.label.show": {
         "desc": " 是否显示标签。 ",
         "uiControl": {
@@ -15527,6 +15947,12 @@
     "markArea.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -15739,6 +16165,12 @@
             "step": "0.5"
         }
     },
+    "markArea.emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -15846,6 +16278,12 @@
     },
     "markArea.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 淡出的标域样式。淡出的规则跟随所在系列。 "
+    },
+    "markArea.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markArea.blur.label.show": {
         "desc": " 是否显示标签。 ",
@@ -16131,6 +16569,12 @@
     "markArea.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -16341,6 +16785,12 @@
         "uiControl": {
             "type": "number",
             "step": "0.5"
+        }
+    },
+    "markArea.blur.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markArea.blur.itemStyle.color": {
@@ -16869,6 +17319,12 @@
     "markArea.data.0.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.data.0.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.0.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -17081,6 +17537,12 @@
             "step": "0.5"
         }
     },
+    "markArea.data.0.emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.0.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -17184,6 +17646,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "markArea.data.0.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markArea.data.0.emphasis.label.show": {
@@ -17470,6 +17938,12 @@
     "markArea.data.0.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.data.0.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.0.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -17685,6 +18159,12 @@
     "markArea.data.0.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 "
     },
+    "markArea.data.0.blur.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.0.blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -17788,6 +18268,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "markArea.data.0.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markArea.data.0.blur.label.show": {
@@ -18073,6 +18559,12 @@
     },
     "markArea.data.0.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+    },
+    "markArea.data.0.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markArea.data.0.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
@@ -18704,6 +19196,12 @@
     "markArea.data.1.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.data.1.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.1.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -18916,6 +19414,12 @@
             "step": "0.5"
         }
     },
+    "markArea.data.1.emphasis.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.1.emphasis.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -19019,6 +19523,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "markArea.data.1.emphasis.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markArea.data.1.emphasis.label.show": {
@@ -19305,6 +19815,12 @@
     "markArea.data.1.emphasis.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
     },
+    "markArea.data.1.emphasis.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.1.emphasis.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",
         "uiControl": {
@@ -19520,6 +20036,12 @@
     "markArea.data.1.blur": {
         "desc": ">  从 > v5.0.0>  开始支持 "
     },
+    "markArea.data.1.blur.itemStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
     "markArea.data.1.blur.itemStyle.color": {
         "desc": " 图形的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
@@ -19623,6 +20145,12 @@
             "min": "0",
             "max": "1",
             "step": "0.01"
+        }
+    },
+    "markArea.data.1.blur.label": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
         }
     },
     "markArea.data.1.blur.label.show": {
@@ -19908,6 +20436,12 @@
     },
     "markArea.data.1.blur.label.rich": {
         "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE"
+    },
+    "markArea.data.1.blur.label.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "markArea.data.1.blur.label.rich.<style_name>.color": {
         "desc": " 文字的颜色。 如果设置为 'inherit'，则为视觉映射得到的颜色，如系列色。 ",

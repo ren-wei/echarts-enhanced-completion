@@ -81,13 +81,24 @@ async function getData(key, typeMsg) {
                 if (item.uiControl?.default && typeof item.uiControl.default === 'string') {
                     item.uiControl.default.replace(/&#39;/g, "'");
                 }
-                result[name] = item;
                 // 额外添加选项
                 const appendObject = patch.appendPatch[key] && patch.appendPatch[key][name];
                 if (appendObject) {
+                    result[name] = item;
                     Object.entries(appendObject).forEach(([k, v]) => {
                         result[k] = v;
                     });
+                } else {
+                    const parentName = name.split('.').slice(0, name.split('.').length - 1).join('.');
+                    if (name.includes('.') && !Object.keys(result).find(k => k === parentName)) {
+                        result[parentName] = {
+                            desc: '',
+                            uiControl: {
+                                type: 'Object',
+                            },
+                        };
+                    }
+                    result[name] = item;
                 }
             });
             fs.writeFile(path.resolve(__dirname, `../assets/echarts-option/${key}.json`), JSON.stringify(result, null, 4), () => {

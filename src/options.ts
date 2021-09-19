@@ -25,9 +25,9 @@ export default class Options {
                     description: String(typeOfValue || ''),
                 },
                 kind: vscode.CompletionItemKind.Property,
-                detail: 'echarts options',
+                detail: this.descObject[name].desc ? 'echarts options' : undefined,
                 preselect: true,
-                documentation: new vscode.MarkdownString(this.descObject[name].desc),
+                documentation: this.descObject[name].desc ? new vscode.MarkdownString(this.descObject[name].desc) : undefined,
                 sortText: String(index).length > 1 ? String(index) : '0' + String(index),
                 insertText: new vscode.SnippetString(this.getInsertText(name, this.descObject[name].uiControl, isArray)),
             };
