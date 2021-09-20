@@ -61,6 +61,9 @@ export default class Options {
      * @returns 插入值的代码片段
      */
     private getInsertText(prop: string, uiControl: UiControl | undefined = undefined, isArray: Boolean = false): string {
+        if (/^<.*>$/.test(prop)) {
+            prop = '$1';
+        }
         let value = '${0}';
         if (uiControl) {
             let defaultValue = uiControl.default;

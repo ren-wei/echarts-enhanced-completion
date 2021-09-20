@@ -58,10 +58,26 @@ export default class Store {
         Object.entries(data).forEach(([key, item]) => {
             // 如果父节点是数组，那么只有存在 required 时才显示
             const validate = isArray ? item.uiControl?.required !== undefined : true;
-            // 必须是直接子属性
-            const isChildren = prop ? key.slice(0, prop.length + 1) === prop + '.' && !key.slice(prop.length + 1).includes('.') : !key.includes('.');
+            const keyList = key.split('.');
+            const propList = prop.split('.');
+            // 判断是否是直接子属性
+            let isChildren = true;
+            if (prop && propList.length === keyList.length - 1) {
+                for (let i = 0; i < propList.length; i++) {
+                    if (!/^<.*>$/.test(keyList[i]) && propList[i] !== keyList[i]) {
+                        // 不是命名属性并且相等
+                        isChildren = false;
+                        break;
+                    }
+                }
+            } else if (prop) {
+                isChildren = false;
+            } else {
+                isChildren = !key.includes('.');
+            }
+
+            // 满足所有条件才添加到结果中
             if (validate && isChildren) {
-                const keyList = key.split('.');
                 result[keyList[keyList.length - 1]] = item;
             }
         });
