@@ -67,6 +67,11 @@ function checkFile(dirName, fileName) {
         }
     };
     const fileData = getFileData(dirName, `${fileName}.json`);
+    if (!fileData) {
+        error(`    - ${fileName}.json 不存在`);
+        return;
+    }
+    const checkList = [];
     Object.entries(fileData).forEach(
         /**
          * @param {[string, { desc: string, uiControl: { type: string | string[]; default?: string; options?: string; min?: string; max?: string; step?: string; dims?: string; required?: Array<{ key: string; value: string; valueRegExp: string; }>; detailFileName?: string; }}]} param0
@@ -80,11 +85,18 @@ function checkFile(dirName, fileName) {
                 }
             });
             otherKeyList.forEach(k => {
-                // assert(false, `${key} 中存在未知的属性:${k}`);
+                assert(false, `${key} 中存在未知的属性:${k}`);
             });
             // desc 和 uiControl 的类型
             assert(typeof item.desc === 'string', `${key}.desc 应该是字符`);
-            assert(typeof item.uiControl === 'object', `${key}.uiControl 应该是对象`);
+            if (!item.uiControl) {
+                // assert(false, `${key}.uiControl 不存在`);
+                return;
+            }
+            if (typeof item.uiControl !== 'object') {
+                assert(false, `${key}.uiControl 应该是对象`);
+                return;
+            }
             // uiControl 中允许的属性
             const otherPropList = [];
             Object.keys(item.uiControl).forEach(k => {
@@ -97,16 +109,27 @@ function checkFile(dirName, fileName) {
             });
             // uiControl 中必须存在属性 type
             // assert(Boolean(item.uiControl.type), `${key}.uiControl.type 不存在`);
-            // TODO: `options` 如果存在，则 `type: "enum"`
-            // TODO: `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段
-            // TODO: `detailFileName` 如果存在，则表示该选项的子选项在这个字段值指定的文件中
+            // `options` 如果存在，则 `type: "enum"`
+            if (item.uiControl.options) {
+                assert(item.uiControl.type === 'enum', `${key}.uiControl.type 应该是 'enum'`);
+            }
+            // `detailFileName` 如果存在，则表示该选项的子选项在这个字段值指定的文件中
+            if (item.uiControl.detailFileName) {
+                checkList.push([dirName, item.uiControl.detailFileName]);
+            }
         }
     );
+    // TODO: `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段
+    checkList.forEach(item => checkFile(...item));
     return exist;
 }
 
 function getFileData(dirName, fileName) {
-    return JSON.parse(fs.readFileSync(path.resolve(__dirname, `../assets/${dirName}/${fileName}`), { encoding: 'utf8' }));
+    try {
+        return JSON.parse(fs.readFileSync(path.resolve(__dirname, `../assets/${dirName}/${fileName}`), { encoding: 'utf8' }));
+    } catch (e) {
+        return false;
+    }
 }
 
 function error(message) {
