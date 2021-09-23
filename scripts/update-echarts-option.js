@@ -173,6 +173,10 @@ function dealIndex(datas, typeMsgList) {
             };
         }
         if (item.exampleBaseOptions) {
+            item.exampleBaseOptions.map(v => {
+                v.code = v.code.slice(v.code.indexOf('{'), v.code.lastIndexOf('}') + 1);
+                return v;
+            });
             exampleBaseOptions = exampleBaseOptions.concat(...item.exampleBaseOptions);
             delete item.exampleBaseOptions;
         }
