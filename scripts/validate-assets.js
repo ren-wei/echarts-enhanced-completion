@@ -120,13 +120,13 @@ function checkFile(dirName, fileName, isArray = false) {
                 checkList.push([dirName, item.uiControl.detailFileName, item.uiControl.type === 'Array']);
             }
             // `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段
-            const parentKey = key.split('.').slice(0, key.split('.').length - 1)
+            const parentKey = key.split('.').slice(0, key.split('.').length - 1);
             if (item.uiControl.required) {
                 assert(isArray, `${key}.uiControl.required 存在，但是并不在数组下`);
                 if (isArray) {
                     if (requiredMap.has(parentKey)) {
                         if (!requiredMap.get(parentKey)) {
-                            assert(false, `${parentKey}下的 required 应该都存在或者都不存在`)
+                            assert(false, `${parentKey}下的 required 应该都存在或者都不存在`);
                         }
                     } else {
                         requiredMap.set(parentKey, true);
@@ -135,7 +135,7 @@ function checkFile(dirName, fileName, isArray = false) {
             } else {
                 if (requiredMap.has(parentKey)) {
                     if (requiredMap.get(parentKey)) {
-                        assert(false, `${key}.uiControl.required 不存在`)
+                        assert(false, `${key}.uiControl.required 不存在`);
                     }
                 } else {
                     requiredMap.set(parentKey, false);
