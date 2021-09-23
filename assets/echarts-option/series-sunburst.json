@@ -2290,7 +2290,7 @@
         "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "emphasis.itemStyle.color": {
-        "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。从 5.2.0 开始支持在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
             "type": "color"
         }
@@ -3886,6 +3886,9 @@
     "levels": {
         "desc": "**多层配置** 旭日图是一种有层次的结构，为了方便同一层样式的配置，我们提供了 levels 配置项。它是一个数组，其中的第 0 项表示数据下钻后返回上级的图形，其后的每一项分别表示从圆心向外层的层级。 例如，假设我们没有数据下钻功能，并且希望将最内层的扇形块的颜色设为红色，文字设为蓝色，可以这样设置： \n\n    series: {\n        // ...\n        levels: [\n            {\n                // 留给数据下钻点的空白配置\n            },\n            {\n                // 最靠内测的第一层\n                itemStyle: {\n                    color: 'red'\n                },\n                label: {\n                    color: 'blue'\n                }\n            },\n            {\n                // 第二层 ...\n            }\n        ]\n    }\n    \n\n"
     },
+    "levels.radius": {
+        "desc": ">  从 > v5.2.0>  开始支持 当前层的内半径和外半径，注意其它层的内外半径不会因为该层的改变自适应。 "
+    },
     "levels.label": {
         "desc": "label 描述了每个扇形块中，文本标签的样式。 **优先级：[series.data.label][0] > [series.levels.label][1] > [series.label][2]。** 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。\n\n[0]: #series-sunburst.data.label\n[1]: #series-sunburst.levels.label\n[2]: #series-sunburst.label"
     },
@@ -5261,7 +5264,7 @@
         "desc": " 旭日图扇形块的样式。 可以在 [series.itemStyle][0] 定义所有扇形块的样式，也可以在 [series.levels.itemStyle][1] 定义每一层扇形块的样式，还可以在 [series.data.itemStyle][2] 定义每个扇形块单独的样式，这三者的优先级从低到高。也就是说，如果定义了 [series.data.itemStyle][2]，将会覆盖 [series.itemStyle][0] 和 [series.levels.itemStyle][1]。 **优先级：[series.data.itemStyle][2] > [series.levels.itemStyle][1] > [series.itemStyle][0]。**\n\n[0]: #series-sunburst.itemStyle\n[1]: #series-sunburst.levels.itemStyle\n[2]: #series-sunburst.data.itemStyle"
     },
     "levels.emphasis.itemStyle.color": {
-        "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "desc": " 图形的颜色。 默认从全局调色盘 [option.color][0] 获取颜色。从 5.2.0 开始支持在emphasis状态中支持设置为'inherit'取消高亮颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
         "uiControl": {
             "type": "color"
         }
