@@ -48,9 +48,10 @@ function check(dirName) {
  * 检查单个文件
  * @param {String} dirName 目录名
  * @param {String} fileName 文件名
+ * @param {Boolean} isArray 上一级是否是数组
  * @return {Boolean}
  */
-function checkFile(dirName, fileName) {
+function checkFile(dirName, fileName, isArray = false) {
     let exist = false;
     /**
      * 条件为 false 时，输出错误信息
@@ -72,6 +73,7 @@ function checkFile(dirName, fileName) {
         return;
     }
     const checkList = [];
+    const requiredMap = new Map(); // 父选项下的子选项是否存在 required
     Object.entries(fileData).forEach(
         /**
          * @param {[string, { desc: string, uiControl: { type: string | string[]; default?: string; options?: string; min?: string; max?: string; step?: string; dims?: string; required?: Array<{ key: string; value: string; valueRegExp: string; }>; detailFileName?: string; }}]} param0
@@ -105,7 +107,7 @@ function checkFile(dirName, fileName) {
                 }
             });
             otherPropList.forEach(k => {
-                // assert(false, `${key}.uiControl 中存在未知的属性:${k}`);
+                assert(false, `${key}.uiControl 中存在未知的属性:${k}`);
             });
             // uiControl 中必须存在属性 type
             // assert(Boolean(item.uiControl.type), `${key}.uiControl.type 不存在`);
@@ -115,11 +117,32 @@ function checkFile(dirName, fileName) {
             }
             // `detailFileName` 如果存在，则表示该选项的子选项在这个字段值指定的文件中
             if (item.uiControl.detailFileName) {
-                checkList.push([dirName, item.uiControl.detailFileName]);
+                checkList.push([dirName, item.uiControl.detailFileName, item.uiControl.type === 'Array']);
+            }
+            // `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段
+            const parentKey = key.split('.').slice(0, key.split('.').length - 1)
+            if (item.uiControl.required) {
+                assert(isArray, `${key}.uiControl.required 存在，但是并不在数组下`);
+                if (isArray) {
+                    if (requiredMap.has(parentKey)) {
+                        if (!requiredMap.get(parentKey)) {
+                            assert(false, `${parentKey}下的 required 应该都存在或者都不存在`)
+                        }
+                    } else {
+                        requiredMap.set(parentKey, true);
+                    }
+                }
+            } else {
+                if (requiredMap.has(parentKey)) {
+                    if (requiredMap.get(parentKey)) {
+                        assert(false, `${key}.uiControl.required 不存在`)
+                    }
+                } else {
+                    requiredMap.set(parentKey, false);
+                }
             }
         }
     );
-    // TODO: `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段
     checkList.forEach(item => checkFile(...item));
     return exist;
 }
