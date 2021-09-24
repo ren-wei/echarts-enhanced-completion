@@ -83,4 +83,9 @@ export default class Store {
         });
         return result;
     }
+    /** 获取初始化选项 */
+    public getBaseOptions(): BaseOption[] {
+        const fileName = path.resolve(__dirname + `../../assets/${this.assetsName}/exampleBaseOptions/index.json`);
+        return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
+    }
 }

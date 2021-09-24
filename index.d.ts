@@ -68,3 +68,9 @@ interface KeyFunc {
 interface SimpleObject {
     [propName: string]: string | number | boolean;
 }
+
+interface BaseOption {
+    code: string;
+    name: string;
+    title: string;
+}

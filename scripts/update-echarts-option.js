@@ -173,10 +173,20 @@ function dealIndex(datas, typeMsgList) {
             };
         }
         if (item.exampleBaseOptions) {
-            item.exampleBaseOptions.map(v => {
+            item.exampleBaseOptions = item.exampleBaseOptions.map(v => {
+                if (v.title === '工具栏') {
+                    v.name = 'toolbox';
+                }
+                if (v.tilte) {
+                    v.title = v.tilte;
+                    delete v.tilte;
+                }
                 v.code = v.code.slice(v.code.indexOf('{'), v.code.lastIndexOf('}') + 1);
                 return v;
-            });
+            }).filter(v => ![
+                'minor-ticks-x-axis', 'two-number-axis', 'visual-map-heatmap', 'tooltip', 'axis-pointer', 'calendar', 'treemap',
+                'sunburst', 'candlestick', 'heatmap', 'parallel-series', 'graph', 'sankey', 'parallel-large', 'timeline', 'parallel',
+                'parallel-axis'].includes(v.name));
             exampleBaseOptions = exampleBaseOptions.concat(...item.exampleBaseOptions);
             delete item.exampleBaseOptions;
         }
