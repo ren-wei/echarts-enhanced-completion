@@ -161,7 +161,6 @@ function dealIndex(datas, typeMsgList) {
     const seriesOption = {};
     const dataZoomOption = {};
     const visualMapOption = {};
-    let exampleBaseOptions = [];
     Object.keys(datas).forEach(key => {
         const item = datas[key];
         item.desc = html2markdown(item.desc.replace(/<iframe(([\s\S])*?)<\/iframe>/ig, '').replace(/<p>|<\/p>/g, '\n').replace(/&#39;/g, "'"));
@@ -173,21 +172,6 @@ function dealIndex(datas, typeMsgList) {
             };
         }
         if (item.exampleBaseOptions) {
-            item.exampleBaseOptions = item.exampleBaseOptions.map(v => {
-                if (v.title === '工具栏') {
-                    v.name = 'toolbox';
-                }
-                if (v.tilte) {
-                    v.title = v.tilte;
-                    delete v.tilte;
-                }
-                v.code = v.code.slice(v.code.indexOf('{'), v.code.lastIndexOf('}') + 1);
-                return v;
-            }).filter(v => ![
-                'minor-ticks-x-axis', 'two-number-axis', 'visual-map-heatmap', 'tooltip', 'axis-pointer', 'calendar', 'treemap',
-                'sunburst', 'candlestick', 'heatmap', 'parallel-series', 'graph', 'sankey', 'parallel-large', 'timeline', 'parallel',
-                'parallel-axis'].includes(v.name));
-            exampleBaseOptions = exampleBaseOptions.concat(...item.exampleBaseOptions);
             delete item.exampleBaseOptions;
         }
         if (key.includes('series')) {
@@ -238,11 +222,6 @@ function dealIndex(datas, typeMsgList) {
                 };
             }
         }
-    });
-    // 保存 exampleBaseOptions
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/exampleBaseOptions/index.json'), JSON.stringify(exampleBaseOptions, null, 4), () => {
-        /* eslint-disable-next-line no-console  */
-        console.log('exampleBaseOptions.json saved successfully.');
     });
     // 创建一个 series.json 文件
     fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/series.json'), JSON.stringify(seriesOption, null, 4), () => {
