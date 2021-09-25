@@ -143,6 +143,7 @@ function checkFile(dirName, fileName, isArray = false) {
             }
         }
     );
+    // @ts-ignore
     checkList.forEach(item => checkFile(...item));
     return exist;
 }

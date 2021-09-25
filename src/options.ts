@@ -18,7 +18,7 @@ export default class Options {
 
     public getCompletionItem(): vscode.CompletionItem[] {
         let completionItems: vscode.CompletionItem[] = [];
-        if (!this.ast.expression?.properties.length) {
+        if (vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.enabled') && !this.ast.expression?.properties.length) {
             // 空对象额外增加初始化选项
             completionItems = this.store.getBaseOptions().map((item, index) => {
                 return {
