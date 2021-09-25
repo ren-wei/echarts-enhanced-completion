@@ -70,7 +70,8 @@ interface SimpleObject {
 }
 
 interface BaseOption {
-    code: string;
-    name: string;
     title: string;
+    name: string;
+    imgSrc: string;
+    code: string;
 }

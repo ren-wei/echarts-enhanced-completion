@@ -27,7 +27,7 @@ export default class Options {
                         description: item.title,
                     },
                     kind: vscode.CompletionItemKind.Value,
-                    documentation: new vscode.MarkdownString('```javascript\n' + item.code + '\n```'),
+                    documentation: new vscode.MarkdownString((vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.showPictures') && item.imgSrc ? '![' + item.title + '](' + item.imgSrc + ')\n' : '') + '```javascript\n' + item.code + '\n```'),
                     sortText: String(index).length > 1 ? String(index) : '0' + String(index),
                     insertText: item.code
                         .slice(1, item.code.length - 1)
@@ -35,6 +35,9 @@ export default class Options {
                         .trim(),
                 };
             });
+        }
+        if (vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.onlyInit')) {
+            return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';
         this.descObject = this.store.getOptionDesc(this.paths, isArray);
