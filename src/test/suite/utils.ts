@@ -10,7 +10,7 @@ export function getFileData(name: string): DescMsgObject {
 
 /** 获取json文件并解析为数组 */
 export function getFileArrayData(name: string = 'index'): BaseOption[] {
-    const fileName = path.resolve(__dirname + `../../../../assets/echarts-option/exampleBaseOptions/${name}.json`);
+    const fileName = path.resolve(__dirname + `../../../../assets/echarts-option/init/${name}.json`);
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
 

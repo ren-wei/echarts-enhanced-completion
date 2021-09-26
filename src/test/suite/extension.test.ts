@@ -41,10 +41,10 @@ suite('Extension Completion Base Test Suite', () => {
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position, token, content) as vscode.CompletionItem[];
         const indexDescMsg = getFileData('index');
-        const exampleBaseOptions = getFileArrayData();
+        const init = getFileArrayData();
         const initEnabled = vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.enabled');
         if (initEnabled) {
-            assert.strictEqual(result.length, Object.keys(indexDescMsg).length + exampleBaseOptions.length);
+            assert.strictEqual(result.length, Object.keys(indexDescMsg).length + init.length);
         } else {
             assert.strictEqual(result.length, Object.keys(indexDescMsg).length);
         }
@@ -54,7 +54,7 @@ suite('Extension Completion Base Test Suite', () => {
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
         });
         if (initEnabled) {
-            exampleBaseOptions.forEach(item => {
+            init.forEach(item => {
                 const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === item.name);
                 assert.ok(target);
                 assert.strictEqual((target.label as vscode.CompletionItemLabel).description, item.title);
