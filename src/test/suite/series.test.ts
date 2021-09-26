@@ -43,4 +43,6 @@ suite('Extension Completion Series Option Test Suite', async() => {
     test("type为'line'的对象中应该返回 series-line 中所有的直接子级选项");
 
     test('数组中已经存在的值不应该被过滤');
+
+    test('对象格式应该触发对应的补全');
 });
