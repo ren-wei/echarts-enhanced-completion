@@ -40,7 +40,7 @@ export default class Options {
             return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';
-        this.descObject = this.store.getOptionDesc(this.paths, isArray);
+        this.descObject = this.store.getOptionDesc(this.paths, isArray, this.ast);
         return completionItems.concat(...this.filterOptions(this.descObject, this.node).map((name, index) => {
             const typeOfValue = this.descObject[name].uiControl?.type;
             return {
@@ -59,7 +59,7 @@ export default class Options {
 
     public getHover(): vscode.Hover | null {
         if (this.node.type === 'Identifier') {
-            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1));
+            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.ast);
             return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name].desc));
         }
         return null;
@@ -107,7 +107,7 @@ export default class Options {
                 } else {
                     value = '{$0},';
                 }
-            } else if (uiControl.type === 'Array') {
+            } else if (uiControl.type === 'Array' || Array.isArray(uiControl.type) && uiControl.type.includes('Array')) {
                 value = '[$0],';
             } else if (uiControl.options) {
                 value = "'${1|" + uiControl.options + "|}',";

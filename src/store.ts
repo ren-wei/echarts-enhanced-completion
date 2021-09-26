@@ -2,8 +2,9 @@
  * 从本地文件中获取数据
  */
 
-const path = require('path');
-const fs = require('fs');
+import * as path from 'path';
+import * as fs from 'fs';
+import Ast from './ast';
 
 export default class Store {
     public topOptionDesc: DescMsgObject; // 顶级选项的描述对象
@@ -26,15 +27,30 @@ export default class Store {
         return result;
     }
     /** 获取选项下各项的描述对象 */
-    public getOptionDesc(paths: Paths, isArray: boolean = false): DescMsgObject {
+    public getOptionDesc(paths: Paths, isArray: boolean, ast: Ast): DescMsgObject {
         let data: DescMsgObject = this.topOptionDesc;
         let prop: string = '';
         for (let i = 0; i < paths.length; i++) {
             if (typeof paths[i] === 'string') {
                 const path = paths[i] as string;
-                const detailFileName = data[path]?.uiControl?.detailFileName;
+                const detailFileName = data[path].uiControl?.detailFileName;
                 if (detailFileName) {
                     data = this.getFileData(detailFileName);
+                    // 如果下一个路径不存在或者当前是最后的路径并且不是数组，则需要再次获取资源文件
+                    // FIXME: 判断条件可能存在bug
+                    if (i === paths.length - 1 && !isArray || i + 1 < paths.length && typeof paths[i + 1] === 'string' && !data[paths[i + 1] as string]) {
+                        const condition = ast.getSimpleObjectByPaths(paths.slice(0, i + 1));
+                        const target = Object.values(data).find(item => {
+                            return item.uiControl?.required?.every(v => {
+                                return RegExp(v.valueRegExp).test(String(condition[v.key]));
+                            });
+                        });
+                        if (target?.uiControl?.detailFileName) {
+                            data = this.getFileData(target.uiControl.detailFileName);
+                        } else {
+                            return {};
+                        }
+                    }
                 } else {
                     prop = paths.slice(i).filter(v => typeof v === 'string').join('.');
                     break;

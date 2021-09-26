@@ -6,7 +6,7 @@
  */
 
 const baseUrl = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/zh/documents/option-parts/';
-const token = 'cd773ec255';
+const hash = 'cd773ec255';
 
 const axios = require('axios');
 const html2markdown = require('html2markdown');
@@ -18,7 +18,7 @@ const patch = require('./data/echartsOptionPatch');
 /** 向接口请求数据，并保存到assets目录 */
 async function getData(key, typeMsg) {
     try {
-        const res = await axios.get(`${baseUrl}option.${key}.js?${token}`);
+        const res = await axios.get(`${baseUrl}option.${key}.js?${hash}`);
         if (res.status === 200) {
             const datas = JSON.parse(res.data.slice(26 + key.length));
             const result = {};
@@ -120,12 +120,12 @@ async function getData(key, typeMsg) {
 }
 
 // 获取所有选项的类型信息
-axios.get(baseUrl + 'option-outline.js?' + token).then(async res => {
+axios.get(baseUrl + 'option-outline.js?' + hash).then(async res => {
     if (res.status === 200) {
         // 解析类型信息的数据并保存
         const typeMsgList = JSON.parse(res.data.slice(33)).children;
         // 获取顶级选项的数据
-        const r = await axios.get(baseUrl + 'option.js?' + token);
+        const r = await axios.get(baseUrl + 'option.js?' + hash);
         if (r.status === 200) {
             const datas = JSON.parse(r.data.slice(25));
             const indexFileData = dealIndex(datas, typeMsgList);
@@ -209,6 +209,7 @@ function dealIndex(datas, typeMsgList) {
             visualMapOption[key] = item;
         } else {
             if (['dataZoom', 'visualMap'].includes(key)) {
+                item.uiControl.type = ['Array', 'Object'];
                 item.uiControl.detailFileName = key;
             }
             result[key] = item;
@@ -216,7 +217,7 @@ function dealIndex(datas, typeMsgList) {
                 result.series = {
                     desc: '图形系列',
                     uiControl: {
-                        type: 'Array',
+                        type: ['Array', 'Object'],
                         detailFileName: 'series',
                     },
                 };

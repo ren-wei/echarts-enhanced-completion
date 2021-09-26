@@ -22,6 +22,26 @@ export default class Ast {
         }
     }
 
+    /** 根据路径获取对应的 SimpleObject */
+    public getSimpleObjectByPaths(paths: Paths): SimpleObject {
+        let node = this.expression as AstNode;
+        paths.forEach(path => {
+            switch (node.type) {
+                case 'Property':
+                    if (typeof path === 'string') {
+                        node = node.value.properties.find(item => item.key.name === path) as AstNode;
+                    } else {
+                        node = node.value.elements.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as AstNode;
+                    }
+                    break;
+                case 'ObjectExpression':
+                    node = node.properties.find(item => item.key.name === path) as AstNode;
+                    break;
+            }
+        });
+        return this.toSimpleObject(node);
+    }
+
     /** 获取选项对象所在的范围 */
     private getRange(keyword: string, document: vscode.TextDocument, position: vscode.Position): vscode.Range | null {
         let start: vscode.Position | null = null;
@@ -75,6 +95,8 @@ export default class Ast {
                     }
                 });
                 break;
+            case 'Property':
+                return this.toSimpleObject(node.value);
         }
         return item;
     }
