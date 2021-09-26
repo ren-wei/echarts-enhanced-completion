@@ -23,12 +23,6 @@ interface TypeMsg {
     children?: TypeMsg[];
 }
 
-interface BaseOptions {
-    code: string;
-    name: string;
-    title: string;
-}
-
 interface RequiredRule {
     key: string;
     value: string;
