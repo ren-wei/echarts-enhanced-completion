@@ -60,7 +60,7 @@
 }
 
 ```
-![设置](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting.gif)
+![设置](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting.png)
 
 ## Issues
 
