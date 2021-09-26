@@ -10,7 +10,11 @@
 
 安装并启用插件后，在你需要用作 `echarts` 配置项的对象的上一行添加一行注释： `/** @type EChartsOption */`，用于定义该对象为配置项对象。现在，在配置项对象中按下 `Enter` 键时，插件会显示你可能需要的配置项的列表，并且提示中有对该配置项的详细说明。
 
-![使用示例](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/GettingStarted.gif)
+![自动补全](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/CompletionItems.gif)
+
+![hover显示说明](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Hover.gif)
+
+![快速初始化](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init.gif)
 
 ## Features
 
@@ -38,8 +42,26 @@
 
 ## Extension Settings
 
-此扩展目前不提供设置项。
+```json
+"echarts-enhanced-completion.init.enabled": {
+    "type": "boolean",
+    "default": true,
+    "description": "空的配置对象中触发补全时显示额外的示例选项"
+},
+"echarts-enhanced-completion.init.onlyInit": {
+    "type": "boolean",
+    "default": false,
+    "description": "初始化时只显示初始化示例选项"
+},
+"echarts-enhanced-completion.init.showPictures": {
+    "type": "boolean",
+    "default": true,
+    "description": "显示示例选项的顶部的预览图片"
+}
+
+```
+![设置](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting.gif)
 
 ## Issues
 
-如果您在使用过程中遇到问题，您可以创建一个 `Issues` ，我们会尽快为您解决。
+如果您在使用过程中遇到问题，您可以创建一个 [Issues](https://github.com/ren-wei/echarts-enhanced-completion/issues) ，我们会尽快为您解决。

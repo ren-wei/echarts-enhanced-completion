@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.2.0 (2021-09-26)
+
+### Added
+
+- 支持富文本选项
+
+- 支持可配置的初始化选项
+
 ## 1.1.3 (2021-09-19)
 
 ### Fixed
