@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import Store from './store';
 import Ast from './ast';
+import Config from './config';
 
 export default class Options {
     private descObject: DescMsgObject = {};
@@ -18,25 +19,24 @@ export default class Options {
 
     public getCompletionItem(): vscode.CompletionItem[] {
         let completionItems: vscode.CompletionItem[] = [];
-        if (vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.enabled') && !this.ast.expression?.properties.length) {
+        if (Config.initEnabled && !this.ast.expression?.properties.length) {
             // 空对象额外增加初始化选项
             completionItems = this.store.getBaseOptions().map((item, index) => {
+                let insertText = item.code.slice(1, item.code.length - 1).split('\n').map(v => v.slice(4)).join('\n').trim();
+                insertText = insertText.replaceAll('    ', Config.insertSpaces ? new Array(Config.tabSize).fill(' ').join('') : '\t');
                 return {
                     label: {
                         label: item.name,
                         description: item.title,
                     },
                     kind: vscode.CompletionItemKind.Value,
-                    documentation: new vscode.MarkdownString((vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.showPictures') && item.imgSrc ? '![' + item.title + '](' + item.imgSrc + ')\n' : '') + '```javascript\n' + item.code + '\n```'),
+                    documentation: new vscode.MarkdownString((Config.initShowPictures && item.imgSrc ? '![' + item.title + '](' + item.imgSrc + ')\n' : '') + '```javascript\n' + item.code + '\n```'),
                     sortText: String(index).length > 1 ? String(index) : '0' + String(index),
-                    insertText: item.code
-                        .slice(1, item.code.length - 1)
-                        .split('\n').map(v => v.slice(4)).join('\n')
-                        .trim(),
+                    insertText,
                 };
             });
         }
-        if (vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.onlyInit')) {
+        if (Config.initEnabled && Config.onlyInit) {
             return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';

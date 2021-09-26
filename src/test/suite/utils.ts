@@ -8,6 +8,12 @@ export function getFileData(name: string): DescMsgObject {
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
 
+/** 获取json文件并解析为数组 */
+export function getFileArrayData(name: string = 'index'): BaseOption[] {
+    const fileName = path.resolve(__dirname + `../../../../assets/echarts-option/exampleBaseOptions/${name}.json`);
+    return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
+}
+
 /** 输入文本，并返回 text 之间的位置 */
 export async function inputText(text: [string, string], textEditor: vscode.TextEditor, position: vscode.Position): Promise<vscode.Position> {
     await textEditor.edit((editBuilder) => {

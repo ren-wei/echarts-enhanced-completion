@@ -3,7 +3,7 @@ import * as assert from 'assert';
 import * as path from 'path';
 
 import { start, provideCompletionItems } from '../../extension';
-import { getFileData, inputText } from './utils';
+import { getFileData, getFileArrayData, inputText } from './utils';
 
 start();
 
@@ -37,16 +37,29 @@ suite('Extension Completion Base Test Suite', () => {
         });
     });
 
-    test('空对象应该返回所有顶级选项', async() => {
+    test('空对象应该根据设置返回所有初始化选项和所有顶级选项', async() => {
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position, token, content) as vscode.CompletionItem[];
         const indexDescMsg = getFileData('index');
-        assert.strictEqual(result.length, Object.keys(indexDescMsg).length);
+        const exampleBaseOptions = getFileArrayData();
+        const initEnabled = vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.enabled');
+        if (initEnabled) {
+            assert.strictEqual(result.length, Object.keys(indexDescMsg).length + exampleBaseOptions.length);
+        } else {
+            assert.strictEqual(result.length, Object.keys(indexDescMsg).length);
+        }
         Object.entries(indexDescMsg).forEach(([key, descMsg]) => {
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
         });
+        if (initEnabled) {
+            exampleBaseOptions.forEach(item => {
+                const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === item.name);
+                assert.ok(target);
+                assert.strictEqual((target.label as vscode.CompletionItemLabel).description, item.title);
+            });
+        }
     });
 
     test('对应层级的选项应该只包含对应的所有选项', async() => {
