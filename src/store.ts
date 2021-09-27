@@ -36,21 +36,19 @@ export default class Store {
                 const detailFileName = data[path].uiControl?.detailFileName;
                 if (detailFileName) {
                     data = this.getFileData(detailFileName);
-                    // 如果下一个路径不存在或者当前是最后的路径并且不是数组，则需要再次获取资源文件
                     // FIXME: 判断条件可能存在bug
-                    // if (i === paths.length - 1 && !isArray || i + 1 < paths.length && typeof paths[i + 1] === 'string' && !data[paths[i + 1] as string]) {
-                    //     const condition = ast.getSimpleObjectByPaths(paths.slice(0, i + 1));
-                    //     const target = Object.values(data).find(item => {
-                    //         return item.uiControl?.required?.every(v => {
-                    //             return RegExp(v.valueRegExp).test(String(condition[v.key]));
-                    //         });
-                    //     });
-                    //     if (target?.uiControl?.detailFileName) {
-                    //         data = this.getFileData(target.uiControl.detailFileName);
-                    //     } else {
-                    //         return {};
-                    //     }
-                    // }
+                    // 如果下一个路径不存在或者当前是最后的路径并且不是数组，则需要再次获取资源文件
+                    if (i === paths.length - 1 && !isArray || i + 1 < paths.length && typeof paths[i + 1] === 'string' && !data[paths.slice(i + 1).filter(v => typeof v === 'string').join('.')]) {
+                        const condition = ast.getSimpleObjectByPaths(paths.slice(0, i + 1));
+                        const target = Object.values(data).find(item => {
+                            return item.uiControl?.required?.every(v => {
+                                return RegExp(v.valueRegExp).test(String(condition[v.key]));
+                            });
+                        });
+                        if (target?.uiControl?.detailFileName) {
+                            data = this.getFileData(target.uiControl.detailFileName);
+                        }
+                    }
                 } else {
                     prop = paths.slice(i).filter(v => typeof v === 'string').join('.');
                     break;
