@@ -9,15 +9,6 @@ suite('Extension Completion Series Option Test Suite', async() => {
     let textEditor: vscode.TextEditor;
     let position: vscode.Position;
     let initText: string;
-    const token: vscode.CancellationToken = {
-        isCancellationRequested: false,
-        onCancellationRequested(e) {
-            return new vscode.Disposable(() => {});
-        },
-    };
-    const content: vscode.CompletionContext = {
-        triggerKind: 0,
-    };
 
     setup(async() => {
         const uri = vscode.Uri.file(path.resolve(__dirname, '../../../src/test/template/index.js'));

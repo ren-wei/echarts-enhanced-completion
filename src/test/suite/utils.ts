@@ -18,7 +18,7 @@ export function getFileArrayData(name: string = 'index'): BaseOption[] {
 export async function inputText(text: [string, string], textEditor: vscode.TextEditor, position: vscode.Position): Promise<vscode.Position> {
     await textEditor.edit((editBuilder) => {
         editBuilder.insert(position, text.join(''));
-        position = position.translate(text[0].length - text[0].replace(/\n/g, '').length);
+        position = position.translate(text[0].length - text[0].replace(/\n/g, '').length, -position.character + text[0].split('\n')[text[0].split('\n').length - 1].length);
     });
     return position;
 }

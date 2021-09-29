@@ -5,7 +5,7 @@ import Options from './options';
 
 let store: Store;
 
-export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext): vscode.ProviderResult<vscode.CompletionItem[]> {
+export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
     const keyword = '/** @type EChartsOption */';
     const ast = new Ast(keyword, document, position);
     if (!ast.validate) return [];
@@ -13,7 +13,7 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
     return options.getCompletionItem();
 }
 
-export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
+export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
     const keyword = '/** @type EChartsOption */';
     const ast = new Ast(keyword, document, position);
     if (!ast.validate) return null;
