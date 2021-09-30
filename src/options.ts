@@ -61,6 +61,9 @@ export default class Options {
         if (this.node.type === 'Identifier') {
             this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.ast);
             return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name].desc));
+        } else if (this.node.type === 'Property') {
+            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.ast);
+            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.key.name].desc));
         }
         return null;
     }
