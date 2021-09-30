@@ -8,21 +8,18 @@ suite('Extension Completion Series Option Test Suite', async() => {
     let document: vscode.TextDocument;
     let textEditor: vscode.TextEditor;
     let position: vscode.Position;
-    let initText: string;
+
+    async function init() {
+        document = await vscode.workspace.openTextDocument({
+            language: 'javascript',
+            content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
+        });
+        textEditor = await vscode.window.showTextDocument(document);
+        position = new vscode.Position(2, 17); // 光标位置
+    }
 
     setup(async() => {
-        const uri = vscode.Uri.file(path.resolve(__dirname, '../../../src/test/template/index.js'));
-        textEditor = await vscode.window.showTextDocument(uri);
-        document = textEditor.document;
-        if (!initText) initText = document.getText();
-        position = new vscode.Position(2, 17); // 光标位置
-        // 将内容还原为初始状态
-        const startPosition = new vscode.Position(0, 0);
-        const endTextLine = document.lineAt(document.getText().split('\n').length - 1);
-        const endPosition = new vscode.Position(endTextLine.lineNumber, endTextLine.text.length + 1);
-        await textEditor.edit((editBuilder) => {
-            editBuilder.replace(new vscode.Range(startPosition, endPosition), initText);
-        });
+        await init();
     });
 
     test('顶级选项中series选项应该补全空数组');
