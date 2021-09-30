@@ -1,8 +1,7 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
-import * as path from 'path';
 
-import { start, provideCompletionItems } from '../../extension';
+import { start, provideCompletionItems, provideHover } from '../../extension';
 import { getFileData, getFileArrayData, inputText } from './utils';
 
 start();
@@ -11,22 +10,14 @@ suite('Extension Completion Base Test Suite', () => {
     let document: vscode.TextDocument;
     let textEditor: vscode.TextEditor;
     let position: vscode.Position;
-    let initText: string;
 
     async function init() {
-        const uri = vscode.Uri.file(path.resolve(__dirname, '../../../src/test/template/index.js'));
-        textEditor = await vscode.window.showTextDocument(uri);
-        document = textEditor.document;
-        if (!initText) initText = document.getText();
-        position = new vscode.Position(2, 17); // 光标位置
-        // 将内容还原为初始状态
-        const startPosition = new vscode.Position(0, 0);
-        const endTextLine = document.lineAt(document.getText().split('\n').length - 1);
-        const endPosition = new vscode.Position(endTextLine.lineNumber, endTextLine.text.length + 1);
-        await textEditor.edit((editBuilder) => {
-            editBuilder.replace(new vscode.Range(startPosition, endPosition), initText);
+        document = await vscode.workspace.openTextDocument({
+            language: 'javascript',
+            content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
         });
-        assert.strictEqual(document.getText().replaceAll('\r\n', '\n'), '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n');
+        textEditor = await vscode.window.showTextDocument(document);
+        position = new vscode.Position(2, 17); // 光标位置
     }
 
     setup(async() => {
@@ -138,7 +129,57 @@ suite('Extension Completion Base Test Suite', () => {
         });
     });
 
-    test('多个被标记的对象中的每一个都应该能够触发补全');
+    test('多个被标记的对象中的每一个都应该能够触发补全', async() => {
+        position = await inputText([[
+            '',
+            '    angleAxis: {',
+            '        axisLine: {',
+            '            ',
+        ].join('\n'), [
+            '',
+            '        }',
+            '    },',
+            '}',
+            '/** @type EChartsOption */',
+            'const options1 = {',
+            '    angleAxis: {',
+            '    }',
+        ].join('\n')], textEditor, position);
+        let result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
+        const angleAxisDescMsg = getFileData('angleAxis');
+        assert.strictEqual(result.length, 5);
+        ['show', 'symbol', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
+            const descMsg = angleAxisDescMsg[`axisLine.${key}`];
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+            assert.ok(target);
+            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
+        });
+
+        await init();
+        position = await inputText([[
+            '',
+            '    angleAxis: {',
+            '    },',
+            '}',
+            '/** @type EChartsOption */',
+            'const options1 = {',
+            '    angleAxis: {',
+            '        axisLine: {',
+            '            ',
+        ].join('\n'), [
+            '',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
+        assert.strictEqual(result.length, 5);
+        ['show', 'symbol', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
+            const descMsg = angleAxisDescMsg[`axisLine.${key}`];
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+            assert.ok(target);
+            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
+        });
+    });
 
     test('存在默认值的选项应该补全默认值', async() => {
         position = await inputText([[
@@ -247,5 +288,161 @@ suite('Extension Completion Base Test Suite', () => {
         assert.strictEqual((target.label as vscode.CompletionItemLabel).label, 'color');
         assert.strictEqual((target.documentation as vscode.MarkdownString).value, angleAxisDescMsg['axisLabel.rich.<style_name>.color'].desc);
         assert.strictEqual((target.insertText as vscode.SnippetString).value, 'color: null,');
+    });
+});
+
+suite('Extension Hover Base Test Suite', () => {
+    let document: vscode.TextDocument;
+    let textEditor: vscode.TextEditor;
+    let position: vscode.Position;
+
+    async function init() {
+        document = await vscode.workspace.openTextDocument({
+            language: 'javascript',
+            content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
+        });
+        textEditor = await vscode.window.showTextDocument(document);
+        position = new vscode.Position(2, 17); // 光标位置
+    }
+
+    setup(async() => {
+        await init();
+    });
+
+    test('顶级选项应该显示提示', async() => {
+        position = await inputText([[
+            '',
+            '    angle',
+        ].join('\n'), [
+            'Axis: {',
+            '        axisLine: {',
+            '            ',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideHover(document, position);
+        const indexDescMsg = getFileData('index');
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+    });
+
+    test('次级选项应该显示提示', async() => {
+        position = await inputText([[
+            '',
+            '    angleAxis: {',
+            '        axis',
+        ].join('\n'), [
+            'Line: {',
+            '            ',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideHover(document, position);
+        const angleAxisDescMsg = getFileData('angleAxis');
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, angleAxisDescMsg.axisLine.desc);
+    });
+
+    test('指向第一个字符应该显示提示', async() => {
+        position = await inputText([[
+            '',
+            '    ',
+        ].join('\n'), [
+            'angleAxis: {',
+            '        axisLine: {',
+            '            ',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideHover(document, position);
+        const indexDescMsg = getFileData('index');
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+    });
+
+    test('指向最后一个字符应该显示提示', async() => {
+        position = await inputText([[
+            '',
+            '    angleAxis',
+        ].join('\n'), [
+            ': {',
+            '        axisLine: {',
+            '            ',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideHover(document, position);
+        const indexDescMsg = getFileData('index');
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+    });
+
+    test('多个被标记的对象中的每一个都应该能够Hover显示提示', async() => {
+        position = await inputText([[
+            '',
+            '    angle',
+        ].join('\n'), [
+            'Axis: {',
+            '        axisLine: {',
+            '            ',
+            '        }',
+            '    },',
+            '}',
+            '/** @type EChartsOption */',
+            'const options1 = {',
+            '    angleAxis: {',
+            '    }',
+        ].join('\n')], textEditor, position);
+        let result = await provideHover(document, position);
+        const indexDescMsg = getFileData('index');
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+
+        await init();
+        position = await inputText([[
+            '',
+            '    angleAxis: {',
+            '    },',
+            '}',
+            '/** @type EChartsOption */',
+            'const options1 = {',
+            '    angle',
+        ].join('\n'), [
+            'Axis: {',
+            '        axisLine: {',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        result = await provideHover(document, position);
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+    });
+
+    test('命名属性中的属性应该能够Hover显示提示', async() => {
+        position = await inputText([[
+            '',
+            '    angleAxis: {',
+            '        axisLabel: {',
+            '            rich: {',
+            '                a: {',
+            '                    co',
+        ].join('\n'), [
+            'lor: null',
+            '                }',
+            '            }',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideHover(document, position);
+        const angleAxisDescMsg = getFileData('angleAxis');
+        assert.ok(result);
+        assert.strictEqual(result.contents.length, 1);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, angleAxisDescMsg['axisLabel.rich.<style_name>.color'].desc);
     });
 });
