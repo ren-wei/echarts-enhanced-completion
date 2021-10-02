@@ -158,6 +158,37 @@ export default class Options {
                             value = `${defaultValue},`;
                         }
                 }
+            } else if (uiControl.type?.includes('Array')) {
+                if (defaultValue) {
+                    if (defaultValue[0] !== '[') {
+                        defaultValue = `[${defaultValue}]`;
+                    }
+                    value = `${defaultValue},`;
+                } else {
+                    value = '[$0],';
+                }
+            } else if (uiControl.type?.includes('Object')) {
+                if (uiControl.required) {
+                    const result: string[] = ['{'];
+                    uiControl.required.forEach((item, index, array) => {
+                        let str = `\t${item.key}: ${item.value}`;
+                        if (index === array.length - 1) {
+                            str += ',';
+                        }
+                        result.push(str);
+                    });
+                    result.push('},');
+                    value = result.join('\n');
+                } else {
+                    value = '{$0},';
+                }
+            } else {
+                if (defaultValue) {
+                    if (defaultValue[0] !== '[') {
+                        defaultValue = `[${defaultValue}]`;
+                    }
+                    value = `${defaultValue},`;
+                }
             }
         }
         return isArray ? value : `${prop}: ${value}`;
