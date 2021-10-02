@@ -98,6 +98,7 @@ export default class Options {
                     case 'string':
                     case 'Color':
                     case 'color':
+                    case 'icon':
                         // 将值作为字符串补全
                         if (defaultValue) {
                             if (typeof defaultValue !== 'string' || defaultValue !== 'null' && defaultValue[0] !== "'" && defaultValue[0] !== '"') {
