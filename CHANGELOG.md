@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.2.2 (2021-10-02)
+
+### Added
+
+- series、visualMap和dataZoom同时支持数组和对象格式
+
+### Fixed
+
+- 修复hover属性可能出现不显示提示的问题
+
+- ([#1](https://github.com/ren-wei/echarts-enhanced-completion/issues/1)) 百分比类型属性的默认值应该是字符串
+
 ## 1.2.0 (2021-09-26)
 
 ### Added
