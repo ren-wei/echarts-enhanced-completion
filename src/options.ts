@@ -93,31 +93,71 @@ export default class Options {
         let value = '${0}';
         if (uiControl) {
             let defaultValue = uiControl.default;
-            if (uiControl.type === 'vector' && defaultValue) {
-                defaultValue = '[' + defaultValue + '],';
-            } else if (uiControl.type === 'Object') {
-                if (uiControl.required) {
-                    const result: string[] = ['{'];
-                    uiControl.required.forEach((item, index, array) => {
-                        let str = `\t${item.key}: ${item.value}`;
-                        if (index === array.length - 1) {
-                            str += ',$0';
+            if (typeof uiControl.type === 'string') {
+                switch (uiControl.type) {
+                    case 'string':
+                    case 'Color':
+                    case 'color':
+                        // 将值作为字符串补全
+                        if (defaultValue) {
+                            if (typeof defaultValue !== 'string' || defaultValue !== 'null' && defaultValue[0] !== "'" && defaultValue[0] !== '"') {
+                                defaultValue = `'${defaultValue}'`;
+                            }
+                            value = `${defaultValue},`;
+                        } else {
+                            value = "'$0',";
                         }
-                        result.push(str);
-                    });
-                    result.push('},');
-                    value = result.join('\n');
-                } else {
-                    value = '{$0},';
+                        break;
+                    case 'percent':
+                        // 值为百分比时，没有'%'时是数字类型，有'%'时是字符串类型
+                        if (defaultValue) {
+                            if (typeof defaultValue !== 'string' || defaultValue !== 'null' && defaultValue[0] !== "'" && defaultValue[0] !== '"') {
+                                defaultValue = `'${defaultValue}'`;
+                            }
+                            value = `${defaultValue},`;
+                        } else {
+                            value = '$0,';
+                        }
+                        break;
+                    case 'Array':
+                    case 'vector':
+                        // 将值作为数组补全
+                        if (defaultValue) {
+                            if (defaultValue[0] !== '[') {
+                                defaultValue = `[${defaultValue}]`;
+                            }
+                            value = `${defaultValue},`;
+                        } else {
+                            value = '[$0],';
+                        }
+                        break;
+                    case 'enum':
+                        value = "'${1|" + uiControl.options + "|}',";
+                        break;
+                    case 'Object':
+                        if (uiControl.required) {
+                            const result: string[] = ['{'];
+                            uiControl.required.forEach((item, index, array) => {
+                                let str = `\t${item.key}: ${item.value}`;
+                                if (index === array.length - 1) {
+                                    str += ',';
+                                }
+                                result.push(str);
+                            });
+                            result.push('},');
+                            value = result.join('\n');
+                        } else {
+                            value = '{$0},';
+                        }
+                        break;
+                    case 'number':
+                    case 'boolean':
+                    default:
+                        // 仅补全默认值
+                        if (defaultValue) {
+                            value = `${defaultValue},`;
+                        }
                 }
-            } else if (uiControl.type === 'Array' || Array.isArray(uiControl.type) && uiControl.type.includes('Array')) {
-                value = '[$0],';
-            } else if (uiControl.options) {
-                value = "'${1|" + uiControl.options + "|}',";
-            } else if (defaultValue) {
-                value = defaultValue + ',';
-            } else if (uiControl.type === 'string') {
-                value = "'$0',";
             }
         }
         return isArray ? value : `${prop}: ${value}`;

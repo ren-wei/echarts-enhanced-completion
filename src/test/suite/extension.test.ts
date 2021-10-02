@@ -232,6 +232,21 @@ suite('Extension Completion Base Test Suite', () => {
         assert.strictEqual(((target as vscode.CompletionItem).insertText as vscode.SnippetString).value, "animationEasing: '${1|linear,quadraticIn,quadraticOut,quadraticInOut,cubicIn,cubicOut,cubicInOut,quarticIn,quarticOut,quarticInOut,quinticIn,quinticOut,quinticInOut,sinusoidalIn,sinusoidalOut,sinusoidalInOut,exponentialIn,exponentialOut,exponentialInOut,circularIn,circularOut,circularInOut,elasticIn,elasticOut,elasticInOut,backIn,backOut,backInOut,bounceIn,bounceOut,bounceInOut|}',");
     });
 
+    test('"type"为"percent"的选项应该作为字符串补全', async() => {
+        position = await inputText([[
+            '',
+            '    calendar: {',
+            '        ',
+        ].join('\n'), [
+            '',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
+        const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'left');
+        assert.ok(target);
+        assert.strictEqual((target.insertText as vscode.SnippetString).value, "left: '0%',");
+    });
+
     test('普通数组值中不应该触发补全', async() => {
         position = await inputText([[
             '',
