@@ -96,44 +96,23 @@ export default class Options {
             if (typeof uiControl.type === 'string') {
                 switch (uiControl.type) {
                     case 'string':
-                    case 'Color':
                     case 'color':
                     case 'icon':
+                    case 'text':
                         // 将值作为字符串补全
-                        if (defaultValue) {
-                            if (typeof defaultValue !== 'string' || defaultValue !== 'null' && defaultValue[0] !== "'" && defaultValue[0] !== '"') {
-                                defaultValue = `'${defaultValue}'`;
-                            }
-                            value = `${defaultValue},`;
-                        } else {
-                            value = "'$0',";
-                        }
+                        value = "'$0',";
                         break;
                     case 'percent':
                         // 值为百分比时，没有'%'时是数字类型，有'%'时是字符串类型
-                        if (defaultValue) {
-                            if (typeof defaultValue !== 'string' || defaultValue !== 'null' && defaultValue[0] !== "'" && defaultValue[0] !== '"') {
-                                defaultValue = `'${defaultValue}'`;
-                            }
-                            value = `${defaultValue},`;
-                        } else {
-                            value = '$0,';
-                        }
+                        value = '$0,';
                         break;
                     case 'Array':
                     case 'vector':
                         // 将值作为数组补全
-                        if (defaultValue) {
-                            if (defaultValue[0] !== '[') {
-                                defaultValue = `[${defaultValue}]`;
-                            }
-                            value = `${defaultValue},`;
-                        } else {
-                            value = '[$0],';
-                        }
+                        value = '[$0],';
                         break;
                     case 'enum':
-                        value = "'${1|" + uiControl.options + "|}',";
+                        value = '${1|' + uiControl.options + '|},';
                         break;
                     case 'Object':
                         if (uiControl.required) {

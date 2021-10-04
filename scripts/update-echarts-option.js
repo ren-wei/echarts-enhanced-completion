@@ -81,6 +81,34 @@ async function getData(key, typeMsg) {
                 if (item.uiControl?.default && typeof item.uiControl.default === 'string') {
                     item.uiControl.default.replace(/&#39;/g, "'");
                 }
+                // 如果没有type，则设置为default的类型
+                if (item.uiControl && !item.uiControl.type) {
+                    item.uiControl.type = typeof item.uiControl.default || 'string';
+                }
+                // 如果存在options，则type为enum
+                if (item.uiControl?.options) item.uiControl.type = 'enum';
+                // 如果存在min并且没有默认值，那么设置默认值为min
+                if (item.uiControl?.min && !item.uiControl.default) {
+                    item.uiControl.default = item.uiControl.min;
+                }
+                // 删除'enum'的默认值，并将options改为字符串格式
+                if (item.uiControl?.type === 'enum') {
+                    if (item.uiControl.default) delete item.uiControl.default;
+                    item.uiControl.options = item.uiControl.options.split(',').map(v => `'${v}'`).join(',');
+                }
+                // 将`default`改为字符串格式
+                if (item.uiControl?.default !== undefined && typeof item.uiControl?.default !== 'string') {
+                    item.uiControl.default = String(item.uiControl.default);
+                }
+                // 将Color改为color
+                if (item.uiControl?.type === 'Color') item.uiControl.type = 'color';
+                // 补充内容
+                if (patch.contentPatch[key] && patch.contentPatch[key][name]) {
+                    item.desc = patch.contentPatch[key][name].desc || item.desc;
+                    if (patch.contentPatch[key][name].uiControl) {
+                        Object.assign(item.uiControl, patch.contentPatch[key][name].uiControl);
+                    }
+                }
                 // 额外添加选项
                 const appendObject = patch.appendPatch[key] && patch.appendPatch[key][name];
                 if (appendObject) {

@@ -8,13 +8,15 @@
     "zlevel": {
         "desc": " 所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 ",
         "uiControl": {
-            "default": 0
+            "default": "0",
+            "type": "number"
         }
     },
     "z": {
         "desc": " 组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
         "uiControl": {
-            "default": 2
+            "default": "2",
+            "type": "number"
         }
     },
     "center": {
@@ -35,7 +37,8 @@
     "startAngle": {
         "desc": " 坐标系起始角度，也就是第一个指示器轴的角度。 ",
         "uiControl": {
-            "default": 90
+            "default": "90",
+            "type": "number"
         }
     },
     "name": {
@@ -47,7 +50,8 @@
     "name.show": {
         "desc": " 是否显示指示器名称。 ",
         "uiControl": {
-            "default": true
+            "default": "true",
+            "type": "boolean"
         }
     },
     "name.formatter": {
@@ -70,24 +74,21 @@
         "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,italic,oblique"
+            "options": "'normal','italic','oblique'"
         }
     },
     "name.fontWeight": {
         "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,bold,bolder,lighter"
+            "options": "'normal','bold','bolder','lighter'"
         }
     },
     "name.fontFamily": {
         "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
         "uiControl": {
             "type": "enum",
-            "default": "sans-serif",
-            "options": "sans-serif,serif,monospace,Arial,Courier New"
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "name.fontSize": {
@@ -127,15 +128,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.borderType": {
         "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "name.borderDashOffset": {
@@ -152,7 +153,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB"
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
         }
     },
     "name.padding": {
@@ -160,7 +162,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L"
+            "dims": "T,R,B,L",
+            "default": "0"
         }
     },
     "name.shadowColor": {
@@ -174,7 +177,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.shadowOffsetX": {
@@ -222,15 +226,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.textBorderType": {
         "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "name.textBorderDashOffset": {
@@ -254,7 +258,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.textShadowOffsetX": {
@@ -275,19 +280,21 @@
         "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "truncate,break,breakAll"
+            "options": "'truncate','break','breakAll'"
         }
     },
     "name.ellipsis": {
         "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
         "uiControl": {
-            "default": "'...'"
+            "default": "'...'",
+            "type": "string"
         }
     },
     "name.lineOverflow": {
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
         "uiControl": {
-            "default": "'none'"
+            "default": "'none'",
+            "type": "string"
         }
     },
     "name.rich": {
@@ -313,24 +320,21 @@
         "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,italic,oblique"
+            "options": "'normal','italic','oblique'"
         }
     },
     "name.rich.<style_name>.fontWeight": {
         "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,bold,bolder,lighter"
+            "options": "'normal','bold','bolder','lighter'"
         }
     },
     "name.rich.<style_name>.fontFamily": {
         "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
         "uiControl": {
             "type": "enum",
-            "default": "sans-serif",
-            "options": "sans-serif,serif,monospace,Arial,Courier New"
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "name.rich.<style_name>.fontSize": {
@@ -346,14 +350,14 @@
         "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
         "uiControl": {
             "type": "enum",
-            "options": "left,center,right"
+            "options": "'left','center','right'"
         }
     },
     "name.rich.<style_name>.verticalAlign": {
         "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
         "uiControl": {
             "type": "enum",
-            "options": "top,middle,bottom"
+            "options": "'top','middle','bottom'"
         }
     },
     "name.rich.<style_name>.lineHeight": {
@@ -384,15 +388,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.rich.<style_name>.borderType": {
         "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "name.rich.<style_name>.borderDashOffset": {
@@ -409,7 +413,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB"
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
         }
     },
     "name.rich.<style_name>.padding": {
@@ -417,7 +422,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L"
+            "dims": "T,R,B,L",
+            "default": "0"
         }
     },
     "name.rich.<style_name>.shadowColor": {
@@ -431,7 +437,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.rich.<style_name>.shadowOffsetX": {
@@ -477,15 +484,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.rich.<style_name>.textBorderType": {
         "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "name.rich.<style_name>.textBorderDashOffset": {
@@ -509,7 +516,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "name.rich.<style_name>.textShadowOffsetX": {
@@ -546,7 +554,7 @@
         "desc": " 雷达图绘制类型，支持 'polygon' 和 'circle'。 ",
         "uiControl": {
             "type": "enum",
-            "options": "polygon,circle"
+            "options": "'polygon','circle'"
         }
     },
     "scale": {
@@ -558,13 +566,15 @@
     "silent": {
         "desc": " 坐标轴是否是静态无法交互。 ",
         "uiControl": {
-            "default": false
+            "default": "false",
+            "type": "boolean"
         }
     },
     "triggerEvent": {
         "desc": " 坐标轴的标签是否响应和触发鼠标事件，默认不响应。 事件参数如下： \n\n    {\n        // 组件类型，xAxis, yAxis, radiusAxis, angleAxis\n        // 对应组件类型都会有一个属性表示组件的 index，例如 xAxis 就是 xAxisIndex\n        componentType: string,\n        // 未格式化过的刻度值, 点击刻度标签有效\n        value: '',\n        // 坐标轴名称, 点击坐标轴名称有效\n        name: ''\n    }\n    \n\n",
         "uiControl": {
-            "default": false
+            "default": "false",
+            "type": "boolean"
         }
     },
     "axisLine": {
@@ -619,15 +629,15 @@
             "type": "number",
             "value": "1",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLine.lineStyle.type": {
         "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "axisLine.lineStyle.dashOffset": {
@@ -643,16 +653,14 @@
         "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
         "uiControl": {
             "type": "enum",
-            "default": "butt",
-            "options": "butt,round,square"
+            "options": "'butt','round','square'"
         }
     },
     "axisLine.lineStyle.join": {
         "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
         "uiControl": {
             "type": "enum",
-            "default": "bevel",
-            "options": "bevel,round,miter"
+            "options": "'bevel','round','miter'"
         }
     },
     "axisLine.lineStyle.miterLimit": {
@@ -668,7 +676,7 @@
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
         "uiControl": {
             "type": "number",
-            "default": "",
+            "default": "0",
             "min": "0",
             "step": "0.5"
         }
@@ -737,7 +745,7 @@
     "axisTick.lineStyle.color": {
         "desc": " 刻度线的颜色，默认取 [axisTick.lineStyle.color][0]。\n\n[0]: #.axisTick.lineStyle.color",
         "uiControl": {
-            "type": "Color"
+            "type": "color"
         }
     },
     "axisTick.lineStyle.width": {
@@ -746,15 +754,15 @@
             "type": "number",
             "value": "1",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisTick.lineStyle.type": {
         "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "axisTick.lineStyle.dashOffset": {
@@ -770,16 +778,14 @@
         "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
         "uiControl": {
             "type": "enum",
-            "default": "butt",
-            "options": "butt,round,square"
+            "options": "'butt','round','square'"
         }
     },
     "axisTick.lineStyle.join": {
         "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
         "uiControl": {
             "type": "enum",
-            "default": "bevel",
-            "options": "bevel,round,miter"
+            "options": "'bevel','round','miter'"
         }
     },
     "axisTick.lineStyle.miterLimit": {
@@ -795,7 +801,7 @@
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
         "uiControl": {
             "type": "number",
-            "default": "",
+            "default": "0",
             "min": "0",
             "step": "0.5"
         }
@@ -852,7 +858,8 @@
             "type": "angle",
             "min": "-90",
             "max": "90",
-            "step": "1"
+            "step": "1",
+            "default": "-90"
         }
     },
     "axisLabel.margin": {
@@ -900,24 +907,21 @@
         "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,italic,oblique"
+            "options": "'normal','italic','oblique'"
         }
     },
     "axisLabel.fontWeight": {
         "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,bold,bolder,lighter"
+            "options": "'normal','bold','bolder','lighter'"
         }
     },
     "axisLabel.fontFamily": {
         "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
         "uiControl": {
             "type": "enum",
-            "default": "sans-serif",
-            "options": "sans-serif,serif,monospace,Arial,Courier New"
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "axisLabel.fontSize": {
@@ -933,14 +937,14 @@
         "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
         "uiControl": {
             "type": "enum",
-            "options": "left,center,right"
+            "options": "'left','center','right'"
         }
     },
     "axisLabel.verticalAlign": {
         "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
         "uiControl": {
             "type": "enum",
-            "options": "top,middle,bottom"
+            "options": "'top','middle','bottom'"
         }
     },
     "axisLabel.lineHeight": {
@@ -971,15 +975,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.borderType": {
         "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.borderDashOffset": {
@@ -996,7 +1000,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB"
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
         }
     },
     "axisLabel.padding": {
@@ -1004,7 +1009,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L"
+            "dims": "T,R,B,L",
+            "default": "0"
         }
     },
     "axisLabel.shadowColor": {
@@ -1018,7 +1024,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.shadowOffsetX": {
@@ -1066,15 +1073,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.textBorderType": {
         "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.textBorderDashOffset": {
@@ -1098,7 +1105,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.textShadowOffsetX": {
@@ -1119,19 +1127,21 @@
         "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "truncate,break,breakAll"
+            "options": "'truncate','break','breakAll'"
         }
     },
     "axisLabel.ellipsis": {
         "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
         "uiControl": {
-            "default": "'...'"
+            "default": "'...'",
+            "type": "string"
         }
     },
     "axisLabel.lineOverflow": {
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
         "uiControl": {
-            "default": "'none'"
+            "default": "'none'",
+            "type": "string"
         }
     },
     "axisLabel.rich": {
@@ -1157,24 +1167,21 @@
         "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,italic,oblique"
+            "options": "'normal','italic','oblique'"
         }
     },
     "axisLabel.rich.<style_name>.fontWeight": {
         "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,bold,bolder,lighter"
+            "options": "'normal','bold','bolder','lighter'"
         }
     },
     "axisLabel.rich.<style_name>.fontFamily": {
         "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
         "uiControl": {
             "type": "enum",
-            "default": "sans-serif",
-            "options": "sans-serif,serif,monospace,Arial,Courier New"
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "axisLabel.rich.<style_name>.fontSize": {
@@ -1190,14 +1197,14 @@
         "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
         "uiControl": {
             "type": "enum",
-            "options": "left,center,right"
+            "options": "'left','center','right'"
         }
     },
     "axisLabel.rich.<style_name>.verticalAlign": {
         "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
         "uiControl": {
             "type": "enum",
-            "options": "top,middle,bottom"
+            "options": "'top','middle','bottom'"
         }
     },
     "axisLabel.rich.<style_name>.lineHeight": {
@@ -1228,15 +1235,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.rich.<style_name>.borderType": {
         "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.rich.<style_name>.borderDashOffset": {
@@ -1253,7 +1260,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB"
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
         }
     },
     "axisLabel.rich.<style_name>.padding": {
@@ -1261,7 +1269,8 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L"
+            "dims": "T,R,B,L",
+            "default": "0"
         }
     },
     "axisLabel.rich.<style_name>.shadowColor": {
@@ -1275,7 +1284,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.rich.<style_name>.shadowOffsetX": {
@@ -1321,15 +1331,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.rich.<style_name>.textBorderType": {
         "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.rich.<style_name>.textBorderDashOffset": {
@@ -1353,7 +1363,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "axisLabel.rich.<style_name>.textShadowOffsetX": {
@@ -1401,15 +1412,15 @@
             "type": "number",
             "value": "1",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "splitLine.lineStyle.type": {
         "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "splitLine.lineStyle.dashOffset": {
@@ -1425,16 +1436,14 @@
         "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
         "uiControl": {
             "type": "enum",
-            "default": "butt",
-            "options": "butt,round,square"
+            "options": "'butt','round','square'"
         }
     },
     "splitLine.lineStyle.join": {
         "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
         "uiControl": {
             "type": "enum",
-            "default": "bevel",
-            "options": "bevel,round,miter"
+            "options": "'bevel','round','miter'"
         }
     },
     "splitLine.lineStyle.miterLimit": {
@@ -1450,7 +1459,7 @@
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
         "uiControl": {
             "type": "number",
-            "default": "",
+            "default": "0",
             "min": "0",
             "step": "0.5"
         }
@@ -1518,7 +1527,7 @@
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
         "uiControl": {
             "type": "number",
-            "default": "",
+            "default": "0",
             "min": "0",
             "step": "0.5"
         }

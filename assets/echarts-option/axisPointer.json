@@ -15,7 +15,7 @@
         "desc": " 指示器类型。 可选 \n\n* 'line' 直线指示器\n* 'shadow' 阴影指示器\n* 'none' 无指示器\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "line,shadow,none"
+            "options": "'line','shadow','none'"
         }
     },
     "snap": {
@@ -39,7 +39,8 @@
     "label.show": {
         "desc": " 是否显示文本标签。如果 [tooltip.axisPointer.type][0] 设置为 'cross' 则默认显示标签，否则默认不显示。\n\n[0]: #tooltip.axisPointer.type",
         "uiControl": {
-            "default": false
+            "default": "false",
+            "type": "boolean"
         }
     },
     "label.precision": {
@@ -64,7 +65,7 @@
     "label.margin": {
         "desc": " label 距离轴的距离。 ",
         "uiControl": {
-            "default": 3,
+            "default": "3",
             "type": "boolean"
         }
     },
@@ -79,24 +80,21 @@
         "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,italic,oblique"
+            "options": "'normal','italic','oblique'"
         }
     },
     "label.fontWeight": {
         "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
         "uiControl": {
             "type": "enum",
-            "default": "normal",
-            "options": "normal,bold,bolder,lighter"
+            "options": "'normal','bold','bolder','lighter'"
         }
     },
     "label.fontFamily": {
         "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
         "uiControl": {
             "type": "enum",
-            "default": "sans-serif",
-            "options": "sans-serif,serif,monospace,Arial,Courier New"
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "label.fontSize": {
@@ -148,15 +146,15 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "label.textBorderType": {
         "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "label.textBorderDashOffset": {
@@ -180,7 +178,8 @@
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "label.textShadowOffsetX": {
@@ -201,19 +200,21 @@
         "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "truncate,break,breakAll"
+            "options": "'truncate','break','breakAll'"
         }
     },
     "label.ellipsis": {
         "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
         "uiControl": {
-            "default": "'...'"
+            "default": "'...'",
+            "type": "string"
         }
     },
     "label.lineOverflow": {
         "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
         "uiControl": {
-            "default": "'none'"
+            "default": "'none'",
+            "type": "string"
         }
     },
     "label.padding": {
@@ -221,13 +222,15 @@
         "uiControl": {
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L"
+            "dims": "T,R,B,L",
+            "default": "0"
         }
     },
     "label.backgroundColor": {
         "desc": " 文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color][0] 相同。\n\n[0]: #xAxis.axisLine.lineStyle.color",
         "uiControl": {
-            "default": "'auto'"
+            "default": "'auto'",
+            "type": "string"
         }
     },
     "label.borderColor": {
@@ -239,7 +242,7 @@
     "label.borderWidth": {
         "desc": " 文本标签的边框宽度。 ",
         "uiControl": {
-            "default": 0,
+            "default": "0",
             "type": "string"
         }
     },
@@ -293,15 +296,15 @@
             "type": "number",
             "value": "1",
             "min": "0",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "lineStyle.type": {
         "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
         "uiControl": {
             "type": "enum",
-            "default": "solid",
-            "options": "solid,dashed,dotted"
+            "options": "'solid','dashed','dotted'"
         }
     },
     "lineStyle.dashOffset": {
@@ -317,16 +320,14 @@
         "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
         "uiControl": {
             "type": "enum",
-            "default": "butt",
-            "options": "butt,round,square"
+            "options": "'butt','round','square'"
         }
     },
     "lineStyle.join": {
         "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
         "uiControl": {
             "type": "enum",
-            "default": "bevel",
-            "options": "bevel,round,miter"
+            "options": "'bevel','round','miter'"
         }
     },
     "lineStyle.miterLimit": {
@@ -342,7 +343,7 @@
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
         "uiControl": {
             "type": "number",
-            "default": "",
+            "default": "0",
             "min": "0",
             "step": "0.5"
         }
@@ -396,7 +397,7 @@
         "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
         "uiControl": {
             "type": "number",
-            "default": "",
+            "default": "0",
             "min": "0",
             "step": "0.5"
         }
@@ -451,7 +452,7 @@
         "desc": " 当前的状态，可取值为 'show' 和 'hide'。 ",
         "uiControl": {
             "type": "enum",
-            "options": "show,hide"
+            "options": "'show','hide'"
         }
     },
     "handle": {
@@ -549,7 +550,7 @@
         "desc": " 提示框触发的条件，可选： \n\n* 'mousemove' 鼠标移动时触发。\n* 'click' 鼠标点击时触发。\n* 'none' 不在 'mousemove' 或 'click' 时触发。\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "mousemove,click,none"
+            "options": "'mousemove','click','none'"
         }
     }
 }

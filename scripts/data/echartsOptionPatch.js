@@ -131,6 +131,27 @@ const appendPatch = {
     },
 };
 
+/** 为选项添加内容 */
+const contentPatch = {
+    'title': {
+        'textStyle.textShadowColor': {
+            uiControl: {
+                default: 'transparent',
+            },
+        },
+        'textStyle.textShadowOffsetX': {
+            uiControl: {
+                default: '0',
+            },
+        },
+        'textStyle.textShadowOffsetY': {
+            uiControl: {
+                default: '0',
+            },
+        },
+    },
+};
+
 module.exports = {
     positionDesc,
     radiusDesc,
@@ -138,4 +159,5 @@ module.exports = {
     targetDesc,
     optionToContentDesc,
     appendPatch,
+    contentPatch,
 };

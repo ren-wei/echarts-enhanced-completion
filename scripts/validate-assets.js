@@ -110,7 +110,7 @@ function checkFile(dirName, fileName, isArray = false) {
                 assert(false, `${key}.uiControl 中存在未知的属性:${k}`);
             });
             // uiControl 中必须存在属性 type
-            // assert(Boolean(item.uiControl.type), `${key}.uiControl.type 不存在`);
+            assert(Boolean(item.uiControl.type), `${key}.uiControl.type 不存在`);
             // `options` 如果存在，则 `type: "enum"`
             if (item.uiControl.options) {
                 assert(item.uiControl.type === 'enum', `${key}.uiControl.type 应该是 'enum'`);

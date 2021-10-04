@@ -24,8 +24,7 @@
         "desc": "dataZoom 的运行原理是通过 数据过滤 以及在内部设置轴的显示窗口来达到 数据窗口缩放 的效果。 数据过滤模式（[dataZoom.filterMode][0]）的设置不同，效果也不同。 可选值为： \n\n* 'filter'：当前数据窗口外的数据，被 **过滤掉**。即 **会** 影响其他轴的数据范围。每个数据项，只要有一个维度在数据窗口外，整个数据项就会被过滤掉。\n* 'weakFilter'：当前数据窗口外的数据，被 **过滤掉**。即 **会** 影响其他轴的数据范围。每个数据项，只有当全部维度都在数据窗口同侧外部，整个数据项才会被过滤掉。\n* 'empty'：当前数据窗口外的数据，被 **设置为空**。即 **不会** 影响其他轴的数据范围。\n* 'none': 不过滤数据，只改变数轴范围。\n\n如何设置，由用户根据场景和需求自己决定。经验来说： \n\n* 当『只有 X 轴 或 只有 Y 轴受 dataZoom 组件控制』时，常使用 filterMode: 'filter'，这样能使另一个轴自适应过滤后的数值范围。\n* 当『X 轴 Y 轴分别受 dataZoom 组件控制』时： \n  * 如果 X 轴和 Y 轴是『同等地位的、不应互相影响的』，比如在『双数值轴散点图』中，那么两个轴可都设为 fiterMode: 'empty'。\n  * 如果 X 轴为主，Y 轴为辅，比如在『柱状图』中，需要『拖动 dataZoomX 改变 X 轴过滤柱子时，Y 轴的范围也自适应剩余柱子的高度』，『拖动 dataZoomY 改变 Y 轴过滤柱子时，X 轴范围不受影响』，那么就 X轴设为 fiterMode: 'filter'，Y 轴设为 fiterMode: 'empty'，即主轴 'filter'，辅轴 'empty'。\n\n下面是个具体例子： \n\n    option = {\n        dataZoom: [\n            {\n                id: 'dataZoomX',\n                type: 'slider',\n                xAxisIndex: [0],\n                filterMode: 'filter'\n            },\n            {\n                id: 'dataZoomY',\n                type: 'slider',\n                yAxisIndex: [0],\n                filterMode: 'empty'\n            }\n        ],\n        xAxis: {type: 'value'},\n        yAxis: {type: 'value'},\n        series{\n            type: 'bar',\n            data: [\n                // 第一列对应 X 轴，第二列对应 Y 轴。\n                [12, 24, 36],\n                [90, 80, 70],\n                [3, 9, 27],\n                [1, 11, 111]\n            ]\n        }\n    }\n    \n\n上例中，dataZoomX 的 filterMode 设置为 'filter'。于是，假设当用户拖拽 dataZoomX（不去动 dataZoomY）导致其 valueWindow 变为 [2, 50] 时，dataZoomX 对 series.data 的第一列进行遍历，窗口外的整项去掉，最终得到的 series.data 为： \n\n    [\n        // 第一列对应 X 轴，第二列对应 Y 轴。\n        [12, 24, 36],\n        // [90, 80, 70] 整项被过滤掉，因为 90 在 dataWindow 之外。\n        [3, 9, 27]\n        // [1, 11, 111] 整项被过滤掉，因为 1 在 dataWindow 之外。\n    ]\n    \n\n过滤前，series.data 中对应 Y 轴的值有 24、80、9、11，过滤后，只剩下 24 和 9，那么 Y 轴的显示范围就会自动改变以适应剩下的这两个值的显示（如果 Y 轴没有被设置 min、max 固定其显示范围的话）。 所以，filterMode: 'filter' 的效果是：过滤数据后使另外的轴也能自动适应当前数据的范围。 再从头来，上例中 dataZoomY 的 filterMode 设置为 'empty'。于是，假设当用户拖拽 dataZoomY（不去动 dataZoomX）导致其 dataWindow 变为 [10, 60] 时，dataZoomY 对 series.data 的第二列进行遍历，窗口外的值被设置为 empty （即替换为 NaN，这样设置为空的项，其所对应柱形，在 X 轴还有占位，只是不显示出来）。最终得到的 series.data 为： \n\n    [\n        // 第一列对应 X 轴，第二列对应 Y 轴。\n        [12, 24, 36],\n        [90, NaN, 70], // 设置为 empty (NaN)\n        [3, NaN, 27],  // 设置为 empty (NaN)\n        [1, 11, 111]\n    ]\n    \n\n这时，series.data 中对应于 X 轴的值仍然全部保留不受影响，为 12、90、3、1。那么用户对 dataZoomY 的拖拽操作不会影响到 X 轴的范围。这样的效果，对于离群点（outlier）过滤功能，比较清晰。 如下面的例子： 暂时无法显示\n\n[0]: #dataZoom.filterMode",
         "uiControl": {
             "type": "enum",
-            "options": "filter,weakFilter,empty,none",
-            "default": "filter"
+            "options": "'filter','weakFilter','empty','none'"
         }
     },
     "start": {
@@ -34,7 +33,8 @@
             "type": "number",
             "min": "0",
             "max": "100",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "end": {
@@ -59,7 +59,8 @@
             "type": "number",
             "min": "0",
             "max": "100",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "maxSpan": {
@@ -68,7 +69,8 @@
             "type": "number",
             "min": "0",
             "max": "100",
-            "step": "0.5"
+            "step": "0.5",
+            "default": "0"
         }
     },
     "minValueSpan": {
@@ -81,7 +83,7 @@
         "desc": " 布局方式是横还是竖。不仅是布局方式，对于直角坐标系而言，也决定了，缺省情况控制横向数轴还是纵向数轴。 可选值为： \n\n* 'horizontal'：水平。\n* 'vertical'：竖直。\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "horizontal,vertical"
+            "options": "'horizontal','vertical'"
         }
     },
     "zoomLock": {
@@ -106,24 +108,21 @@
         "desc": " 如何触发缩放。可选值为： \n\n* true：表示不按任何功能键，鼠标滚轮能触发缩放。\n* false：表示鼠标滚轮不能触发缩放。\n* 'shift'：表示按住 shift 和鼠标滚轮能触发缩放。\n* 'ctrl'：表示按住 ctrl 和鼠标滚轮能触发缩放。\n* 'alt'：表示按住 alt 和鼠标滚轮能触发缩放。\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "true,false,shift,ctrl,alt",
-            "default": "true"
+            "options": "'true','false','shift','ctrl','alt'"
         }
     },
     "moveOnMouseMove": {
         "desc": " 如何触发数据窗口平移。可选值为： \n\n* true：表示不按任何功能键，鼠标移动能触发数据窗口平移。\n* false：表示鼠标移动不能触发平移。\n* 'shift'：表示按住 shift 和鼠标移动能触发数据窗口平移。\n* 'ctrl'：表示按住 ctrl 和鼠标移动能触发数据窗口平移。\n* 'alt'：表示按住 alt 和鼠标移动能触发数据窗口平移。\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "true,false,shift,ctrl,alt",
-            "default": "true"
+            "options": "'true','false','shift','ctrl','alt'"
         }
     },
     "moveOnMouseWheel": {
         "desc": " 如何触发数据窗口平移。可选值为： \n\n* true：表示不按任何功能键，鼠标滚轮能触发数据窗口平移。\n* false：表示鼠标滚轮不能触发平移。\n* 'shift'：表示按住 shift 和鼠标滚轮能触发数据窗口平移。\n* 'ctrl'：表示按住 ctrl 和鼠标滚轮能触发数据窗口平移。\n* 'alt'：表示按住 alt 和鼠标滚轮能触发数据窗口平移。\n\n",
         "uiControl": {
             "type": "enum",
-            "options": "true,false,shift,ctrl,alt",
-            "default": "true"
+            "options": "'true','false','shift','ctrl','alt'"
         }
     },
     "preventDefaultMouseMove": {

@@ -20,7 +20,7 @@
 
 * `type` 规定了值的类型
 
-* `default` 如果存在，则规定属性值的默认值
+* `default` 如果存在，则规定属性值的默认值，如果`options`存在，则它不需要存在
 
 * `options` 如果存在，则 `type: "enum"`，并规定了可选的所有值
 
@@ -35,6 +35,30 @@
 * `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段；用于相互之间进行区分，它的 `valueRegExp` 是 `key` 对应的属性的值必须满足的正则表达式的字符串。
 
 * `detailFileName` 如果存在，则表示该选项的子选项在这个字段值指定的文件中
+
+### `type` 取值
+
+* `string` 字符串
+
+* `color` 颜色
+
+* `icon` 图标
+
+* `text` 文本
+
+* `percent` 百分比，没有'%'时是数字类型，有'%'时是字符串类型
+
+* `vector` 向量
+
+* `enum` 枚举值
+
+* `number` 数字
+
+* `boolean` Boolean值
+
+* `Object` 对象
+
+* `Array` 数组
 
 ## 对资源文件的检查
 
