@@ -15,6 +15,67 @@ const path = require('path');
 
 const patch = require('./data/echartsOptionPatch');
 
+function patchItem(key, name, result, item) {
+    if (item.uiControl?.default && typeof item.uiControl.default === 'string') {
+        item.uiControl.default.replace(/&#39;/g, "'");
+    }
+    // 如果没有type，则设置为default的类型
+    if (item.uiControl && !item.uiControl.type) {
+        item.uiControl.type = typeof item.uiControl.default || 'string';
+    }
+    // 如果存在options，则type为enum
+    if (item.uiControl?.options) item.uiControl.type = 'enum';
+    // 如果存在min并且没有默认值，那么设置默认值为min
+    if (item.uiControl?.min && !item.uiControl.default) {
+        item.uiControl.default = item.uiControl.min;
+    }
+    // 删除'enum'的默认值，并将options改为字符串格式
+    if (item.uiControl?.type === 'enum') {
+        if (item.uiControl.default) delete item.uiControl.default;
+        item.uiControl.options = item.uiControl.options.split(',').map(v => `'${v}'`).join(',');
+    }
+    // 将`default`改为字符串格式
+    if (item.uiControl?.default !== undefined && typeof item.uiControl?.default !== 'string') {
+        item.uiControl.default = String(item.uiControl.default);
+    }
+    // 将Color改为color
+    if (item.uiControl?.type === 'Color') item.uiControl.type = 'color';
+    // 如果'color'的'default'不是以单引号开头，那么前后都加上单引号
+    if (item.uiControl?.type === 'color' && item.uiControl.default && item.uiControl.default !== 'null' && item.uiControl.default[0] !== "'") {
+        item.uiControl.default = `'${item.uiControl.default}'`;
+    }
+    // 如果'percent'的'default'是以%结尾，那么前后都加上单引号
+    if (item.uiControl?.type === 'percent' && item.uiControl.default && item.uiControl.default[item.uiControl.default.length - 1] === '%') {
+        item.uiControl.default = `'${item.uiControl.default}'`;
+    }
+    // 修复错误数据
+    if (key === 'calendar' && name === 'splitLine.show') {
+        item.uiControl = {
+            type: 'boolean',
+            default: 'true',
+        };
+    }
+    // 额外添加选项
+    const appendObject = patch.appendPatch[key] && patch.appendPatch[key][name];
+    if (appendObject) {
+        result[name] = item;
+        Object.entries(appendObject).forEach(([k, v]) => {
+            result[k] = v;
+        });
+    } else {
+        const parentName = name.split('.').slice(0, name.split('.').length - 1).join('.');
+        if (name.includes('.') && !Object.keys(result).find(k => k === parentName)) {
+            result[parentName] = {
+                desc: '',
+                uiControl: {
+                    type: 'Object',
+                },
+            };
+        }
+        result[name] = item;
+    }
+}
+
 /** 向接口请求数据，并保存到assets目录 */
 async function getData(key, typeMsg) {
     try {
@@ -78,67 +139,7 @@ async function getData(key, typeMsg) {
                         }
                     }
                 }
-                if (item.uiControl?.default && typeof item.uiControl.default === 'string') {
-                    item.uiControl.default.replace(/&#39;/g, "'");
-                }
-                // 如果没有type，则设置为default的类型
-                if (item.uiControl && !item.uiControl.type) {
-                    item.uiControl.type = typeof item.uiControl.default || 'string';
-                }
-                // 如果存在options，则type为enum
-                if (item.uiControl?.options) item.uiControl.type = 'enum';
-                // 如果存在min并且没有默认值，那么设置默认值为min
-                if (item.uiControl?.min && !item.uiControl.default) {
-                    item.uiControl.default = item.uiControl.min;
-                }
-                // 删除'enum'的默认值，并将options改为字符串格式
-                if (item.uiControl?.type === 'enum') {
-                    if (item.uiControl.default) delete item.uiControl.default;
-                    item.uiControl.options = item.uiControl.options.split(',').map(v => `'${v}'`).join(',');
-                }
-                // 将`default`改为字符串格式
-                if (item.uiControl?.default !== undefined && typeof item.uiControl?.default !== 'string') {
-                    item.uiControl.default = String(item.uiControl.default);
-                }
-                // 将Color改为color
-                if (item.uiControl?.type === 'Color') item.uiControl.type = 'color';
-                // 如果'color'的'default'不是以单引号开头，那么前后都加上单引号
-                if (item.uiControl?.type === 'color' && item.uiControl.default && item.uiControl.default !== 'null' && item.uiControl.default[0] !== "'") {
-                    item.uiControl.default = `'${item.uiControl.default}'`;
-                }
-                // 修复错误数据
-                if (key === 'calendar' && name === 'splitLine.show') {
-                    item.uiControl = {
-                        type: 'boolean',
-                        default: 'true',
-                    };
-                }
-                // 补充内容
-                // if (patch.contentPatch[key] && patch.contentPatch[key][name]) {
-                //     item.desc = patch.contentPatch[key][name].desc || item.desc;
-                //     if (patch.contentPatch[key][name].uiControl) {
-                //         Object.assign(item.uiControl, patch.contentPatch[key][name].uiControl);
-                //     }
-                // }
-                // 额外添加选项
-                const appendObject = patch.appendPatch[key] && patch.appendPatch[key][name];
-                if (appendObject) {
-                    result[name] = item;
-                    Object.entries(appendObject).forEach(([k, v]) => {
-                        result[k] = v;
-                    });
-                } else {
-                    const parentName = name.split('.').slice(0, name.split('.').length - 1).join('.');
-                    if (name.includes('.') && !Object.keys(result).find(k => k === parentName)) {
-                        result[parentName] = {
-                            desc: '',
-                            uiControl: {
-                                type: 'Object',
-                            },
-                        };
-                    }
-                    result[name] = item;
-                }
+                patchItem(key, name, result, item);
             });
             fs.writeFile(path.resolve(__dirname, `../assets/echarts-option/${key}.json`), JSON.stringify(result, null, 4), () => {
                 /* eslint-disable-next-line no-console  */
@@ -251,14 +252,7 @@ function dealIndex(datas, typeMsgList) {
                 item.uiControl.type = ['Array', 'Object'];
                 item.uiControl.detailFileName = key;
             }
-            // 如果没有type，则设置为default的类型
-            if (item.uiControl && !item.uiControl.type) {
-                item.uiControl.type = typeof item.uiControl.default || 'string';
-            }
-            // 将`default`改为字符串格式
-            if (item.uiControl?.default !== undefined && typeof item.uiControl?.default !== 'string') {
-                item.uiControl.default = String(item.uiControl.default);
-            }
+            patchItem('index', key, result, item);
             result[key] = item;
             if (key === 'aria') {
                 result.series = {

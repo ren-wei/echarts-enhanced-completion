@@ -132,85 +132,6 @@ const appendPatch = {
     },
 };
 
-/** 为选项添加内容 */
-const contentPatch = {
-    // 'title': {
-    //     'target': {
-    //         uiControl: {
-    //             type: 'enum',
-    //             options: "'blank','self'",
-    //         },
-    //     },
-    //     'textStyle.fontWeight': {
-    //         uiControl: {
-    //             options: "'normal','bold','bolder','lighter',100,200,300,400,500,600,700",
-    //         },
-    //     },
-    //     'textStyle.textShadowColor': {
-    //         uiControl: {
-    //             default: "'transparent'",
-    //         },
-    //     },
-    //     'textStyle.overflow': {
-    //         uiControl: {
-    //             options: "'none','truncate','break','breakAll'",
-    //         },
-    //     },
-    //     'textStyle.lineOverflow': {
-    //         uiControl: {
-    //             type: 'enum',
-    //             options: "'none','truncate'",
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.color': {
-    //         uiControl: {
-    //             default: "'#fff'",
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.fontWeight': {
-    //         uiControl: {
-    //             options: "'normal','bold','bolder','lighter',100,200,300,400,500,600,700",
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.backgroundColor': {
-    //         uiControl: {
-    //             type: ['color', 'Object'],
-    //             default: "'transparent'",
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.shadowColor': {
-    //         uiControl: {
-    //             default: "'transparent'",
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.shadowOffsetX': {
-    //         uiControl: {
-    //             default: '0',
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.shadowOffsetY': {
-    //         uiControl: {
-    //             default: '0',
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.textShadowColor': {
-    //         uiControl: {
-    //             default: "'transparent'",
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.textShadowOffsetX': {
-    //         uiControl: {
-    //             default: '0',
-    //         },
-    //     },
-    //     'textStyle.rich.<style_name>.textShadowOffsetY': {
-    //         uiControl: {
-    //             default: '0',
-    //         },
-    //     },
-    // },
-};
-
 module.exports = {
     positionDesc,
     radiusDesc,
@@ -218,5 +139,4 @@ module.exports = {
     targetDesc,
     optionToContentDesc,
     appendPatch,
-    contentPatch,
 };
