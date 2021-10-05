@@ -102,13 +102,24 @@ async function getData(key, typeMsg) {
                 }
                 // 将Color改为color
                 if (item.uiControl?.type === 'Color') item.uiControl.type = 'color';
-                // 补充内容
-                if (patch.contentPatch[key] && patch.contentPatch[key][name]) {
-                    item.desc = patch.contentPatch[key][name].desc || item.desc;
-                    if (patch.contentPatch[key][name].uiControl) {
-                        Object.assign(item.uiControl, patch.contentPatch[key][name].uiControl);
-                    }
+                // 如果'color'的'default'不是以单引号开头，那么前后都加上单引号
+                if (item.uiControl?.type === 'color' && item.uiControl.default && item.uiControl.default !== 'null' && item.uiControl.default[0] !== "'") {
+                    item.uiControl.default = `'${item.uiControl.default}'`;
                 }
+                // 修复错误数据
+                if (key === 'calendar' && name === 'splitLine.show') {
+                    item.uiControl = {
+                        type: 'boolean',
+                        default: 'true',
+                    };
+                }
+                // 补充内容
+                // if (patch.contentPatch[key] && patch.contentPatch[key][name]) {
+                //     item.desc = patch.contentPatch[key][name].desc || item.desc;
+                //     if (patch.contentPatch[key][name].uiControl) {
+                //         Object.assign(item.uiControl, patch.contentPatch[key][name].uiControl);
+                //     }
+                // }
                 // 额外添加选项
                 const appendObject = patch.appendPatch[key] && patch.appendPatch[key][name];
                 if (appendObject) {
@@ -239,6 +250,14 @@ function dealIndex(datas, typeMsgList) {
             if (['dataZoom', 'visualMap'].includes(key)) {
                 item.uiControl.type = ['Array', 'Object'];
                 item.uiControl.detailFileName = key;
+            }
+            // 如果没有type，则设置为default的类型
+            if (item.uiControl && !item.uiControl.type) {
+                item.uiControl.type = typeof item.uiControl.default || 'string';
+            }
+            // 将`default`改为字符串格式
+            if (item.uiControl?.default !== undefined && typeof item.uiControl?.default !== 'string') {
+                item.uiControl.default = String(item.uiControl.default);
             }
             result[key] = item;
             if (key === 'aria') {

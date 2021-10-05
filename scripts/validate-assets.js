@@ -102,7 +102,7 @@ function checkFile(dirName, fileName, isArray = false) {
             // uiControl 中允许的属性
             const otherPropList = [];
             Object.keys(item.uiControl).forEach(k => {
-                if (!['type', 'default', 'options', 'min', 'max', 'step', 'dims', 'required', 'detailFileName'].includes(k)) {
+                if (!['type', 'default', 'options', 'min', 'max', 'step', 'dims', 'required', 'value', 'detailFileName', 'clean', 'separate'].includes(k)) {
                     otherPropList.push(k);
                 }
             });
@@ -117,7 +117,7 @@ function checkFile(dirName, fileName, isArray = false) {
             }
             // `detailFileName` 如果存在，则表示该选项的子选项在这个字段值指定的文件中
             if (item.uiControl.detailFileName) {
-                checkList.push([dirName, item.uiControl.detailFileName, item.uiControl.type === 'Array']);
+                checkList.push([dirName, item.uiControl.detailFileName, item.uiControl.type === 'Array' || item.uiControl.type.includes('Array')]);
             }
             // `required` 如果存在，则必须位于数组下，并且所有的兄弟选项都必须存在 `required` 字段
             const parentKey = key.split('.').slice(0, key.split('.').length - 1);
