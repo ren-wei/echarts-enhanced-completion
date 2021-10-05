@@ -92,8 +92,10 @@ export default class Options {
         }
         let value = '${0}';
         if (uiControl) {
-            let defaultValue = uiControl.default;
-            if (typeof uiControl.type === 'string') {
+            // 如果存在默认值，则补全默认值
+            if (uiControl.default) {
+                value = `${uiControl.default},`;
+            } else if (typeof uiControl.type === 'string') {
                 switch (uiControl.type) {
                     case 'string':
                     case 'color':
@@ -134,19 +136,9 @@ export default class Options {
                     case 'boolean':
                     default:
                         // 仅补全默认值
-                        if (defaultValue) {
-                            value = `${defaultValue},`;
-                        }
                 }
             } else if (uiControl.type?.includes('Array')) {
-                if (defaultValue) {
-                    if (defaultValue[0] !== '[') {
-                        defaultValue = `[${defaultValue}]`;
-                    }
-                    value = `${defaultValue},`;
-                } else {
-                    value = '[$0],';
-                }
+                value = '[$0],';
             } else if (uiControl.type?.includes('Object')) {
                 if (uiControl.required) {
                     const result: string[] = ['{'];
@@ -161,13 +153,6 @@ export default class Options {
                     value = result.join('\n');
                 } else {
                     value = '{$0},';
-                }
-            } else {
-                if (defaultValue) {
-                    if (defaultValue[0] !== '[') {
-                        defaultValue = `[${defaultValue}]`;
-                    }
-                    value = `${defaultValue},`;
                 }
             }
         }
