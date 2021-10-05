@@ -247,6 +247,23 @@ suite('Extension Completion Base Test Suite', () => {
         assert.strictEqual((target.insertText as vscode.SnippetString).value, "left: '0%',");
     });
 
+    test('"type"为"color"的选项应该作为字符串补全', async() => {
+        position = await inputText([[
+            '',
+            '    angleAxis: {',
+            '        axisLine: {',
+            '            ',
+        ].join('\n'), [
+            '',
+            '        }',
+            '    }',
+        ].join('\n')], textEditor, position);
+        const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
+        const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'color');
+        assert.ok(target);
+        assert.strictEqual((target.insertText as vscode.SnippetString).value, "color: '',");
+    });
+
     test('普通数组值中不应该触发补全', async() => {
         position = await inputText([[
             '',
