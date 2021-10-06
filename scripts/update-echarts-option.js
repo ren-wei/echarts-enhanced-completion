@@ -38,6 +38,14 @@ function patchItem(key, name, result, item) {
     if (item.uiControl?.default !== undefined && typeof item.uiControl?.default !== 'string') {
         item.uiControl.default = String(item.uiControl.default);
     }
+    // 如果默认值是undefined，那么删除
+    if (item.uiControl?.default === 'undefined') {
+        delete item.uiControl.default;
+    }
+    // 如果默认值是字符串但是不是关键词，那么前后都加上单引号
+    if (item.uiControl?.default !== undefined && /^[a-z]*$/.test(item.uiControl.default) && !['true', 'false', 'null'].includes(item.uiControl.default)) {
+        item.uiControl.default = `'${item.uiControl.default}'`;
+    }
     // 将Color改为color
     if (item.uiControl?.type === 'Color') item.uiControl.type = 'color';
     // 如果'color'的'default'不是以单引号开头，那么前后都加上单引号
