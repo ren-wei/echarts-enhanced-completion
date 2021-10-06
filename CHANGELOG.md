@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.2.3 (2021-10-06)
+
+### Fixed
+
+- 修复icon类型属性默认值没有补全字符串的问题
+
+- 修复颜色值没有补全为字符串的问题
+
 ## 1.2.2 (2021-10-02)
 
 ### Added
