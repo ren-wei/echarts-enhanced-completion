@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.2.4 (2021-10-06)
+
+### Fixed
+
+- 修复过滤选项时多过滤了部分选项的问题
+
+- 修复部分默认值不是字符串的问题
+
 ## 1.2.3 (2021-10-06)
 
 ### Fixed
