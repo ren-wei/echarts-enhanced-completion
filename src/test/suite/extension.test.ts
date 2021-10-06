@@ -110,7 +110,7 @@ suite('Extension Completion Base Test Suite', () => {
             '',
             '    angleAxis: {',
             '        axisLine: {',
-            '            show: true,',
+            '            symbol: "none",',
             '            ',
         ].join('\n'), [
             '',
@@ -120,8 +120,8 @@ suite('Extension Completion Base Test Suite', () => {
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const angleAxisDescMsg = getFileData('angleAxis');
         assert.strictEqual(result.length, 4);
-        assert.ok(!result.find(v => (v.label as vscode.CompletionItemLabel).label === 'show'));
-        ['symbol', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
+        assert.ok(!result.find(v => (v.label as vscode.CompletionItemLabel).label === 'symbol'));
+        ['show', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
             const descMsg = angleAxisDescMsg[`axisLine.${key}`];
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);

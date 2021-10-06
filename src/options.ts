@@ -75,7 +75,7 @@ export default class Options {
             hasKey = node.properties.map(v => v.key.name);
         }
         return Object.keys(descObject).filter(key => {
-            return !hasKey.some(str => key.includes(str));
+            return !hasKey.some(str => key === str);
         });
     }
 
