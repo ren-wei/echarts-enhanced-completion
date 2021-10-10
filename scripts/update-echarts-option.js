@@ -5,11 +5,11 @@
  * $ node ./scripts/update-echarts-option.js
  */
 
-// const baseUrl = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/zh/documents/option-parts/';
-const baseUrl = 'https://echarts.apache.org/en/documents/option-parts/';
+const baseUrl = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/zh/documents/option-parts/';
+// const baseUrl = 'https://echarts.apache.org/en/documents/option-parts/';
 const hash = 'dc46b9d5ad';
-// const saveDir = 'echarts-option/cn';
-const saveDir = 'echarts-option/en';
+const saveDir = 'echarts-option/cn';
+// const saveDir = 'echarts-option/en';
 
 const axios = require('axios');
 const html2markdown = require('html2markdown');
@@ -267,7 +267,7 @@ function dealIndex(datas, typeMsgList) {
             result[key] = item;
             if (key === 'aria') {
                 result.series = {
-                    desc: '图形系列',
+                    desc: '',
                     uiControl: {
                         type: ['Array', 'Object'],
                         detailFileName: 'series',
