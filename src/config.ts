@@ -20,4 +20,13 @@ export default class Config {
     static get initShowPictures() : boolean {
         return vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.showPictures') as boolean;
     }
+
+    static get lang(): 'en' | 'cn' {
+        const lang = vscode.workspace.getConfiguration().get('echarts-enhanced-completion.lang') as string;
+        if (lang === 'auto') {
+            return vscode.extensions.getExtension('ms-ceintl.vscode-language-pack-zh-hans') ? 'cn' : 'en';
+        } else {
+            return lang as 'en' | 'cn';
+        }
+    }
 };

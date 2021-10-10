@@ -10,9 +10,11 @@ export default class Store {
     public topOptionDesc: DescMsgObject; // 顶级选项的描述对象
     private cache: Map<string, DescMsgObject> = new Map<string, DescMsgObject>(); // 缓存已获取的文件
     private assetsName: string;
+    private lang: 'en' | 'cn'; // 语言，'en'表示英文，'cn'表示中文
 
-    constructor(assetsName: string) {
+    constructor(assetsName: string, lang: 'en' | 'cn' = 'en') {
         this.assetsName = assetsName;
+        this.lang = lang;
         this.topOptionDesc = this.getFileData('index');
     }
 
@@ -21,7 +23,7 @@ export default class Store {
         if (this.cache.has(name)) {
             return this.cache.get(name) as DescMsgObject;
         }
-        const fileName = path.resolve(__dirname + `../../assets/${this.assetsName}/${name}.json`);
+        const fileName = path.resolve(__dirname + `../../assets/${this.assetsName}/${this.lang}/${name}.json`);
         const result = JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
         this.cache.set(name, result);
         return result;

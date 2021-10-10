@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import Store from './store';
 import Ast from './ast';
 import Options from './options';
+import Config from './config';
 
 let store: Store;
 
@@ -22,7 +23,7 @@ export function provideHover(document: vscode.TextDocument, position: vscode.Pos
 }
 
 export function start() {
-    store = new Store('echarts-option');
+    store = new Store('echarts-option', Config.lang);
 }
 
 export function activate(context: vscode.ExtensionContext) {
