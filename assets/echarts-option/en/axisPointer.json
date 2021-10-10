@@ -1,0 +1,556 @@
+{
+    "id": {
+        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. ",
+        "uiControl": {
+            "type": "string"
+        }
+    },
+    "show": {
+        "desc": " axisPointer will not be displayed by default. But if [tooltip.trigger][0] is set as 'axis' or [tooltip.axisPointer.type][1] is set as 'cross', axisPointer will be displayed automatically. Each coordinate system will automatically chose the axes whose will display its axisPointer. [tooltip.axisPointer.axis][2] can be used to change the choice.\n\n[0]: #tooltip.trigger\n[1]: #tooltip.axisPointer.type\n[2]: #tooltip.axisPointer.axis",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "type": {
+        "desc": " Indicator type. Options: \n\n* 'line' line indicator.\n* 'shadow' shadow crosshair indicator.\n* 'none' no indicator displayed.\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'line','shadow','none'"
+        }
+    },
+    "snap": {
+        "desc": " Whether snap to point automatically. The default value is auto determined. This feature usually makes sense in value axis and time axis, where tiny points can be seeked automatically. ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "z": {
+        "desc": " z value, which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. ",
+        "uiControl": {
+            "type": "number"
+        }
+    },
+    "label": {
+        "desc": " label of axisPointer ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "label.show": {
+        "desc": " Whether show label. Label will not show by default. But if [tooltip.axisPointer.type][0] is set as 'cross', label will be displayed automatically.\n\n[0]: #tooltip.axisPointer.type",
+        "uiControl": {
+            "default": "false",
+            "type": "boolean"
+        }
+    },
+    "label.precision": {
+        "desc": " The precision of value in label. It is auto determined by default. You can also set it as '2', which indicates that two decimal fractions are reserved. ",
+        "uiControl": {
+            "default": "'auto'",
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "label.formatter": {
+        "desc": " The formatter of label. If set as string, for example it can be: formatter: 'some text {value} some text, where {value} will be replaced by axis value automatically. If set as function: **Parameters:**{Object} params: Including fields as follows: {Object} params.value: current value of this axis. If axis.type is 'category', it is one of the value in axis.data. If axis.type is 'time', it is a timestamp. {Array.} params.seriesData: An array, containing info of nearest points. Each item is: {string} params.axisDimension: The dimension name of the axis. For example, in catesian it will be 'x', 'y', and in polar it will be 'radius', 'angle'. {number} params.axisIndex: The index of the axis, for example, 0,1, 2, ... \n\n    {\n        componentType: 'series',\n        // Series type\n        seriesType: string,\n        // Series index in option.series\n        seriesIndex: number,\n        // Series name\n        seriesName: string,\n        // Data name, or category name\n        name: string,\n        // Data index in input data array\n        dataIndex: number,\n        // Original data as input\n        data: Object,\n        // Value of data. In most series it is the same as data.\n        // But in some series it is some part of the data (e.g., in map, radar)\n        value: number|Array|Object,\n        // encoding info of coordinate system\n        // Key: coord, like ('x' 'y' 'radius' 'angle')\n        // value: Must be an array, not null/undefined. Contain dimension indices, like:\n        // {\n        //     x: [2] // values on dimension index 2 are mapped to x axis.\n        //     y: [0] // values on dimension index 0 are mapped to y axis.\n        // }\n        encode: Object,\n        // dimension names list\n        dimensionNames: Array,\n        // data dimension index, for example 0 or 1 or 2 ...\n        // Only work in `radar` series.\n        dimensionIndex: number,\n        // Color of data\n        color: string,\n    \n    \n    \n    }\n    \n\nNote: the usage of encode and dimensionNames can be: If data is: \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.encode.y[0]]\n    \n\nIf data is: \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\nEach item also includes axis infomation: \n\n    {\n        axisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\n        axisId: 'xxx',\n        axisName: 'xxx',\n        axisIndex: 3,\n        axisValue: 121, // The current value of axisPointer\n        axisValueLabel: 'text of value'\n    }\n    \n\n**Return:** The string to be displayed. For example: \n\n    formatter: function (params) {\n        // If axis.type is 'time'\n        return 'some text' + echarts.format.formatTime(params.value);\n    }\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
+    },
+    "label.margin": {
+        "desc": " Distance between label and axis. ",
+        "uiControl": {
+            "default": "3",
+            "type": "boolean"
+        }
+    },
+    "label.color": {
+        "desc": " text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "label.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "label.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "label.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "label.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "label.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "label.width": {
+        "desc": " Width of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "label.height": {
+        "desc": " Height of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "label.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "label.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "label.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "label.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "label.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "label.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "label.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "label.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "label.overflow": {
+        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'truncate','break','breakAll'"
+        }
+    },
+    "label.ellipsis": {
+        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "uiControl": {
+            "default": "'...'",
+            "type": "string"
+        }
+    },
+    "label.lineOverflow": {
+        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "uiControl": {
+            "default": "'none'",
+            "type": "string"
+        }
+    },
+    "label.padding": {
+        "desc": " axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom. Examples: \n\n    // Set padding to be 5\n    padding: 5\n    // Set the top and bottom paddings to be 5, and left and right paddings to be 10\n    padding: [5, 10]\n    // Set each of the four paddings seperately\n    padding: [\n        5,  // up\n        10, // right\n        5,  // down\n        10, // left\n    ]\n    \n\n",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "label.backgroundColor": {
+        "desc": " Background color of label, the same as [axis.axisLine.lineStyle.color][0] by default.\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "uiControl": {
+            "default": "'auto'",
+            "type": "string"
+        }
+    },
+    "label.borderColor": {
+        "desc": " Border color of label. ",
+        "uiControl": {
+            "type": "string"
+        }
+    },
+    "label.borderWidth": {
+        "desc": " Border width of label. ",
+        "uiControl": {
+            "default": "0",
+            "type": "string"
+        }
+    },
+    "label.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "3",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "label.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#aaa'"
+        }
+    },
+    "label.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "label.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle": {
+        "desc": " It is valid when [axisPointer.type][0] is 'line'.\n\n[0]: #tooltip.axisPointer.type",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "lineStyle.color": {
+        "desc": " Line color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "lineStyle.width": {
+        "desc": " line width. ",
+        "uiControl": {
+            "type": "number",
+            "value": "1",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "lineStyle.type": {
+        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "lineStyle.dashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "lineStyle.cap": {
+        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "options": "'butt','round','square'"
+        }
+    },
+    "lineStyle.join": {
+        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "options": "'bevel','round','miter'"
+        }
+    },
+    "lineStyle.miterLimit": {
+        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "lineStyle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "lineStyle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "lineStyle.opacity": {
+        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "uiControl": {
+            "type": "number",
+            "default": "1",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "shadowStyle": {
+        "desc": " It is valid when [axisPointer.type][0] is 'shadow'.\n\n[0]: #tooltip.axisPointer.type",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "shadowStyle.color": {
+        "desc": " Fill color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "shadowStyle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "shadowStyle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "shadowStyle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "shadowStyle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "shadowStyle.opacity": {
+        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "uiControl": {
+            "type": "number",
+            "default": "1",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "triggerTooltip": {
+        "desc": " Whether to trigger tooltip. ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "value": {
+        "desc": " current value. When using [axisPointer.handle][0], value can be set to define the initail position of axisPointer.\n\n[0]: xAxisPointer.handle",
+        "uiControl": {
+            "type": "number"
+        }
+    },
+    "status": {
+        "desc": " Current status, can be 'show' 和 'hide'. ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'show','hide'"
+        }
+    },
+    "handle": {
+        "desc": " A button used to drag axisPointer. This feature is applicable in touch device. See [example][0].\n\n[0]: https://echarts.apache.org/examples/en/editor.html?c=line-tooltip-touch&edit=1&reset=1",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "handle.show": {
+        "desc": " Set to true to use handle. ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "handle.icon": {
+        "desc": " The icon of the handle. It can be set to an image with 'image://url' , in which URL is the link to an image, or dataURI of an image. An image URL example: \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nA dataURI example: \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\nIcons can be set to arbitrary vector path via 'path://' in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData][0] for more information about the format of the path. You may export vector paths from tools like Adobe For example: \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\nSee the [example of using image][1]\n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData\n[1]: https://echarts.apache.org/examples/en/editor.html?c=doc-example/axisPointer-handle-image&edit=1&reset=1",
+        "uiControl": {
+            "type": "icon",
+            "clean": "true"
+        }
+    },
+    "handle.size": {
+        "desc": " The size of the handle, which can be set as a single value or an array ([width, height]). ",
+        "uiControl": {
+            "type": "vector",
+            "default": "45,45",
+            "min": "0",
+            "step": "0.5",
+            "dims": "width,height"
+        }
+    },
+    "handle.margin": {
+        "desc": " Distance from handle center to axis. ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "handle.color": {
+        "desc": " The color of the handle. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "handle.throttle": {
+        "desc": " Throttle rate of trigger view update when dragging handle, in ms. Increase the value to improve performance, but decrease the experience. ",
+        "uiControl": {
+            "type": "number",
+            "default": "40",
+            "min": "0",
+            "step": "10"
+        }
+    },
+    "handle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "3",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "handle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#aaa'"
+        }
+    },
+    "handle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "2",
+            "step": "0.5"
+        }
+    },
+    "handle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "link": {
+        "desc": " axisPointers can be linked to each other. The term \"link\" represents that axes are synchronized and move together. Axes are linked according to the value of axisPointer. See [sampleA][0] and [sampleB][1]. link is an array, where each item represents a \"link group\". Axes will be linked when they are refered in the same link group. For example: \n\n    link: [\n        {\n            // All axes with xAxisIndex 0, 3, 4 and yAxisName 'sameName' will be linked.\n            xAxisIndex: [0, 3, 4],\n            yAxisName: 'someName'\n        },\n        {\n            // All axes with xAxisId 'aa', 'cc' and all angleAxis will be linked.\n            xAxisId: ['aa', 'cc'],\n            angleAxis: 'all'\n        },\n        ...\n    ]\n    \n\nAs illustrated above, axes can be refered in these approaches in a link group: \n\n    {\n        // 'some' represent the dimension name of a axis, namely, 'x', 'y', 'radius', 'angle', 'single'\n        someAxisIndex: [...], // can be an array or a value or 'all'\n        someAxisName: [...],  // can be an array or a value or 'all'\n        someAxisId: [...],    // can be an array or a value or 'all'\n    }\n    \n\n- - -\n\n- - -\n\n**How to link axes with different [axis.type][2]?** For example, the type of axisA is 'category', and the type of axisB type is 'time', we can write conversion function (mapper) in link group to convert values from an axis to another axis. For example: \n\n    link: [{\n        xAxisIndex: [0, 1],\n        yAxisName: ['yy'],\n        mapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\n            if (sourceAxisInfo.axisName === 'yy') {\n                // from timestamp to '2012-02-05'\n                return echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n            }\n            else if (targetAxisInfo.axisName === 'yy') {\n                // from '2012-02-05' to date\n                return echarts.number.parseDate(dates[sourceVal]);\n            }\n            else {\n                return sourceVal;\n            }\n        }\n    }]\n    \n\nInput parameters of mapper: {number} sourceVal {Object} sourceAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...} {Object} targetAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...} Return of mapper: {number} The result of conversion.\n\n[0]: https://echarts.apache.org/examples/en/view.html?c=candlestick-brush&edit=1&reset=1\n[1]: https://echarts.apache.org/examples/en/view.html?c=scatter-nutrients-matrix&edit=1&reset=1\n[2]: #xAxis.type",
+        "uiControl": {
+            "type": "Array"
+        }
+    },
+    "triggerOn": {
+        "desc": " Conditions to trigger tooltip. Options: \n\n* 'mousemove' Trigger when mouse moves.\n* 'click' Trigger when mouse clicks.\n* 'mousemove|click' Trigger when mouse clicks and moves.\n* 'none' Do not triggered by 'mousemove' and 'click'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'mousemove','click','none'"
+        }
+    }
+}

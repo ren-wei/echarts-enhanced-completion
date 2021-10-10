@@ -5,8 +5,11 @@
  * $ node ./scripts/update-echarts-option.js
  */
 
-const baseUrl = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/zh/documents/option-parts/';
-const hash = 'cd773ec255';
+// const baseUrl = 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/zh/documents/option-parts/';
+const baseUrl = 'https://echarts.apache.org/en/documents/option-parts/';
+const hash = 'dc46b9d5ad';
+// const saveDir = 'echarts-option/cn';
+const saveDir = 'echarts-option/en';
 
 const axios = require('axios');
 const html2markdown = require('html2markdown');
@@ -149,7 +152,7 @@ async function getData(key, typeMsg) {
                 }
                 patchItem(key, name, result, item);
             });
-            fs.writeFile(path.resolve(__dirname, `../assets/echarts-option/${key}.json`), JSON.stringify(result, null, 4), () => {
+            fs.writeFile(path.resolve(__dirname, `../assets/${saveDir}/${key}.json`), JSON.stringify(result, null, 4), () => {
                 /* eslint-disable-next-line no-console  */
                 console.log(`${key}.json saved successfully.`);
             });
@@ -189,7 +192,7 @@ axios.get(baseUrl + 'option-outline.js?' + hash).then(async res => {
                     indexFileData[key].uiControl.detailFileName = key;
                 }
             }
-            fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/index.json'), JSON.stringify(indexFileData, null, 4), () => {
+            fs.writeFile(path.resolve(__dirname, `../assets/${saveDir}/index.json`), JSON.stringify(indexFileData, null, 4), () => {
                 /* eslint-disable-next-line no-console  */
                 console.log('index.json saved successfully.');
             });
@@ -274,17 +277,17 @@ function dealIndex(datas, typeMsgList) {
         }
     });
     // 创建一个 series.json 文件
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/series.json'), JSON.stringify(seriesOption, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, `../assets/${saveDir}/series.json`), JSON.stringify(seriesOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('series.json saved successfully.');
     });
     // 创建一个 dataZoom.json 文件
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/dataZoom.json'), JSON.stringify(dataZoomOption, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, `../assets/${saveDir}/dataZoom.json`), JSON.stringify(dataZoomOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('dataZoom.json saved successfully.');
     });
     // 创建一个 visualMap.json 文件
-    fs.writeFile(path.resolve(__dirname, '../assets/echarts-option/visualMap.json'), JSON.stringify(visualMapOption, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, `../assets/${saveDir}/visualMap.json`), JSON.stringify(visualMapOption, null, 4), () => {
         /* eslint-disable-next-line no-console  */
         console.log('visualMap.json saved successfully.');
     });

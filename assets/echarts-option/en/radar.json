@@ -1,0 +1,1601 @@
+{
+    "id": {
+        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. ",
+        "uiControl": {
+            "type": "string"
+        }
+    },
+    "zlevel": {
+        "desc": "zlevel value of all graphical elements in . zlevel is used to make layers with Canvas. Graphical elements with different zlevel values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate zlevel. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash. Canvases with bigger zlevel will be placed on Canvases with smaller zlevel. ",
+        "uiControl": {
+            "default": "0",
+            "type": "number"
+        }
+    },
+    "z": {
+        "desc": "z value of all graphical elements in , which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. z has a lower priority to zlevel, and will not create new Canvas. ",
+        "uiControl": {
+            "default": "2",
+            "type": "number"
+        }
+    },
+    "center": {
+        "desc": " Center position of , the first of which is the horizontal position, and the second is the vertical position. Percentage is supported. When set in percentage, the item is relative to the container width, and the second item to the height. **Example:**    // Set to absolute pixel values\n    center: [400, 300]\n    // Set to relative percent\n    center: ['50%', '50%']\n    \n\n",
+        "uiControl": {
+            "type": "percentvector",
+            "dims": "x,y"
+        }
+    },
+    "radius": {
+        "desc": "\n的半径。可以为如下类型：\n\n* number：直接指定外半径值。\n* string：例如，'20%'，表示外半径为可视区尺寸（容器高宽中较小一项）的 20% 长度。\n* Array.<number|string>：数组的第一项是内半径，第二项是外半径。每一项遵从上述 number string 的描述。\n",
+        "uiControl": {
+            "type": "percentvector",
+            "dims": "inner,outer",
+            "default": "0%, 75%"
+        }
+    },
+    "startAngle": {
+        "desc": " The start angle of coordinate, which is the angle of the first indicator axis. ",
+        "uiControl": {
+            "default": "90",
+            "type": "number"
+        }
+    },
+    "name": {
+        "desc": " Name of radar chart. ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "name.show": {
+        "desc": " Whether to display the indicator's name. ",
+        "uiControl": {
+            "default": "true",
+            "type": "boolean"
+        }
+    },
+    "name.formatter": {
+        "desc": " The formatter of indicator's name, in which the string and callback function are supported. See the following example: \n\n    // using string template, the template variable should be the indicator's name {value}\n    formatter: '【{value}】'\n    // using callback function, the first parameter is the indicator's name, and the second parameter id the indicator's cinfiguration item\n    formatter: function (value, indicator) {\n        return '【' + value + '】';\n    }\n    \n\n",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
+    },
+    "name.color": {
+        "desc": " text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#333'"
+        }
+    },
+    "name.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "name.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "name.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "name.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "name.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "name.backgroundColor": {
+        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "name.borderColor": {
+        "desc": " Border color of the text fragment. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "name.borderWidth": {
+        "desc": " Border width of the text fragment. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.borderType": {
+        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "name.borderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "name.borderRadius": {
+        "desc": " Border radius of the text fragment. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
+        }
+    },
+    "name.padding": {
+        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "name.shadowColor": {
+        "desc": " Shadow color of the text block. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "name.shadowBlur": {
+        "desc": " Show blur of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.shadowOffsetX": {
+        "desc": " Shadow X offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.shadowOffsetY": {
+        "desc": " Shadow Y offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.width": {
+        "desc": " Width of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "name.height": {
+        "desc": " Height of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "name.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "name.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "name.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "name.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "name.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.overflow": {
+        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'truncate','break','breakAll'"
+        }
+    },
+    "name.ellipsis": {
+        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "uiControl": {
+            "default": "'...'",
+            "type": "string"
+        }
+    },
+    "name.lineOverflow": {
+        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "uiControl": {
+            "default": "'none'",
+            "type": "string"
+        }
+    },
+    "name.rich": {
+        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "name.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "name.rich.<style_name>.color": {
+        "desc": " text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "null"
+        }
+    },
+    "name.rich.<style_name>.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "name.rich.<style_name>.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "name.rich.<style_name>.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "name.rich.<style_name>.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "name.rich.<style_name>.align": {
+        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'left','center','right'"
+        }
+    },
+    "name.rich.<style_name>.verticalAlign": {
+        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'top','middle','bottom'"
+        }
+    },
+    "name.rich.<style_name>.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "name.rich.<style_name>.backgroundColor": {
+        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "name.rich.<style_name>.borderColor": {
+        "desc": " Border color of the text fragment. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "name.rich.<style_name>.borderWidth": {
+        "desc": " Border width of the text fragment. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.borderType": {
+        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "name.rich.<style_name>.borderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.borderRadius": {
+        "desc": " Border radius of the text fragment. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.padding": {
+        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.shadowColor": {
+        "desc": " Shadow color of the text block. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "name.rich.<style_name>.shadowBlur": {
+        "desc": " Show blur of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.shadowOffsetX": {
+        "desc": " Shadow X offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.rich.<style_name>.shadowOffsetY": {
+        "desc": " Shadow Y offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.rich.<style_name>.width": {
+        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "name.rich.<style_name>.height": {
+        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "name.rich.<style_name>.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "name.rich.<style_name>.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "name.rich.<style_name>.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "name.rich.<style_name>.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "name.rich.<style_name>.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "name.rich.<style_name>.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "nameGap": {
+        "desc": " Distance between the indicator's name and axis. ",
+        "uiControl": {
+            "type": "number",
+            "default": "15",
+            "step": "1"
+        }
+    },
+    "splitNumber": {
+        "desc": " Segments of indicator axis. ",
+        "uiControl": {
+            "type": "number",
+            "default": "15",
+            "step": "1"
+        }
+    },
+    "shape": {
+        "desc": " Radar render type, in which 'polygon' and 'circle' are supported. ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'polygon','circle'"
+        }
+    },
+    "scale": {
+        "desc": " Whether to prevent calculating the scaling relative to zero. If it is set to be true, the coordinate tick would not compulsorily contain zero value, which is usually useful in scatter diagram of double numerical values axis. ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "silent": {
+        "desc": " Set this to true, to prevent interaction with the axis. ",
+        "uiControl": {
+            "default": "false",
+            "type": "boolean"
+        }
+    },
+    "triggerEvent": {
+        "desc": " Set this to true to enable triggering events. Parameters of the event include: \n\n    {\n        // Component type: xAxis, yAxis, radiusAxis, angleAxis\n        // Each of which has an attribute for index, e.g., xAxisIndex for xAxis\n        componentType: string,\n        // Value on axis before being formatted.\n        // Click on value label to trigger event.\n        value: '',\n        // Name of axis.\n        // Click on laben name to trigger event.\n        name: ''\n    }\n    \n\n",
+        "uiControl": {
+            "default": "false",
+            "type": "boolean"
+        }
+    },
+    "axisLine": {
+        "desc": " Settings related to axis line. ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisLine.show": {
+        "desc": " Set this to false to prevent the axis line from showing. ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "axisLine.symbol": {
+        "desc": " Symbol of the two ends of the axis. It could be a string, representing the same symbol for two ends; or an array with two string elements, representing the two ends separately. It's set to be 'none' by default, meaning no arrow for either end. If it is set to be 'arrow', there shall be two arrows. If there should only one arrow at the end, it should set to be ['none', 'arrow']. ",
+        "uiControl": {
+            "type": "icon",
+            "default": "'none'"
+        }
+    },
+    "axisLine.symbolSize": {
+        "desc": " Size of the arrows at two ends. The first is the width perpendicular to the axis, the next is the width parallel to the axis. ",
+        "uiControl": {
+            "type": "vector",
+            "default": "10,15"
+        }
+    },
+    "axisLine.symbolOffset": {
+        "desc": " Arrow offset of axis. If is array, the first number is the offset of the arrow at the beginning, and the second number is the offset of the arrow at the end. If is number, it means the arrows have the same offset. ",
+        "uiControl": {
+            "type": "vector",
+            "default": "0,0"
+        }
+    },
+    "axisLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisLine.lineStyle.color": {
+        "desc": " line styleLine color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisLine.lineStyle.width": {
+        "desc": " line style line width. ",
+        "uiControl": {
+            "type": "number",
+            "value": "1",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLine.lineStyle.type": {
+        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "axisLine.lineStyle.dashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "axisLine.lineStyle.cap": {
+        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "options": "'butt','round','square'"
+        }
+    },
+    "axisLine.lineStyle.join": {
+        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "options": "'bevel','round','miter'"
+        }
+    },
+    "axisLine.lineStyle.miterLimit": {
+        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "axisLine.lineStyle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "axisLine.lineStyle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "axisLine.lineStyle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "axisLine.lineStyle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "axisLine.lineStyle.opacity": {
+        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "uiControl": {
+            "type": "number",
+            "default": "1",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "axisTick": {
+        "desc": " Settings related to axis tick. ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisTick.show": {
+        "desc": " Set this to false to prevent the axis tick from showing. ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "axisTick.length": {
+        "desc": " The length of the axis tick. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "5"
+        }
+    },
+    "axisTick.lineStyle": {
+        "desc": " Line style of axis ticks. ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisTick.lineStyle.color": {
+        "desc": " Color of axis label is set to be [axisLine.lineStyle.color][0] by default.\n\n[0]: #.axisLine.lineStyle.color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisTick.lineStyle.width": {
+        "desc": " axisTick line width. ",
+        "uiControl": {
+            "type": "number",
+            "value": "1",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisTick.lineStyle.type": {
+        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "axisTick.lineStyle.dashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "axisTick.lineStyle.cap": {
+        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "options": "'butt','round','square'"
+        }
+    },
+    "axisTick.lineStyle.join": {
+        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "options": "'bevel','round','miter'"
+        }
+    },
+    "axisTick.lineStyle.miterLimit": {
+        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "axisTick.lineStyle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "axisTick.lineStyle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "axisTick.lineStyle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "axisTick.lineStyle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "axisTick.lineStyle.opacity": {
+        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "uiControl": {
+            "type": "number",
+            "default": "1",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "axisLabel": {
+        "desc": " Settings related to axis label. ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisLabel.show": {
+        "desc": " Set this to false to prevent the axis label from appearing. ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "axisLabel.rotate": {
+        "desc": " Rotation degree of axis label, which is especially useful when there is no enough space for category axis. Rotation degree is from -90 to 90. ",
+        "uiControl": {
+            "type": "angle",
+            "min": "-90",
+            "max": "90",
+            "step": "1",
+            "default": "-90"
+        }
+    },
+    "axisLabel.margin": {
+        "desc": " The margin between the axis label and the axis line. ",
+        "uiControl": {
+            "type": "number",
+            "default": "8",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.formatter": {
+        "desc": " Formatter of axis label, which supports string template and callback function. Example: \n\n    // Use string template; template variable is the default label of axis {value}\n    formatter: '{value} kg'\n    // Use callback.\n    formatter: function (value, index) {\n        return value + 'kg';\n    }\n    \n\n- - -\n\nFor axes of time [type][0]: 'time', formatter supports the following forms: \n\n* **String Templates**: an easy and fast way to make frequently used date/time template, formed in string\n* **Callback Functions**: customized formatter to make complex format, formed in Function\n* **Cascading Templates**: to adopt different formatters for different time granularity, formed in object\n\nNext, we are going to introduce these three forms one by one. **String Templates** Using string templates is an easy way to format date/time with frequently used formats. If it can be used to make what you want, you are advised to do so. If not, you could then consider the others. Supported formats are: <table><thead><tr>GroupTemplateValue (EN)Value (ZH)</tr></thead><tbody><tr><td>Year</td><td>{yyyy}</td><td>e.g., 2020, 2021, ...</td><td>例：2020, 2021, ...</td></tr><tr><td></td><td>{yy}</td><td>00-99</td><td>00-99</td></tr><tr><td>Quarter</td><td>{Q}</td><td>1, 2, 3, 4</td><td>1, 2, 3, 4</td></tr><tr><td>Month</td><td>{MMMM}</td><td>e.g., January, February, ...</td><td>一月、二月、……</td></tr><tr><td></td><td>{MMM}</td><td>e.g., Jan, Feb, ...</td><td>1月、2月、……</td></tr><tr><td></td><td>{MM}</td><td>01-12</td><td>01-12</td></tr><tr><td></td><td>{M}</td><td>1-12</td><td>1-12</td></tr><tr><td>Day of Month</td><td>{dd}</td><td>01-31</td><td>01-31</td></tr><tr><td></td><td>{d}</td><td>1-31</td><td>1-31</td></tr><tr><td>Day of Week</td><td>{eeee}</td><td>Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday</td><td>星期日、星期一、星期二、星期三、星期四、星期五、星期六</td></tr><tr><td></td><td>{ee}</td><td>Sun, Mon, Tues, Wed, Thu, Fri, Sat</td><td>日、一、二、三、四、五、六</td></tr><tr><td></td><td>{e}</td><td>1-54</td><td>1-54</td></tr><tr><td>Hour</td><td>{HH}</td><td>00-23</td><td>00-23</td></tr><tr><td></td><td>{H}</td><td>0-23</td><td>0-23</td></tr><tr><td></td><td>{hh}</td><td>01-12</td><td>01-12</td></tr><tr><td></td><td>{h}</td><td>1-12</td><td>1-12</td></tr><tr><td>Minute</td><td>{mm}</td><td>00-59</td><td>00-59</td></tr><tr><td></td><td>{m}</td><td>0-59</td><td>0-59</td></tr><tr><td>Second</td><td>{ss}</td><td>00-59</td><td>00-59</td></tr><tr><td></td><td>{s}</td><td>0-59</td><td>0-59</td></tr><tr><td>Millisecond</td><td>{SSS}</td><td>000-999</td><td>000-999</td></tr><tr><td></td><td>{S}</td><td>0-999</td><td>0-999</td></tr></tbody></table>>  Templates of other languages can be found in [> the language package][1]> . Please refer to [> echarts.registerLocale][2]>  to register a language. Example: \n\n    formatter: '{yyyy}-{MM}-{dd}' // gets labels like '2020-12-02'\n    formatter: 'Day {d}' // gets labels like 'Day 2'\n    \n\n**Callback Functions** Callback functions can be used to get different formats for different axis tick values. Sometimes, if you have complex date/time formatting requirement, third-party libraries like [Moment.js][3] or [date-fns][4] can be used to return formatted labels. Example: \n\n    // Use callback function; function parameters are axis index\n    formatter: function (value, index) {\n        // Formatted to be month/day; display year only in the first label\n        var date = new Date(value);\n        var texts = [(date.getMonth() + 1), date.getDate()];\n        if (index === 0) {\n            texts.unshift(date.getYear());\n        }\n        return texts.join('/');\n    }\n    \n\n**Cascading Templates** Sometimes, we wish to use different formats for different time granularity. For example, in a quarter-year chart, we may wish to see the month name with the first date of the month, while see the date name with others. This can be made with: Example: \n\n    formatter: {\n        month: '{MMMM}', // Jan, Feb, ...\n        day: '{d}' // 1, 2, ...\n    }\n    \n\nSupported levels and their default formatters are: \n\n    {\n        year: '{yyyy}',\n        month: '{MMM}',\n        day: '{d}',\n        hour: '{HH}:{mm}',\n        minute: '{HH}:{mm}',\n        second: '{HH}:{mm}:{ss}',\n        millisecond: '{hh}:{mm}:{ss} {SSS}',\n        none: '{yyyy}-{MM}-{dd} {hh}:{mm}:{ss} {SSS}'\n    }\n    \n\nLet's take day for example. When a tick value is 0 for its hour, minute, second, and millisecond, day level will be used to make formatter. none is used when no other level fulfills, which is for tick values with millisecond values other than 0. **Rich Text** The above three forms all support rich text, so it can be used to make some complex effects. Example: \n\n    xAxis: {\n        type: 'time',\n        axisLabel: {\n            formatter: {\n                // Display year and month information on the first data of a year\n                year: '{yearStyle|{yyyy}}\\n{monthStyle|{MMM}}',\n                month: '{monthStyle|{MMM}}'\n            },\n            rich: {\n                yearStyle: {\n                    // Make yearly text more standing out\n                    color: '#000',\n                    fontWeight: 'bold'\n                },\n                monthStyle: {\n                    color: '#999'\n                }\n            }\n        }\n    },\n    \n\nThe above example can also be made with a callback function: Example: \n\n    xAxis: {\n        type: 'time',\n        axisLabel: {\n            formatter: function (value) {\n                const date = new Date(value);\n                const yearStart = new Date(value);\n                yearStart.setMonth(0);\n                yearStart.setDate(1);\n                yearStart.setHours(0);\n                yearStart.setMinutes(0);\n                yearStart.setSeconds(0);\n                yearStart.setMilliseconds(0);\n                // Whether a tick value is the start of a year\n                if (date.getTime() === yearStart.getTime()) {\n                    return '{year|' + date.getFullYear() + '}\\n'\n                        + '{month|' + (date.getMonth() + 1) + '月}';\n                }\n                else {\n                    return '{month|' + (date.getMonth() + 1) + '月}'\n                }\n            },\n            rich: {\n                year: {\n                    color: '#000',\n                    fontWeight: 'bold'\n                },\n                month: {\n                    color: '#999'\n                }\n            }\n        }\n    },\n    \n\n\n\n[0]: #.type\n[1]: https://github.com/apache/echarts/tree/master/src/i18n\n[2]: api.html#echarts.registerLocale\n[3]: https://momentjs.com/\n[4]: https://date-fns.org/",
+        "uiControl": {
+            "type": [
+                "string",
+                "Function"
+            ]
+        }
+    },
+    "axisLabel.showMinLabel": {
+        "desc": " Whether to show the label of the min tick. Optional values: true, false, null. It is auto determined by default, that is, if labels are overlapped, the label of the min tick will not be displayed. ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "axisLabel.showMaxLabel": {
+        "desc": " Whether to show the label of the max tick. Optional values: true, false, null. It is auto determined by default, that is, if labels are overlapped, the label of the max tick will not be displayed. ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "axisLabel.hideOverlap": {
+        "desc": ">  Since > v5.2.0 Whether to hide overlapped labels. ",
+        "uiControl": {
+            "type": "boolean"
+        }
+    },
+    "axisLabel.color": {
+        "desc": " Color of axis label is set to be [axisLine.lineStyle.color][0] by default. Callback function is supported, in the following format: \n\n    (val: string) => Color\n    \n\nParameter is the text of label, and return value is the color. See the following example: \n\n    textStyle: {\n        color: function (value, index) {\n            return value >= 0 ? 'green' : 'red';\n        }\n    }\n    \n\n\n\n[0]: #.axisLine.lineStyle.color",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisLabel.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "axisLabel.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "axisLabel.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "axisLabel.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "axisLabel.align": {
+        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'left','center','right'"
+        }
+    },
+    "axisLabel.verticalAlign": {
+        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'top','middle','bottom'"
+        }
+    },
+    "axisLabel.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "axisLabel.backgroundColor": {
+        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "axisLabel.borderColor": {
+        "desc": " Border color of the text fragment. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "axisLabel.borderWidth": {
+        "desc": " Border width of the text fragment. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.borderType": {
+        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "axisLabel.borderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "axisLabel.borderRadius": {
+        "desc": " Border radius of the text fragment. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
+        }
+    },
+    "axisLabel.padding": {
+        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "axisLabel.shadowColor": {
+        "desc": " Shadow color of the text block. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisLabel.shadowBlur": {
+        "desc": " Show blur of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.shadowOffsetX": {
+        "desc": " Shadow X offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.shadowOffsetY": {
+        "desc": " Shadow Y offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.width": {
+        "desc": " Width of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "axisLabel.height": {
+        "desc": " Height of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "axisLabel.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisLabel.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "axisLabel.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "axisLabel.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "axisLabel.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.overflow": {
+        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'truncate','break','breakAll'"
+        }
+    },
+    "axisLabel.ellipsis": {
+        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "uiControl": {
+            "default": "'...'",
+            "type": "string"
+        }
+    },
+    "axisLabel.lineOverflow": {
+        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "uiControl": {
+            "default": "'none'",
+            "type": "string"
+        }
+    },
+    "axisLabel.rich": {
+        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisLabel.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "axisLabel.rich.<style_name>.color": {
+        "desc": " text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "null"
+        }
+    },
+    "axisLabel.rich.<style_name>.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "axisLabel.rich.<style_name>.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "axisLabel.rich.<style_name>.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "axisLabel.rich.<style_name>.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "axisLabel.rich.<style_name>.align": {
+        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'left','center','right'"
+        }
+    },
+    "axisLabel.rich.<style_name>.verticalAlign": {
+        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'top','middle','bottom'"
+        }
+    },
+    "axisLabel.rich.<style_name>.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "axisLabel.rich.<style_name>.backgroundColor": {
+        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "axisLabel.rich.<style_name>.borderColor": {
+        "desc": " Border color of the text fragment. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "axisLabel.rich.<style_name>.borderWidth": {
+        "desc": " Border width of the text fragment. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.borderType": {
+        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "axisLabel.rich.<style_name>.borderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.borderRadius": {
+        "desc": " Border radius of the text fragment. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.padding": {
+        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.shadowColor": {
+        "desc": " Shadow color of the text block. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisLabel.rich.<style_name>.shadowBlur": {
+        "desc": " Show blur of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.shadowOffsetX": {
+        "desc": " Shadow X offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.rich.<style_name>.shadowOffsetY": {
+        "desc": " Shadow Y offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.rich.<style_name>.width": {
+        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "axisLabel.rich.<style_name>.height": {
+        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "axisLabel.rich.<style_name>.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "axisLabel.rich.<style_name>.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "axisLabel.rich.<style_name>.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "axisLabel.rich.<style_name>.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "axisLabel.rich.<style_name>.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "axisLabel.rich.<style_name>.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "splitLine": {
+        "desc": " Split line of axis in [grid][0] area.\n\n[0]: #grid",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "splitLine.show": {
+        "desc": " Set this to false to prevent the splitLine from showing. value type axes are shown by default, while category type axes are hidden. ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "splitLine.lineStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "splitLine.lineStyle.color": {
+        "desc": " The color of the splitLine, which could be set separately. SplitLine color could also be set in color array, which the split lines would take as their colors in turns. Example: \n\n    splitLine: {\n        lineStyle: {\n            // Dark and light colors will be used in turns\n            color: ['#aaa', '#ddd']\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "splitLine.lineStyle.width": {
+        "desc": " splitLine line width. ",
+        "uiControl": {
+            "type": "number",
+            "value": "1",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "splitLine.lineStyle.type": {
+        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "splitLine.lineStyle.dashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "splitLine.lineStyle.cap": {
+        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "uiControl": {
+            "type": "enum",
+            "options": "'butt','round','square'"
+        }
+    },
+    "splitLine.lineStyle.join": {
+        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "uiControl": {
+            "type": "enum",
+            "options": "'bevel','round','miter'"
+        }
+    },
+    "splitLine.lineStyle.miterLimit": {
+        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "10"
+        }
+    },
+    "splitLine.lineStyle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "splitLine.lineStyle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "splitLine.lineStyle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "splitLine.lineStyle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "splitLine.lineStyle.opacity": {
+        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "uiControl": {
+            "type": "number",
+            "default": "1",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "splitArea": {
+        "desc": " Split area of axis in [grid][0] area, not shown by default.\n\n[0]: #grid",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "splitArea.show": {
+        "desc": " Set this to true to show the splitArea. ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "splitArea.areaStyle": {
+        "desc": " Split area style. ",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "splitArea.areaStyle.color": {
+        "desc": " Color of split area. SplitArea color could also be set in color array, which the split lines would take as their colors in turns. Dark and light colors in turns are used by default. ",
+        "uiControl": {
+            "default": "['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']",
+            "type": "Array"
+        }
+    },
+    "splitArea.areaStyle.shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "splitArea.areaStyle.shadowColor": {
+        "desc": " Shadow color. Support same format as color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "splitArea.areaStyle.shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "splitArea.areaStyle.shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "splitArea.areaStyle.opacity": {
+        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "uiControl": {
+            "type": "number",
+            "default": "1",
+            "min": "0",
+            "max": "1",
+            "step": "0.01"
+        }
+    },
+    "indicator": {
+        "desc": " Indicator of radar chart, which is used to assign multiple variables(dimensions) in radar chart. Here is the example. \n\n    indicator: [\n       { name: 'Sales (sales) ', max: 6500},\n       { name: 'Administration (Administration) ', max: 16000, color: 'red'}, // Set the indicator as 'red'\n       { name: 'Information Technology (Information Technology) ', max: 30000},\n       { name: 'Customer Support (Customer Support) ', max: 38000},\n       { name: 'Development (Development) ', max: 52000},\n       { name: 'Marketing (Marketing) ', max: 25000}\n    ]\n    \n\n",
+        "uiControl": {
+            "type": "Array"
+        }
+    },
+    "indicator.name": {
+        "desc": " Indicator's name. ",
+        "uiControl": {
+            "type": "string"
+        }
+    },
+    "indicator.max": {
+        "desc": " The maximum value of indicator. It is an optional configuration, but we recommend to set it manually. ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "step": "1"
+        }
+    },
+    "indicator.min": {
+        "desc": " The minimum value of indicator. It it an optional configuration, with default value of 0. ",
+        "uiControl": {
+            "type": "number",
+            "step": "1"
+        }
+    },
+    "indicator.color": {
+        "desc": " Specfy a color of the indicator. ",
+        "uiControl": {
+            "type": "color"
+        }
+    }
+}

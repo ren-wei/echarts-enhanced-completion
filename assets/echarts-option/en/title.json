@@ -1,0 +1,995 @@
+{
+    "id": {
+        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. ",
+        "uiControl": {
+            "type": "string"
+        }
+    },
+    "show": {
+        "desc": " Set this to false to prevent the title from showing ",
+        "uiControl": {
+            "type": "boolean",
+            "default": "true"
+        }
+    },
+    "text": {
+        "desc": " The main title text, supporting for \\n for newlines. ",
+        "uiControl": {
+            "type": "text"
+        }
+    },
+    "link": {
+        "desc": " The hyper link of main title text. ",
+        "uiControl": {
+            "default": "''",
+            "type": "string"
+        }
+    },
+    "target": {
+        "desc": " Open the hyper link of main title in specified tab. **options:*** 'self' opening it in current tab\n* 'blank' opening it in a new tab\n\n",
+        "uiControl": {
+            "default": "'blank'",
+            "type": "string"
+        }
+    },
+    "textStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "textStyle.color": {
+        "desc": " main title text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#333'"
+        }
+    },
+    "textStyle.fontStyle": {
+        "desc": " main title font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "textStyle.fontWeight": {
+        "desc": " main title font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "textStyle.fontFamily": {
+        "desc": " main title font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "textStyle.fontSize": {
+        "desc": " main title font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "18",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "textStyle.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "textStyle.width": {
+        "desc": " Width of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "textStyle.height": {
+        "desc": " Height of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "textStyle.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "textStyle.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "textStyle.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "textStyle.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "textStyle.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "textStyle.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "textStyle.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.overflow": {
+        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'truncate','break','breakAll'"
+        }
+    },
+    "textStyle.ellipsis": {
+        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "uiControl": {
+            "default": "'...'",
+            "type": "string"
+        }
+    },
+    "textStyle.lineOverflow": {
+        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "uiControl": {
+            "default": "'none'",
+            "type": "string"
+        }
+    },
+    "textStyle.rich": {
+        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "textStyle.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "textStyle.rich.<style_name>.color": {
+        "desc": " text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "null"
+        }
+    },
+    "textStyle.rich.<style_name>.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "textStyle.rich.<style_name>.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "textStyle.rich.<style_name>.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "textStyle.rich.<style_name>.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "textStyle.rich.<style_name>.align": {
+        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'left','center','right'"
+        }
+    },
+    "textStyle.rich.<style_name>.verticalAlign": {
+        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'top','middle','bottom'"
+        }
+    },
+    "textStyle.rich.<style_name>.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "textStyle.rich.<style_name>.backgroundColor": {
+        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "textStyle.rich.<style_name>.borderColor": {
+        "desc": " Border color of the text fragment. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "textStyle.rich.<style_name>.borderWidth": {
+        "desc": " Border width of the text fragment. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.borderType": {
+        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "textStyle.rich.<style_name>.borderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.borderRadius": {
+        "desc": " Border radius of the text fragment. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.padding": {
+        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.shadowColor": {
+        "desc": " Shadow color of the text block. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "textStyle.rich.<style_name>.shadowBlur": {
+        "desc": " Show blur of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.shadowOffsetX": {
+        "desc": " Shadow X offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.rich.<style_name>.shadowOffsetY": {
+        "desc": " Shadow Y offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.rich.<style_name>.width": {
+        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "textStyle.rich.<style_name>.height": {
+        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "textStyle.rich.<style_name>.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "textStyle.rich.<style_name>.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "textStyle.rich.<style_name>.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "textStyle.rich.<style_name>.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "textStyle.rich.<style_name>.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textStyle.rich.<style_name>.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "subtext": {
+        "desc": " Subtitle text, supporting for \\n for newlines. ",
+        "uiControl": {
+            "type": "text"
+        }
+    },
+    "sublink": {
+        "desc": " The hyper link of subtitle text. ",
+        "uiControl": {
+            "default": "''",
+            "type": "string"
+        }
+    },
+    "subtarget": {
+        "desc": " Open the hyper link of subtitle in specified tab, options: \n\n* 'self' opening it in current tab\n* 'blank' opening it in a new tab\n\n",
+        "uiControl": {
+            "default": "'blank'",
+            "type": "string"
+        }
+    },
+    "subtextStyle": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "subtextStyle.color": {
+        "desc": " subtitle text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#aaa'"
+        }
+    },
+    "subtextStyle.fontStyle": {
+        "desc": " subtitle font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "subtextStyle.fontWeight": {
+        "desc": " subtitle font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "subtextStyle.fontFamily": {
+        "desc": " subtitle font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "subtextStyle.fontSize": {
+        "desc": " subtitle font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "subtextStyle.align": {
+        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'left','center','right'"
+        }
+    },
+    "subtextStyle.verticalAlign": {
+        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'top','middle','bottom'"
+        }
+    },
+    "subtextStyle.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "subtextStyle.width": {
+        "desc": " Width of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "100",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "subtextStyle.height": {
+        "desc": " Height of text block. ",
+        "uiControl": {
+            "type": "number",
+            "default": "50",
+            "min": "1",
+            "max": "500",
+            "step": "1"
+        }
+    },
+    "subtextStyle.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "subtextStyle.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "subtextStyle.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "subtextStyle.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "subtextStyle.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "subtextStyle.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "subtextStyle.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "subtextStyle.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "subtextStyle.overflow": {
+        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'truncate','break','breakAll'"
+        }
+    },
+    "subtextStyle.ellipsis": {
+        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "uiControl": {
+            "default": "'...'",
+            "type": "string"
+        }
+    },
+    "subtextStyle.lineOverflow": {
+        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "uiControl": {
+            "default": "'none'",
+            "type": "string"
+        }
+    },
+    "subtextStyle.rich": {
+        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "subtextStyle.rich.<style_name>": {
+        "desc": "",
+        "uiControl": {
+            "type": "Object"
+        }
+    },
+    "subtextStyle.rich.<style_name>.color": {
+        "desc": " text color. ",
+        "uiControl": {
+            "type": "color",
+            "default": "null"
+        }
+    },
+    "subtextStyle.rich.<style_name>.fontStyle": {
+        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','italic','oblique'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.fontWeight": {
+        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'normal','bold','bolder','lighter'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.fontFamily": {
+        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.fontSize": {
+        "desc": " font size. ",
+        "uiControl": {
+            "type": "number",
+            "default": "12",
+            "min": "1",
+            "step": "1"
+        }
+    },
+    "subtextStyle.rich.<style_name>.align": {
+        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'left','center','right'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.verticalAlign": {
+        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "enum",
+            "options": "'top','middle','bottom'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.lineHeight": {
+        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "12"
+        }
+    },
+    "subtextStyle.rich.<style_name>.backgroundColor": {
+        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.borderColor": {
+        "desc": " Border color of the text fragment. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#fff'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.borderWidth": {
+        "desc": " Border width of the text fragment. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.borderType": {
+        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.borderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.borderRadius": {
+        "desc": " Border radius of the text fragment. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT, RB, LB",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.padding": {
+        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.shadowColor": {
+        "desc": " Shadow color of the text block. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "subtextStyle.rich.<style_name>.shadowBlur": {
+        "desc": " Show blur of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.shadowOffsetX": {
+        "desc": " Shadow X offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "subtextStyle.rich.<style_name>.shadowOffsetY": {
+        "desc": " Shadow Y offset of the text block. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "subtextStyle.rich.<style_name>.width": {
+        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "subtextStyle.rich.<style_name>.height": {
+        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "uiControl": {
+            "type": [
+                "number",
+                "string"
+            ]
+        }
+    },
+    "subtextStyle.rich.<style_name>.textBorderColor": {
+        "desc": " Storke color of the text. ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textBorderWidth": {
+        "desc": " Storke line width of the text. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textBorderType": {
+        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "uiControl": {
+            "type": "enum",
+            "options": "'solid','dashed','dotted'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textBorderDashOffset": {
+        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "1",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textShadowColor": {
+        "desc": " Shadow color of the text itself. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#000'"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textShadowBlur": {
+        "desc": " Shadow blue of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "step": "0.5",
+            "default": "0"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textShadowOffsetX": {
+        "desc": " Shadow X offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "subtextStyle.rich.<style_name>.textShadowOffsetY": {
+        "desc": " Shadow Y offset of the text itself. ",
+        "uiControl": {
+            "type": "number",
+            "step": "0.5"
+        }
+    },
+    "textAlign": {
+        "desc": " The horizontal align of the component (including \"text\" and \"subtext\"). Optional values: 'auto', 'left', 'right', 'center'. ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'auto','left','center','right'"
+        }
+    },
+    "textVerticalAlign": {
+        "desc": " The vertical align of the component (including \"text\" and \"subtext\"). Optional values: 'auto', 'top', 'bottom', 'middle'. ",
+        "uiControl": {
+            "type": "enum",
+            "options": "'auto','top','middle','bottom'"
+        }
+    },
+    "triggerEvent": {
+        "desc": " Set this to true to enable triggering events ",
+        "uiControl": {
+            "default": "false",
+            "type": "boolean"
+        }
+    },
+    "padding": {
+        "desc": " title space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom. Examples: \n\n    // Set padding to be 5\n    padding: 5\n    // Set the top and bottom paddings to be 5, and left and right paddings to be 10\n    padding: [5, 10]\n    // Set each of the four paddings seperately\n    padding: [\n        5,  // up\n        10, // right\n        5,  // down\n        10, // left\n    ]\n    \n\n",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "T,R,B,L",
+            "default": "0"
+        }
+    },
+    "itemGap": {
+        "desc": " The gap between the main title and subtitle. ",
+        "uiControl": {
+            "type": "number",
+            "min": "0",
+            "default": "10",
+            "step": "1"
+        }
+    },
+    "zlevel": {
+        "desc": "zlevel value of all graphical elements in . zlevel is used to make layers with Canvas. Graphical elements with different zlevel values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate zlevel. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash. Canvases with bigger zlevel will be placed on Canvases with smaller zlevel. ",
+        "uiControl": {
+            "default": "0",
+            "type": "number"
+        }
+    },
+    "z": {
+        "desc": "z value of all graphical elements in , which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. z has a lower priority to zlevel, and will not create new Canvas. ",
+        "uiControl": {
+            "default": "2",
+            "type": "number"
+        }
+    },
+    "left": {
+        "desc": " Distance between title component and the left side of the container. left value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'left', 'center', or 'right'. If the left value is set to be 'left', 'center', or 'right', then the component will be aligned automatically based on position. ",
+        "uiControl": {
+            "type": "percent",
+            "default": "'0%'"
+        }
+    },
+    "top": {
+        "desc": " Distance between title component and the top side of the container. top value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'top', 'middle', or 'bottom'. If the left value is set to be 'top', 'middle', or 'bottom', then the component will be aligned automatically based on position. ",
+        "uiControl": {
+            "type": "percent",
+            "default": "'0%'"
+        }
+    },
+    "right": {
+        "desc": " Distance between title component and the right side of the container. right value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. Adaptive by default. ",
+        "uiControl": {
+            "type": "percent",
+            "default": "'0%'"
+        }
+    },
+    "bottom": {
+        "desc": " Distance between title component and the bottom side of the container. bottom value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. Adaptive by default. ",
+        "uiControl": {
+            "type": "percent",
+            "default": "'0%'"
+        }
+    },
+    "backgroundColor": {
+        "desc": " Background color of title, which is transparent by default. \n\n> Color can be represented in RGB, for example > 'rgb(128, 128, 128)'> . RGBA can be used when you need alpha channel, for example > 'rgba(128, 128, 128, 0.5)'> . You may also use hexadecimal format, for example > '#ccc'> . ",
+        "uiControl": {
+            "type": "color"
+        }
+    },
+    "borderColor": {
+        "desc": " Border color of title. Support the same color format as backgroundColor. ",
+        "uiControl": {
+            "type": "color",
+            "default": "'#ccc'"
+        }
+    },
+    "borderWidth": {
+        "desc": " Border width of title. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "borderRadius": {
+        "desc": " The radius of rounded corner. Its unit is px. And it supports use array to respectively specify the 4 corner radiuses. For example: \n\n    borderRadius: 5, // consistently set the size of 4 rounded corners\n    borderRadius: [5, 5, 0, 0] // (clockwise upper left, upper right, bottom right and bottom left)\n    \n\n",
+        "uiControl": {
+            "type": "vector",
+            "min": "0",
+            "dims": "LT,RT,RB,LB",
+            "default": "0"
+        }
+    },
+    "shadowBlur": {
+        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n**Attention**: This property works only if show: true is configured and backgroundColor is defined other than transparent. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "min": "0",
+            "step": "0.5"
+        }
+    },
+    "shadowColor": {
+        "desc": " Shadow color. Support same format as color. **Attention**: This property works only if show: true configured. ",
+        "uiControl": {
+            "type": "color",
+            "default": "''"
+        }
+    },
+    "shadowOffsetX": {
+        "desc": " Offset distance on the horizontal direction of shadow. **Attention**: This property works only if show: true configured. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    },
+    "shadowOffsetY": {
+        "desc": " Offset distance on the vertical direction of shadow. **Attention**: This property works only if show: true configured. ",
+        "uiControl": {
+            "type": "number",
+            "default": "0",
+            "step": "0.5"
+        }
+    }
+}
