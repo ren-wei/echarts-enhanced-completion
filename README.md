@@ -1,6 +1,6 @@
 # echarts-enhanced-completion
 
-[English document](./README.md) | [中文文档](./README_cn.md)
+[English document](https://github.com/ren-wei/echarts-enhanced-completion/blob/master/README.md) | [中文文档](https://github.com/ren-wei/echarts-enhanced-completion/blob/master/README_cn.md)
 
 This is an extension of `vscode` that is used to prompt completion when editing the options of `echarts`.
 
