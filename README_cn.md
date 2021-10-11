@@ -14,11 +14,11 @@
 
 ## Snapshots
 
-![自动补全](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/CompletionItems.gif)
+![自动补全](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/CompletionItems_cn.gif)
 
-![hover显示说明](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Hover.gif)
+![hover显示说明](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Hover_cn.gif)
 
-![快速初始化](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init.gif)
+![快速初始化](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init_cn.gif)
 
 ## Features
 
@@ -50,7 +50,7 @@
 "echarts-enhanced-completion.lang": {
     "type": "string",
     "default": "auto",
-    "description": "Language setting.",
+    "description": "语言设置",
     "enum": [
         "auto",
         "English",
