@@ -47,6 +47,16 @@
 ## Extension Settings
 
 ```json
+"echarts-enhanced-completion.lang": {
+    "type": "string",
+    "default": "auto",
+    "description": "Language setting.",
+    "enum": [
+        "auto",
+        "English",
+        "中文"
+    ]
+},
 "echarts-enhanced-completion.init.enabled": {
     "type": "boolean",
     "default": true,

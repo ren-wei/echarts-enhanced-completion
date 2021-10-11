@@ -26,7 +26,11 @@ export default class Config {
         if (lang === 'auto') {
             return vscode.extensions.getExtension('ms-ceintl.vscode-language-pack-zh-hans') ? 'cn' : 'en';
         } else {
-            return lang as 'en' | 'cn';
+            if (lang === 'English') {
+                return 'en';
+            } else {
+                return 'cn';
+            }
         }
     }
 };

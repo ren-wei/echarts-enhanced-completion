@@ -28,6 +28,7 @@ export function start() {
 
 export function activate(context: vscode.ExtensionContext) {
     start();
+    vscode.workspace.onDidChangeConfiguration(start);
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
     }, '\n'));

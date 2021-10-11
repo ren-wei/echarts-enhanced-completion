@@ -27,7 +27,7 @@ export default class Options {
                 return {
                     label: {
                         label: item.name,
-                        description: item.title,
+                        description: Config.lang === 'cn' ? item.title : undefined,
                     },
                     kind: vscode.CompletionItemKind.Value,
                     documentation: new vscode.MarkdownString((Config.initShowPictures && item.imgSrc ? '![' + item.title + '](' + item.imgSrc + ')\n' : '') + '```javascript\n' + item.code + '\n```'),
