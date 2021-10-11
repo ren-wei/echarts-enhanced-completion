@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.2.5 (2021-10-11)
+
+### Added
+
+- 支持英语
+
 ## 1.2.4 (2021-10-06)
 
 ### Fixed
