@@ -41,7 +41,7 @@ export function updateDiagnostics(document: vscode.TextDocument, collection: vsc
 }
 
 export function start() {
-    store = new Store('echarts-option', Config.lang);
+    store = new Store('echarts-option', Config.language);
 }
 
 export function activate(context: vscode.ExtensionContext) {

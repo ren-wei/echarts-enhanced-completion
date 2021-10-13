@@ -47,7 +47,7 @@ After install and enable the extension, add a comment on the previous line of th
 ## Extension Settings
 
 ```json
-"echarts-enhanced-completion.lang": {
+"echarts-enhanced-completion.language": {
     "type": "string",
     "default": "auto",
     "description": "Language setting.",

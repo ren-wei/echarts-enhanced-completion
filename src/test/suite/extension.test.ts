@@ -59,7 +59,7 @@ suite('Extension Completion Base Test Suite', () => {
     });
 
     test('空对象应该根据设置返回所有初始化选项和所有顶级选项', async() => {
-        await vscode.workspace.getConfiguration().update('echarts-enhanced-completion.lang', '中文', true);
+        await vscode.workspace.getConfiguration().update('echarts-enhanced-completion.language', '中文', true);
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const indexDescMsg = getFileData('index');
@@ -82,7 +82,7 @@ suite('Extension Completion Base Test Suite', () => {
                 assert.strictEqual((target.label as vscode.CompletionItemLabel).description, item.title);
             });
         }
-        await vscode.workspace.getConfiguration().update('echarts-enhanced-completion.lang', 'auto', true);
+        await vscode.workspace.getConfiguration().update('echarts-enhanced-completion.language', 'auto', true);
     });
 
     test('对应层级的选项应该只包含对应的所有选项', async() => {

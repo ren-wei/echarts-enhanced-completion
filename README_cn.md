@@ -47,7 +47,7 @@
 ## Extension Settings
 
 ```json
-"echarts-enhanced-completion.lang": {
+"echarts-enhanced-completion.language": {
     "type": "string",
     "default": "auto",
     "description": "语言设置",
