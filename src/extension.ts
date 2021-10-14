@@ -5,6 +5,9 @@ import Options from './options';
 import Config from './config';
 
 let store: Store;
+let curTextDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null;
+const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
+let timer: NodeJS.Timeout | null = null;
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
     const keyword = '/** @type EChartsOption */';
@@ -47,24 +50,31 @@ export function start() {
 export function activate(context: vscode.ExtensionContext) {
     start();
     vscode.workspace.onDidChangeConfiguration(start);
+
+    // 自动补全
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideCompletionItems,
     }, '\n'));
 
+    // hover提示
     context.subscriptions.push(vscode.languages.registerHoverProvider(['html', 'javascript', 'typescript', 'vue'], {
         provideHover,
     }));
 
-    const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
+    // 配置项检查
     if (vscode.window.activeTextEditor) {
         updateDiagnostics(vscode.window.activeTextEditor.document, collection);
     }
-
     context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
-        // TODO: 需要更改限制条件
-        if (textDocumentChangeEvent.document) {
+        if (timer) {
+            clearTimeout(timer);
+            timer = null;
+        };
+        curTextDocumentChangeEvent = textDocumentChangeEvent;
+        timer = setTimeout(() => {
+            curTextDocumentChangeEvent = null;
             updateDiagnostics(textDocumentChangeEvent.document, collection);
-        }
+        }, 500);
     }));
 }
 
