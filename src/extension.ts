@@ -10,22 +10,24 @@ const collection = vscode.languages.createDiagnosticCollection('echarts-options-
 let timer: NodeJS.Timeout | null = null;
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
+    updateHandler();
     const keyword = '/** @type EChartsOption */';
-    const ast = new Ast(keyword, document, position);
+    const ast = new Ast(keyword, document);
     if (!ast.validate) return [];
-    const options = new Options(ast, store);
+    const options = new Options(ast, store, position);
     return options.getCompletionItem();
 }
 
 export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
+    updateHandler();
     const keyword = '/** @type EChartsOption */';
-    const ast = new Ast(keyword, document, position);
+    const ast = new Ast(keyword, document);
     if (!ast.validate) return null;
-    const options = new Options(ast, store);
+    const options = new Options(ast, store, position);
     return options.getHover();
 }
 
-export function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection): void {
+export function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection, textDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null): void {
     // TODO: 下面是示例，需要更改
     if (document) {
         collection.set(document.uri, [{
@@ -40,6 +42,13 @@ export function updateDiagnostics(document: vscode.TextDocument, collection: vsc
         }]);
     } else {
         collection.clear();
+    }
+}
+
+export function updateHandler() {
+    if (curTextDocumentChangeEvent) {
+        updateDiagnostics(curTextDocumentChangeEvent.document, collection, curTextDocumentChangeEvent);
+        curTextDocumentChangeEvent = null;
     }
 }
 
@@ -71,10 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
             timer = null;
         };
         curTextDocumentChangeEvent = textDocumentChangeEvent;
-        timer = setTimeout(() => {
-            curTextDocumentChangeEvent = null;
-            updateDiagnostics(textDocumentChangeEvent.document, collection);
-        }, 500);
+        timer = setTimeout(updateHandler, 500);
     }));
 }
 

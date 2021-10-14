@@ -1,25 +1,25 @@
 import * as vscode from 'vscode';
 import Store from './store';
-import Ast from './ast';
+import Ast, { AstItem } from './ast';
 import Config from './config';
 
 export default class Options {
     private descObject: DescMsgObject = {};
     private store: Store;
-    private ast: Ast;
-    private node: AstNode;
-    private paths: Paths;
+    private astItem: AstItem | undefined;
+    private node: AstNode | null;
+    private paths: Paths = [];
 
-    constructor(ast: Ast, store: Store) {
+    constructor(ast: Ast, store: Store, position: vscode.Position) {
         this.store = store;
-        this.ast = ast;
-        this.node = ast.minAst as AstNode;
-        this.paths = ast.paths;
+        this.astItem = ast.getAstItem(position);
+        [this.node, this.paths] = ast.getMinAstNode(this.astItem, position);
     }
 
     public getCompletionItem(): vscode.CompletionItem[] {
+        if (!this.node || !this.astItem) return [];
         let completionItems: vscode.CompletionItem[] = [];
-        if (Config.initEnabled && !this.ast.expression?.properties.length) {
+        if (Config.initEnabled && this.astItem.isEmpty) {
             // 空对象额外增加初始化选项
             completionItems = this.store.getBaseOptions().map((item, index) => {
                 let insertText = item.code.slice(1, item.code.length - 1).split('\n').map(v => v.slice(4)).join('\n').trim();
@@ -40,7 +40,7 @@ export default class Options {
             return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';
-        this.descObject = this.store.getOptionDesc(this.paths, isArray, this.ast);
+        this.descObject = this.store.getOptionDesc(this.paths, isArray, this.astItem);
         return completionItems.concat(...this.filterOptions(this.descObject, this.node).map((name, index) => {
             const typeOfValue = this.descObject[name].uiControl?.type;
             return {
@@ -58,11 +58,12 @@ export default class Options {
     }
 
     public getHover(): vscode.Hover | null {
+        if (!this.node || !this.astItem) return null;
         if (this.node.type === 'Identifier') {
-            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.ast);
+            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
             return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name].desc));
         } else if (this.node.type === 'Property') {
-            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.ast);
+            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
             return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.key.name].desc));
         }
         return null;
