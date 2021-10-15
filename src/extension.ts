@@ -5,14 +5,13 @@ import Options from './options';
 import Config from './config';
 
 let store: Store;
+let ast: Ast;
 let curTextDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null;
 const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
 let timer: NodeJS.Timeout | null = null;
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
     updateHandler();
-    const keyword = '/** @type EChartsOption */';
-    const ast = new Ast(keyword, document);
     if (!ast.validate) return [];
     const options = new Options(ast, store, position);
     return options.getCompletionItem();
@@ -20,29 +19,19 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
 
 export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
     updateHandler();
-    const keyword = '/** @type EChartsOption */';
-    const ast = new Ast(keyword, document);
     if (!ast.validate) return null;
     const options = new Options(ast, store, position);
     return options.getHover();
 }
 
 export function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection, textDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null): void {
-    // TODO: 下面是示例，需要更改
-    if (document) {
-        collection.set(document.uri, [{
-            code: 'xAxis',
-            message: 'cannot assign twice to immutable variable `x`',
-            range: new vscode.Range(new vscode.Position(3, 5), new vscode.Position(3, 9)),
-            severity: vscode.DiagnosticSeverity.Warning,
-            source: 'echarts-enhanced-completion',
-            // relatedInformation: [
-            //     new vscode.DiagnosticRelatedInformation(new vscode.Location(document.uri, new vscode.Range(new vscode.Position(1, 8), new vscode.Position(1, 9))), 'first assignment to `x`'),
-            // ],
-        }]);
+    if (textDocumentChangeEvent) {
+        ast.patch(textDocumentChangeEvent.contentChanges);
     } else {
-        collection.clear();
+        const keyword = '/** @type EChartsOption */';
+        ast = new Ast(keyword, document);
     }
+    ast.updateDiagnostics(document.uri, collection);
 }
 
 export function updateHandler() {
