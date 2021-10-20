@@ -7,7 +7,7 @@ import Config from './config';
 let store: Store;
 let ast: Ast;
 let curTextDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null;
-const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
+export const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
 let timer: NodeJS.Timeout | null = null;
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {

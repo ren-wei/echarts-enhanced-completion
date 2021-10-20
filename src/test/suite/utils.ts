@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { updateDiagnostics, collection } from '../../extension';
 
 /** 获取json文件并解析为对象 */
 export function getFileData(name: string): DescMsgObject {
@@ -18,7 +19,16 @@ export function getFileArrayData(name: string = 'index'): BaseOption[] {
 export async function inputText(text: [string, string], textEditor: vscode.TextEditor, position: vscode.Position): Promise<vscode.Position> {
     await textEditor.edit((editBuilder) => {
         editBuilder.insert(position, text.join(''));
-        position = position.translate(text[0].length - text[0].replace(/\n/g, '').length, -position.character + text[0].split('\n')[text[0].split('\n').length - 1].length);
     });
-    return position;
+    const event: vscode.TextDocumentChangeEvent = {
+        document: textEditor.document,
+        contentChanges: [{
+            range: new vscode.Range(position, position),
+            rangeOffset: textEditor.document.offsetAt(position),
+            rangeLength: 0,
+            text: text.join(''),
+        }],
+    };
+    updateDiagnostics(textEditor.document, collection, event);
+    return textEditor.document.positionAt(textEditor.document.offsetAt(position) + text[0].length);
 }

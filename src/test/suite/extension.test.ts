@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
 
-import { start, provideCompletionItems, provideHover } from '../../extension';
+import { start, updateDiagnostics, collection, provideCompletionItems, provideHover } from '../../extension';
 import { getFileData, getFileArrayData, inputText } from './utils';
 
 start();
@@ -17,6 +17,7 @@ suite('Extension Completion Base Test Suite', () => {
             content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
         });
         textEditor = await vscode.window.showTextDocument(document);
+        updateDiagnostics(document, collection);
         position = new vscode.Position(2, 17); // 光标位置
     }
 
@@ -196,6 +197,7 @@ suite('Extension Completion Base Test Suite', () => {
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'show');
+        assert.ok(target);
         assert.strictEqual(((target as vscode.CompletionItem).insertText as vscode.SnippetString).value, 'show: true,');
     });
 
@@ -203,6 +205,7 @@ suite('Extension Completion Base Test Suite', () => {
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'color');
+        assert.ok(target);
         assert.strictEqual(((target as vscode.CompletionItem).insertText as vscode.SnippetString).value, 'color: [$0],');
     });
 
@@ -210,6 +213,7 @@ suite('Extension Completion Base Test Suite', () => {
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'title');
+        assert.ok(target);
         assert.strictEqual(((target as vscode.CompletionItem).insertText as vscode.SnippetString).value, 'title: {$0},');
     });
 
@@ -224,6 +228,7 @@ suite('Extension Completion Base Test Suite', () => {
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'id');
+        assert.ok(target);
         assert.strictEqual(((target as vscode.CompletionItem).insertText as vscode.SnippetString).value, "id: '$0',");
     });
 
@@ -231,6 +236,7 @@ suite('Extension Completion Base Test Suite', () => {
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === 'animationEasing');
+        assert.ok(target);
         assert.strictEqual(((target as vscode.CompletionItem).insertText as vscode.SnippetString).value, "animationEasing: ${1|'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'|},");
     });
 
@@ -338,6 +344,7 @@ suite('Extension Hover Base Test Suite', () => {
             content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
         });
         textEditor = await vscode.window.showTextDocument(document);
+        updateDiagnostics(document, collection);
         position = new vscode.Position(2, 17); // 光标位置
     }
 
