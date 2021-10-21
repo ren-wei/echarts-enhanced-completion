@@ -202,30 +202,74 @@ export class AstItem {
             }
             return true;
         }
+        // 如果是 Enter 触发补全，那么只需要调整范围
+        if (!contentChange.rangeLength && /^\r\n\u0020*$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
+            this.translate(this.expression, contentChange.rangeOffset - this.document.offsetAt(this.range.start), contentChange.text.length);
+            this.range = new vscode.Range(this.range.start, this.document.positionAt(this.document.offsetAt(this.range.end) + contentChange.text.length));
+            this.endRow = this.range.end.line;
+            return true;
+        }
         // 如果填充包含了多行或者修改包含了结束行，那么需要重新初始化
         if (contentChange.text.indexOf('\n') !== -1 || contentChange.range.end.line >= this.endRow) {
             this.init();
             return true;
         }
+
+        // 修改位置在内部
         // 调整范围
         this.endRow += contentChange.range.start.line - contentChange.range.end.line + contentChange.text.split('\n').length - 1;
         this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
 
         // 调整 expression
-        // TODO: 获取范围内的最小对象节点
-        const node = this.expression;
-        let range: vscode.Range;
-        if (node === this.expression) {
+        const [parentNode, key] = this.getUpdateNode(contentChange);
+        if (!key) {
             this.expression = this.parse(this.range) || this.expression;
         } else {
-            range = new vscode.Range(
-                this.document.positionAt(this.document.offsetAt(this.range.start) + node.start),
-                this.document.positionAt(this.document.offsetAt(this.range.start) + node.end - contentChange.rangeLength + contentChange.text.length),
+            const node = parentNode[key] as AstNode;
+            const range = new vscode.Range(
+                this.positionAt(node.start),
+                this.positionAt(node.end - contentChange.rangeLength + contentChange.text.length),
             );
-            // TODO: 替换节点
-            // TODO: 更新节点位置
+            // 更新节点位置
+            this.translate(this.expression, node.end, contentChange.text.length - contentChange.rangeLength);
+            // 替换节点
+            const newNode = this.parse(range) as AstNode;
+            this.translate(newNode, 0, node.start);
+            (parentNode[key] as AstNode) = newNode;
         }
         return true;
+    }
+
+    /** 获取更新范围内的最小对象或数组节点 */
+    private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null] {
+        const keyList: Key[] = espree.VisitorKeys[node.type];
+        for (let i = 0; i < keyList.length; i++) {
+            const key = keyList[i];
+            if (Array.isArray(node[key])) {
+                for (let j = 0; j < (node[key] as AstNode[]).length; j++) {
+                    if (this.isNodeContainRange((node[key] as AstNode[])[j], contentChange.range)) {
+                        const [targetNode, targetKey] = this.getUpdateNode(contentChange, (node[key] as AstNode[])[j]);
+                        if (targetKey) {
+                            return [targetNode, targetKey];
+                        } else if (['ObjectExpression', 'ArrayExpression'].includes((node[key] as AstNode[])[j].type)) {
+                            return [node, key];
+                        } else {
+                            return [targetNode, null];
+                        }
+                    }
+                }
+            } else if (node[key] && typeof node[key] === 'object' && this.isNodeContainRange(node[key] as AstNode, contentChange.range)) {
+                const [targetNode, targetKey] = this.getUpdateNode(contentChange, node[key] as AstNode);
+                if (targetKey) {
+                    return [targetNode, targetKey];
+                } else if (['ObjectExpression', 'ArrayExpression'].includes((node[key] as AstNode).type)) {
+                    return [node, key];
+                } else {
+                    return [targetNode, null];
+                }
+            }
+        }
+        return [node, null];
     }
 
     private init(): void {
@@ -274,10 +318,11 @@ export class AstItem {
         return null;
     }
 
-    /** 将表达式中中所有大于 limit 的位置偏移 offset */
-    private translate(node: AstNode, limit: number, offset: number) {
-        if (node.start > limit) node.start += offset;
-        if (node.end > limit) node.end += offset;
+    /** 将表达式中中所有大于等于 limit 的位置偏移 offset */
+    private translate(node: AstNode | null, limit: number, offset: number) {
+        if (!node || node.end < limit) return;
+        if (node.start >= limit) node.start += offset;
+        if (node.end >= limit) node.end += offset;
         const keyList: Key[] = espree.VisitorKeys[node.type];
         for (let i = 0; i < keyList.length; i++) {
             const key = keyList[i];
@@ -289,9 +334,24 @@ export class AstItem {
         }
     }
 
+    /** document 中的位置转换为 expression 中的位置 */
+    private offsetAt(position: vscode.Position): number {
+        return this.document.offsetAt(position) - this.document.offsetAt(this.range.start);
+    }
+
+    /** expression 中的位置转换为 document 中的位置*/
+    private positionAt(offset: number): vscode.Position {
+        return this.document.positionAt(this.document.offsetAt(this.range.start) + offset);
+    }
+
     /** 位置是否在节点中 */
     private isNodeContainIndex(node: AstNode, index: number): boolean {
         return node.start < index && index < node.end;
+    }
+
+    /** 范围是否在节点中 */
+    private isNodeContainRange(node: AstNode, range: vscode.Range): boolean {
+        return node.start < this.offsetAt(range.start) && this.offsetAt(range.end) < node.end;
     }
 
     private toSimpleObject(node: AstNode): SimpleObject {

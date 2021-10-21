@@ -6,19 +6,16 @@ import Config from './config';
 
 let store: Store;
 let ast: Ast;
-let curTextDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null;
 export const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
-let timer: NodeJS.Timeout | null = null;
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
-    updateHandler();
     if (!ast.validate) return [];
     const options = new Options(ast, store, position);
-    return options.getCompletionItem();
+    const result = options.getCompletionItem();
+    return result;
 }
 
 export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
-    updateHandler();
     if (!ast.validate) return null;
     const options = new Options(ast, store, position);
     return options.getHover();
@@ -32,13 +29,6 @@ export function updateDiagnostics(document: vscode.TextDocument, collection: vsc
         ast = new Ast(keyword, document);
     }
     ast.updateDiagnostics(document.uri, collection);
-}
-
-export function updateHandler() {
-    if (curTextDocumentChangeEvent) {
-        updateDiagnostics(curTextDocumentChangeEvent.document, collection, curTextDocumentChangeEvent);
-        curTextDocumentChangeEvent = null;
-    }
 }
 
 export function start() {
@@ -64,12 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
         updateDiagnostics(vscode.window.activeTextEditor.document, collection);
     }
     context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
-        if (timer) {
-            clearTimeout(timer);
-            timer = null;
-        };
-        curTextDocumentChangeEvent = textDocumentChangeEvent;
-        timer = setTimeout(updateHandler, 500);
+        updateDiagnostics(textDocumentChangeEvent.document, collection, textDocumentChangeEvent);
     }));
 }
 
