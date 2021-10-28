@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.0 (2021-10-28)
+
+在此版本之前，每次调用，都需要把对应区域的文本全部解析为ast，但是，大多数时候仅仅修改了很小的部分，因此存在很大的性能浪费。现在已经改为使用每次输入时对ast进行局部更新，实现大幅优化性能，响应速度更快。
+
+### 
+
 ## 1.2.5 (2021-10-11)
 
 ### Added
