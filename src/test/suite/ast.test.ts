@@ -33,7 +33,7 @@ suite('Ast class Test Suite', () => {
     });
 
     test('空对象中输入按 Enter 键应该保持一致', async() => {
-        let text = '\n    ';
+        let text = '\n    \n';
         let actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
@@ -43,7 +43,7 @@ suite('Ast class Test Suite', () => {
         assert.deepStrictEqual(actual, expected);
 
         await init();
-        text = '\r\n    ';
+        text = '\r\n    \n';
         actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
@@ -56,19 +56,19 @@ suite('Ast class Test Suite', () => {
     test('在符合语法的位置输入单个字母应该保持一致', async() => {
         let text = [
             '',
-            'xAxis: {',
-            "    type: 'category',",
-            "    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
-            '},',
-            'yAxis: {',
-            "    type: 'value',",
-            '},',
-            'series: [',
-            '    {',
-            '        data: [150, 230, 224, 218, 135, 147, 260],',
-            "        type: 'line',",
+            '    xAxis: {',
+            "        type: 'category',",
+            "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
             '    },',
-            '],',
+            '    yAxis: {',
+            "        type: 'value',",
+            '    },',
+            '    series: [',
+            '        {',
+            '            data: [150, 230, 224, 218, 135, 147, 260],',
+            "            type: 'line',",
+            '        },',
+            '    ],',
             '',
         ].join('\n');
         const actual = new Ast('/** @type EChartsOption */', document);
@@ -77,7 +77,7 @@ suite('Ast class Test Suite', () => {
         });
         actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
 
-        position = translate(document, position, 60);
+        position = translate(document, position, 8);
         text = 'a';
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
@@ -91,19 +91,19 @@ suite('Ast class Test Suite', () => {
     test('多次输入后应该保持一致', async() => {
         let text = [
             '',
-            'xAxis: {',
-            "    type: 'category',",
-            "    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
-            '},',
-            'yAxis: {',
-            "    type: 'value',",
-            '},',
-            'series: [',
-            '    {',
-            '        data: [150, 230, 224, 218, 135, 147, 260],',
-            "        type: 'line',",
+            '    xAxis: {',
+            "        type: 'category',",
+            "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
             '    },',
-            '],',
+            '    yAxis: {',
+            "        type: 'value',",
+            '    },',
+            '    series: [',
+            '        {',
+            '            data: [150, 230, 224, 218, 135, 147, 260],',
+            "            type: 'line',",
+            '        },',
+            '    ],',
             '',
         ].join('\n');
         const actual = new Ast('/** @type EChartsOption */', document);
@@ -112,7 +112,7 @@ suite('Ast class Test Suite', () => {
         });
         actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
 
-        position = translate(document, position, 60);
+        position = translate(document, position, 8);
         text = 'ab';
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
@@ -133,19 +133,19 @@ suite('Ast class Test Suite', () => {
     test('删除字符后应该保持一致', async() => {
         const text = [
             '',
-            'xAxis: {',
-            "    type: 'category',",
-            "    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
-            '},',
-            'yAxis: {',
-            "    type: 'value',",
-            '},',
-            'series: [',
-            '    {',
-            '        data: [150, 230, 224, 218, 135, 147, 260],',
-            "        type: 'line',",
+            '    xAxis: {',
+            "        type: 'category',",
+            "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
             '    },',
-            '],',
+            '    yAxis: {',
+            "        type: 'value',",
+            '    },',
+            '    series: [',
+            '        {',
+            '            data: [150, 230, 224, 218, 135, 147, 260],',
+            "            type: 'line',",
+            '        },',
+            '    ],',
             '',
         ].join('\n');
         const actual = new Ast('/** @type EChartsOption */', document);
@@ -154,7 +154,7 @@ suite('Ast class Test Suite', () => {
         });
         actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
 
-        position = translate(document, position, 10);
+        position = translate(document, position, 8);
         await textEditor.edit((editBuilder) => {
             editBuilder.delete(new vscode.Range(position, position.translate(0, 2)));
         });
