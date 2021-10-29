@@ -79,7 +79,3 @@
 ## Issues
 
 如果您在使用过程中遇到问题，您可以创建一个 [Issues](https://github.com/ren-wei/echarts-enhanced-completion/issues) ，我们会尽快为您解决。
-
-## About
-
-感谢您阅读到这里，这个项目有没有帮到您？如果它帮到了您，请给我一个 `Star`。
