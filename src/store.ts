@@ -10,9 +10,9 @@ export default class Store {
     public topOptionDesc: DescMsgObject; // 顶级选项的描述对象
     private cache: Map<string, DescMsgObject> = new Map<string, DescMsgObject>(); // 缓存已获取的文件
     private assetsName: string;
-    private lang: 'en' | 'cn'; // 语言，'en'表示英文，'cn'表示中文
+    private lang: 'en' | 'zh'; // 语言，'en'表示英文，'zh'表示中文
 
-    constructor(assetsName: string, lang: 'en' | 'cn' = 'en') {
+    constructor(assetsName: string, lang: 'en' | 'zh' = 'en') {
         this.assetsName = assetsName;
         this.lang = lang;
         this.topOptionDesc = this.getFileData('index');
