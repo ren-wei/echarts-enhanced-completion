@@ -5,34 +5,41 @@ import Options from './options';
 import Config from './config';
 
 let store: Store;
-let ast: Ast;
+let astMap: Map<vscode.Uri, Ast>;
+
 export const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
-    if (!ast.validate) return [];
+    const ast = astMap.get(document.uri);
+    if (!ast?.validate) return [];
     const options = new Options(ast, store, position);
     const result = options.getCompletionItem();
     return result;
 }
 
 export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
-    if (!ast.validate) return null;
+    const ast = astMap.get(document.uri);
+    if (!ast?.validate) return null;
     const options = new Options(ast, store, position);
     return options.getHover();
 }
 
 export function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection, textDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null): void {
-    if (textDocumentChangeEvent) {
+    let ast: Ast;
+    if (astMap.has(document.uri) && textDocumentChangeEvent) {
+        ast = astMap.get(document.uri) as Ast;
         ast.patch(textDocumentChangeEvent.contentChanges);
     } else {
         const keyword = '/** @type EChartsOption */';
         ast = new Ast(keyword, document);
+        astMap.set(document.uri, ast);
     }
     ast.updateDiagnostics(document.uri, collection);
 }
 
 export function start() {
     store = new Store('echarts-option', Config.language);
+    astMap = new Map<vscode.Uri, Ast>();
 }
 
 export function activate(context: vscode.ExtensionContext) {
