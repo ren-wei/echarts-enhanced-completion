@@ -21,7 +21,7 @@ export default class Config {
         return vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.showPictures') as boolean;
     }
 
-    static get language(): 'en' | 'zh' {
+    static get language(): Languages {
         const lang = vscode.workspace.getConfiguration().get('echarts-enhanced-completion.language') as string;
         if (lang === 'auto') {
             return vscode.extensions.getExtension('ms-ceintl.vscode-language-pack-zh-hans') ? 'zh' : 'en';

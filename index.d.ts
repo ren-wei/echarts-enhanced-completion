@@ -69,3 +69,5 @@ interface BaseOption {
     imgSrc: string;
     code: string;
 }
+
+type Languages = 'en' | 'zh';
