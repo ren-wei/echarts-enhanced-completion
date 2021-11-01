@@ -1,6 +1,6 @@
 /**
  * @name 模板解析引擎
- * @description 具体功能的实现是由继承了 Command 的子类组合而成；抽象类 Command 定义了命令的基本结构和功能
+ * @description 具体功能的由实现了 Command 的子类组合而成；抽象类 Command 定义了命令的基本结构和功能
  */
 export default class Engine {
     public targets: Targets = {};
@@ -95,12 +95,17 @@ export default class Engine {
     }
 
     /**
-     * TODO: 编译变量访问和替换的代码
+     * 编译变量访问和替换的代码
      * @param source 源代码
      * @param vars 变量的值
      */
     public compileVariable(source: string, vars: {[name: string]: string} = {}): string {
-        return source;
+        Object.entries(vars).forEach(([key, value]) => {
+            const reg = new RegExp('\\$\\{' + key + '\\}', 'g');
+            // TODO: 其他格式的值
+            source = source.replace(reg, value);
+        });
+        return source.replace(/\$\{\w+\}/g, '');
     }
 
     /**
@@ -196,7 +201,7 @@ export default class Engine {
             while ((node = stack.top()) !== closeEndCommand) {
                 if (commandType) {
                     // 如果节点不支持自动闭合，需要抛出错误
-                    if (!node.allowAutoClose) {
+                    if (!node.autoClose) {
                         throw new Error(node.type + ' must be closed manually: ' + node.value);
                     }
                     node.autoClose(context);
@@ -275,45 +280,28 @@ export class TextNode {
 
 /** 所有命令的抽象基类 */
 export abstract class Command {
-    public name: string = ''; // 名称
-    public value: string; // 模板中命令之后的部分
+    public abstract name: string; // 名称
+    public abstract value: string; // 模板中命令之后的部分
     public abstract readonly type: string; // 命令类型，对应模板中的关键字
-    public abstract readonly allowAutoClose: boolean; // 是否允许自动闭合
-    public children: Array<Command | TextNode> = []; // 子节点
-    protected engine: Engine;
-
-    constructor(value: string, engine: Engine) {
-        this.value = value;
-        this.engine = engine;
-    }
+    public abstract children: Array<Command | TextNode>; // 子节点
+    public abstract engine: Engine;
 
     /** 添加子节点 */
-    public addChild(node: Command | TextNode) {
-        this.children.push(node);
-    }
+    public abstract addChild(node: Command | TextNode): void;
 
     /** 节点open，解析开始 */
-    public open(context: AnalyseContext) {
-        const parent = context.stack.top();
-        parent?.addChild(this);
-        context.stack.push(this);
-    }
+    public abstract open(context: AnalyseContext) : void;
 
     /** 节点闭合，解析结束 */
-    public close(context: AnalyseContext) {
-        if (context.stack.top() === this) {
-            context.stack.pop();
-        }
-    }
+    public abstract close(context: AnalyseContext): void;
 
-    /** allowAutoClose 为 true 时需要实现此函数 */
-    public autoClose(context: AnalyseContext) {
-        this.close(context);
-    }
+    /** 自动闭合方法，实现此方法表示允许自动闭合 */
+    public abstract autoClose?(context: AnalyseContext): void;
 
     /** 获取生成的代码 */
     public abstract getRendererBody(): string;
 
+    /** 复制节点 */
     public abstract clone(): Command;
 }
 
@@ -321,28 +309,45 @@ export type CommandType = Function; // Command的子类
 export type CommandTypes = { [name: string]: CommandType };
 
 export enum TargetState {
-    READY, // 读取前
-    READING, // 读取中
-    READED, // 读取完成，但还有依赖未找到
-    APPLIED, // 所有依赖都已应用，可以调用渲染函数获取渲染结果
+    /** 读取前 */
+    READY,
+    /** 读取中 */
+    READING,
+    /** 读取完成 */
+    READED,
+    /** 所有依赖都已应用，可以调用渲染函数获取渲染结果 */
+    APPLIED,
 }
 
 type Targets = { [name: string]: TargetCommand };
 
-/** 用于定义命令处理的目标 */
-export class TargetCommand extends Command {
-    private state: TargetState;
+/** 定义target，提供给其他命令使用 */
+export class TargetCommand implements Command {
+    public name: string;
+    public value: string;
     public type: string = 'target';
-    public allowAutoClose: boolean = false;
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
+
+    private state: TargetState;
 
     constructor(value: string, engine: Engine) {
-        super(value, engine);
-        this.name = this.value.trim();
         this.state = TargetState.READY;
+        const match = /\b([\w-]*)/.exec(value);
+        this.name = match ? match[0] : value;
+        this.value = match ? match[0] : value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
     }
 
     public open(context: AnalyseContext) {
-        super.open(context);
+        this.engine.autoCloseCommand(context);
+        context.stack.top()?.addChild(this);
+        context.stack.push(this);
+
         this.state = TargetState.READING;
 
         // 将当前 target 添加到语法环境中
@@ -362,9 +367,10 @@ export class TargetCommand extends Command {
     }
 
     public close(context: AnalyseContext) {
-        super.close(context);
-        this.engine.targets[this.name] = this;
-        this.state = TargetState.READED;
+        if (context.stack.top() === this) {
+            context.stack.pop();
+            this.state = TargetState.READED;
+        }
     }
 
     public autoClose(context: AnalyseContext) {
@@ -381,16 +387,54 @@ export class TargetCommand extends Command {
     }
 }
 
-class UseCommand extends Command {
-    public allowAutoClose: boolean = true;
+/** use 命令用于将指定的 target 渲染后的内容复制到此处，并且可以传递参数作为变量 */
+class UseCommand implements Command {
+    public name: string;
+    public value: string;
     public type: string = 'use';
+    public children: Array<Command> = [];
+    public engine: Engine;
+
+    private vars: { [key: string]: string };
+
+    constructor(value: string, engine: Engine) {
+        const match = /\b(?<name>[\w|-]*)(?:\((?<vars>(?:\w*\s?=\s?'\w*',?\s?)*)\))?/.exec(value);
+        this.name = match?.groups?.name || value;
+        this.value = value;
+        const vars = match?.groups?.vars;
+        this.vars = vars ? Object.fromEntries((vars.split(',').map(text => {
+            const m = /(\w*)\s?=\s?'([^']*)'/.exec(text);
+            if (m) {
+                return [m[1], m[2]];
+            } else {
+                return [];
+            }
+        }))) : {};
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {}
+
+    public open(context: AnalyseContext) {
+        // use命令打开完后立即闭合，不需要入栈
+        context.stack.top()?.addChild(this);
+    }
+
+    public close(context: AnalyseContext) {}
 
     public clone(): TargetCommand {
+        // TODO: clone
         return new TargetCommand(this.value, this.engine);
     }
 
     public getRendererBody(): string {
-        return this.children.map(child => child.getRendererBody()).join('');
+        if (this.engine.targets[this.name]) {
+            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(), this.vars);
+        } else {
+            // TODO: 抛出错误
+            // throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
+            return '';
+        }
     }
 }
 
