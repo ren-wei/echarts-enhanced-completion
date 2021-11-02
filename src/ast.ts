@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as os from 'os';
 const espree = require('espree');
 
 export default class Ast {
@@ -33,7 +32,7 @@ export default class Ast {
             // 对已经存在的目标进行更新
             this.astItems = this.astItems.filter(item => item.patch(contentChange));
             // 将新的目标加入数组中
-            const lines = contentChange.text.split(os.EOL);
+            const lines = contentChange.text.split('\n');
             for (let index = 0; index < lines.length; index++) {
                 let text: string;
                 if (!index) {
@@ -204,9 +203,9 @@ export class AstItem {
             return true;
         }
         // 如果是 Enter 触发补全，那么只需要调整范围
-        if (!contentChange.rangeLength && /^\r\n\u0020*$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
+        if (!contentChange.rangeLength && /^\r?\n[ \t]+$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
             this.translate(this.expression, contentChange.rangeOffset - this.document.offsetAt(this.range.start), contentChange.text.length);
-            this.range = new vscode.Range(this.range.start, this.document.positionAt(this.document.offsetAt(this.range.end) + contentChange.text.length));
+            this.range = new vscode.Range(this.range.start, this.document.positionAt(this.document.offsetAt(this.range.end) + contentChange.text.replace(/\r\n/g, '\n').length));
             this.endRow = this.range.end.line;
             return true;
         }
@@ -218,7 +217,7 @@ export class AstItem {
 
         // 修改位置在内部
         // 调整范围
-        this.endRow += contentChange.range.start.line - contentChange.range.end.line + contentChange.text.split('\n').length - 1;
+        this.endRow += contentChange.range.start.line - contentChange.range.end.line + contentChange.text.replace(/\r\n/g, '\n').split('\n').length - 1;
         this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
 
         // 调整 expression

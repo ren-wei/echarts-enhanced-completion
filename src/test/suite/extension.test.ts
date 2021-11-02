@@ -132,6 +132,8 @@ suite('Extension Completion Base Test Suite', () => {
         });
     });
 
+    test('选项中应该过滤值为空对象的属性');
+
     test('多个被标记的对象中的每一个都应该能够触发补全', async() => {
         position = await inputText([[
             '',

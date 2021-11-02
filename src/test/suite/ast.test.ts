@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
 import Ast from '../../ast';
-import { inputText, generateChangeEvent, translate } from './utils';
+import { generateChangeEvent, translate } from './utils';
 
 suite('Ast class Test Suite', () => {
     let document: vscode.TextDocument;
@@ -50,6 +50,18 @@ suite('Ast class Test Suite', () => {
         });
         actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
         expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected);
+    });
+
+    test('输入换行应该保持一致', async() => {
+        const text = '\n    ';
+        const actual = new Ast('/** @type EChartsOption */', document);
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        const expected = new Ast('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
