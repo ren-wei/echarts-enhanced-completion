@@ -1,55 +1,3 @@
-{{target: option}}
-
-{{import: component-title}}
-{{import: component-legend}}
-{{import: component-grid}}
-{{import: component-x-axis}}
-{{import: component-y-axis}}
-{{import: component-polar}}
-{{import: component-radius-axis}}
-{{import: component-angle-axis}}
-{{import: component-radar}}
-{{import: component-data-zoom}}
-{{import: component-visual-map}}
-{{import: component-tooltip}}
-{{import: component-axisPointer}}
-{{import: component-toolbox}}
-{{import: component-brush}}
-{{import: component-geo}}
-{{import: component-parallel}}
-{{import: component-parallel-axis}}
-{{import: component-single-axis}}
-{{import: component-timeline}}
-{{import: component-graphic}}
-{{import: component-calendar}}
-{{import: component-dataset}}
-{{import: component-aria}}
-
-
-{{import: series-line}}
-{{import: series-bar}}
-{{import: series-pie}}
-{{import: series-scatter}}
-{{import: series-effectScatter}}
-
-{{import: series-radar}}
-{{import: series-tree}}
-{{import: series-treemap}}
-{{import: series-sunburst}}
-{{import: series-boxplot}}
-{{import: series-candlestick}}
-{{import: series-heatmap}}
-{{import: series-map}}
-{{import: series-parallel}}
-{{import: series-lines}}
-{{import: series-graph}}
-{{import: series-sankey}}
-{{import: series-funnel}}
-{{import: series-gauge}}
-{{import: series-pictorialBar}}
-{{import: series-themeRiver}}
-{{import: series-custom}}
-
 # darkMode(boolean)
 
 是否是暗黑模式，默认会根据背景色 [backgroundColor](~backgroundColor) 的亮度自动设置。
@@ -108,25 +56,20 @@
 # backgroundColor(Color) = 'transparent'
 背景色，默认无背景。
 
-{{ use: partial-color-desc() }}
+
 
 
 # textStyle(Object)
 全局的字体样式。
-{{ use: partial-simple-text-style(
-    prefix='#',
-    defaultFontSize=12
-) }}
 
-{{import: partial-animation }}
+
+
 
 # stateAnimation(Object)
 
 状态切换的动画配置，支持在每个系列里设置单独针对该系列的配置。
 
-{{use: partial-state-animation(
-    prefix = '#'
-) }}
+
 
 
 # blendMode(string) = 'source-over'

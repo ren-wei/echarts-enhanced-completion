@@ -1,11 +1,17 @@
 /**
  * @name 模板解析引擎
- * @description 具体功能的由实现了 Command 的子类组合而成；抽象类 Command 定义了命令的基本结构和功能
+ * @author ren-wei
+ * @description 所有源码依次调用`parseSource`方法，然后调用`render`方法获取渲染结果，它的参数从`targets`属性获取
+ * @extends 'implements'抽象类'Command'以扩展功能
  */
+
+import * as os from 'os';
+
 export default class Engine {
     public targets: Targets = {};
     public commandTypes: CommandTypes;
     public options: EngineOptions;
+    public deps: string[] = []; // 导入的目标
     private analyseContext: AnalyseContext; // 语法分析环境对象
 
     /**
@@ -18,16 +24,16 @@ export default class Engine {
             commandOpen: '{{',
             commandClose: '}}',
             commandSyntax: /^\s*(\/)?([a-z]*)\s*(?::([\s\S]*))?$/,
-            variableOpen: '${',
-            variableClose: '}',
+            variableOpen: '\\$\\{',
+            variableClose: '\\}',
             namingConflict: 'error',
-            missTarget: 'error',
+            missTarget: 'ignore',
         }, options) as EngineOptions);
         this.commandTypes = {
             'target': TargetCommand,
             'use': UseCommand,
+            'import': ImportCommand,
             // 'block': BlockCommand,
-            // 'import': ImportCommand,
             // 'var': VarCommand,
             // 'for': ForCommand,
             // 'if': IfCommand,
@@ -95,26 +101,34 @@ export default class Engine {
     }
 
     /**
-     * 编译变量访问和替换的代码
-     * @param source 源代码
-     * @param vars 变量的值
-     */
-    public compileVariable(source: string, vars: {[name: string]: string} = {}): string {
-        Object.entries(vars).forEach(([key, value]) => {
-            const reg = new RegExp('\\$\\{' + key + '\\}', 'g');
-            // TODO: 其他格式的值
-            source = source.replace(reg, value);
-        });
-        return source.replace(/\$\{\w+\}/g, '');
-    }
-
-    /**
      * 执行模板渲染，返回渲染后的字符串。
      * @param name target名称
      * @returns 渲染结果
      */
     public render(name: string): string {
-        return this.targets[name].children.map(child => child.getRendererBody()).join('');
+        return this.targets[name].children.map(child => child.getRendererBody()).join('').trim() + os.EOL;
+    }
+
+    /**
+     * 编译变量访问和替换的代码
+     * @param source 源代码
+     * @param vars 变量的值
+     */
+    public compileVariable(source: string, vars: {[name: string]: string} = {}): string {
+        const reg = new RegExp(this.options.variableOpen + '(\\w+)' + this.options.variableClose, 'g');
+        // 获取需要替换的位置和值
+        const opers: Array<[start: number, end: number, replaceValue: string]> = [];
+        let match: RegExpExecArray | null;
+        while ((match = reg.exec(source))) {
+            if (vars[match[1]]) opers.push([match.index, match.index + match[0].length, vars[match[1]]]);
+        }
+        // 源码所在的位置替换为值
+        let oper: [start: number, end: number, replaceValue: string] | undefined;
+        while ((oper = opers.pop())) {
+            const [start, end, replaceValue] = oper;
+            source = `${source.slice(0, start)}${replaceValue}${source.slice(end)}`;
+        }
+        return source;
     }
 
     /**
@@ -301,23 +315,13 @@ export abstract class Command {
     /** 获取生成的代码 */
     public abstract getRendererBody(): string;
 
+    // TODO: 考虑是否删除此方法
     /** 复制节点 */
-    public abstract clone(): Command;
+    public abstract clone?(): Command;
 }
 
 export type CommandType = Function; // Command的子类
 export type CommandTypes = { [name: string]: CommandType };
-
-export enum TargetState {
-    /** 读取前 */
-    READY,
-    /** 读取中 */
-    READING,
-    /** 读取完成 */
-    READED,
-    /** 所有依赖都已应用，可以调用渲染函数获取渲染结果 */
-    APPLIED,
-}
 
 type Targets = { [name: string]: TargetCommand };
 
@@ -329,10 +333,7 @@ export class TargetCommand implements Command {
     public children: Array<Command | TextNode> = [];
     public engine: Engine;
 
-    private state: TargetState;
-
     constructor(value: string, engine: Engine) {
-        this.state = TargetState.READY;
         const match = /\b([\w-]*)/.exec(value);
         this.name = match ? match[0] : value;
         this.value = match ? match[0] : value;
@@ -347,8 +348,6 @@ export class TargetCommand implements Command {
         this.engine.autoCloseCommand(context);
         context.stack.top()?.addChild(this);
         context.stack.push(this);
-
-        this.state = TargetState.READING;
 
         // 将当前 target 添加到语法环境中
         context.target = this;
@@ -369,17 +368,11 @@ export class TargetCommand implements Command {
     public close(context: AnalyseContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
-            this.state = TargetState.READED;
         }
     }
 
     public autoClose(context: AnalyseContext) {
         this.close(context);
-    }
-
-    public clone(): TargetCommand {
-        // TODO: clone
-        return new TargetCommand(this.value, this.engine);
     }
 
     public getRendererBody(): string {
@@ -422,19 +415,44 @@ class UseCommand implements Command {
 
     public close(context: AnalyseContext) {}
 
-    public clone(): TargetCommand {
-        // TODO: clone
-        return new TargetCommand(this.value, this.engine);
-    }
-
     public getRendererBody(): string {
         if (this.engine.targets[this.name]) {
             return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(), this.vars);
+        } else if (this.engine.options.missTarget === 'error') {
+            throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
         } else {
-            // TODO: 抛出错误
-            // throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
             return '';
         }
+    }
+}
+
+/** import 命令用于导入 target 以供 use 命令使用 */
+class ImportCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'import';
+    public children: Array<Command> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        const match = /[\w-]+/.exec(value);
+        this.name = match ? match[0] : value;
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {}
+
+    public open(context: AnalyseContext) {
+        // import命令打开完后立即闭合，不需要入栈
+        context.stack.top()?.addChild(this);
+        this.engine.deps.push(this.name);
+    }
+
+    public close(context: AnalyseContext) {}
+
+    public getRendererBody(): string {
+        return '';
     }
 }
 
@@ -450,14 +468,6 @@ class UseCommand implements Command {
 //         return this.children.map(child => child.getRendererBody()).join('');
 //     }
 // }
-
-// class ImportCommand extends Command {
-//     public allowAutoClose: boolean = true;
-//     public type: string = 'import';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
 
 //     public getRendererBody(): string {
 //         return this.children.map(child => child.getRendererBody()).join('');
