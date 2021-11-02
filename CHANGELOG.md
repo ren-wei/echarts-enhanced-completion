@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.2 (2021-11-2)
+
+### Fixed
+
+- 修复先写配置项再写注释不能触发的问题
+
+- 修复属性为空对象时没有过滤的问题
+
 ## 1.3.1 (2021-10-29)
 
 ### Fixed
