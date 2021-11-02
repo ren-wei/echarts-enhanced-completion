@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as os from 'os';
 const espree = require('espree');
 
 export default class Ast {
@@ -32,7 +33,7 @@ export default class Ast {
             // 对已经存在的目标进行更新
             this.astItems = this.astItems.filter(item => item.patch(contentChange));
             // 将新的目标加入数组中
-            const lines = contentChange.text.split('\n');
+            const lines = contentChange.text.split(os.EOL);
             for (let index = 0; index < lines.length; index++) {
                 let text: string;
                 if (!index) {
@@ -70,7 +71,7 @@ export default class Ast {
         let curRowStart = false;
         let startRowSpaceCount: number = 0;
         let startPositionLine: number = 0;
-        for (let line = startLine; line < endLine || (start && endLine < document.lineCount); line++) {
+        for (let line = startLine; line < endLine || ((curRowStart || start) && endLine < document.lineCount); line++) {
             const textLine = document.lineAt(line);
             if (curRowStart) {
                 // 当前行为开始行

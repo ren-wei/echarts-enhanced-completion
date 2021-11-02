@@ -163,4 +163,23 @@ suite('Ast class Test Suite', () => {
         const expected = new Ast('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
+
+    test('先写配置项再写注释应该保持一致', async() => {
+        document = await vscode.workspace.openTextDocument({
+            language: 'javascript',
+            content: "// @ts-nocheck\nconst options = {\n    xAxis: {\n        type: 'category',\n        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],\n    },\n    yAxis: {\n        type: 'value',\n    },\n    series: [\n        {\n            data: [150, 230, 224, 218, 135, 147, 260],\n            type: 'line',\n        },\n    ],\n}",
+        });
+        textEditor = await vscode.window.showTextDocument(document);
+        position = new vscode.Position(0, 14); // 光标位置
+
+        const text = '\n/** @type EChartsOption */';
+        const actual = new Ast('/** @type EChartsOption */', document);
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        const expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected);
+    });
 });
