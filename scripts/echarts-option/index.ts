@@ -10,32 +10,71 @@ import Engine from './engine';
 async function main() {
     for (const lang of ['zh']) {
         const engine = new Engine();
-        let text = await getOption('option', lang);
-        engine.parseSource(text);
-        for (let i = 0; i < engine.deps.length; i++) {
-            const name = engine.deps[i];
-            const splitName = name.split('-');
-            let rawName: string;
-            if (['component', 'partial', 'series'].includes(splitName[0])) {
-                rawName = `${splitName[0]}/${splitName.slice(1).join('-')}`;
-            } else {
-                rawName = 'partial/' + name;
-            }
-            text = await getOption(rawName, lang);
+        const partials = [
+            '1d-data',
+            '2d-data',
+            'animation',
+            'area-style',
+            'axisPointer-common',
+            'barGrid',
+            'circular-layout',
+            'clip',
+            'color-desc',
+            'colorBy',
+            'component-common-style',
+            'coord-sys',
+            'cursor',
+            'data-id-desc',
+            'data-name-desc',
+            'data-transform',
+            'decal',
+            'encode-dimensions',
+            'focus-blur-scope',
+            'formatter',
+            'group-id',
+            'icon',
+            'id',
+            'item-style',
+            'label-layout',
+            'label-line',
+            'label',
+            'large',
+            'legend-hover-link',
+            'line-border-style',
+            'line-data',
+            'line-style',
+            'mark-area',
+            'mark-line',
+            'mark-point',
+            'marker',
+            'padding',
+            'parallel',
+            'progressive',
+            'rect-layout-width-height',
+            'rect-layout',
+            'roam',
+            'selected-mode',
+            'series-name',
+            'show',
+            'silent',
+            'state-animation',
+            'style-shadow-opacity',
+            'symbol',
+            'text-style',
+            'tooltip-common',
+            'universal-transition',
+            'version',
+            'visual-mapping',
+            'z-zlevel',
+            'zr-graphic',
+        ];
+        for (const name of partials) {
+            const text = await getOption('partial/' + name, lang);
             engine.parseSource(text);
         }
-        Object.keys(engine.targets).forEach(name => {
-            const splitName = name.split('-');
-            let rawName: string;
-            if (name === 'option') {
-                rawName = 'option';
-            } else if (['component', 'partial', 'series'].includes(splitName[0])) {
-                rawName = `${splitName[0]}/${splitName.slice(1).join('-')}`;
-            } else {
-                rawName = 'partial/' + name;
-            }
-            saveFile(rawName, lang, engine.render(name));
-        });
+        const text = await getOption('component/title', lang);
+        engine.parseSource(text);
+        saveFile('component/title', lang, engine.render('component-title'));
     }
 }
 

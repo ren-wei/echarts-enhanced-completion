@@ -11,7 +11,7 @@ export default class Engine {
     public targets: Targets = {};
     public commandTypes: CommandTypes;
     public options: EngineOptions;
-    public deps: string[] = []; // 导入的目标
+    public deps: string[] = []; // 需要导入的目标，长度为0时才能 render
     private analyseContext: AnalyseContext; // 语法分析环境对象
 
     /**
@@ -27,7 +27,7 @@ export default class Engine {
             variableOpen: '\\$\\{',
             variableClose: '\\}',
             namingConflict: 'error',
-            missTarget: 'ignore',
+            missTarget: 'error',
         }, options) as EngineOptions);
         this.commandTypes = {
             'target': TargetCommand,
@@ -106,7 +106,7 @@ export default class Engine {
      * @returns 渲染结果
      */
     public render(name: string): string {
-        return this.targets[name].children.map(child => child.getRendererBody()).join('').trim() + os.EOL;
+        return this.targets[name].children.map(child => child.getRendererBody({})).join('').trim() + os.EOL;
     }
 
     /**
@@ -114,7 +114,7 @@ export default class Engine {
      * @param source 源代码
      * @param vars 变量的值
      */
-    public compileVariable(source: string, vars: {[name: string]: string} = {}): string {
+    public compileVariable(source: string, vars: Vars = {}): string {
         const reg = new RegExp(this.options.variableOpen + '(\\w+)' + this.options.variableClose, 'g');
         // 获取需要替换的位置和值
         const opers: Array<[start: number, end: number, replaceValue: string]> = [];
@@ -249,6 +249,11 @@ type AnalyseContext = {
     current: Command | TextNode | null; // 解析过程中当前所在的节点
 };
 
+/** 当前的环境变量 */
+type Vars = {
+    [key: string]: any;
+};
+
 export class Stack<T> extends Array<T> {
     /** 获取顶部元素 */
     public top(): T {
@@ -283,7 +288,7 @@ export class TextNode {
         this.engine = engine;
     }
 
-    public getRendererBody(): string {
+    public getRendererBody(vars: Vars): string {
         return this.value;
     }
 
@@ -313,7 +318,7 @@ export abstract class Command {
     public abstract autoClose?(context: AnalyseContext): void;
 
     /** 获取生成的代码 */
-    public abstract getRendererBody(): string;
+    public abstract getRendererBody(vars: Vars): string;
 
     // TODO: 考虑是否删除此方法
     /** 复制节点 */
@@ -349,6 +354,12 @@ export class TargetCommand implements Command {
         context.stack.top()?.addChild(this);
         context.stack.push(this);
 
+        // target已找到，从deps从移除
+        const index = this.engine.deps.indexOf(this.name);
+        if (index !== -1) {
+            this.engine.deps.splice(index, 1);
+        }
+
         // 将当前 target 添加到语法环境中
         context.target = this;
         if (this.engine.targets[this.name]) {
@@ -375,8 +386,8 @@ export class TargetCommand implements Command {
         this.close(context);
     }
 
-    public getRendererBody(): string {
-        return this.children.map(child => child.getRendererBody()).join('');
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
 
@@ -388,22 +399,24 @@ class UseCommand implements Command {
     public children: Array<Command> = [];
     public engine: Engine;
 
-    private vars: { [key: string]: string };
+    private vars: Object;
 
     constructor(value: string, engine: Engine) {
-        const match = /\b(?<name>[\w|-]*)(?:\((?<vars>(?:\w*\s?=\s?'\w*',?\s?)*)\))?/.exec(value);
+        const reg = new RegExp(
+            '\\b' // 单词边界
+            + '(?<name>[\\w|-]*)' // 名称
+            + '(?:' // 定义括号和内部的参数为非捕获组1
+                + '\\(\\s*' // 参数前的括号
+                + '.*'
+                + '\\s*\\)' // 参数后的括号
+            + ')?' // 非捕获组1允许不存在
+            , 'ms'
+        );
+        const match = reg.exec(value);
         this.name = match?.groups?.name || value;
         this.value = value;
-        const vars = match?.groups?.vars;
-        this.vars = vars ? Object.fromEntries((vars.split(',').map(text => {
-            const m = /(\w*)\s?=\s?'([^']*)'/.exec(text);
-            if (m) {
-                return [m[1], m[2]];
-            } else {
-                return [];
-            }
-        }))) : {};
         this.engine = engine;
+        this.vars = {};
     }
 
     public addChild(node: Command | TextNode) {}
@@ -411,18 +424,40 @@ class UseCommand implements Command {
     public open(context: AnalyseContext) {
         // use命令打开完后立即闭合，不需要入栈
         context.stack.top()?.addChild(this);
+        if (!this.engine.targets[this.name] && !this.engine.deps.includes(this.name)) {
+            this.engine.deps.push(this.name);
+        }
     }
 
     public close(context: AnalyseContext) {}
 
-    public getRendererBody(): string {
+    public getRendererBody(vars: Vars): string {
         if (this.engine.targets[this.name]) {
-            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(), this.vars);
+            this.parseVars(vars);
+            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(this.vars), this.vars);
         } else if (this.engine.options.missTarget === 'error') {
             throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
         } else {
             return '';
         }
+    }
+
+    /** TODO: 解析参数 */
+    private parseVars(vars: Object) {
+        const r = new RegExp(
+            '(?:\\s*' // 开头空白
+            + '(\\w+)' // 参数的key
+            + '\\s?=\\s?' // =
+            + '(' // 不同格式的参数
+                + '(?:"[^"]*")' // 双引号字符串
+                + "|(?:'[^']*')" // 单引号字符串
+                + '|(?:\\$\\{\\w+\\})' // ${name} 格式的变量
+                + '|(?:\\w+)' // true、false等字面量值
+                + '|(?:\\d+)' // 数字
+            + ')'
+            + '\\s*)'
+            , 'ms'
+        );
     }
 }
 
@@ -446,12 +481,14 @@ class ImportCommand implements Command {
     public open(context: AnalyseContext) {
         // import命令打开完后立即闭合，不需要入栈
         context.stack.top()?.addChild(this);
-        this.engine.deps.push(this.name);
+        if (!this.engine.targets[this.name] && !this.engine.deps.includes(this.name)) {
+            this.engine.deps.push(this.name);
+        }
     }
 
     public close(context: AnalyseContext) {}
 
-    public getRendererBody(): string {
+    public getRendererBody(vars: Vars): string {
         return '';
     }
 }
