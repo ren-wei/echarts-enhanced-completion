@@ -64,11 +64,11 @@ const option = {
 
 
 
-### color(Color) = ${defaultColor|default('"#fff"')}
+### color(Color) = '#333'
 
-<ExampleUIControlColor default="${defaultColor|default(null)}" />
+<ExampleUIControlColor default="'#333'" />
 
-文字块边框文字的颜色。
+主标题文字的颜色。
 
 {{ if: ${enableAutoColor} }}
 
@@ -84,18 +84,18 @@ const option = {
 
 <ExampleUIControlEnum default="normal" options="normal,italic,oblique" />
 
-文字块边框文字字体的风格。
+主标题文字字体的风格。
 
 可选：
 + `'normal'`
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = ${defaultFontWeight|default('normal')}
+### fontWeight(string|number) = 'bolder'
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
-文字块边框文字字体的粗细。
+主标题文字字体的粗细。
 
 可选：
 + `'normal'`
@@ -108,15 +108,15 @@ const option = {
 
 <ExampleUIControlEnum default="sans-serif" options="sans-serif,serif,monospace,Arial,Courier New" />
 
-文字块边框文字的字体系列。
+主标题文字的字体系列。
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = ${defaultFontSize|default(12)}
+### fontSize(number) = 18
 
-<ExampleUIControlNumber default="${defaultFontSize|default(12)}" min="1" step="1" />
+<ExampleUIControlNumber default="18" min="1" step="1" />
 
-文字块边框文字的字体大小。
+主标题文字的字体大小。
 
 {{ if: !true }}
 ### align(string) = ${defaultAlign}
@@ -178,7 +178,7 @@ const option = {
 
 {{ /if }}
 
-### lineHeight(number) = ${defaultLineHeight|default('')}
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -259,12 +259,12 @@ backgroundColor: {
 
 
 {{ if: border === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -302,12 +302,12 @@ backgroundColor: {
 ```
 
 {{ if: border === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: border === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -330,9 +330,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -353,9 +353,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -382,9 +382,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -498,12 +498,12 @@ backgroundColor: {
 
 
 {{ if: text === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -541,12 +541,12 @@ backgroundColor: {
 ```
 
 {{ if: text === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: text === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -569,9 +569,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -592,9 +592,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -621,9 +621,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -758,9 +758,9 @@ label: {
 
 
 
-### color(Color) = ${defaultColor|default('"#fff"')}
+### color(Color) = '#333'
 
-<ExampleUIControlColor default="${defaultColor|default(null)}" />
+<ExampleUIControlColor default="'#333'" />
 
 文字块边框文字的颜色。
 
@@ -785,7 +785,7 @@ label: {
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = ${defaultFontWeight|default('normal')}
+### fontWeight(string|number) = 'bolder'
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
@@ -806,9 +806,9 @@ label: {
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = ${defaultFontSize|default(12)}
+### fontSize(number) = 18
 
-<ExampleUIControlNumber default="${defaultFontSize|default(12)}" min="1" step="1" />
+<ExampleUIControlNumber default="18" min="1" step="1" />
 
 文字块边框文字的字体大小。
 
@@ -872,7 +872,7 @@ label: {
 
 {{ /if }}
 
-### lineHeight(number) = ${defaultLineHeight|default('')}
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -953,12 +953,12 @@ backgroundColor: {
 
 
 {{ if: border === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -996,12 +996,12 @@ backgroundColor: {
 ```
 
 {{ if: border === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: border === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -1024,9 +1024,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -1047,9 +1047,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -1076,9 +1076,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -1192,12 +1192,12 @@ backgroundColor: {
 
 
 {{ if: text === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -1235,12 +1235,12 @@ backgroundColor: {
 ```
 
 {{ if: text === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: text === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -1263,9 +1263,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -1286,9 +1286,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -1315,9 +1315,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -1402,11 +1402,11 @@ backgroundColor: {
 
 
 
-### color(Color) = ${defaultColor|default('"#fff"')}
+### color(Color) = '#aaa'
 
-<ExampleUIControlColor default="${defaultColor|default(null)}" />
+<ExampleUIControlColor default="'#aaa'" />
 
-文字块边框文字的颜色。
+副标题文字的颜色。
 
 {{ if: ${enableAutoColor} }}
 
@@ -1422,18 +1422,18 @@ backgroundColor: {
 
 <ExampleUIControlEnum default="normal" options="normal,italic,oblique" />
 
-文字块边框文字字体的风格。
+副标题文字字体的风格。
 
 可选：
 + `'normal'`
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = ${defaultFontWeight|default('normal')}
+### fontWeight(string|number) = normal
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
-文字块边框文字字体的粗细。
+副标题文字字体的粗细。
 
 可选：
 + `'normal'`
@@ -1446,15 +1446,15 @@ backgroundColor: {
 
 <ExampleUIControlEnum default="sans-serif" options="sans-serif,serif,monospace,Arial,Courier New" />
 
-文字块边框文字的字体系列。
+副标题文字的字体系列。
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = ${defaultFontSize|default(12)}
+### fontSize(number) = 12
 
-<ExampleUIControlNumber default="${defaultFontSize|default(12)}" min="1" step="1" />
+<ExampleUIControlNumber default="12" min="1" step="1" />
 
-文字块边框文字的字体大小。
+副标题文字的字体大小。
 
 {{ if: !${noAlign} }}
 ### align(string) = ${defaultAlign}
@@ -1516,7 +1516,7 @@ backgroundColor: {
 
 {{ /if }}
 
-### lineHeight(number) = ${defaultLineHeight|default('')}
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -1597,12 +1597,12 @@ backgroundColor: {
 
 
 {{ if: border === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -1640,12 +1640,12 @@ backgroundColor: {
 ```
 
 {{ if: border === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: border === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -1668,9 +1668,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -1691,9 +1691,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -1720,9 +1720,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -1836,12 +1836,12 @@ backgroundColor: {
 
 
 {{ if: text === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -1879,12 +1879,12 @@ backgroundColor: {
 ```
 
 {{ if: text === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: text === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -1907,9 +1907,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -1930,9 +1930,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -1959,9 +1959,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -2096,9 +2096,9 @@ label: {
 
 
 
-### color(Color) = ${defaultColor|default('"#fff"')}
+### color(Color) = '#aaa'
 
-<ExampleUIControlColor default="${defaultColor|default(null)}" />
+<ExampleUIControlColor default="'#aaa'" />
 
 文字块边框文字的颜色。
 
@@ -2123,7 +2123,7 @@ label: {
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = ${defaultFontWeight|default('normal')}
+### fontWeight(string|number) = normal
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
@@ -2144,9 +2144,9 @@ label: {
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = ${defaultFontSize|default(12)}
+### fontSize(number) = 12
 
-<ExampleUIControlNumber default="${defaultFontSize|default(12)}" min="1" step="1" />
+<ExampleUIControlNumber default="12" min="1" step="1" />
 
 文字块边框文字的字体大小。
 
@@ -2210,7 +2210,7 @@ label: {
 
 {{ /if }}
 
-### lineHeight(number) = ${defaultLineHeight|default('')}
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -2291,12 +2291,12 @@ backgroundColor: {
 
 
 {{ if: border === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -2334,12 +2334,12 @@ backgroundColor: {
 ```
 
 {{ if: border === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: border === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -2362,9 +2362,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -2385,9 +2385,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -2414,9 +2414,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: border === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -2530,12 +2530,12 @@ backgroundColor: {
 
 
 {{ if: text === 'border' }}
-### borderType(string|number|Array) = ${defaultType|default("'solid'")}
+### borderType(string|number|Array) = 'solid'
 
 {{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = ${defaultType|default("'solid'")}
+### textBorderType(string|number|Array) = 'solid'
 {{ else }}
-### type(string|number|Array) = ${defaultType|default("'solid'")}
+### type(string|number|Array) = 'solid'
 {{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -2573,12 +2573,12 @@ backgroundColor: {
 ```
 
 {{ if: text === 'border' }}
-### borderDashOffset(number) = ${defaultDashOffset|default(0)}
+### borderDashOffset(number) = 0
 
 {{ elif: text === 'text' }}
-### textBorderDashOffset(number) = ${defaultDashOffset|default(0)}
+### textBorderDashOffset(number) = 0
 {{ else }}
-### dashOffset(number) = ${defaultDashOffset|default(0)}
+### dashOffset(number) = 0
 {{ /if }}
 
 
@@ -2601,9 +2601,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderCap(string) = ${defaultCap|default('butt')}
+### borderCap(string) = butt
 {{ else }}
-### cap(string) = ${defaultCap|default('butt')}
+### cap(string) = butt
 {{ /if }}
 
 
@@ -2624,9 +2624,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderJoin(string) = ${defaultJoin|default('bevel')}
+### borderJoin(string) = bevel
 {{ else }}
-### join(string) = ${defaultJoin|default('bevel')}
+### join(string) = bevel
 {{ /if }}
 
 
@@ -2653,9 +2653,9 @@ backgroundColor: {
 
 {{ if: !true }}
 {{ if: text === 'border' }}
-### borderMiterLimit(number) = ${defaultMiterLimit|default(10)}
+### borderMiterLimit(number) = 10
 {{ else }}
-### miterLimit(number) = ${defaultMiterLimit|default(10)}
+### miterLimit(number) = 10
 {{ /if }}
 
 
@@ -2772,7 +2772,7 @@ padding: [
 {{ if: !${noZ} }}
 
 
-#${prefix|default("#")} zlevel(number) = ${defaultZLevel|default(0)}
+## zlevel(number) = 0
 
 title 所有图形的 zlevel 值。
 
@@ -2780,7 +2780,7 @@ title 所有图形的 zlevel 值。
 
 `zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。
 
-#${prefix|default("#")} z(number) = ${defaultZ|default(2)}
+## z(number) = 2
 
 title 组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。
 
@@ -2789,7 +2789,7 @@ title 组件的所有图形的`z`值。控制图形的前后顺序。`z`值小�
 
 {{ /if }}
 
-#${prefix|default("#")} left(string|number) = ${defaultLeft|default("'auto'")}
+## left(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2799,7 +2799,7 @@ title 组件离容器左侧的距离。
 
 如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。
 
-#${prefix|default("#")} top(string|number) = ${defaultTop|default("'auto'")}
+## top(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2809,7 +2809,7 @@ title 组件离容器上侧的距离。
 
 如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。
 
-#${prefix|default("#")} right(string|number) = ${defaultRight|default("'auto'")}
+## right(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2819,7 +2819,7 @@ title 组件离容器右侧的距离。
 
 {{ if: !${defaultRight} }}默认自适应。{{ /if }}
 
-#${prefix|default("#")} bottom(string|number) = ${defaultBottom|default("'auto'")}
+## bottom(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2841,7 +2841,7 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 
 > 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`   ，如果想要加上 alpha 通道，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`
 
-{{ if: true }}
+{{ if: ${needShow} }}
 **注意**：此配置项生效的前提是，设置了 `show: true`。
 {{ /if }}
 
@@ -2851,32 +2851,32 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 
 标题的边框颜色。支持的颜色格式同 backgroundColor。
 
-{{ if: true }}
+{{ if: ${needShow} }}
 **注意**：此配置项生效的前提是，设置了 `show: true`。
 {{ /if }}
 
-## borderWidth(number) = ${defaultBorderWidth|default(1)}
+## borderWidth(number) = 0
 
-<ExampleUIControlNumber default="${defaultBorderWidth|default(1)}" min="0" step="0.5" />
+<ExampleUIControlNumber default="0" min="0" step="0.5" />
 
 标题的边框线宽。
 
-{{ if: true }}
+{{ if: ${needShow} }}
 **注意**：此配置项生效的前提是，设置了 `show: true`。
 {{ /if }}
 
 {{ if: true }}
 
 
-## ${propName|default('borderRadius')}(number|Array) = 0
+## borderRadius(number|Array) = 0
 
 <ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
 
 圆角半径，单位px，支持传入数组分别指定 4 个圆角半径。
 如:
 ```
-${propName|default('borderRadius')}: 5, // 统一设置四个角的圆角大小
-${propName|default('borderRadius')}: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
+borderRadius: 5, // 统一设置四个角的圆角大小
+borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 ```
 
 
@@ -2912,9 +2912,9 @@ ${propName|default('borderRadius')}: [5, 5, 0, 0] //（顺时针左上，右上�
 **注意**：此配置项生效的前提是，设置了 `show: true`。
 {{ /if }}
 
-## shadowOffsetX(number) = ${defaultShadowOffsetX|default(0)}
+## shadowOffsetX(number) = 0
 
-<ExampleUIControlNumber default="${defaultShadowOffsetX|default(0)}" step="0.5" />
+<ExampleUIControlNumber default="0" step="0.5" />
 
 阴影水平方向上的偏移距离。
 
@@ -2922,9 +2922,9 @@ ${propName|default('borderRadius')}: [5, 5, 0, 0] //（顺时针左上，右上�
 **注意**：此配置项生效的前提是，设置了 `show: true`。
 {{ /if }}
 
-## shadowOffsetY(number) = ${defaultShadowOffsetY|default(0)}
+## shadowOffsetY(number) = 0
 
-<ExampleUIControlNumber default="${defaultShadowOffsetY|default(0)}" step="0.5" />
+<ExampleUIControlNumber default="0" step="0.5" />
 
 阴影垂直方向上的偏移距离。
 

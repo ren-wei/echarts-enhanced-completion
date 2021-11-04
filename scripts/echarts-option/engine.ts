@@ -115,15 +115,26 @@ export default class Engine {
      * @param vars 变量的值
      */
     public compileVariable(source: string, vars: Vars = {}): string {
-        const reg = new RegExp(this.options.variableOpen + '(\\w+)' + this.options.variableClose, 'g');
+        const reg = new RegExp(this.options.variableOpen + '(\\w+)(?:\\|default\\(([^\\(]+)\\))?' + this.options.variableClose, 'g');
         // 获取需要替换的位置和值
         const opers: Array<[start: number, end: number, replaceValue: string]> = [];
         let match: RegExpExecArray | null;
         while ((match = reg.exec(source))) {
-            if (vars[match[1]]) {
+            if (match[1]) {
                 const start = match.index;
                 const end = start + match[0].length;
-                let replaceValue: string = vars[match[1]];
+                let replaceValue: string;
+                if (vars[match[1]] !== undefined) {
+                    replaceValue = vars[match[1]];
+                } else if (match[2] !== undefined) {
+                    replaceValue = match[2];
+                } else {
+                    replaceValue = match[0];
+                }
+                // 如果取值后仍是变量，那么设置为默认值
+                if (/^\$\{[^\}]+\}$/.test(replaceValue) && match[2]) {
+                    replaceValue = match[2];
+                }
                 // 如果值是字符串，需要去掉前后的字符串标识
                 if (/^((".*")|('.*'))$/.test(replaceValue)) {
                     replaceValue = replaceValue.slice(1, replaceValue.length - 1);
@@ -298,7 +309,7 @@ export class TextNode {
     }
 
     public getRendererBody(vars: Vars): string {
-        return this.value;
+        return this.engine.compileVariable(this.value, vars);
     }
 
     public clone(): TextNode {
@@ -409,7 +420,6 @@ class UseCommand implements Command {
     public engine: Engine;
 
     private argsStr: string;
-    private vars: Object;
 
     constructor(value: string, engine: Engine) {
         const reg = new RegExp(
@@ -427,7 +437,6 @@ class UseCommand implements Command {
         this.argsStr = match?.groups?.args || '';
         this.value = value;
         this.engine = engine;
-        this.vars = {};
     }
 
     public addChild(node: Command | TextNode) {}
@@ -444,8 +453,7 @@ class UseCommand implements Command {
 
     public getRendererBody(vars: Vars): string {
         if (this.engine.targets[this.name]) {
-            const localVars = this.parseVars(vars);
-            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(localVars), localVars);
+            return this.engine.targets[this.name].getRendererBody(this.parseVars(vars));
         } else if (this.engine.options.missTarget === 'error') {
             throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
         } else {
