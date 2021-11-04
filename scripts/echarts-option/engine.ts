@@ -33,12 +33,12 @@ export default class Engine {
             'target': TargetCommand,
             'use': UseCommand,
             'import': ImportCommand,
+            'if': IfCommand,
+            // 'elif': ElifCommand,
+            // 'else': ElseCommand,
             // 'block': BlockCommand,
             // 'var': VarCommand,
             // 'for': ForCommand,
-            // 'if': IfCommand,
-            // 'elif': ElifCommand,
-            // 'else': ElseCommand,
             // 'filter': FilterCommand,
             ...commandExtends,
         };
@@ -105,8 +105,8 @@ export default class Engine {
      * @param name target名称
      * @returns 渲染结果
      */
-    public render(name: string): string {
-        return this.targets[name].children.map(child => child.getRendererBody({})).join('').trim() + os.EOL;
+    public render(name: string, vars: Vars = {}): string {
+        return this.targets[name].children.map(child => child.getRendererBody(vars)).join('').trim() + os.EOL;
     }
 
     /**
@@ -132,7 +132,7 @@ export default class Engine {
                     replaceValue = match[0];
                 }
                 // 如果取值后仍是变量，那么设置为默认值
-                if (/^\$\{[^\}]+\}$/.test(replaceValue) && match[2]) {
+                if (/^\$\{[^\}]+\}$/.test(replaceValue)) {
                     replaceValue = match[2];
                 }
                 // 如果值是字符串，需要去掉前后的字符串标识
@@ -463,6 +463,7 @@ class UseCommand implements Command {
 
     /** 解析参数 */
     private parseVars(vars: Vars): Vars {
+        // TODO: prefix = ${prefix} + '##',格式存在问题，使用 Function 进行解析
         const reg = new RegExp(
             '(?:\\s*' // 开头空白
             + '(\\w+)' // 参数的key
@@ -525,6 +526,53 @@ class ImportCommand implements Command {
     }
 }
 
+class IfCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'if';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
+
+    public open(context: AnalyseContext) {
+        context.stack.top()?.addChild(this);
+        context.stack.push(this);
+    }
+
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
+
+    public getRendererBody(vars: Vars): string {
+        if (this.validate(vars)) {
+            return this.children.map(child => child.getRendererBody(vars)).join('');
+        } else {
+            return '';
+        }
+    }
+
+    private validate(vars: Vars): boolean {
+        const getCondition = (new Function(`
+            ${Object.entries(vars).map(([key, value]) => {
+                return 'const ' + key + ' = \`' + value + '\`;';
+            }).join('\n')}
+            return \`${this.value}\`;
+        `));
+        return (new Function(`return ${getCondition()}`))();
+    }
+}
+
 // class BlockCommand extends Command {
 //     public allowAutoClose: boolean = false;
 //     public type: string = 'block';
@@ -559,19 +607,6 @@ class ImportCommand implements Command {
 // class ForCommand extends Command {
 //     public allowAutoClose: boolean = false;
 //     public type: string = 'for';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
-
-// class IfCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'if';
 
 //     public clone(): TargetCommand {
 //         return new TargetCommand(this.value);

@@ -5,7 +5,7 @@
 在 ECharts 2.x 中单个 ECharts 实例最多只能拥有一个标题组件。但是在 ECharts 3 中可以存在任意多个标题组件，这在需要标题进行排版，或者单个实例中的多个图表都需要标题时会比较有用。
 
 **例如下面不同缓动函数效果的示例，每一个缓动效果图都带有一个标题组件：**
-~[700x400](${galleryViewPath}line-easing&edit=1&reset=1)
+~[700x400](https://echarts.apache.org/examples/zh/view.html?c=line-easing&edit=1&reset=1)
 
 <ExampleBaseOption name="title-only" title="只有标题的实例" title-en="Title">
 const option = {
@@ -70,15 +70,7 @@ const option = {
 
 主标题文字的颜色。
 
-{{ if: ${enableAutoColor} }}
 
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### fontStyle(string) = 'normal'
 
@@ -118,67 +110,11 @@ const option = {
 
 主标题文字的字体大小。
 
-{{ if: !true }}
-### align(string) = ${defaultAlign}
-
-<ExampleUIControlEnum options="left,center,right" />
-
-文字水平对齐方式，默认自动。
-
-可选：
-+ `'left'`
-+ `'center'`
-+ `'right'`
 
 
 
-`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
 
-```js
-{
-    align: right,
-    rich: {
-        a: {
-            // 没有设置 `align`，则 `align` 为 right
-        }
-    }
-}
-```
-
-
-{{ /if }}
-
-{{ if: !true }}
-### verticalAlign(string) = ${defaultVerticalAlign}
-
-<ExampleUIControlEnum options="top,middle,bottom" />
-
-文字垂直对齐方式，默认自动。
-
-可选：
-+ `'top'`
-+ `'middle'`
-+ `'bottom'`
-
-
-
-`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
-
-```js
-{
-    verticalAlign: bottom,
-    rich: {
-        a: {
-            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
-        }
-    }
-}
-```
-
-
-{{ /if }}
-
-### lineHeight(number) = 
+### lineHeight(number) = 56
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -201,259 +137,7 @@ const option = {
 
 
 
-{{ if: !true }}
-### backgroundColor(string|Object) = 'transparent'
 
-<ExampleUIControlColor default="#fff" />
-
-文字块背景色。
-
-可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。
-
-也可以直接使用图片，例如：
-
-```js
-backgroundColor: {
-    image: 'xxx/xxx.png'
-    // 这里可以是图片的 URL，
-    // 或者图片的 dataURI，
-    // 或者 HTMLImageElement 对象，
-    // 或者 HTMLCanvasElement 对象。
-}
-```
-
-当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderColor(Color)
-
-<ExampleUIControlColor default="#fff" />
-
-文字块边框颜色。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderWidth(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块边框宽度。
-
-
-
-{{ if: border === 'border' }}
-### borderType(string|number|Array) = 'solid'
-
-{{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
-
-<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
-
-{{ if: border === 'border' }}
-文字块边框描边类型。
-
-{{ elif: border === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
-
-可选：
-+ `'solid'`
-+ `'dashed'`
-+ `'dotted'`
-
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: border === 'border' }}
-`borderDashOffset`
-{{ elif: border === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
-
-例如：
-```js
-{
-
-{{ if: border === 'border' }}borderType{{ elif: border === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
-
-{{ if: border === 'border' }}borderDashOffset{{ elif: border === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
-}
-```
-
-{{ if: border === 'border' }}
-### borderDashOffset(number) = 0
-
-{{ elif: border === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="0" />
-
-用于设置虚线的偏移量，可搭配 {{ if: border === 'border' }}
-`borderType`
-{{ elif: border === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
-
-更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: border === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
-
-
-
-### borderRadius(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="LT,RT, RB, LB"  />
-
-文字块的圆角。
-
-### padding(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="T,R,B,L"  />
-
-文字块的内边距。例如：
-
-+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。
-+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。
-+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。
-
-注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。
-
-### shadowColor(Color) = 'transparent'
-
-<ExampleUIControlColor />
-
-文字块的背景阴影颜色。
-
-### shadowBlur(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块的背景阴影长度。
-
-### shadowOffsetX(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 X 偏移。
-
-### shadowOffsetY(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 Y 偏移。
-{{ /if }}
 
 ### width(number|string)
 
@@ -479,15 +163,7 @@ backgroundColor: {
 
 文字本身的描边颜色。
 
-{{ if: ${enableAutoColor} }}
 
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### textBorderWidth(number)
 
@@ -497,57 +173,30 @@ backgroundColor: {
 
 
 
-{{ if: text === 'border' }}
-### borderType(string|number|Array) = 'solid'
 
-{{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
-{{ if: text === 'border' }}
-文字块边框描边类型。
 
-{{ elif: text === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
 
 可选：
 + `'solid'`
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: text === 'border' }}
-`borderDashOffset`
-{{ elif: text === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-{{ if: text === 'border' }}borderType{{ elif: text === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
+: [5, 10],
 
-{{ if: text === 'border' }}borderDashOffset{{ elif: text === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
+: 5
 }
 ```
 
-{{ if: text === 'border' }}
-### borderDashOffset(number) = 0
 
-{{ elif: text === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
 
 
 
@@ -557,97 +206,15 @@ backgroundColor: {
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配 {{ if: text === 'border' }}
-`borderType`
-{{ elif: text === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
 
 
 
-> 从 `v5.0.0` 开始支持
 
 
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: text === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
 
 
 
@@ -711,7 +278,7 @@ backgroundColor: {
 
 + `'truncate'` 在文本行数超出高度部分截断。
 
-{{ if: !${noRich} }}
+
 ### rich(Object)
 
 在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。
@@ -762,23 +329,15 @@ label: {
 
 <ExampleUIControlColor default="'#333'" />
 
-文字块边框文字的颜色。
-
-{{ if: ${enableAutoColor} }}
+lineHeight文字的颜色。
 
 
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### fontStyle(string) = 'normal'
 
 <ExampleUIControlEnum default="normal" options="normal,italic,oblique" />
 
-文字块边框文字字体的风格。
+lineHeight文字字体的风格。
 
 可选：
 + `'normal'`
@@ -789,7 +348,7 @@ label: {
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
-文字块边框文字字体的粗细。
+lineHeight文字字体的粗细。
 
 可选：
 + `'normal'`
@@ -802,7 +361,7 @@ label: {
 
 <ExampleUIControlEnum default="sans-serif" options="sans-serif,serif,monospace,Arial,Courier New" />
 
-文字块边框文字的字体系列。
+lineHeight文字的字体系列。
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
@@ -810,69 +369,13 @@ label: {
 
 <ExampleUIControlNumber default="18" min="1" step="1" />
 
-文字块边框文字的字体大小。
-
-{{ if: !true }}
-### align(string) = ${defaultAlign}
-
-<ExampleUIControlEnum options="left,center,right" />
-
-文字水平对齐方式，默认自动。
-
-可选：
-+ `'left'`
-+ `'center'`
-+ `'right'`
+lineHeight文字的字体大小。
 
 
 
-`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
-
-```js
-{
-    align: right,
-    rich: {
-        a: {
-            // 没有设置 `align`，则 `align` 为 right
-        }
-    }
-}
-```
 
 
-{{ /if }}
-
-{{ if: !true }}
-### verticalAlign(string) = ${defaultVerticalAlign}
-
-<ExampleUIControlEnum options="top,middle,bottom" />
-
-文字垂直对齐方式，默认自动。
-
-可选：
-+ `'top'`
-+ `'middle'`
-+ `'bottom'`
-
-
-
-`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
-
-```js
-{
-    verticalAlign: bottom,
-    rich: {
-        a: {
-            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
-        }
-    }
-}
-```
-
-
-{{ /if }}
-
-### lineHeight(number) = 
+### lineHeight(number) = 56
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -895,259 +398,7 @@ label: {
 
 
 
-{{ if: !true }}
-### backgroundColor(string|Object) = 'transparent'
 
-<ExampleUIControlColor default="#fff" />
-
-文字块背景色。
-
-可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。
-
-也可以直接使用图片，例如：
-
-```js
-backgroundColor: {
-    image: 'xxx/xxx.png'
-    // 这里可以是图片的 URL，
-    // 或者图片的 dataURI，
-    // 或者 HTMLImageElement 对象，
-    // 或者 HTMLCanvasElement 对象。
-}
-```
-
-当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderColor(Color)
-
-<ExampleUIControlColor default="#fff" />
-
-文字块边框颜色。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderWidth(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块边框宽度。
-
-
-
-{{ if: border === 'border' }}
-### borderType(string|number|Array) = 'solid'
-
-{{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
-
-<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
-
-{{ if: border === 'border' }}
-文字块边框描边类型。
-
-{{ elif: border === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
-
-可选：
-+ `'solid'`
-+ `'dashed'`
-+ `'dotted'`
-
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: border === 'border' }}
-`borderDashOffset`
-{{ elif: border === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
-
-例如：
-```js
-{
-
-{{ if: border === 'border' }}borderType{{ elif: border === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
-
-{{ if: border === 'border' }}borderDashOffset{{ elif: border === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
-}
-```
-
-{{ if: border === 'border' }}
-### borderDashOffset(number) = 0
-
-{{ elif: border === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="0" />
-
-用于设置虚线的偏移量，可搭配 {{ if: border === 'border' }}
-`borderType`
-{{ elif: border === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
-
-更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: border === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
-
-
-
-### borderRadius(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="LT,RT, RB, LB"  />
-
-文字块的圆角。
-
-### padding(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="T,R,B,L"  />
-
-文字块的内边距。例如：
-
-+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。
-+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。
-+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。
-
-注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。
-
-### shadowColor(Color) = 'transparent'
-
-<ExampleUIControlColor />
-
-文字块的背景阴影颜色。
-
-### shadowBlur(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块的背景阴影长度。
-
-### shadowOffsetX(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 X 偏移。
-
-### shadowOffsetY(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 Y 偏移。
-{{ /if }}
 
 ### width(number|string)
 
@@ -1173,15 +424,7 @@ backgroundColor: {
 
 文字本身的描边颜色。
 
-{{ if: ${enableAutoColor} }}
 
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### textBorderWidth(number)
 
@@ -1191,57 +434,30 @@ backgroundColor: {
 
 
 
-{{ if: text === 'border' }}
-### borderType(string|number|Array) = 'solid'
 
-{{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
-{{ if: text === 'border' }}
-文字块边框描边类型。
 
-{{ elif: text === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
 
 可选：
 + `'solid'`
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: text === 'border' }}
-`borderDashOffset`
-{{ elif: text === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-{{ if: text === 'border' }}borderType{{ elif: text === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
+: [5, 10],
 
-{{ if: text === 'border' }}borderDashOffset{{ elif: text === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
+: 5
 }
 ```
 
-{{ if: text === 'border' }}
-### borderDashOffset(number) = 0
 
-{{ elif: text === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
 
 
 
@@ -1251,97 +467,15 @@ backgroundColor: {
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配 {{ if: text === 'border' }}
-`borderType`
-{{ elif: text === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
 
 
 
-> 从 `v5.0.0` 开始支持
 
 
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: text === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
 
 
 
@@ -1372,7 +506,7 @@ backgroundColor: {
 
 
 
-{{ /if }}
+
 
 
 
@@ -1408,15 +542,7 @@ backgroundColor: {
 
 副标题文字的颜色。
 
-{{ if: ${enableAutoColor} }}
 
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### fontStyle(string) = 'normal'
 
@@ -1429,7 +555,7 @@ backgroundColor: {
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = normal
+### fontWeight(string|number) = 'bolder'
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
@@ -1450,73 +576,17 @@ backgroundColor: {
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = 12
+### fontSize(number) = 18
 
-<ExampleUIControlNumber default="12" min="1" step="1" />
+<ExampleUIControlNumber default="18" min="1" step="1" />
 
 副标题文字的字体大小。
 
-{{ if: !${noAlign} }}
-### align(string) = ${defaultAlign}
-
-<ExampleUIControlEnum options="left,center,right" />
-
-文字水平对齐方式，默认自动。
-
-可选：
-+ `'left'`
-+ `'center'`
-+ `'right'`
 
 
 
-`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
 
-```js
-{
-    align: right,
-    rich: {
-        a: {
-            // 没有设置 `align`，则 `align` 为 right
-        }
-    }
-}
-```
-
-
-{{ /if }}
-
-{{ if: !${noVerticalAlign} }}
-### verticalAlign(string) = ${defaultVerticalAlign}
-
-<ExampleUIControlEnum options="top,middle,bottom" />
-
-文字垂直对齐方式，默认自动。
-
-可选：
-+ `'top'`
-+ `'middle'`
-+ `'bottom'`
-
-
-
-`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
-
-```js
-{
-    verticalAlign: bottom,
-    rich: {
-        a: {
-            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
-        }
-    }
-}
-```
-
-
-{{ /if }}
-
-### lineHeight(number) = 
+### lineHeight(number) = 56
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -1539,259 +609,7 @@ backgroundColor: {
 
 
 
-{{ if: !true }}
-### backgroundColor(string|Object) = 'transparent'
 
-<ExampleUIControlColor default="#fff" />
-
-文字块背景色。
-
-可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。
-
-也可以直接使用图片，例如：
-
-```js
-backgroundColor: {
-    image: 'xxx/xxx.png'
-    // 这里可以是图片的 URL，
-    // 或者图片的 dataURI，
-    // 或者 HTMLImageElement 对象，
-    // 或者 HTMLCanvasElement 对象。
-}
-```
-
-当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderColor(Color)
-
-<ExampleUIControlColor default="#fff" />
-
-文字块边框颜色。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderWidth(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块边框宽度。
-
-
-
-{{ if: border === 'border' }}
-### borderType(string|number|Array) = 'solid'
-
-{{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
-
-<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
-
-{{ if: border === 'border' }}
-文字块边框描边类型。
-
-{{ elif: border === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
-
-可选：
-+ `'solid'`
-+ `'dashed'`
-+ `'dotted'`
-
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: border === 'border' }}
-`borderDashOffset`
-{{ elif: border === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
-
-例如：
-```js
-{
-
-{{ if: border === 'border' }}borderType{{ elif: border === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
-
-{{ if: border === 'border' }}borderDashOffset{{ elif: border === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
-}
-```
-
-{{ if: border === 'border' }}
-### borderDashOffset(number) = 0
-
-{{ elif: border === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="0" />
-
-用于设置虚线的偏移量，可搭配 {{ if: border === 'border' }}
-`borderType`
-{{ elif: border === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
-
-更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: border === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
-
-
-
-### borderRadius(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="LT,RT, RB, LB"  />
-
-文字块的圆角。
-
-### padding(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="T,R,B,L"  />
-
-文字块的内边距。例如：
-
-+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。
-+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。
-+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。
-
-注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。
-
-### shadowColor(Color) = 'transparent'
-
-<ExampleUIControlColor />
-
-文字块的背景阴影颜色。
-
-### shadowBlur(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块的背景阴影长度。
-
-### shadowOffsetX(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 X 偏移。
-
-### shadowOffsetY(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 Y 偏移。
-{{ /if }}
 
 ### width(number|string)
 
@@ -1817,15 +635,7 @@ backgroundColor: {
 
 文字本身的描边颜色。
 
-{{ if: ${enableAutoColor} }}
 
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### textBorderWidth(number)
 
@@ -1835,57 +645,30 @@ backgroundColor: {
 
 
 
-{{ if: text === 'border' }}
-### borderType(string|number|Array) = 'solid'
 
-{{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
-{{ if: text === 'border' }}
-文字块边框描边类型。
 
-{{ elif: text === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
 
 可选：
 + `'solid'`
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: text === 'border' }}
-`borderDashOffset`
-{{ elif: text === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-{{ if: text === 'border' }}borderType{{ elif: text === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
+: [5, 10],
 
-{{ if: text === 'border' }}borderDashOffset{{ elif: text === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
+: 5
 }
 ```
 
-{{ if: text === 'border' }}
-### borderDashOffset(number) = 0
 
-{{ elif: text === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
 
 
 
@@ -1895,97 +678,15 @@ backgroundColor: {
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配 {{ if: text === 'border' }}
-`borderType`
-{{ elif: text === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
 
 
 
-> 从 `v5.0.0` 开始支持
 
 
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: text === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
 
 
 
@@ -2049,7 +750,7 @@ backgroundColor: {
 
 + `'truncate'` 在文本行数超出高度部分截断。
 
-{{ if: !${noRich} }}
+
 ### rich(Object)
 
 在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。
@@ -2100,34 +801,26 @@ label: {
 
 <ExampleUIControlColor default="'#aaa'" />
 
-文字块边框文字的颜色。
-
-{{ if: ${enableAutoColor} }}
+lineHeight文字的颜色。
 
 
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### fontStyle(string) = 'normal'
 
 <ExampleUIControlEnum default="normal" options="normal,italic,oblique" />
 
-文字块边框文字字体的风格。
+lineHeight文字字体的风格。
 
 可选：
 + `'normal'`
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = normal
+### fontWeight(string|number) = 'bolder'
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
-文字块边框文字字体的粗细。
+lineHeight文字字体的粗细。
 
 可选：
 + `'normal'`
@@ -2140,77 +833,21 @@ label: {
 
 <ExampleUIControlEnum default="sans-serif" options="sans-serif,serif,monospace,Arial,Courier New" />
 
-文字块边框文字的字体系列。
+lineHeight文字的字体系列。
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = 12
+### fontSize(number) = 18
 
-<ExampleUIControlNumber default="12" min="1" step="1" />
+<ExampleUIControlNumber default="18" min="1" step="1" />
 
-文字块边框文字的字体大小。
-
-{{ if: !${noAlign} }}
-### align(string) = ${defaultAlign}
-
-<ExampleUIControlEnum options="left,center,right" />
-
-文字水平对齐方式，默认自动。
-
-可选：
-+ `'left'`
-+ `'center'`
-+ `'right'`
+lineHeight文字的字体大小。
 
 
 
-`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
-
-```js
-{
-    align: right,
-    rich: {
-        a: {
-            // 没有设置 `align`，则 `align` 为 right
-        }
-    }
-}
-```
 
 
-{{ /if }}
-
-{{ if: !${noVerticalAlign} }}
-### verticalAlign(string) = ${defaultVerticalAlign}
-
-<ExampleUIControlEnum options="top,middle,bottom" />
-
-文字垂直对齐方式，默认自动。
-
-可选：
-+ `'top'`
-+ `'middle'`
-+ `'bottom'`
-
-
-
-`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
-
-```js
-{
-    verticalAlign: bottom,
-    rich: {
-        a: {
-            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
-        }
-    }
-}
-```
-
-
-{{ /if }}
-
-### lineHeight(number) = 
+### lineHeight(number) = 56
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -2233,259 +870,7 @@ label: {
 
 
 
-{{ if: !true }}
-### backgroundColor(string|Object) = 'transparent'
 
-<ExampleUIControlColor default="#fff" />
-
-文字块背景色。
-
-可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。
-
-也可以直接使用图片，例如：
-
-```js
-backgroundColor: {
-    image: 'xxx/xxx.png'
-    // 这里可以是图片的 URL，
-    // 或者图片的 dataURI，
-    // 或者 HTMLImageElement 对象，
-    // 或者 HTMLCanvasElement 对象。
-}
-```
-
-当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderColor(Color)
-
-<ExampleUIControlColor default="#fff" />
-
-文字块边框颜色。
-
-{{ if: ${enableAutoColor} }}
-
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
-
-### borderWidth(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块边框宽度。
-
-
-
-{{ if: border === 'border' }}
-### borderType(string|number|Array) = 'solid'
-
-{{ elif: border === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
-
-<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
-
-{{ if: border === 'border' }}
-文字块边框描边类型。
-
-{{ elif: border === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
-
-可选：
-+ `'solid'`
-+ `'dashed'`
-+ `'dotted'`
-
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: border === 'border' }}
-`borderDashOffset`
-{{ elif: border === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
-
-例如：
-```js
-{
-
-{{ if: border === 'border' }}borderType{{ elif: border === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
-
-{{ if: border === 'border' }}borderDashOffset{{ elif: border === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
-}
-```
-
-{{ if: border === 'border' }}
-### borderDashOffset(number) = 0
-
-{{ elif: border === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="0" />
-
-用于设置虚线的偏移量，可搭配 {{ if: border === 'border' }}
-`borderType`
-{{ elif: border === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
-
-更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: border === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: border === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: border === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
-
-
-
-### borderRadius(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="LT,RT, RB, LB"  />
-
-文字块的圆角。
-
-### padding(number|Array) = 0
-
-<ExampleUIControlVector min="0" dims="T,R,B,L"  />
-
-文字块的内边距。例如：
-
-+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。
-+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。
-+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。
-
-注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。
-
-### shadowColor(Color) = 'transparent'
-
-<ExampleUIControlColor />
-
-文字块的背景阴影颜色。
-
-### shadowBlur(number) = 0
-
-<ExampleUIControlNumber min="0" step="0.5" />
-
-文字块的背景阴影长度。
-
-### shadowOffsetX(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 X 偏移。
-
-### shadowOffsetY(number) = 0
-
-<ExampleUIControlNumber step="0.5" />
-
-文字块的背景阴影 Y 偏移。
-{{ /if }}
 
 ### width(number|string)
 
@@ -2511,15 +896,7 @@ backgroundColor: {
 
 文字本身的描边颜色。
 
-{{ if: ${enableAutoColor} }}
 
-
-如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。
-
-
-
-
-{{ /if }}
 
 ### textBorderWidth(number)
 
@@ -2529,57 +906,30 @@ backgroundColor: {
 
 
 
-{{ if: text === 'border' }}
-### borderType(string|number|Array) = 'solid'
 
-{{ elif: text === 'text' }}
-### textBorderType(string|number|Array) = 'solid'
-{{ else }}
-### type(string|number|Array) = 'solid'
-{{ /if }}
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
-{{ if: text === 'border' }}
-文字块边框描边类型。
 
-{{ elif: text === 'text' }}
-文字本身的描边类型。
-{{ else }}
-线的类型。
-{{ /if }}
 
 可选：
 + `'solid'`
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 {{ if: text === 'border' }}
-`borderDashOffset`
-{{ elif: text === 'text' }}
-`textBorderDashOffset`
-{{ else }}
-`dashOffset`
-{{ /if }} 可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-{{ if: text === 'border' }}borderType{{ elif: text === 'text' }}textBorderType{{ else }}type{{ /if }}: [5, 10],
+: [5, 10],
 
-{{ if: text === 'border' }}borderDashOffset{{ elif: text === 'text' }}textBorderDashOffset{{ else }}dashOffset{{ /if }}: 5
+: 5
 }
 ```
 
-{{ if: text === 'border' }}
-### borderDashOffset(number) = 0
 
-{{ elif: text === 'text' }}
-### textBorderDashOffset(number) = 0
-{{ else }}
-### dashOffset(number) = 0
-{{ /if }}
 
 
 
@@ -2589,97 +939,15 @@ backgroundColor: {
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配 {{ if: text === 'border' }}
-`borderType`
-{{ elif: text === 'text' }}
-`textBorderType`
-{{ else }}
-`type`
-{{ /if }} 指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderCap(string) = butt
-{{ else }}
-### cap(string) = butt
-{{ /if }}
 
 
 
-> 从 `v5.0.0` 开始支持
 
 
-
-<ExampleUIControlEnum default="butt" options="butt,round,square" />
-
-用于指定线段末端的绘制方式，可以是：
-+ `'butt'`: 线段末端以方形结束。
-+ `'round'`: 线段末端以圆形结束。
-+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
-
-默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderJoin(string) = bevel
-{{ else }}
-### join(string) = bevel
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
-
-用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
-
-可以是：
-+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
-+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
-+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 {{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 属性看到效果。
-
-默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
-{{ /if }}
-
-{{ if: !true }}
-{{ if: text === 'border' }}
-### borderMiterLimit(number) = 10
-{{ else }}
-### miterLimit(number) = 10
-{{ /if }}
-
-
-
-> 从 `v5.0.0` 开始支持
-
-
-
-<ExampleUIControlNumber min="0" step="1" default="10" />
-
-用于设置斜接面限制比例。只有当 {{ if: text === 'border' }}
-`borderJoin`
-{{ else }}
-`join`
-{{ /if }} 为 `miter` 时，{{ if: text === 'border' }}
-`borderMiterLimit`
-{{ else }}
-`miterLimit`
-{{ /if }} 才有效。
-
-默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
-
-更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
-{{ /if }}
 
 
 
@@ -2710,7 +978,7 @@ backgroundColor: {
 
 
 
-{{ /if }}
+
 
 
 
@@ -2769,27 +1037,9 @@ padding: [
 
 
 
-{{ if: !${noZ} }}
 
 
-## zlevel(number) = 0
-
-title 所有图形的 zlevel 值。
-
-`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。
-
-`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。
-
-## z(number) = 2
-
-title 组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。
-
-`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。
-
-
-{{ /if }}
-
-## left(string|number) = 'auto'
+### left(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2799,7 +1049,7 @@ title 组件离容器左侧的距离。
 
 如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。
 
-## top(string|number) = 'auto'
+### top(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2809,7 +1059,7 @@ title 组件离容器上侧的距离。
 
 如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。
 
-## right(string|number) = 'auto'
+### right(string|number) = 10%
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2817,9 +1067,9 @@ title 组件离容器右侧的距离。
 
 `right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。
 
-{{ if: !${defaultRight} }}默认自适应。{{ /if }}
 
-## bottom(string|number) = 'auto'
+
+### bottom(string|number) = 60
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -2827,7 +1077,7 @@ title 组件离容器下侧的距离。
 
 bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。
 
-{{ if: !${defaultBottom} }}默认自适应。{{ /if }}
+
 
 
 
@@ -2841,9 +1091,9 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 
 > 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`   ，如果想要加上 alpha 通道，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`
 
-{{ if: ${needShow} }}
+
 **注意**：此配置项生效的前提是，设置了 `show: true`。
-{{ /if }}
+
 
 ## borderColor(Color) = '#ccc'
 
@@ -2851,9 +1101,9 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 
 标题的边框颜色。支持的颜色格式同 backgroundColor。
 
-{{ if: ${needShow} }}
+
 **注意**：此配置项生效的前提是，设置了 `show: true`。
-{{ /if }}
+
 
 ## borderWidth(number) = 0
 
@@ -2861,11 +1111,11 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 
 标题的边框线宽。
 
-{{ if: ${needShow} }}
-**注意**：此配置项生效的前提是，设置了 `show: true`。
-{{ /if }}
 
-{{ if: true }}
+**注意**：此配置项生效的前提是，设置了 `show: true`。
+
+
+
 
 
 ## borderRadius(number|Array) = 0
@@ -2880,13 +1130,13 @@ borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 ```
 
 
-{{ /if }}
 
 
 
-## shadowBlur(number) = ${defaultShadowBlur}
 
-<ExampleUIControlNumber default="${defaultShadowBlur}" min="0" step="0.5" />
+## shadowBlur(number) = 0
+
+<ExampleUIControlNumber default="0" min="0" step="0.5" />
 
 图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
 
@@ -2898,19 +1148,19 @@ borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 }
 ```
 
-{{ if: true }}
+
 **注意**：此配置项生效的前提是，设置了 `show: true` 以及值不为 `tranparent` 的背景色 `backgroundColor`。
-{{ /if }}
 
-## shadowColor(Color) = ${defaultShadowColor}
 
-<ExampleUIControlColor default="${defaultShadowColor}" />
+## shadowColor(Color) = transparent
+
+<ExampleUIControlColor default="transparent" />
 
 阴影颜色。支持的格式同`color`。
 
-{{ if: true }}
+
 **注意**：此配置项生效的前提是，设置了 `show: true`。
-{{ /if }}
+
 
 ## shadowOffsetX(number) = 0
 
@@ -2918,9 +1168,9 @@ borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 
 阴影水平方向上的偏移距离。
 
-{{ if: true }}
+
 **注意**：此配置项生效的前提是，设置了 `show: true`。
-{{ /if }}
+
 
 ## shadowOffsetY(number) = 0
 
@@ -2928,6 +1178,5 @@ borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 
 阴影垂直方向上的偏移距离。
 
-{{ if: true }}
+
 **注意**：此配置项生效的前提是，设置了 `show: true`。
-{{ /if }}

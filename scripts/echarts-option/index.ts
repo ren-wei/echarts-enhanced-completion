@@ -74,7 +74,23 @@ async function main() {
         }
         const text = await getOption('component/title', lang);
         engine.parseSource(text);
-        saveFile('component/title', lang, engine.render('component-title'));
+        saveFile('component/title', lang, engine.render('component-title', {
+            galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
+            enableAutoColor: 'false',
+            defaultLineHeight: '56',
+            defaultAlign: '"auto"',
+            defaultVerticalAlign: '"auto"',
+            defaultType: '"solid"',
+            defaultZLevel: '0',
+            defaultZ: '2',
+            defaultShadowBlur: '0',
+            defaultShadowColor: '"transparent"',
+            noRich: 'false',
+            noZ: 'true',
+            defaultRight: '"10%"',
+            defaultBottom: '60',
+            needShow: 'true',
+        }));
     }
 }
 
