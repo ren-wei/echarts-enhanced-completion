@@ -120,7 +120,16 @@ export default class Engine {
         const opers: Array<[start: number, end: number, replaceValue: string]> = [];
         let match: RegExpExecArray | null;
         while ((match = reg.exec(source))) {
-            if (vars[match[1]]) opers.push([match.index, match.index + match[0].length, vars[match[1]]]);
+            if (vars[match[1]]) {
+                const start = match.index;
+                const end = start + match[0].length;
+                let replaceValue: string = vars[match[1]];
+                // 如果值是字符串，需要去掉前后的字符串标识
+                if (/^((".*")|('.*'))$/.test(replaceValue)) {
+                    replaceValue = replaceValue.slice(1, replaceValue.length - 1);
+                }
+                opers.push([start, end, replaceValue]);
+            }
         }
         // 源码所在的位置替换为值
         let oper: [start: number, end: number, replaceValue: string] | undefined;
@@ -399,6 +408,7 @@ class UseCommand implements Command {
     public children: Array<Command> = [];
     public engine: Engine;
 
+    private argsStr: string;
     private vars: Object;
 
     constructor(value: string, engine: Engine) {
@@ -407,13 +417,14 @@ class UseCommand implements Command {
             + '(?<name>[\\w|-]*)' // 名称
             + '(?:' // 定义括号和内部的参数为非捕获组1
                 + '\\(\\s*' // 参数前的括号
-                + '.*'
+                + '(?<args>.*)'
                 + '\\s*\\)' // 参数后的括号
             + ')?' // 非捕获组1允许不存在
             , 'ms'
         );
         const match = reg.exec(value);
         this.name = match?.groups?.name || value;
+        this.argsStr = match?.groups?.args || '';
         this.value = value;
         this.engine = engine;
         this.vars = {};
@@ -433,8 +444,8 @@ class UseCommand implements Command {
 
     public getRendererBody(vars: Vars): string {
         if (this.engine.targets[this.name]) {
-            this.parseVars(vars);
-            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(this.vars), this.vars);
+            const localVars = this.parseVars(vars);
+            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(localVars), localVars);
         } else if (this.engine.options.missTarget === 'error') {
             throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
         } else {
@@ -442,22 +453,35 @@ class UseCommand implements Command {
         }
     }
 
-    /** TODO: 解析参数 */
-    private parseVars(vars: Object) {
-        const r = new RegExp(
+    /** 解析参数 */
+    private parseVars(vars: Vars): Vars {
+        const reg = new RegExp(
             '(?:\\s*' // 开头空白
             + '(\\w+)' // 参数的key
             + '\\s?=\\s?' // =
             + '(' // 不同格式的参数
                 + '(?:"[^"]*")' // 双引号字符串
                 + "|(?:'[^']*')" // 单引号字符串
-                + '|(?:\\$\\{\\w+\\})' // ${name} 格式的变量
+                + '|(?:\\$\\{\\w+\\})' // 形如 ${name} 的表达式格式的变量
                 + '|(?:\\w+)' // true、false等字面量值
                 + '|(?:\\d+)' // 数字
             + ')'
             + '\\s*)'
-            , 'ms'
+            , 'msg'
         );
+        let match: RegExpExecArray | null;
+        while ((match = reg.exec(this.argsStr))) {
+            const key = match[1];
+            const value = match[2];
+            // 如果值是表达式，则需要解析
+            const m = /\$\{(\w+)\}/.exec(value);
+            if (m && m[1] && vars[m[1]]) {
+                vars[key] = vars[m[1]];
+            } else {
+                vars[key] = value;
+            }
+        }
+        return vars;
     }
 }
 
