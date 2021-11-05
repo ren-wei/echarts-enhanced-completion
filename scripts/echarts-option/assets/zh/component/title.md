@@ -114,7 +114,7 @@ const option = {
 
 
 
-### lineHeight(number) = 56
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -174,7 +174,7 @@ const option = {
 
 
 
-### textBorderType(string|number|Array) = solid
+### textBorderType(string|number|Array) = 'solid'
 
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -385,7 +385,7 @@ lineHeight文字的字体大小。
 
 
 
-### lineHeight(number) = 56
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -445,7 +445,7 @@ lineHeight文字的字体大小。
 
 
 
-### textBorderType(string|number|Array) = solid
+### textBorderType(string|number|Array) = 'solid'
 
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -606,7 +606,7 @@ textBorderDashOffset: 5
 
 
 
-### lineHeight(number) = 56
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -666,7 +666,7 @@ textBorderDashOffset: 5
 
 
 
-### textBorderType(string|number|Array) = solid
+### textBorderType(string|number|Array) = 'solid'
 
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -877,7 +877,7 @@ lineHeight文字的字体大小。
 
 
 
-### lineHeight(number) = 56
+### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -937,7 +937,7 @@ lineHeight文字的字体大小。
 
 
 
-### textBorderType(string|number|Array) = solid
+### textBorderType(string|number|Array) = 'solid'
 
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -1079,6 +1079,24 @@ padding: [
 
 
 
+
+### zlevel(number) = 0
+
+title 所有图形的 zlevel 值。
+
+`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。
+
+`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。
+
+### z(number) = 2
+
+title 组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。
+
+`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。
+
+
+
+
 ### left(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
@@ -1099,7 +1117,7 @@ title 组件离容器上侧的距离。
 
 如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。
 
-### right(string|number) = 10%
+### right(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -1107,9 +1125,9 @@ title 组件离容器右侧的距离。
 
 `right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。
 
+默认自适应。
 
-
-### bottom(string|number) = 60
+### bottom(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -1117,7 +1135,7 @@ title 组件离容器下侧的距离。
 
 bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。
 
-
+默认自适应。
 
 
 
@@ -1132,8 +1150,6 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 > 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`   ，如果想要加上 alpha 通道，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`
 
 
-**注意**：此配置项生效的前提是，设置了 `show: true`。
-
 
 ## borderColor(Color) = '#ccc'
 
@@ -1142,8 +1158,6 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 标题的边框颜色。支持的颜色格式同 backgroundColor。
 
 
-**注意**：此配置项生效的前提是，设置了 `show: true`。
-
 
 ## borderWidth(number) = 0
 
@@ -1151,8 +1165,6 @@ bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` �
 
 标题的边框线宽。
 
-
-**注意**：此配置项生效的前提是，设置了 `show: true`。
 
 
 
@@ -1174,9 +1186,9 @@ borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 
 
 
-## shadowBlur(number) = 0
+## shadowBlur(number) = 
 
-<ExampleUIControlNumber default="0" min="0" step="0.5" />
+<ExampleUIControlNumber default="" min="0" step="0.5" />
 
 图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
 
@@ -1192,9 +1204,9 @@ borderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）
 **注意**：此配置项生效的前提是，设置了 `show: true` 以及值不为 `tranparent` 的背景色 `backgroundColor`。
 
 
-## shadowColor(Color) = transparent
+## shadowColor(Color) = 
 
-<ExampleUIControlColor default="transparent" />
+<ExampleUIControlColor default="" />
 
 阴影颜色。支持的格式同`color`。
 

@@ -124,16 +124,16 @@ export default class Engine {
                 const start = match.index;
                 const end = start + match[0].length;
                 let replaceValue: string;
-                if (vars[match[1]] !== undefined) {
+                if (vars[match[1]] !== undefined && vars[match[1]] !== 'null') {
                     replaceValue = vars[match[1]];
                 } else if (match[2] !== undefined) {
                     replaceValue = match[2];
                 } else {
-                    replaceValue = match[0];
+                    replaceValue = '';
                 }
                 // 如果取值后仍是变量，那么设置为默认值
                 if (/^\$\{[^\}]+\}$/.test(replaceValue)) {
-                    replaceValue = match[2];
+                    replaceValue = match[2] || '';
                 }
                 // 如果值是字符串，需要去掉前后的字符串标识
                 if (/^((".*")|('.*'))$/.test(replaceValue)) {
