@@ -174,9 +174,13 @@ const option = {
 
 
 
+### textBorderType(string|number|Array) = solid
+
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
+
+文字本身的描边类型。
 
 
 可选：
@@ -184,18 +188,22 @@ const option = {
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`textBorderDashOffset`
+ 可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-: [5, 10],
+textBorderType: [5, 10],
 
-: 5
+textBorderDashOffset: 5
 }
 ```
 
+
+### textBorderDashOffset(number) = 0
 
 
 
@@ -206,7 +214,9 @@ const option = {
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配 
+`textBorderType`
+ 指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
@@ -435,9 +445,13 @@ lineHeight文字的字体大小。
 
 
 
+### textBorderType(string|number|Array) = solid
+
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
+
+文字本身的描边类型。
 
 
 可选：
@@ -445,18 +459,22 @@ lineHeight文字的字体大小。
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`textBorderDashOffset`
+ 可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-: [5, 10],
+textBorderType: [5, 10],
 
-: 5
+textBorderDashOffset: 5
 }
 ```
 
+
+### textBorderDashOffset(number) = 0
 
 
 
@@ -467,7 +485,9 @@ lineHeight文字的字体大小。
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配 
+`textBorderType`
+ 指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
@@ -646,9 +666,13 @@ lineHeight文字的字体大小。
 
 
 
+### textBorderType(string|number|Array) = solid
+
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
+
+文字本身的描边类型。
 
 
 可选：
@@ -656,18 +680,22 @@ lineHeight文字的字体大小。
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`textBorderDashOffset`
+ 可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-: [5, 10],
+textBorderType: [5, 10],
 
-: 5
+textBorderDashOffset: 5
 }
 ```
 
+
+### textBorderDashOffset(number) = 0
 
 
 
@@ -678,7 +706,9 @@ lineHeight文字的字体大小。
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配 
+`textBorderType`
+ 指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 
@@ -907,9 +937,13 @@ lineHeight文字的字体大小。
 
 
 
+### textBorderType(string|number|Array) = solid
+
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
 
+
+文字本身的描边类型。
 
 
 可选：
@@ -917,18 +951,22 @@ lineHeight文字的字体大小。
 + `'dashed'`
 + `'dotted'`
 
-自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合  可实现更灵活的虚线效果。
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`textBorderDashOffset`
+ 可实现更灵活的虚线效果。
 
 例如：
 ```js
 {
 
-: [5, 10],
+textBorderType: [5, 10],
 
-: 5
+textBorderDashOffset: 5
 }
 ```
 
+
+### textBorderDashOffset(number) = 0
 
 
 
@@ -939,7 +977,9 @@ lineHeight文字的字体大小。
 
 <ExampleUIControlNumber min="0" step="1" default="0" />
 
-用于设置虚线的偏移量，可搭配  指定 dash array 实现灵活的虚线效果。
+用于设置虚线的偏移量，可搭配 
+`textBorderType`
+ 指定 dash array 实现灵活的虚线效果。
 
 更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
 

@@ -33,10 +33,10 @@ export default class Engine {
             'target': TargetCommand,
             'use': UseCommand,
             'import': ImportCommand,
+            'block': BlockCommand,
             'if': IfCommand,
-            // 'elif': ElifCommand,
-            // 'else': ElseCommand,
-            // 'block': BlockCommand,
+            'elif': ElifCommand,
+            'else': ElseCommand,
             // 'var': VarCommand,
             // 'for': ForCommand,
             // 'filter': FilterCommand,
@@ -526,10 +526,153 @@ class ImportCommand implements Command {
     }
 }
 
+/** if 命令用于根据条件判断是否渲染，可以包含 elif 和 else 命令，需要闭合命令 */
 class IfCommand implements Command {
     public name: string;
     public value: string;
     public type: string = 'if';
+    public children: Array<BlockCommand | ElifCommand | ElseCommand> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: BlockCommand | ElifCommand | ElseCommand) {
+        this.children.push(node);
+    }
+
+    public open(context: AnalyseContext) {
+        context.stack.top()?.addChild(this);
+        context.stack.push(this);
+        // 创建一个 block 节点来划分范围
+        const node = new BlockCommand('', this.engine);
+        node.open(context);
+    }
+
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
+
+    public getRendererBody(vars: Vars): string {
+        if (this.validate(vars)) {
+            return this.children[0].getRendererBody(vars);
+        }
+        for (let i = 1; i < this.children.length; i++) {
+            const child = this.children[i];
+            if (child instanceof ElifCommand && this.validate(vars, child.value) || child instanceof ElseCommand) {
+                return child.getRendererBody(vars);
+            }
+        }
+        return '';
+    }
+
+    private validate(vars: Vars, value = this.value): boolean {
+        const getCondition = (new Function(`
+            ${Object.entries(vars).map(([k, v]) => {
+                return 'const ' + k + ' = \`' + v + '\`;';
+            }).join('\n')}
+            return \`${value}\`;
+        `));
+        return (new Function(`return ${getCondition()}`))();
+    }
+}
+
+/** elif 命令是 if 命令的子命令，必须跟在 if 命令之后，允许自动闭合 */
+class ElifCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'elif';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
+
+    public open(context: AnalyseContext) {
+        this.engine.autoCloseCommand(context, BlockCommand);
+        this.engine.autoCloseCommand(context, ElifCommand);
+        if (!context.stack.top() && (context.stack.top() instanceof IfCommand || context.stack.top() instanceof ElifCommand)) {
+            throw new Error('[elif]命令必须位于[if]或[elif]命令之后:' + context);
+        }
+        context.stack.top().addChild(this);
+        context.stack.push(this);
+    }
+
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
+
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
+    }
+
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}
+
+/** else 命令是 if 的子命令，必须跟在 if 命令或 elif 命令之后，允许自动闭合 */
+class ElseCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'else';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
+
+    public open(context: AnalyseContext) {
+        this.engine.autoCloseCommand(context, BlockCommand);
+        this.engine.autoCloseCommand(context, ElifCommand);
+        if (!context.stack.top() && (context.stack.top() instanceof IfCommand || context.stack.top() instanceof ElifCommand)) {
+            throw new Error('[else]命令必须位于[if]或[elif]命令之后:' + context);
+        }
+        context.stack.top().addChild(this);
+        context.stack.push(this);
+    }
+
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
+
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
+    }
+
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}
+
+/** block 命令没有对应的命令关键词，仅作为其他的命令内部分块使用 */
+export class BlockCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'else';
     public children: Array<Command | TextNode> = [];
     public engine: Engine;
 
@@ -554,42 +697,14 @@ class IfCommand implements Command {
         }
     }
 
-    public getRendererBody(vars: Vars): string {
-        if (this.validate(vars)) {
-            return this.children.map(child => child.getRendererBody(vars)).join('');
-        } else {
-            return '';
-        }
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
     }
 
-    private validate(vars: Vars): boolean {
-        const getCondition = (new Function(`
-            ${Object.entries(vars).map(([key, value]) => {
-                return 'const ' + key + ' = \`' + value + '\`;';
-            }).join('\n')}
-            return \`${this.value}\`;
-        `));
-        return (new Function(`return ${getCondition()}`))();
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
-
-// class BlockCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'block';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
 
 // class VarCommand extends Command {
 //     public allowAutoClose: boolean = true;
@@ -607,32 +722,6 @@ class IfCommand implements Command {
 // class ForCommand extends Command {
 //     public allowAutoClose: boolean = false;
 //     public type: string = 'for';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
-
-// class ElifCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'elif';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
-
-// class ElseCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'else';
 
 //     public clone(): TargetCommand {
 //         return new TargetCommand(this.value);
