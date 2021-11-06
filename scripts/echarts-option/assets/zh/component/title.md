@@ -335,30 +335,30 @@ label: {
 
 
 
-### color(Color) = '#333'
+##### color(Color) = "#fff"
 
-<ExampleUIControlColor default="'#333'" />
+<ExampleUIControlColor default="null" />
 
-lineHeight文字的颜色。
+文字的颜色。
 
 
 
-### fontStyle(string) = 'normal'
+##### fontStyle(string) = 'normal'
 
 <ExampleUIControlEnum default="normal" options="normal,italic,oblique" />
 
-lineHeight文字字体的风格。
+文字字体的风格。
 
 可选：
 + `'normal'`
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = 'bolder'
+##### fontWeight(string|number) = normal
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
-lineHeight文字字体的粗细。
+文字字体的粗细。
 
 可选：
 + `'normal'`
@@ -367,25 +367,81 @@ lineHeight文字字体的粗细。
 + `'lighter'`
 + 100 | 200 | 300 | 400...
 
-### fontFamily(string) = 'sans-serif'
+##### fontFamily(string) = 'sans-serif'
 
 <ExampleUIControlEnum default="sans-serif" options="sans-serif,serif,monospace,Arial,Courier New" />
 
-lineHeight文字的字体系列。
+文字的字体系列。
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = 18
+##### fontSize(number) = 12
 
-<ExampleUIControlNumber default="18" min="1" step="1" />
+<ExampleUIControlNumber default="12" min="1" step="1" />
 
-lineHeight文字的字体大小。
-
-
+文字的字体大小。
 
 
+##### align(string) = 
 
-### lineHeight(number) = 
+<ExampleUIControlEnum options="left,center,right" />
+
+文字水平对齐方式，默认自动。
+
+可选：
++ `'left'`
++ `'center'`
++ `'right'`
+
+
+
+`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
+
+```js
+{
+    align: right,
+    rich: {
+        a: {
+            // 没有设置 `align`，则 `align` 为 right
+        }
+    }
+}
+```
+
+
+
+
+
+##### verticalAlign(string) = 
+
+<ExampleUIControlEnum options="top,middle,bottom" />
+
+文字垂直对齐方式，默认自动。
+
+可选：
++ `'top'`
++ `'middle'`
++ `'bottom'`
+
+
+
+`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
+
+```js
+{
+    verticalAlign: bottom,
+    rich: {
+        a: {
+            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
+        }
+    }
+}
+```
+
+
+
+
+##### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -409,8 +465,148 @@ lineHeight文字的字体大小。
 
 
 
+##### backgroundColor(string|Object) = 'transparent'
 
-### width(number|string)
+<ExampleUIControlColor default="#fff" />
+
+文字块背景色。
+
+可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。
+
+也可以直接使用图片，例如：
+
+```js
+backgroundColor: {
+    image: 'xxx/xxx.png'
+    // 这里可以是图片的 URL，
+    // 或者图片的 dataURI，
+    // 或者 HTMLImageElement 对象，
+    // 或者 HTMLCanvasElement 对象。
+}
+```
+
+当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。
+
+
+
+##### borderColor(Color)
+
+<ExampleUIControlColor default="#fff" />
+
+文字块边框颜色。
+
+
+
+##### borderWidth(number) = 0
+
+<ExampleUIControlNumber min="0" step="0.5" />
+
+文字块边框宽度。
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+文字块边框描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+
+
+
+
+
+
+##### borderRadius(number|Array) = 0
+
+<ExampleUIControlVector min="0" dims="LT,RT, RB, LB"  />
+
+文字块的圆角。
+
+##### padding(number|Array) = 0
+
+<ExampleUIControlVector min="0" dims="T,R,B,L"  />
+
+文字块的内边距。例如：
+
++ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。
++ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。
++ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。
+
+注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。
+
+##### shadowColor(Color) = 'transparent'
+
+<ExampleUIControlColor />
+
+文字块的背景阴影颜色。
+
+##### shadowBlur(number) = 0
+
+<ExampleUIControlNumber min="0" step="0.5" />
+
+文字块的背景阴影长度。
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber step="0.5" />
+
+文字块的背景阴影 X 偏移。
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber step="0.5" />
+
+文字块的背景阴影 Y 偏移。
+
+
+##### width(number|string)
 
 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。
 
@@ -420,7 +616,7 @@ lineHeight文字的字体大小。
 
 注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。
 
-### height(number|string)
+##### height(number|string)
 
 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。
 
@@ -428,7 +624,7 @@ lineHeight文字的字体大小。
 
 注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。
 
-### textBorderColor(Color)
+##### textBorderColor(Color)
 
 <ExampleUIControlColor />
 
@@ -436,7 +632,7 @@ lineHeight文字的字体大小。
 
 
 
-### textBorderWidth(number)
+##### textBorderWidth(number)
 
 <ExampleUIControlNumber min="0" step="0.5" />
 
@@ -445,7 +641,7 @@ lineHeight文字的字体大小。
 
 
 
-### textBorderType(string|number|Array) = 'solid'
+##### textBorderType(string|number|Array) = 'solid'
 
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -474,7 +670,7 @@ textBorderDashOffset: 5
 ```
 
 
-### textBorderDashOffset(number) = 0
+##### textBorderDashOffset(number) = 0
 
 
 
@@ -499,25 +695,25 @@ textBorderDashOffset: 5
 
 
 
-### textShadowColor(Color) = 'transparent'
+##### textShadowColor(Color) = 'transparent'
 
 <ExampleUIControlColor default="#000" />
 
 文字本身的阴影颜色。
 
-### textShadowBlur(number) = 0
+##### textShadowBlur(number) = 0
 
 <ExampleUIControlNumber min="0" step="0.5" />
 
 文字本身的阴影长度。
 
-### textShadowOffsetX(number) = 0
+##### textShadowOffsetX(number) = 0
 
 <ExampleUIControlNumber step="0.5" />
 
 文字本身的阴影 X 偏移。
 
-### textShadowOffsetY(number) = 0
+##### textShadowOffsetY(number) = 0
 
 <ExampleUIControlNumber step="0.5" />
 
@@ -575,7 +771,7 @@ textBorderDashOffset: 5
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = 'bolder'
+### fontWeight(string|number) = normal
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
@@ -596,12 +792,68 @@ textBorderDashOffset: 5
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = 18
+### fontSize(number) = 12
 
-<ExampleUIControlNumber default="18" min="1" step="1" />
+<ExampleUIControlNumber default="12" min="1" step="1" />
 
 副标题文字的字体大小。
 
+
+### align(string) = 
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文字水平对齐方式，默认自动。
+
+可选：
++ `'left'`
++ `'center'`
++ `'right'`
+
+
+
+`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
+
+```js
+{
+    align: right,
+    rich: {
+        a: {
+            // 没有设置 `align`，则 `align` 为 right
+        }
+    }
+}
+```
+
+
+
+
+
+### verticalAlign(string) = 
+
+<ExampleUIControlEnum options="top,middle,bottom" />
+
+文字垂直对齐方式，默认自动。
+
+可选：
++ `'top'`
++ `'middle'`
++ `'bottom'`
+
+
+
+`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
+
+```js
+{
+    verticalAlign: bottom,
+    rich: {
+        a: {
+            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
+        }
+    }
+}
+```
 
 
 
@@ -827,30 +1079,30 @@ label: {
 
 
 
-### color(Color) = '#aaa'
+##### color(Color) = "#fff"
 
-<ExampleUIControlColor default="'#aaa'" />
+<ExampleUIControlColor default="null" />
 
-lineHeight文字的颜色。
+文字的颜色。
 
 
 
-### fontStyle(string) = 'normal'
+##### fontStyle(string) = 'normal'
 
 <ExampleUIControlEnum default="normal" options="normal,italic,oblique" />
 
-lineHeight文字字体的风格。
+文字字体的风格。
 
 可选：
 + `'normal'`
 + `'italic'`
 + `'oblique'`
 
-### fontWeight(string|number) = 'bolder'
+##### fontWeight(string|number) = normal
 
 <ExampleUIControlEnum default="normal" options="normal,bold,bolder,lighter" />
 
-lineHeight文字字体的粗细。
+文字字体的粗细。
 
 可选：
 + `'normal'`
@@ -859,25 +1111,81 @@ lineHeight文字字体的粗细。
 + `'lighter'`
 + 100 | 200 | 300 | 400...
 
-### fontFamily(string) = 'sans-serif'
+##### fontFamily(string) = 'sans-serif'
 
 <ExampleUIControlEnum default="sans-serif" options="sans-serif,serif,monospace,Arial,Courier New" />
 
-lineHeight文字的字体系列。
+文字的字体系列。
 
 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...
 
-### fontSize(number) = 18
+##### fontSize(number) = 12
 
-<ExampleUIControlNumber default="18" min="1" step="1" />
+<ExampleUIControlNumber default="12" min="1" step="1" />
 
-lineHeight文字的字体大小。
-
-
+文字的字体大小。
 
 
+##### align(string) = 
 
-### lineHeight(number) = 
+<ExampleUIControlEnum options="left,center,right" />
+
+文字水平对齐方式，默认自动。
+
+可选：
++ `'left'`
++ `'center'`
++ `'right'`
+
+
+
+`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：
+
+```js
+{
+    align: right,
+    rich: {
+        a: {
+            // 没有设置 `align`，则 `align` 为 right
+        }
+    }
+}
+```
+
+
+
+
+
+##### verticalAlign(string) = 
+
+<ExampleUIControlEnum options="top,middle,bottom" />
+
+文字垂直对齐方式，默认自动。
+
+可选：
++ `'top'`
++ `'middle'`
++ `'bottom'`
+
+
+
+`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：
+
+```js
+{
+    verticalAlign: bottom,
+    rich: {
+        a: {
+            // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom
+        }
+    }
+}
+```
+
+
+
+
+##### lineHeight(number) = 
 
 <ExampleUIControlNumber min="0" step="1" default="12" />
 
@@ -901,8 +1209,148 @@ lineHeight文字的字体大小。
 
 
 
+##### backgroundColor(string|Object) = 'transparent'
 
-### width(number|string)
+<ExampleUIControlColor default="#fff" />
+
+文字块背景色。
+
+可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。
+
+也可以直接使用图片，例如：
+
+```js
+backgroundColor: {
+    image: 'xxx/xxx.png'
+    // 这里可以是图片的 URL，
+    // 或者图片的 dataURI，
+    // 或者 HTMLImageElement 对象，
+    // 或者 HTMLCanvasElement 对象。
+}
+```
+
+当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。
+
+
+
+##### borderColor(Color)
+
+<ExampleUIControlColor default="#fff" />
+
+文字块边框颜色。
+
+
+
+##### borderWidth(number) = 0
+
+<ExampleUIControlNumber min="0" step="0.5" />
+
+文字块边框宽度。
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+文字块边框描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+
+
+
+
+
+
+##### borderRadius(number|Array) = 0
+
+<ExampleUIControlVector min="0" dims="LT,RT, RB, LB"  />
+
+文字块的圆角。
+
+##### padding(number|Array) = 0
+
+<ExampleUIControlVector min="0" dims="T,R,B,L"  />
+
+文字块的内边距。例如：
+
++ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。
++ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。
++ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。
+
+注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。
+
+##### shadowColor(Color) = 'transparent'
+
+<ExampleUIControlColor />
+
+文字块的背景阴影颜色。
+
+##### shadowBlur(number) = 0
+
+<ExampleUIControlNumber min="0" step="0.5" />
+
+文字块的背景阴影长度。
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber step="0.5" />
+
+文字块的背景阴影 X 偏移。
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber step="0.5" />
+
+文字块的背景阴影 Y 偏移。
+
+
+##### width(number|string)
 
 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。
 
@@ -912,7 +1360,7 @@ lineHeight文字的字体大小。
 
 注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。
 
-### height(number|string)
+##### height(number|string)
 
 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。
 
@@ -920,7 +1368,7 @@ lineHeight文字的字体大小。
 
 注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。
 
-### textBorderColor(Color)
+##### textBorderColor(Color)
 
 <ExampleUIControlColor />
 
@@ -928,7 +1376,7 @@ lineHeight文字的字体大小。
 
 
 
-### textBorderWidth(number)
+##### textBorderWidth(number)
 
 <ExampleUIControlNumber min="0" step="0.5" />
 
@@ -937,7 +1385,7 @@ lineHeight文字的字体大小。
 
 
 
-### textBorderType(string|number|Array) = 'solid'
+##### textBorderType(string|number|Array) = 'solid'
 
 
 <ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
@@ -966,7 +1414,7 @@ textBorderDashOffset: 5
 ```
 
 
-### textBorderDashOffset(number) = 0
+##### textBorderDashOffset(number) = 0
 
 
 
@@ -991,25 +1439,25 @@ textBorderDashOffset: 5
 
 
 
-### textShadowColor(Color) = 'transparent'
+##### textShadowColor(Color) = 'transparent'
 
 <ExampleUIControlColor default="#000" />
 
 文字本身的阴影颜色。
 
-### textShadowBlur(number) = 0
+##### textShadowBlur(number) = 0
 
 <ExampleUIControlNumber min="0" step="0.5" />
 
 文字本身的阴影长度。
 
-### textShadowOffsetX(number) = 0
+##### textShadowOffsetX(number) = 0
 
 <ExampleUIControlNumber step="0.5" />
 
 文字本身的阴影 X 偏移。
 
-### textShadowOffsetY(number) = 0
+##### textShadowOffsetY(number) = 0
 
 <ExampleUIControlNumber step="0.5" />
 
@@ -1080,24 +1528,24 @@ padding: [
 
 
 
-### zlevel(number) = 0
+## zlevel(number) = 0
 
-title 所有图形的 zlevel 值。
+所有图形的 zlevel 值。
 
 `zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。
 
 `zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。
 
-### z(number) = 2
+## z(number) = 2
 
-title 组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。
+组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。
 
 `z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。
 
 
 
 
-### left(string|number) = 'auto'
+## left(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -1107,7 +1555,7 @@ title 组件离容器左侧的距离。
 
 如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。
 
-### top(string|number) = 'auto'
+## top(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -1117,7 +1565,7 @@ title 组件离容器上侧的距离。
 
 如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。
 
-### right(string|number) = 'auto'
+## right(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 
@@ -1127,7 +1575,7 @@ title 组件离容器右侧的距离。
 
 默认自适应。
 
-### bottom(string|number) = 'auto'
+## bottom(string|number) = 'auto'
 
 <ExampleUIControlPercent default="0%"/>
 

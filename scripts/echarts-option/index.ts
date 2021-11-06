@@ -85,11 +85,16 @@ async function main() {
             defaultZ: 'null',
             defaultShadowBlur: 'null',
             defaultShadowColor: 'null',
-            noRich: 'null',
-            noZ: 'null',
             defaultRight: 'null',
             defaultBottom: 'null',
+            defaultFontSize: 'null',
+            defaultFontWeight: 'null',
+            noRich: 'null',
+            noZ: 'null',
+            noAlign: 'null',
+            noVerticalAlign: 'null',
             needShow: 'null',
+            prefix: 'null',
         }));
     }
 }

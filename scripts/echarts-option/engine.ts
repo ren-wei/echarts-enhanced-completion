@@ -463,34 +463,50 @@ class UseCommand implements Command {
 
     /** 解析参数 */
     private parseVars(vars: Vars): Vars {
-        // TODO: prefix = ${prefix} + '##',格式存在问题，使用 Function 进行解析
         const reg = new RegExp(
             '(?:\\s*' // 开头空白
             + '(\\w+)' // 参数的key
             + '\\s?=\\s?' // =
+            // + '('
+            //     + '(?:[^,]+(?=,))|(?:\\S+)' // 参数的值
+            // + ')'
             + '(' // 不同格式的参数
                 + '(?:"[^"]*")' // 双引号字符串
                 + "|(?:'[^']*')" // 单引号字符串
-                + '|(?:\\$\\{\\w+\\})' // 形如 ${name} 的表达式格式的变量
                 + '|(?:\\w+)' // true、false等字面量值
                 + '|(?:\\d+)' // 数字
+                + '|(?:[^,]+(?=,))|(?:\\S+)' // 其他类型的值
             + ')'
             + '\\s*)'
             , 'msg'
         );
         let match: RegExpExecArray | null;
+        const raw: { [key: string]: string } = {};
         while ((match = reg.exec(this.argsStr))) {
-            const key = match[1];
-            const value = match[2];
-            // 如果值是表达式，则需要解析
-            const m = /\$\{(\w+)\}/.exec(value);
-            if (m && m[1] && vars[m[1]]) {
-                vars[key] = vars[m[1]];
-            } else {
-                vars[key] = value;
-            }
+            raw[match[1]] = match[2];
         }
-        return vars;
+        // 获取当前的参数和对应值
+        const newVars: Vars = (new Function(`
+            const kv = {};
+            ${Object.entries(vars).map(([key, value]) => {
+                return 'const ' + key + ' = \`' + value + '\`;';
+            }).join('\n')}
+            ${Object.entries(raw).map(([key, value]) => {
+                return 'kv["' + key + '"]' + ' = \`' + value + '\`;';
+            }).join('\n')}
+            return kv;
+        `))();
+        // 将未从 vars 获取的值设置为null
+        Object.keys(vars).filter((k => !Object.keys(newVars).includes(k))).forEach(k => {
+            newVars[k] = 'null';
+        });
+        Object.entries(newVars).forEach(([k, v]) => {
+            if (v.includes('+')) { // TODO: 直接赋值某些会报错；需要更精确的条件
+                // eslint-disable-next-line no-eval
+                newVars[k] = eval(v);
+            }
+        });
+        return newVars;
     }
 }
 
