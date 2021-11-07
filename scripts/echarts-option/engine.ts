@@ -103,6 +103,7 @@ export default class Engine {
     /**
      * 执行模板渲染，返回渲染后的字符串。
      * @param name target名称
+     * @param vars 变量默认值
      * @returns 渲染结果
      */
     public render(name: string, vars: Vars = {}): string {
@@ -110,9 +111,10 @@ export default class Engine {
     }
 
     /**
-     * 编译变量访问和替换的代码
+     * `command use` 编译变量
      * @param source 源代码
      * @param vars 变量的值
+     * @return 编译后的结果
      */
     public compileVariable(source: string, vars: Vars = {}): string {
         const reg = new RegExp(this.options.variableOpen + '(\\w+)(?:\\|default\\(([^\\(]+)\\))?' + this.options.variableClose, 'g');
@@ -149,6 +151,32 @@ export default class Engine {
             source = `${source.slice(0, start)}${replaceValue}${source.slice(end)}`;
         }
         return source;
+    }
+
+    /**
+     * `command use` 获取字符串表示的值，如果对应的环境变量不存在，那么返回 'null'
+     * @param source 需要解析的字符串
+     * @param vars 环境变量
+     * @return 原始字符串表示的值
+     */
+    public parseString(source: string, vars: Vars) : string {
+        try {
+            return (new Function(`
+                ${Object.entries(vars).map(([k, v]) => {
+                    return 'const ' + k + ' = \`' + v + '\`;';
+                }).join('\n')}
+                return \`${source}\`;
+            `))();
+        } catch (e) {
+            const match = /^ReferenceError: (\w+) is not defined$/.exec(String(e));
+            if (match && match[1]) {
+                const paramsVars = { ...vars };
+                paramsVars[match[1]] = 'null';
+                return this.parseString(source, paramsVars);
+            } else {
+                throw e;
+            }
+        }
     }
 
     /**
@@ -271,7 +299,7 @@ type AnalyseContext = {
 
 /** 当前的环境变量 */
 type Vars = {
-    [key: string]: any;
+    [key: string]: string;
 };
 
 export class Stack<T> extends Array<T> {
@@ -481,25 +509,14 @@ class UseCommand implements Command {
             , 'msg'
         );
         let match: RegExpExecArray | null;
-        const raw: { [key: string]: string } = {};
+        const raw: Vars = {};
         while ((match = reg.exec(this.argsStr))) {
             raw[match[1]] = match[2];
         }
         // 获取当前的参数和对应值
-        const newVars: Vars = (new Function(`
-            const kv = {};
-            ${Object.entries(vars).map(([key, value]) => {
-                return 'const ' + key + ' = \`' + value + '\`;';
-            }).join('\n')}
-            ${Object.entries(raw).map(([key, value]) => {
-                return 'kv["' + key + '"]' + ' = \`' + value + '\`;';
-            }).join('\n')}
-            return kv;
-        `))();
-        // 将未从 vars 获取的值设置为null
-        Object.keys(vars).filter((k => !Object.keys(newVars).includes(k))).forEach(k => {
-            newVars[k] = 'null';
-        });
+        const newVars: Vars = Object.fromEntries(Object.entries(raw).map(([k, v]) => {
+            return [k, this.engine.parseString(v, vars)];
+        }));
         Object.entries(newVars).forEach(([k, v]) => {
             if (v.includes('+')) { // TODO: 直接赋值某些会报错；需要更精确的条件
                 // eslint-disable-next-line no-eval
@@ -587,14 +604,9 @@ class IfCommand implements Command {
         return '';
     }
 
+    /** 校验条件是否成立 */
     private validate(vars: Vars, value = this.value): boolean {
-        const getCondition = (new Function(`
-            ${Object.entries(vars).map(([k, v]) => {
-                return 'const ' + k + ' = \`' + v + '\`;';
-            }).join('\n')}
-            return \`${value}\`;
-        `));
-        return (new Function(`return ${getCondition()}`))();
+        return (new Function(`return ${this.engine.parseString(value, vars)}`))();
     }
 }
 
