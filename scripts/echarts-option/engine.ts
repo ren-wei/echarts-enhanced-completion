@@ -37,9 +37,6 @@ export default class Engine {
             'if': IfCommand,
             'elif': ElifCommand,
             'else': ElseCommand,
-            // 'var': VarCommand,
-            // 'for': ForCommand,
-            // 'filter': FilterCommand,
             ...commandExtends,
         };
         this.analyseContext = {
@@ -163,16 +160,16 @@ export default class Engine {
         try {
             return (new Function(`
                 ${Object.entries(vars).map(([k, v]) => {
-                    return 'const ' + k + ' = \`' + v + '\`;';
+                    return 'const ' + k + ' = \`' + v.replace(/`/g, '\\`') + '\`;';
                 }).join('\n')}
-                return \`${source}\`;
+                return \`${source.replace(/`/g, '\\`')}\`;
             `))();
         } catch (e) {
             const match = /^ReferenceError: (\w+) is not defined$/.exec(String(e));
             if (match && match[1]) {
                 const paramsVars = { ...vars };
                 paramsVars[match[1]] = 'null';
-                return this.parseString(source, paramsVars);
+                return this.parseString(source.replace(/`/g, '\\`'), paramsVars);
             } else {
                 throw e;
             }
@@ -491,19 +488,25 @@ class UseCommand implements Command {
 
     /** 解析参数 */
     private parseVars(vars: Vars): Vars {
+        const exp = {
+            /** 单引号 */
+            singleQuotaion: "(?:'[^']*')",
+            /** 双引号 */
+            doubleQuotaion: '(?:"[^"]*")',
+            /** true、false等字面量值 */
+            literal: '(?:\\w+)',
+            /** 数字 */
+            digital: '(?:\\d+)',
+            /** 形如 ${name} 的模板变量值 */
+            template: '(?:\\$\\{\\w+\\})',
+        };
+        const valueExp = '(?:' + Object.values(exp).join('|') + ')';
         const reg = new RegExp(
             '(?:\\s*' // 开头空白
             + '(\\w+)' // 参数的key
             + '\\s?=\\s?' // =
-            // + '('
-            //     + '(?:[^,]+(?=,))|(?:\\S+)' // 参数的值
-            // + ')'
             + '(' // 不同格式的参数
-                + '(?:"[^"]*")' // 双引号字符串
-                + "|(?:'[^']*')" // 单引号字符串
-                + '|(?:\\w+)' // true、false等字面量值
-                + '|(?:\\d+)' // 数字
-                + '|(?:[^,]+(?=,))|(?:\\S+)' // 其他类型的值
+            + `${valueExp}(?:\\s*\\+\\s*${valueExp})?`
             + ')'
             + '\\s*)'
             , 'msg'
@@ -518,9 +521,16 @@ class UseCommand implements Command {
             return [k, this.engine.parseString(v, vars)];
         }));
         Object.entries(newVars).forEach(([k, v]) => {
-            if (v.includes('+')) { // TODO: 直接赋值某些会报错；需要更精确的条件
+            try {
                 // eslint-disable-next-line no-eval
-                newVars[k] = eval(v);
+                const value = eval(v);
+                if (typeof value === 'string') {
+                    newVars[k] = "'" + value.replace(/'/g, "\\'") + "'";
+                } else {
+                    newVars[k] = String(value);
+                }
+            } catch (e) {
+                newVars[k] = v;
             }
         });
         return newVars;
@@ -733,42 +743,3 @@ export class BlockCommand implements Command {
         return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
-
-// class VarCommand extends Command {
-//     public allowAutoClose: boolean = true;
-//     public type: string = 'var';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
-
-// class ForCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'for';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
-
-// class FilterCommand extends Command {
-//     public allowAutoClose: boolean = true;
-//     public type: string = 'filter';
-
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
-
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }

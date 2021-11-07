@@ -76,9 +76,13 @@ async function main() {
             engine.parseSource(text);
         }
 
-        const text = await getOption('component/title', lang);
+        let text = await getOption('component/title', lang);
         engine.parseSource(text);
         saveFile('component/title', lang, engine.render('component-title', initVars));
+
+        text = await getOption('component/legend', lang);
+        engine.parseSource(text);
+        saveFile('component/legend', lang, engine.render('component-legend', initVars));
     }
 }
 
