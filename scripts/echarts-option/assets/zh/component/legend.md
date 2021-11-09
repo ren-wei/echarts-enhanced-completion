@@ -305,7 +305,7 @@ padding: [
 
 <ExampleUIControlNumber value="auto" min="0" step="0.5" />
 
-${defaultBorderWidthDesc|default(( ?  : "") + "描边线宽。为 0 时无描边。")}
+当其值为 `"auto"` 时，如果系列有 `borderWidth` 取 2，如果系列没有 `borderWidth` 则取 0。当其值为 `"inehrit"` 时，始终取系列的 `borderWidth`。
 
 
 
@@ -1875,7 +1875,7 @@ URL 为 `dataURI` 例如：
 
 <ExampleUIControlNumber value="auto" min="0" step="0.5" />
 
-${defaultBorderWidthDesc|default(( ?  : "") + "描边线宽。为 0 时无描边。")}
+当其值为 `"auto"` 时，如果系列有 `borderWidth` 取 2，如果系列没有 `borderWidth` 则取 0。当其值为 `"inehrit"` 时，始终取系列的 `borderWidth`。
 
 
 

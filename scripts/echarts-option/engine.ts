@@ -114,7 +114,18 @@ export default class Engine {
      * @return 编译后的结果
      */
     public compileVariable(source: string, vars: Vars = {}): string {
-        const reg = new RegExp(this.options.variableOpen + '(\\w+)(?:\\|default\\(([^\\(]+)\\))?' + this.options.variableClose, 'g');
+        const reg = new RegExp(
+            this.options.variableOpen
+            + '(\\w+)'
+            + '(?:\\|default\\('
+            + '(' // 匹配括号内的默认值
+            + exp.expression
+            + ')'
+            + '\\)'
+            + ')?'
+            + this.options.variableClose
+            , 'g'
+        );
         // 获取需要替换的位置和值
         const opers: Array<[start: number, end: number, replaceValue: string]> = [];
         let match: RegExpExecArray | null;
@@ -126,7 +137,17 @@ export default class Engine {
                 if (vars[match[1]] !== undefined && vars[match[1]] !== 'null') {
                     replaceValue = vars[match[1]];
                 } else if (match[2] !== undefined) {
-                    replaceValue = match[2];
+                    try {
+                        // eslint-disable-next-line no-eval
+                        const value = eval(match[2]);
+                        if (typeof value === 'string') {
+                            replaceValue = "'" + value + "'";
+                        } else {
+                            replaceValue = String(value);
+                        }
+                    } catch (e) {
+                        replaceValue = match[2];
+                    }
                 } else {
                     replaceValue = '';
                 }
@@ -298,6 +319,38 @@ type AnalyseContext = {
 type Vars = {
     [key: string]: string;
 };
+
+class Exp {
+    /** 不同类型的值的正则表达式 */
+    public exp: { [key: string]: string};
+    /** 匹配所有的简单值 */
+    public valueExp: string;
+    /** 匹配?号表达式 */
+    public questionExp: string;
+    /** 匹配所有表达式 */
+    public expression: string;
+
+    constructor() {
+        this.exp = {
+            /** 单引号 */
+            singleQuotaion: "(?:'[^']*')",
+            /** 双引号 */
+            doubleQuotaion: '(?:"[^"]*")',
+            /** true、false等字面量值 */
+            literal: '(?:true|false|null)',
+            /** 数字 */
+            digital: '(?:\\d+)',
+            /** 形如 ${name} 的模板变量值 */
+            template: '(?:\\$\\{\\w+\\})',
+        };
+        this.valueExp = '(?:' + Object.values(this.exp).join('|') + ')';
+        this.questionExp = '(?:' + this.valueExp + '\\s*\\?\\s*' + this.valueExp + '\\s*:\\s*' + this.valueExp + ')';
+        const simpleExp = '(?:(?:\\((?:' + this.questionExp + '|' + this.valueExp + ')\\))|(?:' + this.questionExp + '|' + this.valueExp + '))';
+        this.expression = '(?:' + simpleExp + '(?:\\s*\\+\\s*' + simpleExp + ')*)';
+    }
+}
+
+const exp = new Exp();
 
 export class Stack<T> extends Array<T> {
     /** 获取顶部元素 */
@@ -488,25 +541,12 @@ class UseCommand implements Command {
 
     /** 解析参数 */
     private parseVars(vars: Vars): Vars {
-        const exp = {
-            /** 单引号 */
-            singleQuotaion: "(?:'[^']*')",
-            /** 双引号 */
-            doubleQuotaion: '(?:"[^"]*")',
-            /** true、false等字面量值 */
-            literal: '(?:\\w+)',
-            /** 数字 */
-            digital: '(?:\\d+)',
-            /** 形如 ${name} 的模板变量值 */
-            template: '(?:\\$\\{\\w+\\})',
-        };
-        const valueExp = '(?:' + Object.values(exp).join('|') + ')';
         const reg = new RegExp(
             '(?:\\s*' // 开头空白
             + '(\\w+)' // 参数的key
             + '\\s?=\\s?' // =
             + '(' // 不同格式的参数
-            + `${valueExp}(?:\\s*\\+\\s*${valueExp})?`
+            + `${exp.valueExp}(?:\\s*\\+\\s*${exp.valueExp})?`
             + ')'
             + '\\s*)'
             , 'msg'
