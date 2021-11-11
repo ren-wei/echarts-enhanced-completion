@@ -190,7 +190,7 @@ export default class Engine {
             if (match && match[1]) {
                 const paramsVars = { ...vars };
                 paramsVars[match[1]] = 'null';
-                return this.parseString(source.replace(/`/g, '\\`'), paramsVars);
+                return this.parseString(source, paramsVars);
             } else {
                 throw e;
             }
@@ -656,7 +656,11 @@ class IfCommand implements Command {
 
     /** 校验条件是否成立 */
     private validate(vars: Vars, value = this.value): boolean {
-        return (new Function(`return ${this.engine.parseString(value, vars)}`))();
+        try {
+            return (new Function(`return ${this.engine.parseString(value, vars)}`))();
+        } catch (e) {
+            return false;
+        }
     }
 }
 

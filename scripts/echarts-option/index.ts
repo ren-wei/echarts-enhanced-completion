@@ -83,6 +83,10 @@ async function main() {
         text = await getOption('component/legend', lang);
         engine.parseSource(text);
         saveFile('component/legend', lang, engine.render('component-legend', initVars));
+
+        text = await getOption('component/grid', lang);
+        engine.parseSource(text);
+        saveFile('component/grid', lang, engine.render('component-grid', initVars));
     }
 }
 
