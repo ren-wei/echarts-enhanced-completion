@@ -1,0 +1,4182 @@
+# toolbox(Object)
+
+工具栏。内置有[导出图片](~toolbox.feature.saveAsImage)，[数据视图](~toolbox.feature.dataView)，[动态类型切换](~toolbox.feature.magicType)，[数据区域缩放](~toolbox.feature.dataZoom)，[重置](~toolbox.feature.reset)五个工具。
+
+**如下示例：**
+
+~[600x400](https://echarts.apache.org/examples/zh/view.html?c=line-marker&reset=1&edit=1)
+
+<ExampleBaseOption title="工具栏" title="toolbox" title-en="Toolbox">
+option = {
+    toolbox: {
+        show: true,
+        feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: {
+        type: 'value',
+        axisLabel: {
+            formatter: '{value} °C'
+        }
+    },
+    series: [
+        {
+            name: '最高气温',
+            type: 'line',
+            data: [11, 11, 15, 13, 12, 13, 10],
+            markPoint: {
+                data: [
+                    {type: 'max', name: 'Max'},
+                    {type: 'min', name: 'Min'}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: 'Avg'}
+                ]
+            }
+        },
+        {
+            name: '最低气温',
+            type: 'line',
+            data: [1, -2, 2, 5, 3, 2, 0],
+            markPoint: {
+                data: [
+                    {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                ]
+            },
+            markLine: {
+                data: [
+                    {type: 'average', name: 'Avg'},
+                    [{
+                        symbol: 'none',
+                        x: '90%',
+                        yAxis: 'max'
+                    }, {
+                        symbol: 'circle',
+                        label: {
+                            position: 'start',
+                            formatter: 'Max'
+                        },
+                        type: 'max',
+                        name: 'Top'
+                    }]
+                ]
+            }
+        }
+    ]
+};
+</ExampleBaseOption>
+
+
+
+## id(string)
+
+组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。
+
+
+
+## show(boolean) = true
+
+<ExampleUIControlBoolean />
+
+是否显示工具栏组件。
+
+## orient(string) = 'horizontal'
+
+<ExampleUIControlEnum options="vertical,horizontal" />
+
+工具栏 icon 的布局朝向。
+
+可选：
++ 'horizontal'
++ 'vertical'
+
+## itemSize(number) = 15
+
+<ExampleUIControlNumber min="0" default="15" />
+
+工具栏 icon 的大小。
+
+## itemGap(number) = 10
+
+<ExampleUIControlNumber min="0" default="10" />
+
+工具栏 icon 每项之间的间隔。横向布局时为水平间隔，纵向布局时为纵向间隔。
+
+## showTitle(boolean) = true
+
+<ExampleUIControlBoolean default="true" />
+
+是否在鼠标 hover 的时候显示每个工具 icon 的标题。
+
+## feature(Object)
+
+各工具配置项。
+
+除了各个内置的工具按钮外，还可以自定义工具按钮。
+
+注意，自定义的工具名字，只能以 `my` 开头，例如下例中的 `myTool1`，`myTool2`：
+
+```javascript
+{
+    toolbox: {
+        feature: {
+            myTool1: {
+                show: true,
+                title: '自定义扩展方法1',
+                icon: 'path://M432.45,595.444c0,2.177-4.661,6.82-11.305,6.82c-6.475,0-11.306-4.567-11.306-6.82s4.852-6.812,11.306-6.812C427.841,588.632,432.452,593.191,432.45,595.444L432.45,595.444z M421.155,589.876c-3.009,0-5.448,2.495-5.448,5.572s2.439,5.572,5.448,5.572c3.01,0,5.449-2.495,5.449-5.572C426.604,592.371,424.165,589.876,421.155,589.876L421.155,589.876z M421.146,591.891c-1.916,0-3.47,1.589-3.47,3.549c0,1.959,1.554,3.548,3.47,3.548s3.469-1.589,3.469-3.548C424.614,593.479,423.062,591.891,421.146,591.891L421.146,591.891zM421.146,591.891',
+                onclick: function (){
+                    alert('myToolHandler1')
+                }
+            },
+            myTool2: {
+                show: true,
+                title: '自定义扩展方法',
+                icon: 'image://http://echarts.baidu.com/images/favicon.png',
+                onclick: function (){
+                    alert('myToolHandler2')
+                }
+            }
+        }
+    }
+}
+```
+
+### saveAsImage(Object)
+
+保存为图片。
+
+#### type(string) = 'png'
+
+<ExampleUIControlEnum options="png,jpg" />
+
+保存的图片格式。
+
++ 如果 `renderer` 的类型在 [初始化图表](api.html#echarts.init) 时被设为 `'canvas'`（默认），则支持 `'png'`（默认）和 `'jpg'`；
++ 如果 `renderer` 的类型在 [初始化图表](api.html#echarts.init) 时被设为 `'svg'`，则 `type` 只支持 `'svg'`（`'svg'` 格式的图片从 `v4.8.0` 开始支持）。
+
+#### name(string)
+
+<ExampleUIControlText />
+
+保存的文件名称，默认使用 [title.text](~title.text) 作为名称。
+
+#### backgroundColor(Color) = 'auto'
+
+<ExampleUIControlColor />
+
+保存的图片背景色，默认使用 [backgroundColor](~backgroundColor)，如果`backgroundColor`不存在的话会取白色。
+
+#### connectedBackgroundColor(Color) = '#fff'
+
+<ExampleUIControlColor />
+
+如果图表使用了 [echarts.connect](api.html#echarts.connect) 对多个图表进行联动，则在导出图片时会导出这些联动的图表。该配置项决定了图表与图表之间间隙处的填充色。
+
+#### excludeComponents(Array) = ['toolbox']
+
+保存为图片时忽略的组件列表，默认忽略工具栏。
+
+
+
+#### show(boolean) = true
+
+是否显示该工具。
+
+#### title(boolean) = '保存为图片'
+
+#### icon(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+
+
+#### iconStyle(Object)
+
+保存为图片 icon 样式设置。由于 icon 的文本信息只在 icon hover 时候才显示，所以文字相关的配置项请在 `emphasis` 下设置。
+
+
+
+##### color(Color) = none
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+##### borderColor(Color) = #666
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+##### borderWidth(number) = 1
+
+<ExampleUIControlNumber value="1" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+##### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+##### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+##### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+##### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+##### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+##### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+#### emphasis(Object)
+
+##### iconStyle(Object)
+
+
+
+###### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+###### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+###### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+###### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+###### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+###### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+###### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+###### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+###### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+###### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+###### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+###### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+###### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+###### textPosition(string) = 'bottom'
+
+文本位置，`'left'` / `'right'` / `'top'` / `'bottom'`。
+
+###### textFill(string) = '#000'
+
+<ExampleUIControlColor />
+
+文本颜色，如果未设定，则依次取图标 emphasis 时候的填充色、描边色，如果都不存在，则为 `'#000'`。
+
+###### textAlign(string) = 'center'
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文本对齐方式，`'left'` / `'center'` / `'right'`。
+
+###### textBackgroundColor(string)
+
+<ExampleUIControlColor />
+
+文本区域填充色。
+
+###### textBorderRadius(number)
+
+<ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
+
+文本区域圆角大小。
+
+###### textPadding(number)
+
+<ExampleUIControlVector min="0" dims="T,R,B,L" />
+
+文本区域内边距。
+
+
+
+
+
+
+
+
+
+#### pixelRatio(number) = 1
+
+<ExampleUIControlNumber min="0.5" max="5" step="0.5" />
+
+保存图片的分辨率比例，默认跟容器相同大小，如果需要保存更高分辨率的，可以设置为大于 1 的值，例如 2。
+
+### restore(Object)
+
+配置项还原。
+
+
+
+#### show(boolean) = true
+
+是否显示该工具。
+
+#### title(boolean) = '还原'
+
+#### icon(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+
+
+#### iconStyle(Object)
+
+还原 icon 样式设置。由于 icon 的文本信息只在 icon hover 时候才显示，所以文字相关的配置项请在 `emphasis` 下设置。
+
+
+
+##### color(Color) = none
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+##### borderColor(Color) = #666
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+##### borderWidth(number) = 1
+
+<ExampleUIControlNumber value="1" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+##### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+##### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+##### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+##### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+##### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+##### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+#### emphasis(Object)
+
+##### iconStyle(Object)
+
+
+
+###### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+###### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+###### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+###### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+###### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+###### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+###### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+###### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+###### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+###### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+###### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+###### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+###### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+###### textPosition(string) = 'bottom'
+
+文本位置，`'left'` / `'right'` / `'top'` / `'bottom'`。
+
+###### textFill(string) = '#000'
+
+<ExampleUIControlColor />
+
+文本颜色，如果未设定，则依次取图标 emphasis 时候的填充色、描边色，如果都不存在，则为 `'#000'`。
+
+###### textAlign(string) = 'center'
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文本对齐方式，`'left'` / `'center'` / `'right'`。
+
+###### textBackgroundColor(string)
+
+<ExampleUIControlColor />
+
+文本区域填充色。
+
+###### textBorderRadius(number)
+
+<ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
+
+文本区域圆角大小。
+
+###### textPadding(number)
+
+<ExampleUIControlVector min="0" dims="T,R,B,L" />
+
+文本区域内边距。
+
+
+
+
+
+
+
+
+
+### dataView(Object)
+
+数据视图工具，可以展现当前图表所用的数据，编辑后可以动态更新。
+
+
+
+#### show(boolean) = true
+
+是否显示该工具。
+
+#### title(boolean) = '数据视图'
+
+#### icon(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+
+
+#### iconStyle(Object)
+
+数据视图 icon 样式设置。由于 icon 的文本信息只在 icon hover 时候才显示，所以文字相关的配置项请在 `emphasis` 下设置。
+
+
+
+##### color(Color) = none
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+##### borderColor(Color) = #666
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+##### borderWidth(number) = 1
+
+<ExampleUIControlNumber value="1" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+##### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+##### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+##### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+##### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+##### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+##### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+#### emphasis(Object)
+
+##### iconStyle(Object)
+
+
+
+###### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+###### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+###### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+###### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+###### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+###### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+###### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+###### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+###### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+###### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+###### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+###### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+###### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+###### textPosition(string) = 'bottom'
+
+文本位置，`'left'` / `'right'` / `'top'` / `'bottom'`。
+
+###### textFill(string) = '#000'
+
+<ExampleUIControlColor />
+
+文本颜色，如果未设定，则依次取图标 emphasis 时候的填充色、描边色，如果都不存在，则为 `'#000'`。
+
+###### textAlign(string) = 'center'
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文本对齐方式，`'left'` / `'center'` / `'right'`。
+
+###### textBackgroundColor(string)
+
+<ExampleUIControlColor />
+
+文本区域填充色。
+
+###### textBorderRadius(number)
+
+<ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
+
+文本区域圆角大小。
+
+###### textPadding(number)
+
+<ExampleUIControlVector min="0" dims="T,R,B,L" />
+
+文本区域内边距。
+
+
+
+
+
+
+
+
+
+#### readOnly(boolean) = false
+
+<ExampleUIControlBoolean />
+
+是否不可编辑（只读）。
+
+#### optionToContent(Function)
+
+```js
+(option:Object) => HTMLDomElement|string
+```
+
+自定义 dataView 展现函数，用以取代默认的 textarea 使用更丰富的数据编辑。可以返回 dom 对象或者 html 字符串。
+
+如下示例使用表格展现数据值：
+```js
+optionToContent: function(opt) {
+    var axisData = opt.xAxis[0].data;
+    var series = opt.series;
+    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+                 + '<td>时间</td>'
+                 + '<td>' + series[0].name + '</td>'
+                 + '<td>' + series[1].name + '</td>'
+                 + '</tr>';
+    for (var i = 0, l = axisData.length; i < l; i++) {
+        table += '<tr>'
+                 + '<td>' + axisData[i] + '</td>'
+                 + '<td>' + series[0].data[i] + '</td>'
+                 + '<td>' + series[1].data[i] + '</td>'
+                 + '</tr>';
+    }
+    table += '</tbody></table>';
+    return table;
+}
+```
+
+#### contentToOption(Function)
+
+```js
+(container:HTMLDomElement, option:Object) => Object
+```
+
+在使用 optionToContent 的情况下，如果支持数据编辑后的刷新，需要自行通过该函数实现组装 option 的逻辑。
+
+#### lang(Array) = ['数据视图', '关闭', '刷新']
+
+数据视图上有三个话术，默认是`['数据视图', '关闭', '刷新']`。
+
+#### backgroundColor(string) = '#fff'
+
+<ExampleUIControlColor default="#fff" />
+
+数据视图浮层背景色。
+
+#### textareaColor(string) = '#fff'
+
+<ExampleUIControlColor default="#fff" />
+
+数据视图浮层文本输入区背景色。
+
+#### textareaBorderColor(string) = '#333'
+
+<ExampleUIControlColor default="#333" />
+
+数据视图浮层文本输入区边框颜色。
+
+#### textColor(string) = '#000'
+
+<ExampleUIControlColor default="#000" />
+
+文本颜色。
+
+#### buttonColor(string) = '#c23531'
+
+<ExampleUIControlColor default="#c23531" />
+
+按钮颜色。
+
+#### buttonTextColor(string) = '#fff'
+
+<ExampleUIControlColor default="#fff" />
+
+按钮文本颜色。
+
+### dataZoom(Object)
+
+数据区域缩放。目前只支持直角坐标系的缩放。
+
+
+
+#### show(boolean) = true
+
+是否显示该工具。
+
+#### title(boolean) = '数据区域缩放'
+
+#### icon(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+
+
+#### iconStyle(Object)
+
+数据区域缩放 icon 样式设置。由于 icon 的文本信息只在 icon hover 时候才显示，所以文字相关的配置项请在 `emphasis` 下设置。
+
+
+
+##### color(Color) = none
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+##### borderColor(Color) = #666
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+##### borderWidth(number) = 1
+
+<ExampleUIControlNumber value="1" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+##### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+##### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+##### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+##### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+##### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+##### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+#### emphasis(Object)
+
+##### iconStyle(Object)
+
+
+
+###### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+###### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+###### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+###### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+###### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+###### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+###### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+###### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+###### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+###### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+###### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+###### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+###### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+###### textPosition(string) = 'bottom'
+
+文本位置，`'left'` / `'right'` / `'top'` / `'bottom'`。
+
+###### textFill(string) = '#000'
+
+<ExampleUIControlColor />
+
+文本颜色，如果未设定，则依次取图标 emphasis 时候的填充色、描边色，如果都不存在，则为 `'#000'`。
+
+###### textAlign(string) = 'center'
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文本对齐方式，`'left'` / `'center'` / `'right'`。
+
+###### textBackgroundColor(string)
+
+<ExampleUIControlColor />
+
+文本区域填充色。
+
+###### textBorderRadius(number)
+
+<ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
+
+文本区域圆角大小。
+
+###### textPadding(number)
+
+<ExampleUIControlVector min="0" dims="T,R,B,L" />
+
+文本区域内边距。
+
+
+
+
+
+
+
+
+
+#### filterMode(string) = 'filter'
+
+与 [dataZoom.filterMode](~dataZoom.filterMode) 含义和取值相同。
+
+#### xAxisIndex(number|Array|boolean)
+
+指定哪些 [xAxis](~xAxis) 被控制。如果缺省则控制所有的x轴。如果设置为 `false` 则不控制任何x轴。如果设置成 `3` 则控制 axisIndex 为 `3` 的x轴。如果设置为 `[0, 3]` 则控制 axisIndex 为 `0` 和 `3` 的x轴。
+
+#### yAxisIndex(number|Array|boolean)
+
+指定哪些 [yAxis](~yAxis) 被控制。如果缺省则控制所有的y轴。如果设置为 `false` 则不控制任何y轴。如果设置成 `3` 则控制 axisIndex 为 `3` 的y轴。如果设置为 `[0, 3]` 则控制 axisIndex 为 `0` 和 `3` 的y轴。
+
+#### icon(Object)
+
+缩放和还原的 icon path。
+
+##### zoom(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### back(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+#### title(Object)
+
+缩放和还原的标题文本。
+
+##### zoom(string) = '区域缩放'
+
+##### back(string) = '区域缩放还原'
+
+#### brushStyle(Object)
+
+刷选框样式
+
+
+
+##### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+##### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+##### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+##### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+##### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+##### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+##### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+##### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+##### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+### magicType(Object)
+
+动态类型切换
+**示例：**
+```js
+feature: {
+    magicType: {
+        type: ['line', 'bar', 'stack']
+    }
+}
+```
+
+#### show(boolean) = true
+
+是否显示该动态类型切换。
+
+#### type(Array)
+
+启用的动态类型，包括`'line'`（切换为折线图）, `'bar'`（切换为柱状图）, `'stack'`（切换为堆叠模式）。
+
+
+
+#### show(boolean) = true
+
+是否显示该工具。
+
+#### title(boolean) = '动态类型切换'
+
+#### icon(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+
+
+#### iconStyle(Object)
+
+动态类型切换 icon 样式设置。由于 icon 的文本信息只在 icon hover 时候才显示，所以文字相关的配置项请在 `emphasis` 下设置。
+
+
+
+##### color(Color) = none
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+##### borderColor(Color) = #666
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+##### borderWidth(number) = 1
+
+<ExampleUIControlNumber value="1" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+##### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+##### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+##### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+##### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+##### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+##### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+##### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+##### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+##### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+##### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+#### emphasis(Object)
+
+##### iconStyle(Object)
+
+
+
+###### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+###### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+###### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+###### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+###### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+###### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+###### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+###### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+###### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+###### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+###### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+###### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+###### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+###### textPosition(string) = 'bottom'
+
+文本位置，`'left'` / `'right'` / `'top'` / `'bottom'`。
+
+###### textFill(string) = '#000'
+
+<ExampleUIControlColor />
+
+文本颜色，如果未设定，则依次取图标 emphasis 时候的填充色、描边色，如果都不存在，则为 `'#000'`。
+
+###### textAlign(string) = 'center'
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文本对齐方式，`'left'` / `'center'` / `'right'`。
+
+###### textBackgroundColor(string)
+
+<ExampleUIControlColor />
+
+文本区域填充色。
+
+###### textBorderRadius(number)
+
+<ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
+
+文本区域圆角大小。
+
+###### textPadding(number)
+
+<ExampleUIControlVector min="0" dims="T,R,B,L" />
+
+文本区域内边距。
+
+
+
+
+
+
+
+
+
+#### icon(Object)
+
+各个类型的 icon path，可以分别配置。
+
+##### line(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### bar(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### stack(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+#### title(Object)
+
+各个类型的标题文本，可以分别配置。
+
+##### line(string) = '切换为折线图'
+
+##### bar(string) = '切换为柱状图'
+
+##### stack(string) = '切换为堆叠'
+
+##### tiled(string) = '切换为平铺'
+
+#### option(Object)
+
+各个类型的专有配置项。在切换到某类型的时候会合并相应的配置项。
+
+##### line(Object)
+
+##### bar(Object)
+
+##### stack(Object)
+
+#### seriesIndex(Object)
+
+各个类型对应的系列的列表。
+
+##### line(Array)
+
+##### bar(Array)
+
+### brush(Object)
+
+选框组件的控制按钮。
+
+也可以不在这里指定，而是在 [brush.toolbox](~brush.toolbox) 中指定。
+
+#### type(Array)
+
+使用的按钮，取值：
+
++ `'rect'`：开启矩形选框选择功能。
++ `'polygon'`：开启任意形状选框选择功能。
++ `'lineX'`：开启横向选择功能。
++ `'lineY'`：开启纵向选择功能。
++ `'keep'`：切换『单选』和『多选』模式。后者可支持同时画多个选框。前者支持单击清除所有选框。
++ `'clear'`：清空所有选框。
+
+#### icon(Object)
+
+每个按钮的 icon path。
+
+##### rect(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### polygon(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### lineX(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### lineY(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### keep(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+##### clear(string)
+
+
+
+可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。
+
+URL 为图片链接例如：
+```
+'image://http://xxx.xxx.xxx/a/b.png'
+```
+
+URL 为 `dataURI` 例如：
+```
+'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
+```
+
+
+
+可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。
+
+例如：
+```
+'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'
+```
+
+
+
+
+
+
+
+#### title(Object)
+
+标题文本。
+
+##### rect(string) = '矩形选择'
+
+##### polygon(string) = '圈选'
+
+##### lineX(string) = '横向选择'
+
+##### lineY(string) = '纵向选择'
+
+##### keep(string) = '保持选择'
+
+##### clear(string) = '清除选择'
+
+
+
+## iconStyle(Object)
+
+公用的 icon 样式设置。由于 icon 的文本信息只在 icon hover 时候才显示，所以文字相关的配置项请在 `emphasis` 下设置。
+
+
+
+### color(Color) = none
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+### borderColor(Color) = #666
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+### borderWidth(number) = 1
+
+<ExampleUIControlNumber value="1" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+## emphasis(Object)
+
+### iconStyle(Object)
+
+
+
+#### color(Color) = 自适应
+
+<ExampleUIControlColor />
+
+图形的颜色。
+
+
+
+> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)
+
+
+
+#### borderColor(Color) = '#000'
+
+<ExampleUIControlColor />
+
+图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。
+
+#### borderWidth(number) = 0
+
+<ExampleUIControlNumber value="0" min="0" step="0.5" />
+
+(${name} ? ${name} : "") + "描边线宽。为 0 时无描边。"
+
+
+
+
+#### borderType(string|number|Array) = 'solid'
+
+
+
+<ExampleUIControlEnum default="solid" options="solid,dashed,dotted" />
+
+
+描边类型。
+
+
+
+可选：
++ `'solid'`
++ `'dashed'`
++ `'dotted'`
+
+自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合 
+`borderDashOffset`
+ 可实现更灵活的虚线效果。
+
+例如：
+```js
+{
+
+borderType: [5, 10],
+
+borderDashOffset: 5
+}
+```
+
+
+#### borderDashOffset(number) = 0
+
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="0" />
+
+用于设置虚线的偏移量，可搭配 
+`borderType`
+ 指定 dash array 实现灵活的虚线效果。
+
+更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。
+
+
+
+#### borderCap(string) = butt
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="butt" options="butt,round,square" />
+
+用于指定线段末端的绘制方式，可以是：
++ `'butt'`: 线段末端以方形结束。
++ `'round'`: 线段末端以圆形结束。
++ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+
+默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。
+
+
+
+
+#### borderJoin(string) = bevel
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlEnum default="bevel" options="bevel,round,miter" />
+
+用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。
+
+可以是：
++ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
++ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
++ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 
+`borderMiterLimit`
+ 属性看到效果。
+
+默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。
+
+
+
+
+#### borderMiterLimit(number) = 10
+
+
+
+
+> 从 `v5.0.0` 开始支持
+
+
+
+<ExampleUIControlNumber min="0" step="1" default="10" />
+
+用于设置斜接面限制比例。只有当 
+`borderJoin`
+ 为 `miter` 时，
+`borderMiterLimit`
+ 才有效。
+
+默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。
+
+更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。
+
+
+
+
+
+
+
+
+#### shadowBlur(number) = 
+
+<ExampleUIControlNumber default="" min="0" step="0.5" />
+
+图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。
+
+示例：
+```js
+{
+    shadowColor: 'rgba(0, 0, 0, 0.5)',
+    shadowBlur: 10
+}
+```
+
+
+
+#### shadowColor(Color) = 
+
+<ExampleUIControlColor default="" />
+
+阴影颜色。支持的格式同`color`。
+
+
+
+#### shadowOffsetX(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影水平方向上的偏移距离。
+
+
+
+#### shadowOffsetY(number) = 0
+
+<ExampleUIControlNumber default="0" step="0.5" />
+
+阴影垂直方向上的偏移距离。
+
+
+
+
+
+
+
+
+
+#### opacity(number) = 1
+
+<ExampleUIControlNumber default="1" min="0" max="1" step="0.01" />
+
+图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+
+
+
+
+
+
+
+
+
+
+
+#### textPosition(string) = 'bottom'
+
+文本位置，`'left'` / `'right'` / `'top'` / `'bottom'`。
+
+#### textFill(string) = '#000'
+
+<ExampleUIControlColor />
+
+文本颜色，如果未设定，则依次取图标 emphasis 时候的填充色、描边色，如果都不存在，则为 `'#000'`。
+
+#### textAlign(string) = 'center'
+
+<ExampleUIControlEnum options="left,center,right" />
+
+文本对齐方式，`'left'` / `'center'` / `'right'`。
+
+#### textBackgroundColor(string)
+
+<ExampleUIControlColor />
+
+文本区域填充色。
+
+#### textBorderRadius(number)
+
+<ExampleUIControlVector min="0" dims="LT,RT,RB,LB"  />
+
+文本区域圆角大小。
+
+#### textPadding(number)
+
+<ExampleUIControlVector min="0" dims="T,R,B,L" />
+
+文本区域内边距。
+
+
+
+
+
+
+
+
+
+
+
+
+## zlevel(number) = 0
+
+所有图形的 zlevel 值。
+
+`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。
+
+`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。
+
+## z(number) = 2
+
+组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。
+
+`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。
+
+
+
+
+## left(string|number) = 'auto'
+
+<ExampleUIControlPercent default="0%"/>
+
+工具栏组件离容器左侧的距离。
+
+`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'left'`, `'center'`, `'right'`。
+
+如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。
+
+## top(string|number) = 'auto'
+
+<ExampleUIControlPercent default="0%"/>
+
+工具栏组件离容器上侧的距离。
+
+`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。
+
+如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。
+
+## right(string|number) = 'auto'
+
+<ExampleUIControlPercent default="0%"/>
+
+工具栏组件离容器右侧的距离。
+
+`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。
+
+默认自适应。
+
+## bottom(string|number) = 'auto'
+
+<ExampleUIControlPercent default="0%"/>
+
+工具栏组件离容器下侧的距离。
+
+bottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。
+
+默认自适应。
+
+
+
+## width(string|number) = 'auto'
+
+<ExampleUIControlPercent default="50%"/>
+
+工具栏组件的宽度。默认自适应。
+
+## height(string|number) = 'auto'
+
+<ExampleUIControlPercent default="50%"/>
+
+工具栏组件的高度。默认自适应。
+
+
+
+## tooltip(Object)
+
+工具箱的 tooltip 配置，配置项同 [tooltip](~tooltip)。默认不显示，可以在需要特殊定制文字样式（尤其是想用自定义 CSS 控制文字样式）的时候开启 tooltip，如下示例：
+
+```js
+option = {
+    tooltip: {
+        show: true // 必须引入 tooltip 组件
+    },
+    toolbox: {
+        show: true,
+        showTitle: false, // 隐藏默认文字，否则两者位置会重叠
+        feature: {
+            saveAsImage: {
+                show: true,
+                title: 'Save As Image'
+            },
+            dataView: {
+                show: true,
+                title: 'Data View'
+            },
+        },
+        tooltip: { // 和 option.tooltip 的配置项相同
+            show: true,
+            formatter: function (param) {
+                return return '<div>' + param.title + '</div>'; // 自定义的 DOM 结构
+            },
+            backgroundColor: '#222',
+            textStyle: {
+                fontSize: 12,
+            },
+            extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);' // 自定义的 CSS 样式
+        }
+    },
+    ...
+}
+```

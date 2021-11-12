@@ -66,27 +66,105 @@ async function main() {
         'z-zlevel',
         'zr-graphic',
     ];
+
+    const components = [
+        'axis-common',
+        'angle-axis',
+        'aria',
+        'axisPointer',
+        'brush',
+        'calendar',
+        'data-transform-external',
+        'data-transform-filter',
+        'data-transform-sort',
+        'data-zoom-inside',
+        'data-zoom-slider',
+        'data-zoom',
+        'dataset',
+        'geo-common',
+        'geo',
+        'graphic',
+        'grid',
+        'legend',
+        'parallel-axis',
+        'parallel',
+        'polar',
+        'radar',
+        'radius-axis',
+        'single-axis',
+        'timeline',
+        'title',
+        'toolbox',
+        'tooltip',
+        'visual-map-continuous',
+        'visual-map-piecewise',
+        'visual-map',
+        'x-axis',
+        'y-axis',
+    ];
+
+    const series = [
+        'bar',
+        'boxplot',
+        'candlestick',
+        'custom',
+        'effectScatter',
+        'funnel',
+        'gauge',
+        'graph',
+        'heatmap',
+        'line',
+        'lines',
+        'map',
+        'parallel',
+        'pictorialBar',
+        'pie',
+        'radar',
+        'sankey',
+        'scatter',
+        'series',
+        'sunburst',
+        'themeRiver',
+        'tree',
+        'treemap',
+    ];
+
     for (const lang of ['zh']) {
         const initVars = {
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
         const engine = new Engine();
+
+        // 编译所有模板
         for (const name of partials) {
             const text = await getOption('partial/' + name, lang);
             engine.parseSource(text);
         }
 
-        let text = await getOption('component/title', lang);
-        engine.parseSource(text);
-        saveFile('component/title', lang, engine.render('component-title', initVars));
+        for (const name of components) {
+            const text = await getOption('component/' + name, lang);
+            engine.parseSource(text);
+        }
 
-        text = await getOption('component/legend', lang);
-        engine.parseSource(text);
-        saveFile('component/legend', lang, engine.render('component-legend', initVars));
+        for (const name of series) {
+            const text = await getOption('series/' + name, lang);
+            engine.parseSource(text);
+        }
 
-        text = await getOption('component/grid', lang);
-        engine.parseSource(text);
-        saveFile('component/grid', lang, engine.render('component-grid', initVars));
+        // 获取所有选项
+        const targetNames = Object.keys(engine.targets);
+
+        for (const name of components) {
+            if (targetNames.includes('component-' + name)) {
+                saveFile('component/' + name, lang, engine.render('component-' + name, initVars));
+            }
+        }
+
+        for (const name of series) {
+            if (targetNames.includes('series-' + name)) {
+                saveFile('component/series-' + name, lang, engine.render('series-' + name, initVars));
+            }
+        }
     }
 }
 
