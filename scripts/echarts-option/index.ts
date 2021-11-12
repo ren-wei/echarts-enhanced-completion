@@ -165,6 +165,9 @@ async function main() {
                 saveFile('component/series-' + name, lang, engine.render('series-' + name, initVars));
             }
         }
+
+        // 解析markdown文件中的标签，并将所有选项转换为树形结构
+        transformToTree(engine.render('component-title', initVars));
     }
 }
 
@@ -183,6 +186,71 @@ async function getOption(name: string, lang: string) : Promise<string> {
 /** 保存文件到资源文件夹 */
 function saveFile(name: string, lang: string, data: string) {
     fs.writeFileSync(path.resolve(__dirname, `./assets/${lang}/${name}.md`), data);
+}
+
+/**
+ * 解析markdown文件中的标签，并将Markdown文本转换为树形结构的对象
+ * @param source Markdown文本
+ */
+function transformToTree(source: string): TreeNode | null {
+    const lines = source.split('\n');
+    let tree: TreeNode | null = null;
+    let prevNode: TreeNode | null = null;
+    for (let i = 0; i < lines.length; i++) {
+        const text = lines[i].trim();
+        // 如果符合标题的条件，那么将其视为一个节点
+        const match = /^(#+)\s(\w+)\((\w+(?:\|\w+)*)\)(?:\s=\s(.*))?$/.exec(text);
+        if (match) {
+            // TODO: 解析 prevNode.desc 的 markdown 文本中的标签
+
+            // 获取当前节点
+            const node: TreeNode = {
+                level: match[1].length,
+                name: match[2],
+                type: match[3].includes('|') ? match[3].split('!') : match[3],
+                desc: '',
+                children: [],
+                parent: null,
+            };
+            if (prevNode) {
+                // 如果是下一个层级，则将当前节点作为上一个节点的子节点
+                if (node.level > prevNode.level) {
+                    prevNode.children.push(node);
+                    node.parent = prevNode;
+                } else {
+                    // 向上找出父节点
+                    let parentNode = prevNode.parent;
+                    while ((parentNode as TreeNode).level >= node.level) {
+                        parentNode = (parentNode as TreeNode).parent;
+                    }
+                    parentNode?.children.push(node);
+                    node.parent = parentNode;
+                }
+            } else {
+                // 上一个节点不存在，则当前节点作为树的主节点
+                tree = node;
+            }
+            prevNode = node;
+        } else if (prevNode) {
+            prevNode.desc += text + '\n';
+        }
+    }
+    return tree;
+}
+
+interface TreeNode {
+    level: number; // 节点层级
+    name: string; // 属性名称
+    type: string | string[]; // 值类型
+    desc: string; // 属性的 Markdown 文档
+    default?: string; // 默认值
+    options?: string; // 可选项
+    min?: string; // 允许的最小值
+    max?: string; // 允许的最大值
+    step?: string; // 有效的步进
+    dims?: string; // 向量类型的格式
+    children: TreeNode[]; // 子节点
+    parent: TreeNode | null; // 父节点
 }
 
 main();
