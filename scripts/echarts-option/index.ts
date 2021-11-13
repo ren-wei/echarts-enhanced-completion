@@ -167,7 +167,7 @@ async function main() {
         }
 
         // 解析markdown文件中的标签，并将所有选项转换为树形结构
-        transformToTree(engine.render('component-title', initVars));
+        transformToTree(engine.render('series-pie', initVars));
     }
 }
 
@@ -199,15 +199,124 @@ function transformToTree(source: string): TreeNode | null {
     for (let i = 0; i < lines.length; i++) {
         const text = lines[i].trim();
         // 如果符合标题的条件，那么将其视为一个节点
-        const match = /^(#+)\s(\w+)\((\w+(?:\|\w+)*)\)(?:\s=\s(.*))?$/.exec(text);
+        const match = /^(#+)\s([\w\.]+)\((\w+(?:\|\w+)*)\)(?:\s=(?:\s(.*)))?$/.exec(text);
         if (match) {
-            // TODO: 解析 prevNode.desc 的 markdown 文本中的标签
+            if (prevNode) {
+                // 解析 prevNode.desc 的 markdown 文本中的标签
+                // 删除 ExampleBaseOption
+                prevNode.desc = prevNode.desc.replace(/<ExampleBaseOption[^>]*>[^<]*<\/ExampleBaseOption>/g, '');
+                // 解析 ControlBoolean: 如果没有默认值那么设置此默认值
+                let r = /<ExampleUIControlBoolean\s(?:default="([^"]*)")?\s?\/>/;
+                let m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                if (!prevNode.default && m && m[1]) {
+                    prevNode.default = m[1];
+                }
+                // 解析 ControlColor: 如果没有默认值那么设置此默认值，如果默认值是以#开头，那么需要在前后添加引号
+                r = /<ExampleUIControlColor\s(?:default="([^"]*)")?\s?\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                if (prevNode.default) {
+                    if (prevNode.default[0] === '#') {
+                        prevNode.default = "'" + prevNode.default + "'";
+                    }
+                } else if (m && m[1]) {
+                    prevNode.default = m[1][0] === '#' ? "'" + m[1] + "'" : m[1];
+                }
+                // 解析 ControlEnum: 获取可选项
+                r = /<ExampleUIControlEnum\s(?:[^\/]*)(?:options="([^"]*)")(?:[^\/]*)\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                if (m && m[1]) {
+                    prevNode.options = m[1].split(',').map(v => `'${v}'`).join(',');
+                }
+                // 解析 ControlIcon: 直接删除
+                r = /<ExampleUIControlIcon[^\/]*\/>/;
+                prevNode.desc = prevNode.desc.replace(r, '');
+                // 解析 ControlNumber: 获取默认值、最大值、最小值和步进
+                r = /<ExampleUIControlNumber\s([^\/]*)\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                if (m && m[1]) {
+                    m[1].split(' ').filter(Boolean).forEach(item => {
+                        if (prevNode) {
+                            const [k, v] = item.split('=');
+                            switch (k) {
+                                case 'default':
+                                    if (!prevNode.default) {
+                                        // eslint-disable-next-line no-eval
+                                        prevNode.default = String(eval(v));
+                                    }
+                                    break;
+                                case 'min':
+                                    // eslint-disable-next-line no-eval
+                                    prevNode.min = String(eval(v));
+                                    break;
+                                case 'max':
+                                    // eslint-disable-next-line no-eval
+                                    prevNode.max = String(eval(v));
+                                    break;
+                                case 'step':
+                                    // eslint-disable-next-line no-eval
+                                    prevNode.step = String(eval(v));
+                                    break;
+                            }
+                        }
+                    });
+                }
+                // 解析 ControlPercent: 类型改为 percent，默认值最后一位如果是%，那么需要在前后添加引号
+                r = /<ExampleUIControlPercent\s([^\/]*)\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                if (m) {
+                    prevNode.type = 'percent';
+                    if (m[1]) {
+                        m[1].split(' ').filter(Boolean).forEach(item => {
+                            if (prevNode) {
+                                const [k, v] = item.split('=');
+                                switch (k) {
+                                    case 'default':
+                                        if (!prevNode.default) {
+                                            prevNode.default = v;
+                                        }
+                                        break;
+                                    case 'min':
+                                        prevNode.min = v;
+                                        break;
+                                    case 'max':
+                                        prevNode.max = v;
+                                        break;
+                                    case 'step':
+                                        prevNode.step = v;
+                                        break;
+                                }
+                            }
+                        });
+                    }
+                }
+                // TODO: 解析 ControlPercentVector: 类型改为 vector
+                r = /<ExampleUIControlPercentVector\s([^\/]*)\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                // 解析 ControlText: 类型改为text
+                r = /<ExampleUIControlText\s([^\/]*)\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+                if (m) {
+                    prevNode.type = 'text';
+                }
+                // TODO: 解析 ControlVector: 类型改为 vector
+                r = /<ExampleUIControlVector\s([^\/]*)\/>/;
+                m = r.exec(prevNode.desc);
+                prevNode.desc = prevNode.desc.replace(r, '');
+            }
 
             // 获取当前节点
             const node: TreeNode = {
                 level: match[1].length,
                 name: match[2],
                 type: match[3].includes('|') ? match[3].split('!') : match[3],
+                default: match[4],
                 desc: '',
                 children: [],
                 parent: null,
