@@ -167,7 +167,8 @@ async function main() {
         }
 
         // 解析markdown文件中的标签，并将所有选项转换为树形结构
-        transformToTree(engine.render('series-pie', initVars));
+        const tree = transformToTree(engine.render('component-title', initVars));
+        fs.writeFileSync(path.resolve(__dirname, './title.json'), treeToString(tree as TreeNode));
     }
 }
 
@@ -205,110 +206,16 @@ function transformToTree(source: string): TreeNode | null {
                 // 解析 prevNode.desc 的 markdown 文本中的标签
                 // 删除 ExampleBaseOption
                 prevNode.desc = prevNode.desc.replace(/<ExampleBaseOption[^>]*>[^<]*<\/ExampleBaseOption>/g, '');
-                // 解析 ControlBoolean: 如果没有默认值那么设置此默认值
-                let r = /<ExampleUIControlBoolean\s(?:default="([^"]*)")?\s?\/>/;
-                let m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                if (!prevNode.default && m && m[1]) {
-                    prevNode.default = m[1];
-                }
-                // 解析 ControlColor: 如果没有默认值那么设置此默认值，如果默认值是以#开头，那么需要在前后添加引号
-                r = /<ExampleUIControlColor\s(?:default="([^"]*)")?\s?\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                if (prevNode.default) {
-                    if (prevNode.default[0] === '#') {
-                        prevNode.default = "'" + prevNode.default + "'";
-                    }
-                } else if (m && m[1]) {
-                    prevNode.default = m[1][0] === '#' ? "'" + m[1] + "'" : m[1];
-                }
-                // 解析 ControlEnum: 获取可选项
-                r = /<ExampleUIControlEnum\s(?:[^\/]*)(?:options="([^"]*)")(?:[^\/]*)\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                if (m && m[1]) {
-                    prevNode.options = m[1].split(',').map(v => `'${v}'`).join(',');
-                }
-                // 解析 ControlIcon: 直接删除
-                r = /<ExampleUIControlIcon[^\/]*\/>/;
-                prevNode.desc = prevNode.desc.replace(r, '');
-                // 解析 ControlNumber: 获取默认值、最大值、最小值和步进
-                r = /<ExampleUIControlNumber\s([^\/]*)\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                if (m && m[1]) {
-                    m[1].split(' ').filter(Boolean).forEach(item => {
-                        if (prevNode) {
-                            const [k, v] = item.split('=');
-                            switch (k) {
-                                case 'default':
-                                    if (!prevNode.default) {
-                                        // eslint-disable-next-line no-eval
-                                        prevNode.default = String(eval(v));
-                                    }
-                                    break;
-                                case 'min':
-                                    // eslint-disable-next-line no-eval
-                                    prevNode.min = String(eval(v));
-                                    break;
-                                case 'max':
-                                    // eslint-disable-next-line no-eval
-                                    prevNode.max = String(eval(v));
-                                    break;
-                                case 'step':
-                                    // eslint-disable-next-line no-eval
-                                    prevNode.step = String(eval(v));
-                                    break;
-                            }
-                        }
-                    });
-                }
-                // 解析 ControlPercent: 类型改为 percent，默认值最后一位如果是%，那么需要在前后添加引号
-                r = /<ExampleUIControlPercent\s([^\/]*)\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                if (m) {
-                    prevNode.type = 'percent';
-                    if (m[1]) {
-                        m[1].split(' ').filter(Boolean).forEach(item => {
-                            if (prevNode) {
-                                const [k, v] = item.split('=');
-                                switch (k) {
-                                    case 'default':
-                                        if (!prevNode.default) {
-                                            prevNode.default = v;
-                                        }
-                                        break;
-                                    case 'min':
-                                        prevNode.min = v;
-                                        break;
-                                    case 'max':
-                                        prevNode.max = v;
-                                        break;
-                                    case 'step':
-                                        prevNode.step = v;
-                                        break;
-                                }
-                            }
-                        });
-                    }
-                }
-                // TODO: 解析 ControlPercentVector: 类型改为 vector
-                r = /<ExampleUIControlPercentVector\s([^\/]*)\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                // 解析 ControlText: 类型改为text
-                r = /<ExampleUIControlText\s([^\/]*)\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
-                if (m) {
-                    prevNode.type = 'text';
-                }
-                // TODO: 解析 ControlVector: 类型改为 vector
-                r = /<ExampleUIControlVector\s([^\/]*)\/>/;
-                m = r.exec(prevNode.desc);
-                prevNode.desc = prevNode.desc.replace(r, '');
+                parseUIControl(prevNode, 'ExampleUIControlBoolean');
+                parseUIControl(prevNode, 'ExampleUIControlColor', 'color', (v: string) => v[0] === '#' ? `'${v}'` : v);
+                parseUIControl(prevNode, 'ExampleUIControlEnum', 'enum', (v: string) => v.split(',').map(item => `'${item}'`).join(','));
+                parseUIControl(prevNode, 'ExampleUIControlIcon');
+                // eslint-disable-next-line no-eval
+                parseUIControl(prevNode, 'ExampleUIControlNumber', 'number', (v: string) => v);
+                parseUIControl(prevNode, 'ExampleUIControlPercent', 'percent');
+                parseUIControl(prevNode, 'ExampleUIControlPercentVector', 'percentvector');
+                parseUIControl(prevNode, 'ExampleUIControlText', 'text');
+                parseUIControl(prevNode, 'ExampleUIControlVector', 'vector');
             }
 
             // 获取当前节点
@@ -347,6 +254,55 @@ function transformToTree(source: string): TreeNode | null {
     return tree;
 }
 
+/**
+ * 解析节点的 desc 中的 UIControl 标签
+ * @param node 需要根据解析的值调整的节点
+ * @param name 标签名称
+ * @param type 重置节点的类型
+ * @param handler 处理值的回调
+ */
+function parseUIControl(node: TreeNode, name: string, type: string = '', handler: Function | null = null) {
+    let r = new RegExp('<' + name + '\\s([^\\/]*)\\/>');
+    const m = r.exec(node.desc);
+    node.desc = node.desc.replace(r, '');
+    if (m) {
+        if (type) {
+            node.type = type;
+        }
+        if (m[1]) {
+            r = /(\w*)="([^"]*)"/g;
+            let reg: RegExpExecArray | null;
+            while (reg = r.exec(m[1])) {
+                const k = reg[1];
+                const v = reg[2];
+                switch (k) {
+                    case 'default':
+                        if (node.default) {
+                            node.default = handler ? handler(node.default) : node.default;
+                        } else {
+                            node.default = handler ? handler(v) : v;
+                        }
+                        break;
+                    case 'min':
+                        node.min = handler ? handler(v) : v;
+                        break;
+                    case 'max':
+                        node.max = handler ? handler(v) : v;
+                        break;
+                    case 'step':
+                        node.step = handler ? handler(v) : v;
+                        break;
+                    case 'dims':
+                        node.dims = handler ? handler(v) : v;
+                        break;
+                    case 'options':
+                        node.options = handler ? handler(v) : v;
+                }
+            }
+        }
+    }
+}
+
 interface TreeNode {
     level: number; // 节点层级
     name: string; // 属性名称
@@ -360,6 +316,18 @@ interface TreeNode {
     dims?: string; // 向量类型的格式
     children: TreeNode[]; // 子节点
     parent: TreeNode | null; // 父节点
+}
+
+function treeToString(tree: TreeNode): string {
+    const dealTree = (t: TreeNode) => {
+        // @ts-ignore
+        t.parent = undefined;
+        // @ts-ignore
+        t.level = undefined;
+        t.children.forEach(v => dealTree(v));
+    };
+    dealTree(tree);
+    return JSON.stringify(tree, null, 4);
 }
 
 main();
