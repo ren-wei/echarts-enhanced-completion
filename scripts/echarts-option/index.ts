@@ -154,21 +154,16 @@ async function main() {
         // 获取所有选项
         const targetNames = Object.keys(engine.targets);
 
+        // 保存结果
         for (const name of components) {
             if (targetNames.includes('component-' + name)) {
-                saveFile('component/' + name, lang, engine.render('component-' + name, initVars));
+                // 解析markdown文件中的标签，并将所有选项转换为树形结构
+                const tree = transformToTree(engine.render('component-' + name, initVars));
+                // 将树形结构转换为扁平结构
+                const descMsg = flatTree(tree as TreeNode);
+                saveFile(name, lang, JSON.stringify(descMsg, null, 4));
             }
         }
-
-        for (const name of series) {
-            if (targetNames.includes('series-' + name)) {
-                saveFile('component/series-' + name, lang, engine.render('series-' + name, initVars));
-            }
-        }
-
-        // 解析markdown文件中的标签，并将所有选项转换为树形结构
-        const tree = transformToTree(engine.render('component-title', initVars));
-        fs.writeFileSync(path.resolve(__dirname, './title.json'), treeToString(tree as TreeNode));
     }
 }
 
@@ -186,7 +181,7 @@ async function getOption(name: string, lang: string) : Promise<string> {
 
 /** 保存文件到资源文件夹 */
 function saveFile(name: string, lang: string, data: string) {
-    fs.writeFileSync(path.resolve(__dirname, `./assets/${lang}/${name}.md`), data);
+    fs.writeFileSync(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), data);
 }
 
 /**
@@ -200,8 +195,8 @@ function transformToTree(source: string): TreeNode | null {
     for (let i = 0; i < lines.length; i++) {
         const text = lines[i].trim();
         // 如果符合标题的条件，那么将其视为一个节点
-        const match = /^(#+)\s([\w\.]+)\((\w+(?:\|\w+)*)\)(?:\s=(?:\s(.*)))?$/.exec(text);
-        if (match) {
+        const match = /^(#+)\s(<?[\w\.\:]+>?)\(([^\)]*)\)(?:\s=(?:\s(.*))?)?$/.exec(text);
+        if (match || i === lines.length - 1) {
             if (prevNode) {
                 // 解析 prevNode.desc 的 markdown 文本中的标签
                 // 删除 ExampleBaseOption
@@ -219,34 +214,36 @@ function transformToTree(source: string): TreeNode | null {
             }
 
             // 获取当前节点
-            const node: TreeNode = {
-                level: match[1].length,
-                name: match[2],
-                type: match[3].includes('|') ? match[3].split('!') : match[3],
-                default: match[4],
-                desc: '',
-                children: [],
-                parent: null,
-            };
-            if (prevNode) {
+            if (match) {
+                const node: TreeNode = {
+                    level: match[1].length,
+                    name: match[2],
+                    type: match[3].includes('|') ? match[3].split('!') : match[3],
+                    default: match[4],
+                    desc: '',
+                    children: [],
+                    parent: null,
+                };
+                if (prevNode) {
                 // 如果是下一个层级，则将当前节点作为上一个节点的子节点
-                if (node.level > prevNode.level) {
-                    prevNode.children.push(node);
-                    node.parent = prevNode;
-                } else {
+                    if (node.level > prevNode.level) {
+                        prevNode.children.push(node);
+                        node.parent = prevNode;
+                    } else {
                     // 向上找出父节点
-                    let parentNode = prevNode.parent;
-                    while ((parentNode as TreeNode).level >= node.level) {
-                        parentNode = (parentNode as TreeNode).parent;
+                        let parentNode = prevNode.parent;
+                        while (parentNode && parentNode.level >= node.level) {
+                            parentNode = (parentNode as TreeNode).parent;
+                        }
+                        parentNode?.children.push(node);
+                        node.parent = parentNode;
                     }
-                    parentNode?.children.push(node);
-                    node.parent = parentNode;
-                }
-            } else {
+                } else {
                 // 上一个节点不存在，则当前节点作为树的主节点
-                tree = node;
+                    tree = node;
+                }
+                prevNode = node;
             }
-            prevNode = node;
         } else if (prevNode) {
             prevNode.desc += text + '\n';
         }
@@ -264,7 +261,8 @@ function transformToTree(source: string): TreeNode | null {
 function parseUIControl(node: TreeNode, name: string, type: string = '', handler: Function | null = null) {
     let r = new RegExp('<' + name + '\\s([^\\/]*)\\/>');
     const m = r.exec(node.desc);
-    node.desc = node.desc.replace(r, '');
+    // TODO: 未来需要删除前后空格
+    node.desc = ' ' + node.desc.replace(r, '').trim() + ' ';
     if (m) {
         if (type) {
             node.type = type;
@@ -328,6 +326,30 @@ function treeToString(tree: TreeNode): string {
     };
     dealTree(tree);
     return JSON.stringify(tree, null, 4);
+}
+
+function flatTree(tree: TreeNode, parentName: string = ''): Object {
+    let result: {[key: string]: Object} = {};
+    tree.children.forEach(item => {
+        const key = parentName + item.name;
+        result[key] = {
+            desc: item.desc,
+            uiControl: {
+                default: item.default,
+                type: item.type,
+                min: item.min,
+                max: item.max,
+                step: item.step,
+                options: item.options,
+                dims: item.dims,
+            },
+        };
+        result = {
+            ...result,
+            ...flatTree(item, key + '.'),
+        };
+    });
+    return result;
 }
 
 main();
