@@ -417,10 +417,6 @@ export abstract class Command {
 
     /** 获取生成的代码 */
     public abstract getRendererBody(vars: Vars): string;
-
-    // TODO: 考虑是否删除此方法
-    /** 复制节点 */
-    public abstract clone?(): Command;
 }
 
 export type CommandType = Function; // Command的子类
@@ -659,7 +655,12 @@ class IfCommand implements Command {
         try {
             return (new Function(`return ${this.engine.parseString(value, vars)}`))();
         } catch (e) {
-            return false;
+            // TODO: 对于这种模式，暂时不清楚其含义
+            if (value.includes('${extra}.hasOwnProperty(${name})')) {
+                return false;
+            }
+            // eslint-disable-next-line no-eval
+            return eval(this.engine.compileVariable(value, vars));
         }
     }
 }
