@@ -561,7 +561,7 @@ class UseCommand implements Command {
                 // eslint-disable-next-line no-eval
                 const value = eval(v);
                 if (typeof value === 'string') {
-                    newVars[k] = "'" + value.replace(/'/g, "\\'") + "'";
+                    newVars[k] = "'" + value.replace(/(?:=\\)'/g, "\\'") + "'";
                 } else {
                     newVars[k] = String(value);
                 }
