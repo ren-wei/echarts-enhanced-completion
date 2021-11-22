@@ -151,19 +151,50 @@ async function main() {
             engine.parseSource(text);
         }
 
+        const text = await getOption('option', lang);
+        engine.parseSource(text);
+
         // 获取所有选项
         const targetNames = Object.keys(engine.targets);
 
         // 保存结果
+        // index
+        const indexTree: TreeNode = transformToTree(engine.render('option', initVars), {
+            level: 0,
+            name: 'index',
+            type: 'Object',
+            desc: '',
+            parent: null,
+            children: [],
+        }) as TreeNode;
+        // components
+        const componentTrees: TreeNode[] = [];
         for (const name of components) {
             if (targetNames.includes('component-' + name)) {
                 // 解析markdown文件中的标签，并将所有选项转换为树形结构
                 const tree = transformToTree(engine.render('component-' + name, initVars));
+                componentTrees.push(tree as TreeNode);
                 // 将树形结构转换为扁平结构
                 const descMsg = flatTree(tree as TreeNode);
-                saveFile(name, lang, JSON.stringify(descMsg, null, 4));
+                saveFile((tree as TreeNode).name.replace('.', '-').replace(/:.*/, ''), lang, JSON.stringify(descMsg, null, 4));
             }
         }
+        // series
+        const seriesTrees: TreeNode[] = [];
+        for (const name of series) {
+            if (targetNames.includes('series-' + name)) {
+                // 解析markdown文件中的标签，并将所有选项转换为树形结构
+                const tree = transformToTree(engine.render('series-' + name, initVars));
+                seriesTrees.push(tree as TreeNode);
+                // 将树形结构转换为扁平结构
+                const descMsg = flatTree(tree as TreeNode);
+                saveFile((tree as TreeNode).name.replace('.', '-').replace(/:.*/, ''), lang, JSON.stringify(descMsg, null, 4));
+            }
+        }
+        indexTree.children.unshift(...componentTrees);
+        let descMsg = flatTree(indexTree as TreeNode);
+        descMsg = Object.fromEntries(Object.entries(descMsg).filter(([k, v]) => !k.includes('.') || k.includes('series.') && k.split('.').length < 3));
+        saveFile('index', lang, JSON.stringify(descMsg, null, 4));
     }
 }
 
@@ -188,10 +219,9 @@ function saveFile(name: string, lang: string, data: string) {
  * 解析markdown文件中的标签，并将Markdown文本转换为树形结构的对象
  * @param source Markdown文本
  */
-function transformToTree(source: string): TreeNode | null {
+function transformToTree(source: string, tree: TreeNode | null = null): TreeNode | null {
     const lines = source.split('\n');
-    let tree: TreeNode | null = null;
-    let prevNode: TreeNode | null = null;
+    let prevNode: TreeNode | null = tree;
     for (let i = 0; i < lines.length; i++) {
         const text = lines[i].trim();
         // 如果符合标题的条件，那么将其视为一个节点
@@ -200,10 +230,10 @@ function transformToTree(source: string): TreeNode | null {
             if (prevNode) {
                 // 解析 prevNode.desc 的 markdown 文本中的标签
                 // 删除 ExampleBaseOption
-                prevNode.desc = prevNode.desc.replace(/<ExampleBaseOption[^>]*>[^<]*<\/ExampleBaseOption>/g, '');
+                prevNode.desc = prevNode.desc.replace(/<ExampleBaseOption.*<\/ExampleBaseOption>/gs, '');
                 parseUIControl(prevNode, 'ExampleUIControlBoolean');
                 parseUIControl(prevNode, 'ExampleUIControlColor', 'color', (v: string) => v[0] === '#' ? `'${v}'` : v);
-                parseUIControl(prevNode, 'ExampleUIControlEnum', 'enum', (v: string) => v.split(',').map(item => `'${item}'`).join(','));
+                parseUIControl(prevNode, 'ExampleUIControlEnum', 'enum', (v: string) => v.split(',').map(item => item[0] === "'" ? item : `'${item}'`).join(','));
                 parseUIControl(prevNode, 'ExampleUIControlIcon');
                 // eslint-disable-next-line no-eval
                 parseUIControl(prevNode, 'ExampleUIControlNumber', 'number', (v: string) => v);
@@ -211,6 +241,7 @@ function transformToTree(source: string): TreeNode | null {
                 parseUIControl(prevNode, 'ExampleUIControlPercentVector', 'percentvector');
                 parseUIControl(prevNode, 'ExampleUIControlText', 'text');
                 parseUIControl(prevNode, 'ExampleUIControlVector', 'vector');
+                parseUIControl(prevNode, 'ExampleUIControlAngle', 'angle');
             }
 
             // 获取当前节点
@@ -218,7 +249,7 @@ function transformToTree(source: string): TreeNode | null {
                 const node: TreeNode = {
                     level: match[1].length,
                     name: match[2],
-                    type: match[3].includes('|') ? match[3].split('!') : match[3],
+                    type: match[3].includes('|') ? match[3].split('|') : match[3],
                     default: match[4],
                     desc: '',
                     children: [],
