@@ -1,7 +1,7 @@
 
 {{ target: series-pictorialBar }}
 
-# series.pictoialBar(Object)
+# series.pictorialBar(Object)
 
 **象形柱图**
 

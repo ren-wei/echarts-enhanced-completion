@@ -158,25 +158,16 @@ async function main() {
         const targetNames = Object.keys(engine.targets);
 
         // 保存结果
-        // index
-        const indexTree: TreeNode = transformToTree(engine.render('option', initVars), {
-            level: 0,
-            name: 'index',
-            type: 'Object',
-            desc: '',
-            parent: null,
-            children: [],
-        }) as TreeNode;
         // components
         const componentTrees: TreeNode[] = [];
         for (const name of components) {
-            if (targetNames.includes('component-' + name)) {
+            if (targetNames.includes('component-' + name) && !name.includes('transform')) {
                 // 解析markdown文件中的标签，并将所有选项转换为树形结构
                 const tree = transformToTree(engine.render('component-' + name, initVars));
                 componentTrees.push(tree as TreeNode);
                 // 将树形结构转换为扁平结构
                 const descMsg = flatTree(tree as TreeNode);
-                saveFile((tree as TreeNode).name.replace('.', '-').replace(/:.*/, ''), lang, JSON.stringify(descMsg, null, 4));
+                saveFile((tree as TreeNode).name.replace('.', '-'), lang, JSON.stringify(descMsg, null, 4));
             }
         }
         // series
@@ -191,10 +182,43 @@ async function main() {
                 saveFile((tree as TreeNode).name.replace('.', '-').replace(/:.*/, ''), lang, JSON.stringify(descMsg, null, 4));
             }
         }
-        indexTree.children.unshift(...componentTrees);
+        // index
+        const indexTree: TreeNode = transformToTree(engine.render('option', initVars), {
+            level: 0,
+            name: 'index',
+            type: 'Object',
+            desc: '',
+            parent: null,
+            children: [],
+        }) as TreeNode;
         let descMsg = flatTree(indexTree as TreeNode);
-        descMsg = Object.fromEntries(Object.entries(descMsg).filter(([k, v]) => !k.includes('.') || k.includes('series.') && k.split('.').length < 3));
+        descMsg = Object.fromEntries(Object.entries(descMsg).filter(([k, v]) => !k.includes('.')).reduce((result: [k: string, v: any][], [k, v]) => {
+            // 增加 detailFileName 属性
+            if (['stateAnimation', 'textStyle', 'media'].includes(k) || typeof v.uiControl.type === 'string' ? ['Object', '*'].includes(v.uiControl.type) : v.uiControl.type.includes('Object')) {
+                v.uiControl.detailFileName = k;
+            }
+            result.push([k, v]);
+            // 增加 series
+            if (k === 'aria') {
+                result.push(['series', {
+                    desc: '',
+                    uiControl: {
+                        type: [
+                            'Array',
+                            'Object',
+                        ],
+                        detailFileName: 'series',
+                    },
+                }]);
+            }
+            return result;
+        }, []));
         saveFile('index', lang, JSON.stringify(descMsg, null, 4));
+        // stateAnimation、textStyle 和 media
+        ['stateAnimation', 'textStyle', 'media'].forEach(name => {
+            descMsg = flatTree(indexTree.children.find(item => item.name === name) as TreeNode);
+            saveFile(name, lang, JSON.stringify(descMsg, null, 4));
+        });
     }
 }
 
@@ -292,8 +316,7 @@ function transformToTree(source: string, tree: TreeNode | null = null): TreeNode
 function parseUIControl(node: TreeNode, name: string, type: string = '', handler: Function | null = null) {
     let r = new RegExp('<' + name + '\\s([^\\/]*)\\/>');
     const m = r.exec(node.desc);
-    // TODO: 未来需要删除前后空格
-    node.desc = ' ' + node.desc.replace(r, '').trim() + ' ';
+    node.desc = node.desc.replace(r, '').trim();
     if (m) {
         if (type) {
             node.type = type;
