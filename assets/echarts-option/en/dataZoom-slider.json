@@ -1,1004 +1,1176 @@
 {
+    "type": {
+        "desc": "",
+        "uiControl": {
+            "default": "'slider'",
+            "type": "string"
+        }
+    },
     "id": {
-        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. "
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "uiControl": {
+            "type": "string"
+        }
     },
     "show": {
-        "desc": " Whether to show the component. If is set to be false, it will not show, but its data filtering function still works. ",
+        "desc": "Whether to show the  component. If is set to be `false`, it will not show, but its data filtering function still works.",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "backgroundColor": {
-        "desc": " The background color of the component. ",
+        "desc": "The background color of the component.",
         "uiControl": {
-            "type": "color",
-            "default": "'rgba(47,69,84,0)'"
+            "default": "'rgba(47,69,84,0)'",
+            "type": "color"
         }
     },
     "dataBackground": {
-        "desc": " The style of data shadow. "
+        "desc": "The style of data shadow.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "dataBackground.lineStyle": {
-        "desc": " Line style of data shadow "
+        "desc": "Line style of data shadow",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "dataBackground.lineStyle.color": {
-        "desc": " Line color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " #d2dbee",
             "type": "color"
         }
     },
     "dataBackground.lineStyle.width": {
-        "desc": " line width. ",
+        "desc": "line width.",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0.5",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dataBackground.lineStyle.type": {
-        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "dataBackground.lineStyle.dashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`type`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dataBackground.lineStyle.cap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "dataBackground.lineStyle.join": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`miterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "dataBackground.lineStyle.miterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`join`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "dataBackground.lineStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "dataBackground.lineStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "dataBackground.lineStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "dataBackground.lineStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "dataBackground.lineStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "dataBackground.areaStyle": {
-        "desc": " Area style of data shadow "
+        "desc": "Area style of data shadow",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "dataBackground.areaStyle.color": {
-        "desc": " Fill color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Fill color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " d2dbee",
             "type": "color"
         }
     },
     "dataBackground.areaStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "dataBackground.areaStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "dataBackground.areaStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "dataBackground.areaStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "dataBackground.areaStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "default": "0.2",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "selectedDataBackground": {
-        "desc": ">  Since > v5.0.0 Styles of selected data shadow. "
+        "desc": "> Since `v5.0.0`\n\n\n\nStyles of selected data shadow.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "selectedDataBackground.lineStyle": {
-        "desc": " Line style of selected data shadow. "
+        "desc": "Line style of selected data shadow.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "selectedDataBackground.lineStyle.color": {
-        "desc": " Line color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " #8fb0f7",
             "type": "color"
         }
     },
     "selectedDataBackground.lineStyle.width": {
-        "desc": " line width. ",
+        "desc": "line width.",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0.5",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "selectedDataBackground.lineStyle.type": {
-        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "selectedDataBackground.lineStyle.dashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`type`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "selectedDataBackground.lineStyle.cap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "selectedDataBackground.lineStyle.join": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`miterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "selectedDataBackground.lineStyle.miterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`join`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "selectedDataBackground.lineStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "selectedDataBackground.lineStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "selectedDataBackground.lineStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "selectedDataBackground.lineStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "selectedDataBackground.lineStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "selectedDataBackground.areaStyle": {
-        "desc": " Area style of selected data shadow. "
+        "desc": "Area style of selected data shadow.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "selectedDataBackground.areaStyle.color": {
-        "desc": " Fill color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Fill color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " #8fb0f7",
             "type": "color"
         }
     },
     "selectedDataBackground.areaStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "selectedDataBackground.areaStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "selectedDataBackground.areaStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "selectedDataBackground.areaStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "selectedDataBackground.areaStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "default": "0.2",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "fillerColor": {
-        "desc": " The color to fill selected area. ",
+        "desc": "The color to fill selected area.",
         "uiControl": {
-            "type": "color",
-            "default": "'rgba(167,183,204,0.4)'"
+            "default": "'rgba(47,69,84,0.25)'",
+            "type": "color"
         }
     },
     "borderColor": {
-        "desc": " The color of border. ",
+        "desc": "The color of border.",
         "uiControl": {
-            "type": "color",
-            "default": "'#ddd'"
+            "default": "'#ddd'",
+            "type": "color"
         }
     },
     "handleIcon": {
-        "desc": " Icon shape of handle, which supports path string. Its default value is: \n\n    'M8.2,13.6V3.9H6.3v9.7H3.1v14.9h3.3v9.7h1.8v-9.7h3.3V13.6H8.2z M9.7,24.4H4.8v-1.4h4.9V24.4z M9.7,19.1H4.8v-1.4h4.9V19.1z'\n    \n\nIt can be set to an image with 'image://url' , in which URL is the link to an image, or dataURI of an image. An image URL example: \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nA dataURI example: \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\nIcons can be set to arbitrary vector path via 'path://' in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData][0] for more information about the format of the path. You may export vector paths from tools like Adobe For example: \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData",
+        "desc": "Icon shape of handle, which supports path string. Its default value is:\n```js\n'M8.2,13.6V3.9H6.3v9.7H3.1v14.9h3.3v9.7h1.8v-9.7h3.3V13.6H8.2z M9.7,24.4H4.8v-1.4h4.9V24.4z M9.7,19.1H4.8v-1.4h4.9V19.1z'\n```\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
         "uiControl": {
-            "type": "icon"
+            "type": "string"
         }
     },
     "handleSize": {
-        "desc": " The size of control handle. It can be in pixels, or in percentage relative to the width of dataZoom component. By default, it's the same as the width of dataZoom component. ",
+        "desc": "The size of control handle. It can be in pixels, or in percentage relative to the width of dataZoom component. By default, it's the same as the width of dataZoom component.",
         "uiControl": {
+            "default": "'100%'",
             "type": "percent",
             "min": "0",
-            "step": "1",
-            "default": "'100%'"
+            "step": "1"
         }
     },
     "handleStyle": {
-        "desc": " Style of handle. Please refer to [area-simple example][0].\n\n[0]: https://echarts.apache.org/examples/en/editor.html?c=area-simple"
+        "desc": "Style of handle. Please refer to [area-simple example](area-simple).",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "handleStyle.color": {
-        "desc": " color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": "#fff",
             "type": "color"
         }
     },
     "handleStyle.borderColor": {
-        "desc": " border color, whose format is similar to that of color. ",
+        "desc": "border color, whose format is similar to that of `color`.",
         "uiControl": {
+            "default": "#ACB8D1",
             "type": "color"
         }
     },
     "handleStyle.borderWidth": {
-        "desc": " border width. No border when it is set to be 0. border width. No border when it is set to be 0. ",
+        "desc": "border width. No border when it is set to be 0.\n\n(${name} ? ${name} : \"\") + \" border width. No border when it is set to be 0.\"",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "handleStyle.borderType": {
-        "desc": " border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "handleStyle.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "handleStyle.borderCap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "handleStyle.borderJoin": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the borderMiterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "handleStyle.borderMiterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when borderJoin is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "handleStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "handleStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "handleStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "handleStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "handleStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "moveHandleIcon": {
-        "desc": ">  Since > v5.0.0 Icon of move handle. \n\n    'M-320.9-50L-320.9-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-348-41-339-50-320.9-50z M-212.3-50L-212.3-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-239.4-41-230.4-50-212.3-50z M-103.7-50L-103.7-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-130.9-41-121.8-50-103.7-50z'\n    \n\nIt can be set to an image with 'image://url' , in which URL is the link to an image, or dataURI of an image. An image URL example: \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nA dataURI example: \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\nIcons can be set to arbitrary vector path via 'path://' in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData][0] for more information about the format of the path. You may export vector paths from tools like Adobe For example: \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData",
+        "desc": "> Since `v5.0.0`\n\n\n\nIcon of move handle.\n\n```js\n'M-320.9-50L-320.9-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-348-41-339-50-320.9-50z M-212.3-50L-212.3-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-239.4-41-230.4-50-212.3-50z M-103.7-50L-103.7-50c18.1,0,27.1,9,27.1,27.1V85.7c0,18.1-9,27.1-27.1,27.1l0,0c-18.1,0-27.1-9-27.1-27.1V-22.9C-130.9-41-121.8-50-103.7-50z'\n```\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
         "uiControl": {
-            "type": "icon"
+            "type": "string"
         }
     },
     "moveHandleSize": {
-        "desc": ">  Since > v5.0.0 Size of move handle. ",
+        "desc": "> Since `v5.0.0`\n\n\n\nSize of move handle.",
         "uiControl": {
+            "default": "7",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "7"
+            "step": "1"
         }
     },
     "moveHandleStyle": {
-        "desc": ">  Since > v5.0.0 Style of move handle. "
+        "desc": "> Since `v5.0.0`\n\n\n\nStyle of move handle.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "moveHandleStyle.color": {
-        "desc": " color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": "#D2DBEE",
             "type": "color"
         }
     },
     "moveHandleStyle.borderColor": {
-        "desc": " border color, whose format is similar to that of color. ",
+        "desc": "border color, whose format is similar to that of `color`.",
         "uiControl": {
+            "default": "'#000'",
             "type": "color"
         }
     },
     "moveHandleStyle.borderWidth": {
-        "desc": " border width. No border when it is set to be 0. border width. No border when it is set to be 0. ",
+        "desc": "border width. No border when it is set to be 0.\n\n(${name} ? ${name} : \"\") + \" border width. No border when it is set to be 0.\"",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "moveHandleStyle.borderType": {
-        "desc": " border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "moveHandleStyle.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "moveHandleStyle.borderCap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "moveHandleStyle.borderJoin": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the borderMiterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "moveHandleStyle.borderMiterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when borderJoin is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "moveHandleStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "moveHandleStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "moveHandleStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "moveHandleStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "moveHandleStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "labelPrecision": {
-        "desc": " Precision of label if in number form. By default, it is decided based on the number of data. ",
+        "desc": "Precision of label if in number form. By default, it is decided based on the number of data.",
         "uiControl": {
+            "default": "'auto'",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "labelFormatter": {
-        "desc": " The formatter tool for the label. \n\n* It is a template if in string. For instance, aaaa{value}bbbb, where {value} will be replaced by the value of actual data value.\n* It is a callback function if in Function. For example:\n\n    /**\n     * @param {*} value If axis.type is 'category', `value` is the index of axis.data.\n     *                  else `value` is current value.\n     * @param {strign} valueStr Inner formatted string.\n     * @return {string} Returns the label formatted.\n     */\n    labelFormatter: function (value, valueStr) {\n        return 'aaa' + value + 'bbb';\n    }\n    \n\n"
-    },
-    "showDetail": {
-        "desc": " Whether to show detail, that is, show the detailed data information when dragging. ",
+        "desc": "The formatter tool for the label.\n\n+ It is a template if in `string`. For instance, `aaaa{value}bbbb`, where `{value}` will be replaced by the value of actual data value.\n\n+ It is a callback function if in `Function`. For example:\n\n```javascript\n/**\n* @param {*} value If axis.type is 'category', `value` is the index of axis.data.\n*                  else `value` is current value.\n* @param {strign} valueStr Inner formatted string.\n* @return {string} Returns the label formatted.\n*/\nlabelFormatter: function (value, valueStr) {\nreturn 'aaa' + value + 'bbb';\n}\n```",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "null",
+            "type": [
+                "string",
+                "Function"
+            ]
         }
     },
-    "showDataShadow": {
-        "desc": " Whether to show data shadow in dataZoom-silder component, to indicate the data tendency in brief. ",
+    "showDetail": {
+        "desc": "Whether to show detail, that is, show the detailed data information when dragging.",
         "uiControl": {
+            "default": "true",
             "type": "boolean"
         }
     },
-    "realtime": {
-        "desc": " Whether to update view while dragging. If it is set as false, the view will be updated only at the end of dragging. ",
+    "showDataShadow": {
+        "desc": "Whether to show data shadow in `dataZoom-silder` component, to indicate the data tendency in brief.",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "'auto'",
+            "type": "string"
+        }
+    },
+    "realtime": {
+        "desc": "Whether to update view while dragging. If it is set as `false`, the view will be updated only at the end of dragging.",
+        "uiControl": {
+            "default": "true",
+            "type": "boolean"
         }
     },
     "textStyle": {
         "desc": "",
         "uiControl": {
-            "type": "Object"
+            "type": "*"
         }
     },
     "textStyle.color": {
-        "desc": " dataZoom text color. ",
+        "desc": "dataZoom  text color.",
         "uiControl": {
-            "type": "color",
-            "default": "'#333'"
+            "default": "'#333'",
+            "type": "color"
         }
     },
     "textStyle.fontStyle": {
-        "desc": " dataZoom font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "dataZoom  font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "textStyle.fontWeight": {
-        "desc": " dataZoom font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "dataZoom  font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "textStyle.fontFamily": {
-        "desc": " dataZoom font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "dataZoom  font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "textStyle.fontSize": {
-        "desc": " dataZoom font size. ",
+        "desc": "dataZoom  font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "textStyle.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "textStyle.width": {
-        "desc": " Width of text block. ",
+        "desc": "Width of text block.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "textStyle.height": {
-        "desc": " Height of text block. ",
+        "desc": "Height of text block.",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "textStyle.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "textStyle.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "textStyle.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "textStyle.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "textStyle.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "textStyle.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "textStyle.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "textStyle.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "textStyle.overflow": {
-        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "textStyle.ellipsis": {
-        "desc": " Ellipsis to be displayed when overflow is set to truncate. "
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
+        "uiControl": {
+            "default": "'...'",
+            "type": "string"
+        }
     },
     "textStyle.lineOverflow": {
-        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n"
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+        "uiControl": {
+            "default": "'none'",
+            "type": "string"
+        }
     },
     "xAxisIndex": {
-        "desc": " Specify which [xAxis][0] is/are controlled by the dataZoom-slider when [catesian coordinate system][1] is used. By default the first xAxis that parallel to dataZoom are controlled when [dataZoom-slider.orient][2] is set as 'horizontal'. But it is recommended to specify it explicitly but not use default value. If it is set as a single number, one axis is controlled, while if it is set as an Array , multiple axes are controlled. For example: \n\n    option: {\n        xAxis: [\n            {...}, // The first xAxis\n            {...}, // The second xAxis\n            {...}, // The third xAxis\n            {...}  // The fourth xAxis\n        ],\n        dataZoom: [\n            { // The first dataZoom component\n                xAxisIndex: [0, 2] // Indicates that this dataZoom component\n                                         // controls the first and the third xAxis\n            },\n            { // The second dataZoom component\n                xAxisIndex: 3      // indicates that this dataZoom component\n                                         // controls the fourth xAxis\n            }\n        ]\n    }\n    \n\n\n\n[0]: #xAxis\n[1]: #grid\n[2]: #dataZoom-slider.orient"
+        "desc": "Specify which [xAxis](~xAxis) is/are controlled by the `dataZoom-slider` when [catesian coordinate system](~grid) is used.\n\nBy default the first `xAxis` that parallel to `dataZoom` are controlled when [dataZoom-slider.orient](~dataZoom-slider.orient) is set as `'horizontal'`. But it is recommended to specify it explicitly but not use default value.\n\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nxAxis: [\n{...}, // The first xAxis\n{...}, // The second xAxis\n{...}, // The third xAxis\n{...}  // The fourth xAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nxAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third xAxis\n},\n{ // The second dataZoom component\nxAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth xAxis\n}\n]\n}\n```",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "Array"
+            ]
+        }
     },
     "yAxisIndex": {
-        "desc": " Specify which [yAxis][0] is/are controlled by the dataZoom-slider when [catesian coordinate system][1] is used. By default the first yAxis that parallel to dataZoom are controlled when [dataZoom-slider.orient][2] is set as 'vertical'. But it is recommended to specify it explicitly but not use default value. If it is set as a single number, one axis is controlled, while if it is set as an Array , multiple axes are controlled. For example: \n\n    option: {\n        yAxis: [\n            {...}, // The first yAxis\n            {...}, // The second yAxis\n            {...}, // The third yAxis\n            {...}  // The fourth yAxis\n        ],\n        dataZoom: [\n            { // The first dataZoom component\n                yAxisIndex: [0, 2] // Indicates that this dataZoom component\n                                         // controls the first and the third yAxis\n            },\n            { // The second dataZoom component\n                yAxisIndex: 3      // indicates that this dataZoom component\n                                         // controls the fourth yAxis\n            }\n        ]\n    }\n    \n\n\n\n[0]: #yAxis\n[1]: #grid\n[2]: #dataZoom-slider.orient"
+        "desc": "Specify which [yAxis](~yAxis) is/are controlled by the `dataZoom-slider` when [catesian coordinate system](~grid) is used.\n\nBy default the first `yAxis` that parallel to `dataZoom` are controlled when [dataZoom-slider.orient](~dataZoom-slider.orient) is set as `'vertical'`. But it is recommended to specify it explicitly but not use default value.\n\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nyAxis: [\n{...}, // The first yAxis\n{...}, // The second yAxis\n{...}, // The third yAxis\n{...}  // The fourth yAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nyAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third yAxis\n},\n{ // The second dataZoom component\nyAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth yAxis\n}\n]\n}\n```",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "Array"
+            ]
+        }
     },
     "radiusAxisIndex": {
-        "desc": " Specify which [radiusAxis][0] is/are controlled by the dataZoom-slider when [polar coordinate system][1] is used. If it is set as a single number, one axis is controlled, while if it is set as an Array , multiple axes are controlled. For example: \n\n    option: {\n        radiusAxis: [\n            {...}, // The first radiusAxis\n            {...}, // The second radiusAxis\n            {...}, // The third radiusAxis\n            {...}  // The fourth radiusAxis\n        ],\n        dataZoom: [\n            { // The first dataZoom component\n                radiusAxisIndex: [0, 2] // Indicates that this dataZoom component\n                                         // controls the first and the third radiusAxis\n            },\n            { // The second dataZoom component\n                radiusAxisIndex: 3      // indicates that this dataZoom component\n                                         // controls the fourth radiusAxis\n            }\n        ]\n    }\n    \n\n\n\n[0]: #radiusAxis\n[1]: #polar"
+        "desc": "Specify which [radiusAxis](~radiusAxis) is/are controlled by the `dataZoom-slider` when [polar coordinate system](~polar) is used.\n\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nradiusAxis: [\n{...}, // The first radiusAxis\n{...}, // The second radiusAxis\n{...}, // The third radiusAxis\n{...}  // The fourth radiusAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nradiusAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third radiusAxis\n},\n{ // The second dataZoom component\nradiusAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth radiusAxis\n}\n]\n}\n```",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "Array"
+            ]
+        }
     },
     "angleAxisIndex": {
-        "desc": " Specify which [angleAxis][0] is/are controlled by the dataZoom-slider when [polar coordinate system][1] is used. If it is set as a single number, one axis is controlled, while if it is set as an Array , multiple axes are controlled. For example: \n\n    option: {\n        angleAxis: [\n            {...}, // The first angleAxis\n            {...}, // The second angleAxis\n            {...}, // The third angleAxis\n            {...}  // The fourth angleAxis\n        ],\n        dataZoom: [\n            { // The first dataZoom component\n                angleAxisIndex: [0, 2] // Indicates that this dataZoom component\n                                         // controls the first and the third angleAxis\n            },\n            { // The second dataZoom component\n                angleAxisIndex: 3      // indicates that this dataZoom component\n                                         // controls the fourth angleAxis\n            }\n        ]\n    }\n    \n\n\n\n[0]: #angleAxis\n[1]: #polar"
+        "desc": "Specify which [angleAxis](~angleAxis) is/are controlled by the `dataZoom-slider` when [polar coordinate system](~polar) is used.\n\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nangleAxis: [\n{...}, // The first angleAxis\n{...}, // The second angleAxis\n{...}, // The third angleAxis\n{...}  // The fourth angleAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nangleAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third angleAxis\n},\n{ // The second dataZoom component\nangleAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth angleAxis\n}\n]\n}\n```",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "Array"
+            ]
+        }
     },
     "filterMode": {
-        "desc": " Generally dataZoom component zoom or roam coordinate system through data filtering and set the windows of axes internally. Its behaviours vary according to filtering mode settings ([dataZoom.filterMode][0]). Possible values: \n\n* 'filter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered if one of the relevant dimensions is out of the window.\n* 'weakFilter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered only if all of the relevant dimensions are out of the same side of the window.\n* 'empty': data that outside the window will be **set to NaN**, which will not lead to changes of windows of other axes.\n* 'none': Do not filter data.\n\nHow to set filterMode is up to users, depending on the requirments and scenarios. Expirically: \n\n* If only xAxis or only yAxis is controlled by dataZoom, filterMode: 'filter' is typically used, which enable the other axis auto adapte its window to the extent of the filtered data.\n* If both xAxis and yAxis are operated by dataZoom: \n  * If xAxis and yAxis should not effect mutually (e.g. a scatter chart with both axes on the type of 'value'), they should be set to be filterMode: 'empty'.\n  * If xAxis is the main axis and yAxis is the auxiliary axis (or vise versa) (e.g., in a bar chart, when dragging dataZoomX to change the window of xAxis, we need the yAxis to adapt to the clipped data, but when dragging dataZoomY to change the window of yAxis, we need the xAxis not to be changed), in this case, xAxis should be set to be fiterMode: 'filter', while yAxis should be set to be fiterMode: 'empty'.\n\nIt can be demonstrated by the sample: \n\n    option = {\n        dataZoom: [\n            {\n                id: 'dataZoomX',\n                type: 'slider',\n                xAxisIndex: [0],\n                filterMode: 'filter'\n            },\n            {\n                id: 'dataZoomY',\n                type: 'slider',\n                yAxisIndex: [0],\n                filterMode: 'empty'\n            }\n        ],\n        xAxis: {type: 'value'},\n        yAxis: {type: 'value'},\n        series{\n            type: 'bar',\n            data: [\n                // The first column corresponds to xAxis,\n                // and the second coloum corresponds to yAxis.\n                [12, 24, 36],\n                [90, 80, 70],\n                [3, 9, 27],\n                [1, 11, 111]\n            ]\n        }\n    }\n    \n\nIn the sample above, dataZoomX is set as filterMode: 'filter'. When use drags dataZoomX (do not touch dataZoomY) and the valueWindow of xAxis is changed to [2, 50] consequently, dataZoomX travel the first column of series.data and filter items that out of the window. The series.data turns out to be: \n\n    [\n        [12, 24, 36],\n        // [90, 80, 70] This item is filtered, as 90 is out of the window.\n        [3, 9, 27]\n        // [1, 11, 111] This item is filtered, as 1 is out of the window.\n    ]\n    \n\nBefore filtering, the second column, which corresponds to yAxis, has values 24, 80, 9, 11. After filtering, only 24 and 9 are left. Then the extent of yAxis is adjusted to adapt the two values (if yAxis.min and yAxis.max are not set). So filterMode: 'filter' can be used to enable the other axis to auto adapt the filtered data. Then let's review the sample from the beginning, dataZoomY is set as filterMode: 'empty'. So if user drags dataZoomY (do not touch dataZoomX) and its window is changed to [10, 60] consequently, dataZoomY travels the second column of series.data and set NaN to all of the values that outside the window (NaN cause the graphical elements, i.e., bar elements, do not show, but still hold the place). The series.data turns out to be: \n\n    [\n        [12, 24, 36],\n        [90, NaN, 70], // Set to NaN\n        [3, NaN, 27],  // Set to NaN\n        [1, 11, 111]\n    ]\n    \n\nIn this case, the first column (i.e., 12, 90, 3, 1, which corresponds to xAxis), will not be changed at all. So dragging yAxis will not change extent of xAxis, which is good for requirements like outlier filtering. See this example: 暂时无法显示\n\n[0]: #dataZoom.filterMode",
+        "desc": "Generally `dataZoom` component zoom or roam coordinate system through data filtering and set the windows of axes internally.\n\nIts behaviours vary according to filtering mode settings ([dataZoom.filterMode](~dataZoom.filterMode)).\n\nPossible values:\n\n+ 'filter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered if one of the relevant dimensions is out of the window.\n\n+ 'weakFilter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered only if all of the relevant dimensions are out of the same side of the window.\n\n+ 'empty': data that outside the window will be **set to NaN**, which will not lead to changes of windows of other axes.\n\n+ 'none': Do not filter data.\n\nHow to set `filterMode` is up to users, depending on the requirments and scenarios. Expirically:\n\n+ If only `xAxis` or only `yAxis` is controlled by `dataZoom`, `filterMode: 'filter'` is typically used, which enable the other axis auto adapte its window to the extent of the filtered data.\n\n+ If both `xAxis` and `yAxis` are operated by `dataZoom`:\n\n+ If `xAxis` and `yAxis` should not effect mutually (e.g. a scatter chart with both axes on the type of `'value'`), they should be set to be `filterMode: 'empty'`.\n\n+ If `xAxis` is the main axis and `yAxis` is the auxiliary axis (or vise versa) (e.g., in a bar chart, when dragging `dataZoomX` to change the window of xAxis, we need the yAxis to adapt to the clipped data, but when dragging `dataZoomY` to change the window of yAxis, we need the xAxis not to be changed), in this case, `xAxis` should be set to be `fiterMode: 'filter'`, while `yAxis` should be set to be `fiterMode: 'empty'`.\n\nIt can be demonstrated by the sample:\n\n```javascript\noption = {\ndataZoom: [\n{\nid: 'dataZoomX',\ntype: 'slider',\nxAxisIndex: [0],\nfilterMode: 'filter'\n},\n{\nid: 'dataZoomY',\ntype: 'slider',\nyAxisIndex: [0],\nfilterMode: 'empty'\n}\n],\nxAxis: {type: 'value'},\nyAxis: {type: 'value'},\nseries{\ntype: 'bar',\ndata: [\n// The first column corresponds to xAxis,\n// and the second coloum corresponds to yAxis.\n[12, 24, 36],\n[90, 80, 70],\n[3, 9, 27],\n[1, 11, 111]\n]\n}\n}\n```\n\nIn the sample above, `dataZoomX` is set as `filterMode: 'filter'`. When use drags `dataZoomX` (do not touch `dataZoomY`) and the valueWindow of `xAxis` is changed to `[2, 50]` consequently, `dataZoomX` travel the first column of series.data and filter items that out of the window. The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n// [90, 80, 70] This item is filtered, as 90 is out of the window.\n[3, 9, 27]\n// [1, 11, 111] This item is filtered, as 1 is out of the window.\n]\n```\n\nBefore filtering, the second column, which corresponds to yAxis, has values `24`, `80`, `9`, `11`. After filtering, only `24` and `9` are left. Then the extent of `yAxis` is adjusted to adapt the two values (if `yAxis.min` and `yAxis.max` are not set).\n\nSo `filterMode: 'filter'` can be used to enable the other axis to auto adapt the filtered data.\n\nThen let's review the sample from the beginning, `dataZoomY` is set as `filterMode: 'empty'`. So if user drags `dataZoomY` (do not touch `dataZoomX`) and its window is changed to `[10, 60]` consequently, `dataZoomY` travels the second column of series.data and set NaN to all of the values that outside the window (NaN cause the graphical elements, i.e., bar elements, do not show, but still hold the place). The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n[90, NaN, 70], // Set to NaN\n[3, NaN, 27],  // Set to NaN\n[1, 11, 111]\n]\n```\n\nIn this case, the first column (i.e., `12`, `90`, `3`, `1`, which corresponds to `xAxis`), will not be changed at all. So dragging `yAxis` will not change extent of `xAxis`, which is good for requirements like outlier filtering.\n\nSee this example:\n~[600x400](doc-example/bar-dataZoom-filterMode&edit=1&reset=1)",
         "uiControl": {
+            "default": "'filter'",
             "type": "enum",
             "options": "'filter','weakFilter','empty','none'"
         }
     },
     "start": {
-        "desc": " The start percentage of the window out of the data extent, in the range of 0 ~ 100. [dataZoom-slider.start][0] and [dataZoom-slider.end][1] define the window of the data in **percent** form. More info about the relationship between dataZoom-slider.start and axis extent can be checked in [dataZoom-slider.rangeMode][2].\n\n[0]: #dataZoom-slider.start\n[1]: #dataZoom-slider.end\n[2]: #dataZoom-slider.rangeMode",
+        "desc": "The start percentage of the window out of the data extent, in the range of 0 ~ 100.\n\n[dataZoom-slider.start](~dataZoom-slider.start) and [dataZoom-slider.end](~dataZoom-slider.end) define the window of the data in **percent** form.\n\nMore info about the relationship between `dataZoom-slider.start` and axis extent can be checked in [dataZoom-slider.rangeMode](~dataZoom-slider.rangeMode).",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
             "max": "100",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "end": {
-        "desc": " The end percentage of the window out of the data extent, in the range of 0 ~ 100. [dataZoom-slider.start][0] and [dataZoom-slider.end][1] define the window of the data in **percent** form. More info about the relationship between dataZoom-slider.end and axis extent can be checked in [dataZoom-slider.rangeMode][2].\n\n[0]: #dataZoom-slider.start\n[1]: #dataZoom-slider.end\n[2]: #dataZoom-slider.rangeMode",
+        "desc": "The end percentage of the window out of the data extent, in the range of 0 ~ 100.\n\n[dataZoom-slider.start](~dataZoom-slider.start) and [dataZoom-slider.end](~dataZoom-slider.end) define the window of the data in **percent** form.\n\nMore info about the relationship between `dataZoom-slider.end` and axis extent can be checked in [dataZoom-slider.rangeMode](~dataZoom-slider.rangeMode).",
         "uiControl": {
+            "default": "100",
             "type": "number",
             "min": "0",
             "max": "100",
-            "default": "100",
             "step": "0.5"
         }
     },
     "startValue": {
-        "desc": " The start absolute value of the window, not works when [dataZoom-slider.start][0] is set. [dataZoom-slider.startValue][1] and [dataZoom-slider.endValue][2] define the window of the data window in **absolute value** form. Notice, if an axis is set to be category, startValue could be set as index of the array of axis.data or as the array value itself. In the latter case, it will internally and automatically translate to the index of array. More info about the relationship between dataZoom-slider.startValue and axis extent can be checked in [dataZoom-slider.rangeMode][3].\n\n[0]: #dataZoom-slider.start\n[1]: #dataZoom-slider.startValue\n[2]: #dataZoom-slider.endValue\n[3]: #dataZoom-slider.rangeMode"
+        "desc": "The start absolute value of the window, not works when [dataZoom-slider.start](~dataZoom-slider.start) is set.\n\n[dataZoom-slider.startValue](~dataZoom-slider.startValue) and [dataZoom-slider.endValue](~dataZoom-slider.endValue) define the window of the data window in **absolute value** form.\n\nNotice, if an axis is set to be `category`, `startValue` could be set as `index` of the array of `axis.data` or as the array value itself. In the latter case, it will internally and automatically translate to the index of array.\n\nMore info about the relationship between `dataZoom-slider.startValue` and axis extent can be checked in [dataZoom-slider.rangeMode](~dataZoom-slider.rangeMode).",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "string",
+                "Date"
+            ]
+        }
     },
     "endValue": {
-        "desc": " The end absolute value of the window, doesn't work when [dataZoom-slider.end][0] is set. [dataZoom-slider.startValue][1] and [dataZoom-slider.endValue][2] define the window of the data window in **absolute value** form. Notice, if an axis is set to be category, startValue could be set as index of the array of axis.data or as the array value itself. In the latter case, it will internally and automatically translate to the index of array. More info about the relationship between dataZoom-slider.endValue and axis extent can be checked in [dataZoom-slider.rangeMode][3].\n\n[0]: #dataZoom-slider.end\n[1]: #dataZoom-slider.startValue\n[2]: #dataZoom-slider.endValue\n[3]: #dataZoom-slider.rangeMode"
+        "desc": "The end absolute value of the window, doesn't work when [dataZoom-slider.end](~dataZoom-slider.end) is set.\n\n[dataZoom-slider.startValue](~dataZoom-slider.startValue) and [dataZoom-slider.endValue](~dataZoom-slider.endValue) define the window of the data window in **absolute value** form.\n\nNotice, if an axis is set to be `category`, `startValue` could be set as `index` of the array of `axis.data` or as the array value itself. In the latter case, it will internally and automatically translate to the index of array.\n\nMore info about the relationship between `dataZoom-slider.endValue` and axis extent can be checked in [dataZoom-slider.rangeMode](~dataZoom-slider.rangeMode).",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "string",
+                "Date"
+            ]
+        }
     },
     "minSpan": {
-        "desc": " Used to restrict minimal window size, in percent, which value is in the range of [0, 100]. If [dataZoom-slider.minValueSpan][0] is set, minSpan does not work any more.\n\n[0]: #dataZoom-slider.minValueSpan",
+        "desc": "Used to restrict minimal window size, in percent, which value is in the range of [0, 100].\n\nIf [dataZoom-slider.minValueSpan](~dataZoom-slider.minValueSpan) is set, `minSpan` does not work any more.",
         "uiControl": {
+            "default": "null",
             "type": "number",
             "min": "0",
             "max": "100",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "maxSpan": {
-        "desc": " Used to restrict maximal window size, in percent, which value is in the range of [0, 100]. If [dataZoom-slider.maxValueSpan][0] is set, maxSpan does not work any more.\n\n[0]: #dataZoom-slider.maxValueSpan",
+        "desc": "Used to restrict maximal window size, in percent, which value is in the range of [0, 100].\n\nIf [dataZoom-slider.maxValueSpan](~dataZoom-slider.maxValueSpan) is set, `maxSpan` does not work any more.",
         "uiControl": {
+            "default": "null",
             "type": "number",
             "min": "0",
             "max": "100",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "minValueSpan": {
-        "desc": " Used to restrict minimal window size. For example: In time axis it can be set as 3600 * 24 * 1000 * 5 to represent \"5 day\". In category axis it can be set as 5 to represent 5 categories. "
+        "desc": "Used to restrict minimal window size.\n\nFor example:\nIn time axis it can be set as `3600 * 24 * 1000 * 5` to represent \"5 day\".\nIn category axis it can be set as `5` to represent 5 categories.",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "string",
+                "Date"
+            ]
+        }
     },
     "maxValueSpan": {
-        "desc": " Used to restrict maximal window size. For example: In time axis it can be set as 3600 * 24 * 1000 * 5 to represent \"5 day\". In category axis it can be set as 5 to represent 5 categories. "
+        "desc": "Used to restrict maximal window size.\n\nFor example:\nIn time axis it can be set as `3600 * 24 * 1000 * 5` to represent \"5 day\".\nIn category axis it can be set as `5` to represent 5 categories.",
+        "uiControl": {
+            "default": "null",
+            "type": [
+                "number",
+                "string",
+                "Date"
+            ]
+        }
     },
     "orient": {
-        "desc": " Specify whether the layout of dataZoom component is horizontal or vertical. What's more, it indicates whether the horizontal axis or vertical axis is controlled by default in catesian coordinate system. Valid values: \n\n* 'horizontal': horizontal.\n* 'vertical': vertical.\n\n",
+        "desc": "Specify whether the layout of `dataZoom` component is horizontal or vertical. What's more, it indicates whether the horizontal axis or vertical axis is controlled by default in catesian coordinate system.\n\nValid values:\n\n+ `'horizontal'`: horizontal.\n\n+ `'vertical'`: vertical.",
         "uiControl": {
+            "default": "null",
             "type": "enum",
             "options": "'horizontal','vertical'"
         }
     },
     "zoomLock": {
-        "desc": " Specify whether to lock the size of window (selected area). When set as true, the size of window is locked, that is, only the translation (by mouse drag or touch drag) is avialable but zoom is not. ",
+        "desc": "Specify whether to lock the size of window (selected area).\n\nWhen set as `true`, the size of window is locked, that is, only the translation (by mouse drag or touch drag) is avialable but zoom is not.",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "throttle": {
-        "desc": " Specify the frame rate of views refreshing, with unit millisecond (ms). If [animation][0] set as true and [animationDurationUpdate][1] set as bigger than 0, you can keep throttle as the default value 100 (or set it as a value bigger than 0), otherwise it might be not smooth when dragging. If [animation][0] set as false or [animationDurationUpdate][1] set as 0, and data size is not very large, and it seems to be not smooth when dragging, you can set throttle as 0 to improve that.\n\n[0]: #animation\n[1]: #animationDurationUpdate",
+        "desc": "Specify the frame rate of views refreshing, with unit millisecond (ms).\n\n\nIf [animation](~animation) set as `true` and [animationDurationUpdate](~animationDurationUpdate) set as bigger than `0`, you can keep `throttle` as the default value `100` (or set it as a value bigger than `0`), otherwise it might be not smooth when dragging.\n\nIf [animation](~animation) set as `false` or [animationDurationUpdate](~animationDurationUpdate) set as `0`, and data size is not very large, and it seems to be not smooth when dragging, you can set `throttle` as `0` to improve that.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "0",
             "step": "20"
         }
     },
     "rangeMode": {
-        "desc": " The format is [rangeModeForStart, rangeModeForEnd]. For example rangeMode: ['value', 'percent'] means that use absolute value in start and percent value in end. Optional value for each item: 'value', 'percent'. \n\n* 'value' mode: the axis extent will always only be determined by dataZoom.startValue and dataZoom.endValue, despite how data like and how axis.min and axis.max are.\n* 'percent' mode: 100 represents 100% of the [dMin, dMax], where dMin is axis.min if axis.min specified, otherwise data.extent[0], and dMax is axis.max if axis.max specified, otherwise data.extent[1]. Axis extent will only be determined by the result of the percent of [dMin, dMax].\n\nrangeMode are auto determined by whether option.start/option.end are specified (represents 'percent' mode) or option.startValue/option.endValue specified (represents 'value' mode). And when user behavior trigger the changing of the view, the rangeMode would be modified automatically. For example, if triggered by toolbox.dataZoom, it will be modefied to 'value', and if triggered by dataZoom-inside or dataZoom-slider, it will be modified to 'percent'. If we specify rangeMode manually in option, it only works when both start and startValue specified or both end and endValue specified. So usually we do not need to specify dataZoom.rangeMode manually. Take a scenario as an example. When we are using dynamic data (update data periodically via setOption), if in 'value' mode, the window will be kept in a fixed value range despite how data are appended, while if in 'percent' mode, whe window range will be changed alone with the appended data (suppose axis.min and axis.max are not specified). "
+        "desc": "The format is `[rangeModeForStart, rangeModeForEnd]`.\n\nFor example `rangeMode: ['value', 'percent']` means that use absolute value in `start` and percent value in `end`.\n\nOptional value for each item: `'value'`, `'percent'`.\n\n+ `'value'` mode: the axis extent will always only be determined by `dataZoom.startValue` and `dataZoom.endValue`, despite how data like and how `axis.min` and `axis.max` are.\n+ `'percent'` mode: `100` represents 100% of the `[dMin, dMax]`, where `dMin` is `axis.min` if `axis.min` specified, otherwise `data.extent[0]`, and `dMax` is `axis.max` if `axis.max` specified, otherwise `data.extent[1]`. Axis extent will only be determined by the result of the percent of `[dMin, dMax]`.\n\n`rangeMode` are auto determined by whether `option.start`/`option.end` are specified (represents `'percent'` mode) or `option.startValue`/`option.endValue` specified (represents `'value'` mode). And when user behavior trigger the changing of the view, the `rangeMode` would be modified automatically. For example, if triggered by `toolbox.dataZoom`, it will be modefied to `'value'`, and if triggered by `dataZoom-inside` or `dataZoom-slider`, it will be modified to `'percent'`.\n\nIf we specify `rangeMode` manually in `option`, it only works when both `start` and `startValue` specified or both `end` and `endValue` specified. So usually we do not need to specify `dataZoom.rangeMode` manually.\n\nTake a scenario as an example. When we are using dynamic data (update data periodically via `setOption`), if in `'value`' mode, the window will be kept in a fixed value range despite how data are appended, while if in `'percent'` mode, whe window range will be changed alone with the appended data (suppose `axis.min` and `axis.max` are not specified).",
+        "uiControl": {
+            "type": "Array"
+        }
     },
     "zlevel": {
-        "desc": "zlevel value of all graphical elements in . zlevel is used to make layers with Canvas. Graphical elements with different zlevel values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate zlevel. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash. Canvases with bigger zlevel will be placed on Canvases with smaller zlevel. "
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "uiControl": {
+            "default": "0",
+            "type": "number"
+        }
     },
     "z": {
-        "desc": "z value of all graphical elements in , which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. z has a lower priority to zlevel, and will not create new Canvas. "
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "uiControl": {
+            "default": "2",
+            "type": "number"
+        }
     },
     "left": {
-        "desc": " Distance between dataZoom-slider component and the left side of the container. left value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'left', 'center', or 'right'. If the left value is set to be 'left', 'center', or 'right', then the component will be aligned automatically based on position. ",
+        "desc": "Distance between dataZoom-slider component and the left side of the container.\n\n`left` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "top": {
-        "desc": " Distance between dataZoom-slider component and the top side of the container. top value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'top', 'middle', or 'bottom'. If the left value is set to be 'top', 'middle', or 'bottom', then the component will be aligned automatically based on position. ",
+        "desc": "Distance between dataZoom-slider component and the top side of the container.\n\n`top` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "right": {
-        "desc": " Distance between dataZoom-slider component and the right side of the container. right value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. Adaptive by default. ",
+        "desc": "Distance between dataZoom-slider component and the right side of the container.\n\n`right` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "bottom": {
-        "desc": " Distance between dataZoom-slider component and the bottom side of the container. bottom value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. Adaptive by default. ",
+        "desc": "Distance between dataZoom-slider component and the bottom side of the container.\n\n`bottom` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "brushSelect": {
-        "desc": ">  Since > v5.0.0 Whether to enable brush to select. "
+        "desc": "> Since `v5.0.0`\n\n\n\nWhether to enable brush to select.",
+        "uiControl": {
+            "default": "true",
+            "type": "boolean"
+        }
     },
     "brushStyle": {
-        "desc": ">  Since > v5.0.0 Style of brushing area. "
+        "desc": "> Since `v5.0.0`\n\n\n\nStyle of brushing area.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "brushStyle.color": {
-        "desc": " color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": "rgba(135,175,274,0.15)",
             "type": "color"
         }
     },
     "brushStyle.borderColor": {
-        "desc": " border color, whose format is similar to that of color. ",
+        "desc": "border color, whose format is similar to that of `color`.",
         "uiControl": {
+            "default": "'#000'",
             "type": "color"
         }
     },
     "brushStyle.borderWidth": {
-        "desc": " border width. No border when it is set to be 0. border width. No border when it is set to be 0. ",
+        "desc": "border width. No border when it is set to be 0.\n\n(${name} ? ${name} : \"\") + \" border width. No border when it is set to be 0.\"",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "brushStyle.borderType": {
-        "desc": " border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "brushStyle.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "brushStyle.borderCap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "brushStyle.borderJoin": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the borderMiterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "brushStyle.borderMiterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when borderJoin is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "brushStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "brushStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "brushStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "brushStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "brushStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "emphasis": {
-        "desc": ">  Since > v5.0.0 Style when highlighted. "
+        "desc": "> Since `v5.0.0`\n\n\n\nStyle when highlighted.",
+        "uiControl": {
+            "type": "Object"
+        }
     },
     "emphasis.handleStyle": {
         "desc": "",
@@ -1007,103 +1179,107 @@
         }
     },
     "emphasis.handleStyle.color": {
-        "desc": " color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": "null",
             "type": "color"
         }
     },
     "emphasis.handleStyle.borderColor": {
-        "desc": " border color, whose format is similar to that of color. ",
+        "desc": "border color, whose format is similar to that of `color`.",
         "uiControl": {
+            "default": "'#000'",
             "type": "color"
         }
     },
     "emphasis.handleStyle.borderWidth": {
-        "desc": " border width. No border when it is set to be 0. border width. No border when it is set to be 0. ",
+        "desc": "border width. No border when it is set to be 0.\n\n(${name} ? ${name} : \"\") + \" border width. No border when it is set to be 0.\"",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "emphasis.handleStyle.borderType": {
-        "desc": " border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "emphasis.handleStyle.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "emphasis.handleStyle.borderCap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "emphasis.handleStyle.borderJoin": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the borderMiterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "emphasis.handleStyle.borderMiterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when borderJoin is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "emphasis.handleStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "emphasis.handleStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "emphasis.handleStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "emphasis.handleStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "emphasis.handleStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
@@ -1116,103 +1292,107 @@
         }
     },
     "emphasis.moveHandleStyle.color": {
-        "desc": " color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": "null",
             "type": "color"
         }
     },
     "emphasis.moveHandleStyle.borderColor": {
-        "desc": " border color, whose format is similar to that of color. ",
+        "desc": "border color, whose format is similar to that of `color`.",
         "uiControl": {
+            "default": "'#000'",
             "type": "color"
         }
     },
     "emphasis.moveHandleStyle.borderWidth": {
-        "desc": " border width. No border when it is set to be 0. border width. No border when it is set to be 0. ",
+        "desc": "border width. No border when it is set to be 0.\n\n(${name} ? ${name} : \"\") + \" border width. No border when it is set to be 0.\"",
         "uiControl": {
+            "default": "0",
             "type": "number",
-            "value": "0",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "emphasis.moveHandleStyle.borderType": {
-        "desc": " border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "emphasis.moveHandleStyle.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "emphasis.moveHandleStyle.borderCap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "emphasis.moveHandleStyle.borderJoin": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the borderMiterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "emphasis.moveHandleStyle.borderMiterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when borderJoin is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "emphasis.moveHandleStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "emphasis.moveHandleStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "emphasis.moveHandleStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "emphasis.moveHandleStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "emphasis.moveHandleStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"

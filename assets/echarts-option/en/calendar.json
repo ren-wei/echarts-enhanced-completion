@@ -1,72 +1,84 @@
 {
     "id": {
-        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. ",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
         "uiControl": {
             "type": "string"
         }
     },
     "zlevel": {
-        "desc": "zlevel value of all graphical elements in . zlevel is used to make layers with Canvas. Graphical elements with different zlevel values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate zlevel. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash. Canvases with bigger zlevel will be placed on Canvases with smaller zlevel. ",
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
         "uiControl": {
             "default": "0",
             "type": "number"
         }
     },
     "z": {
-        "desc": "z value of all graphical elements in , which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. z has a lower priority to zlevel, and will not create new Canvas. ",
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
         "uiControl": {
             "default": "2",
             "type": "number"
         }
     },
     "left": {
-        "desc": " Distance between calendar component and the left side of the container. left value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'left', 'center', or 'right'. If the left value is set to be 'left', 'center', or 'right', then the component will be aligned automatically based on position. ",
+        "desc": "Distance between calendar component and the left side of the container.\n\n`left` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "80",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "top": {
-        "desc": " Distance between calendar component and the top side of the container. top value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'top', 'middle', or 'bottom'. If the left value is set to be 'top', 'middle', or 'bottom', then the component will be aligned automatically based on position. ",
+        "desc": "Distance between calendar component and the top side of the container.\n\n`top` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "60",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "right": {
-        "desc": " Distance between calendar component and the right side of the container. right value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. Adaptive by default. ",
+        "desc": "Distance between calendar component and the right side of the container.\n\n`right` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "bottom": {
-        "desc": " Distance between calendar component and the bottom side of the container. bottom value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. Adaptive by default. ",
+        "desc": "Distance between calendar component and the bottom side of the container.\n\n`bottom` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "width": {
-        "desc": " The height of calendar coordinates. Note: cellSize is 20 by default. If width is set, cellSize[0] will be forced to auto; ",
+        "desc": "The height of calendar coordinates.\n\nNote: `cellSize` is 20 by default. If `width` is set,\n`cellSize[0]` will be forced to `auto`;",
         "uiControl": {
+            "default": "auto",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "height": {
-        "desc": " The height of calendar coordinates. Note: cellSize is 20 by default. If height is set, cellSize[1] will be forced to auto; ",
+        "desc": "The height of calendar coordinates.\n\nNote: `cellSize` is 20 by default. If `height` is set,\n`cellSize[1]` will be forced to `auto`;",
         "uiControl": {
+            "default": "auto",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "range": {
-        "desc": " Required, range of Calendar coordinates, support multiple formats. Examples: \n\n    \n    // one year\n    range: 2017\n    \n    // one month\n    range: '2017-02'\n    \n    //  a range\n    range: ['2017-01-02', '2017-02-23']\n    \n    // note: they will be identified as ['2017-01-01', '2017-02-01']\n    range: ['2017-01', '2017-02']\n    \n    \n\n",
+        "desc": "Required, range of Calendar coordinates, support multiple formats.\n\nExamples:\n```js\n\n// one year\nrange: 2017\n\n// one month\nrange: '2017-02'\n\n//  a range\nrange: ['2017-01-02', '2017-02-23']\n\n// note: they will be identified as ['2017-01-01', '2017-02-01']\nrange: ['2017-01', '2017-02']\n\n```",
         "uiControl": {
             "type": [
                 "number",
@@ -76,32 +88,33 @@
         }
     },
     "cellSize": {
-        "desc": " The size of each rect of calendar coordinates, can be set to a single value or array, the first element is width and the second element is height. Support setting self-adaptation: auto, the default width and height to be 20. Examples: \n\n    \n    // Set the width and height to be 20\n    cellSize: 20\n    \n    // Set the width to be 20, and height to be 40\n    cellSize: [20, 40]\n    \n    // Set width and height to be self-adaptation\n    cellSize: [40]\n    \n    // Set the width and height to be 20\n    cellSize: 'auto'\n    \n    // Set the width to be self-adaptation, and height to be 40\n    cellSize: ['auto', 40]\n    \n    \n\n",
+        "desc": "The size of each rect of calendar coordinates, can be set to a single value or array, the first element is width and the second element is height.\n\nSupport setting self-adaptation: `auto`, the default width and height to be 20.\n\n\nExamples:\n```js\n\n// Set the width and height to be 20\ncellSize: 20\n\n// Set the width to be 20, and height to be 40\ncellSize: [20, 40]\n\n// Set width and height to be self-adaptation\ncellSize: [40]\n\n// Set the width and height to be 20\ncellSize: 'auto'\n\n// Set the width to be self-adaptation, and height to be 40\ncellSize: ['auto', 40]\n\n```",
         "uiControl": {
+            "default": "20",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "20"
+            "step": "1"
         }
     },
     "orient": {
-        "desc": " The layout orientation of calendar. Options: \n\n* 'horizontal'\n* 'vertical'\n\n",
+        "desc": "The layout orientation of calendar.\n\nOptions:\n+ 'horizontal'\n+ 'vertical'",
         "uiControl": {
+            "default": "'horizontal'",
             "type": "enum",
             "options": "'horizontal','vertical'"
         }
     },
     "splitLine": {
-        "desc": " Calendar coordinates splitLine style. ",
+        "desc": "Calendar coordinates splitLine style.",
         "uiControl": {
             "type": "Object"
         }
     },
     "splitLine.show": {
-        "desc": " Set this to false to prevent the splitLine from showing ",
+        "desc": "Set this to `false` to prevent the splitLine from showing",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "splitLine.lineStyle": {
@@ -111,507 +124,526 @@
         }
     },
     "splitLine.lineStyle.color": {
-        "desc": " splitLineLine color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "splitLineLine color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " #000",
             "type": "color"
         }
     },
     "splitLine.lineStyle.width": {
-        "desc": " splitLine line width. ",
+        "desc": "splitLine line width.",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "splitLine.lineStyle.type": {
-        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "splitLine.lineStyle.dashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`type`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "splitLine.lineStyle.cap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "splitLine.lineStyle.join": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`miterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "splitLine.lineStyle.miterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`join`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "splitLine.lineStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "splitLine.lineStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "splitLine.lineStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "splitLine.lineStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "splitLine.lineStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. Examples: \n\n    calendar: [{\n        splitLine: {\n            show: true,\n            lineStyle: {\n                color: '#000',\n                width: 1,\n                type: 'solid'\n            }\n        }\n    }]\n    \n\n",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.\n\n\n\n\n\n\n\n\n\n\n\nExamples:\n```js\ncalendar: [{\nsplitLine: {\nshow: true,\nlineStyle: {\ncolor: '#000',\nwidth: 1,\ntype: 'solid'\n}\n}\n}]\n```",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "itemStyle": {
-        "desc": " Every rect style in calendar coordinates. ",
+        "desc": "Every rect style in calendar coordinates.",
         "uiControl": {
             "type": "Object"
         }
     },
     "itemStyle.color": {
-        "desc": " calendar color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "calendar color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": "#fff",
             "type": "color"
         }
     },
     "itemStyle.borderColor": {
-        "desc": " calendar border color, whose format is similar to that of color. ",
+        "desc": "calendar border color, whose format is similar to that of `color`.",
         "uiControl": {
+            "default": "'#ccc'",
             "type": "color"
         }
     },
     "itemStyle.borderWidth": {
-        "desc": " calendar border width. No border when it is set to be 0. calendar border width. No border when it is set to be 0. ",
+        "desc": "calendar border width. No border when it is set to be 0.\n\n(${name} ? ${name} : \"\") + \" border width. No border when it is set to be 0.\"",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "itemStyle.borderType": {
-        "desc": " calendar border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "calendar border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "itemStyle.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "itemStyle.borderCap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "itemStyle.borderJoin": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the borderMiterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "itemStyle.borderMiterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when borderJoin is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "itemStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "itemStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "itemStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "itemStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "itemStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. Examples: \n\n    calendar: [{\n        itemStyle: {\n            color: '#fff',\n            borderWidth: 1,\n            borderColor: '#ccc'\n        }\n    }]\n    \n\n",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.\n\n\n\n\n\n\n\n\n\n\n\nExamples:\n```js\ncalendar: [{\nitemStyle: {\ncolor: '#fff',\nborderWidth: 1,\nborderColor: '#ccc'\n}\n}]\n```",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "dayLabel": {
-        "desc": " Day style in calendar coordinates. ",
+        "desc": "Day style in calendar coordinates.",
         "uiControl": {
             "type": "Object"
         }
     },
     "dayLabel.show": {
-        "desc": " Set this to false to prevent dayLabel from showing. ",
+        "desc": "Set this to `false` to prevent dayLabel from showing.",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "dayLabel.firstDay": {
-        "desc": " A week from the beginning of the week, the default starting on Sunday. Examples: \n\n    \n    calendar: [{\n        dayLabel: {\n            firstDay: 1 // start on Monday\n        }\n    }]\n    \n    \n\n",
+        "desc": "A week from the beginning of the week, the default starting on Sunday.\n\nExamples:\n\n```js\n\ncalendar: [{\ndayLabel: {\nfirstDay: 1 // start on Monday\n}\n}]\n\n```",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
             "max": "6",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dayLabel.margin": {
-        "desc": " The margin between the day label and the axis line. ",
+        "desc": "The margin between the day label and the axis line.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dayLabel.position": {
-        "desc": " Position of week, at the beginning or end of the range. Options: \n\n* 'start'\n* 'end'\n\n",
+        "desc": "Position of week, at the beginning or end of the range.\n\nOptions:\n+ 'start'\n+ 'end'",
         "uiControl": {
+            "default": "'start'",
             "type": "enum",
             "options": "'start','end'"
         }
     },
     "dayLabel.nameMap": {
-        "desc": " Week text content, defaults to 'en'; It supports Chinese, English, and custom; index 0 always means Sunday; Examples: \n\n    \n    // shortcut to English  ['S', 'M', 'T', 'W', 'T', 'F', 'S'],\n    nameMap: 'en'\n    \n    // shortcut to Chinese ['日', '一', '二', '三', '四', '五', '六']\n    nameMap: 'cn'\n    \n    // Custom settings: mixed in English and Chinese or not displayed\n    nameMap: ['S', '一', 'T', '三', '', '五', 'S'],\n    \n    calendar: [{\n        dayLabel: {\n            nameMap: 'en'\n        }\n    }]\n    \n\n",
+        "desc": "Week text content, defaults to 'en'. Since `v5.2.2`, it defaults to the specified `locale` name when [initializing charts](api.html#echarts.init). If not specified, it defaults to the auto-detected locale by the browser language.\n\nIt supports Chinese(`cn`), English(`en`), and customized array. Since `v5.2.2`, it also supports any built-in(`EN`/`ZH`) or other registered locale names (case-sensitive).\n\nThe index `0` always means `Sunday`.\n\nExamples:\n```js\n\n// Before v5.2.2\n\n// shortcut to English  ['S', 'M', 'T', 'W', 'T', 'F', 'S'],\nnameMap: 'en',\n// shortcut to Chinese ['日', '一', '二', '三', '四', '五', '六']\nnameMap: 'cn',\n\n// Since v5.2.2\n\n// shortcut to English  ['S', 'M', 'T', 'W', 'T', 'F', 'S'],\nnameMap: 'EN',\n// shortcut to Chinese ['日', '一', '二', '三', '四', '五', '六']\nnameMap: 'ZH',\n\n// Customized: mixed in English and Chinese or not displayed\nnameMap: ['S', '一', 'T', '三', '', '五', 'S'],\n\ncalendar: [{\ndayLabel: {\n// nameMap: 'en' // Before v5.2.2\nnameMap: 'EN'    // Since v5.2.2\n}\n}]\n```",
         "uiControl": {
+            "default": "'EN'",
             "type": "enum",
-            "options": "'en','cn'"
+            "options": "'EN','ZH'"
         }
     },
     "dayLabel.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'#000'",
+            "type": "color"
         }
     },
     "dayLabel.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "dayLabel.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "dayLabel.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "dayLabel.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "dayLabel.align": {
-        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "dayLabel.verticalAlign": {
-        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "dayLabel.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "dayLabel.backgroundColor": {
-        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "dayLabel.borderColor": {
-        "desc": " Border color of the text fragment. ",
+        "desc": "Border color of the text fragment.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "dayLabel.borderWidth": {
-        "desc": " Border width of the text fragment. ",
+        "desc": "Border width of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.borderType": {
-        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "dayLabel.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dayLabel.borderRadius": {
-        "desc": " Border radius of the text fragment. ",
+        "desc": "Border radius of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "dayLabel.padding": {
-        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "dayLabel.shadowColor": {
-        "desc": " Shadow color of the text block. ",
+        "desc": "Shadow color of the text block.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "dayLabel.shadowBlur": {
-        "desc": " Show blur of the text block. ",
+        "desc": "Show blur of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.shadowOffsetX": {
-        "desc": " Shadow X offset of the text block. ",
+        "desc": "Shadow X offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.shadowOffsetY": {
-        "desc": " Shadow Y offset of the text block. ",
+        "desc": "Shadow Y offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.width": {
-        "desc": " Width of text block. ",
+        "desc": "Width of text block.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "dayLabel.height": {
-        "desc": " Height of text block. ",
+        "desc": "Height of text block.",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "dayLabel.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "dayLabel.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "dayLabel.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dayLabel.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "dayLabel.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.overflow": {
-        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "dayLabel.ellipsis": {
-        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "dayLabel.lineOverflow": {
-        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "dayLabel.rich": {
-        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
         "uiControl": {
             "type": "Object"
         }
@@ -623,153 +655,160 @@
         }
     },
     "dayLabel.rich.<style_name>.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "dayLabel.rich.<style_name>.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "dayLabel.rich.<style_name>.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "dayLabel.rich.<style_name>.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "dayLabel.rich.<style_name>.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "dayLabel.rich.<style_name>.align": {
-        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "dayLabel.rich.<style_name>.verticalAlign": {
-        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "dayLabel.rich.<style_name>.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "dayLabel.rich.<style_name>.backgroundColor": {
-        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "dayLabel.rich.<style_name>.borderColor": {
-        "desc": " Border color of the text fragment. ",
+        "desc": "Border color of the text fragment.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "dayLabel.rich.<style_name>.borderWidth": {
-        "desc": " Border width of the text fragment. ",
+        "desc": "Border width of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.borderType": {
-        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "dayLabel.rich.<style_name>.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dayLabel.rich.<style_name>.borderRadius": {
-        "desc": " Border radius of the text fragment. ",
+        "desc": "Border radius of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "dayLabel.rich.<style_name>.padding": {
-        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "dayLabel.rich.<style_name>.shadowColor": {
-        "desc": " Shadow color of the text block. ",
+        "desc": "Shadow color of the text block.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "dayLabel.rich.<style_name>.shadowBlur": {
-        "desc": " Show blur of the text block. ",
+        "desc": "Show blur of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.shadowOffsetX": {
-        "desc": " Shadow X offset of the text block. ",
+        "desc": "Shadow X offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.shadowOffsetY": {
-        "desc": " Shadow Y offset of the text block. ",
+        "desc": "Shadow Y offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.width": {
-        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
         "uiControl": {
             "type": [
                 "number",
@@ -778,7 +817,7 @@
         }
     },
     "dayLabel.rich.<style_name>.height": {
-        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
         "uiControl": {
             "type": [
                 "number",
@@ -787,112 +826,117 @@
         }
     },
     "dayLabel.rich.<style_name>.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "dayLabel.rich.<style_name>.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "dayLabel.rich.<style_name>.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "dayLabel.rich.<style_name>.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "dayLabel.rich.<style_name>.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "dayLabel.rich.<style_name>.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel": {
-        "desc": " Month label in calendar coordinates. ",
+        "desc": "Month label in calendar coordinates.",
         "uiControl": {
             "type": "Object"
         }
     },
     "monthLabel.show": {
-        "desc": " Set this to false to prevent monthLabel from showing. ",
+        "desc": "Set this to `false` to prevent monthLabel from showing.",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "monthLabel.align": {
-        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "monthLabel.margin": {
-        "desc": " The margin between the month label and the axis line. ",
+        "desc": "The margin between the month label and the axis line.",
         "uiControl": {
+            "default": "5",
             "type": "number",
             "min": "0",
-            "step": "5",
-            "default": "0"
+            "step": "5"
         }
     },
     "monthLabel.position": {
-        "desc": " Position of week, at the beginning or end of the range. Options: \n\n* 'start'\n* 'end'\n\n",
+        "desc": "Position of week, at the beginning or end of the range.\n\nOptions:\n+ 'start'\n+ 'end'",
         "uiControl": {
+            "default": "'start'",
             "type": "enum",
             "options": "'start','end'"
         }
     },
     "monthLabel.nameMap": {
-        "desc": " Month text content, defaults to 'en'; It supports Chinese, English, and custom; Index 0 always means Jan; Examples: \n\n    // Shortcut to English [\n                    'Jan', 'Feb', 'Mar',\n                    'Apr', 'May', 'Jun',\n                    'Jul', 'Aug', 'Sep',\n                    'Oct', 'Nov', 'Dec'\n                ],\n    nameMap: 'en'\n    \n    // Shortcut to Chinese [\n                    '一月', '二月', '三月',\n                    '四月', '五月', '六月',\n                    '七月', '八月', '九月',\n                    '十月', '十一月', '十二月'\n                ]\n    nameMap: 'cn'\n    \n    // Custom settings: mixed in English and Chinese or not displayed\n    nameMap: [\n                '一月', 'Feb', '三月',\n                '四月', 'May', '六月',\n                '七月', '八月', '',\n                '十月', 'Nov', '十二月'\n            ],\n    \n    \n    calendar: [{\n        monthLabel: {\n            nameMap: 'en'\n        }\n    }]\n    \n\n",
+        "desc": "Month text content, defaults to 'en'. Since `v5.2.2`, it defaults to the specified `locale` name when [initializing charts](api.html#echarts.init). If not specified, it defaults to the auto-detected locale by the browser language.\n\nIt supports Chinese(`cn`), English(`en`), and customized array. Since `v5.2.2`, it also supports any built-in(`EN`/`ZH`) or other registered locale names (case-sensitive).\n\nThe index `0` always means `Jan`.\n\nExamples:\n```js\n\n// Before v5.2.2\n\n// Shortcut to English\n// ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']\nnameMap: 'en',\n// Shortcut to Chinese\n// ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']\nnameMap: 'cn',\n\n// Since v5.2.2\n\n// Shortcut to English\n// ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']\nnameMap: 'EN',\n// Shortcut to Chinese\n// ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']\nnameMap: 'ZH',\n\n// Customized settings: mixed in English, Chinese, Russian or not displayed\nnameMap: [\n'一月', 'Feb', '三月',\n'四月', 'May', '六月',\n'Июль', '八月', '',\n'十月', 'Nov', '十二月'\n],\n\ncalendar: [{\nmonthLabel: {\n// nameMap: 'en' // Before v5.2.2\nnameMap: 'EN'    // Since v5.2.2\n}\n}]\n```",
         "uiControl": {
+            "default": "'EN'",
             "type": "enum",
-            "options": "'en','cn'"
+            "options": "'EN','ZH'"
         }
     },
     "monthLabel.formatter": {
-        "desc": " Formatter of month text label, which supports string template and callback function. Examples: \n\n    // Use string template; eg: 2017-02\n    /*\n        template variables:\n        {nameMap} default nameMap eg：'Feb'\n        {yyyy}   four-digit years eg: 2017\n        {yy}   two-digit years eg: 17\n        {MM}   two-digit month eg: 02\n        {M}   single-digit month eg: 2\n    */\n    formatter: '{yyyy}-{MM}'\n    \n    // Use callback function;\n    /*\n        function parameters:\n        param.nameMap default nameMap eg：'Feb'\n        param.yyyy   four-digit years eg: 2017\n        param.yy   two-digit years eg: 17\n        param.MM   two-digit month eg: 02\n        param.M   single-digit eg: 2\n    */\n    formatter: function (param) {\n        // ...\n        return param.MM;\n    }\n    \n\n",
+        "desc": "Formatter of month text label, which supports string template and callback function.\n\n\nExamples:\n```js\n// Use string template; eg: 2017-02\n/*\ntemplate variables:\n{nameMap} default nameMap eg：'Feb'\n{yyyy}   four-digit years eg: 2017\n{yy}   two-digit years eg: 17\n{MM}   two-digit month eg: 02\n{M}   single-digit month eg: 2\n*/\nformatter: '{yyyy}-{MM}'\n\n// Use callback function;\n/*\nfunction parameters:\nparam.nameMap default nameMap eg：'Feb'\nparam.yyyy   four-digit years eg: 2017\nparam.yy   two-digit years eg: 17\nparam.MM   two-digit month eg: 02\nparam.M   single-digit eg: 2\n*/\nformatter: function (param) {\n// ...\nreturn param.MM;\n}\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "string",
                 "Function"
@@ -900,248 +944,258 @@
         }
     },
     "monthLabel.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'#000'",
+            "type": "color"
         }
     },
     "monthLabel.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "monthLabel.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "monthLabel.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "monthLabel.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "monthLabel.verticalAlign": {
-        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "monthLabel.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "monthLabel.backgroundColor": {
-        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "monthLabel.borderColor": {
-        "desc": " Border color of the text fragment. ",
+        "desc": "Border color of the text fragment.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "monthLabel.borderWidth": {
-        "desc": " Border width of the text fragment. ",
+        "desc": "Border width of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.borderType": {
-        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "monthLabel.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "monthLabel.borderRadius": {
-        "desc": " Border radius of the text fragment. ",
+        "desc": "Border radius of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "monthLabel.padding": {
-        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "monthLabel.shadowColor": {
-        "desc": " Shadow color of the text block. ",
+        "desc": "Shadow color of the text block.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "monthLabel.shadowBlur": {
-        "desc": " Show blur of the text block. ",
+        "desc": "Show blur of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.shadowOffsetX": {
-        "desc": " Shadow X offset of the text block. ",
+        "desc": "Shadow X offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.shadowOffsetY": {
-        "desc": " Shadow Y offset of the text block. ",
+        "desc": "Shadow Y offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.width": {
-        "desc": " Width of text block. ",
+        "desc": "Width of text block.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "monthLabel.height": {
-        "desc": " Height of text block. ",
+        "desc": "Height of text block.",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "monthLabel.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "monthLabel.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "monthLabel.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "monthLabel.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "monthLabel.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.overflow": {
-        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "monthLabel.ellipsis": {
-        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "monthLabel.lineOverflow": {
-        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "monthLabel.rich": {
-        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
         "uiControl": {
             "type": "Object"
         }
@@ -1153,153 +1207,160 @@
         }
     },
     "monthLabel.rich.<style_name>.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "monthLabel.rich.<style_name>.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "monthLabel.rich.<style_name>.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "monthLabel.rich.<style_name>.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "monthLabel.rich.<style_name>.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "monthLabel.rich.<style_name>.align": {
-        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "monthLabel.rich.<style_name>.verticalAlign": {
-        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "monthLabel.rich.<style_name>.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "monthLabel.rich.<style_name>.backgroundColor": {
-        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "monthLabel.rich.<style_name>.borderColor": {
-        "desc": " Border color of the text fragment. ",
+        "desc": "Border color of the text fragment.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "monthLabel.rich.<style_name>.borderWidth": {
-        "desc": " Border width of the text fragment. ",
+        "desc": "Border width of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.borderType": {
-        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "monthLabel.rich.<style_name>.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "monthLabel.rich.<style_name>.borderRadius": {
-        "desc": " Border radius of the text fragment. ",
+        "desc": "Border radius of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "monthLabel.rich.<style_name>.padding": {
-        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "monthLabel.rich.<style_name>.shadowColor": {
-        "desc": " Shadow color of the text block. ",
+        "desc": "Shadow color of the text block.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "monthLabel.rich.<style_name>.shadowBlur": {
-        "desc": " Show blur of the text block. ",
+        "desc": "Show blur of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.shadowOffsetX": {
-        "desc": " Shadow X offset of the text block. ",
+        "desc": "Shadow X offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.shadowOffsetY": {
-        "desc": " Shadow Y offset of the text block. ",
+        "desc": "Shadow Y offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.width": {
-        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
         "uiControl": {
             "type": [
                 "number",
@@ -1308,7 +1369,7 @@
         }
     },
     "monthLabel.rich.<style_name>.height": {
-        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
         "uiControl": {
             "type": [
                 "number",
@@ -1317,98 +1378,101 @@
         }
     },
     "monthLabel.rich.<style_name>.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "monthLabel.rich.<style_name>.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "monthLabel.rich.<style_name>.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "monthLabel.rich.<style_name>.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "monthLabel.rich.<style_name>.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "monthLabel.rich.<style_name>.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel": {
-        "desc": " Year label in calendar coordinates. ",
+        "desc": "Year label in calendar coordinates.",
         "uiControl": {
             "type": "Object"
         }
     },
     "yearLabel.show": {
-        "desc": " Set this to false to stop yearLabel from showing ",
+        "desc": "Set this to `false` to stop yearLabel from showing",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "yearLabel.margin": {
-        "desc": " The margin between the month label and the axis line. ",
+        "desc": "The margin between the month label and the axis line.",
         "uiControl": {
+            "default": "30",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "yearLabel.position": {
-        "desc": " Position of year. Default: when orient is set as horizontal, position is left when orient is set as vertical, position is top Options: \n\n* 'top'\n* 'bottom'\n* 'left'\n* 'right'\n\n",
+        "desc": "Position of year.\n\nDefault:\nwhen orient is set as `horizontal`, position is `left`\nwhen orient is set as `vertical`, position is `top`\n\nOptions:\n+ 'top'\n+ 'bottom'\n+ 'left'\n+ 'right'",
         "uiControl": {
             "type": "enum",
             "options": "'top','bottom','left','right'"
         }
     },
     "yearLabel.formatter": {
-        "desc": " Formatter of year text label, which supports string template and callback function. By default, the current range of the year, if the interval across the year, showing the first year and the last year Examples: \n\n    // Use string template; eg: ['2017-10-11', '2018-01-21']\n    /*\n        template variables:\n        {nameMap} default nameMap eg：'2017-2018'\n        {start}   start year eg: 2017\n        {end}   end year eg: 2018\n    */\n    \n    formatter: '{start}-{end}'\n    \n    // Use callback function;\n    /*\n        function parameters:\n        param.nameMap default nameMap eg：'2017-2018'\n        param.start   start year eg: 2017\n        param.end   end year eg: 2018\n    */\n    formatter: function (param) {\n        // ...\n        return param.end;\n    }\n    \n\n",
+        "desc": "Formatter of year text label, which supports string template and callback function.\n\nBy default, the current range of the year, if the interval across the year, showing the first year and the last year\n\nExamples:\n```js\n// Use string template; eg: ['2017-10-11', '2018-01-21']\n/*\ntemplate variables:\n{nameMap} default nameMap eg：'2017-2018'\n{start}   start year eg: 2017\n{end}   end year eg: 2018\n*/\n\nformatter: '{start}-{end}'\n\n// Use callback function;\n/*\nfunction parameters:\nparam.nameMap default nameMap eg：'2017-2018'\nparam.start   start year eg: 2017\nparam.end   end year eg: 2018\n*/\nformatter: function (param) {\n// ...\nreturn param.end;\n}\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "string",
                 "Function"
@@ -1416,255 +1480,265 @@
         }
     },
     "yearLabel.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "yearLabel.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "yearLabel.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "yearLabel.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "yearLabel.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "yearLabel.align": {
-        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "yearLabel.verticalAlign": {
-        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "yearLabel.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "yearLabel.backgroundColor": {
-        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "yearLabel.borderColor": {
-        "desc": " Border color of the text fragment. ",
+        "desc": "Border color of the text fragment.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "yearLabel.borderWidth": {
-        "desc": " Border width of the text fragment. ",
+        "desc": "Border width of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.borderType": {
-        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "yearLabel.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "yearLabel.borderRadius": {
-        "desc": " Border radius of the text fragment. ",
+        "desc": "Border radius of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "yearLabel.padding": {
-        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "yearLabel.shadowColor": {
-        "desc": " Shadow color of the text block. ",
+        "desc": "Shadow color of the text block.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "yearLabel.shadowBlur": {
-        "desc": " Show blur of the text block. ",
+        "desc": "Show blur of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.shadowOffsetX": {
-        "desc": " Shadow X offset of the text block. ",
+        "desc": "Shadow X offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.shadowOffsetY": {
-        "desc": " Shadow Y offset of the text block. ",
+        "desc": "Shadow Y offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.width": {
-        "desc": " Width of text block. ",
+        "desc": "Width of text block.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "yearLabel.height": {
-        "desc": " Height of text block. ",
+        "desc": "Height of text block.",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "yearLabel.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "yearLabel.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "yearLabel.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "yearLabel.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "yearLabel.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.overflow": {
-        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "yearLabel.ellipsis": {
-        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "yearLabel.lineOverflow": {
-        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "yearLabel.rich": {
-        "desc": " \"Rich text styles\" can be defined in this rich property. For example: \n\n    label: {\n        // Styles defined in 'rich' can be applied to some fragments\n        // of text by adding some markers to those fragment, like\n        // `{styleName|text content text content}`.\n        // `'\\n'` is the newline character.\n        formatter: [\n            '{a|Style \"a\" is applied to this snippet}'\n            '{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\nFor more details, see [Rich Text][0] please.\n\n[0]: tutorial.html#Rich%20Text",
+        "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
         "uiControl": {
             "type": "Object"
         }
@@ -1676,153 +1750,160 @@
         }
     },
     "yearLabel.rich.<style_name>.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "yearLabel.rich.<style_name>.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "yearLabel.rich.<style_name>.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "yearLabel.rich.<style_name>.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "yearLabel.rich.<style_name>.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "yearLabel.rich.<style_name>.align": {
-        "desc": " Horizontal alignment of text, automatic by default. Options are: \n\n* 'left'\n* 'center'\n* 'right'\n\nIf align is not set in rich, align in parent level will be used. For example: \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // `align` is not set, then it will be right\n            }\n        }\n    }\n    \n\n",
+        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "yearLabel.rich.<style_name>.verticalAlign": {
-        "desc": " Vertical alignment of text, automatic by default. Options are: \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nIf verticalAlign is not set in rich, verticalAlign in parent level will be used. For example: \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // `verticalAlign` is not set, then it will be bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "yearLabel.rich.<style_name>.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "yearLabel.rich.<style_name>.backgroundColor": {
-        "desc": " Background color of the text fragment. Can be color string, like '#123234', 'red', 'rgba(0,23,11,0.3)'. Or image can be used, for example: \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // It can be URL of a image,\n        // or dataURI,\n        // or HTMLImageElement,\n        // or HTMLCanvasElement.\n    }\n    \n\nwidth or height can be specified when using background image, or auto adapted by default. ",
+        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "yearLabel.rich.<style_name>.borderColor": {
-        "desc": " Border color of the text fragment. ",
+        "desc": "Border color of the text fragment.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "yearLabel.rich.<style_name>.borderWidth": {
-        "desc": " Border width of the text fragment. ",
+        "desc": "Border width of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.borderType": {
-        "desc": " the text fragment border type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With borderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "yearLabel.rich.<style_name>.borderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With borderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "yearLabel.rich.<style_name>.borderRadius": {
-        "desc": " Border radius of the text fragment. ",
+        "desc": "Border radius of the text fragment.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "yearLabel.rich.<style_name>.padding": {
-        "desc": " Padding of the text fragment, for example: \n\n* padding: [3, 4, 5, 6]: represents padding of [top, right, bottom, left].\n* padding: 4: represents padding: [4, 4, 4, 4].\n* padding: [3, 4]: represents padding: [3, 4, 3, 4].\n\nNotice, width and height specifies the width and height of the content, without padding. ",
+        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "yearLabel.rich.<style_name>.shadowColor": {
-        "desc": " Shadow color of the text block. ",
+        "desc": "Shadow color of the text block.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "yearLabel.rich.<style_name>.shadowBlur": {
-        "desc": " Show blur of the text block. ",
+        "desc": "Show blur of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.shadowOffsetX": {
-        "desc": " Shadow X offset of the text block. ",
+        "desc": "Shadow X offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.shadowOffsetY": {
-        "desc": " Shadow Y offset of the text block. ",
+        "desc": "Shadow Y offset of the text block.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.width": {
-        "desc": " Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. width can also be percent string, like '100%', which represents the percent of contentWidth (that is, the width without padding) of its container box. It is based on contentWidth because that each text fragment is layout based on the content box, where it makes no sense that calculating width based on outerWith in prectice. Notice, width and height only work when rich specified. ",
+        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
         "uiControl": {
             "type": [
                 "number",
@@ -1831,7 +1912,7 @@
         }
     },
     "yearLabel.rich.<style_name>.height": {
-        "desc": " Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see backgroundColor). Notice, width and height specifies the width and height of the content, without padding. Notice, width and height only work when rich specified. ",
+        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
         "uiControl": {
             "type": [
                 "number",
@@ -1840,69 +1921,72 @@
         }
     },
     "yearLabel.rich.<style_name>.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "yearLabel.rich.<style_name>.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "yearLabel.rich.<style_name>.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "yearLabel.rich.<style_name>.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "yearLabel.rich.<style_name>.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "yearLabel.rich.<style_name>.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "silent": {
-        "desc": " Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events. ",
+        "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     }

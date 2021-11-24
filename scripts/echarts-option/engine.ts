@@ -1,11 +1,17 @@
 /**
  * @name 模板解析引擎
- * @description 具体功能的由实现了 Command 的子类组合而成；抽象类 Command 定义了命令的基本结构和功能
+ * @author ren-wei
+ * @description 所有源码依次调用`parseSource`方法，然后调用`render`方法获取渲染结果，它的参数从`targets`属性获取
+ * @extends 'implements'抽象类'Command'以扩展功能
  */
+
+import * as os from 'os';
+
 export default class Engine {
     public targets: Targets = {};
     public commandTypes: CommandTypes;
     public options: EngineOptions;
+    public deps: string[] = []; // 需要导入的目标，长度为0时才能 render
     private analyseContext: AnalyseContext; // 语法分析环境对象
 
     /**
@@ -18,22 +24,19 @@ export default class Engine {
             commandOpen: '{{',
             commandClose: '}}',
             commandSyntax: /^\s*(\/)?([a-z]*)\s*(?::([\s\S]*))?$/,
-            variableOpen: '${',
-            variableClose: '}',
+            variableOpen: '\\$\\{',
+            variableClose: '\\}',
             namingConflict: 'error',
             missTarget: 'error',
         }, options) as EngineOptions);
         this.commandTypes = {
             'target': TargetCommand,
             'use': UseCommand,
-            // 'block': BlockCommand,
-            // 'import': ImportCommand,
-            // 'var': VarCommand,
-            // 'for': ForCommand,
-            // 'if': IfCommand,
-            // 'elif': ElifCommand,
-            // 'else': ElseCommand,
-            // 'filter': FilterCommand,
+            'import': ImportCommand,
+            'block': BlockCommand,
+            'if': IfCommand,
+            'elif': ElifCommand,
+            'else': ElseCommand,
             ...commandExtends,
         };
         this.analyseContext = {
@@ -95,26 +98,103 @@ export default class Engine {
     }
 
     /**
-     * 编译变量访问和替换的代码
-     * @param source 源代码
-     * @param vars 变量的值
+     * 执行模板渲染，返回渲染后的字符串。
+     * @param name target名称
+     * @param vars 变量默认值
+     * @returns 渲染结果
      */
-    public compileVariable(source: string, vars: {[name: string]: string} = {}): string {
-        Object.entries(vars).forEach(([key, value]) => {
-            const reg = new RegExp('\\$\\{' + key + '\\}', 'g');
-            // TODO: 其他格式的值
-            source = source.replace(reg, value);
-        });
-        return source.replace(/\$\{\w+\}/g, '');
+    public render(name: string, vars: Vars = {}): string {
+        return this.targets[name].children.map(child => child.getRendererBody(vars)).join('').trim() + os.EOL;
     }
 
     /**
-     * 执行模板渲染，返回渲染后的字符串。
-     * @param name target名称
-     * @returns 渲染结果
+     * `command use` 编译变量
+     * @param source 源代码
+     * @param vars 变量的值
+     * @return 编译后的结果
      */
-    public render(name: string): string {
-        return this.targets[name].children.map(child => child.getRendererBody()).join('');
+    public compileVariable(source: string, vars: Vars = {}): string {
+        const reg = new RegExp(
+            this.options.variableOpen
+            + '(\\w+)'
+            + '(?:\\|default\\('
+            + '(' // 匹配括号内的默认值
+            + exp.expression
+            + ')'
+            + '\\)'
+            + ')?'
+            + this.options.variableClose
+            , 'g'
+        );
+        // 获取需要替换的位置和值
+        const opers: Array<[start: number, end: number, replaceValue: string]> = [];
+        let match: RegExpExecArray | null;
+        while ((match = reg.exec(source))) {
+            if (match[1]) {
+                const start = match.index;
+                const end = start + match[0].length;
+                let replaceValue: string;
+                if (vars[match[1]] !== undefined && vars[match[1]] !== 'null') {
+                    replaceValue = vars[match[1]];
+                } else if (match[2] !== undefined) {
+                    try {
+                        // eslint-disable-next-line no-eval
+                        const value = eval(match[2]);
+                        if (typeof value === 'string') {
+                            replaceValue = "'" + value + "'";
+                        } else {
+                            replaceValue = String(value);
+                        }
+                    } catch (e) {
+                        replaceValue = match[2];
+                    }
+                } else {
+                    replaceValue = '';
+                }
+                // 如果取值后仍是变量，那么设置为默认值
+                if (/^\$\{[^\}]+\}$/.test(replaceValue)) {
+                    replaceValue = match[2] || '';
+                }
+                // 如果值是字符串，需要去掉前后的字符串标识
+                if (/^((".*")|('.*'))$/.test(replaceValue)) {
+                    replaceValue = replaceValue.slice(1, replaceValue.length - 1);
+                }
+                opers.push([start, end, replaceValue]);
+            }
+        }
+        // 源码所在的位置替换为值
+        let oper: [start: number, end: number, replaceValue: string] | undefined;
+        while ((oper = opers.pop())) {
+            const [start, end, replaceValue] = oper;
+            source = `${source.slice(0, start)}${replaceValue}${source.slice(end)}`;
+        }
+        return source;
+    }
+
+    /**
+     * `command use` 获取字符串表示的值，如果对应的环境变量不存在，那么返回 'null'
+     * @param source 需要解析的字符串
+     * @param vars 环境变量
+     * @return 原始字符串表示的值
+     */
+    public parseString(source: string, vars: Vars) : string {
+        try {
+            return (new Function(`
+                ${Object.entries(vars).map(([k, v]) => {
+                    return 'const ' + k + ' = \`' + v.replace(/`/g, '\\`') + '\`;';
+                }).join('\n')}
+                return \`${source.replace(/`/g, '\\`')}\`;
+            `))();
+        } catch (e) {
+            const match = /^ReferenceError: (\w+) is not defined$/.exec(String(e));
+            if (match && match[1]) {
+                const paramsVars = { ...vars };
+                paramsVars[match[1]] = 'null';
+                return this.parseString(source, paramsVars);
+            } else {
+                throw e;
+            }
+        }
     }
 
     /**
@@ -235,6 +315,43 @@ type AnalyseContext = {
     current: Command | TextNode | null; // 解析过程中当前所在的节点
 };
 
+/** 当前的环境变量 */
+type Vars = {
+    [key: string]: string;
+};
+
+class Exp {
+    /** 不同类型的值的正则表达式 */
+    public exp: { [key: string]: string};
+    /** 匹配所有的简单值 */
+    public valueExp: string;
+    /** 匹配?号表达式 */
+    public questionExp: string;
+    /** 匹配所有表达式 */
+    public expression: string;
+
+    constructor() {
+        this.exp = {
+            /** 单引号 */
+            singleQuotaion: "(?:'[^']*')",
+            /** 双引号 */
+            doubleQuotaion: '(?:"[^"]*")',
+            /** true、false等字面量值 */
+            literal: '(?:true|false|null)',
+            /** 数字 */
+            digital: '(?:\\d+)',
+            /** 形如 ${name} 的模板变量值 */
+            template: '(?:\\$\\{\\w+\\})',
+        };
+        this.valueExp = '(?:' + Object.values(this.exp).join('|') + ')';
+        this.questionExp = '(?:' + this.valueExp + '\\s*\\?\\s*' + this.valueExp + '\\s*:\\s*' + this.valueExp + ')';
+        const simpleExp = '(?:(?:\\((?:' + this.questionExp + '|' + this.valueExp + ')\\))|(?:' + this.questionExp + '|' + this.valueExp + '))';
+        this.expression = '(?:' + simpleExp + '(?:\\s*\\+\\s*' + simpleExp + ')*)';
+    }
+}
+
+const exp = new Exp();
+
 export class Stack<T> extends Array<T> {
     /** 获取顶部元素 */
     public top(): T {
@@ -269,8 +386,8 @@ export class TextNode {
         this.engine = engine;
     }
 
-    public getRendererBody(): string {
-        return this.value;
+    public getRendererBody(vars: Vars): string {
+        return this.engine.compileVariable(this.value, vars);
     }
 
     public clone(): TextNode {
@@ -299,25 +416,11 @@ export abstract class Command {
     public abstract autoClose?(context: AnalyseContext): void;
 
     /** 获取生成的代码 */
-    public abstract getRendererBody(): string;
-
-    /** 复制节点 */
-    public abstract clone(): Command;
+    public abstract getRendererBody(vars: Vars): string;
 }
 
 export type CommandType = Function; // Command的子类
 export type CommandTypes = { [name: string]: CommandType };
-
-export enum TargetState {
-    /** 读取前 */
-    READY,
-    /** 读取中 */
-    READING,
-    /** 读取完成 */
-    READED,
-    /** 所有依赖都已应用，可以调用渲染函数获取渲染结果 */
-    APPLIED,
-}
 
 type Targets = { [name: string]: TargetCommand };
 
@@ -329,10 +432,7 @@ export class TargetCommand implements Command {
     public children: Array<Command | TextNode> = [];
     public engine: Engine;
 
-    private state: TargetState;
-
     constructor(value: string, engine: Engine) {
-        this.state = TargetState.READY;
         const match = /\b([\w-]*)/.exec(value);
         this.name = match ? match[0] : value;
         this.value = match ? match[0] : value;
@@ -348,7 +448,11 @@ export class TargetCommand implements Command {
         context.stack.top()?.addChild(this);
         context.stack.push(this);
 
-        this.state = TargetState.READING;
+        // target已找到，从deps从移除
+        const index = this.engine.deps.indexOf(this.name);
+        if (index !== -1) {
+            this.engine.deps.splice(index, 1);
+        }
 
         // 将当前 target 添加到语法环境中
         context.target = this;
@@ -369,7 +473,6 @@ export class TargetCommand implements Command {
     public close(context: AnalyseContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
-            this.state = TargetState.READED;
         }
     }
 
@@ -377,13 +480,8 @@ export class TargetCommand implements Command {
         this.close(context);
     }
 
-    public clone(): TargetCommand {
-        // TODO: clone
-        return new TargetCommand(this.value, this.engine);
-    }
-
-    public getRendererBody(): string {
-        return this.children.map(child => child.getRendererBody()).join('');
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
 
@@ -395,21 +493,23 @@ class UseCommand implements Command {
     public children: Array<Command> = [];
     public engine: Engine;
 
-    private vars: { [key: string]: string };
+    private argsStr: string;
 
     constructor(value: string, engine: Engine) {
-        const match = /\b(?<name>[\w|-]*)(?:\((?<vars>(?:\w*\s?=\s?'\w*',?\s?)*)\))?/.exec(value);
+        const reg = new RegExp(
+            '\\b' // 单词边界
+            + '(?<name>[\\w|-]*)' // 名称
+            + '(?:' // 定义括号和内部的参数为非捕获组1
+                + '\\(\\s*' // 参数前的括号
+                + '(?<args>.*)'
+                + '\\s*\\)' // 参数后的括号
+            + ')?' // 非捕获组1允许不存在
+            , 'ms'
+        );
+        const match = reg.exec(value);
         this.name = match?.groups?.name || value;
+        this.argsStr = match?.groups?.args || '';
         this.value = value;
-        const vars = match?.groups?.vars;
-        this.vars = vars ? Object.fromEntries((vars.split(',').map(text => {
-            const m = /(\w*)\s?=\s?'([^']*)'/.exec(text);
-            if (m) {
-                return [m[1], m[2]];
-            } else {
-                return [];
-            }
-        }))) : {};
         this.engine = engine;
     }
 
@@ -418,126 +518,279 @@ class UseCommand implements Command {
     public open(context: AnalyseContext) {
         // use命令打开完后立即闭合，不需要入栈
         context.stack.top()?.addChild(this);
+        if (!this.engine.targets[this.name] && !this.engine.deps.includes(this.name)) {
+            this.engine.deps.push(this.name);
+        }
     }
 
     public close(context: AnalyseContext) {}
 
-    public clone(): TargetCommand {
-        // TODO: clone
-        return new TargetCommand(this.value, this.engine);
+    public getRendererBody(vars: Vars): string {
+        if (this.engine.targets[this.name]) {
+            return this.engine.targets[this.name].getRendererBody(this.parseVars(vars));
+        } else if (this.engine.options.missTarget === 'error') {
+            throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
+        } else {
+            return '';
+        }
     }
 
-    public getRendererBody(): string {
+    /** 解析参数 */
+    private parseVars(vars: Vars): Vars {
+        const reg = new RegExp(
+            '(?:\\s*' // 开头空白
+            + '(\\w+)' // 参数的key
+            + '\\s?=\\s?' // =
+            + '(' // 不同格式的参数
+            + `${exp.valueExp}(?:\\s*\\+\\s*${exp.valueExp})?`
+            + ')'
+            + '\\s*)'
+            , 'msg'
+        );
+        let match: RegExpExecArray | null;
+        const raw: Vars = {};
+        while ((match = reg.exec(this.argsStr))) {
+            raw[match[1]] = match[2];
+        }
+        // 获取当前的参数和对应值
+        const newVars: Vars = Object.fromEntries(Object.entries(raw).map(([k, v]) => {
+            return [k, this.engine.parseString(v, vars)];
+        }));
+        Object.entries(newVars).forEach(([k, v]) => {
+            try {
+                // eslint-disable-next-line no-eval
+                const value = eval(v);
+                if (typeof value === 'string') {
+                    newVars[k] = "'" + value.replace(/(?:=\\)'/g, "\\'") + "'";
+                } else {
+                    newVars[k] = String(value);
+                }
+            } catch (e) {
+                newVars[k] = v;
+            }
+        });
+        return newVars;
+    }
+}
+
+/** import 命令用于将指定的 target 渲染后的内容复制到此处 */
+class ImportCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'import';
+    public children: Array<Command> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        const match = /[\w-]+/.exec(value);
+        this.name = match ? match[0] : value;
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {}
+
+    public open(context: AnalyseContext) {
+        // import命令打开完后立即闭合，不需要入栈
+        context.stack.top()?.addChild(this);
+        if (!this.engine.targets[this.name] && !this.engine.deps.includes(this.name)) {
+            this.engine.deps.push(this.name);
+        }
+    }
+
+    public close(context: AnalyseContext) {}
+
+    public getRendererBody(vars: Vars): string {
         if (this.engine.targets[this.name]) {
-            return this.engine.compileVariable(this.engine.targets[this.name].getRendererBody(), this.vars);
+            return this.engine.targets[this.name].getRendererBody(vars);
+        } else if (this.engine.options.missTarget === 'error') {
+            throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
         } else {
-            // TODO: 抛出错误
-            // throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
             return '';
         }
     }
 }
 
-// class BlockCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'block';
+/** if 命令用于根据条件判断是否渲染，可以包含 elif 和 else 命令，需要闭合命令 */
+class IfCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'if';
+    public children: Array<BlockCommand | ElifCommand | ElseCommand> = [];
+    public engine: Engine;
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    public addChild(node: BlockCommand | ElifCommand | ElseCommand) {
+        this.children.push(node);
+    }
 
-// class ImportCommand extends Command {
-//     public allowAutoClose: boolean = true;
-//     public type: string = 'import';
+    public open(context: AnalyseContext) {
+        context.stack.top()?.addChild(this);
+        context.stack.push(this);
+        // 创建一个 block 节点来划分范围
+        const node = new BlockCommand('', this.engine);
+        node.open(context);
+    }
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    public getRendererBody(vars: Vars): string {
+        if (this.validate(vars)) {
+            return this.children[0].getRendererBody(vars);
+        }
+        for (let i = 1; i < this.children.length; i++) {
+            const child = this.children[i];
+            if (child instanceof ElifCommand && this.validate(vars, child.value) || child instanceof ElseCommand) {
+                return child.getRendererBody(vars);
+            }
+        }
+        return '';
+    }
 
-// class VarCommand extends Command {
-//     public allowAutoClose: boolean = true;
-//     public type: string = 'var';
+    /** 校验条件是否成立 */
+    private validate(vars: Vars, value = this.value): boolean {
+        try {
+            return (new Function(`return ${this.engine.parseString(value, vars)}`))();
+        } catch (e) {
+            // TODO: 对于这种模式，暂时不清楚其含义
+            if (value.includes('${extra}.hasOwnProperty(${name})')) {
+                return false;
+            }
+            // eslint-disable-next-line no-eval
+            return eval(this.engine.compileVariable(value, vars));
+        }
+    }
+}
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+/** elif 命令是 if 命令的子命令，必须跟在 if 命令之后，允许自动闭合 */
+class ElifCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'elif';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
 
-// class ForCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'for';
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    public open(context: AnalyseContext) {
+        this.engine.autoCloseCommand(context, BlockCommand);
+        this.engine.autoCloseCommand(context, ElifCommand);
+        if (!context.stack.top() && (context.stack.top() instanceof IfCommand || context.stack.top() instanceof ElifCommand)) {
+            throw new Error('[elif]命令必须位于[if]或[elif]命令之后:' + context);
+        }
+        context.stack.top().addChild(this);
+        context.stack.push(this);
+    }
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
 
-// class IfCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'if';
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
+    }
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+/** else 命令是 if 的子命令，必须跟在 if 命令或 elif 命令之后，允许自动闭合 */
+class ElseCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'else';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
 
-// class ElifCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'elif';
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    public open(context: AnalyseContext) {
+        this.engine.autoCloseCommand(context, BlockCommand);
+        this.engine.autoCloseCommand(context, ElifCommand);
+        if (!context.stack.top() && (context.stack.top() instanceof IfCommand || context.stack.top() instanceof ElifCommand)) {
+            throw new Error('[else]命令必须位于[if]或[elif]命令之后:' + context);
+        }
+        context.stack.top().addChild(this);
+        context.stack.push(this);
+    }
 
-// class ElseCommand extends Command {
-//     public allowAutoClose: boolean = false;
-//     public type: string = 'else';
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
+    }
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}
 
-// class FilterCommand extends Command {
-//     public allowAutoClose: boolean = true;
-//     public type: string = 'filter';
+/** block 命令没有对应的命令关键词，仅作为其他的命令内部分块使用 */
+export class BlockCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'else';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
 
-//     public clone(): TargetCommand {
-//         return new TargetCommand(this.value);
-//     }
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
 
-//     public getRendererBody(): string {
-//         return this.children.map(child => child.getRendererBody()).join('');
-//     }
-// }
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
+
+    public open(context: AnalyseContext) {
+        context.stack.top()?.addChild(this);
+        context.stack.push(this);
+    }
+
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
+
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
+    }
+
+    public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}

@@ -1,327 +1,340 @@
 {
     "id": {
-        "desc": " 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。 ",
+        "desc": "组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。",
         "uiControl": {
             "type": "string"
         }
     },
     "show": {
-        "desc": " 是否显示 x 轴。 ",
+        "desc": "是否显示 x 轴。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "gridIndex": {
-        "desc": " x 轴所在的 grid 的索引，默认位于第一个 grid。 ",
+        "desc": "x 轴所在的 grid 的索引，默认位于第一个 grid。",
         "uiControl": {
             "default": "0",
             "type": "number"
         }
     },
     "position": {
-        "desc": " x 轴的位置。 可选： \n\n* 'top'\n* 'bottom'\n\n默认 grid 中的第一个 x 轴在 grid 的下方（'bottom'），第二个 x 轴视第一个 x 轴的位置放在另一侧。 ",
+        "desc": "x 轴的位置。\n\n可选：\n+ `'top'`\n+ `'bottom'`\n\n默认 grid 中的第一个 x 轴在 grid 的下方（`'bottom'`），第二个 x 轴视第一个 x 轴的位置放在另一侧。",
         "uiControl": {
+            "default": "'bottom'",
             "type": "enum",
             "options": "'top','bottom'"
         }
     },
     "offset": {
-        "desc": " X 轴相对于默认位置的偏移，在相同的 position 上有多个 X 轴的时候有用。 ",
+        "desc": "X 轴相对于默认位置的偏移，在相同的 `position` 上有多个 X 轴的时候有用。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "realtimeSort": {
-        "desc": " 用于制作动态排序柱状图。设为 true 时，表示 X 轴开启实时排序效果，仅当 X 轴的 [type][0] 是 'value' 时有效。 需要配合其他配置项共同实现动态排序柱状图效果，具体参见[动态排序柱状图][1]教程。\n\n[0]: #xAxis.type\n[1]: https://echarts.apache.org/handbook/zh/how-to/chart-types/bar/bar-race",
+        "desc": "用于制作动态排序柱状图。设为 `true` 时，表示 X 轴开启实时排序效果，仅当 X 轴的 [type](~xAxis.type) 是 `'value'` 时有效。\n\n需要配合其他配置项共同实现动态排序柱状图效果，具体参见[动态排序柱状图](how-to/chart-types/bar/bar-race)教程。",
         "uiControl": {
             "default": "false",
             "type": "boolean"
         }
     },
     "sortSeriesIndex": {
-        "desc": " 动态排序柱状图用于排序的系列 id。目前只支持一个系列的柱状图排序效果，所以这个值只能取 0。仅当 X 轴 [realtimeSort][0] 为 true 并且 [type][1] 是 'value' 时有效。 需要配合其他配置项共同实现动态排序柱状图效果，具体参见[动态排序柱状图][2]教程。\n\n[0]: #xAxis.realtimeSort\n[1]: #xAxis.type\n[2]: https://echarts.apache.org/handbook/zh/how-to/chart-types/bar/bar-race",
+        "desc": "动态排序柱状图用于排序的系列 id。目前只支持一个系列的柱状图排序效果，所以这个值只能取 0。仅当 X 轴 [realtimeSort](~xAxis.realtimeSort) 为 `true` 并且 [type](~xAxis.type) 是 `'value'` 时有效。\n\n需要配合其他配置项共同实现动态排序柱状图效果，具体参见[动态排序柱状图](how-to/chart-types/bar/bar-race)教程。",
         "uiControl": {
             "default": "0",
             "type": "number"
         }
     },
     "type": {
-        "desc": " 坐标轴类型。 可选： \n\n* 'value' 数值轴，适用于连续数据。\n* 'category' 类目轴，适用于离散的类目数据。为该类型时类目数据可自动从 [series.data][0] 或 [dataset.source][1] 中取，或者可通过 [xAxis.data][2] 设置类目数据。\n* 'time' 时间轴，适用于连续的时序数据，与数值轴相比时间轴带有时间的格式化，在刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。\n* 'log' 对数轴。适用于对数数据。\n\n\n\n[0]: #series.data\n[1]: #dataset.source\n[2]: #xAxis.data",
+        "desc": "坐标轴类型。\n\n可选：\n+ `'value'`\n数值轴，适用于连续数据。\n\n+ `'category'`\n类目轴，适用于离散的类目数据。为该类型时类目数据可自动从 [series.data](~series.data) 或 [dataset.source](~dataset.source) 中取，或者可通过 [xAxis.data](~xAxis.data) 设置类目数据。\n\n+ `'time'`\n时间轴，适用于连续的时序数据，与数值轴相比时间轴带有时间的格式化，在刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。\n\n+ `'log'`\n对数轴。适用于对数数据。",
         "uiControl": {
             "default": "'category'",
             "type": "string"
         }
     },
     "name": {
-        "desc": " 坐标轴名称。 ",
+        "desc": "坐标轴名称。",
         "uiControl": {
             "type": "text"
         }
     },
     "nameLocation": {
-        "desc": " 坐标轴名称显示位置。 **可选：*** 'start'\n* 'middle' 或者 'center'\n* 'end'\n\n",
+        "desc": "坐标轴名称显示位置。\n\n**可选：**\n+ `'start'`\n+ `'middle'` 或者 `'center'`\n+ `'end'`",
         "uiControl": {
+            "default": "'end'",
             "type": "enum",
             "options": "'start','middle','end'"
         }
     },
     "nameTextStyle": {
-        "desc": " 坐标轴名称的文字样式。 ",
+        "desc": "坐标轴名称的文字样式。",
         "uiControl": {
             "type": "Object"
         }
     },
     "nameTextStyle.color": {
-        "desc": " 坐标轴名称的颜色，默认取 [axisLine.lineStyle.color][0]。\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "desc": "坐标轴名称的颜色，默认取 [axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color)。",
         "uiControl": {
             "type": "color"
         }
     },
     "nameTextStyle.fontStyle": {
-        "desc": " 坐标轴名称文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "坐标轴名称文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "nameTextStyle.fontWeight": {
-        "desc": " 坐标轴名称文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "坐标轴名称文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "nameTextStyle.fontFamily": {
-        "desc": " 坐标轴名称文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "坐标轴名称文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "nameTextStyle.fontSize": {
-        "desc": " 坐标轴名称文字的字体大小。 ",
+        "desc": "坐标轴名称文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "nameTextStyle.align": {
-        "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "nameTextStyle.verticalAlign": {
-        "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "nameTextStyle.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "nameTextStyle.backgroundColor": {
-        "desc": " 文字块背景色。 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。 也可以直接使用图片，例如： \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // 这里可以是图片的 URL，\n        // 或者图片的 dataURI，\n        // 或者 HTMLImageElement 对象，\n        // 或者 HTMLCanvasElement 对象。\n    }\n    \n\n当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。 ",
+        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "nameTextStyle.borderColor": {
-        "desc": " 文字块边框颜色。 ",
+        "desc": "文字块边框颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "nameTextStyle.borderWidth": {
-        "desc": " 文字块边框宽度。 ",
+        "desc": "文字块边框宽度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.borderType": {
-        "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "nameTextStyle.borderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 borderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "nameTextStyle.borderRadius": {
-        "desc": " 文字块的圆角。 ",
+        "desc": "文字块的圆角。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "nameTextStyle.padding": {
-        "desc": " 文字块的内边距。例如： \n\n* padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。\n* padding: 4：表示 padding: [4, 4, 4, 4]。\n* padding: [3, 4]：表示 padding: [3, 4, 3, 4]。\n\n注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 ",
+        "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "nameTextStyle.shadowColor": {
-        "desc": " 文字块的背景阴影颜色。 ",
+        "desc": "文字块的背景阴影颜色。",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "nameTextStyle.shadowBlur": {
-        "desc": " 文字块的背景阴影长度。 ",
+        "desc": "文字块的背景阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.shadowOffsetX": {
-        "desc": " 文字块的背景阴影 X 偏移。 ",
+        "desc": "文字块的背景阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.shadowOffsetY": {
-        "desc": " 文字块的背景阴影 Y 偏移。 ",
+        "desc": "文字块的背景阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.width": {
-        "desc": " 文本显示宽度。 ",
+        "desc": "文本显示宽度。",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "nameTextStyle.height": {
-        "desc": " 文本显示高度。 ",
+        "desc": "文本显示高度。",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "nameTextStyle.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "nameTextStyle.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "nameTextStyle.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "nameTextStyle.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "nameTextStyle.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.overflow": {
-        "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
+        "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "nameTextStyle.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "nameTextStyle.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "nameTextStyle.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
         "uiControl": {
             "type": "Object"
         }
@@ -333,153 +346,160 @@
         }
     },
     "nameTextStyle.rich.<style_name>.color": {
-        "desc": " 文字的颜色。 ",
+        "desc": "文字的颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "nameTextStyle.rich.<style_name>.fontStyle": {
-        "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "nameTextStyle.rich.<style_name>.fontWeight": {
-        "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "nameTextStyle.rich.<style_name>.fontFamily": {
-        "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "nameTextStyle.rich.<style_name>.fontSize": {
-        "desc": " 文字的字体大小。 ",
+        "desc": "文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "nameTextStyle.rich.<style_name>.align": {
-        "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "nameTextStyle.rich.<style_name>.verticalAlign": {
-        "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "nameTextStyle.rich.<style_name>.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "nameTextStyle.rich.<style_name>.backgroundColor": {
-        "desc": " 文字块背景色。 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。 也可以直接使用图片，例如： \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // 这里可以是图片的 URL，\n        // 或者图片的 dataURI，\n        // 或者 HTMLImageElement 对象，\n        // 或者 HTMLCanvasElement 对象。\n    }\n    \n\n当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。 ",
+        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "nameTextStyle.rich.<style_name>.borderColor": {
-        "desc": " 文字块边框颜色。 ",
+        "desc": "文字块边框颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "nameTextStyle.rich.<style_name>.borderWidth": {
-        "desc": " 文字块边框宽度。 ",
+        "desc": "文字块边框宽度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.borderType": {
-        "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "nameTextStyle.rich.<style_name>.borderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 borderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "nameTextStyle.rich.<style_name>.borderRadius": {
-        "desc": " 文字块的圆角。 ",
+        "desc": "文字块的圆角。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "nameTextStyle.rich.<style_name>.padding": {
-        "desc": " 文字块的内边距。例如： \n\n* padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。\n* padding: 4：表示 padding: [4, 4, 4, 4]。\n* padding: [3, 4]：表示 padding: [3, 4, 3, 4]。\n\n注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 ",
+        "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "nameTextStyle.rich.<style_name>.shadowColor": {
-        "desc": " 文字块的背景阴影颜色。 ",
+        "desc": "文字块的背景阴影颜色。",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "nameTextStyle.rich.<style_name>.shadowBlur": {
-        "desc": " 文字块的背景阴影长度。 ",
+        "desc": "文字块的背景阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.shadowOffsetX": {
-        "desc": " 文字块的背景阴影 X 偏移。 ",
+        "desc": "文字块的背景阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.shadowOffsetY": {
-        "desc": " 文字块的背景阴影 Y 偏移。 ",
+        "desc": "文字块的背景阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
         "uiControl": {
             "type": [
                 "number",
@@ -488,7 +508,7 @@
         }
     },
     "nameTextStyle.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
         "uiControl": {
             "type": [
                 "number",
@@ -497,207 +517,220 @@
         }
     },
     "nameTextStyle.rich.<style_name>.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "nameTextStyle.rich.<style_name>.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "nameTextStyle.rich.<style_name>.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "nameTextStyle.rich.<style_name>.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "nameTextStyle.rich.<style_name>.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameTextStyle.rich.<style_name>.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。\n\n\n\n\n\n\n\n\n\n\n<!-- Overwrite color -->",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "nameGap": {
-        "desc": " 坐标轴名称与轴线之间的距离。 ",
+        "desc": "坐标轴名称与轴线之间的距离。",
         "uiControl": {
+            "default": "15",
             "type": "number",
-            "step": "0.5",
-            "default": "15"
+            "step": "0.5"
         }
     },
     "nameRotate": {
-        "desc": " 坐标轴名字旋转，角度值。 ",
+        "desc": "坐标轴名字旋转，角度值。",
         "uiControl": {
+            "default": "null",
             "type": "angle",
             "min": "-360",
             "max": "360",
-            "step": "1",
-            "default": "-360"
+            "step": "1"
         }
     },
     "inverse": {
-        "desc": " 是否是反向坐标轴。 ",
+        "desc": "是否是反向坐标轴。",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "boundaryGap": {
-        "desc": " 坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样。 类目轴中 boundaryGap 可以配置为 true 和 false。默认为 true，这时候[刻度][0]只是作为分隔线，标签和数据点都会在两个[刻度][0]之间的带(band)中间。 非类目轴，包括时间，数值，对数轴，boundaryGap是一个两个值的数组，分别表示数据最小值和最大值的延伸范围，可以直接设置数值或者相对的百分比，在设置 [min][1] 和 [max][2] 后无效。 **示例：**    boundaryGap: ['20%', '20%']\n    \n\n\n\n[0]: #xAxis.axisTick\n[1]: #xAxis.min\n[2]: #xAxis.max",
+        "desc": "坐标轴两边留白策略，类目轴和非类目轴的设置和表现不一样。\n\n类目轴中 `boundaryGap` 可以配置为 `true` 和 `false`。默认为 `true`，这时候[刻度](~xAxis.axisTick)只是作为分隔线，标签和数据点都会在两个[刻度](~xAxis.axisTick)之间的带(band)中间。\n\n非类目轴，包括时间，数值，对数轴，`boundaryGap`是一个两个值的数组，分别表示数据最小值和最大值的延伸范围，可以直接设置数值或者相对的百分比，在设置 [min](~xAxis.min) 和 [max](~xAxis.max) 后无效。\n**示例：**\n```js\nboundaryGap: ['20%', '20%']\n```",
         "uiControl": {
-            "type": "boolean"
+            "type": [
+                "boolean",
+                "Array"
+            ]
         }
     },
     "min": {
-        "desc": " 坐标轴刻度最小值。 可以设置成特殊值 'dataMin'，此时取数据在该轴上的最小值作为最小刻度。 不设置时会自动计算最小值保证坐标轴刻度的均匀分布。 在类目轴中，也可以设置为类目的序数（如类目轴 data: ['类A', '类B', '类C'] 中，序数 2 表示 '类C'。也可以设置为负数，如 -3）。 当设置成 function 形式时，可以根据计算得出的数据最大最小值设定坐标轴的最小值。如： \n\n    min: function (value) {\n        return value.min - 20;\n    }\n    \n\n其中 value 是一个包含 min 和 max 的对象，分别表示数据的最大最小值，这个函数可返回坐标轴的最小值，也可返回 null/undefined 来表示“自动计算最小值”（返回 null/undefined 从 v4.8.0 开始支持）。 ",
+        "desc": "坐标轴刻度最小值。\n\n可以设置成特殊值 `'dataMin'`，此时取数据在该轴上的最小值作为最小刻度。\n\n不设置时会自动计算最小值保证坐标轴刻度的均匀分布。\n\n在类目轴中，也可以设置为类目的序数（如类目轴 `data: ['类A', '类B', '类C']` 中，序数 `2` 表示 `'类C'`。也可以设置为负数，如 `-3`）。\n\n当设置成 `function` 形式时，可以根据计算得出的数据最大最小值设定坐标轴的最小值。如：\n\n```js\nmin: function (value) {\nreturn value.min - 20;\n}\n```\n\n其中 `value` 是一个包含 `min` 和 `max` 的对象，分别表示数据的最大最小值，这个函数可返回坐标轴的最小值，也可返回 `null`/`undefined` 来表示“自动计算最小值”（返回 `null`/`undefined` 从 `v4.8.0` 开始支持）。",
         "uiControl": {
+            "default": "null",
             "type": "number"
         }
     },
     "max": {
-        "desc": " 坐标轴刻度最大值。 可以设置成特殊值 'dataMax'，此时取数据在该轴上的最大值作为最大刻度。 不设置时会自动计算最大值保证坐标轴刻度的均匀分布。 在类目轴中，也可以设置为类目的序数（如类目轴 data: ['类A', '类B', '类C'] 中，序数 2 表示 '类C'。也可以设置为负数，如 -3）。 当设置成 function 形式时，可以根据计算得出的数据最大最小值设定坐标轴的最小值。如： \n\n    max: function (value) {\n        return value.max - 20;\n    }\n    \n\n其中 value 是一个包含 min 和 max 的对象，分别表示数据的最大最小值，这个函数可返回坐标轴的最大值，也可返回 null/undefined 来表示“自动计算最大值”（返回 null/undefined 从 v4.8.0 开始支持）。 ",
+        "desc": "坐标轴刻度最大值。\n\n可以设置成特殊值 `'dataMax'`，此时取数据在该轴上的最大值作为最大刻度。\n\n不设置时会自动计算最大值保证坐标轴刻度的均匀分布。\n\n在类目轴中，也可以设置为类目的序数（如类目轴 `data: ['类A', '类B', '类C']` 中，序数 `2` 表示 `'类C'`。也可以设置为负数，如 `-3`）。\n\n当设置成 `function` 形式时，可以根据计算得出的数据最大最小值设定坐标轴的最小值。如：\n\n```js\nmax: function (value) {\nreturn value.max - 20;\n}\n```\n\n其中 `value` 是一个包含 `min` 和 `max` 的对象，分别表示数据的最大最小值，这个函数可返回坐标轴的最大值，也可返回 `null`/`undefined` 来表示“自动计算最大值”（返回 `null`/`undefined` 从 `v4.8.0` 开始支持）。",
         "uiControl": {
+            "default": "null",
             "type": "number"
         }
     },
     "scale": {
-        "desc": " 只在数值轴中（[type][0]: 'value'）有效。 是否是脱离 0 值比例。设置成 true 后坐标刻度不会强制包含零刻度。在双数值轴的散点图中比较有用。 在设置 [min][1] 和 [max][2] 之后该配置项无效。\n\n[0]: #xAxis.type\n[1]: #xAxis.min\n[2]: #xAxis.max",
+        "desc": "只在数值轴中（[type](~xAxis.type): 'value'）有效。\n\n是否是脱离 0 值比例。设置成 `true` 后坐标刻度不会强制包含零刻度。在双数值轴的散点图中比较有用。\n\n在设置 [min](~xAxis.min) 和 [max](~xAxis.max) 之后该配置项无效。",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "splitNumber": {
-        "desc": " 坐标轴的分割段数，需要注意的是这个分割段数只是个预估值，最后实际显示的段数会在这个基础上根据分割后坐标轴刻度显示的易读程度作调整。 在类目轴中无效。 ",
+        "desc": "坐标轴的分割段数，需要注意的是这个分割段数只是个预估值，最后实际显示的段数会在这个基础上根据分割后坐标轴刻度显示的易读程度作调整。\n\n在类目轴中无效。",
         "uiControl": {
+            "default": "5",
             "type": "number",
             "min": "1",
-            "step": "1",
-            "default": "5"
+            "step": "1"
         }
     },
     "minInterval": {
-        "desc": " 自动计算的坐标轴最小间隔大小。 例如可以设置成1保证坐标轴分割刻度显示成整数。 \n\n    {\n        minInterval: 1\n    }\n    \n\n只在数值轴或时间轴中（[type][0]: 'value' 或 'time'）有效。\n\n[0]: #xAxis.type",
+        "desc": "自动计算的坐标轴最小间隔大小。\n\n例如可以设置成`1`保证坐标轴分割刻度显示成整数。\n\n```js\n{\nminInterval: 1\n}\n```\n\n只在数值轴或时间轴中（[type](~xAxis.type): 'value' 或 'time'）有效。",
         "uiControl": {
+            "default": "0",
             "type": "number"
         }
     },
     "maxInterval": {
-        "desc": " 自动计算的坐标轴最大间隔大小。 例如，在时间轴（（[type][0]: 'time'））可以设置成 3600 * 24 * 1000 保证坐标轴分割刻度最大为一天。 \n\n    {\n        maxInterval: 3600 * 24 * 1000\n    }\n    \n\n只在数值轴或时间轴中（[type][0]: 'value' 或 'time'）有效。\n\n[0]: #xAxis.type",
+        "desc": "自动计算的坐标轴最大间隔大小。\n\n例如，在时间轴（（[type](~xAxis.type): 'time'））可以设置成 `3600 * 24 * 1000` 保证坐标轴分割刻度最大为一天。\n\n```js\n{\nmaxInterval: 3600 * 24 * 1000\n}\n```\n\n只在数值轴或时间轴中（[type](~xAxis.type): 'value' 或 'time'）有效。",
         "uiControl": {
             "type": "number"
         }
     },
     "interval": {
-        "desc": " 强制设置坐标轴分割间隔。 因为 [splitNumber][0] 是预估的值，实际根据策略计算出来的刻度可能无法达到想要的效果，这时候可以使用 interval 配合 [min][1]、[max][2] 强制设定刻度划分，一般不建议使用。 无法在类目轴中使用。在时间轴（[type][3]: 'time'）中需要传时间戳，在对数轴（[type][3]: 'log'）中需要传指数值。\n\n[0]: #xAxis.splitNumber\n[1]: #xAxis.min\n[2]: #xAxis.max\n[3]: #xAxis.type",
+        "desc": "强制设置坐标轴分割间隔。\n\n因为 [splitNumber](~xAxis.splitNumber) 是预估的值，实际根据策略计算出来的刻度可能无法达到想要的效果，这时候可以使用 interval 配合 [min](~xAxis.min)、[max](~xAxis.max) 强制设定刻度划分，一般不建议使用。\n\n无法在类目轴中使用。在时间轴（[type](~xAxis.type): 'time'）中需要传时间戳，在对数轴（[type](~xAxis.type): 'log'）中需要传指数值。",
         "uiControl": {
             "type": "number"
         }
     },
     "logBase": {
-        "desc": " 对数轴的底数，只在对数轴中（[type][0]: 'log'）有效。\n\n[0]: #xAxis.type",
+        "desc": "对数轴的底数，只在对数轴中（[type](~xAxis.type): 'log'）有效。",
         "uiControl": {
-            "type": "number",
-            "default": "10"
+            "default": "10",
+            "type": "number"
         }
     },
     "silent": {
-        "desc": " 坐标轴是否是静态无法交互。 ",
+        "desc": "坐标轴是否是静态无法交互。",
         "uiControl": {
             "default": "false",
             "type": "boolean"
         }
     },
     "triggerEvent": {
-        "desc": " 坐标轴的标签是否响应和触发鼠标事件，默认不响应。 事件参数如下： \n\n    {\n        // 组件类型，xAxis, yAxis, radiusAxis, angleAxis\n        // 对应组件类型都会有一个属性表示组件的 index，例如 xAxis 就是 xAxisIndex\n        componentType: string,\n        // 未格式化过的刻度值, 点击刻度标签有效\n        value: '',\n        // 坐标轴名称, 点击坐标轴名称有效\n        name: ''\n    }\n    \n\n",
+        "desc": "坐标轴的标签是否响应和触发鼠标事件，默认不响应。\n\n事件参数如下：\n\n```js\n{\n// 组件类型，xAxis, yAxis, radiusAxis, angleAxis\n// 对应组件类型都会有一个属性表示组件的 index，例如 xAxis 就是 xAxisIndex\ncomponentType: string,\n// 未格式化过的刻度值, 点击刻度标签有效\nvalue: '',\n// 坐标轴名称, 点击坐标轴名称有效\nname: ''\n}\n```",
         "uiControl": {
             "default": "false",
             "type": "boolean"
         }
     },
     "axisLine": {
-        "desc": " 坐标轴轴线相关设置。 ",
+        "desc": "坐标轴轴线相关设置。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisLine.show": {
-        "desc": " 是否显示坐标轴轴线。 ",
+        "desc": "是否显示坐标轴轴线。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "axisLine.onZero": {
-        "desc": " X 轴或者 Y 轴的轴线是否在另一个轴的 0 刻度上，只有在另一个轴为数值轴且包含 0 刻度时有效。 ",
+        "desc": "X 轴或者 Y 轴的轴线是否在另一个轴的 0 刻度上，只有在另一个轴为数值轴且包含 0 刻度时有效。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "axisLine.onZeroAxisIndex": {
-        "desc": " 当有双轴时，可以用这个属性手动指定，在哪个轴的 0 刻度上。 ",
+        "desc": "当有双轴时，可以用这个属性手动指定，在哪个轴的 0 刻度上。",
         "uiControl": {
             "type": "number"
         }
     },
     "axisLine.symbol": {
-        "desc": " 轴线两边的箭头。可以是字符串，表示两端使用同样的箭头；或者长度为 2 的字符串数组，分别表示两端的箭头。默认不显示箭头，即 'none'。两端都显示箭头可以设置为 'arrow'，只在末端显示箭头可以设置为 ['none', 'arrow']。 ",
+        "desc": "轴线两边的箭头。可以是字符串，表示两端使用同样的箭头；或者长度为 2 的字符串数组，分别表示两端的箭头。默认不显示箭头，即 `'none'`。两端都显示箭头可以设置为 `'arrow'`，只在末端显示箭头可以设置为 `['none', 'arrow']`。",
         "uiControl": {
-            "type": "icon",
-            "default": "'none'"
+            "default": "'none'",
+            "type": [
+                "string",
+                "Array"
+            ]
         }
     },
     "axisLine.symbolSize": {
-        "desc": " 轴线两边的箭头的大小，第一个数字表示宽度（垂直坐标轴方向），第二个数字表示高度（平行坐标轴方向）。 ",
+        "desc": "轴线两边的箭头的大小，第一个数字表示宽度（垂直坐标轴方向），第二个数字表示高度（平行坐标轴方向）。",
         "uiControl": {
-            "type": "vector",
-            "default": "10,15"
+            "default": "[10, 15]",
+            "type": "vector"
         }
     },
     "axisLine.symbolOffset": {
-        "desc": " 轴线两边的箭头的偏移，如果是数组，第一个数字表示起始箭头的偏移，第二个数字表示末端箭头的偏移；如果是数字，表示这两个箭头使用同样的偏移。 ",
+        "desc": "轴线两边的箭头的偏移，如果是数组，第一个数字表示起始箭头的偏移，第二个数字表示末端箭头的偏移；如果是数字，表示这两个箭头使用同样的偏移。",
         "uiControl": {
-            "type": "vector",
-            "default": "0,0"
+            "default": "[0, 0]",
+            "type": "vector"
         }
     },
     "axisLine.lineStyle": {
@@ -707,278 +740,284 @@
         }
     },
     "axisLine.lineStyle.color": {
-        "desc": " 坐标轴线线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "desc": "坐标轴线线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
         "uiControl": {
+            "default": " '#333'",
             "type": "color"
         }
     },
     "axisLine.lineStyle.width": {
-        "desc": " 坐标轴线线宽。 ",
+        "desc": "坐标轴线线宽。",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLine.lineStyle.type": {
-        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisLine.lineStyle.dashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisLine.lineStyle.cap": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "axisLine.lineStyle.join": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "axisLine.lineStyle.miterLimit": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "axisLine.lineStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisLine.lineStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "axisLine.lineStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisLine.lineStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisLine.lineStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "axisTick": {
-        "desc": " 坐标轴刻度相关设置。 ",
+        "desc": "坐标轴刻度相关设置。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisTick.show": {
-        "desc": " 是否显示坐标轴刻度。 ",
+        "desc": "是否显示坐标轴刻度。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "axisTick.alignWithLabel": {
-        "desc": " 类目轴中在 boundaryGap 为 true 的时候有效，可以保证刻度线和标签对齐。如下图： \n\n![][0]\n\n\n\n[0]: documents/asset/img/axis-align-with-label.png",
+        "desc": "类目轴中在 `boundaryGap` 为 `true` 的时候有效，可以保证刻度线和标签对齐。如下图：\n\n![600xauto](~axis-align-with-label.png)",
         "uiControl": {
-            "type": "boolean",
-            "default": "false"
+            "default": "false",
+            "type": "boolean"
         }
     },
     "axisTick.interval": {
-        "desc": " 坐标轴刻度的显示间隔，在类目轴中有效。默认同 [axisLabel.interval][0] 一样。 默认会采用标签不重叠的策略间隔显示标签。 可以设置成 0 强制显示所有标签。 如果设置为 1，表示『隔一个标签显示一个标签』，如果值为 2，表示隔两个标签显示一个标签，以此类推。 可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下： \n\n    (index:number, value: string) => boolean\n    \n\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 false。\n\n[0]: #xAxis.axisLabel.interval",
+        "desc": "坐标轴刻度的显示间隔，在类目轴中有效。默认同 [axisLabel.interval](~xAxis.axisLabel.interval) 一样。\n\n默认会采用标签不重叠的策略间隔显示标签。\n\n可以设置成 0 强制显示所有标签。\n\n如果设置为 `1`，表示『隔一个标签显示一个标签』，如果值为 `2`，表示隔两个标签显示一个标签，以此类推。\n\n可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下：\n```js\n(index:number, value: string) => boolean\n```\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 `false`。",
         "uiControl": {
+            "default": "'auto'",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisTick.inside": {
-        "desc": " 坐标轴刻度是否朝内，默认朝外。 ",
+        "desc": "坐标轴刻度是否朝内，默认朝外。",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "axisTick.length": {
-        "desc": " 坐标轴刻度的长度。 ",
+        "desc": "坐标轴刻度的长度。",
         "uiControl": {
+            "default": "5",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "5"
+            "step": "0.5"
         }
     },
     "axisTick.lineStyle": {
-        "desc": " 刻度线的样式设置。 ",
+        "desc": "刻度线的样式设置。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisTick.lineStyle.color": {
-        "desc": " 刻度线的颜色，默认取 [axisTick.lineStyle.color][0]。\n\n[0]: #xAxis.axisTick.lineStyle.color",
+        "desc": "刻度线的颜色，默认取 [axisTick.lineStyle.color](~xAxis.axisTick.lineStyle.color)。",
         "uiControl": {
-            "type": "color"
+            "type": "Color"
         }
     },
     "axisTick.lineStyle.width": {
-        "desc": " 坐标轴刻度线宽。 ",
+        "desc": "坐标轴刻度线宽。",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisTick.lineStyle.type": {
-        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisTick.lineStyle.dashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisTick.lineStyle.cap": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "axisTick.lineStyle.join": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "axisTick.lineStyle.miterLimit": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "axisTick.lineStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisTick.lineStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "axisTick.lineStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisTick.lineStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisTick.lineStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。\n\n\n\n\n\n\n\n\n\n\n\n<!-- Overwrite color -->",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "minorTick": {
-        "desc": ">  从 > v4.6.0>  开始支持 坐标轴次刻度线相关设置。 注意：次刻度线无法在类目轴（[type][0]: 'category'）中使用。 示例： 1) 函数绘图中使用次刻度线 暂时无法显示 2) 在对数轴中使用次刻度线 暂时无法显示\n\n[0]: #xAxis.type",
+        "desc": "> 从 `v4.6.0` 开始支持\n\n\n\n坐标轴次刻度线相关设置。\n\n注意：次刻度线无法在类目轴（[type](~xAxis.type): `'category'`）中使用。\n\n示例：\n\n1) 函数绘图中使用次刻度线\n~[600x350](line-function&edit=1&reset=1)\n\n2) 在对数轴中使用次刻度线\n~[600x350](line-log&edit=1&reset=1)",
         "uiControl": {
             "type": "Object"
         }
     },
     "minorTick.show": {
-        "desc": " 是否显示次刻度线。 ",
+        "desc": "是否显示次刻度线。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "false",
+            "type": "boolean"
         }
     },
     "minorTick.splitNumber": {
-        "desc": " 次刻度线分割数，默认会分割成 5 段 ",
+        "desc": "次刻度线分割数，默认会分割成 5 段",
         "uiControl": {
+            "default": "5",
             "type": "number",
             "min": "1",
-            "step": "1",
-            "default": "5"
+            "step": "1"
         }
     },
     "minorTick.length": {
-        "desc": " 次刻度线的长度。 ",
+        "desc": "次刻度线的长度。",
         "uiControl": {
+            "default": "3",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "3"
+            "step": "0.5"
         }
     },
     "minorTick.lineStyle": {
@@ -988,150 +1027,153 @@
         }
     },
     "minorTick.lineStyle.color": {
-        "desc": " 刻度线的颜色，默认取 [axisLine.lineStyle.color][0]。\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "desc": "刻度线的颜色，默认取 [axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color)。",
         "uiControl": {
             "type": "color"
         }
     },
     "minorTick.lineStyle.width": {
-        "desc": " 次刻度线线宽。 ",
+        "desc": "次刻度线线宽。",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "minorTick.lineStyle.type": {
-        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "minorTick.lineStyle.dashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "minorTick.lineStyle.cap": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "minorTick.lineStyle.join": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "minorTick.lineStyle.miterLimit": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "minorTick.lineStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "minorTick.lineStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "minorTick.lineStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "minorTick.lineStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "minorTick.lineStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。\n\n\n\n\n\n\n\n\n\n\n\n<!-- Overwrite color -->",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "axisLabel": {
-        "desc": " 坐标轴刻度标签的相关设置。 ",
+        "desc": "坐标轴刻度标签的相关设置。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisLabel.show": {
-        "desc": " 是否显示刻度标签。 ",
+        "desc": "是否显示刻度标签。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "axisLabel.interval": {
-        "desc": " 坐标轴刻度标签的显示间隔，在类目轴中有效。 默认会采用标签不重叠的策略间隔显示标签。 可以设置成 0 强制显示所有标签。 如果设置为 1，表示『隔一个标签显示一个标签』，如果值为 2，表示隔两个标签显示一个标签，以此类推。 可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下： \n\n    (index:number, value: string) => boolean\n    \n\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 false。 ",
+        "desc": "坐标轴刻度标签的显示间隔，在类目轴中有效。\n\n默认会采用标签不重叠的策略间隔显示标签。\n\n可以设置成 0 强制显示所有标签。\n\n如果设置为 `1`，表示『隔一个标签显示一个标签』，如果值为 `2`，表示隔两个标签显示一个标签，以此类推。\n\n可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下：\n```js\n(index:number, value: string) => boolean\n```\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 `false`。",
         "uiControl": {
+            "default": "'auto'",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisLabel.inside": {
-        "desc": " 刻度标签是否朝内，默认朝外。 ",
+        "desc": "刻度标签是否朝内，默认朝外。",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "axisLabel.rotate": {
-        "desc": " 刻度标签旋转的角度，在类目轴的类目标签显示不下的时候可以通过旋转防止标签之间重叠。 旋转的角度从 -90 度到 90 度。 ",
+        "desc": "刻度标签旋转的角度，在类目轴的类目标签显示不下的时候可以通过旋转防止标签之间重叠。\n\n旋转的角度从 -90 度到 90 度。",
         "uiControl": {
+            "default": "0",
             "type": "angle",
             "min": "-90",
             "max": "90",
-            "step": "1",
-            "default": "-90"
+            "step": "1"
         }
     },
     "axisLabel.margin": {
-        "desc": " 刻度标签与轴线之间的距离。 ",
+        "desc": "刻度标签与轴线之间的距离。",
         "uiControl": {
-            "type": "number",
             "default": "8",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.formatter": {
-        "desc": " 刻度标签的内容格式器，支持字符串模板和回调函数两种形式。 示例: \n\n    // 使用字符串模板，模板变量为刻度默认标签 {value}\n    formatter: '{value} kg'\n    // 使用函数模板，函数参数分别为刻度数值（类目），刻度的索引\n    formatter: function (value, index) {\n        return value + 'kg';\n    }\n    \n\n- - -\n\n对于时间轴（[type][0]: 'time'），formatter 的字符串模板支持多种形式： \n\n* **字符串模板**：简单快速实现常用日期时间模板，string 类型\n* **回调函数**：自定义 formatter，可以用来实现复杂高级的格式，Function 类型\n* **分级模板**：为不同时间粒度的标签使用不同的 formatter，object 类型\n\n下面我们分别介绍这三种形式。 **字符串模板** 使用字符串模板是一种方便实现常用日期时间格式化方式的形式。如果字符串模板可以实现你的效果，那我们优先推荐使用此方式；如果无法实现，再考虑其他两种更复杂的方式。支持的模板如下： <table><thead><tr>分类模板取值（英文）取值（中文）</tr></thead><tbody><tr><td>Year</td><td>{yyyy}</td><td>e.g., 2020, 2021, ...</td><td>例：2020, 2021, ...</td></tr><tr><td></td><td>{yy}</td><td>00-99</td><td>00-99</td></tr><tr><td>Quarter</td><td>{Q}</td><td>1, 2, 3, 4</td><td>1, 2, 3, 4</td></tr><tr><td>Month</td><td>{MMMM}</td><td>e.g., January, February, ...</td><td>一月、二月、……</td></tr><tr><td></td><td>{MMM}</td><td>e.g., Jan, Feb, ...</td><td>1月、2月、……</td></tr><tr><td></td><td>{MM}</td><td>01-12</td><td>01-12</td></tr><tr><td></td><td>{M}</td><td>1-12</td><td>1-12</td></tr><tr><td>Day of Month</td><td>{dd}</td><td>01-31</td><td>01-31</td></tr><tr><td></td><td>{d}</td><td>1-31</td><td>1-31</td></tr><tr><td>Day of Week</td><td>{eeee}</td><td>Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday</td><td>星期日、星期一、星期二、星期三、星期四、星期五、星期六</td></tr><tr><td></td><td>{ee}</td><td>Sun, Mon, Tues, Wed, Thu, Fri, Sat</td><td>日、一、二、三、四、五、六</td></tr><tr><td></td><td>{e}</td><td>1-54</td><td>1-54</td></tr><tr><td>Hour</td><td>{HH}</td><td>00-23</td><td>00-23</td></tr><tr><td></td><td>{H}</td><td>0-23</td><td>0-23</td></tr><tr><td></td><td>{hh}</td><td>01-12</td><td>01-12</td></tr><tr><td></td><td>{h}</td><td>1-12</td><td>1-12</td></tr><tr><td>Minute</td><td>{mm}</td><td>00-59</td><td>00-59</td></tr><tr><td></td><td>{m}</td><td>0-59</td><td>0-59</td></tr><tr><td>Second</td><td>{ss}</td><td>00-59</td><td>00-59</td></tr><tr><td></td><td>{s}</td><td>0-59</td><td>0-59</td></tr><tr><td>Millisecond</td><td>{SSS}</td><td>000-999</td><td>000-999</td></tr><tr><td></td><td>{S}</td><td>0-999</td><td>0-999</td></tr></tbody></table>>  其他语言请参考相应[> 语言包][1]> 中的定义，语言包可以通过 [> echarts.registerLocale][2]>  注册。 示例: \n\n    formatter: '{yyyy}-{MM}-{dd}' // 得到的 label 形如：'2020-12-02'\n    formatter: '{d}日' // 得到的 label 形如：'2日'\n    \n\n**回调函数** 回调函数可以根据刻度值返回不同的格式，如果有复杂的时间格式化需求，也可以引用第三方的日期时间相关的库（如 [Moment.js][3]、[date-fns][4] 等），返回显示的文本。 示例： \n\n    // 使用函数模板，函数参数分别为刻度数值（类目），刻度的索引\n    formatter: function (value, index) {\n        // 格式化成月/日，只在第一个刻度显示年份\n        var date = new Date(value);\n        var texts = [(date.getMonth() + 1), date.getDate()];\n        if (index === 0) {\n            texts.unshift(date.getYear());\n        }\n        return texts.join('/');\n    }\n    \n\n**分级模板** 有时候，我们希望对不同的时间粒度采用不同的格式化策略。例如，在季度图表中，我们可能希望对每个月的第一天显示月份，而其他日期显示日期。我们可以使用以下方式实现该效果： 示例： \n\n    formatter: {\n        month: '{MMMM}', // 一月、二月、……\n        day: '{d}日' // 1日、2日、……\n    }\n    \n\n支持的分级以及各自默认的取值为： \n\n    {\n        year: '{yyyy}',\n        month: '{MMM}',\n        day: '{d}',\n        hour: '{HH}:{mm}',\n        minute: '{HH}:{mm}',\n        second: '{HH}:{mm}:{ss}',\n        millisecond: '{hh}:{mm}:{ss} {SSS}',\n        none: '{yyyy}-{MM}-{dd} {hh}:{mm}:{ss} {SSS}'\n    }\n    \n\n以 day 为例，当一个刻度点的值的小时、分钟、秒、毫秒都为 0 时，将采用 day 的分级值作为模板。none 表示当其他规则都不适用时采用的模板，也就是带有毫秒值的刻度点的模板。 **富文本** 以上这三种形式的 formatter 都支持富文本，所以可以做成一些复杂的效果。 示例： \n\n    xAxis: {\n        type: 'time',\n        axisLabel: {\n            formatter: {\n                // 一年的第一个月显示年度信息和月份信息\n                year: '{yearStyle|{yyyy}}\\n{monthStyle|{MMM}}',\n                month: '{monthStyle|{MMM}}'\n            },\n            rich: {\n                yearStyle: {\n                    // 让年度信息更醒目\n                    color: '#000',\n                    fontWeight: 'bold'\n                },\n                monthStyle: {\n                    color: '#999'\n                }\n            }\n        }\n    },\n    \n\n使用回调函数形式实现上面例子同样的效果： 示例： \n\n    xAxis: {\n        type: 'time',\n        axisLabel: {\n            formatter: function (value) {\n                const date = new Date(value);\n                const yearStart = new Date(value);\n                yearStart.setMonth(0);\n                yearStart.setDate(1);\n                yearStart.setHours(0);\n                yearStart.setMinutes(0);\n                yearStart.setSeconds(0);\n                yearStart.setMilliseconds(0);\n                // 判断一个刻度值知否为一年的开始\n                if (date.getTime() === yearStart.getTime()) {\n                    return '{year|' + date.getFullYear() + '}\\n'\n                        + '{month|' + (date.getMonth() + 1) + '月}';\n                }\n                else {\n                    return '{month|' + (date.getMonth() + 1) + '月}'\n                }\n            },\n            rich: {\n                year: {\n                    color: '#000',\n                    fontWeight: 'bold'\n                },\n                month: {\n                    color: '#999'\n                }\n            }\n        }\n    },\n    \n\n\n\n[0]: #.type\n[1]: https://github.com/apache/echarts/tree/master/src/i18n\n[2]: api.html#echarts.registerLocale\n[3]: https://momentjs.com/\n[4]: https://date-fns.org/",
+        "desc": "刻度标签的内容格式器，支持字符串模板和回调函数两种形式。\n\n示例:\n```js\n// 使用字符串模板，模板变量为刻度默认标签 {value}\nformatter: '{value} kg'\n// 使用函数模板，函数参数分别为刻度数值（类目），刻度的索引\nformatter: function (value, index) {\nreturn value + 'kg';\n}\n```\n\n---\n\n对于时间轴（[type](~.type): `'time'`），`formatter` 的字符串模板支持多种形式：\n\n- **字符串模板**：简单快速实现常用日期时间模板，`string` 类型\n- **回调函数**：自定义 formatter，可以用来实现复杂高级的格式，`Function` 类型\n- **分级模板**：为不同时间粒度的标签使用不同的 formatter，`object` 类型\n\n下面我们分别介绍这三种形式。\n\n** 字符串模板 **\n\n使用字符串模板是一种方便实现常用日期时间格式化方式的形式。如果字符串模板可以实现你的效果，那我们优先推荐使用此方式；如果无法实现，再考虑其他两种更复杂的方式。支持的模板如下：\n\n| 分类        | 模板 | 取值（英文）                                                    | 取值（中文）                                                                |\n|--------------|----------|----------------------------------------------------------------|----------------------------------------------------------------------------|\n| Year         | {yyyy}     | e.g., 2020, 2021, ...                                          | 例：2020, 2021, ...                                                        |\n|              | {yy}       | 00-99                                                          | 00-99                                                                      |\n| Quarter      | {Q}        | 1, 2, 3, 4                                                     | 1, 2, 3, 4                                                                 |\n| Month        | {MMMM}     | e.g., January, February, ...                                   | 一月、二月、…… |\n|              | {MMM}      | e.g., Jan, Feb, ...                                            | 1月、2月、……              |\n|              | {MM}       | 01-12                                                          | 01-12                                                                      |\n|              | {M}        | 1-12                                                           | 1-12                                                                       |\n| Day of Month | {dd}       | 01-31                                                          | 01-31                                                                      |\n|              | {d}        | 1-31                                                           | 1-31                                                                       |\n| Day of Week  | {eeee}     | Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday | 星期日、星期一、星期二、星期三、星期四、星期五、星期六                     |\n|              | {ee}       | Sun, Mon, Tues, Wed, Thu, Fri, Sat                             | 日、一、二、三、四、五、六                                                 |\n|              | {e}        | 1-54                                                           | 1-54                                                                       |\n| Hour         | {HH}       | 00-23                                                          | 00-23                                                                      |\n|              | {H}        | 0-23                                                           | 0-23                                                                       |\n|              | {hh}       | 01-12                                                          | 01-12                                                                      |\n|              | {h}        | 1-12                                                           | 1-12                                                                       |\n| Minute       | {mm}       | 00-59                                                          | 00-59                                                                      |\n|              | {m}        | 0-59                                                           | 0-59                                                                       |\n| Second       | {ss}       | 00-59                                                          | 00-59                                                                      |\n|              | {s}        | 0-59                                                           | 0-59                                                                       |\n| Millisecond  | {SSS}      | 000-999                                                        | 000-999                                                                    |\n|              | {S}        | 0-999                                                          | 0-999                                                                      |\n\n> 其他语言请参考相应[语言包](https://github.com/apache/echarts/tree/master/src/i18n)中的定义，语言包可以通过 [echarts.registerLocale](api.html#echarts.registerLocale) 注册。\n\n示例:\n```js\nformatter: '{yyyy}-{MM}-{dd}' // 得到的 label 形如：'2020-12-02'\nformatter: '{d}日' // 得到的 label 形如：'2日'\n```\n\n** 回调函数 **\n\n回调函数可以根据刻度值返回不同的格式，如果有复杂的时间格式化需求，也可以引用第三方的日期时间相关的库（如 [Moment.js](https://momentjs.com/)、[date-fns](https://date-fns.org/) 等），返回显示的文本。\n\n示例：\n```js\n// 使用函数模板，函数参数分别为刻度数值（类目），刻度的索引\nformatter: function (value, index) {\n// 格式化成月/日，只在第一个刻度显示年份\nvar date = new Date(value);\nvar texts = [(date.getMonth() + 1), date.getDate()];\nif (index === 0) {\ntexts.unshift(date.getYear());\n}\nreturn texts.join('/');\n}\n```\n\n** 分级模板 **\n\n有时候，我们希望对不同的时间粒度采用不同的格式化策略。例如，在季度图表中，我们可能希望对每个月的第一天显示月份，而其他日期显示日期。我们可以使用以下方式实现该效果：\n\n示例：\n```js\nformatter: {\nmonth: '{MMMM}', // 一月、二月、……\nday: '{d}日' // 1日、2日、……\n}\n```\n\n支持的分级以及各自默认的取值为：\n```js\n{\nyear: '{yyyy}',\nmonth: '{MMM}',\nday: '{d}',\nhour: '{HH}:{mm}',\nminute: '{HH}:{mm}',\nsecond: '{HH}:{mm}:{ss}',\nmillisecond: '{hh}:{mm}:{ss} {SSS}',\nnone: '{yyyy}-{MM}-{dd} {hh}:{mm}:{ss} {SSS}'\n}\n```\n\n以 `day` 为例，当一个刻度点的值的小时、分钟、秒、毫秒都为 `0` 时，将采用 `day` 的分级值作为模板。`none` 表示当其他规则都不适用时采用的模板，也就是带有毫秒值的刻度点的模板。\n\n\n** 富文本 **\n\n以上这三种形式的 formatter 都支持富文本，所以可以做成一些复杂的效果。\n\n示例：\n```js\nxAxis: {\ntype: 'time',\naxisLabel: {\nformatter: {\n// 一年的第一个月显示年度信息和月份信息\nyear: '{yearStyle|{yyyy}}\\n{monthStyle|{MMM}}',\nmonth: '{monthStyle|{MMM}}'\n},\nrich: {\nyearStyle: {\n// 让年度信息更醒目\ncolor: '#000',\nfontWeight: 'bold'\n},\nmonthStyle: {\ncolor: '#999'\n}\n}\n}\n},\n```\n\n使用回调函数形式实现上面例子同样的效果：\n\n示例：\n```js\nxAxis: {\ntype: 'time',\naxisLabel: {\nformatter: function (value) {\nconst date = new Date(value);\nconst yearStart = new Date(value);\nyearStart.setMonth(0);\nyearStart.setDate(1);\nyearStart.setHours(0);\nyearStart.setMinutes(0);\nyearStart.setSeconds(0);\nyearStart.setMilliseconds(0);\n// 判断一个刻度值知否为一年的开始\nif (date.getTime() === yearStart.getTime()) {\nreturn '{year|' + date.getFullYear() + '}\\n'\n+ '{month|' + (date.getMonth() + 1) + '月}';\n}\nelse {\nreturn '{month|' + (date.getMonth() + 1) + '月}'\n}\n},\nrich: {\nyear: {\ncolor: '#000',\nfontWeight: 'bold'\n},\nmonth: {\ncolor: '#999'\n}\n}\n}\n},\n```",
         "uiControl": {
             "type": [
                 "string",
@@ -1140,272 +1182,282 @@
         }
     },
     "axisLabel.showMinLabel": {
-        "desc": " 是否显示最小 tick 的 label。可取值 true, false, null。默认自动判定（即如果标签重叠，不会显示最小 tick 的 label）。 ",
+        "desc": "是否显示最小 tick 的 label。可取值 `true`, `false`, `null`。默认自动判定（即如果标签重叠，不会显示最小 tick 的 label）。",
         "uiControl": {
             "type": "boolean"
         }
     },
     "axisLabel.showMaxLabel": {
-        "desc": " 是否显示最大 tick 的 label。可取值 true, false, null。默认自动判定（即如果标签重叠，不会显示最大 tick 的 label）。 ",
+        "desc": "是否显示最大 tick 的 label。可取值 `true`, `false`, `null`。默认自动判定（即如果标签重叠，不会显示最大 tick 的 label）。",
         "uiControl": {
             "type": "boolean"
         }
     },
     "axisLabel.hideOverlap": {
-        "desc": ">  从 > v5.2.0>  开始支持 是否隐藏重叠的标签。 ",
+        "desc": "> 从 `v5.2.0` 开始支持\n\n\n\n是否隐藏重叠的标签。",
         "uiControl": {
             "type": "boolean"
         }
     },
     "axisLabel.color": {
-        "desc": " 刻度标签文字的颜色，默认取 [axisLine.lineStyle.color][0]。支持回调函数，格式如下 \n\n    (val: string) => Color\n    \n\n参数是标签的文本，返回颜色值，如下示例： \n\n    textStyle: {\n        color: function (value, index) {\n            return value >= 0 ? 'green' : 'red';\n        }\n    }\n    \n\n\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "desc": "刻度标签文字的颜色，默认取 [axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color)。支持回调函数，格式如下\n\n```js\n(val: string) => Color\n```\n\n参数是标签的文本，返回颜色值，如下示例：\n\n```js\ntextStyle: {\ncolor: function (value, index) {\nreturn value >= 0 ? 'green' : 'red';\n}\n}\n```",
         "uiControl": {
             "type": "color"
         }
     },
     "axisLabel.fontStyle": {
-        "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "axisLabel.fontWeight": {
-        "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "axisLabel.fontFamily": {
-        "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "axisLabel.fontSize": {
-        "desc": " 文字的字体大小。 ",
+        "desc": "文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "axisLabel.align": {
-        "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "axisLabel.verticalAlign": {
-        "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "axisLabel.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "axisLabel.backgroundColor": {
-        "desc": " 文字块背景色。 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。 也可以直接使用图片，例如： \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // 这里可以是图片的 URL，\n        // 或者图片的 dataURI，\n        // 或者 HTMLImageElement 对象，\n        // 或者 HTMLCanvasElement 对象。\n    }\n    \n\n当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。 ",
+        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "axisLabel.borderColor": {
-        "desc": " 文字块边框颜色。 ",
+        "desc": "文字块边框颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "axisLabel.borderWidth": {
-        "desc": " 文字块边框宽度。 ",
+        "desc": "文字块边框宽度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.borderType": {
-        "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.borderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 borderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisLabel.borderRadius": {
-        "desc": " 文字块的圆角。 ",
+        "desc": "文字块的圆角。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "axisLabel.padding": {
-        "desc": " 文字块的内边距。例如： \n\n* padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。\n* padding: 4：表示 padding: [4, 4, 4, 4]。\n* padding: [3, 4]：表示 padding: [3, 4, 3, 4]。\n\n注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 ",
+        "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "axisLabel.shadowColor": {
-        "desc": " 文字块的背景阴影颜色。 ",
+        "desc": "文字块的背景阴影颜色。",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "axisLabel.shadowBlur": {
-        "desc": " 文字块的背景阴影长度。 ",
+        "desc": "文字块的背景阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.shadowOffsetX": {
-        "desc": " 文字块的背景阴影 X 偏移。 ",
+        "desc": "文字块的背景阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.shadowOffsetY": {
-        "desc": " 文字块的背景阴影 Y 偏移。 ",
+        "desc": "文字块的背景阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.width": {
-        "desc": " 文本显示宽度。 ",
+        "desc": "文本显示宽度。",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "axisLabel.height": {
-        "desc": " 文本显示高度。 ",
+        "desc": "文本显示高度。",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "axisLabel.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "axisLabel.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisLabel.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "axisLabel.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.overflow": {
-        "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
+        "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "axisLabel.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "axisLabel.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "axisLabel.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
         "uiControl": {
             "type": "Object"
         }
@@ -1417,153 +1469,160 @@
         }
     },
     "axisLabel.rich.<style_name>.color": {
-        "desc": " 文字的颜色。 ",
+        "desc": "文字的颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "axisLabel.rich.<style_name>.fontStyle": {
-        "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "axisLabel.rich.<style_name>.fontWeight": {
-        "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "axisLabel.rich.<style_name>.fontFamily": {
-        "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "axisLabel.rich.<style_name>.fontSize": {
-        "desc": " 文字的字体大小。 ",
+        "desc": "文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "axisLabel.rich.<style_name>.align": {
-        "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "axisLabel.rich.<style_name>.verticalAlign": {
-        "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "axisLabel.rich.<style_name>.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "axisLabel.rich.<style_name>.backgroundColor": {
-        "desc": " 文字块背景色。 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。 也可以直接使用图片，例如： \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // 这里可以是图片的 URL，\n        // 或者图片的 dataURI，\n        // 或者 HTMLImageElement 对象，\n        // 或者 HTMLCanvasElement 对象。\n    }\n    \n\n当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。 ",
+        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "axisLabel.rich.<style_name>.borderColor": {
-        "desc": " 文字块边框颜色。 ",
+        "desc": "文字块边框颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "axisLabel.rich.<style_name>.borderWidth": {
-        "desc": " 文字块边框宽度。 ",
+        "desc": "文字块边框宽度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.borderType": {
-        "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.rich.<style_name>.borderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 borderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisLabel.rich.<style_name>.borderRadius": {
-        "desc": " 文字块的圆角。 ",
+        "desc": "文字块的圆角。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "axisLabel.rich.<style_name>.padding": {
-        "desc": " 文字块的内边距。例如： \n\n* padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。\n* padding: 4：表示 padding: [4, 4, 4, 4]。\n* padding: [3, 4]：表示 padding: [3, 4, 3, 4]。\n\n注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 ",
+        "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "axisLabel.rich.<style_name>.shadowColor": {
-        "desc": " 文字块的背景阴影颜色。 ",
+        "desc": "文字块的背景阴影颜色。",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "axisLabel.rich.<style_name>.shadowBlur": {
-        "desc": " 文字块的背景阴影长度。 ",
+        "desc": "文字块的背景阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.shadowOffsetX": {
-        "desc": " 文字块的背景阴影 X 偏移。 ",
+        "desc": "文字块的背景阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.shadowOffsetY": {
-        "desc": " 文字块的背景阴影 Y 偏移。 ",
+        "desc": "文字块的背景阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
         "uiControl": {
             "type": [
                 "number",
@@ -1572,7 +1631,7 @@
         }
     },
     "axisLabel.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
         "uiControl": {
             "type": [
                 "number",
@@ -1581,86 +1640,88 @@
         }
     },
     "axisLabel.rich.<style_name>.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "axisLabel.rich.<style_name>.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisLabel.rich.<style_name>.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisLabel.rich.<style_name>.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "axisLabel.rich.<style_name>.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisLabel.rich.<style_name>.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。\n\n\n\n\n\n\n\n\n\n\n\n<!-- Overwrite color -->",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "splitLine": {
-        "desc": " 坐标轴在 [grid][0] 区域中的分隔线。\n\n[0]: #grid",
+        "desc": "坐标轴在 [grid](~grid) 区域中的分隔线。",
         "uiControl": {
             "type": "Object"
         }
     },
     "splitLine.show": {
-        "desc": " 是否显示分隔线。默认数值轴显示，类目轴不显示。 ",
+        "desc": "是否显示分隔线。默认数值轴显示，类目轴不显示。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "splitLine.interval": {
-        "desc": " 坐标轴分隔线的显示间隔，在类目轴中有效。默认同 [axisLabel.interval][0] 一样。 默认会采用标签不重叠的策略间隔显示标签。 可以设置成 0 强制显示所有标签。 如果设置为 1，表示『隔一个标签显示一个标签』，如果值为 2，表示隔两个标签显示一个标签，以此类推。 可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下： \n\n    (index:number, value: string) => boolean\n    \n\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 false。\n\n[0]: #xAxis.axisLabel.interval",
+        "desc": "坐标轴分隔线的显示间隔，在类目轴中有效。默认同 [axisLabel.interval](~xAxis.axisLabel.interval) 一样。\n\n默认会采用标签不重叠的策略间隔显示标签。\n\n可以设置成 0 强制显示所有标签。\n\n如果设置为 `1`，表示『隔一个标签显示一个标签』，如果值为 `2`，表示隔两个标签显示一个标签，以此类推。\n\n可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下：\n```js\n(index:number, value: string) => boolean\n```\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 `false`。",
         "uiControl": {
+            "default": "'auto'",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "splitLine.lineStyle": {
@@ -1670,113 +1731,116 @@
         }
     },
     "splitLine.lineStyle.color": {
-        "desc": " 分隔线颜色，可以设置成单个颜色。 也可以设置成颜色数组，分隔线会按数组中颜色的顺序依次循环设置颜色。 示例 \n\n    splitLine: {\n        lineStyle: {\n            // 使用深浅的间隔色\n            color: ['#aaa', '#ddd']\n        }\n    }\n    \n\n",
+        "desc": "分隔线颜色，可以设置成单个颜色。\n\n也可以设置成颜色数组，分隔线会按数组中颜色的顺序依次循环设置颜色。\n\n示例\n```\nsplitLine: {\nlineStyle: {\n// 使用深浅的间隔色\ncolor: ['#aaa', '#ddd']\n}\n}\n```",
         "uiControl": {
+            "default": "['#ccc']",
             "type": "color"
         }
     },
     "splitLine.lineStyle.width": {
-        "desc": " 分隔线线宽。 ",
+        "desc": "分隔线线宽。",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "splitLine.lineStyle.type": {
-        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "splitLine.lineStyle.dashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "splitLine.lineStyle.cap": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "splitLine.lineStyle.join": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "splitLine.lineStyle.miterLimit": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "splitLine.lineStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "splitLine.lineStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "splitLine.lineStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "splitLine.lineStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "splitLine.lineStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。\n\n\n\n\n\n\n\n\n\n\n\n<!-- overwrite color -->",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "minorSplitLine": {
-        "desc": ">  从 > v4.6.0>  开始支持 坐标轴在 [grid][0] 区域中的次分隔线。次分割线会对齐次刻度线 [minorTick][1]\n\n[0]: #grid\n[1]: #xAxis.minorTick",
+        "desc": "> 从 `v4.6.0` 开始支持\n\n\n\n坐标轴在 [grid](~grid) 区域中的次分隔线。次分割线会对齐次刻度线 [minorTick](~xAxis.minorTick)",
         "uiControl": {
             "type": "Object"
         }
     },
     "minorSplitLine.show": {
-        "desc": " 是否显示次分隔线。默认不显示。 ",
+        "desc": "是否显示次分隔线。默认不显示。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "false",
+            "type": "boolean"
         }
     },
     "minorSplitLine.lineStyle": {
@@ -1786,447 +1850,460 @@
         }
     },
     "minorSplitLine.lineStyle.color": {
-        "desc": " 次分隔线线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "desc": "次分隔线线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
         "uiControl": {
+            "default": " '#eee'",
             "type": "color"
         }
     },
     "minorSplitLine.lineStyle.width": {
-        "desc": " 次分隔线线宽。 ",
+        "desc": "次分隔线线宽。",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "minorSplitLine.lineStyle.type": {
-        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "minorSplitLine.lineStyle.dashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "minorSplitLine.lineStyle.cap": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "minorSplitLine.lineStyle.join": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "minorSplitLine.lineStyle.miterLimit": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "minorSplitLine.lineStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "minorSplitLine.lineStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "minorSplitLine.lineStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "minorSplitLine.lineStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "minorSplitLine.lineStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "splitArea": {
-        "desc": " 坐标轴在 [grid][0] 区域中的分隔区域，默认不显示。\n\n[0]: #grid",
+        "desc": "坐标轴在 [grid](~grid) 区域中的分隔区域，默认不显示。",
         "uiControl": {
             "type": "Object"
         }
     },
     "splitArea.interval": {
-        "desc": " 坐标轴分隔区域的显示间隔，在类目轴中有效。默认同 [axisLabel.interval][0] 一样。 默认会采用标签不重叠的策略间隔显示标签。 可以设置成 0 强制显示所有标签。 如果设置为 1，表示『隔一个标签显示一个标签』，如果值为 2，表示隔两个标签显示一个标签，以此类推。 可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下： \n\n    (index:number, value: string) => boolean\n    \n\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 false。\n\n[0]: #xAxis.axisLabel.interval",
+        "desc": "坐标轴分隔区域的显示间隔，在类目轴中有效。默认同 [axisLabel.interval](~xAxis.axisLabel.interval) 一样。\n\n默认会采用标签不重叠的策略间隔显示标签。\n\n可以设置成 0 强制显示所有标签。\n\n如果设置为 `1`，表示『隔一个标签显示一个标签』，如果值为 `2`，表示隔两个标签显示一个标签，以此类推。\n\n可以用数值表示间隔的数据，也可以通过回调函数控制。回调函数格式如下：\n```js\n(index:number, value: string) => boolean\n```\n第一个参数是类目的 index，第二个值是类目名称，如果跳过则返回 `false`。",
         "uiControl": {
+            "default": "'auto'",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "splitArea.show": {
-        "desc": " 是否显示分隔区域。 ",
+        "desc": "是否显示分隔区域。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "false",
+            "type": "boolean"
         }
     },
     "splitArea.areaStyle": {
-        "desc": " 分隔区域的样式设置。 ",
+        "desc": "分隔区域的样式设置。",
         "uiControl": {
             "type": "Object"
         }
     },
     "splitArea.areaStyle.color": {
-        "desc": " 分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。 ",
+        "desc": "分隔区域颜色。分隔区域会按数组中颜色的顺序依次循环设置颜色。默认是一个深浅的间隔色。",
         "uiControl": {
             "default": "['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']",
             "type": "Array"
         }
     },
     "splitArea.areaStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "splitArea.areaStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "splitArea.areaStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "splitArea.areaStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "splitArea.areaStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "data": {
-        "desc": " 类目数据，在类目轴（[type][0]: 'category'）中有效。 如果没有设置 [type][0]，但是设置了 axis.data，则认为 type 是 'category'。 如果设置了 [type][0] 是 'category'，但没有设置 axis.data，则 axis.data 的内容会自动从 [series.data][1] 中获取，这会比较方便。不过注意，axis.data 指明的是 'category' 轴的取值范围。如果不指定而是从 [series.data][1] 中获取，那么只能获取到 [series.data][1] 中出现的值。比如说，假如 [series.data][1] 为空时，就什么也获取不到。 示例： \n\n    // 所有类目名称列表\n    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']\n    // 每一项也可以是具体的配置项，此时取配置项中的 `value` 为类目名\n    data: [{\n        value: '周一',\n        // 突出周一\n        textStyle: {\n            fontSize: 20,\n            color: 'red'\n        }\n    }, '周二', '周三', '周四', '周五', '周六', '周日']\n    \n\n\n\n[0]: #xAxis.type\n[1]: #series.data",
+        "desc": "类目数据，在类目轴（[type](~xAxis.type): `'category'`）中有效。\n\n如果没有设置 [type](~xAxis.type)，但是设置了 `axis.data`，则认为 `type` 是 `'category'`。\n\n如果设置了 [type](~xAxis.type) 是 `'category'`，但没有设置 `axis.data`，则 `axis.data` 的内容会自动从 [series.data](~series.data) 中获取，这会比较方便。不过注意，`axis.data` 指明的是 `'category'` 轴的取值范围。如果不指定而是从 [series.data](~series.data) 中获取，那么只能获取到 [series.data](~series.data) 中出现的值。比如说，假如 [series.data](~series.data) 为空时，就什么也获取不到。\n\n示例：\n\n```js\n// 所有类目名称列表\ndata: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']\n// 每一项也可以是具体的配置项，此时取配置项中的 `value` 为类目名\ndata: [{\nvalue: '周一',\n// 突出周一\ntextStyle: {\nfontSize: 20,\ncolor: 'red'\n}\n}, '周二', '周三', '周四', '周五', '周六', '周日']\n```",
         "uiControl": {
             "type": "Array"
         }
     },
     "data.value": {
-        "desc": " 单个类目名称。 ",
+        "desc": "单个类目名称。",
         "uiControl": {
             "type": "string"
         }
     },
     "data.textStyle": {
-        "desc": " 类目标签的文字样式。 ",
+        "desc": "类目标签的文字样式。",
         "uiControl": {
             "type": "Object"
         }
     },
     "data.textStyle.color": {
-        "desc": " 文字的颜色。 ",
+        "desc": "文字的颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "data.textStyle.fontStyle": {
-        "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "data.textStyle.fontWeight": {
-        "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "data.textStyle.fontFamily": {
-        "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "data.textStyle.fontSize": {
-        "desc": " 文字的字体大小。 ",
+        "desc": "文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "data.textStyle.align": {
-        "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "data.textStyle.verticalAlign": {
-        "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "data.textStyle.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "data.textStyle.backgroundColor": {
-        "desc": " 文字块背景色。 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。 也可以直接使用图片，例如： \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // 这里可以是图片的 URL，\n        // 或者图片的 dataURI，\n        // 或者 HTMLImageElement 对象，\n        // 或者 HTMLCanvasElement 对象。\n    }\n    \n\n当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。 ",
+        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "data.textStyle.borderColor": {
-        "desc": " 文字块边框颜色。 ",
+        "desc": "文字块边框颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "data.textStyle.borderWidth": {
-        "desc": " 文字块边框宽度。 ",
+        "desc": "文字块边框宽度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.borderType": {
-        "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "data.textStyle.borderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 borderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "data.textStyle.borderRadius": {
-        "desc": " 文字块的圆角。 ",
+        "desc": "文字块的圆角。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "data.textStyle.padding": {
-        "desc": " 文字块的内边距。例如： \n\n* padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。\n* padding: 4：表示 padding: [4, 4, 4, 4]。\n* padding: [3, 4]：表示 padding: [3, 4, 3, 4]。\n\n注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 ",
+        "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "data.textStyle.shadowColor": {
-        "desc": " 文字块的背景阴影颜色。 ",
+        "desc": "文字块的背景阴影颜色。",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "data.textStyle.shadowBlur": {
-        "desc": " 文字块的背景阴影长度。 ",
+        "desc": "文字块的背景阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.shadowOffsetX": {
-        "desc": " 文字块的背景阴影 X 偏移。 ",
+        "desc": "文字块的背景阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.shadowOffsetY": {
-        "desc": " 文字块的背景阴影 Y 偏移。 ",
+        "desc": "文字块的背景阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.width": {
-        "desc": " 文本显示宽度。 ",
+        "desc": "文本显示宽度。",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "data.textStyle.height": {
-        "desc": " 文本显示高度。 ",
+        "desc": "文本显示高度。",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "data.textStyle.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "data.textStyle.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "data.textStyle.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "data.textStyle.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "data.textStyle.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.overflow": {
-        "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
+        "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "data.textStyle.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "data.textStyle.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "data.textStyle.rich": {
-        "desc": " 在 rich 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。 例如： \n\n    label: {\n        // 在文本中，可以对部分文本采用 rich 中定义样式。\n        // 这里需要在文本中使用标记符号：\n        // `{styleName|text content text content}` 标记样式名。\n        // 注意，换行仍是使用 '\\n'。\n        formatter: [\n            '{a|这段文本采用样式a}',\n            '{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n        ].join('\\n'),\n    \n        rich: {\n            a: {\n                color: 'red',\n                lineHeight: 10\n            },\n            b: {\n                backgroundColor: {\n                    image: 'xxx/xxx.jpg'\n                },\n                height: 40\n            },\n            x: {\n                fontSize: 18,\n                fontFamily: 'Microsoft YaHei',\n                borderColor: '#449933',\n                borderRadius: 4\n            },\n            ...\n        }\n    }\n    \n\n详情参见教程：[富文本标签][0]\n\n[0]: tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE",
+        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
         "uiControl": {
             "type": "Object"
         }
@@ -2238,153 +2315,160 @@
         }
     },
     "data.textStyle.rich.<style_name>.color": {
-        "desc": " 文字的颜色。 ",
+        "desc": "文字的颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "null"
+            "default": "\"#fff\"",
+            "type": "color"
         }
     },
     "data.textStyle.rich.<style_name>.fontStyle": {
-        "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "data.textStyle.rich.<style_name>.fontWeight": {
-        "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "data.textStyle.rich.<style_name>.fontFamily": {
-        "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "data.textStyle.rich.<style_name>.fontSize": {
-        "desc": " 文字的字体大小。 ",
+        "desc": "文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "data.textStyle.rich.<style_name>.align": {
-        "desc": " 文字水平对齐方式，默认自动。 可选： \n\n* 'left'\n* 'center'\n* 'right'\n\nrich 中如果没有设置 align，则会取父层级的 align。例如： \n\n    {\n        align: right,\n        rich: {\n            a: {\n                // 没有设置 `align`，则 `align` 为 right\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'left','center','right'"
         }
     },
     "data.textStyle.rich.<style_name>.verticalAlign": {
-        "desc": " 文字垂直对齐方式，默认自动。 可选： \n\n* 'top'\n* 'middle'\n* 'bottom'\n\nrich 中如果没有设置 verticalAlign，则会取父层级的 verticalAlign。例如： \n\n    {\n        verticalAlign: bottom,\n        rich: {\n            a: {\n                // 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n            }\n        }\n    }\n    \n\n",
+        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
         "uiControl": {
             "type": "enum",
             "options": "'top','middle','bottom'"
         }
     },
     "data.textStyle.rich.<style_name>.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "data.textStyle.rich.<style_name>.backgroundColor": {
-        "desc": " 文字块背景色。 可以使用颜色值，例如：'#123234', 'red', 'rgba(0,23,11,0.3)'。 也可以直接使用图片，例如： \n\n    backgroundColor: {\n        image: 'xxx/xxx.png'\n        // 这里可以是图片的 URL，\n        // 或者图片的 dataURI，\n        // 或者 HTMLImageElement 对象，\n        // 或者 HTMLCanvasElement 对象。\n    }\n    \n\n当使用图片的时候，可以使用 width 或 height 指定高宽，也可以不指定自适应。 ",
+        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "data.textStyle.rich.<style_name>.borderColor": {
-        "desc": " 文字块边框颜色。 ",
+        "desc": "文字块边框颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "data.textStyle.rich.<style_name>.borderWidth": {
-        "desc": " 文字块边框宽度。 ",
+        "desc": "文字块边框宽度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.borderType": {
-        "desc": " 文字块边框描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 borderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    borderType: [5, 10],\n    \n    borderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "data.textStyle.rich.<style_name>.borderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 borderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "data.textStyle.rich.<style_name>.borderRadius": {
-        "desc": " 文字块的圆角。 ",
+        "desc": "文字块的圆角。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "LT,RT, RB, LB",
-            "default": "0"
+            "dims": "LT,RT, RB, LB"
         }
     },
     "data.textStyle.rich.<style_name>.padding": {
-        "desc": " 文字块的内边距。例如： \n\n* padding: [3, 4, 5, 6]：表示 [上, 右, 下, 左] 的边距。\n* padding: 4：表示 padding: [4, 4, 4, 4]。\n* padding: [3, 4]：表示 padding: [3, 4, 3, 4]。\n\n注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 ",
+        "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
         "uiControl": {
+            "default": "0",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "data.textStyle.rich.<style_name>.shadowColor": {
-        "desc": " 文字块的背景阴影颜色。 ",
+        "desc": "文字块的背景阴影颜色。",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "data.textStyle.rich.<style_name>.shadowBlur": {
-        "desc": " 文字块的背景阴影长度。 ",
+        "desc": "文字块的背景阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.shadowOffsetX": {
-        "desc": " 文字块的背景阴影 X 偏移。 ",
+        "desc": "文字块的背景阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.shadowOffsetY": {
-        "desc": " 文字块的背景阴影 Y 偏移。 ",
+        "desc": "文字块的背景阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.width": {
-        "desc": " 文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 width 也可以是百分比字符串，如 '100%'。表示的是所在文本块的 contentWidth（即不包含文本块的 padding）的百分之多少。之所以以 contentWidth 做基数，因为每个文本片段只能基于 content box 布局。如果以 outerWidth 做基数，则百分比的计算在实用中不具有意义，可能会超出。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
         "uiControl": {
             "type": [
                 "number",
@@ -2393,7 +2477,7 @@
         }
     },
     "data.textStyle.rich.<style_name>.height": {
-        "desc": " 文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 backgroundColor）时，可能会使用它。 注意，文字块的 width 和 height 指定的是内容高宽，不包含 padding。 注意，如果不定义 rich 属性，则不能指定 width 和 height。 ",
+        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
         "uiControl": {
             "type": [
                 "number",
@@ -2402,112 +2486,116 @@
         }
     },
     "data.textStyle.rich.<style_name>.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "data.textStyle.rich.<style_name>.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "data.textStyle.rich.<style_name>.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "data.textStyle.rich.<style_name>.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "data.textStyle.rich.<style_name>.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "data.textStyle.rich.<style_name>.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer": {
-        "desc": " 坐标轴指示器配置项。 ",
+        "desc": "坐标轴指示器配置项。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisPointer.show": {
-        "desc": " 默认不显示。但是如果 [tooltip.trigger][0] 设置为 'axis' 或者 [tooltip.axisPointer.type][1] 设置为 'cross'，则自动显示 axisPointer。坐标系会自动选择显示显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis][2] 改变这种选择。\n\n[0]: #tooltip.trigger\n[1]: #tooltip.axisPointer.type\n[2]: #tooltip.axisPointer.axis",
+        "desc": "默认不显示。但是如果 [tooltip.trigger](~tooltip.trigger) 设置为 `'axis'` 或者 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 设置为 `'cross'`，则自动显示 axisPointer。坐标系会自动选择显示显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis](~tooltip.axisPointer.axis) 改变这种选择。",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "axisPointer.type": {
-        "desc": " 指示器类型。 可选 \n\n* 'line' 直线指示器\n* 'shadow' 阴影指示器\n* 'none' 无指示器\n\n",
+        "desc": "指示器类型。\n\n可选\n\n+ `'line'` 直线指示器\n\n+ `'shadow'` 阴影指示器\n\n+ `'none'` 无指示器",
         "uiControl": {
+            "default": "'line'",
             "type": "enum",
             "options": "'line','shadow','none'"
         }
     },
     "axisPointer.snap": {
-        "desc": " 坐标轴指示器是否自动吸附到点上。默认自动判断。 这个功能在数值轴和时间轴上比较有意义，可以自动寻找细小的数值点。 ",
+        "desc": "坐标轴指示器是否自动吸附到点上。默认自动判断。\n\n这个功能在数值轴和时间轴上比较有意义，可以自动寻找细小的数值点。",
         "uiControl": {
             "type": "boolean"
         }
     },
     "axisPointer.z": {
-        "desc": " 坐标轴指示器的 z 值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 ",
+        "desc": "坐标轴指示器的 z 值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。",
         "uiControl": {
             "type": "number"
         }
     },
     "axisPointer.label": {
-        "desc": " 坐标轴指示器的文本标签。 ",
+        "desc": "坐标轴指示器的文本标签。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisPointer.label.show": {
-        "desc": " 是否显示文本标签。如果 [tooltip.axisPointer.type][0] 设置为 'cross' 则默认显示标签，否则默认不显示。\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "是否显示文本标签。如果 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 设置为 `'cross'` 则默认显示标签，否则默认不显示。",
         "uiControl": {
             "default": "false",
             "type": "boolean"
         }
     },
     "axisPointer.label.precision": {
-        "desc": " 文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 2 表示保留两位小数。 ",
+        "desc": "文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 `2` 表示保留两位小数。",
         "uiControl": {
             "default": "'auto'",
             "type": [
@@ -2517,8 +2605,9 @@
         }
     },
     "axisPointer.label.formatter": {
-        "desc": " 文本标签文字的格式化器。 如果为 string，可以是例如：formatter: 'some text {value} some text，其中 {value} 会被自动替换为轴的值。 如果为 function，可以是例如： **参数：**{Object} params: 含有： {Object} params.value: 轴当前值，如果 axis.type 为 'category' 时，其值为 axis.data 里的数值。如果 axis.type 为 'time'，其值为时间戳。 {Array.} params.seriesData: 一个数组，是当前 axisPointer 最近的点的信息，每项内容为 {string} params.axisDimension: 轴的维度名，例如直角坐标系中是 'x'、'y'，极坐标系中是 'radius'、'angle'。 {number} params.axisIndex: 轴的 index，0、1、2、... \n\n    {\n        componentType: 'series',\n        // 系列类型\n        seriesType: string,\n        // 系列在传入的 option.series 中的 index\n        seriesIndex: number,\n        // 系列名称\n        seriesName: string,\n        // 数据名，类目名\n        name: string,\n        // 数据在传入的 data 数组中的 index\n        dataIndex: number,\n        // 传入的原始数据项\n        data: Object,\n        // 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\n        value: number|Array|Object,\n        // 坐标轴 encode 映射信息，\n        // key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n        // value 必然为数组，不会为 null/undefied，表示 dimension index 。\n        // 其内容如：\n        // {\n        //     x: [2] // dimension index 为 2 的数据映射到 x 轴\n        //     y: [0] // dimension index 为 0 的数据映射到 y 轴\n        // }\n        encode: Object,\n        // 维度名列表\n        dimensionNames: Array,\n        // 数据的维度 index，如 0 或 1 或 2 ...\n        // 仅在雷达图中使用。\n        dimensionIndex: number,\n        // 数据图形的颜色\n        color: string,\n    \n    \n    \n    }\n    \n\n注：encode 和 dimensionNames 的使用方式，例如： 如果数据为： \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.encode.y[0]]\n    \n\n如果数据为： \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\n则可这样得到 y 轴对应的 value： \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n每项内容还包括轴的信息： \n\n    {\n        axisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\n        axisId: 'xxx',\n        axisName: 'xxx',\n        axisIndex: 3,\n        axisValue: 121, // 当前 axisPointer 对应的 value。\n        axisValueLabel: '文本'\n    }\n    \n\n**返回值：** 显示的 string。 例如： \n\n    formatter: function (params) {\n        // 假设此轴的 type 为 'time'。\n        return 'some text' + echarts.format.formatTime(params.value);\n    }\n    \n\n",
+        "desc": "文本标签文字的格式化器。\n\n如果为 `string`，可以是例如：`formatter: 'some text {value} some text`，其中 `{value}` 会被自动替换为轴的值。\n\n如果为 `function`，可以是例如：\n\n**参数：**\n\n`{Object}` params: 含有：\n\n`{Object}` params.value: 轴当前值，如果 axis.type 为 'category' 时，其值为 axis.data 里的数值。如果 axis.type 为 `'time'`，其值为时间戳。\n\n`{Array.<Object>}` params.seriesData: 一个数组，是当前 axisPointer 最近的点的信息，每项内容为\n\n`{string}` params.axisDimension: 轴的维度名，例如直角坐标系中是 `'x'`、`'y'`，极坐标系中是 `'radius'`、`'angle'`。\n\n`{number}` params.axisIndex: 轴的 index，`0`、`1`、`2`、...\n\n\n\n```js\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n\n每项内容还包括轴的信息：\n\n```js\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // 当前 axisPointer 对应的 value。\naxisValueLabel: '文本'\n}\n```\n\n\n\n**返回值：**\n\n显示的 string。\n\n例如：\n```js\nformatter: function (params) {\n// 假设此轴的 type 为 'time'。\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "string",
                 "Function"
@@ -2526,492 +2615,505 @@
         }
     },
     "axisPointer.label.margin": {
-        "desc": " label 距离轴的距离。 ",
+        "desc": "label 距离轴的距离。",
         "uiControl": {
             "default": "3",
             "type": "boolean"
         }
     },
     "axisPointer.label.color": {
-        "desc": " 文字的颜色。 ",
+        "desc": "文字的颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "axisPointer.label.fontStyle": {
-        "desc": " 文字字体的风格。 可选： \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "axisPointer.label.fontWeight": {
-        "desc": " 文字字体的粗细。 可选： \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "axisPointer.label.fontFamily": {
-        "desc": " 文字的字体系列。 还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ... ",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "axisPointer.label.fontSize": {
-        "desc": " 文字的字体大小。 ",
+        "desc": "文字的字体大小。",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "axisPointer.label.lineHeight": {
-        "desc": " 行高。 rich 中如果没有设置 lineHeight，则会取父层级的 lineHeight。例如： \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // 没有设置 `lineHeight`，则 `lineHeight` 为 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "axisPointer.label.width": {
-        "desc": " 文本显示宽度。 ",
+        "desc": "文本显示宽度。",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "axisPointer.label.height": {
-        "desc": " 文本显示高度。 ",
+        "desc": "文本显示高度。",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "axisPointer.label.textBorderColor": {
-        "desc": " 文字本身的描边颜色。 ",
+        "desc": "文字本身的描边颜色。",
         "uiControl": {
             "type": "color"
         }
     },
     "axisPointer.label.textBorderWidth": {
-        "desc": " 文字本身的描边宽度。 ",
+        "desc": "文字本身的描边宽度。",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisPointer.label.textBorderType": {
-        "desc": " 文字本身的描边类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 textBorderDashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisPointer.label.textBorderDashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 textBorderType 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisPointer.label.textShadowColor": {
-        "desc": " 文字本身的阴影颜色。 ",
+        "desc": "文字本身的阴影颜色。",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "axisPointer.label.textShadowBlur": {
-        "desc": " 文字本身的阴影长度。 ",
+        "desc": "文字本身的阴影长度。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisPointer.label.textShadowOffsetX": {
-        "desc": " 文字本身的阴影 X 偏移。 ",
+        "desc": "文字本身的阴影 X 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.label.textShadowOffsetY": {
-        "desc": " 文字本身的阴影 Y 偏移。 ",
+        "desc": "文字本身的阴影 Y 偏移。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.label.overflow": {
-        "desc": " 文字超出宽度是否截断或者换行。配置width时有效 \n\n* 'truncate' 截断，并在末尾显示ellipsis配置的文本，默认为...\n* 'break' 换行\n* 'breakAll' 换行，跟'break'不同的是，在英语等拉丁文中，'breakAll'还会强制单词内换行\n\n",
+        "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "axisPointer.label.ellipsis": {
-        "desc": " 在overflow配置为'truncate'的时候，可以通过该属性配置末尾显示的文本。 ",
+        "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "axisPointer.label.lineOverflow": {
-        "desc": " 文本超出高度部分是否截断，配置height时有效。 \n\n* 'truncate' 在文本行数超出高度部分截断。\n\n",
+        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "axisPointer.label.padding": {
-        "desc": " axisPointer内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。 使用示例： \n\n    // 设置内边距为 5\n    padding: 5\n    // 设置上下的内边距为 5，左右的内边距为 10\n    padding: [5, 10]\n    // 分别设置四个方向的内边距\n    padding: [\n        5,  // 上\n        10, // 右\n        5,  // 下\n        10, // 左\n    ]\n    \n\n",
+        "desc": "axisPointer内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```js\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
         "uiControl": {
+            "default": "[5, 7, 5, 7]",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "axisPointer.label.backgroundColor": {
-        "desc": " 文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color][0] 相同。\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "desc": "文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color) 相同。",
         "uiControl": {
             "default": "'auto'",
             "type": "string"
         }
     },
     "axisPointer.label.borderColor": {
-        "desc": " 文本标签的边框颜色。 ",
+        "desc": "文本标签的边框颜色。",
         "uiControl": {
+            "default": "null",
             "type": "string"
         }
     },
     "axisPointer.label.borderWidth": {
-        "desc": " 文本标签的边框宽度。 ",
+        "desc": "文本标签的边框宽度。",
         "uiControl": {
             "default": "0",
             "type": "string"
         }
     },
     "axisPointer.label.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
-            "type": "number",
             "default": "3",
+            "type": "number",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisPointer.label.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "'#aaa'"
+            "default": "'#aaa'",
+            "type": "color"
         }
     },
     "axisPointer.label.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.label.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.lineStyle": {
-        "desc": "[axisPointer.type][0] 为 'line' 时有效。\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'line'` 时有效。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisPointer.lineStyle.color": {
-        "desc": " 线的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
         "uiControl": {
+            "default": " #555",
             "type": "color"
         }
     },
     "axisPointer.lineStyle.width": {
-        "desc": " 线宽。 ",
+        "desc": "线宽。",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "axisPointer.lineStyle.type": {
-        "desc": " 线的类型。 可选： \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\n自 v5.0.0 开始，也可以是 number 或者 number 数组，用以指定线条的 [dash array][0]，配合 dashOffset 可实现更灵活的虚线效果。 例如： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "axisPointer.lineStyle.dashOffset": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置虚线的偏移量，可搭配 type 指定 dash array 实现灵活的虚线效果。 更多详情可以参考 MDN [lineDashOffset][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "axisPointer.lineStyle.cap": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于指定线段末端的绘制方式，可以是： \n\n* 'butt': 线段末端以方形结束。\n* 'round': 线段末端以圆形结束。\n* 'square': 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 'butt'。 更多详情可以参考 MDN [lineCap][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "axisPointer.lineStyle.join": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。 可以是： \n\n* 'bevel': 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n* 'round': 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n* 'miter': 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过 miterLimit 属性看到效果。\n\n默认值为 'bevel'。 更多详情可以参考 MDN [lineJoin][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "axisPointer.lineStyle.miterLimit": {
-        "desc": ">  从 > v5.0.0>  开始支持 用于设置斜接面限制比例。只有当 join 为 miter 时， miterLimit 才有效。 默认值为 10。负数、0、Infinity 和 NaN 均会被忽略。 更多详情可以参考 MDN [miterLimit][0]。\n\n[0]: https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "axisPointer.lineStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisPointer.lineStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "axisPointer.lineStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.lineStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.lineStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "axisPointer.shadowStyle": {
-        "desc": "[axisPointer.type][0] 为 'shadow' 时有效。\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'shadow'` 时有效。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisPointer.shadowStyle.color": {
-        "desc": " 填充的颜色。 \n\n> 支持使用> rgb(255,255,255)> ，> rgba(255,255,255,1)> ，> #fff> 等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[> option.color][0]\n\n[0]: #color",
+        "desc": "填充的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
         "uiControl": {
+            "default": " 'rgba(150,150,150,0.3)",
             "type": "color"
         }
     },
     "axisPointer.shadowStyle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisPointer.shadowStyle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "axisPointer.shadowStyle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.shadowStyle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.shadowStyle.opacity": {
-        "desc": " 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。 ",
+        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "axisPointer.triggerTooltip": {
-        "desc": " 是否触发 tooltip。如果不想触发 tooltip 可以关掉。 ",
+        "desc": "是否触发 tooltip。如果不想触发 tooltip 可以关掉。",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "axisPointer.value": {
-        "desc": " 当前的 value。在使用 [axisPointer.handle][0] 时，可以设置此值进行初始值设定，从而决定 axisPointer 的初始位置。\n\n[0]: xAxisPointer.handle",
+        "desc": "当前的 value。在使用 [axisPointer.handle](xAxisPointer.handle) 时，可以设置此值进行初始值设定，从而决定 axisPointer 的初始位置。",
         "uiControl": {
+            "default": "null",
             "type": "number"
         }
     },
     "axisPointer.status": {
-        "desc": " 当前的状态，可取值为 'show' 和 'hide'。 ",
+        "desc": "当前的状态，可取值为 `'show'` 和 `'hide'`。",
         "uiControl": {
             "type": "enum",
             "options": "'show','hide'"
         }
     },
     "axisPointer.handle": {
-        "desc": " 拖拽手柄，适用于触屏的环境。参见 [例子][0]。\n\n[0]: https://echarts.apache.org/examples/zh/editor.html?c=line-tooltip-touch&edit=1&reset=1",
+        "desc": "拖拽手柄，适用于触屏的环境。参见 [例子](line-tooltip-touch&edit=1&reset=1)。",
         "uiControl": {
             "type": "Object"
         }
     },
     "axisPointer.handle.show": {
-        "desc": " 当 show 设为 true 时开启，这时显示手柄，并且 axisPointer 会一直显示。 ",
+        "desc": "当 show 设为 `true` 时开启，这时显示手柄，并且 axisPointer 会一直显示。",
         "uiControl": {
+            "default": "false",
             "type": "boolean"
         }
     },
     "axisPointer.handle.icon": {
-        "desc": " 手柄的图标。 可以通过 'image://url' 设置为图片，其中 URL 为图片的链接，或者 dataURI。 URL 为图片链接例如： \n\n    'image://http://xxx.xxx.xxx/a/b.png'\n    \n\nURL 为 dataURI 例如： \n\n    'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n    \n\n可以通过 'path://' 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData][0]。可以从 Adobe Illustrator 等工具编辑导出。 例如： \n\n    'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n    \n\n参见 [使用图片的例子][1]\n\n[0]: http://www.w3.org/TR/SVG/paths.html#PathData\n[1]: https://echarts.apache.org/examples/zh/editor.html?c=doc-example/axisPointer-handle-image&edit=1&reset=1",
+        "desc": "手柄的图标。\n\n\n\n可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。\n\nURL 为图片链接例如：\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nURL 为 `dataURI` 例如：\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\n可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。\n\n例如：\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\n参见 [使用图片的例子](doc-example/axisPointer-handle-image&edit=1&reset=1)",
         "uiControl": {
-            "type": "icon",
-            "clean": "true"
+            "type": "*"
         }
     },
     "axisPointer.handle.size": {
-        "desc": " 手柄的尺寸，可以设置单值，如 45，也可以设置为数组：[width, height]。 ",
+        "desc": "手柄的尺寸，可以设置单值，如 `45`，也可以设置为数组：`[width, height]`。",
         "uiControl": {
+            "default": "45",
             "type": "vector",
-            "default": "45,45",
             "min": "0",
             "step": "0.5",
             "dims": "width,height"
         }
     },
     "axisPointer.handle.margin": {
-        "desc": " 手柄与轴的距离。注意，这是手柄中心点和轴的距离。 ",
+        "desc": "手柄与轴的距离。注意，这是手柄中心点和轴的距离。",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisPointer.handle.color": {
-        "desc": " 手柄颜色。 ",
+        "desc": "手柄颜色。",
         "uiControl": {
+            "default": "'#333'",
             "type": "color"
         }
     },
     "axisPointer.handle.throttle": {
-        "desc": " 手柄拖拽时触发视图更新周期，单位毫秒，调大这个数值可以改善性能，但是降低体验。 ",
+        "desc": "手柄拖拽时触发视图更新周期，单位毫秒，调大这个数值可以改善性能，但是降低体验。",
         "uiControl": {
-            "type": "number",
             "default": "40",
+            "type": "number",
             "min": "0",
             "step": "10"
         }
     },
     "axisPointer.handle.shadowBlur": {
-        "desc": " 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。 示例： \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
-            "type": "number",
             "default": "3",
+            "type": "number",
             "min": "0",
             "step": "0.5"
         }
     },
     "axisPointer.handle.shadowColor": {
-        "desc": " 阴影颜色。支持的格式同color。 ",
+        "desc": "阴影颜色。支持的格式同`color`。",
         "uiControl": {
-            "type": "color",
-            "default": "'#aaa'"
+            "default": "'#aaa'",
+            "type": "color"
         }
     },
     "axisPointer.handle.shadowOffsetX": {
-        "desc": " 阴影水平方向上的偏移距离。 ",
+        "desc": "阴影水平方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "2",
+            "type": "number",
             "step": "0.5"
         }
     },
     "axisPointer.handle.shadowOffsetY": {
-        "desc": " 阴影垂直方向上的偏移距离。 ",
+        "desc": "阴影垂直方向上的偏移距离。",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "zlevel": {
-        "desc": " X 轴所有图形的 zlevel 值。 zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。 zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。 ",
+        "desc": "X 轴所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
         "uiControl": {
             "default": "0",
             "type": "number"
         }
     },
     "z": {
-        "desc": " X 轴组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。 z相比zlevel优先级更低，而且不会创建新的 Canvas。 ",
+        "desc": "X 轴组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
         "uiControl": {
             "default": "0",
             "type": "number"

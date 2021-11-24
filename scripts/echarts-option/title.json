@@ -1,0 +1,978 @@
+{
+    "name": "title",
+    "type": "Object",
+    "desc": "\n标题组件，包含主标题和副标题。\n\n在 ECharts 2.x 中单个 ECharts 实例最多只能拥有一个标题组件。但是在 ECharts 3 中可以存在任意多个标题组件，这在需要标题进行排版，或者单个实例中的多个图表都需要标题时会比较有用。\n\n**例如下面不同缓动函数效果的示例，每一个缓动效果图都带有一个标题组件：**\n~[700x400](https://echarts.apache.org/examples/zh/view.html?c=line-easing&edit=1&reset=1)\n\n\n\n\n\n",
+    "children": [
+        {
+            "name": "id",
+            "type": "string",
+            "desc": "\n组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。\n\n\n\n",
+            "children": []
+        },
+        {
+            "name": "show",
+            "type": "boolean",
+            "default": "true",
+            "desc": "\n\n\n是否显示标题组件。\n\n",
+            "children": []
+        },
+        {
+            "name": "text",
+            "type": "text",
+            "default": "''",
+            "desc": "\n\n\n主标题文本，支持使用 `\\n` 换行。\n\n",
+            "children": []
+        },
+        {
+            "name": "link",
+            "type": "string",
+            "default": "''",
+            "desc": "\n主标题文本超链接。\n\n",
+            "children": []
+        },
+        {
+            "name": "target",
+            "type": "string",
+            "default": "'blank'",
+            "desc": "\n指定窗口打开主标题超链接。\n\n**可选：**\n\n+ `'self'` 当前窗口打开\n\n+ `'blank'` 新窗口打开\n\n",
+            "children": []
+        },
+        {
+            "name": "textStyle",
+            "type": "Object",
+            "desc": "\n\n\n\n\n",
+            "children": [
+                {
+                    "name": "color",
+                    "type": "color",
+                    "default": "'#333'",
+                    "desc": "\n\n\n主标题文字的颜色。\n\n\n\n",
+                    "children": []
+                },
+                {
+                    "name": "fontStyle",
+                    "type": "enum",
+                    "default": "''normal''",
+                    "desc": "\n\n\n主标题文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n",
+                    "children": [],
+                    "options": "'normal','italic','oblique'"
+                },
+                {
+                    "name": "fontWeight",
+                    "type": "enum",
+                    "default": "''bolder''",
+                    "desc": "\n\n\n主标题文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n",
+                    "children": [],
+                    "options": "'normal','bold','bolder','lighter'"
+                },
+                {
+                    "name": "fontFamily",
+                    "type": "enum",
+                    "default": "''sans-serif''",
+                    "desc": "\n\n\n主标题文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n",
+                    "children": [],
+                    "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                },
+                {
+                    "name": "fontSize",
+                    "type": "number",
+                    "default": "18",
+                    "desc": "\n\n\n主标题文字的字体大小。\n\n\n\n\n\n### lineHeight(number) =\n\n<ExampleUIControlNumber min=\"0\" step=\"1\" default=\"12\" />\n\n行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n\n\n",
+                    "children": [],
+                    "min": "1",
+                    "step": "1"
+                },
+                {
+                    "name": "width",
+                    "type": [
+                        "number|string"
+                    ],
+                    "desc": "\n文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "height",
+                    "type": [
+                        "number|string"
+                    ],
+                    "desc": "\n文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "textBorderColor",
+                    "type": "color",
+                    "desc": "\n\n\n文字本身的描边颜色。\n\n\n\n",
+                    "children": []
+                },
+                {
+                    "name": "textBorderWidth",
+                    "type": "number",
+                    "desc": "\n\n\n文字本身的描边宽度。\n\n\n\n\n",
+                    "children": [],
+                    "min": "0",
+                    "step": "0.5"
+                },
+                {
+                    "name": "textBorderType",
+                    "type": "enum",
+                    "default": "''solid''",
+                    "desc": "\n\n\n\n\n文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```\n\n\n",
+                    "children": [],
+                    "options": "'solid','dashed','dotted'"
+                },
+                {
+                    "name": "textBorderDashOffset",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n\n> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。\n\n\n\n\n\n\n\n\n\n",
+                    "children": [],
+                    "min": "0",
+                    "step": "1"
+                },
+                {
+                    "name": "textShadowColor",
+                    "type": "color",
+                    "default": "'transparent'",
+                    "desc": "\n\n\n文字本身的阴影颜色。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "textShadowBlur",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n文字本身的阴影长度。\n\n",
+                    "children": [],
+                    "min": "0",
+                    "step": "0.5"
+                },
+                {
+                    "name": "textShadowOffsetX",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n文字本身的阴影 X 偏移。\n\n",
+                    "children": [],
+                    "step": "0.5"
+                },
+                {
+                    "name": "textShadowOffsetY",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n文字本身的阴影 Y 偏移。\n\n\n\n\n\n",
+                    "children": [],
+                    "step": "0.5"
+                },
+                {
+                    "name": "width",
+                    "type": "number",
+                    "default": "100",
+                    "desc": "\n\n\n文本显示宽度。\n\n",
+                    "children": [],
+                    "min": "1",
+                    "max": "500",
+                    "step": "1"
+                },
+                {
+                    "name": "height",
+                    "type": "number",
+                    "default": "50",
+                    "desc": "\n\n\n文本显示高度。\n\n",
+                    "children": [],
+                    "min": "1",
+                    "max": "500",
+                    "step": "1"
+                },
+                {
+                    "name": "overflow",
+                    "type": "enum",
+                    "default": "'none'",
+                    "desc": "\n\n\n文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行\n\n",
+                    "children": [],
+                    "options": "'truncate','break','breakAll'"
+                },
+                {
+                    "name": "ellipsis",
+                    "type": "string",
+                    "default": "'...'",
+                    "desc": "\n在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "lineOverflow",
+                    "type": "string",
+                    "default": "'none'",
+                    "desc": "\n文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。\n\n\n",
+                    "children": []
+                },
+                {
+                    "name": "rich",
+                    "type": "Object",
+                    "desc": "\n在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)\n\n",
+                    "children": [
+                        {
+                            "name": "<style_name>",
+                            "type": "Object",
+                            "desc": "\n\n\n",
+                            "children": [
+                                {
+                                    "name": "color",
+                                    "type": "color",
+                                    "default": "\"#fff\"",
+                                    "desc": "\n\n\n文字的颜色。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "fontStyle",
+                                    "type": "enum",
+                                    "default": "''normal''",
+                                    "desc": "\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n",
+                                    "children": [],
+                                    "options": "'normal','italic','oblique'"
+                                },
+                                {
+                                    "name": "fontWeight",
+                                    "type": "enum",
+                                    "default": "'normal'",
+                                    "desc": "\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n",
+                                    "children": [],
+                                    "options": "'normal','bold','bolder','lighter'"
+                                },
+                                {
+                                    "name": "fontFamily",
+                                    "type": "enum",
+                                    "default": "''sans-serif''",
+                                    "desc": "\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n",
+                                    "children": [],
+                                    "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                                },
+                                {
+                                    "name": "fontSize",
+                                    "type": "number",
+                                    "default": "12",
+                                    "desc": "\n\n\n文字的字体大小。\n\n\n##### align(string) =\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n\n##### verticalAlign(string) =\n\n<ExampleUIControlEnum options=\"top,middle,bottom\" />\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```\n\n\n\n\n##### lineHeight(number) =\n\n<ExampleUIControlNumber min=\"0\" step=\"1\" default=\"12\" />\n\n行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n\n",
+                                    "children": [],
+                                    "options": "'left','center','right'",
+                                    "min": "1",
+                                    "step": "1"
+                                },
+                                {
+                                    "name": "backgroundColor",
+                                    "type": "color",
+                                    "default": "'transparent'",
+                                    "desc": "\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "borderColor",
+                                    "type": "color",
+                                    "default": "'#fff'",
+                                    "desc": "\n\n\n文字块边框颜色。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "borderWidth",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块边框宽度。\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "borderType",
+                                    "type": "enum",
+                                    "default": "''solid''",
+                                    "desc": "\n\n\n\n\n\n文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```\n\n\n",
+                                    "children": [],
+                                    "options": "'solid','dashed','dotted'"
+                                },
+                                {
+                                    "name": "borderDashOffset",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n\n\n> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。\n\n\n\n\n\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "1"
+                                },
+                                {
+                                    "name": "borderRadius",
+                                    "type": "vector",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的圆角。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "dims": "LT,RT, RB, LB"
+                                },
+                                {
+                                    "name": "padding",
+                                    "type": "vector",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "dims": "T,R,B,L"
+                                },
+                                {
+                                    "name": "shadowColor",
+                                    "type": "color",
+                                    "default": "'transparent'",
+                                    "desc": "\n\n\n文字块的背景阴影颜色。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "shadowBlur",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的背景阴影长度。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "shadowOffsetX",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的背景阴影 X 偏移。\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "shadowOffsetY",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的背景阴影 Y 偏移。\n\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "width",
+                                    "type": [
+                                        "number|string"
+                                    ],
+                                    "desc": "\n文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "height",
+                                    "type": [
+                                        "number|string"
+                                    ],
+                                    "desc": "\n文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "textBorderColor",
+                                    "type": "color",
+                                    "desc": "\n\n\n文字本身的描边颜色。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "textBorderWidth",
+                                    "type": "number",
+                                    "desc": "\n\n\n文字本身的描边宽度。\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "textBorderType",
+                                    "type": "enum",
+                                    "default": "''solid''",
+                                    "desc": "\n\n\n\n\n文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```\n\n\n",
+                                    "children": [],
+                                    "options": "'solid','dashed','dotted'"
+                                },
+                                {
+                                    "name": "textBorderDashOffset",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n\n> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。\n\n\n\n\n\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "1"
+                                },
+                                {
+                                    "name": "textShadowColor",
+                                    "type": "color",
+                                    "default": "'transparent'",
+                                    "desc": "\n\n\n文字本身的阴影颜色。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "textShadowBlur",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字本身的阴影长度。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "textShadowOffsetX",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字本身的阴影 X 偏移。\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "textShadowOffsetY",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字本身的阴影 Y 偏移。\n\n\n\n\n\n\n\n\n\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "subtext",
+            "type": "text",
+            "default": "''",
+            "desc": "\n\n\n副标题文本，支持使用 `\\n` 换行。\n\n",
+            "children": []
+        },
+        {
+            "name": "sublink",
+            "type": "string",
+            "default": "''",
+            "desc": "\n副标题文本超链接。\n\n",
+            "children": []
+        },
+        {
+            "name": "subtarget",
+            "type": "string",
+            "default": "'blank'",
+            "desc": "\n指定窗口打开副标题超链接，可选：\n\n+ `'self'` 当前窗口打开\n\n+ `'blank'` 新窗口打开\n\n",
+            "children": []
+        },
+        {
+            "name": "subtextStyle",
+            "type": "Object",
+            "desc": "\n\n\n\n\n",
+            "children": [
+                {
+                    "name": "color",
+                    "type": "color",
+                    "default": "'#aaa'",
+                    "desc": "\n\n\n副标题文字的颜色。\n\n\n\n",
+                    "children": []
+                },
+                {
+                    "name": "fontStyle",
+                    "type": "enum",
+                    "default": "''normal''",
+                    "desc": "\n\n\n副标题文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n",
+                    "children": [],
+                    "options": "'normal','italic','oblique'"
+                },
+                {
+                    "name": "fontWeight",
+                    "type": "enum",
+                    "default": "'normal'",
+                    "desc": "\n\n\n副标题文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n",
+                    "children": [],
+                    "options": "'normal','bold','bolder','lighter'"
+                },
+                {
+                    "name": "fontFamily",
+                    "type": "enum",
+                    "default": "''sans-serif''",
+                    "desc": "\n\n\n副标题文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n",
+                    "children": [],
+                    "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                },
+                {
+                    "name": "fontSize",
+                    "type": "number",
+                    "default": "12",
+                    "desc": "\n\n\n副标题文字的字体大小。\n\n\n### align(string) =\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n\n### verticalAlign(string) =\n\n<ExampleUIControlEnum options=\"top,middle,bottom\" />\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```\n\n\n\n\n### lineHeight(number) =\n\n<ExampleUIControlNumber min=\"0\" step=\"1\" default=\"12\" />\n\n行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n\n\n",
+                    "children": [],
+                    "options": "'left','center','right'",
+                    "min": "1",
+                    "step": "1"
+                },
+                {
+                    "name": "width",
+                    "type": [
+                        "number|string"
+                    ],
+                    "desc": "\n文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "height",
+                    "type": [
+                        "number|string"
+                    ],
+                    "desc": "\n文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "textBorderColor",
+                    "type": "color",
+                    "desc": "\n\n\n文字本身的描边颜色。\n\n\n\n",
+                    "children": []
+                },
+                {
+                    "name": "textBorderWidth",
+                    "type": "number",
+                    "desc": "\n\n\n文字本身的描边宽度。\n\n\n\n\n",
+                    "children": [],
+                    "min": "0",
+                    "step": "0.5"
+                },
+                {
+                    "name": "textBorderType",
+                    "type": "enum",
+                    "default": "''solid''",
+                    "desc": "\n\n\n\n\n文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```\n\n\n",
+                    "children": [],
+                    "options": "'solid','dashed','dotted'"
+                },
+                {
+                    "name": "textBorderDashOffset",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n\n> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。\n\n\n\n\n\n\n\n\n\n",
+                    "children": [],
+                    "min": "0",
+                    "step": "1"
+                },
+                {
+                    "name": "textShadowColor",
+                    "type": "color",
+                    "default": "'transparent'",
+                    "desc": "\n\n\n文字本身的阴影颜色。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "textShadowBlur",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n文字本身的阴影长度。\n\n",
+                    "children": [],
+                    "min": "0",
+                    "step": "0.5"
+                },
+                {
+                    "name": "textShadowOffsetX",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n文字本身的阴影 X 偏移。\n\n",
+                    "children": [],
+                    "step": "0.5"
+                },
+                {
+                    "name": "textShadowOffsetY",
+                    "type": "number",
+                    "default": "0",
+                    "desc": "\n\n\n文字本身的阴影 Y 偏移。\n\n\n\n\n\n",
+                    "children": [],
+                    "step": "0.5"
+                },
+                {
+                    "name": "width",
+                    "type": "number",
+                    "default": "100",
+                    "desc": "\n\n\n文本显示宽度。\n\n",
+                    "children": [],
+                    "min": "1",
+                    "max": "500",
+                    "step": "1"
+                },
+                {
+                    "name": "height",
+                    "type": "number",
+                    "default": "50",
+                    "desc": "\n\n\n文本显示高度。\n\n",
+                    "children": [],
+                    "min": "1",
+                    "max": "500",
+                    "step": "1"
+                },
+                {
+                    "name": "overflow",
+                    "type": "enum",
+                    "default": "'none'",
+                    "desc": "\n\n\n文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行\n\n",
+                    "children": [],
+                    "options": "'truncate','break','breakAll'"
+                },
+                {
+                    "name": "ellipsis",
+                    "type": "string",
+                    "default": "'...'",
+                    "desc": "\n在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。\n\n",
+                    "children": []
+                },
+                {
+                    "name": "lineOverflow",
+                    "type": "string",
+                    "default": "'none'",
+                    "desc": "\n文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。\n\n\n",
+                    "children": []
+                },
+                {
+                    "name": "rich",
+                    "type": "Object",
+                    "desc": "\n在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)\n\n",
+                    "children": [
+                        {
+                            "name": "<style_name>",
+                            "type": "Object",
+                            "desc": "\n\n\n",
+                            "children": [
+                                {
+                                    "name": "color",
+                                    "type": "color",
+                                    "default": "\"#fff\"",
+                                    "desc": "\n\n\n文字的颜色。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "fontStyle",
+                                    "type": "enum",
+                                    "default": "''normal''",
+                                    "desc": "\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n",
+                                    "children": [],
+                                    "options": "'normal','italic','oblique'"
+                                },
+                                {
+                                    "name": "fontWeight",
+                                    "type": "enum",
+                                    "default": "'normal'",
+                                    "desc": "\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n",
+                                    "children": [],
+                                    "options": "'normal','bold','bolder','lighter'"
+                                },
+                                {
+                                    "name": "fontFamily",
+                                    "type": "enum",
+                                    "default": "''sans-serif''",
+                                    "desc": "\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n",
+                                    "children": [],
+                                    "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                                },
+                                {
+                                    "name": "fontSize",
+                                    "type": "number",
+                                    "default": "12",
+                                    "desc": "\n\n\n文字的字体大小。\n\n\n##### align(string) =\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n\n##### verticalAlign(string) =\n\n<ExampleUIControlEnum options=\"top,middle,bottom\" />\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```\n\n\n\n\n##### lineHeight(number) =\n\n<ExampleUIControlNumber min=\"0\" step=\"1\" default=\"12\" />\n\n行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n\n",
+                                    "children": [],
+                                    "options": "'left','center','right'",
+                                    "min": "1",
+                                    "step": "1"
+                                },
+                                {
+                                    "name": "backgroundColor",
+                                    "type": "color",
+                                    "default": "'transparent'",
+                                    "desc": "\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "borderColor",
+                                    "type": "color",
+                                    "default": "'#fff'",
+                                    "desc": "\n\n\n文字块边框颜色。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "borderWidth",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块边框宽度。\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "borderType",
+                                    "type": "enum",
+                                    "default": "''solid''",
+                                    "desc": "\n\n\n\n\n\n文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```\n\n\n",
+                                    "children": [],
+                                    "options": "'solid','dashed','dotted'"
+                                },
+                                {
+                                    "name": "borderDashOffset",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n\n\n> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。\n\n\n\n\n\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "1"
+                                },
+                                {
+                                    "name": "borderRadius",
+                                    "type": "vector",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的圆角。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "dims": "LT,RT, RB, LB"
+                                },
+                                {
+                                    "name": "padding",
+                                    "type": "vector",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "dims": "T,R,B,L"
+                                },
+                                {
+                                    "name": "shadowColor",
+                                    "type": "color",
+                                    "default": "'transparent'",
+                                    "desc": "\n\n\n文字块的背景阴影颜色。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "shadowBlur",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的背景阴影长度。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "shadowOffsetX",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的背景阴影 X 偏移。\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "shadowOffsetY",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字块的背景阴影 Y 偏移。\n\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "width",
+                                    "type": [
+                                        "number|string"
+                                    ],
+                                    "desc": "\n文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "height",
+                                    "type": [
+                                        "number|string"
+                                    ],
+                                    "desc": "\n文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "textBorderColor",
+                                    "type": "color",
+                                    "desc": "\n\n\n文字本身的描边颜色。\n\n\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "textBorderWidth",
+                                    "type": "number",
+                                    "desc": "\n\n\n文字本身的描边宽度。\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "textBorderType",
+                                    "type": "enum",
+                                    "default": "''solid''",
+                                    "desc": "\n\n\n\n\n文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```\n\n\n",
+                                    "children": [],
+                                    "options": "'solid','dashed','dotted'"
+                                },
+                                {
+                                    "name": "textBorderDashOffset",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n\n> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。\n\n\n\n\n\n\n\n\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "1"
+                                },
+                                {
+                                    "name": "textShadowColor",
+                                    "type": "color",
+                                    "default": "'transparent'",
+                                    "desc": "\n\n\n文字本身的阴影颜色。\n\n",
+                                    "children": []
+                                },
+                                {
+                                    "name": "textShadowBlur",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字本身的阴影长度。\n\n",
+                                    "children": [],
+                                    "min": "0",
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "textShadowOffsetX",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字本身的阴影 X 偏移。\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                },
+                                {
+                                    "name": "textShadowOffsetY",
+                                    "type": "number",
+                                    "default": "0",
+                                    "desc": "\n\n\n文字本身的阴影 Y 偏移。\n\n\n\n\n\n\n\n\n\n\n",
+                                    "children": [],
+                                    "step": "0.5"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "textAlign",
+            "type": "enum",
+            "default": "''auto''",
+            "desc": "\n\n\n整体（包括 text 和 subtext）的水平对齐。\n\n可选值：`'auto'`、`'left'`、`'right'`、`'center'`。\n\n",
+            "children": [],
+            "options": "'auto','left','center','right'"
+        },
+        {
+            "name": "textVerticalAlign",
+            "type": "enum",
+            "default": "''auto''",
+            "desc": "\n\n\n整体（包括 text 和 subtext）的垂直对齐。\n\n可选值：`'auto'`、`'top'`、`'bottom'`、`'middle'`。\n\n",
+            "children": [],
+            "options": "'auto','top','middle','bottom'"
+        },
+        {
+            "name": "triggerEvent",
+            "type": "boolean",
+            "default": "false",
+            "desc": "\n是否触发事件。\n\n",
+            "children": []
+        },
+        {
+            "name": "padding",
+            "type": "vector",
+            "default": "5",
+            "desc": "\n\n\n\n\n标题内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```js\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```\n\n\n\n",
+            "children": [],
+            "min": "0",
+            "dims": "T,R,B,L"
+        },
+        {
+            "name": "itemGap",
+            "type": "number",
+            "default": "10",
+            "desc": "\n\n\n主副标题之间的间距。\n\n\n\n\n\n\n",
+            "children": [],
+            "min": "0",
+            "step": "1"
+        },
+        {
+            "name": "zlevel",
+            "type": "number",
+            "default": "0",
+            "desc": "\n所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。\n\n",
+            "children": []
+        },
+        {
+            "name": "z",
+            "type": "number",
+            "default": "2",
+            "desc": "\n组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。\n\n\n\n\n",
+            "children": []
+        },
+        {
+            "name": "left",
+            "type": "percent",
+            "default": "'auto'",
+            "desc": "\n\n\ntitle 组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。\n\n",
+            "children": []
+        },
+        {
+            "name": "top",
+            "type": "percent",
+            "default": "'auto'",
+            "desc": "\n\n\ntitle 组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。\n\n",
+            "children": []
+        },
+        {
+            "name": "right",
+            "type": "percent",
+            "default": "'auto'",
+            "desc": "\n\n\ntitle 组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。\n\n",
+            "children": []
+        },
+        {
+            "name": "bottom",
+            "type": "percent",
+            "default": "'auto'",
+            "desc": "\n\n\ntitle 组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。\n\n\n\n\n\n",
+            "children": []
+        },
+        {
+            "name": "backgroundColor",
+            "type": "color",
+            "default": "'transparent'",
+            "desc": "\n\n\n标题背景色，默认透明。\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`   ，如果想要加上 alpha 通道，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`\n\n\n\n",
+            "children": []
+        },
+        {
+            "name": "borderColor",
+            "type": "color",
+            "default": "'#ccc'",
+            "desc": "\n\n\n标题的边框颜色。支持的颜色格式同 backgroundColor。\n\n\n\n",
+            "children": []
+        },
+        {
+            "name": "borderWidth",
+            "type": "number",
+            "default": "0",
+            "desc": "\n\n\n标题的边框线宽。\n\n\n\n\n\n\n",
+            "children": [],
+            "min": "0",
+            "step": "0.5"
+        },
+        {
+            "name": "borderRadius",
+            "type": "vector",
+            "default": "0",
+            "desc": "\n\n\n圆角半径，单位px，支持传入数组分别指定 4 个圆角半径。\n如:\n```\nborderRadius: 5, // 统一设置四个角的圆角大小\nborderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）\n```\n\n\n\n\n\n\n## shadowBlur(number) =\n\n\n\n图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true` 以及值不为 `tranparent` 的背景色 `backgroundColor`。\n\n\n## shadowColor(Color) =\n\n\n\n阴影颜色。支持的格式同`color`。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。\n\n\n",
+            "children": [],
+            "min": "0",
+            "step": "0.5",
+            "dims": "LT,RT,RB,LB"
+        },
+        {
+            "name": "shadowOffsetX",
+            "type": "number",
+            "default": "0",
+            "desc": "\n\n\n阴影水平方向上的偏移距离。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。\n\n\n",
+            "children": [],
+            "step": "0.5"
+        },
+        {
+            "name": "shadowOffsetY",
+            "type": "number",
+            "default": "0",
+            "desc": "\n<ExampleUIControlNumber default=\"0\" step=\"0.5\" />\n\n阴影垂直方向上的偏移距离。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。\n\n",
+            "children": []
+        }
+    ]
+}

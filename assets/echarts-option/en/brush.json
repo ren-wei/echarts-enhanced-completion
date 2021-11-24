@@ -1,20 +1,21 @@
 {
     "id": {
-        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. ",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
         "uiControl": {
             "type": "string"
         }
     },
     "toolbox": {
-        "desc": " Use the buttons in toolbox. Buttons in toolbox that is related to brush includes: \n\n* 'rect': for selection-box in rectangle shape;\n* 'polygon': for selection-box in polygon shape;\n* 'lineX': for horizontal selection-box;\n* 'lineY': for vertical selection-box;\n* 'keep': for setting mode between single and multiple selection, the former of which supports clearing selection on click, and the latter selecting multiple areas;\n* 'clear': for clearing all selections.\n\n",
+        "desc": "Use the buttons in toolbox.\n\n\n\nButtons in toolbox that is related to brush includes:\n\n+ `'rect'`: for selection-box in rectangle shape;\n+ `'polygon'`: for selection-box in polygon shape;\n+ `'lineX'`: for horizontal selection-box;\n+ `'lineY'`: for vertical selection-box;\n+ `'keep'`: for setting mode between `single` and `multiple` selection, the former of which supports clearing selection on click, and the latter selecting multiple areas;\n+ `'clear'`: for clearing all selections.",
         "uiControl": {
             "default": "['rect', 'polygon', 'keep', 'clear']",
             "type": "Array"
         }
     },
     "brushLink": {
-        "desc": " Links interaction between selected items in different series. Following is an example of enabling selected effect for scatter and parallel charts once a scatter chart is selected. brushLink is an array of seriesIndexes, which assignes the series that can be interacted. For example, it can be: \n\n* [3, 4, 5] for interacting series with seriesIndex as 3, 4, or 5;\n* 'all' for interacting all series;\n* 'none', or null, or undefined for disabling brushLink.\n\n**Attention**brushLink is a mapping of dataIndex. So **data of every series with brushLink should be guaranteed to correspond to the other**. Example: \n\n    option = {\n        brush: {\n            brushLink: [0, 1]\n        },\n        series: [\n            {\n                type: 'bar'\n                data: [232,    4434,    545,      654]     // data has 4 items\n            },\n            {\n                type: 'parallel',\n                data: [[4, 5], [3, 5], [66, 33], [99, 66]] // data also has 4 items, which correspond to the data above\n            }\n        ]\n    };\n    \n\n",
+        "desc": "Links interaction between selected items in different series.\n\nFollowing is an example of enabling selected effect for `scatter` and `parallel` charts once a scatter chart is selected.\n\n`brushLink` is an array of `seriesIndex`es, which assignes the series that can be interacted. For example, it can be:\n\n+ `[3, 4, 5]` for interacting series with seriesIndex as `3`, `4`, or `5`;\n+ `'all'` for interacting all series;\n+ `'none'`, or `null`, or `undefined` for disabling `brushLink`.\n\n**Attention**\n\n`brushLink` is a mapping of `dataIndex`. So **`data` of every series with `brushLink` should be guaranteed to correspond to the other**.\n\nExample:\n```javascript\noption = {\nbrush: {\nbrushLink: [0, 1]\n},\nseries: [\n{\ntype: 'bar'\ndata: [232,    4434,    545,      654]     // data has 4 items\n},\n{\ntype: 'parallel',\ndata: [[4, 5], [3, 5], [66, 33], [99, 66]] // data also has 4 items, which correspond to the data above\n}\n]\n};\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "Array",
                 "string"
@@ -22,7 +23,7 @@
         }
     },
     "seriesIndex": {
-        "desc": " Assigns which of the series can use brush selecting, whose value can be: \n\n* 'all': all series;\n* 'Array': series index array;\n* 'number': certain series index.\n\n",
+        "desc": "Assigns which of the series can use brush selecting, whose value can be:\n\n+ `'all'`: all series;\n+ `'Array'`: series index array;\n+ `'number'`: certain series index.",
         "uiControl": {
             "default": "'all'",
             "type": [
@@ -33,8 +34,9 @@
         }
     },
     "geoIndex": {
-        "desc": " Assigns which of the geo can use brush selecting. brush can be set to be _global_, or _belonging to a particular coordinate_. **Global brushes** Selecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global. **Coordinate brushes** Selecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see roam and dataZoom). In practice, you may often find coordinate brush to be a more frequently made choice, particularly in geo charts. By assigning [brush.geoIndex][0], or [brush.xAxisIndex][1], or [brush.yAxisIndex][2], brush selecting axes can be assigned, whose value can be: \n\n* 'all': for all axes;\n* number: like 0, for a particular coordinate with that index;\n* Array: like [0, 4, 2], for coordinates with those indexes;\n* 'none', or null, or undefined: for not assigning.\n\nExample: \n\n    option = {\n        geo: {\n            ...\n        },\n        brush: {\n            geoIndex: 'all', // brush selecting is enabled only in all geo charts above\n            ...\n        }\n    };\n    \n\nExample: \n\n    option = {\n        grid: [\n            {...}, // grid 0\n            {...}  // grid 1\n        ],\n        xAxis: [\n            {gridIndex: 1, ...}, // xAxis 0 for grid 1\n            {gridIndex: 0, ...}  // xAxis 1 for grid 0\n        ],\n        yAxis: [\n            {gridIndex: 1, ...}, // yAxis 0 for grid 1\n            {gridIndex: 0, ...}  // yAxis 1 for grid 0\n        ],\n        brush: {\n            xAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n            ...\n        }\n    };\n    \n\n\n\n[0]: #brush.geoIndex\n[1]: #brush.xAxisIndex\n[2]: #brush.yAxisIndex",
+        "desc": "Assigns which of the geo can use brush selecting.\n\n\n\n`brush` can be set to be *global*, or *belonging to a particular coordinate*.\n\n**Global brushes**\n\nSelecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global.\n\n**Coordinate brushes**\n\nSelecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see `roam` and `dataZoom`).\n\nIn practice, you may often find coordinate brush to be a more frequently made choice, particularly in `geo` charts.\n\nBy assigning [brush.geoIndex](~brush.geoIndex), or [brush.xAxisIndex](~brush.xAxisIndex), or [brush.yAxisIndex](~brush.yAxisIndex), brush selecting axes can be assigned, whose value can be:\n\n+ `'all'`: for all axes;\n+ `number`: like `0`, for a particular coordinate with that index;\n+ `Array`: like `[0, 4, 2]`, for coordinates with those indexes;\n+ `'none'`, or `null`, or `undefined`: for not assigning.\n\nExample:\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // brush selecting is enabled only in all geo charts above\n...\n}\n};\n```\n\nExample:\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0 for grid 1\n{gridIndex: 0, ...}  // xAxis 1 for grid 0\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0 for grid 1\n{gridIndex: 0, ...}  // yAxis 1 for grid 0\n],\nbrush: {\nxAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n...\n}\n};\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "Array",
                 "number",
@@ -43,8 +45,9 @@
         }
     },
     "xAxisIndex": {
-        "desc": " Assigns which of the xAxisIndex can use brush selecting. brush can be set to be _global_, or _belonging to a particular coordinate_. **Global brushes** Selecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global. **Coordinate brushes** Selecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see roam and dataZoom). In practice, you may often find coordinate brush to be a more frequently made choice, particularly in geo charts. By assigning [brush.geoIndex][0], or [brush.xAxisIndex][1], or [brush.yAxisIndex][2], brush selecting axes can be assigned, whose value can be: \n\n* 'all': for all axes;\n* number: like 0, for a particular coordinate with that index;\n* Array: like [0, 4, 2], for coordinates with those indexes;\n* 'none', or null, or undefined: for not assigning.\n\nExample: \n\n    option = {\n        geo: {\n            ...\n        },\n        brush: {\n            geoIndex: 'all', // brush selecting is enabled only in all geo charts above\n            ...\n        }\n    };\n    \n\nExample: \n\n    option = {\n        grid: [\n            {...}, // grid 0\n            {...}  // grid 1\n        ],\n        xAxis: [\n            {gridIndex: 1, ...}, // xAxis 0 for grid 1\n            {gridIndex: 0, ...}  // xAxis 1 for grid 0\n        ],\n        yAxis: [\n            {gridIndex: 1, ...}, // yAxis 0 for grid 1\n            {gridIndex: 0, ...}  // yAxis 1 for grid 0\n        ],\n        brush: {\n            xAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n            ...\n        }\n    };\n    \n\n\n\n[0]: #brush.geoIndex\n[1]: #brush.xAxisIndex\n[2]: #brush.yAxisIndex",
+        "desc": "Assigns which of the xAxisIndex can use brush selecting.\n\n\n\n`brush` can be set to be *global*, or *belonging to a particular coordinate*.\n\n**Global brushes**\n\nSelecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global.\n\n**Coordinate brushes**\n\nSelecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see `roam` and `dataZoom`).\n\nIn practice, you may often find coordinate brush to be a more frequently made choice, particularly in `geo` charts.\n\nBy assigning [brush.geoIndex](~brush.geoIndex), or [brush.xAxisIndex](~brush.xAxisIndex), or [brush.yAxisIndex](~brush.yAxisIndex), brush selecting axes can be assigned, whose value can be:\n\n+ `'all'`: for all axes;\n+ `number`: like `0`, for a particular coordinate with that index;\n+ `Array`: like `[0, 4, 2]`, for coordinates with those indexes;\n+ `'none'`, or `null`, or `undefined`: for not assigning.\n\nExample:\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // brush selecting is enabled only in all geo charts above\n...\n}\n};\n```\n\nExample:\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0 for grid 1\n{gridIndex: 0, ...}  // xAxis 1 for grid 0\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0 for grid 1\n{gridIndex: 0, ...}  // yAxis 1 for grid 0\n],\nbrush: {\nxAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n...\n}\n};\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "Array",
                 "number",
@@ -53,8 +56,9 @@
         }
     },
     "yAxisIndex": {
-        "desc": " Assigns which of the yAxisIndex can use brush selecting. brush can be set to be _global_, or _belonging to a particular coordinate_. **Global brushes** Selecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global. **Coordinate brushes** Selecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see roam and dataZoom). In practice, you may often find coordinate brush to be a more frequently made choice, particularly in geo charts. By assigning [brush.geoIndex][0], or [brush.xAxisIndex][1], or [brush.yAxisIndex][2], brush selecting axes can be assigned, whose value can be: \n\n* 'all': for all axes;\n* number: like 0, for a particular coordinate with that index;\n* Array: like [0, 4, 2], for coordinates with those indexes;\n* 'none', or null, or undefined: for not assigning.\n\nExample: \n\n    option = {\n        geo: {\n            ...\n        },\n        brush: {\n            geoIndex: 'all', // brush selecting is enabled only in all geo charts above\n            ...\n        }\n    };\n    \n\nExample: \n\n    option = {\n        grid: [\n            {...}, // grid 0\n            {...}  // grid 1\n        ],\n        xAxis: [\n            {gridIndex: 1, ...}, // xAxis 0 for grid 1\n            {gridIndex: 0, ...}  // xAxis 1 for grid 0\n        ],\n        yAxis: [\n            {gridIndex: 1, ...}, // yAxis 0 for grid 1\n            {gridIndex: 0, ...}  // yAxis 1 for grid 0\n        ],\n        brush: {\n            xAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n            ...\n        }\n    };\n    \n\n\n\n[0]: #brush.geoIndex\n[1]: #brush.xAxisIndex\n[2]: #brush.yAxisIndex",
+        "desc": "Assigns which of the yAxisIndex can use brush selecting.\n\n\n\n`brush` can be set to be *global*, or *belonging to a particular coordinate*.\n\n**Global brushes**\n\nSelecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global.\n\n**Coordinate brushes**\n\nSelecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see `roam` and `dataZoom`).\n\nIn practice, you may often find coordinate brush to be a more frequently made choice, particularly in `geo` charts.\n\nBy assigning [brush.geoIndex](~brush.geoIndex), or [brush.xAxisIndex](~brush.xAxisIndex), or [brush.yAxisIndex](~brush.yAxisIndex), brush selecting axes can be assigned, whose value can be:\n\n+ `'all'`: for all axes;\n+ `number`: like `0`, for a particular coordinate with that index;\n+ `Array`: like `[0, 4, 2]`, for coordinates with those indexes;\n+ `'none'`, or `null`, or `undefined`: for not assigning.\n\nExample:\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // brush selecting is enabled only in all geo charts above\n...\n}\n};\n```\n\nExample:\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0 for grid 1\n{gridIndex: 0, ...}  // xAxis 1 for grid 0\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0 for grid 1\n{gridIndex: 0, ...}  // yAxis 1 for grid 0\n],\nbrush: {\nxAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n...\n}\n};\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "Array",
                 "number",
@@ -63,67 +67,67 @@
         }
     },
     "brushType": {
-        "desc": " Default type of brush. \n\n* 'rect': for selection-box in rectangle shape;\n* 'polygon': for selection-box in polygon shape;\n* 'lineX': for horizontal selection-box;\n* 'lineY': for vertical selection-box;\n\n",
+        "desc": "Default type of brush.\n\n\n\n+ `'rect'`: for selection-box in rectangle shape;\n+ `'polygon'`: for selection-box in polygon shape;\n+ `'lineX'`: for horizontal selection-box;\n+ `'lineY'`: for vertical selection-box;",
         "uiControl": {
             "default": "'rect'",
             "type": "string"
         }
     },
     "brushMode": {
-        "desc": " Default brush mode, whose value can be: \n\n* 'single': for single selection;\n* 'multiple': for multiple selection.\n\n",
+        "desc": "Default brush mode, whose value can be:\n\n+ `'single'`: for single selection;\n+ `'multiple'`: for multiple selection.",
         "uiControl": {
             "default": "'single'",
             "type": "string"
         }
     },
     "transformable": {
-        "desc": " Determines whether a selected box can be changed in shape or translated. ",
+        "desc": "Determines whether a selected box can be changed in shape or translated.",
         "uiControl": {
             "default": "true",
             "type": "boolean"
         }
     },
     "brushStyle": {
-        "desc": " Default brush style, whose value is: \n\n    {\n        borderWidth: 1,\n        color: 'rgba(120,140,180,0.3)',\n        borderColor: 'rgba(120,140,180,0.8)'\n    },\n    \n\n",
+        "desc": "Default brush style, whose value is:\n\n```javascript\n{\nborderWidth: 1,\ncolor: 'rgba(120,140,180,0.3)',\nborderColor: 'rgba(120,140,180,0.8)'\n},\n```",
         "uiControl": {
             "type": "Object"
         }
     },
     "throttleType": {
-        "desc": " By default, brushSelected is always triggered when selection-box is selected or moved, to tell the outside about the event. But efficiency problems may occur when events are triggered too frequently, or the animation result may be affected. So brush components provides [brush.throttleType][0] and [brush.throttleDelay][1] to solve this problem. Valid throttleType values can be: \n\n* 'debounce': for triggering events only when the action has been stopped (no action after some duration). Time threshold can be assigned with [brush.throttleDelay][1];\n* 'fixRate': for triggering event with a certain frequency. The frequency can be assigned with [brush.throttleDelay][1].\n\nIn this [example][2], debounce is used to make sure the bar chart is updated only when the user has stopped action. In other cases, the animation result may not be so good.\n\n[0]: #brush.throttleType\n[1]: #brush.throttleDelay\n[2]: https://echarts.apache.org/examples/en/view.html?c=scatter-map-brush&edit=1&reset=1",
+        "desc": "By default, `brushSelected` is always triggered when selection-box is selected or moved, to tell the outside about the event.\n\nBut efficiency problems may occur when events are triggered too frequently, or the animation result may be affected. So brush components provides [brush.throttleType](~brush.throttleType) and [brush.throttleDelay](~brush.throttleDelay) to solve this problem.\n\nValid `throttleType` values can be:\n+ `'debounce'`: for triggering events only when the action has been stopped (no action after some duration). Time threshold can be assigned with [brush.throttleDelay](~brush.throttleDelay);\n+ `'fixRate'`: for triggering event with a certain frequency. The frequency can be assigned with [brush.throttleDelay](~brush.throttleDelay).\n\n\nIn this [example](scatter-map-brush&edit=1&reset=1), `debounce` is used to make sure the bar chart is updated only when the user has stopped action. In other cases, the animation result may not be so good.",
         "uiControl": {
             "default": "'fixRate'",
             "type": "string"
         }
     },
     "throttleDelay": {
-        "desc": "0 for disabling throttle. By default, brushSelected is always triggered when selection-box is selected or moved, to tell the outside about the event. But efficiency problems may occur when events are triggered too frequently, or the animation result may be affected. So brush components provides [brush.throttleType][0] and [brush.throttleDelay][1] to solve this problem. Valid throttleType values can be: \n\n* 'debounce': for triggering events only when the action has been stopped (no action after some duration). Time threshold can be assigned with [brush.throttleDelay][1];\n* 'fixRate': for triggering event with a certain frequency. The frequency can be assigned with [brush.throttleDelay][1].\n\nIn this [example][2], debounce is used to make sure the bar chart is updated only when the user has stopped action. In other cases, the animation result may not be so good.\n\n[0]: #brush.throttleType\n[1]: #brush.throttleDelay\n[2]: https://echarts.apache.org/examples/en/view.html?c=scatter-map-brush&edit=1&reset=1",
+        "desc": "`0` for disabling throttle.\n\n\n\nBy default, `brushSelected` is always triggered when selection-box is selected or moved, to tell the outside about the event.\n\nBut efficiency problems may occur when events are triggered too frequently, or the animation result may be affected. So brush components provides [brush.throttleType](~brush.throttleType) and [brush.throttleDelay](~brush.throttleDelay) to solve this problem.\n\nValid `throttleType` values can be:\n+ `'debounce'`: for triggering events only when the action has been stopped (no action after some duration). Time threshold can be assigned with [brush.throttleDelay](~brush.throttleDelay);\n+ `'fixRate'`: for triggering event with a certain frequency. The frequency can be assigned with [brush.throttleDelay](~brush.throttleDelay).\n\n\nIn this [example](scatter-map-brush&edit=1&reset=1), `debounce` is used to make sure the bar chart is updated only when the user has stopped action. In other cases, the animation result may not be so good.",
         "uiControl": {
             "default": "0",
             "type": "number"
         }
     },
     "removeOnClick": {
-        "desc": " Defined whether _clearing all select-boxes on click_ is enabled when [brush.brushMode][0] is 'single'.\n\n[0]: #brush.brushMode",
+        "desc": "Defined whether *clearing all select-boxes on click* is enabled when [brush.brushMode](~brush.brushMode) is `'single'`.",
         "uiControl": {
             "default": "true",
             "type": "boolean"
         }
     },
     "inBrush": {
-        "desc": " Defines visual effects of items in selection. Available visual effects include: \n\n* symbol: Type of symbol.\n* symbolSize: Symbol size.\n* color: Symbol color.\n* colorAlpha: Symbol alpha channel.\n* opacity: Opacity of symbol and others (like labels).\n* colorLightness: Lightness in [HSL][0].\n* colorSaturation: Saturation in [HSL][0].\n* colorHue: Hue in [HSL][0].\n\nIn most cases, inBrush can be left unassigned, in which case default visual configuration remains.\n\n[0]: https://en.wikipedia.org/wiki/HSL_and_HSV",
+        "desc": "Defines visual effects of items in selection.\n\nAvailable visual effects include:\n\n\n\n+ `symbol`: Type of symbol.\n+ `symbolSize`: Symbol size.\n+ `color`: Symbol color.\n+ `colorAlpha`: Symbol alpha channel.\n+ `opacity`: Opacity of symbol and others (like labels).\n+ `colorLightness`: Lightness in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n+ `colorSaturation`: Saturation in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n+ `colorHue`: Hue in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n\n\n\nIn most cases, inBrush can be left unassigned, in which case default visual configuration remains.",
         "uiControl": {
             "type": "Object"
         }
     },
     "outOfBrush": {
-        "desc": " Defines visual effects of items out of selection. Available visual effects include: \n\n* symbol: Type of symbol.\n* symbolSize: Symbol size.\n* color: Symbol color.\n* colorAlpha: Symbol alpha channel.\n* opacity: Opacity of symbol and others (like labels).\n* colorLightness: Lightness in [HSL][0].\n* colorSaturation: Saturation in [HSL][0].\n* colorHue: Hue in [HSL][0].\n\n**Note:** If outOfBrush is not assigned, color will be set to be '#ddd' by default. If the color is not desired, you can use: \n\n    brush: {\n        ...,\n        outOfBrush: {\n            colorAlpha: 0.1\n        }\n    }\n    \n\n\n\n[0]: https://en.wikipedia.org/wiki/HSL_and_HSV",
+        "desc": "Defines visual effects of items out of selection.\n\nAvailable visual effects include:\n\n\n\n+ `symbol`: Type of symbol.\n+ `symbolSize`: Symbol size.\n+ `color`: Symbol color.\n+ `colorAlpha`: Symbol alpha channel.\n+ `opacity`: Opacity of symbol and others (like labels).\n+ `colorLightness`: Lightness in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n+ `colorSaturation`: Saturation in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n+ `colorHue`: Hue in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n\n\n\n**Note:** If `outOfBrush` is not assigned, `color` will be set to be `'#ddd'` by default. If the color is not desired, you can use:\n\n```javascript\nbrush: {\n...,\noutOfBrush: {\ncolorAlpha: 0.1\n}\n}\n```",
         "uiControl": {
             "type": "Object"
         }
     },
     "z": {
-        "desc": " z-index of brush cover box. It can be adjust when incorrect overlap occurs. ",
+        "desc": "z-index of brush cover box. It can be adjust when incorrect overlap occurs.",
         "uiControl": {
             "default": "10000",
             "type": "number"

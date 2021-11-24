@@ -1,540 +1,192 @@
-{{ target: action-series-query }}// Find ${componentType} by index or id or name.
-    // Can be an array to find multiple components.
-    seriesIndex?: number | number[],
-    seriesId?: string | string[],
-    seriesName?: string | string[],{{/target}}
+{{target: option}}
 
-{{ target: action-data-query-multiple }}// data index; could assign by name attribute when not defined
-    dataIndex?: number | number[],
-    // optional; data name; ignored when dataIndex is defined
-    name?: string | string[],{{/target}}
-
-{{ target: action-data-query-single }}// data index; could assign by name attribute when not defined
-    dataIndex?: number,
-    // optional; data name; ignored when dataIndex is defined
-    name?: string,{{/target}}
-
-{{ target: action-component-query }}// Find ${componentType} by index or id or name.
-    // Can be an array to find multiple components.
-    ${componentType}Index?: number | number[],
-    ${componentType}Id?: string | string[],
-    ${componentType}Name?: string | string[],{{/target}}
-
-{{ target: action-component-item-query-multiple }}// ${componentItemDesc} in ${componentType} component.
-    // Can be an array to specify multiple names.
-    name?: string | string[],{{/target}}
-
-{{ target: action-component-item-query-single }}// ${componentItemDesc} name in ${componentType} component.
-    name?: string,{{/target}}
+{{import: component-title}}
+{{import: component-legend}}
+{{import: component-grid}}
+{{import: component-x-axis}}
+{{import: component-y-axis}}
+{{import: component-polar}}
+{{import: component-radius-axis}}
+{{import: component-angle-axis}}
+{{import: component-radar}}
+{{import: component-data-zoom}}
+{{import: component-visual-map}}
+{{import: component-tooltip}}
+{{import: component-axisPointer}}
+{{import: component-toolbox}}
+{{import: component-brush}}
+{{import: component-geo}}
+{{import: component-parallel}}
+{{import: component-parallel-axis}}
+{{import: component-single-axis}}
+{{import: component-timeline}}
+{{import: component-graphic}}
+{{import: component-calendar}}
+{{import: component-dataset}}
+{{import: component-aria}}
 
 
+{{import: series-line}}
+{{import: series-bar}}
+{{import: series-pie}}
+{{import: series-scatter}}
+{{import: series-effectScatter}}
 
-{{ target: action }}
-# action
+{{import: series-radar}}
+{{import: series-tree}}
+{{import: series-treemap}}
+{{import: series-sunburst}}
+{{import: series-boxplot}}
+{{import: series-candlestick}}
+{{import: series-heatmap}}
+{{import: series-map}}
+{{import: series-parallel}}
+{{import: series-lines}}
+{{import: series-graph}}
+{{import: series-sankey}}
+{{import: series-funnel}}
+{{import: series-gauge}}
+{{import: series-pictorialBar}}
+{{import: series-themeRiver}}
+{{import: series-custom}}
 
-Chart actions supported by ECharts are triggered through [dispatchAction](~echartsInstance.dispatchAction).
+# darkMode(boolean)
 
-**Attention: ** The `?:` note in the code shows that this attribute is optional. *EVENT:* stands for the event that triggers action.
+是否是暗黑模式，默认会根据背景色 [backgroundColor](~backgroundColor) 的亮度自动设置。
+如果是设置了容器的背景色而无法判断到，就可以使用该配置手动指定，echarts 会根据是否是暗黑模式调整文本等的颜色。
 
-## highlight(Action)
+该配置通常会被用于主题中。
 
-Highlights specified data graphics.
+# color(Array)
 
+调色盘颜色列表。如果系列没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色。 默认为：
 ```js
-// If highlight series:
-dispatchAction({
-    type: 'highlight',
+['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']
+```
 
-    {{ use: action-series-query }}
+支持的颜色格式：
 
-    {{ use: action-data-query-multiple }}
-});
++ 使用 RGB 表示纯颜色，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。
 
-// If highlight geo component (since v5.1.0):
-dispatchAction({
-    type: 'highlight',
-
-    {{ use: action-component-query(componentType = 'geo') }}
-
-    {{ use: action-component-item-query-multiple(componentType = 'geo', componentItemDesc = 'region') }}
-});
++ 渐变色或者纹理填充
+```js
+// 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置
+{
+    type: 'linear',
+    x: 0,
+    y: 0,
+    x2: 0,
+    y2: 1,
+    colorStops: [{
+        offset: 0, color: 'red' // 0% 处的颜色
+    }, {
+        offset: 1, color: 'blue' // 100% 处的颜色
+    }],
+    global: false // 缺省为 false
+}
+// 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变
+{
+    type: 'radial',
+    x: 0.5,
+    y: 0.5,
+    r: 0.5,
+    colorStops: [{
+        offset: 0, color: 'red' // 0% 处的颜色
+    }, {
+        offset: 1, color: 'blue' // 100% 处的颜色
+    }],
+    global: false // 缺省为 false
+}
+// 纹理填充
+{
+    image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串
+    repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'
+}
 ```
 
 
-## downplay(Action)
+# backgroundColor(Color) = 'transparent'
+背景色，默认无背景。
 
-Downplay specified data graphics.
+{{ use: partial-color-desc() }}
 
-```js
-// If downplay series:
-dispatchAction({
-    type: 'downplay',
 
-    {{ use: action-series-query }}
+# textStyle(Object)
+全局的字体样式。
+{{ use: partial-simple-text-style(
+    prefix='#',
+    defaultFontSize=12
+) }}
 
-    {{ use: action-data-query-multiple }}
-});
+{{import: partial-animation }}
 
-// If downplay geo component (since v5.1.0):
-dispatchAction({
-    type: 'downplay',
+# stateAnimation(Object)
 
-    {{ use: action-component-query(componentType = 'geo') }}
+状态切换的动画配置，支持在每个系列里设置单独针对该系列的配置。
 
-    {{ use: action-component-item-query-multiple(componentType = 'geo', componentItemDesc = 'region') }}
-});
-```
-
-## select(Action)
-
-Select specified data. Selected data will apply the style of [select](option.html#series-bar.select).
-
-```js
-dispatchAction({
-    type: 'select',
-
-    {{ use: action-series-query }}
-
-    {{ use: action-data-query-multiple }}
-})
-```
-
-## unselect(Action)
-
-Unselect specified data.
-
-```js
-dispatchAction({
-    type: 'unselect',
-
-    {{ use: action-series-query }}
-
-    {{ use: action-data-query-multiple }}
-})
-```
-
-## toggleSelected(Action)
-
-Toggle selected status of specified data.
-
-```js
-dispatchAction({
-    type: 'toggleSelected',
-
-    {{ use: action-series-query }}
-
-    {{ use: action-data-query-multiple }}
-})
-```
-
-## legend
-
-Actions related to [legend component](option.html#legend), [legend component](option.html#legend) should be imported before use.
-
-### legendSelect(Action)
-Selects legend.
-
-```js
-dispatchAction({
-    type: 'legendSelect',
-    // legend name
-    name: string
-})
-```
-
-**EVENT:** [legendselected](~events.legendselected)
-
-### legendUnSelect(Action)
-Unselects the legend.
-
-```js
-dispatchAction({
-    type: 'legendUnSelect',
-    // legend name
-    name: string
-})
-```
-
-**EVENT:** [legendunselected](~events.legendunselected)
-
-### legendToggleSelect(Action)
-Toggles legend selecting state.
-```js
-dispatchAction({
-    type: 'legendToggleSelect',
-    // legend name
-    name: string
-})
-```
-
-**EVENT:** [legendselectchanged](~events.legendselectchanged)
-
-### legendAllSelect(Action)
-Selects all legends.
-
-```js
-dispatchAction({
-    type: 'legendAllSelect'
-})
-```
-
-**EVENT:** [legendselectall](~events.legendselectall)
-
-### legendInverseSelect(Action)
-Inverses all legends.
-
-```js
-dispatchAction({
-    type: 'legendInverseSelect'
-})
-```
-
-**EVENT:** [legendinverseselect](~events.legendinverseselect)
-
-### legendScroll(Action)
-Control the scrolling of legend. It works when [legend.type](option.html#legend.type) is `'scroll'`.
-```js
-dispatchAction({
-    type: 'legendScroll',
-    scrollDataIndex: number,
-    legendId: string
-})
-```
-
-**EVENT:** [legendscroll](~events.legendscroll)
-
-## tooltip
-
-Actions related to [tooltip component](option.html#tooltip), [tooltip component](option.html#tooltip) should be imported before use.
-
-### showTip(Action)
-
-Shows tooltip.
-
-There are several usages as followed.
-
-1 Display tooltip at certain position relative to container. If it cannot be displayed at the specified location, then it is invalid.
-```js
-dispatchAction({
-    type: 'showTip',
-    // x coordinate on screen
-    x: number,
-    // y coordinate on screen
-    y: number,
-    // Position of tooltip. Only works in this action.
-    // Use tooltip.position in option by default.
-    position: number[] | string | Function,
-})
-```
-
-2 Specify graphic element in series, and display tooltip according to the tooltip configuration.
-```js
-dispatchAction({
-    type: 'showTip',
-    // index of series, which is optional when trigger of tooltip is axis
-    seriesIndex?: number,
-    {{ use: action-data-query-single }},
-    // Position of tooltip. Only works in this action.
-    // Use tooltip.position in option by default.
-    position: number[] | string | Function,
-})
-```
-
-3 Specify graphic element in geo component, and display tooltip according to the tooltip configuration.
-{{ use: partial-version(version: '5.1.0') }}
-```js
-dispatchAction({
-    type: 'showTip',
-    {{ use: action-component-query(componentType = 'geo') }}
-    {{ use: action-component-item-query-single(componentType = 'geo', componentItemDesc = 'region') }}
-    // Position of tooltip. Only works in this action.
-    // Use tooltip.position in option by default.
-    position: number[] | string | Function
-})
-```
-
-Parameter `position` is the same as [tooltip.position](option.html#tooltip.position).
-
-
-### hideTip(Action)
-
-Hides tooltip.
-
-```js
-dispatchAction({
-    type: 'hideTip'
-})
-```
-
-## dataZoom
-
-Actions related to [data region zoom component](option.html#dataZoom), [data region zoom component](option.html#dataZoom) should be imported before use.
-
-### dataZoom(Action)
-
-Zoom data region.
-
-```js
-dispatchAction({
-    type: 'dataZoom',
-    // optional; index of dataZoom component; useful for are multiple dataZoom components; 0 by default
-    dataZoomIndex: number,
-    // percentage of starting position; 0 - 100
-    start: number,
-    // percentage of ending position; 0 - 100
-    end: number,
-    // data value at starting location
-    startValue: number,
-    // data value at ending location
-    endValue: number
-})
-```
-
-**EVENT:** [datazoom](~events.datazoom)
-
-### takeGlobalCursor(Action)
-
-Activate or inactivate `dataZoom` buttom in `toolbox`.
-
-```js
-myChart.dispatchAction({
-    type: 'takeGlobalCursor',
-    key: 'dataZoomSelect',
-    // Activate or inactivate.
-    dataZoomSelectActive: true
-});
-```
-
-
-
-## visualMap
-
-Actions related to [visual mapping component](option.html#visualMap), [visual mapping component](option.html#visualMap) should be imported before use.
-
-### selectDataRange(Action)
-
-Selects data range of visual mapping.
-
-```js
-dispatchAction({
-    type: 'selectDataRange',
-    // optional; index of visualMap component; useful for are multiple visualMap components; 0 by default
-    visualMapIndex: number,
-    // continuous visualMap is different from discrete one
-    // continuous visualMap is an array representing range of data values.
-    // discrete visualMap is an object, whose key is category or piece index; value is `true` or `false`
-    selected: Object|Array
-})
-```
-?
-**For example: **
-```js
-myChart.dispatchAction({
-    type: 'selectDataRange',
-    // select a value range between 20 and 40
-    selected: [20, 40],
-    // cancel selecting the second range
-    selected: { 1: false },
-    // cancel selecting `excellent` category
-    selected: { 'excellent': false }
-});
-
-```
-
-**EVENT:** [datarangeselected](~events.datarangeselected)
-
-## timeline
-
-Actions related to [timeline component](option.html#timeline), [timeline component](option.html#timeline) should be imported before use.
-
-### timelineChange(Action)
-
-Sets the current time point.
-
-```js
-dispatchAction({
-    type: 'timelineChange',
-    // index of time point
-    currentIndex: number
-})
-```
-
-**EVENT:** [timelinechanged](~events.timelinechanged)
-
-### timelinePlayChange(Action)
-
-Toggles playing status of timeline.
-
-```js
-dispatchAction({
-    type: 'timelinePlayChange',
-    // laying status; true for auto-play
-    playState: boolean
-})
-```
-
-**EVENT:** [timelineplaychanged](~events.timelineplaychanged)
-
-## toolbox
-
-Actions related to [toolbox component](option.html#toolbox), [toolbox component](option.html#toolbox) should be imported before use.
-
-### restore(Action)
-Resets option.
-
-```js
-dispatchAction({
-    type: 'restore'
-})
-```
-
-**EVENT:** [restore](~events.restore)
-
-## geo
-
-Actions related to [geo](option.html#geo) component, [geo](option.html#geo) should be imported before use.
-
-{{ use: action-select(
-    componentType='geo',
-    name='geo region'
+{{use: partial-state-animation(
+    prefix = '#'
 ) }}
 
 
-## brush
-[brush](option.html#brush) related actions.
+# blendMode(string) = 'source-over'
 
-### brush
+图形的混合模式，不同的混合模式见 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation 。
 
-This action is dispatched when the "brush" behavior is performing.
-It sets select-boxes (areas) in this chart. For example:
+默认为 `'source-over'`。 支持每个系列单独设置。
 
-```javascript
-myChart.dispatchAction({
-    type: 'brush',
-    areas: [ // "areas" means select-boxes. Multi-boxes can be specified.
-             // If "areas" is empty, all of the select-boxes will be deleted.
-        { // The first area.
+`'lighter'` 也是比较常见的一种混合模式，该模式下图形数量集中的区域会颜色叠加成高亮度的颜色（白色）。常常能起到突出该区域的效果。见示例 [全球飞行航线](${galleryEditorPath}lines-airline)
 
-            // Indicate that this area is a "coodinate system area", belonging
-            // to a geo coordinate system with getIndex: 0.
-            // We can also use xAxisIndex or yAxisIndex to indicate that
-            // this area belongs to a catesian coodinate system.
-            // If no coordinate system is specified, this area is a
-            // "global area", which does not belong to any coordinate system.
-            // If an area belongs to a coordinate system, this area moves
-            // and scales alone with the coordinate system.
-            geoIndex: 0,
-            // xAxisIndex: 0,
-            // yAxisIndex: 0,
+# hoverLayerThreshold(number) = 3000
 
-            // Optional: 'polygon', 'rect', 'lineX', 'lineY'
-            brushType: 'polygon',
+图形数量阈值，决定是否开启单独的 hover 层，在整个图表的图形数量大于该阈值时开启单独的 hover 层。
 
-            // Only for "global area", define the area with the pixel coordinates.
-            range: [
-                ...
-            ],
+单独的 hover 层主要是为了在高亮图形的时候不需要重绘整个图表，只需要把高亮的图形放入单独的一个 canvas 层进行绘制，防止在图形数量很多的时候因为高亮重绘所有图形导致卡顿。
 
-            // Only for "coordinate system area", define the area with the
-            // coordinates.
-            coordRange: [
-                // In this case, the area is in a geo coordinate system, so
-                // this is [longitude, latitude].
-                [119.72,34.85],[119.68,34.85],[119.5,34.84],[119.19,34.77]
-            ]
-        },
-        ... // Other areas.
-    ]
-});
-```
-
-The content of `range` and `coordRange` can be:
-
-+ If `brushType` is 'rect':
-    `range` and `coordRange` is: `[[minX, maxX], [minY, maxY]]`
-+ If `brushType` is 'lineX' or 'lineY':
-    `range` and `coordRange` is: [min, maxX]
-+ If `brushType` is 'polygon':
-    `range` and `coordRange` is: [[point1X, point1X], [point2X, point2X], ...]
-
-The difference between `range` and `coordRange` is:
-
-+ If the area is "global area", we should use `range`.
-+ If the area is "coordinate system area" (i.e., `geoIndex` or `xAxisIndex` or `yAxisIndex` is specified), we should use `coordRange`.
-+ The unit of `range` is "pixel", while the unit of `coordRange` should be the save as the unit of the coordinate system. For example, in geo coordinate system, `coordRange` should be [`longitude`, `latitude`], and in cartesian, it should be [`axis A value`, `axis B value`, `axis C value`, ...].
+ECharts 2 里是底层强制使用单独的层绘制高亮图形，但是会带来很多问题，比如高亮的图形可能会不正确的遮挡所有其它图形，还有图形有透明度因为高亮和正常图形叠加导致不正确的透明度显示，还有移动端上因为每个图表都要多一个 canvas 带来的额外内存开销。因此 3 里默认不会开启该优化，只有在图形数量特别多，有必要做该优化时才会自动开启。
 
 
-### brushEnd
-{{ use: partial-version(version = "4.5.0") }}
-This action is dispatched when the "brush" behavior finished.
-The parameters are the same as [action brush](~action.brush.brush).
+# useUTC(boolean) = false
+
+是否使用 UTC 时间。
+
++ `true`: 表示 `axis.type` 为 `'time'` 时，依据 UTC 时间确定 tick 位置，并且 `axisLabel` 和 `tooltip` 默认展示的是 UTC 时间。
++ `false`: 表示 `axis.type` 为 `'time'` 时，依据本地时间确定 tick 位置，并且 `axisLabel` 和 `tooltip` 默认展示的是本地时间。
+
+默认取值为false，即使用本地时间。因为考虑到：
+
++ 很多情况下，需要展示为本地时间（无论服务器存储的是否为 `UTC` 时间）。
++ 如果 data 中的时间为 '2012-01-02' 这样的没有指定时区的时间表达式，往往意为本地时间。默认情况下，时间被展示时需要和输入一致而非有时差。
+
+注意，这个参数实际影响的是『展示』，而非用户输入的时间值的解析。
+关于用户输入的时间值（例如 `1491339540396`, `'2013-01-04'` 等）的解析，参见 [date 中时间相关部分](~series-line.data)。
 
 
-### takeGlobalCursor
+# options(Array)
 
-The switch of the brush. This action can make the mouse enabled/disabled to brush.
-In fact, the brush buttons in [toolbox](option.html#toolbox.feature.brush) just use this aciton.
-
-This event corresponding to this action is [globalCursorTaken](~events.globalCursorTaken).
-
-```js
-api.dispatchAction({
-    type: 'takeGlobalCursor',
-    // If intending to enable brush, must set. Otherwise, the mouse will be disabled to brush.
-    key: 'brush',
-    brushOption: {
-        // See more info in the `brushType` of "brush component".
-        // If set as `false`, the mouse is disabled to brush.
-        brushType: string,
-        // See more info in the `brushModel` of "brush component".
-        // IF not set, use the `brushMode` of brush component.
-        brushMode: string
-    }
-});
-```
+用于 [timeline](option.html#timeline) 的 option 数组。数组的每一项是一个 echarts option (`ECUnitOption`)。
 
 
+# media(Array)
 
-{{ target: action-select }}
-### ${componentType}Select(Action)
-Selects the specified ${name}.
+请参见 [移动端自适应](tutorial.html#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%87%AA%E9%80%82%E5%BA%94)。
 
-```js
-dispatchAction({
-    type: '${componentType}Select',
+## query(Object)
 
-    {{ use: action-component-query(componentType = 'geo') }}
+同时写两个属性，表示 “且”。
 
-    {{ use: action-component-item-query-multiple(componentType = 'geo', componentItemDesc = 'region') }}
-})
-```
+### minWidth(number) = undefined
 
-**EVENT:** [${componentType}selected](~events.${componentType}selected)
+`minWidth: 200` 表示『大于等于 200px 宽度』。
 
-### ${componentType}UnSelect(Action)
-Cancels selecting specified ${name}.
+### maxHeight(number) = undefined
 
-```js
-dispatchAction({
-    type: '${componentType}UnSelect',
+`minHeight: 200` 表示『大于等于 200px 高度』。
 
-    {{ use: action-component-query(componentType = 'geo') }}
+### minAspectRatio(number) = undefined
 
-    {{ use: action-component-item-query-multiple(componentType = 'geo', componentItemDesc = 'region') }}
-})
-```
-**EVENT:** [${componentType}unselected](~events.${componentType}unselected)
+长宽比。值如 `1.3`。
 
-### ${componentType}ToggleSelect(Action)
-Toggles selecting status of specified ${name}.
+## option(Object)
 
-```js
-dispatchAction({
-    type: '${componentType}ToggleSelect',
-
-    {{ use: action-component-query(componentType = 'geo') }}
-
-    {{ use: action-component-item-query-multiple(componentType = 'geo', componentItemDesc = 'region') }}
-})
-```
-**EVENT:** [${componentType}selectchanged](~events.${componentType}selectchanged)
+数组的每一项是一个 echarts option (`ECUnitOption`)，当此 query 被匹配时，会使用这个 option 。
