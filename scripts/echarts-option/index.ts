@@ -3,6 +3,7 @@
  */
 
 import axios from 'axios';
+import * as process from 'process';
 import * as fs from 'fs';
 import * as path from 'path';
 import Engine from './engine';
@@ -129,7 +130,7 @@ async function main() {
         'treemap',
     ];
 
-    for (const lang of ['zh']) {
+    for (const lang of ['zh', 'en']) {
         const initVars = {
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
@@ -219,23 +220,32 @@ async function main() {
             descMsg = flatTree(indexTree.children.find(item => item.name === name) as TreeNode);
             saveFile(name, lang, JSON.stringify(descMsg, null, 4));
         });
+        // TODO: series.json
     }
 }
 
 /** 从 echarts-doc 项目中获取原始资源 */
 async function getOption(name: string, lang: string) : Promise<string> {
-    // const res = await axios.get(`https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`);
-    // if (res.status === 200) {
-    //     return res.data;
-    // } else {
-    //     return '';
-    // }
-    // TODO: 使用本地文件进行测试
-    return fs.readFileSync(path.resolve(__dirname, `./option/${name}.md`), { encoding: 'utf8' });
+    // eslint-disable-next-line no-console
+    console.log(`GET /${lang}/option/${name}.md`);
+    try {
+        const res = await axios.get(`https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`);
+        if (res.status === 200) {
+            return res.data;
+        } else {
+            return '';
+        }
+    } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log("Can't connect to github, the real address is " + `https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`);
+        process.exit(1);
+    }
 }
 
 /** 保存文件到资源文件夹 */
 function saveFile(name: string, lang: string, data: string) {
+    // eslint-disable-next-line no-console
+    console.log(`Save ${lang} file: ${name}.json`);
     fs.writeFileSync(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), data);
 }
 
