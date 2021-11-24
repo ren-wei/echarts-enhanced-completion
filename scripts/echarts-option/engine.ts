@@ -573,7 +573,7 @@ class UseCommand implements Command {
     }
 }
 
-/** import 命令用于导入 target 以供 use 命令使用 */
+/** import 命令用于将指定的 target 渲染后的内容复制到此处 */
 class ImportCommand implements Command {
     public name: string;
     public value: string;
@@ -601,7 +601,13 @@ class ImportCommand implements Command {
     public close(context: AnalyseContext) {}
 
     public getRendererBody(vars: Vars): string {
-        return '';
+        if (this.engine.targets[this.name]) {
+            return this.engine.targets[this.name].getRendererBody(vars);
+        } else if (this.engine.options.missTarget === 'error') {
+            throw new Error('[TARGET_NOT_EXISTS] ' + this.name);
+        } else {
+            return '';
+        }
     }
 }
 
