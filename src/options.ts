@@ -50,7 +50,7 @@ export default class Options {
                 },
                 kind: vscode.CompletionItemKind.Property,
                 detail: this.descObject[name].desc ? 'echarts options' : undefined,
-                documentation: this.descObject[name].desc ? new vscode.MarkdownString(this.descObject[name].desc) : undefined,
+                documentation: new vscode.MarkdownString(this.descObject[name].desc),
                 sortText: String(completionItems.length + index).length > 1 ? String(completionItems.length + index) : '0' + String(completionItems.length + index),
                 insertText: new vscode.SnippetString(this.getInsertText(name, this.descObject[name].uiControl, isArray)),
             };

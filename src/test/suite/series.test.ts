@@ -88,8 +88,8 @@ suite('Extension Completion Series Option Test Suite', async() => {
                 seriesLineDescMsg[key] = item;
             }
         });
-        assert.strictEqual(result.length, Object.keys(seriesLineDescMsg).length);
-        Object.entries(seriesLineDescMsg).forEach(([key, descMsg]) => {
+        assert.strictEqual(result.length, Object.keys(seriesLineDescMsg).length - 1);
+        Object.entries(seriesLineDescMsg).filter(item => item[0] !== 'type').forEach(([key, descMsg]) => {
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
@@ -135,8 +135,8 @@ suite('Extension Completion Series Option Test Suite', async() => {
                 seriesLineDescMsg[key] = item;
             }
         });
-        assert.strictEqual(result.length, Object.keys(seriesLineDescMsg).length);
-        Object.entries(seriesLineDescMsg).forEach(([key, descMsg]) => {
+        assert.strictEqual(result.length, Object.keys(seriesLineDescMsg).length - 1);
+        Object.entries(seriesLineDescMsg).filter(item => item[0] !== 'type').forEach(([key, descMsg]) => {
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);

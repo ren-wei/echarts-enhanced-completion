@@ -166,7 +166,6 @@
     "colorMappingBy": {
         "desc": "表示同一层级节点，在颜色列表中（参见 `color` 属性）选择时，按照什么来选择。可选值：\n\n* `'value'`：\n\n将节点的值（即 [series-treemap.data.value](~series-treemap.data.value)）映射到颜色列表中。\n\n这样得到的颜色，反应了节点值的大小。\n\n可以使用 [visualDimension](~series-treemap.levels.visualDimension) 属性来设置，用 [data](~series-treemap.data) 中哪个纬度的值来映射。\n\n* `'index'`：\n\n将节点的 `index`（序号）映射到颜色列表中。即同一层级中，第一个节点取颜色列表中第一个颜色，第二个节点取第二个。\n\n这样得到的颜色，便于区分相邻节点。\n\n* `'id'`：\n\n将节点的 `id`（即 [series-treemap.data.id](~series-treemap.data.id)）映射到颜色列表中。`id` 是用户指定的，这样能够使得，在treemap 通过 setOption 变化数值时，同一 `id` 映射到同一颜色，保持一致性。参见 [例子](treemap-obama&edit=1&reset=1)。\n\n\n\n关于视觉设置，详见 [series-treemap.levels](~series-treemap.levels)。\n\n\n\n\n\n\n\n> 注：treemap中 `colorMappingBy` 属性可能在多处地方存在：\n\n> * 于 [sereis-treemap](~series-treemap) 根下，表示本系列全局的统一设置。\n\n> * 于 [series-treemap.levels](~series-treemap.levels) 的每个数组元素中，表示树每个层级的统一设置。\n> * 于 [series-treemap.data](~series-treemap.data) 的每个节点中，表示每个节点的特定设置。",
         "uiControl": {
-            "default": "'index'",
             "type": "enum",
             "options": "'index','value','id'"
         }
@@ -204,7 +203,6 @@
     "label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -255,7 +253,6 @@
     "label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -263,7 +260,6 @@
     "label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -271,7 +267,6 @@
     "label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -334,7 +329,6 @@
     "label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -435,7 +429,6 @@
     "label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -484,7 +477,6 @@
     "label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -525,7 +517,6 @@
     "label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -533,7 +524,6 @@
     "label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -541,7 +531,6 @@
     "label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -604,7 +593,6 @@
     "label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -703,7 +691,6 @@
     "label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -765,7 +752,6 @@
     "upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -816,7 +802,6 @@
     "upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -824,7 +809,6 @@
     "upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -832,7 +816,6 @@
     "upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -895,7 +878,6 @@
     "upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -995,7 +977,6 @@
     "upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -1044,7 +1025,6 @@
     "upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -1085,7 +1065,6 @@
     "upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -1093,7 +1072,6 @@
     "upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -1101,7 +1079,6 @@
     "upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -1164,7 +1141,6 @@
     "upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -1263,7 +1239,6 @@
     "upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -1549,7 +1524,6 @@
     "emphasis.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -1600,7 +1574,6 @@
     "emphasis.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -1608,7 +1581,6 @@
     "emphasis.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -1616,7 +1588,6 @@
     "emphasis.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -1679,7 +1650,6 @@
     "emphasis.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -1780,7 +1750,6 @@
     "emphasis.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -1829,7 +1798,6 @@
     "emphasis.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -1870,7 +1838,6 @@
     "emphasis.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -1878,7 +1845,6 @@
     "emphasis.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -1886,7 +1852,6 @@
     "emphasis.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -1949,7 +1914,6 @@
     "emphasis.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2048,7 +2012,6 @@
     "emphasis.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2131,7 +2094,6 @@
     "emphasis.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2148,7 +2110,6 @@
     "emphasis.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -2156,7 +2117,6 @@
     "emphasis.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -2228,7 +2188,6 @@
     "emphasis.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -2279,7 +2238,6 @@
     "emphasis.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -2287,7 +2245,6 @@
     "emphasis.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -2295,7 +2252,6 @@
     "emphasis.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -2358,7 +2314,6 @@
     "emphasis.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2459,7 +2414,6 @@
     "emphasis.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2508,7 +2462,6 @@
     "emphasis.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -2549,7 +2502,6 @@
     "emphasis.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -2557,7 +2509,6 @@
     "emphasis.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -2565,7 +2516,6 @@
     "emphasis.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -2628,7 +2578,6 @@
     "emphasis.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2727,7 +2676,6 @@
     "emphasis.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -2808,7 +2756,6 @@
     "blur.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -2859,7 +2806,6 @@
     "blur.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -2867,7 +2813,6 @@
     "blur.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -2875,7 +2820,6 @@
     "blur.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -2938,7 +2882,6 @@
     "blur.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3039,7 +2982,6 @@
     "blur.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3088,7 +3030,6 @@
     "blur.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -3129,7 +3070,6 @@
     "blur.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -3137,7 +3077,6 @@
     "blur.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -3145,7 +3084,6 @@
     "blur.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -3208,7 +3146,6 @@
     "blur.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3307,7 +3244,6 @@
     "blur.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3390,7 +3326,6 @@
     "blur.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3407,7 +3342,6 @@
     "blur.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -3415,7 +3349,6 @@
     "blur.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -3487,7 +3420,6 @@
     "blur.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -3538,7 +3470,6 @@
     "blur.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -3546,7 +3477,6 @@
     "blur.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -3554,7 +3484,6 @@
     "blur.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -3617,7 +3546,6 @@
     "blur.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3718,7 +3646,6 @@
     "blur.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3767,7 +3694,6 @@
     "blur.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -3808,7 +3734,6 @@
     "blur.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -3816,7 +3741,6 @@
     "blur.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -3824,7 +3748,6 @@
     "blur.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -3887,7 +3810,6 @@
     "blur.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -3986,7 +3908,6 @@
     "blur.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4067,7 +3988,6 @@
     "select.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -4118,7 +4038,6 @@
     "select.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -4126,7 +4045,6 @@
     "select.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -4134,7 +4052,6 @@
     "select.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -4197,7 +4114,6 @@
     "select.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4298,7 +4214,6 @@
     "select.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4347,7 +4262,6 @@
     "select.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -4388,7 +4302,6 @@
     "select.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -4396,7 +4309,6 @@
     "select.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -4404,7 +4316,6 @@
     "select.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -4467,7 +4378,6 @@
     "select.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4566,7 +4476,6 @@
     "select.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4649,7 +4558,6 @@
     "select.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4666,7 +4574,6 @@
     "select.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -4674,7 +4581,6 @@
     "select.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -4746,7 +4652,6 @@
     "select.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -4797,7 +4702,6 @@
     "select.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -4805,7 +4709,6 @@
     "select.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -4813,7 +4716,6 @@
     "select.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -4876,7 +4778,6 @@
     "select.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -4977,7 +4878,6 @@
     "select.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5026,7 +4926,6 @@
     "select.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -5067,7 +4966,6 @@
     "select.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -5075,7 +4973,6 @@
     "select.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -5083,7 +4980,6 @@
     "select.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -5146,7 +5042,6 @@
     "select.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5245,7 +5140,6 @@
     "select.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5307,7 +5201,6 @@
     "selectedMode": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n\n选中模式的配置，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选`'single'`，`'multiple'`，分别表示单选还是多选。",
         "uiControl": {
-            "default": "false",
             "type": "enum",
             "options": "'false','true','single','multiple'"
         }
@@ -5403,7 +5296,6 @@
     "breadcrumb.itemStyle.borderType": {
         "desc": "面包屑描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5420,7 +5312,6 @@
     "breadcrumb.itemStyle.borderCap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -5428,7 +5319,6 @@
     "breadcrumb.itemStyle.borderJoin": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -5500,7 +5390,6 @@
     "breadcrumb.itemStyle.textStyle.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -5508,7 +5397,6 @@
     "breadcrumb.itemStyle.textStyle.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -5516,7 +5404,6 @@
     "breadcrumb.itemStyle.textStyle.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -5579,7 +5466,6 @@
     "breadcrumb.itemStyle.textStyle.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5680,7 +5566,6 @@
     "breadcrumb.itemStyle.textStyle.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5729,7 +5614,6 @@
     "breadcrumb.itemStyle.textStyle.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -5770,7 +5654,6 @@
     "breadcrumb.itemStyle.textStyle.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -5778,7 +5661,6 @@
     "breadcrumb.itemStyle.textStyle.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -5786,7 +5668,6 @@
     "breadcrumb.itemStyle.textStyle.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -5849,7 +5730,6 @@
     "breadcrumb.itemStyle.textStyle.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -5948,7 +5828,6 @@
     "breadcrumb.itemStyle.textStyle.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6032,7 +5911,6 @@
     "breadcrumb.emphasis.itemStyle.borderType": {
         "desc": "面包屑描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6049,7 +5927,6 @@
     "breadcrumb.emphasis.itemStyle.borderCap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -6057,7 +5934,6 @@
     "breadcrumb.emphasis.itemStyle.borderJoin": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -6129,7 +6005,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -6137,7 +6012,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -6145,7 +6019,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -6208,7 +6081,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6309,7 +6181,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6358,7 +6229,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -6399,7 +6269,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -6407,7 +6276,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -6415,7 +6283,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -6478,7 +6345,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6577,7 +6443,6 @@
     "breadcrumb.emphasis.itemStyle.textStyle.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6692,7 +6557,6 @@
     "labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -6709,7 +6573,6 @@
     "labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -6717,7 +6580,6 @@
     "labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -6922,7 +6784,6 @@
     "levels.colorMappingBy": {
         "desc": "表示同一层级节点，在颜色列表中（参见 `color` 属性）选择时，按照什么来选择。可选值：\n\n* `'value'`：\n\n将节点的值（即 [series-treemap.data.value](~series-treemap.data.value)）映射到颜色列表中。\n\n这样得到的颜色，反应了节点值的大小。\n\n可以使用 [visualDimension](~series-treemap.levels.visualDimension) 属性来设置，用 [data](~series-treemap.data) 中哪个纬度的值来映射。\n\n* `'index'`：\n\n将节点的 `index`（序号）映射到颜色列表中。即同一层级中，第一个节点取颜色列表中第一个颜色，第二个节点取第二个。\n\n这样得到的颜色，便于区分相邻节点。\n\n* `'id'`：\n\n将节点的 `id`（即 [series-treemap.data.id](~series-treemap.data.id)）映射到颜色列表中。`id` 是用户指定的，这样能够使得，在treemap 通过 setOption 变化数值时，同一 `id` 映射到同一颜色，保持一致性。参见 [例子](treemap-obama&edit=1&reset=1)。\n\n\n\n关于视觉设置，详见 [series-treemap.levels](~series-treemap.levels)。\n\n\n\n\n\n\n\n> 注：treemap中 `colorMappingBy` 属性可能在多处地方存在：\n\n> * 于 [sereis-treemap](~series-treemap) 根下，表示本系列全局的统一设置。\n\n> * 于 [series-treemap.levels](~series-treemap.levels) 的每个数组元素中，表示树每个层级的统一设置。\n> * 于 [series-treemap.data](~series-treemap.data) 的每个节点中，表示每个节点的特定设置。",
         "uiControl": {
-            "default": "'index'",
             "type": "enum",
             "options": "'index','value','id'"
         }
@@ -6960,7 +6821,6 @@
     "levels.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -7011,7 +6871,6 @@
     "levels.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -7019,7 +6878,6 @@
     "levels.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -7027,7 +6885,6 @@
     "levels.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -7090,7 +6947,6 @@
     "levels.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -7191,7 +7047,6 @@
     "levels.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -7240,7 +7095,6 @@
     "levels.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -7281,7 +7135,6 @@
     "levels.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -7289,7 +7142,6 @@
     "levels.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -7297,7 +7149,6 @@
     "levels.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -7360,7 +7211,6 @@
     "levels.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -7459,7 +7309,6 @@
     "levels.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -7521,7 +7370,6 @@
     "levels.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -7572,7 +7420,6 @@
     "levels.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -7580,7 +7427,6 @@
     "levels.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -7588,7 +7434,6 @@
     "levels.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -7651,7 +7496,6 @@
     "levels.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -7751,7 +7595,6 @@
     "levels.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -7800,7 +7643,6 @@
     "levels.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -7841,7 +7683,6 @@
     "levels.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -7849,7 +7690,6 @@
     "levels.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -7857,7 +7697,6 @@
     "levels.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -7920,7 +7759,6 @@
     "levels.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8019,7 +7857,6 @@
     "levels.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8291,7 +8128,6 @@
     "levels.emphasis.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -8342,7 +8178,6 @@
     "levels.emphasis.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -8350,7 +8185,6 @@
     "levels.emphasis.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -8358,7 +8192,6 @@
     "levels.emphasis.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -8421,7 +8254,6 @@
     "levels.emphasis.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8522,7 +8354,6 @@
     "levels.emphasis.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8571,7 +8402,6 @@
     "levels.emphasis.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -8612,7 +8442,6 @@
     "levels.emphasis.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -8620,7 +8449,6 @@
     "levels.emphasis.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -8628,7 +8456,6 @@
     "levels.emphasis.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -8691,7 +8518,6 @@
     "levels.emphasis.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8790,7 +8616,6 @@
     "levels.emphasis.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8873,7 +8698,6 @@
     "levels.emphasis.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -8890,7 +8714,6 @@
     "levels.emphasis.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -8898,7 +8721,6 @@
     "levels.emphasis.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -8970,7 +8792,6 @@
     "levels.emphasis.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -9021,7 +8842,6 @@
     "levels.emphasis.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -9029,7 +8849,6 @@
     "levels.emphasis.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -9037,7 +8856,6 @@
     "levels.emphasis.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -9100,7 +8918,6 @@
     "levels.emphasis.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -9201,7 +9018,6 @@
     "levels.emphasis.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -9250,7 +9066,6 @@
     "levels.emphasis.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -9291,7 +9106,6 @@
     "levels.emphasis.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -9299,7 +9113,6 @@
     "levels.emphasis.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -9307,7 +9120,6 @@
     "levels.emphasis.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -9370,7 +9182,6 @@
     "levels.emphasis.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -9469,7 +9280,6 @@
     "levels.emphasis.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -9550,7 +9360,6 @@
     "levels.blur.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -9601,7 +9410,6 @@
     "levels.blur.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -9609,7 +9417,6 @@
     "levels.blur.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -9617,7 +9424,6 @@
     "levels.blur.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -9680,7 +9486,6 @@
     "levels.blur.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -9781,7 +9586,6 @@
     "levels.blur.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -9830,7 +9634,6 @@
     "levels.blur.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -9871,7 +9674,6 @@
     "levels.blur.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -9879,7 +9681,6 @@
     "levels.blur.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -9887,7 +9688,6 @@
     "levels.blur.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -9950,7 +9750,6 @@
     "levels.blur.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10049,7 +9848,6 @@
     "levels.blur.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10132,7 +9930,6 @@
     "levels.blur.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10149,7 +9946,6 @@
     "levels.blur.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -10157,7 +9953,6 @@
     "levels.blur.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -10229,7 +10024,6 @@
     "levels.blur.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -10280,7 +10074,6 @@
     "levels.blur.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -10288,7 +10081,6 @@
     "levels.blur.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -10296,7 +10088,6 @@
     "levels.blur.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -10359,7 +10150,6 @@
     "levels.blur.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10460,7 +10250,6 @@
     "levels.blur.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10509,7 +10298,6 @@
     "levels.blur.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -10550,7 +10338,6 @@
     "levels.blur.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -10558,7 +10345,6 @@
     "levels.blur.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -10566,7 +10352,6 @@
     "levels.blur.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -10629,7 +10414,6 @@
     "levels.blur.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10728,7 +10512,6 @@
     "levels.blur.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -10809,7 +10592,6 @@
     "levels.select.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -10860,7 +10642,6 @@
     "levels.select.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -10868,7 +10649,6 @@
     "levels.select.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -10876,7 +10656,6 @@
     "levels.select.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -10939,7 +10718,6 @@
     "levels.select.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11040,7 +10818,6 @@
     "levels.select.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11089,7 +10866,6 @@
     "levels.select.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -11130,7 +10906,6 @@
     "levels.select.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -11138,7 +10913,6 @@
     "levels.select.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -11146,7 +10920,6 @@
     "levels.select.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -11209,7 +10982,6 @@
     "levels.select.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11308,7 +11080,6 @@
     "levels.select.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11391,7 +11162,6 @@
     "levels.select.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11408,7 +11178,6 @@
     "levels.select.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -11416,7 +11185,6 @@
     "levels.select.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -11488,7 +11256,6 @@
     "levels.select.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -11539,7 +11306,6 @@
     "levels.select.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -11547,7 +11313,6 @@
     "levels.select.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -11555,7 +11320,6 @@
     "levels.select.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -11618,7 +11382,6 @@
     "levels.select.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11719,7 +11482,6 @@
     "levels.select.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11768,7 +11530,6 @@
     "levels.select.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -11809,7 +11570,6 @@
     "levels.select.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -11817,7 +11577,6 @@
     "levels.select.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -11825,7 +11584,6 @@
     "levels.select.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -11888,7 +11646,6 @@
     "levels.select.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -11987,7 +11744,6 @@
     "levels.select.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12117,7 +11873,6 @@
     "data.colorMappingBy": {
         "desc": "表示同一层级节点，在颜色列表中（参见 `color` 属性）选择时，按照什么来选择。可选值：\n\n* `'value'`：\n\n将节点的值（即 [series-treemap.data.value](~series-treemap.data.value)）映射到颜色列表中。\n\n这样得到的颜色，反应了节点值的大小。\n\n可以使用 [visualDimension](~series-treemap.levels.visualDimension) 属性来设置，用 [data](~series-treemap.data) 中哪个纬度的值来映射。\n\n* `'index'`：\n\n将节点的 `index`（序号）映射到颜色列表中。即同一层级中，第一个节点取颜色列表中第一个颜色，第二个节点取第二个。\n\n这样得到的颜色，便于区分相邻节点。\n\n* `'id'`：\n\n将节点的 `id`（即 [series-treemap.data.id](~series-treemap.data.id)）映射到颜色列表中。`id` 是用户指定的，这样能够使得，在treemap 通过 setOption 变化数值时，同一 `id` 映射到同一颜色，保持一致性。参见 [例子](treemap-obama&edit=1&reset=1)。\n\n\n\n关于视觉设置，详见 [series-treemap.levels](~series-treemap.levels)。\n\n\n\n\n\n\n\n> 注：treemap中 `colorMappingBy` 属性可能在多处地方存在：\n\n> * 于 [sereis-treemap](~series-treemap) 根下，表示本系列全局的统一设置。\n\n> * 于 [series-treemap.levels](~series-treemap.levels) 的每个数组元素中，表示树每个层级的统一设置。\n> * 于 [series-treemap.data](~series-treemap.data) 的每个节点中，表示每个节点的特定设置。",
         "uiControl": {
-            "default": "'index'",
             "type": "enum",
             "options": "'index','value','id'"
         }
@@ -12155,7 +11910,6 @@
     "data.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -12206,7 +11960,6 @@
     "data.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -12214,7 +11967,6 @@
     "data.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -12222,7 +11974,6 @@
     "data.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -12285,7 +12036,6 @@
     "data.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12386,7 +12136,6 @@
     "data.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12435,7 +12184,6 @@
     "data.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -12476,7 +12224,6 @@
     "data.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -12484,7 +12231,6 @@
     "data.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -12492,7 +12238,6 @@
     "data.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -12555,7 +12300,6 @@
     "data.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12654,7 +12398,6 @@
     "data.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12716,7 +12459,6 @@
     "data.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -12767,7 +12509,6 @@
     "data.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -12775,7 +12516,6 @@
     "data.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -12783,7 +12523,6 @@
     "data.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -12846,7 +12585,6 @@
     "data.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12946,7 +12684,6 @@
     "data.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -12995,7 +12732,6 @@
     "data.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -13036,7 +12772,6 @@
     "data.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -13044,7 +12779,6 @@
     "data.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -13052,7 +12786,6 @@
     "data.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -13115,7 +12848,6 @@
     "data.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -13214,7 +12946,6 @@
     "data.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -13486,7 +13217,6 @@
     "data.emphasis.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -13537,7 +13267,6 @@
     "data.emphasis.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -13545,7 +13274,6 @@
     "data.emphasis.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -13553,7 +13281,6 @@
     "data.emphasis.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -13616,7 +13343,6 @@
     "data.emphasis.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -13717,7 +13443,6 @@
     "data.emphasis.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -13766,7 +13491,6 @@
     "data.emphasis.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -13807,7 +13531,6 @@
     "data.emphasis.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -13815,7 +13538,6 @@
     "data.emphasis.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -13823,7 +13545,6 @@
     "data.emphasis.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -13886,7 +13607,6 @@
     "data.emphasis.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -13985,7 +13705,6 @@
     "data.emphasis.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14068,7 +13787,6 @@
     "data.emphasis.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14085,7 +13803,6 @@
     "data.emphasis.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -14093,7 +13810,6 @@
     "data.emphasis.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -14165,7 +13881,6 @@
     "data.emphasis.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -14216,7 +13931,6 @@
     "data.emphasis.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -14224,7 +13938,6 @@
     "data.emphasis.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -14232,7 +13945,6 @@
     "data.emphasis.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -14295,7 +14007,6 @@
     "data.emphasis.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14396,7 +14107,6 @@
     "data.emphasis.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14445,7 +14155,6 @@
     "data.emphasis.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -14486,7 +14195,6 @@
     "data.emphasis.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -14494,7 +14202,6 @@
     "data.emphasis.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -14502,7 +14209,6 @@
     "data.emphasis.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -14565,7 +14271,6 @@
     "data.emphasis.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14664,7 +14369,6 @@
     "data.emphasis.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14745,7 +14449,6 @@
     "data.blur.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -14796,7 +14499,6 @@
     "data.blur.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -14804,7 +14506,6 @@
     "data.blur.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -14812,7 +14513,6 @@
     "data.blur.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -14875,7 +14575,6 @@
     "data.blur.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -14976,7 +14675,6 @@
     "data.blur.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15025,7 +14723,6 @@
     "data.blur.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -15066,7 +14763,6 @@
     "data.blur.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -15074,7 +14770,6 @@
     "data.blur.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -15082,7 +14777,6 @@
     "data.blur.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -15145,7 +14839,6 @@
     "data.blur.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15244,7 +14937,6 @@
     "data.blur.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15327,7 +15019,6 @@
     "data.blur.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15344,7 +15035,6 @@
     "data.blur.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -15352,7 +15042,6 @@
     "data.blur.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -15424,7 +15113,6 @@
     "data.blur.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -15475,7 +15163,6 @@
     "data.blur.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -15483,7 +15170,6 @@
     "data.blur.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -15491,7 +15177,6 @@
     "data.blur.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -15554,7 +15239,6 @@
     "data.blur.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15655,7 +15339,6 @@
     "data.blur.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15704,7 +15387,6 @@
     "data.blur.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -15745,7 +15427,6 @@
     "data.blur.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -15753,7 +15434,6 @@
     "data.blur.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -15761,7 +15441,6 @@
     "data.blur.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -15824,7 +15503,6 @@
     "data.blur.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -15923,7 +15601,6 @@
     "data.blur.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16004,7 +15681,6 @@
     "data.select.label.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -16055,7 +15731,6 @@
     "data.select.label.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -16063,7 +15738,6 @@
     "data.select.label.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -16071,7 +15745,6 @@
     "data.select.label.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -16134,7 +15807,6 @@
     "data.select.label.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16235,7 +15907,6 @@
     "data.select.label.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16284,7 +15955,6 @@
     "data.select.label.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -16325,7 +15995,6 @@
     "data.select.label.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -16333,7 +16002,6 @@
     "data.select.label.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -16341,7 +16009,6 @@
     "data.select.label.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -16404,7 +16071,6 @@
     "data.select.label.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16503,7 +16169,6 @@
     "data.select.label.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16586,7 +16251,6 @@
     "data.select.labelLine.lineStyle.type": {
         "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16603,7 +16267,6 @@
     "data.select.labelLine.lineStyle.cap": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
         "uiControl": {
-            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
@@ -16611,7 +16274,6 @@
     "data.select.labelLine.lineStyle.join": {
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
         "uiControl": {
-            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
@@ -16683,7 +16345,6 @@
     "data.select.upperLabel.position": {
         "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
         "uiControl": {
-            "default": "'inside'",
             "type": "enum",
             "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
         }
@@ -16734,7 +16395,6 @@
     "data.select.upperLabel.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -16742,7 +16402,6 @@
     "data.select.upperLabel.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -16750,7 +16409,6 @@
     "data.select.upperLabel.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -16813,7 +16471,6 @@
     "data.select.upperLabel.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16914,7 +16571,6 @@
     "data.select.upperLabel.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -16963,7 +16619,6 @@
     "data.select.upperLabel.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -17004,7 +16659,6 @@
     "data.select.upperLabel.rich.<style_name>.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -17012,7 +16666,6 @@
     "data.select.upperLabel.rich.<style_name>.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -17020,7 +16673,6 @@
     "data.select.upperLabel.rich.<style_name>.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -17083,7 +16735,6 @@
     "data.select.upperLabel.rich.<style_name>.borderType": {
         "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -17182,7 +16833,6 @@
     "data.select.upperLabel.rich.<style_name>.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -17331,7 +16981,6 @@
     "data.tooltip.textStyle.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -17339,7 +16988,6 @@
     "data.tooltip.textStyle.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -17347,7 +16995,6 @@
     "data.tooltip.textStyle.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -17407,7 +17054,6 @@
     "data.tooltip.textStyle.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -17456,7 +17102,6 @@
     "data.tooltip.textStyle.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
@@ -17500,7 +17145,6 @@
     "animationEasing": {
         "desc": "初始动画的缓动效果。不同的缓动效果可以参考 [缓动示例](line-easing)。",
         "uiControl": {
-            "default": "quinticInOut",
             "type": "enum",
             "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
         }
@@ -17586,7 +17230,6 @@
     "tooltip.textStyle.fontStyle": {
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
@@ -17594,7 +17237,6 @@
     "tooltip.textStyle.fontWeight": {
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
-            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
@@ -17602,7 +17244,6 @@
     "tooltip.textStyle.fontFamily": {
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
         "uiControl": {
-            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
@@ -17662,7 +17303,6 @@
     "tooltip.textStyle.textBorderType": {
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
-            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
@@ -17711,7 +17351,6 @@
     "tooltip.textStyle.overflow": {
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
         "uiControl": {
-            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }

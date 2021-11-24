@@ -180,7 +180,7 @@ async function main() {
                 seriesTrees.push(tree as TreeNode);
                 // 将树形结构转换为扁平结构
                 const descMsg = flatTree(tree as TreeNode);
-                saveFile((tree as TreeNode).name.replace('.', '-').replace(/:.*/, ''), lang, JSON.stringify(descMsg, null, 4));
+                saveFile((tree as TreeNode).name.replace('.', '-'), lang, JSON.stringify(descMsg, null, 4));
             }
         }
         // index
@@ -220,7 +220,7 @@ async function main() {
             descMsg = flatTree(indexTree.children.find(item => item.name === name) as TreeNode);
             saveFile(name, lang, JSON.stringify(descMsg, null, 4));
         });
-        // TODO: series.json
+        // TODO: series.json、dataZoom.json、visualMap.json
     }
 }
 
@@ -290,12 +290,12 @@ function transformToTree(source: string, tree: TreeNode | null = null): TreeNode
                     parent: null,
                 };
                 if (prevNode) {
-                // 如果是下一个层级，则将当前节点作为上一个节点的子节点
+                    // 如果是下一个层级，则将当前节点作为上一个节点的子节点
                     if (node.level > prevNode.level) {
                         prevNode.children.push(node);
                         node.parent = prevNode;
                     } else {
-                    // 向上找出父节点
+                        // 向上找出父节点
                         let parentNode = prevNode.parent;
                         while (parentNode && parentNode.level >= node.level) {
                             parentNode = (parentNode as TreeNode).parent;
@@ -304,7 +304,7 @@ function transformToTree(source: string, tree: TreeNode | null = null): TreeNode
                         node.parent = parentNode;
                     }
                 } else {
-                // 上一个节点不存在，则当前节点作为树的主节点
+                    // 上一个节点不存在，则当前节点作为树的主节点
                     tree = node;
                 }
                 prevNode = node;
@@ -360,6 +360,9 @@ function parseUIControl(node: TreeNode, name: string, type: string = '', handler
                     case 'options':
                         node.options = handler ? handler(v) : v;
                 }
+            }
+            if (type === 'enum') {
+                delete node.default;
             }
         }
     }
