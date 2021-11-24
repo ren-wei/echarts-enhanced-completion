@@ -245,7 +245,7 @@ async function getOption(name: string, lang: string) : Promise<string> {
 /** 保存文件到资源文件夹 */
 function saveFile(name: string, lang: string, data: string) {
     // eslint-disable-next-line no-console
-    console.log(`Save ${lang} file: ${name}.json`);
+    console.log(`Saved file(${lang}): ${name}.json`);
     fs.writeFileSync(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), data);
 }
 

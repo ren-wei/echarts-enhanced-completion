@@ -1,201 +1,222 @@
 {
     "id": {
-        "desc": " Component ID, not specified by default. If specified, it can be used to refer the component in option or API. ",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
         "uiControl": {
             "type": "string"
         }
     },
     "show": {
-        "desc": " Whether to show the grid in rectangular coordinate. ",
+        "desc": "Whether to show the grid in rectangular coordinate.",
         "uiControl": {
-            "type": "boolean",
-            "default": "false"
+            "default": "false",
+            "type": "boolean"
         }
     },
     "zlevel": {
-        "desc": "zlevel value of all graphical elements in . zlevel is used to make layers with Canvas. Graphical elements with different zlevel values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate zlevel. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash. Canvases with bigger zlevel will be placed on Canvases with smaller zlevel. ",
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
         "uiControl": {
             "default": "0",
             "type": "number"
         }
     },
     "z": {
-        "desc": "z value of all graphical elements in , which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. z has a lower priority to zlevel, and will not create new Canvas. ",
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
         "uiControl": {
             "default": "2",
             "type": "number"
         }
     },
     "left": {
-        "desc": " Distance between grid component and the left side of the container. left value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'left', 'center', or 'right'. If the left value is set to be 'left', 'center', or 'right', then the component will be aligned automatically based on position. ",
+        "desc": "Distance between grid  component and the left side of the container.\n\n`left` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'10%'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "top": {
-        "desc": " Distance between grid component and the top side of the container. top value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'; and it can also be 'top', 'middle', or 'bottom'. If the left value is set to be 'top', 'middle', or 'bottom', then the component will be aligned automatically based on position. ",
+        "desc": "Distance between grid  component and the top side of the container.\n\n`top` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "60",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "right": {
-        "desc": " Distance between grid component and the right side of the container. right value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. ",
+        "desc": "Distance between grid  component and the right side of the container.\n\n`right` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "'10%'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "bottom": {
-        "desc": " Distance between grid component and the bottom side of the container. bottom value can be instant pixel value like 20; it can also be a percentage value relative to container width like '20%'. ",
+        "desc": "Distance between grid  component and the bottom side of the container.\n\n`bottom` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.",
         "uiControl": {
-            "type": "percent",
-            "default": "'0%'"
+            "default": "60",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "width": {
-        "desc": " Width of grid component. Adaptive by default. ",
+        "desc": "Width of grid  component. Adaptive by default.",
         "uiControl": {
-            "type": "percent",
-            "default": "'50%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "height": {
-        "desc": " Height of grid component. Adaptive by default. ",
+        "desc": "Height of grid  component. Adaptive by default.",
         "uiControl": {
-            "type": "percent",
-            "default": "'50%'"
+            "default": "'auto'",
+            "type": [
+                "string",
+                "number"
+            ]
         }
     },
     "containLabel": {
-        "desc": " Whether the grid region contains [axis tick label][0] of axis. \n\n* When containLabel is false:\n  * grid.leftgrid.rightgrid.topgrid.bottomgrid.widthgrid.height decide the location and size of the rectangle that is made of by xAxis and yAxis.\n  * Setting to false will help when multiple grids need to be aligned at their axes.\n* When containLabel is true:\n  * grid.leftgrid.rightgrid.topgrid.bottomgrid.widthgrid.height decide the location and size of the rectangle that contains the axes and the labels of the axes.\n  * Setting to true will help when the length of axis labels is dynamic and is hard to approximate. This will avoid labels from overflowing the container or overlapping other components.\n\n\n\n[0]: #yAxis.axisLabel",
+        "desc": "Whether the grid region contains [axis tick label](~yAxis.axisLabel) of axis.\n\n+ When containLabel is `false`:\n+ `grid.left` `grid.right` `grid.top` `grid.bottom` `grid.width` `grid.height` decide the location and size of the rectangle that is made of by xAxis and yAxis.\n+ Setting to `false` will help when multiple grids need to be aligned at their axes.\n+ When containLabel is `true`:\n+ `grid.left` `grid.right` `grid.top` `grid.bottom` `grid.width` `grid.height` decide the location and size of the rectangle that contains the axes and the labels of the axes.\n+ Setting to `true` will help when the length of axis labels is dynamic and is hard to approximate. This will avoid labels from overflowing the container or overlapping other components.",
         "uiControl": {
-            "type": "boolean",
-            "default": "false"
+            "default": "false",
+            "type": "boolean"
         }
     },
     "backgroundColor": {
-        "desc": " Background color of grid, which is transparent by default. \n\n> Color can be represented in RGB, for example > 'rgb(128, 128, 128)'> . RGBA can be used when you need alpha channel, for example > 'rgba(128, 128, 128, 0.5)'> . You may also use hexadecimal format, for example > '#ccc'> . **Attention**: Works only if show: true is set. ",
+        "desc": "Background color of grid, which is transparent by default.\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`.\n\n\n**Attention**: Works only if `show: true` is set.",
         "uiControl": {
+            "default": "'transparent'",
             "type": "color"
         }
     },
     "borderColor": {
-        "desc": " Border color of grid. Support the same color format as backgroundColor. **Attention**: Works only if show: true is set. ",
+        "desc": "Border color of grid. Support the same color format as backgroundColor.\n\n\n**Attention**: Works only if `show: true` is set.",
         "uiControl": {
-            "type": "color",
-            "default": "'#ccc'"
+            "default": "'#ccc'",
+            "type": "color"
         }
     },
     "borderWidth": {
-        "desc": " Border width of grid. **Attention**: Works only if show: true is set. ",
+        "desc": "Border width of grid.\n\n\n**Attention**: Works only if `show: true` is set.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "step": "0.5"
         }
     },
     "shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n**Attention**: This property works only if show: true is configured and backgroundColor is defined other than transparent. ",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**Attention**: This property works only if `show: true` is configured and `backgroundColor` is defined other than `transparent`.",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "shadowColor": {
-        "desc": " Shadow color. Support same format as color. **Attention**: This property works only if show: true configured. ",
+        "desc": "Shadow color. Support same format as `color`.\n\n\n**Attention**: This property works only if `show: true` configured.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. **Attention**: This property works only if show: true configured. ",
+        "desc": "Offset distance on the horizontal direction of shadow.\n\n\n**Attention**: This property works only if `show: true` configured.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. **Attention**: This property works only if show: true configured. ",
+        "desc": "Offset distance on the vertical direction of shadow.\n\n\n**Attention**: This property works only if `show: true` configured.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip": {
-        "desc": " tooltip settings in the coordinate system component. \n\n- - -\n\n**General Introduction:** tooltip can be configured on different places: \n\n* Configured on global: [tooltip][0]\n* Configured in a coordinate system: [grid.tooltip][1], [polar.tooltip][2], [single.tooltip][3]\n* Configured in a series: [series.tooltip][4]\n* Configured in each item of series.data: [series.data.tooltip][5]\n\n- - -\n\n\n\n[0]: #tooltip\n[1]: #grid.tooltip\n[2]: #polar.tooltip\n[3]: #single.tooltip\n[4]: #series.tooltip\n[5]: #series.data.tooltip",
+        "desc": "tooltip settings in the coordinate system component.\n\n---\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](~tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](~grid.tooltip), [polar.tooltip](~polar.tooltip), [single.tooltip](~single.tooltip)\n\n+ Configured in a series: [series.tooltip](~series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](~series.data.tooltip)\n\n\n---",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.show": {
-        "desc": " Whether to show the tooltip component. including tooltip floating layer and [axisPointer][0].\n\n[0]: #tooltip.axisPointer",
+        "desc": "Whether to show the tooltip component.\n\n\nincluding tooltip floating layer and [axisPointer](~tooltip.axisPointer).",
         "uiControl": {
-            "type": "boolean",
-            "default": "true"
+            "default": "true",
+            "type": "boolean"
         }
     },
     "tooltip.trigger": {
-        "desc": " Type of triggering. Options: \n\n* 'item' Triggered by data item, which is mainly used for charts that don't have a category axis like scatter charts or pie charts.\n* 'axis' Triggered by axes, which is mainly used for charts that have category axes, like bar charts or line charts. ECharts 2.x only supports axis trigger for category axis. In ECharts 3, it is supported for all types of axes in [grid][0] or [polar][1]. Also, you may assign axis with [axisPointer.axis][2].\n* 'none' Trigger nothing.\n\n\n\n[0]: #grid\n[1]: #polar\n[2]: #tooltip.axisPointer.axis",
+        "desc": "Type of triggering.\n\nOptions:\n+ `'item'`\n\nTriggered by data item, which is mainly used for charts that don't have a category axis like scatter charts or pie charts.\n\n+ `'axis'`\n\nTriggered by axes, which is mainly used for charts that have category axes, like bar charts or line charts.\n\nECharts 2.x only supports axis trigger for category axis. In ECharts 3, it is supported for all types of axes in [grid](~grid) or [polar](~polar). Also, you may assign axis with [axisPointer.axis](~tooltip.axisPointer.axis).\n\n+ `'none'`\n\nTrigger nothing.",
         "uiControl": {
+            "default": "'item'",
             "type": "enum",
             "options": "'item','axis','none'"
         }
     },
     "tooltip.axisPointer": {
-        "desc": " Configuration item for axisPointer. tooltip.axisPointer is like syntactic sugar of axisPointer settings on axes (for example, [xAxis.axisPointer][0] or [angleAxis.axisPointer][1]). More detailed features can be configured on someAxis.axisPointer. But in common cases, using tooltip.axisPointer is more convenient. \n\n**> Notice:**>  configurations of > tooltip.axisPointer>  has lower priority than that of > someAxis.axisPointer> . - - -\n\naxisPointer is a tool for displaying reference line and axis value under mouse pointer. For example: 暂时无法显示 In the demo above, [axisPointer.link][2] is used to link axisPointer from different coordinate systems. axisPointer can also be used on touch device, where user can drag the button to move the reference line and label. 暂时无法显示 In the cases that more than one axis exist, axisPointer helps to look inside the data. 暂时无法显示 暂时无法显示 \n\n- - -\n\n**> Notice:**>  Generally, axisPointers is configured in each axes who need them (for example [> xAxis.axisPointer][0]> ), or configured in > tooltip>  (for example [> tooltip.axisPointer][3]> ). > But these configurations can only be configured in global axisPointer: [> axisPointer.triggerOn][4]> , [> axisPointer.link][2]> . - - -\n\n- - -\n\n**How to display axisPointer:** In [cartesian (grid)][5] and [polar](~polar) and (single axis][6], each axis has its own axisPointer. Those axisPointer will not be displayed by default, utill configured as follows: \n\n* Set someAxis.axisPointer.show (like [xAxis.axisPointer.show][7]) as true. Then axisPointer of this axis will be displayed.\n* Set [tooltip.trigger][8] as 'axis', or set [tooltip.axisPointer.type][9] as 'cross'. Then coordinate system will automatically chose the axes who will display their axisPointers. ([tooltip.axisPointer.axis][10] can be used to change the choice.) Notice, axis.axisPointer will override tooltip.axisPointer settings.\n\n- - -\n\n**How to display the label of axisPointer:** The label of axisPointer will not be displayed by default(namely, only reference line will be displayed by default), utill configured as follows: \n\n* Set someAxis.axisPointer.label.show (for example [xAxis.axisPointer.label.show][7]) as true. Then the label of the axisPointer will be displayed.\n* Set [tooltip.axisPointer.type][9] as 'cross'. Then the label of the crossed axisPointers will be displayed.\n\n- - -\n\n**How to configure axisPointer on touch device:** Set someAxis.axisPointer.handle.show (for example [xAxis.axisPointer.handle.show][11] as true. Then the button for dragging will be displayed. (This feature is not supported on polar). **Notice:** If tooltip does not work well in this case, try to set[tooltip.triggerOn][12] as 'none' (for the effect: show tooltip when finger holding on the button, and hide tooltip after finger left the button), or set [tooltip.alwaysShowContent][13] as true (then tooltip will always be displayed). See the [example][14]. \n\n- - -\n\n**Snap to point** In value axis and time axis, if [snap][15] is set as true, axisPointer will snap to point automatically. \n\n- - -\n\n\n\n[0]: #xAxis.axisPointer\n[1]: #angleAxis.axisPointer\n[2]: #axisPointer.link\n[3]: #tooltip.axisPointer\n[4]: #axisPointer.triggerOn\n[5]: #grid\n[6]: #single\n[7]: #xAxis.axisPointer.show\n[8]: #tooltip.trigger\n[9]: #tooltip.axisPointer.type\n[10]: #tooltip.axisPointer.axis\n[11]: #xAxis.axisPointer.handle.show\n[12]: #tooltip.triggerOn\n[13]: #tooltip.alwaysShowContent\n[14]: https://echarts.apache.org/examples/en/editor.html?c=line-tooltip-touch&edit=1&reset=1\n[15]: #xAxis.axisPointer.snap",
+        "desc": "Configuration item for axisPointer.\n\n`tooltip.axisPointer` is like syntactic sugar of axisPointer settings on axes (for example, [xAxis.axisPointer](~xAxis.axisPointer) or [angleAxis.axisPointer](~angleAxis.axisPointer)). More detailed features can be configured on `someAxis.axisPointer`. But in common cases, using `tooltip.axisPointer` is more convenient.\n\n> **Notice:** configurations of `tooltip.axisPointer` has lower priority than that of `someAxis.axisPointer`.\n\n---\n\n\n\n`axisPointer` is a tool for displaying reference line and axis value under mouse pointer.\n\nFor example:\n~[600x450](doc-example/candlestick-axisPointer&edit=1&reset=1)\n\nIn the demo above, [axisPointer.link](~axisPointer.link) is used to link axisPointer from different coordinate systems.\n\n\n`axisPointer` can also be used on touch device, where user can drag the button to move the reference line and label.\n\n~[600x400](line-tooltip-touch&edit=1&reset=1)\n\nIn the cases that more than one axis exist, axisPointer helps to look inside the data.\n\n~[600x300](multiple-y-axis&edit=1&reset=1)\n~[600x300](multiple-x-axis&edit=1&reset=1)\n\n\n---\n\n> **Notice:**\n> Generally, axisPointers is configured in each axes who need them (for example [xAxis.axisPointer](~xAxis.axisPointer)), or configured in `tooltip` (for example [tooltip.axisPointer](~tooltip.axisPointer)).\n\n> But these configurations can only be configured in global axisPointer:\n[axisPointer.triggerOn](~axisPointer.triggerOn), [axisPointer.link](~axisPointer.link).\n\n---\n\n\n\n---\n\n**How to display axisPointer:**\n\nIn [cartesian (grid)](~grid) and [polar](~polar) and (single axis](~single), each axis has its own axisPointer.\n\nThose axisPointer will not be displayed by default, utill configured as follows:\n\n+ Set `someAxis.axisPointer.show` (like [xAxis.axisPointer.show](~xAxis.axisPointer.show)) as `true`. Then axisPointer of this axis will be displayed.\n\n+ Set [tooltip.trigger](~tooltip.trigger) as `'axis'`, or set [tooltip.axisPointer.type](~tooltip.axisPointer.type) as `'cross'`. Then coordinate system will automatically chose the axes who will display their axisPointers. ([tooltip.axisPointer.axis](~tooltip.axisPointer.axis) can be used to change the choice.) Notice, `axis.axisPointer` will override `tooltip.axisPointer` settings.\n\n---\n\n**How to display the label of axisPointer:**\n\nThe label of axisPointer will not be displayed by default(namely, only reference line will be displayed by default), utill configured as follows:\n\n+ Set `someAxis.axisPointer.label.show` (for example [xAxis.axisPointer.label.show](~xAxis.axisPointer.show)) as `true`. Then the label of the axisPointer will be displayed.\n\n+ Set [tooltip.axisPointer.type](~tooltip.axisPointer.type) as  `'cross'`. Then the label of the crossed axisPointers will be displayed.\n\n---\n\n**How to configure axisPointer on touch device:**\n\nSet `someAxis.axisPointer.handle.show` (for example [xAxis.axisPointer.handle.show](~xAxis.axisPointer.handle.show) as `true`. Then the button for dragging will be displayed. (This feature is not supported on polar).\n\n**Notice:**\nIf tooltip does not work well in this case, try to set[tooltip.triggerOn](~tooltip.triggerOn) as `'none'` (for the effect: show tooltip when finger holding on the button, and hide tooltip after finger left the button), or set [tooltip.alwaysShowContent](~tooltip.alwaysShowContent) as `true` (then tooltip will always be displayed).\n\nSee the [example](line-tooltip-touch&edit=1&reset=1).\n\n\n---\n\n**Snap to point**\n\nIn value axis and time axis, if [snap](~xAxis.axisPointer.snap) is set as true, axisPointer will snap to point automatically.\n\n---",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.axisPointer.type": {
-        "desc": " Indicator type. Options: \n\n* 'line' line indicator.\n* 'shadow' shadow crosshair indicator.\n* 'none' no indicator displayed.\n* 'cross' crosshair indicator, which is actually the shortcut of enable two axisPointers of two orthometric axes.\n\n",
+        "desc": "Indicator type.\n\nOptions:\n+ `'line'` line indicator.\n\n+ `'shadow'` shadow crosshair indicator.\n\n+ `'none'` no indicator displayed.\n\n+ `'cross'` crosshair indicator, which is actually the shortcut of enable two axisPointers of two orthometric axes.",
         "uiControl": {
+            "default": "'line'",
             "type": "enum",
             "options": "'none','line','shadow','cross'"
         }
     },
     "tooltip.axisPointer.axis": {
-        "desc": " The coordinate axis, which could be 'x', 'y', 'radius', or 'angle'. By default, each coordinate system will automatically chose the axes whose will display its axisPointer (category axis or time axis is used by default). ",
+        "desc": "The coordinate axis, which could be `'x'`, `'y'`, `'radius'`, or `'angle'`. By default, each coordinate system will automatically chose the axes whose will display its axisPointer (category axis or time axis is used by default).",
         "uiControl": {
             "default": "'auto'",
             "type": "string"
         }
     },
     "tooltip.axisPointer.snap": {
-        "desc": " Whether snap to point automatically. The default value is auto determined. This feature usually makes sense in value axis and time axis, where tiny points can be seeked automatically. ",
+        "desc": "Whether snap to point automatically. The default value is auto determined.\n\nThis feature usually makes sense in value axis and time axis, where tiny points can be seeked automatically.",
         "uiControl": {
             "type": "boolean"
         }
     },
     "tooltip.axisPointer.z": {
-        "desc": " z value, which controls order of drawing graphical components. Components with smaller z values may be overwritten by those with larger z values. ",
+        "desc": "z value, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.",
         "uiControl": {
             "type": "number"
         }
     },
     "tooltip.axisPointer.label": {
-        "desc": " label of axisPointer ",
+        "desc": "label of axisPointer",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.axisPointer.label.show": {
-        "desc": " Whether show label. Label will not show by default. But if [tooltip.axisPointer.type][0] is set as 'cross', label will be displayed automatically.\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "Whether show label. Label will not show by default. But if [tooltip.axisPointer.type](~tooltip.axisPointer.type) is set as  `'cross'`, label will be displayed automatically.",
         "uiControl": {
             "default": "false",
             "type": "boolean"
         }
     },
     "tooltip.axisPointer.label.precision": {
-        "desc": " The precision of value in label. It is auto determined by default. You can also set it as '2', which indicates that two decimal fractions are reserved. ",
+        "desc": "The precision of value in label. It is auto determined by default. You can also set it as `'2'`, which indicates that two decimal fractions are reserved.",
         "uiControl": {
             "default": "'auto'",
             "type": [
@@ -205,8 +226,9 @@
         }
     },
     "tooltip.axisPointer.label.formatter": {
-        "desc": " The formatter of label. If set as string, for example it can be: formatter: 'some text {value} some text, where {value} will be replaced by axis value automatically. If set as function: **Parameters:**{Object} params: Including fields as follows: {Object} params.value: current value of this axis. If axis.type is 'category', it is one of the value in axis.data. If axis.type is 'time', it is a timestamp. {Array.} params.seriesData: An array, containing info of nearest points. Each item is: {string} params.axisDimension: The dimension name of the axis. For example, in catesian it will be 'x', 'y', and in polar it will be 'radius', 'angle'. {number} params.axisIndex: The index of the axis, for example, 0,1, 2, ... \n\n    {\n        componentType: 'series',\n        // Series type\n        seriesType: string,\n        // Series index in option.series\n        seriesIndex: number,\n        // Series name\n        seriesName: string,\n        // Data name, or category name\n        name: string,\n        // Data index in input data array\n        dataIndex: number,\n        // Original data as input\n        data: Object,\n        // Value of data. In most series it is the same as data.\n        // But in some series it is some part of the data (e.g., in map, radar)\n        value: number|Array|Object,\n        // encoding info of coordinate system\n        // Key: coord, like ('x' 'y' 'radius' 'angle')\n        // value: Must be an array, not null/undefined. Contain dimension indices, like:\n        // {\n        //     x: [2] // values on dimension index 2 are mapped to x axis.\n        //     y: [0] // values on dimension index 0 are mapped to y axis.\n        // }\n        encode: Object,\n        // dimension names list\n        dimensionNames: Array,\n        // data dimension index, for example 0 or 1 or 2 ...\n        // Only work in `radar` series.\n        dimensionIndex: number,\n        // Color of data\n        color: string,\n    \n    \n    \n    }\n    \n\nNote: the usage of encode and dimensionNames can be: If data is: \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.encode.y[0]]\n    \n\nIf data is: \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\nEach item also includes axis infomation: \n\n    {\n        axisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\n        axisId: 'xxx',\n        axisName: 'xxx',\n        axisIndex: 3,\n        axisValue: 121, // The current value of axisPointer\n        axisValueLabel: 'text of value'\n    }\n    \n\n**Return:** The string to be displayed. For example: \n\n    formatter: function (params) {\n        // If axis.type is 'time'\n        return 'some text' + echarts.format.formatTime(params.value);\n    }\n    \n\n",
+        "desc": "The formatter of label.\n\nIf set as `string`, for example it can be: `formatter: 'some text {value} some text`, where `{value}` will be replaced by axis value automatically.\n\nIf set as `function`:\n\n**Parameters:**\n\n`{Object}` params: Including fields as follows:\n\n`{Object}` params.value: current value of this axis. If `axis.type` is `'category'`, it is one of the value in `axis.data`. If `axis.type` is `'time'`, it is a timestamp.\n\n`{Array.<Object>}` params.seriesData: An array, containing info of nearest points. Each item is:\n\n`{string}` params.axisDimension: The dimension name of the axis. For example, in catesian it will be `'x'`, `'y'`, and in polar it will be `'radius'`, `'angle'`.\n\n`{number}` params.axisIndex: The index of the axis, for example, `0`,`1`, `2`, ...\n\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n\nEach item also includes axis infomation:\n\n```js\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // The current value of axisPointer\naxisValueLabel: 'text of value'\n}\n```\n\n\n\n**Return:**\n\nThe string to be displayed.\n\nFor example:\n```js\nformatter: function (params) {\n// If axis.type is 'time'\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
         "uiControl": {
+            "default": "null",
             "type": [
                 "string",
                 "Function"
@@ -214,516 +236,528 @@
         }
     },
     "tooltip.axisPointer.label.margin": {
-        "desc": " Distance between label and axis. ",
+        "desc": "Distance between label and axis.",
         "uiControl": {
             "default": "3",
             "type": "boolean"
         }
     },
     "tooltip.axisPointer.label.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "tooltip.axisPointer.label.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "tooltip.axisPointer.label.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "tooltip.axisPointer.label.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "tooltip.axisPointer.label.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "12",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "tooltip.axisPointer.label.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "tooltip.axisPointer.label.width": {
-        "desc": " Width of text block. ",
+        "desc": "Width of text block.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "tooltip.axisPointer.label.height": {
-        "desc": " Height of text block. ",
+        "desc": "Height of text block.",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "tooltip.axisPointer.label.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "tooltip.axisPointer.label.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "tooltip.axisPointer.label.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "tooltip.axisPointer.label.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "tooltip.axisPointer.label.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "tooltip.axisPointer.label.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "tooltip.axisPointer.label.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.label.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.label.overflow": {
-        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "tooltip.axisPointer.label.ellipsis": {
-        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "tooltip.axisPointer.label.lineOverflow": {
-        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "tooltip.axisPointer.label.padding": {
-        "desc": " axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom. Examples: \n\n    // Set padding to be 5\n    padding: 5\n    // Set the top and bottom paddings to be 5, and left and right paddings to be 10\n    padding: [5, 10]\n    // Set each of the four paddings seperately\n    padding: [\n        5,  // up\n        10, // right\n        5,  // down\n        10, // left\n    ]\n    \n\n",
+        "desc": "axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
         "uiControl": {
+            "default": "[5, 7, 5, 7]",
             "type": "vector",
             "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "tooltip.axisPointer.label.backgroundColor": {
-        "desc": " Background color of label, the same as [axis.axisLine.lineStyle.color][0] by default.\n\n[0]: #xAxis.axisLine.lineStyle.color",
+        "desc": "Background color of label, the same as [axis.axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color) by default.",
         "uiControl": {
             "default": "'auto'",
             "type": "string"
         }
     },
     "tooltip.axisPointer.label.borderColor": {
-        "desc": " Border color of label. ",
+        "desc": "Border color of label.",
         "uiControl": {
+            "default": "null",
             "type": "string"
         }
     },
     "tooltip.axisPointer.label.borderWidth": {
-        "desc": " Border width of label. ",
+        "desc": "Border width of label.",
         "uiControl": {
             "default": "0",
             "type": "string"
         }
     },
     "tooltip.axisPointer.label.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
-            "type": "number",
             "default": "3",
+            "type": "number",
             "min": "0",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.label.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "'#aaa'"
+            "default": "'#aaa'",
+            "type": "color"
         }
     },
     "tooltip.axisPointer.label.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.label.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.lineStyle": {
-        "desc": " It is valid when [axisPointer.type][0] is 'line'.\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "It is valid when [axisPointer.type](~tooltip.axisPointer.type) is `'line'`.",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.axisPointer.lineStyle.color": {
-        "desc": " Line color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " #555",
             "type": "color"
         }
     },
     "tooltip.axisPointer.lineStyle.width": {
-        "desc": " line width. ",
+        "desc": "line width.",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "tooltip.axisPointer.lineStyle.type": {
-        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "tooltip.axisPointer.lineStyle.dashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`type`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "tooltip.axisPointer.lineStyle.cap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "tooltip.axisPointer.lineStyle.join": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`miterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "tooltip.axisPointer.lineStyle.miterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`join`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "tooltip.axisPointer.lineStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.lineStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "tooltip.axisPointer.lineStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.lineStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.lineStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "tooltip.axisPointer.shadowStyle": {
-        "desc": " It is valid when [axisPointer.type][0] is 'shadow'.\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "It is valid when [axisPointer.type](~tooltip.axisPointer.type) is `'shadow'`.",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.axisPointer.shadowStyle.color": {
-        "desc": " Fill color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Fill color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " 'rgba(150,150,150,0.3)",
             "type": "color"
         }
     },
     "tooltip.axisPointer.shadowStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.shadowStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "tooltip.axisPointer.shadowStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.shadowStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.shadowStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "tooltip.axisPointer.crossStyle": {
-        "desc": " It is valid when [axisPointer.type][0] is 'cross'.\n\n[0]: #tooltip.axisPointer.type",
+        "desc": "It is valid when [axisPointer.type](~tooltip.axisPointer.type) is `'cross'`.",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.axisPointer.crossStyle.color": {
-        "desc": " Line color. \n\n> Supports setting as solid color using > rgb(255,255,255)> , > rgba(255,255,255,1)> , > #fff> , etc. Also supports setting as gradient color and pattern fill, see [> option.color][0]>  for details \n\n[0]: #color",
+        "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
         "uiControl": {
+            "default": " #555",
             "type": "color"
         }
     },
     "tooltip.axisPointer.crossStyle.width": {
-        "desc": " line width. ",
+        "desc": "line width.",
         "uiControl": {
+            "default": "1",
             "type": "number",
-            "value": "1",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "tooltip.axisPointer.crossStyle.type": {
-        "desc": " line type. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With dashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    type: [5, 10],\n    \n    dashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'dashed'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "tooltip.axisPointer.crossStyle.dashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With type , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`type`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "tooltip.axisPointer.crossStyle.cap": {
-        "desc": ">  Since > v5.0.0 To specify how to draw the end points of the line. Possible values are: \n\n* 'butt': The ends of lines are squared off at the endpoints.\n* 'round': The ends of lines are rounded.\n* 'square': The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is 'butt'. Refer to MDN [lineCap][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
         "uiControl": {
+            "default": "'butt'",
             "type": "enum",
             "options": "'butt','round','square'"
         }
     },
     "tooltip.axisPointer.crossStyle.join": {
-        "desc": ">  Since > v5.0.0 To determine the shape used to join two line segments where they meet. Possible values are: \n\n* 'bevel': Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n* 'round': Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n* 'miter': Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the miterLimit property.\n\nDefault value is 'bevel'. Refer to MDN [lineJoin][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`miterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
         "uiControl": {
+            "default": "'bevel'",
             "type": "enum",
             "options": "'bevel','round','miter'"
         }
     },
     "tooltip.axisPointer.crossStyle.miterLimit": {
-        "desc": ">  Since > v5.0.0 To set the miter limit ratio. Only works when join is set as miter. Default value is 10. Negative、0、Infinity and NaN values are ignored. Refer to MDN [miterLimit][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`join`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
         "uiControl": {
+            "default": "10",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "10"
+            "step": "1"
         }
     },
     "tooltip.axisPointer.crossStyle.shadowBlur": {
-        "desc": " Size of shadow blur. This attribute should be used along with shadowColor,shadowOffsetX, shadowOffsetY to set shadow to component. For example: \n\n    {\n        shadowColor: 'rgba(0, 0, 0, 0.5)',\n        shadowBlur: 10\n    }\n    \n\n",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
         "uiControl": {
+            "default": "",
             "type": "number",
-            "default": "0",
             "min": "0",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.crossStyle.shadowColor": {
-        "desc": " Shadow color. Support same format as color. ",
+        "desc": "Shadow color. Support same format as `color`.",
         "uiControl": {
-            "type": "color",
-            "default": "''"
+            "default": "",
+            "type": "color"
         }
     },
     "tooltip.axisPointer.crossStyle.shadowOffsetX": {
-        "desc": " Offset distance on the horizontal direction of shadow. ",
+        "desc": "Offset distance on the horizontal direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.crossStyle.shadowOffsetY": {
-        "desc": " Offset distance on the vertical direction of shadow. ",
+        "desc": "Offset distance on the vertical direction of shadow.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.axisPointer.crossStyle.opacity": {
-        "desc": " Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0. ",
+        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
         "uiControl": {
-            "type": "number",
             "default": "1",
+            "type": "number",
             "min": "0",
             "max": "1",
             "step": "0.01"
         }
     },
     "tooltip.axisPointer.animation": {
-        "desc": " Whether to enable animation. ",
+        "desc": "Whether to enable animation.",
         "uiControl": {
-            "type": "boolean",
             "default": "true",
-            "clean": "true"
+            "type": "boolean"
         }
     },
     "tooltip.axisPointer.animationThreshold": {
-        "desc": " Whether to set graphic number threshold to animation. Animation will be disabled when graphic number is larger than threshold. ",
+        "desc": "Whether to set graphic number threshold to animation. Animation will be disabled when graphic number is larger than threshold.",
         "uiControl": {
             "default": "2000",
             "type": "number"
         }
     },
     "tooltip.axisPointer.animationDuration": {
-        "desc": " Duration of the first animation, which supports callback function for different data to have different animation effect: \n\n    animationDuration: function (idx) {\n        // delay for later data is larger\n        return idx * 100;\n    }\n    \n\n",
+        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
         "uiControl": {
+            "default": "1000",
             "type": "number",
             "min": "0",
-            "default": "1000",
-            "step": "20",
-            "clean": "true"
+            "step": "20"
         }
     },
     "tooltip.axisPointer.animationEasing": {
-        "desc": " Easing method used for the first animation. Varied easing effects can be found at [easing effect example][0].\n\n[0]: https://echarts.apache.org/examples/en/editor.html?c=line-easing",
+        "desc": "Easing method used for the first animation. Varied easing effects can be found at [easing effect example](line-easing).",
         "uiControl": {
+            "default": "cubicOut",
             "type": "enum",
-            "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'",
-            "clean": "true"
+            "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
         }
     },
     "tooltip.axisPointer.animationDelay": {
-        "desc": " Delay before updating the first animation, which supports callback function for different data to have different animation effect. For example: \n\n    animationDelay: function (idx) {\n        // delay for later data is larger\n        return idx * 100;\n    }\n    \n\nSee [this example][0] for more information.\n\n[0]: https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay",
+        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
         "uiControl": {
             "default": "0",
             "type": [
@@ -733,23 +767,24 @@
         }
     },
     "tooltip.axisPointer.animationDurationUpdate": {
-        "desc": " Time for animation to complete, which supports callback function for different data to have different animation effect: \n\n    animationDurationUpdate: function (idx) {\n        // delay for later data is larger\n        return idx * 100;\n    }\n    \n\n",
+        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
         "uiControl": {
+            "default": "200",
             "type": "number",
             "min": "0",
-            "default": "1000",
             "step": "20"
         }
     },
     "tooltip.axisPointer.animationEasingUpdate": {
-        "desc": " Easing method used for animation. ",
+        "desc": "Easing method used for animation.",
         "uiControl": {
+            "default": "exponentialOut",
             "type": "enum",
             "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
         }
     },
     "tooltip.axisPointer.animationDelayUpdate": {
-        "desc": " Delay before updating animation, which supports callback function for different data to have different animation effects. For example: \n\n    animationDelayUpdate: function (idx) {\n        // delay for later data is larger\n        return idx * 100;\n    }\n    \n\nSee [this example][0] for more information.\n\n[0]: https://echarts.apache.org/examples/en/editor.html?c=bar-animation-delay",
+        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
         "uiControl": {
             "default": "0",
             "type": [
@@ -759,7 +794,7 @@
         }
     },
     "tooltip.position": {
-        "desc": "\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n* Array\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n```javascript\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n* Function\n\n回调函数，格式如下：\n\n```javascript\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数**\npoint: 鼠标位置，如 [20, 40]。\nparams: 同 formatter 的参数相同。\ndom: tooltip 的 dom 对象。\nrect: 只有鼠标在图形上时有效，是一个用 x , y , width , height四个属性表达的图形包围盒。\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：{contentSize: [width, height], viewSize: [width, height]}。\n\n**返回值：**\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相 百分比。\n也可以是一个对象，如：{left: 10, top: 30}，或者 {right: '20%', bottom: 40}。\n\n如下示例：\n\n```javascript\nposition: function (point, params, dom, rect, size) {\n    // 固定在顶部\n    return [point[0], '10%'];\n}\n```\n\n或者：\n\n```javascript\nposition: function (pos, params, dom, rect, size) {\n    // 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\n    var obj = {top: 60};\n    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\n    return obj;\n}\n```\n\n* 'inside'\n    鼠标所在图形的内部中心位置，只在 trigger 为 'item' 的时候有效。\n\n* 'top'\n    鼠标所在图形上侧，只在 trigger 为 'item' 的时候有效。\n\n* 'left'\n    鼠标所在图形左侧，只在 trigger 为 'item' 的时候有效。\n\n* 'right'\n    鼠标所在图形右侧，只在 trigger 为 'item' 的时候有效。\n\n* 'bottom'\n    鼠标所在图形底侧，只在 trigger 为 'item' 的时候有效。\n",
+        "desc": "The position of the tooltip's floating layer, which would follow the position of mouse by default.\n\nOptions:\n\n+ `Array`\n\nDisplay the position of tooltip's floating layer through array, which supports absolute position and relative percentage.\n\nExample:\n\n```js\n// absolute position, which is 10px to the left side and 10px to the top side of the container\nposition: [10, 10]\n// relative position, in the exact center of the container\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\nCallback function in the following form:\n```js\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**Parameters:**<br>\npoint: Mouse position.<br>\nparam: The same as formatter.<br>\ndom: The DOM object of tooltip.<br>\nrect: It is valid only when mouse is on graphic elements, which stands for a bounding box with `x`, `y`, `width`, and `height`.<br>\nsize: The size of dom echarts container. For example: `{contentSize: [width, height], viewSize: [width, height]}`. <br>\n\n**Return:**<br>\nReturn value is an array standing for tooltip position, which can be absolute pixels, or relative percentage.<br>\nOr can be an object, like `{left: 10, top: 30}`, or `{right: '20%', bottom: 40}`.<br>\n\nFor example:\n```js\nposition: function (point, params, dom, rect, size) {\n// fixed at top\nreturn [point[0], '10%'];\n}\n```\nOr:\n```js\nposition: function (pos, params, dom, rect, size) {\n// tooltip will be fixed on the right if mouse hovering on the left,\n// and on the left if hovering on the right.\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n+ `'inside'`\n\nCenter position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'top'`\n\nTop position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'left'`\n\nLeft position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'right'`\n\nRight position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'bottom'`\n\nBottom position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.",
         "uiControl": {
             "type": [
                 "string",
@@ -768,7 +803,7 @@
         }
     },
     "tooltip.formatter": {
-        "desc": " The content formatter of tooltip's floating layer which supports string template and callback function. **1. String template** The template variables are {a}, {b}, {c}, {d} and {e}, which stands for series name, data name and data value and ect. When [trigger][0] is set to be 'axis', there may be data from multiple series. In this time, series index can be refered as {a0}, {a1}, or {a2}. {a}, {b}, {c}, {d} have different meanings for different series types: \n\n* Line (area) charts, bar (column) charts, K charts: {a} for series name, {b} for category name, {c} for data value, {d} for none;\n* Scatter (bubble) charts: {a} for series name, {b} for data name, {c} for data value, {d} for none;\n* Map: {a} for series name, {b} for area name, {c} for merging data, {d} for none;\n* Pie charts, gauge charts, funnel charts: {a} for series name, {b} for data item name, {c} for data value, {d} for percentage.\n\n**Example:**    formatter: '{b0}: {c0}  \n{b1}: {c1}'\n    \n\n**2. Callback function** The format of callback function: \n\n    (params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n    \n\nThe first parameter params is the data that the formatter needs. Its format is shown as follows: \n\n    {\n        componentType: 'series',\n        // Series type\n        seriesType: string,\n        // Series index in option.series\n        seriesIndex: number,\n        // Series name\n        seriesName: string,\n        // Data name, or category name\n        name: string,\n        // Data index in input data array\n        dataIndex: number,\n        // Original data as input\n        data: Object,\n        // Value of data. In most series it is the same as data.\n        // But in some series it is some part of the data (e.g., in map, radar)\n        value: number|Array|Object,\n        // encoding info of coordinate system\n        // Key: coord, like ('x' 'y' 'radius' 'angle')\n        // value: Must be an array, not null/undefined. Contain dimension indices, like:\n        // {\n        //     x: [2] // values on dimension index 2 are mapped to x axis.\n        //     y: [0] // values on dimension index 0 are mapped to y axis.\n        // }\n        encode: Object,\n        // dimension names list\n        dimensionNames: Array,\n        // data dimension index, for example 0 or 1 or 2 ...\n        // Only work in `radar` series.\n        dimensionIndex: number,\n        // Color of data\n        color: string,\n    \n    \n        // the percentage of pie chart\n        percent: number,\n    \n    \n    }\n    \n\nNote: the usage of encode and dimensionNames can be: If data is: \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.encode.y[0]]\n    \n\nIf data is: \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\nWhen [trigger][0] is 'axis', or when tooltip is triggered by [axisPointer][1], params is the data array of multiple series. The content of each item of the array is the same as above. Besides, \n\n    {\n        componentType: 'series',\n        // Series type\n        seriesType: string,\n        // Series index in option.series\n        seriesIndex: number,\n        // Series name\n        seriesName: string,\n        // Data name, or category name\n        name: string,\n        // Data index in input data array\n        dataIndex: number,\n        // Original data as input\n        data: Object,\n        // Value of data. In most series it is the same as data.\n        // But in some series it is some part of the data (e.g., in map, radar)\n        value: number|Array|Object,\n        // encoding info of coordinate system\n        // Key: coord, like ('x' 'y' 'radius' 'angle')\n        // value: Must be an array, not null/undefined. Contain dimension indices, like:\n        // {\n        //     x: [2] // values on dimension index 2 are mapped to x axis.\n        //     y: [0] // values on dimension index 0 are mapped to y axis.\n        // }\n        encode: Object,\n        // dimension names list\n        dimensionNames: Array,\n        // data dimension index, for example 0 or 1 or 2 ...\n        // Only work in `radar` series.\n        dimensionIndex: number,\n        // Color of data\n        color: string,\n    \n    \n    \n    }\n    \n\nNote: the usage of encode and dimensionNames can be: If data is: \n\n    dataset: {\n        source: [\n            ['Matcha Latte', 43.3, 85.8, 93.7],\n            ['Milk Tea', 83.1, 73.4, 55.1],\n            ['Cheese Cocoa', 86.4, 65.2, 82.5],\n            ['Walnut Brownie', 72.4, 53.9, 39.1]\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.encode.y[0]]\n    \n\nIf data is: \n\n    dataset: {\n        dimensions: ['product', '2015', '2016', '2017'],\n        source: [\n            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n        ]\n    }\n    \n\nWe can get values that corresponding to y axis by: \n\n    params.value[params.dimensionNames[params.encode.y[0]]]\n    \n\n**Note:**Using array to present all the parameters in ECharts 2.x is not supported anymore. The second parameter ticket is the asynchronous callback flag which should be used along with the third parameter callback when it is used. The third parameter callback is asynchronous callback. When the content of tooltip is acquired asynchronously, ticket and htm as introduced above can be used to update tooltip with callback. Example: \n\n    formatter: function (params, ticket, callback) {\n        $.get('detail?name=' + params.name, function (content) {\n            callback(ticket, toHTML(content));\n        });\n        return 'Loading';\n    }\n    \n\n\n\n[0]: #tooltip.trigger\n[1]: #xAxis.axisPointer",
+        "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](~tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be refered as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```js\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```js\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\nWhen [trigger](~tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](~xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```js\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
         "uiControl": {
             "type": [
                 "string",
@@ -777,192 +812,197 @@
         }
     },
     "tooltip.backgroundColor": {
-        "desc": " The background color of tooltip's floating layer. ",
+        "desc": "The background color of tooltip's floating layer.",
         "uiControl": {
             "default": "'rgba(50,50,50,0.7)'",
-            "type": "color"
+            "type": "Color"
         }
     },
     "tooltip.borderColor": {
-        "desc": " The border color of tooltip's floating layer. ",
+        "desc": "The border color of tooltip's floating layer.",
         "uiControl": {
-            "type": "color",
-            "default": "'#333'"
+            "default": "'#333'",
+            "type": "color"
         }
     },
     "tooltip.borderWidth": {
-        "desc": " The border width of tooltip's floating layer. ",
+        "desc": "The border width of tooltip's floating layer.",
         "uiControl": {
-            "type": "number",
             "default": "0",
+            "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.padding": {
-        "desc": " The floating layer of tooltip space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom. Examples: \n\n    // Set padding to be 5\n    padding: 5\n    // Set the top and bottom paddings to be 5, and left and right paddings to be 10\n    padding: [5, 10]\n    // Set each of the four paddings seperately\n    padding: [\n        5,  // up\n        10, // right\n        5,  // down\n        10, // left\n    ]\n    \n\n",
+        "desc": "<ExampleUIControlVector min=\"0\" dims=\"T,R,B,L\"  />\n\nThe floating layer of tooltip space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
         "uiControl": {
+            "default": "5",
             "type": "vector",
-            "min": "0",
-            "dims": "T,R,B,L",
-            "default": "0"
+            "dims": "T,R,B,L"
         }
     },
     "tooltip.textStyle": {
-        "desc": " The text syle of tooltip's floating layer. ",
+        "desc": "The text syle of tooltip's floating layer.",
         "uiControl": {
             "type": "Object"
         }
     },
     "tooltip.textStyle.color": {
-        "desc": " text color. ",
+        "desc": "text color.",
         "uiControl": {
-            "type": "color",
-            "default": "'#fff'"
+            "default": "'#fff'",
+            "type": "color"
         }
     },
     "tooltip.textStyle.fontStyle": {
-        "desc": " font style. Options are: \n\n* 'normal'\n* 'italic'\n* 'oblique'\n\n",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','italic','oblique'"
         }
     },
     "tooltip.textStyle.fontWeight": {
-        "desc": " font thick weight. Options are: \n\n* 'normal'\n* 'bold'\n* 'bolder'\n* 'lighter'\n* 100 | 200 | 300 | 400...\n\n",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
         "uiControl": {
+            "default": "'normal'",
             "type": "enum",
             "options": "'normal','bold','bolder','lighter'"
         }
     },
     "tooltip.textStyle.fontFamily": {
-        "desc": " font family. Can also be 'serif' , 'monospace', ... ",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
         "uiControl": {
+            "default": "'sans-serif'",
             "type": "enum",
             "options": "'sans-serif','serif','monospace','Arial','Courier New'"
         }
     },
     "tooltip.textStyle.fontSize": {
-        "desc": " font size. ",
+        "desc": "font size.",
         "uiControl": {
-            "type": "number",
             "default": "14",
+            "type": "number",
             "min": "1",
             "step": "1"
         }
     },
     "tooltip.textStyle.lineHeight": {
-        "desc": " Line height of the text fragment. If lineHeight is not set in rich, lineHeight in parent level will be used. For example: \n\n    {\n        lineHeight: 56,\n        rich: {\n            a: {\n                // `lineHeight` is not set, then it will be 56\n            }\n        }\n    }\n    \n\n",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "uiControl": {
+            "default": "12",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "12"
+            "step": "1"
         }
     },
     "tooltip.textStyle.width": {
-        "desc": " Width of text block. ",
+        "desc": "Width of text block.",
         "uiControl": {
-            "type": "number",
             "default": "100",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "tooltip.textStyle.height": {
-        "desc": " Height of text block. ",
+        "desc": "Height of text block.",
         "uiControl": {
-            "type": "number",
             "default": "50",
+            "type": "number",
             "min": "1",
             "max": "500",
             "step": "1"
         }
     },
     "tooltip.textStyle.textBorderColor": {
-        "desc": " Storke color of the text. ",
+        "desc": "Storke color of the text.",
         "uiControl": {
             "type": "color"
         }
     },
     "tooltip.textStyle.textBorderWidth": {
-        "desc": " Storke line width of the text. ",
+        "desc": "Storke line width of the text.",
         "uiControl": {
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "tooltip.textStyle.textBorderType": {
-        "desc": " Stroke line type of the text. Possible values are: \n\n* 'solid'\n* 'dashed'\n* 'dotted'\n\nSince v5.0.0, it can also be a number or a number array to specify the [dash array][0] of the line. With textBorderDashOffset , we can make the line style more flexible. For example： \n\n    {\n    \n    textBorderType: [5, 10],\n    \n    textBorderDashOffset: 5\n    }\n    \n\n\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "uiControl": {
+            "default": "'solid'",
             "type": "enum",
             "options": "'solid','dashed','dotted'"
         }
     },
     "tooltip.textStyle.textBorderDashOffset": {
-        "desc": ">  Since > v5.0.0 To set the line dash offset. With textBorderType , we can make the line style more flexible. Refer to MDN [lineDashOffset][0] for more details.\n\n[0]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "1",
-            "default": "0"
+            "step": "1"
         }
     },
     "tooltip.textStyle.textShadowColor": {
-        "desc": " Shadow color of the text itself. ",
+        "desc": "Shadow color of the text itself.",
         "uiControl": {
-            "type": "color",
-            "default": "'#000'"
+            "default": "'transparent'",
+            "type": "color"
         }
     },
     "tooltip.textStyle.textShadowBlur": {
-        "desc": " Shadow blue of the text itself. ",
+        "desc": "Shadow blue of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "min": "0",
-            "step": "0.5",
-            "default": "0"
+            "step": "0.5"
         }
     },
     "tooltip.textStyle.textShadowOffsetX": {
-        "desc": " Shadow X offset of the text itself. ",
+        "desc": "Shadow X offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.textStyle.textShadowOffsetY": {
-        "desc": " Shadow Y offset of the text itself. ",
+        "desc": "Shadow Y offset of the text itself.",
         "uiControl": {
+            "default": "0",
             "type": "number",
             "step": "0.5"
         }
     },
     "tooltip.textStyle.overflow": {
-        "desc": " Determine how to display the text when it's overflow. Available when width is set. \n\n* 'truncate' Truncate the text and trailing with ellipsis.\n* 'break' Break by word\n* 'breakAll' Break by character.\n\n",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
         "uiControl": {
+            "default": "'none'",
             "type": "enum",
             "options": "'truncate','break','breakAll'"
         }
     },
     "tooltip.textStyle.ellipsis": {
-        "desc": " Ellipsis to be displayed when overflow is set to truncate. ",
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
         "uiControl": {
             "default": "'...'",
             "type": "string"
         }
     },
     "tooltip.textStyle.lineOverflow": {
-        "desc": " Determine how to display the text when it's overflow on height. \n\n* 'truncate' Truncate the overflow lines.\n\n",
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
         "uiControl": {
             "default": "'none'",
             "type": "string"
         }
     },
     "tooltip.extraCssText": {
-        "desc": " Extra CSS style for floating layer. The following is an example for adding shadow. \n\n    extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n    \n\n",
+        "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```js\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
         "uiControl": {
             "type": "text"
         }
