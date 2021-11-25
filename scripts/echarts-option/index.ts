@@ -3,7 +3,6 @@
  */
 
 import axios from 'axios';
-import * as process from 'process';
 import * as fs from 'fs';
 import * as path from 'path';
 import Engine from './engine';
@@ -135,25 +134,33 @@ async function main() {
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
         const engine = new Engine();
+        const env = process.argv.length > 2 && process.argv.slice(-1)[0] !== 'production' ? 'test' : 'production';
 
         // 编译所有模板
-        for (const name of partials) {
-            const text = await getOption('partial/' + name, lang);
-            engine.parseSource(text);
-        }
-
-        for (const name of components) {
-            const text = await getOption('component/' + name, lang);
-            engine.parseSource(text);
-        }
-
-        for (const name of series) {
-            const text = await getOption('series/' + name, lang);
-            engine.parseSource(text);
-        }
-
-        const text = await getOption('option', lang);
-        engine.parseSource(text);
+        await Promise.all([
+            (async function() {
+                for (const name of partials) {
+                    const text = await getOption('partial/' + name, lang, env);
+                    engine.parseSource(text);
+                }
+            })(),
+            (async function() {
+                for (const name of components) {
+                    const text = await getOption('component/' + name, lang, env);
+                    engine.parseSource(text);
+                }
+            })(),
+            (async function() {
+                for (const name of series) {
+                    const text = await getOption('series/' + name, lang, env);
+                    engine.parseSource(text);
+                }
+            })(),
+            (async function() {
+                const text = await getOption('option', lang, env);
+                engine.parseSource(text);
+            })(),
+        ]);
 
         // 获取所有选项
         const targetNames = Object.keys(engine.targets);
@@ -225,28 +232,40 @@ async function main() {
 }
 
 /** 从 echarts-doc 项目中获取原始资源 */
-async function getOption(name: string, lang: string) : Promise<string> {
+async function getOption(name: string, lang: string, env = 'production') : Promise<string> {
     // eslint-disable-next-line no-console
     console.log(`GET /${lang}/option/${name}.md`);
+    const address = `https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`;
     try {
-        const res = await axios.get(`https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`);
-        if (res.status === 200) {
-            return res.data;
+        if (env === 'production') {
+            const res = await axios.get(address);
+            if (res.status === 200) {
+                try {
+                    fs.writeFile(path.resolve(__dirname, `./source/${lang}/${name}.md`), res.data, () => {});
+                } catch (e) {
+                    // eslint-disable-next-line no-console
+                    console.log("Can't save resource file:", path.resolve(__dirname, `./source/${lang}/${name}.md`));
+                }
+                return res.data;
+            } else {
+                return '';
+            }
         } else {
-            return '';
+            return fs.readFileSync(path.resolve(__dirname, `./source/${lang}/${name}.md`), { encoding: 'utf8' });
         }
     } catch (e) {
         // eslint-disable-next-line no-console
-        console.log("Can't connect to github, the real address is " + `https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`);
+        console.log("Can't connect to github, the real address is " + address);
         process.exit(1);
     }
 }
 
 /** 保存文件到资源文件夹 */
 function saveFile(name: string, lang: string, data: string) {
-    // eslint-disable-next-line no-console
-    console.log(`Saved file(${lang}): ${name}.json`);
-    fs.writeFileSync(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), data);
+    fs.writeFile(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), data, () => {
+        // eslint-disable-next-line no-console
+        console.log(`Saved file(${lang}): ${name}.json`);
+    });
 }
 
 /**
