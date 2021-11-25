@@ -431,6 +431,7 @@ export class TargetCommand implements Command {
     public type: string = 'target';
     public children: Array<Command | TextNode> = [];
     public engine: Engine;
+    private cache: {[name:string]: string} = {};
 
     constructor(value: string, engine: Engine) {
         const match = /\b([\w-]*)/.exec(value);
@@ -481,7 +482,13 @@ export class TargetCommand implements Command {
     }
 
     public getRendererBody(vars: Vars): string {
-        return this.children.map(child => child.getRendererBody(vars)).join('');
+        const key = JSON.stringify(vars);
+        if (this.cache[key]) {
+            return this.cache[key];
+        }
+        const value = this.children.map(child => child.getRendererBody(vars)).join('');
+        this.cache[key] = value;
+        return value;
     }
 }
 
