@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.3 (2021-11-25)
+
+文档资源来源从官网爬取，改为从 https://github.com/apache/echarts-doc 获取
+
 ## 1.3.2 (2021-11-2)
 
 ### Fixed
