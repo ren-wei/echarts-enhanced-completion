@@ -1,48 +1,48 @@
 # echarts-enhanced-completion
 
-[English document](https://github.com/ren-wei/echarts-enhanced-completion/blob/master/README.md) | [中文文档](https://github.com/ren-wei/echarts-enhanced-completion/blob/master/README_cn.md)
+[English document](./README_en.md)
 
-This is an extension of `vscode` that is used to prompt completion when editing the options of `echarts`.
+这是一个用于编辑 `echarts` 的配置项时进行补全提示的 `vscode` 的扩展。
 
 ## Installed extensions
 
-Search for `echarts-enhanced-completion` in the `vscode` extension, and then click to install.
+在 `vscode` 扩展中搜索 `echarts-enhanced-completion`，然后点击安装即可。
 
 ## Getting Started
 
-After install and enable the extension, add a comment on the previous line of the object you need to use as the option of `echarts`: `/** @type EChartsOption */`. It is used to define an object as echarts option object. Now, when you press the `Enter` key in the echarts option object, the extension will display a list of the option you may need, and there is a detailed description of the option in the prompt.
+安装并启用插件后，在你需要用作 `echarts` 配置项的对象的上一行添加一行注释： `/** @type EChartsOption */`，用于定义该对象为配置项对象。现在，在配置项对象中按下 `Enter` 键时，插件会显示你可能需要的配置项的列表，并且提示中有对该配置项的详细说明。
 
 ## Snapshots
 
-![CompletionItems](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/CompletionItems.gif)
+![自动补全](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/CompletionItems_cn.gif)
 
-![hover](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Hover.gif)
+![hover显示说明](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Hover_cn.gif)
 
-![Init](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init.gif)
+![快速初始化](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init_cn.gif)
 
 ## Features
 
-* Trigger completion prompt after `Enter`.
+* `Enter` 后触发补全提示
 
-* The completion prompt has a detailed description consistent with the official website for each option.
+* 补全提示对每一个候选项都有与官网一致的详细说明
 
-* Support multiple option objects in a single file.
+* 支持单文件中多个配置项对象
 
-* `hover` attribute display description.
+* `hover` 属性显示说明
 
-* Support configurable initialization options.
+* 支持可配置的初始化选项
 
 ## Todo
 
-* Support checking attribute values.
+* 支持检查属性值
 
 ## Requirements
 
-* Supported file types: `html`, `javascript`, `typescript`, `vue`.
+* 支持的文件类型：`html`、`javascript`、`typescript` 和 `vue`。
 
-* Correct indentation is required in the option object. Because the end mark is judged based on indentation.
+* 配置项对象中需要正确的缩进。因为结束标志是根据缩进来判断的。
 
-* There must be no syntax errors in the option object. Because the extension needs to parse the option object when it works.
+* 配置项对象中不能存在语法错误。因为插件工作时需要对配置项对象进行解析。
 
 ## Extension Settings
 
@@ -50,7 +50,7 @@ After install and enable the extension, add a comment on the previous line of th
 "echarts-enhanced-completion.language": {
     "type": "string",
     "default": "auto",
-    "description": "Language setting.",
+    "description": "语言设置",
     "enum": [
         "auto",
         "English",
@@ -60,22 +60,22 @@ After install and enable the extension, add a comment on the previous line of th
 "echarts-enhanced-completion.init.enabled": {
     "type": "boolean",
     "default": true,
-    "description": "Additional example options are displayed when completion is triggered in an empty options object."
+    "description": "空的配置对象中触发补全时显示额外的示例选项"
 },
 "echarts-enhanced-completion.init.onlyInit": {
     "type": "boolean",
     "default": false,
-    "description": "Only display the initialization example option during initialization."
+    "description": "初始化时只显示初始化示例选项"
 },
 "echarts-enhanced-completion.init.showPictures": {
     "type": "boolean",
     "default": true,
-    "description": "Preview image at the top showing sample options."
+    "description": "显示示例选项的顶部的预览图片"
 }
 
 ```
-![Setting](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting.png)
+![设置](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting.png)
 
 ## Issues
 
-If you encounter any problem in use, you can create a [Issues](https://github.com/ren-wei/echarts-enhanced-completion/issues) and we will solve it for you as soon as possible.
+如果您在使用过程中遇到问题，您可以创建一个 [Issues](https://github.com/ren-wei/echarts-enhanced-completion/issues) ，我们会尽快为您解决。
