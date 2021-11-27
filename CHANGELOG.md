@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.4 (2021-11-28)
+
+### Fixed
+
+- 修复多次插入删除后没有出现提示的问题
+
 ## 1.3.3 (2021-11-25)
 
 文档资源来源从官网爬取，改为从 https://github.com/apache/echarts-doc 获取
