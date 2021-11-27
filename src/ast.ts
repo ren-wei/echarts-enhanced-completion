@@ -221,11 +221,14 @@ export class AstItem {
         this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
 
         // 调整 expression
-        const [parentNode, key] = this.getUpdateNode(contentChange);
+        const [parentNode, key, index] = this.getUpdateNode(contentChange);
         if (!key) {
             this.expression = this.parse(this.range) || this.expression;
         } else {
-            const node = parentNode[key] as AstNode;
+            let node = parentNode[key] as AstNode | AstNode[];
+            if (Array.isArray(node)) {
+                node = (node as AstNode[])[index];
+            }
             const range = new vscode.Range(
                 this.positionAt(node.start),
                 this.positionAt(node.end - contentChange.rangeLength + contentChange.text.length),
@@ -235,41 +238,45 @@ export class AstItem {
             // 替换节点
             const newNode = this.parse(range) as AstNode;
             this.translate(newNode, 0, node.start);
-            (parentNode[key] as AstNode) = newNode;
+            if (Array.isArray(parentNode[key])) {
+                (parentNode[key] as AstNode[])[index] = newNode;
+            } else {
+                (parentNode[key] as AstNode) = newNode;
+            }
         }
         return true;
     }
 
     /** 获取更新范围内的最小对象或数组节点 */
-    private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null] {
+    private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null, number] {
         const keyList: Key[] = espree.VisitorKeys[node.type];
         for (let i = 0; i < keyList.length; i++) {
             const key = keyList[i];
             if (Array.isArray(node[key])) {
                 for (let j = 0; j < (node[key] as AstNode[]).length; j++) {
                     if (this.isNodeContainRange((node[key] as AstNode[])[j], contentChange.range)) {
-                        const [targetNode, targetKey] = this.getUpdateNode(contentChange, (node[key] as AstNode[])[j]);
+                        const [targetNode, targetKey, targetJ] = this.getUpdateNode(contentChange, (node[key] as AstNode[])[j]);
                         if (targetKey) {
-                            return [targetNode, targetKey];
+                            return [targetNode, targetKey, targetJ];
                         } else if (['ObjectExpression', 'ArrayExpression'].includes((node[key] as AstNode[])[j].type)) {
-                            return [node, key];
+                            return [node, key, j];
                         } else {
-                            return [targetNode, null];
+                            return [targetNode, null, -1];
                         }
                     }
                 }
             } else if (node[key] && typeof node[key] === 'object' && this.isNodeContainRange(node[key] as AstNode, contentChange.range)) {
-                const [targetNode, targetKey] = this.getUpdateNode(contentChange, node[key] as AstNode);
+                const [targetNode, targetKey, targetJ] = this.getUpdateNode(contentChange, node[key] as AstNode);
                 if (targetKey) {
-                    return [targetNode, targetKey];
+                    return [targetNode, targetKey, targetJ];
                 } else if (['ObjectExpression', 'ArrayExpression'].includes((node[key] as AstNode).type)) {
-                    return [node, key];
+                    return [node, key, -1];
                 } else {
-                    return [targetNode, null];
+                    return [targetNode, null, -1];
                 }
             }
         }
-        return [node, null];
+        return [node, null, -1];
     }
 
     private init(): void {
