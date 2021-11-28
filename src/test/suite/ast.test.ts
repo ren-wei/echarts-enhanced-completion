@@ -194,4 +194,53 @@ suite('Ast class Test Suite', () => {
         const expected = new Ast('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
+
+    test('先输入 Enter 换行，再删除至原样应该保持一致', async() => {
+        let text = [
+            '',
+            '    xAxis: {',
+            "        type: 'category',",
+            "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
+            '    },',
+            '    yAxis: {',
+            "        type: 'value',",
+            '    },',
+            '    series: [',
+            '        {',
+            '            data: [150, 230, 224, 218, 135, 147, 260],',
+            "            type: 'line',",
+            '        },',
+            '    ],',
+            '',
+        ].join('\n');
+        const actual = new Ast('/** @type EChartsOption */', document);
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        // 模拟输入 Enter 换行
+        position = new vscode.Position(13, 25);
+        text = '\n            ';
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        // 删除至原样
+        await textEditor.edit((editBuilder) => {
+            editBuilder.delete(new vscode.Range(position, new vscode.Position(14, 12)));
+        });
+        actual.patch([{
+            range: new vscode.Range(13, 25, 14, 12),
+            rangeOffset: 331,
+            rangeLength: 14,
+            text,
+        }]);
+
+        const expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected);
+    });
+
+    test('输入后出现语法错误，然后删除至原样应该保持一致');
 });
