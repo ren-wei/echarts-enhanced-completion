@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.5 (2021-11-29)
+
+- 修复出现语法错误后程序崩溃的问题
+
 ## 1.3.4 (2021-11-28)
 
 ### Fixed
