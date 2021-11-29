@@ -61,10 +61,10 @@ export default class Options {
         if (!this.node || !this.astItem) return null;
         if (this.node.type === 'Identifier') {
             this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
-            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name].desc));
+            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name as string].desc));
         } else if (this.node.type === 'Property') {
             this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
-            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.key.name].desc));
+            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.key?.name as string].desc));
         }
         return null;
     }
@@ -73,7 +73,7 @@ export default class Options {
     private filterOptions(descObject: DescMsgObject, node: AstNode): string[] {
         let hasKey: string[] = [];
         if (node.type === 'ObjectExpression') {
-            hasKey = node.properties.map(v => v.key.name);
+            hasKey = node.properties?.map(v => v.key?.name) as string[];
         }
         return Object.keys(descObject).filter(key => {
             return !hasKey.some(str => key === str);

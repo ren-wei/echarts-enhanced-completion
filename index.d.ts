@@ -1,13 +1,13 @@
 interface AstNode {
     type: string;
-    name: string;
+    name?: string;
     start: number;
     end: number;
-    properties: [AstNode];
-    elements: [AstNode];
-    key: AstNode;
-    value: AstNode;
-    raw: string;
+    properties?: [AstNode];
+    elements?: [AstNode];
+    key?: AstNode;
+    value?: AstNode;
+    raw?: string;
 }
 
 type Key = 'type' | 'start' | 'end' | 'properties' | 'elements' | 'key' | 'value';

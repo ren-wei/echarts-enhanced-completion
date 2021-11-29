@@ -218,10 +218,11 @@ suite('Ast class Test Suite', () => {
             editBuilder.insert(position, text);
         });
         actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        const oldText = document.getText();
 
         // 模拟输入 Enter 换行
-        position = new vscode.Position(13, 25);
         text = '\n            ';
+        position = new vscode.Position(13, 25);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
@@ -229,18 +230,77 @@ suite('Ast class Test Suite', () => {
 
         // 删除至原样
         await textEditor.edit((editBuilder) => {
-            editBuilder.delete(new vscode.Range(position, new vscode.Position(14, 12)));
+            editBuilder.delete(new vscode.Range(13, 25, 14, 12));
         });
         actual.patch([{
             range: new vscode.Range(13, 25, 14, 12),
-            rangeOffset: 331,
             rangeLength: 14,
-            text,
+            rangeOffset: 331,
+            text: '',
         }]);
+
+        assert.strictEqual(document.getText(), oldText);
 
         const expected = new Ast('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
-    test('输入后出现语法错误，然后删除至原样应该保持一致');
+    test('输入后出现错误的结束行，然后删除至原样应该保持一致', async() => {
+        let text = [
+            '',
+            '    xAxis: {',
+            "        type: 'category',",
+            "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
+            '    },',
+            '    yAxis: {',
+            "        type: 'value',",
+            '    },',
+            '    series: [',
+            '        {',
+            '            data: [150, 230, 224, 218, 135, 147, 260],',
+            "            type: 'line',",
+            "            id: '',",
+            '        },',
+            '    ],',
+            '',
+        ].join('\n');
+        const actual = new Ast('/** @type EChartsOption */', document);
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        // 在 id: '' 中的冒号之间输入 Enter 换行
+        position = new vscode.Position(14, 17);
+        text = '\n            ';
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        // 删除空格
+        await textEditor.edit((editBuilder) => {
+            editBuilder.delete(new vscode.Range(15, 0, 15, 12));
+        });
+        actual.patch([{
+            range: new vscode.Range(15, 0, 15, 12),
+            rangeLength: 12,
+            rangeOffset: 352,
+            text: '',
+        }]);
+
+        // 删除换行
+        await textEditor.edit((editBuilder) => {
+            editBuilder.delete(new vscode.Range(14, 17, 15, 0));
+        });
+        actual.patch([{
+            range: new vscode.Range(14, 17, 15, 0),
+            rangeLength: 2,
+            rangeOffset: 350,
+            text: '',
+        }]);
+
+        const expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected);
+    });
 });

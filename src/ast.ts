@@ -128,7 +128,7 @@ export class AstItem {
     }
 
     public get isEmpty(): boolean {
-        return !this.expression?.properties.length;
+        return !this.expression?.properties?.length;
     }
 
     /** 根据位置获取最小节点，并记录获取路径 */
@@ -142,7 +142,7 @@ export class AstItem {
                     const targetNode = (node[key] as Array<AstNode>)[i];
                     switch (targetNode.type) {
                         case 'Property':
-                            paths.push(targetNode.key.name);
+                            paths.push(targetNode?.key?.name as string);
                             return this.getAstNode(index, targetNode, paths);
                         case 'ObjectExpression':
                             paths.push(this.toSimpleObject(targetNode));
@@ -165,13 +165,13 @@ export class AstItem {
             switch (node.type) {
                 case 'Property':
                     if (typeof path === 'string') {
-                        node = node.value.properties.find(item => item.key.name === path) as AstNode;
+                        node = node.value?.properties?.find(item => item.key?.name === path) as AstNode;
                     } else {
-                        node = node.value.elements.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as AstNode;
+                        node = node.value?.elements?.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as AstNode;
                     }
                     break;
                 case 'ObjectExpression':
-                    node = node.properties.find(item => item.key.name === path) as AstNode;
+                    node = node.properties?.find(item => item.key?.name === path) as AstNode;
                     break;
             }
         });
@@ -197,7 +197,7 @@ export class AstItem {
         }
         // 目标不存在时，尝试初始化
         if (!this.expression) {
-            if (contentChange.range.start.line === this.startRow + 1) {
+            if (contentChange.range.start.line === this.startRow + 1 || this.startRow !== this.endRow) {
                 this.init();
             }
             return true;
@@ -250,6 +250,7 @@ export class AstItem {
     /** 获取更新范围内的最小对象或数组节点 */
     private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null, number] {
         const keyList: Key[] = espree.VisitorKeys[node.type];
+        if (!keyList) return [node, null, -1];
         for (let i = 0; i < keyList.length; i++) {
             const key = keyList[i];
             if (Array.isArray(node[key])) {
@@ -283,30 +284,36 @@ export class AstItem {
         const startLine = this.startRow + 1;
         const startIndex = this.document.lineAt(startLine).text.indexOf('{');
         if (startIndex !== -1) {
-            // 不考虑目标在同一行的情况，将其视为不存在
-            const start = new vscode.Position(startLine, startIndex);
-            const startRowSpaceCount = this.document.lineAt(startLine).firstNonWhitespaceCharacterIndex;
-            let flag = true; // 是否找到结束行，没找到为true
+            // 使用括号匹配找出结束位置
+            let count = 1; // 需要匹配的左大括号数量，归零时为结束位置
             for (let line = startLine + 1; line < this.document.lineCount; line++) {
                 const textLine = this.document.lineAt(line);
-                if (!textLine.isEmptyOrWhitespace && textLine.firstNonWhitespaceCharacterIndex <= startRowSpaceCount) {
-                    // 运行到这里，则当前行应为结束行
-                    const index = textLine.text.indexOf('}');
-                    if (index !== -1) {
-                        this.range = new vscode.Range(start, new vscode.Position(line, index + 1));
-                        this.startRow = start.line - 1;
-                        this.endRow = line;
-                        flag = false;
+                // 匹配括号并且忽略引号中的括号
+                const ignoreList: [start: number, end: number][] = [];
+                let match: RegExpExecArray | null;
+                let reg = /('(?:[^']|(?:\'))*')|("(?:[^"]|(?:\"))*")|(`(?:[^`]|(?:\`))*`)/g;
+                while ((match = reg.exec(textLine.text))) {
+                    ignoreList.push([match.index, match.index + match[0].length]);
+                }
+                reg = /[{}]/g;
+                while ((match = reg.exec(textLine.text))) {
+                    // 不在引号中
+                    if (ignoreList.every(([start, end]) => match && (match.index < start || match.index > end))) {
+                        if (match[0] === '{') {
+                            count++;
+                        } else {
+                            count--;
+                            if (!count) {
+                                // 找到结束位置
+                                this.range = new vscode.Range(startLine, startIndex, line, match.index + 1);
+                                this.endRow = line;
+                                this.expression = this.parse();
+                                return;
+                            }
+                        }
                     }
-                    break;
                 }
             }
-            if (flag) {
-                this.range = this.document.lineAt(startLine - 1).range;
-                this.startRow = startLine - 1;
-                this.endRow = startLine;
-            }
-            this.expression = this.parse();
         }
     }
 
@@ -319,7 +326,11 @@ export class AstItem {
                 this.translate(expression, 0, -1);
                 return expression;
             } catch (e) {
-                return null;
+                return {
+                    type: 'ErrorExpression',
+                    start: 0,
+                    end: targetText.length - 2,
+                };
             }
         }
         return null;
@@ -331,12 +342,14 @@ export class AstItem {
         if (node.start >= limit) node.start += offset;
         if (node.end >= limit) node.end += offset;
         const keyList: Key[] = espree.VisitorKeys[node.type];
-        for (let i = 0; i < keyList.length; i++) {
-            const key = keyList[i];
-            if (Array.isArray(node[key])) {
-                (node[key] as AstNode[]).forEach(v => this.translate(v, limit, offset));
-            } else if (typeof node[key] === 'object') {
-                this.translate(node[key] as AstNode, limit, offset);
+        if (keyList) {
+            for (let i = 0; i < keyList.length; i++) {
+                const key = keyList[i];
+                if (Array.isArray(node[key])) {
+                    (node[key] as AstNode[]).forEach(v => this.translate(v, limit, offset));
+                } else if (typeof node[key] === 'object') {
+                    this.translate(node[key] as AstNode, limit, offset);
+                }
             }
         }
     }
@@ -365,14 +378,14 @@ export class AstItem {
         const item: SimpleObject = {};
         switch (node.type) {
             case 'ObjectExpression':
-                node.properties.forEach((property) => {
-                    if (property.value.raw) {
-                        item[property.key.name] = property.value.raw;
+                node.properties?.forEach((property) => {
+                    if (property.value?.raw) {
+                        item[property.key?.name as string] = property.value.raw;
                     }
                 });
                 break;
             case 'Property':
-                return this.toSimpleObject(node.value);
+                return this.toSimpleObject(node.value as AstNode);
         }
         return item;
     }
