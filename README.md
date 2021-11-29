@@ -79,3 +79,7 @@
 ## Issues
 
 如果您在使用过程中遇到问题，您可以创建一个 [Issues](https://github.com/ren-wei/echarts-enhanced-completion/issues) ，我们会尽快为您解决。
+
+## About
+
+文档来源：[echarts-doc](https://github.com/apache/echarts-doc)

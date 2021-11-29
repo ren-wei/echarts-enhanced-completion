@@ -77,3 +77,7 @@ After install and enable the extension, add a comment on the previous line of th
 ## Issues
 
 If you encounter any problem in use, you can create a [Issues](https://github.com/ren-wei/echarts-enhanced-completion/issues) and we will solve it for you as soon as possible.
+
+## About
+
+Document source: [echarts-doc](https://github.com/apache/echarts-doc)
