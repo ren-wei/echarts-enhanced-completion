@@ -205,7 +205,7 @@ export class AstItem {
         // 如果是 Enter 触发补全，那么只需要调整范围
         if (!contentChange.rangeLength && /^\r?\n[ \t]+$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
             this.translate(this.expression, contentChange.rangeOffset - this.document.offsetAt(this.range.start), contentChange.text.length);
-            this.range = new vscode.Range(this.range.start, this.document.positionAt(this.document.offsetAt(this.range.end) + contentChange.text.replace(/\r\n/g, '\n').length));
+            this.range = new vscode.Range(this.range.start, this.document.positionAt(this.document.offsetAt(this.range.end) + contentChange.text.length));
             this.endRow = this.range.end.line;
             return true;
         }
@@ -330,6 +330,7 @@ export class AstItem {
                     type: 'ErrorExpression',
                     start: 0,
                     end: targetText.length - 2,
+                    raw: targetText,
                 };
             }
         }
