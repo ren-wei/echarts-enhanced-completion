@@ -217,7 +217,7 @@ export class AstItem {
 
         // 修改位置在内部
         // 调整范围
-        this.endRow += contentChange.range.start.line - contentChange.range.end.line + contentChange.text.replace(/\r\n/g, '\n').split('\n').length - 1;
+        this.endRow += contentChange.range.start.line - contentChange.range.end.line + contentChange.text.split('\n').length - 1;
         this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
 
         // 调整 expression
