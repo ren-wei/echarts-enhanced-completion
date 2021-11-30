@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.6 (2021-11-30)
+
+### Fixed
+
+- 修复偶发失效问题
+
+- 修复初始化预览图片尺寸过大的问题
+
+- 修复自定义类型系列没有提示的问题
+
 ## 1.3.5 (2021-11-29)
 
 - 修复出现语法错误后程序崩溃的问题
