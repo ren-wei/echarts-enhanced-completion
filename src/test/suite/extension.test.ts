@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as assert from 'assert';
 
 import { start, updateDiagnostics, collection, provideCompletionItems, provideHover } from '../../extension';
-import { getFileData, getFileArrayData, inputText } from './utils';
+import { getFileData, getFileArrayData, inputText, findTree } from './utils';
 
 start();
 
@@ -60,19 +60,18 @@ suite('Extension Completion Base Test Suite', () => {
     });
 
     test('空对象应该根据设置返回所有初始化选项和所有顶级选项', async() => {
-        await vscode.workspace.getConfiguration().update('echarts-enhanced-completion.language', '中文', true);
         position = await inputText(['\n', ''], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         const indexDescMsg = getFileData('index');
         const init = getFileArrayData();
         const initEnabled = vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.enabled');
         if (initEnabled) {
-            assert.strictEqual(result.length, Object.keys(indexDescMsg).length + init.length);
+            assert.strictEqual(result.length, indexDescMsg.length + init.length);
         } else {
-            assert.strictEqual(result.length, Object.keys(indexDescMsg).length);
+            assert.strictEqual(result.length, indexDescMsg.length);
         }
-        Object.entries(indexDescMsg).forEach(([key, descMsg]) => {
-            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+        indexDescMsg.forEach(descMsg => {
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === descMsg.name);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString)?.value || '', descMsg.desc);
         });
@@ -83,7 +82,6 @@ suite('Extension Completion Base Test Suite', () => {
                 assert.strictEqual((target.label as vscode.CompletionItemLabel).description, item.title);
             });
         }
-        await vscode.workspace.getConfiguration().update('echarts-enhanced-completion.language', 'auto', true);
     });
 
     test('对应层级的选项应该只包含对应的所有选项', async() => {
@@ -101,10 +99,10 @@ suite('Extension Completion Base Test Suite', () => {
         const angleAxisDescMsg = getFileData('angleAxis');
         assert.strictEqual(result.length, 5);
         ['show', 'symbol', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
-            const descMsg = angleAxisDescMsg[`axisLine.${key}`];
+            const descMsg = findTree(angleAxisDescMsg, `axisLine.${key}`);
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
-            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
+            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg?.desc);
         });
     });
 
@@ -125,10 +123,10 @@ suite('Extension Completion Base Test Suite', () => {
         assert.strictEqual(result.length, 4);
         assert.ok(!result.find(v => (v.label as vscode.CompletionItemLabel).label === 'symbol'));
         ['show', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
-            const descMsg = angleAxisDescMsg[`axisLine.${key}`];
+            const descMsg = findTree(angleAxisDescMsg, `axisLine.${key}`);
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
-            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
+            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg?.desc);
         });
     });
 
@@ -152,10 +150,10 @@ suite('Extension Completion Base Test Suite', () => {
         const angleAxisDescMsg = getFileData('angleAxis');
         assert.strictEqual(result.length, 5);
         ['show', 'symbol', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
-            const descMsg = angleAxisDescMsg[`axisLine.${key}`];
+            const descMsg = findTree(angleAxisDescMsg, `axisLine.${key}`);
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
-            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
+            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg?.desc);
         });
 
         await init();
@@ -177,10 +175,10 @@ suite('Extension Completion Base Test Suite', () => {
         result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
         assert.strictEqual(result.length, 5);
         ['show', 'symbol', 'symbolSize', 'symbolOffset', 'lineStyle'].forEach(key => {
-            const descMsg = angleAxisDescMsg[`axisLine.${key}`];
+            const descMsg = findTree(angleAxisDescMsg, `axisLine.${key}`);
             const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
             assert.ok(target);
-            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
+            assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg?.desc);
         });
     });
 
@@ -328,7 +326,7 @@ suite('Extension Completion Base Test Suite', () => {
         const angleAxisDescMsg = getFileData('angleAxis');
         const target = result[0];
         assert.strictEqual((target.label as vscode.CompletionItemLabel).label, 'color');
-        assert.strictEqual((target.documentation as vscode.MarkdownString).value, angleAxisDescMsg['axisLabel.rich.<style_name>.color'].desc);
+        assert.strictEqual((target.documentation as vscode.MarkdownString).value, findTree(angleAxisDescMsg, 'axisLabel.rich.<style_name>.color').desc);
         assert.strictEqual((target.insertText as vscode.SnippetString).value, 'color: "#fff",');
     });
 });
@@ -367,7 +365,7 @@ suite('Extension Hover Base Test Suite', () => {
         const indexDescMsg = getFileData('index');
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(indexDescMsg, 'angleAxis').desc);
     });
 
     test('次级选项应该显示提示', async() => {
@@ -385,7 +383,7 @@ suite('Extension Hover Base Test Suite', () => {
         const angleAxisDescMsg = getFileData('angleAxis');
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, angleAxisDescMsg.axisLine.desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(angleAxisDescMsg, 'axisLine').desc);
     });
 
     test('指向第一个字符应该显示提示', async() => {
@@ -403,7 +401,7 @@ suite('Extension Hover Base Test Suite', () => {
         const indexDescMsg = getFileData('index');
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(indexDescMsg, 'angleAxis').desc);
     });
 
     test('指向最后一个字符应该显示提示', async() => {
@@ -421,7 +419,7 @@ suite('Extension Hover Base Test Suite', () => {
         const indexDescMsg = getFileData('index');
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(indexDescMsg, 'angleAxis').desc);
     });
 
     test('多个被标记的对象中的每一个都应该能够Hover显示提示', async() => {
@@ -444,7 +442,7 @@ suite('Extension Hover Base Test Suite', () => {
         const indexDescMsg = getFileData('index');
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(indexDescMsg, 'angleAxis').desc);
 
         await init();
         position = await inputText([[
@@ -464,7 +462,7 @@ suite('Extension Hover Base Test Suite', () => {
         result = await provideHover(document, position);
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, indexDescMsg.angleAxis.desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(indexDescMsg, 'angleAxis').desc);
     });
 
     test('命名属性中的属性应该能够Hover显示提示', async() => {
@@ -486,6 +484,6 @@ suite('Extension Hover Base Test Suite', () => {
         const angleAxisDescMsg = getFileData('angleAxis');
         assert.ok(result);
         assert.strictEqual(result.contents.length, 1);
-        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, angleAxisDescMsg['axisLabel.rich.<style_name>.color'].desc);
+        assert.strictEqual((result.contents[0] as vscode.MarkdownString).value, findTree(angleAxisDescMsg, 'axisLabel.rich.<style_name>.color').desc);
     });
 });

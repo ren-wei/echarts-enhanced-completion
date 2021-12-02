@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as assert from 'assert';
 
 import { provideCompletionItems, updateDiagnostics, collection } from '../../extension';
-import { getFileData, inputText } from './utils';
+import { getFileData, inputText, findTree } from './utils';
 
 suite('Extension Completion Series Option Test Suite', async() => {
     let document: vscode.TextDocument;
@@ -43,9 +43,9 @@ suite('Extension Completion Series Option Test Suite', async() => {
             '    ]',
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
-        assert.strictEqual(result.length, Object.keys(seriesDescMsg).length);
-        Object.entries(seriesDescMsg).forEach(([key, descMsg]) => {
-            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+        assert.strictEqual(result.length, seriesDescMsg.length);
+        seriesDescMsg.forEach(descMsg => {
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === descMsg.name);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
         });
@@ -61,11 +61,11 @@ suite('Extension Completion Series Option Test Suite', async() => {
             '    ]',
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
-        assert.strictEqual(result.length, Object.keys(seriesDescMsg).length);
-        Object.entries(seriesDescMsg).forEach(([key, descMsg]) => {
-            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+        assert.strictEqual(result.length, seriesDescMsg.length);
+        seriesDescMsg.forEach(descMsg => {
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === descMsg.name);
             assert.ok(target);
-            assert.strictEqual((target.insertText as vscode.SnippetString).value, `{\n\ttype: ${(descMsg.uiControl as UiControl).required![0].value},\n},`);
+            assert.strictEqual((target.insertText as vscode.SnippetString).value, `{\n\ttype: ${descMsg.required![0].value},\n},`);
         });
     });
 
@@ -82,15 +82,10 @@ suite('Extension Completion Series Option Test Suite', async() => {
             '    ]',
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
-        const seriesLineDescMsg: DescMsgObject = {};
-        Object.entries(getFileData('series-line')).forEach(([key, item]) => {
-            if (!key.includes('.')) {
-                seriesLineDescMsg[key] = item;
-            }
-        });
-        assert.strictEqual(result.length, Object.keys(seriesLineDescMsg).length - 1);
-        Object.entries(seriesLineDescMsg).filter(item => item[0] !== 'type').forEach(([key, descMsg]) => {
-            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+        const seriesLineDescMsg = getFileData('series.line');
+        assert.strictEqual(result.length, seriesLineDescMsg.length - 1);
+        seriesLineDescMsg.filter(item => item.name !== 'type').forEach(descMsg => {
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === descMsg.name);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
         });
@@ -109,12 +104,12 @@ suite('Extension Completion Series Option Test Suite', async() => {
             '    ]',
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
-        assert.strictEqual(result.length, Object.keys(seriesDescMsg).length);
-        Object.entries(seriesDescMsg).forEach(([key, descMsg]) => {
-            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+        assert.strictEqual(result.length, seriesDescMsg.length);
+        seriesDescMsg.forEach(descMsg => {
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === descMsg.name);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
-            assert.strictEqual((target.insertText as vscode.SnippetString).value, `{\n\ttype: ${(descMsg.uiControl as UiControl).required![0].value},\n},`);
+            assert.strictEqual((target.insertText as vscode.SnippetString).value, `{\n\ttype: ${descMsg.required![0].value},\n},`);
         });
     });
 
@@ -129,15 +124,10 @@ suite('Extension Completion Series Option Test Suite', async() => {
             '    }',
         ].join('\n')], textEditor, position);
         const result = await provideCompletionItems(document, position) as vscode.CompletionItem[];
-        const seriesLineDescMsg: DescMsgObject = {};
-        Object.entries(getFileData('series-line')).forEach(([key, item]) => {
-            if (!key.includes('.')) {
-                seriesLineDescMsg[key] = item;
-            }
-        });
-        assert.strictEqual(result.length, Object.keys(seriesLineDescMsg).length - 1);
-        Object.entries(seriesLineDescMsg).filter(item => item[0] !== 'type').forEach(([key, descMsg]) => {
-            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === key);
+        const seriesLineDescMsg = getFileData('series.line');
+        assert.strictEqual(result.length, seriesLineDescMsg.length - 1);
+        seriesLineDescMsg.filter(item => item.name !== 'type').forEach(descMsg => {
+            const target = result.find(v => (v.label as vscode.CompletionItemLabel).label === descMsg.name);
             assert.ok(target);
             assert.strictEqual((target.documentation as vscode.MarkdownString).value, descMsg.desc);
         });

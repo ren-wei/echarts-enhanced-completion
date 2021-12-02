@@ -14,40 +14,25 @@ type Key = 'type' | 'start' | 'end' | 'properties' | 'elements' | 'key' | 'value
 
 type Paths = Array<string | SimpleObject>;
 
-interface TypeMsg {
-    type: string;
-    isObject: boolean;
-    isArray: boolean;
-    prop: string;
-    default: string;
-    children?: TypeMsg[];
-}
-
 interface RequiredRule {
     key: string;
     value: string;
-    valueRegExp: string; 
+    valueRegExp: string;
 }
 
-interface UiControl {
-    type: string | string[];
-    default?: string;
-    options?: string;
-    min?: string;
-    max?: string;
-    step?: string;
-    dims?: string;
-    required?: Array<RequiredRule>;
-    detailFileName?: string;
-}
-
-interface DescMsg {
-    desc: string;
-    uiControl?: UiControl;
-}
-
-interface DescMsgObject {
-    [propName: string]: DescMsg;
+interface Tree {
+    name: string; // 属性名称
+    type: string | string[]; // 值类型
+    desc: string; // 属性的 Markdown 文档
+    default?: string; // 默认值
+    options?: string; // 可选项
+    min?: string; // 允许的最小值
+    max?: string; // 允许的最大值
+    step?: string; // 有效的步进
+    dims?: string; // 向量类型的格式
+    required?: Array<RequiredRule>; // 对值的限制
+    children?: Tree[]; // 子节点
+    detailFileName?: string; // 子属性所在的文件名
 }
 
 interface PathMsg {

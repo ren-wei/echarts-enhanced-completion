@@ -1,312 +1,452 @@
-{
-    "title": {
+[
+    {
+        "name": "title",
+        "type": "Object",
         "desc": "Title component, including main title and subtitle.\n\nIn ECharts 2.x, a single instance of ECharts could contains one title component at most. However, in ECharts 3, there could be one or more than one title components. It is more useful when multiple diagrams in one instance all need titles.\n\n**Here are some instances of different animation easing functions, among which every instance has a title component: **\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=line-easing&edit=1&reset=1)",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "title"
-        }
+        "detailFileName": "title"
     },
-    "legend": {
+    {
+        "name": "legend",
+        "type": "Object",
         "desc": "Legend component.\n\nLegend component shows symbol, color and name of different series. You can click legends to toggle displaying series in the chart.\n\nIn ECharts 3, a single echarts instance may contain multiple legend components, which makes it easier for the layout of multiple legend components.\n\nIf there have to be too many legend items, [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1) are options to paginate them. Check [legend.type](~legend.type) please.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "legend"
-        }
+        "detailFileName": "legend"
     },
-    "grid": {
+    {
+        "name": "grid",
+        "type": "Object",
         "desc": "Drawing grid in rectangular coordinate. In a single grid, at most two X and Y axes each is allowed. [Line chart](~series-line), [bar chart](~series-bar), and [scatter chart (bubble chart)](~series-scatter) can be drawn in grid.\n\nIn ECharts 2.x, there could only be one single grid component at most in a single echarts instance. But in ECharts 3, there is no limitation.\n\n**Following is an example of Anscombe Quartet:**\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=scatter-anscombe-quartet&edit=1&reset=1)",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "grid"
-        }
+        "detailFileName": "grid"
     },
-    "xAxis": {
+    {
+        "name": "xAxis",
+        "type": "Object",
         "desc": "The x axis in cartesian(rectangular) coordinate. Usually a single grid component can place at most 2 x axis, one on the bottom and another on the top. [offset](~xAxis.offset) can be used to avoid overlap when you need to put more than two x axis.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "xAxis"
-        }
+        "detailFileName": "xAxis"
     },
-    "yAxis": {
+    {
+        "name": "yAxis",
+        "type": "Object",
         "desc": "The y axis in cartesian(rectangular) coordinate. Usually a single grid component can place at most 2 y axis, one on the left and another on the right. [offset](~yAxis.offset) can be used to avoid overlap when you need to put more than two y axis.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "yAxis"
-        }
+        "detailFileName": "yAxis"
     },
-    "polar": {
+    {
+        "name": "polar",
+        "type": "Object",
         "desc": "Polar coordinate can be used in scatter and line chart. Every polar coordinate has an [angleAxis](~angleAxis) and a [radiusAxis](~radiusAxis).\n\n**For example: **\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=scatter-polar-punchCard&edit=1&reset=1)",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "polar"
-        }
+        "detailFileName": "polar"
     },
-    "radiusAxis": {
+    {
+        "name": "radiusAxis",
+        "type": "Object",
         "desc": "Radial axis of polar coordinate.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "radiusAxis"
-        }
+        "detailFileName": "radiusAxis"
     },
-    "angleAxis": {
+    {
+        "name": "angleAxis",
+        "type": "Object",
         "desc": "The angle axis in Polar Coordinate.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "angleAxis"
-        }
+        "detailFileName": "angleAxis"
     },
-    "radar": {
+    {
+        "name": "radar",
+        "type": "Object",
         "desc": "Coordinate for [radar charts](~series-radar). This component is equal to the polar component in ECharts 2. Because the polar component in the echarts 3 is reconstructed to be the standard polar coordinate component, this component is renamed to be radar to avoid confusion.\n\nRadar chart coordinate is different from polar coordinate, in that every axis indicator of the radar chart coordinate is an individual dimension. The style of indicator coordinate axis could be configured through the following configuration items, including [name](~radar.name), [axisLine](~radar.axisLine), [axisTick](~radar.axisTick), [axisLabel](~radar.axisLabel), [splitLine](~radar.splitLine), [splitArea](~radar.splitArea).\n\n\nHere is a custom example of radar component.\n\n~[400x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/radar&edit=1&reset=1)",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "radar"
-        }
+        "detailFileName": "radar"
     },
-    "dataZoom": {
+    {
+        "name": "dataZoom",
+        "type": [
+            "Array",
+            "Object"
+        ],
         "desc": "`dataZoom` component is used for zooming a specific area, which enables user to investigate data in detail, or get an overview of the data, or get rid of outlier points.\n\nThese types of `dataZoom` component are supported:\n\n+ [dataZoomInside](~dataZoom-inside): Data zoom functionalities is embeded inside coordinate systems, enable user to zoom or roam coordinate system by mouse dragging, mouse move or finger touch (in touch screen).\n\n+ [dataZoomSlider](~dataZoom-slider): A special slider bar is provided, on which coordinate systems can be zoomed or roamed by mouse dragging or finger touch (in touch screen).\n\n+ [dataZoomSelect](~toolbox.feature.dataZoom): A marquee tool is provided for zooming or roaming coordinate system. That is [toolbox.feature.dataZoom](~toolbox.feature.dataZoom), which can only be configured in toolbox.\n\n\nExample:\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/scatter-dataZoom-all&edit=1&reset=1)\n\n<br>\n\n---\n\n\n**✦ Relationship between dataZoom and axis ✦**\n\nBasically `dataZoom` component operates \"window\" on axis to zoom or roam coordinate system.\n\n> Use [dataZoom.xAxisIndex](~dataZoom.xAxisIndex) or [dataZoom.yAxisIndex](~dataZoom.yAxisIndex) or [dataZoom.radiusAxisIndex](~dataZoom.radiusAxisIndex) or [dataZoom.angleAxisIndex](~dataZoom.angleAxisIndex) to specify which axes are operated by `dataZoom`.\n\nA single chart instance can contain several `dataZoom` components, each of which controls different axes. The `dataZoom` components that control the same axis will be automatically linked (i.e., all of them will be updated when one of them is updated by user action or API call).\n\n<br>\n\n---\n\n\n**✦ How dataZoom componets operates axes and data ✦**\n\n\n\nGenerally `dataZoom` component zoom or roam coordinate system through data filtering and set the windows of axes internally.\n\nIts behaviours vary according to filtering mode settings ([dataZoom.filterMode](~dataZoom.filterMode)).\n\nPossible values:\n\n+ 'filter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered if one of the relevant dimensions is out of the window.\n\n+ 'weakFilter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered only if all of the relevant dimensions are out of the same side of the window.\n\n+ 'empty': data that outside the window will be **set to NaN**, which will not lead to changes of windows of other axes.\n\n+ 'none': Do not filter data.\n\nHow to set `filterMode` is up to users, depending on the requirments and scenarios. Expirically:\n\n+ If only `xAxis` or only `yAxis` is controlled by `dataZoom`, `filterMode: 'filter'` is typically used, which enable the other axis auto adapte its window to the extent of the filtered data.\n\n+ If both `xAxis` and `yAxis` are operated by `dataZoom`:\n\n+ If `xAxis` and `yAxis` should not effect mutually (e.g. a scatter chart with both axes on the type of `'value'`), they should be set to be `filterMode: 'empty'`.\n\n+ If `xAxis` is the main axis and `yAxis` is the auxiliary axis (or vise versa) (e.g., in a bar chart, when dragging `dataZoomX` to change the window of xAxis, we need the yAxis to adapt to the clipped data, but when dragging `dataZoomY` to change the window of yAxis, we need the xAxis not to be changed), in this case, `xAxis` should be set to be `fiterMode: 'filter'`, while `yAxis` should be set to be `fiterMode: 'empty'`.\n\nIt can be demonstrated by the sample:\n\n```javascript\noption = {\ndataZoom: [\n{\nid: 'dataZoomX',\ntype: 'slider',\nxAxisIndex: [0],\nfilterMode: 'filter'\n},\n{\nid: 'dataZoomY',\ntype: 'slider',\nyAxisIndex: [0],\nfilterMode: 'empty'\n}\n],\nxAxis: {type: 'value'},\nyAxis: {type: 'value'},\nseries{\ntype: 'bar',\ndata: [\n// The first column corresponds to xAxis,\n// and the second coloum corresponds to yAxis.\n[12, 24, 36],\n[90, 80, 70],\n[3, 9, 27],\n[1, 11, 111]\n]\n}\n}\n```\n\nIn the sample above, `dataZoomX` is set as `filterMode: 'filter'`. When use drags `dataZoomX` (do not touch `dataZoomY`) and the valueWindow of `xAxis` is changed to `[2, 50]` consequently, `dataZoomX` travel the first column of series.data and filter items that out of the window. The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n// [90, 80, 70] This item is filtered, as 90 is out of the window.\n[3, 9, 27]\n// [1, 11, 111] This item is filtered, as 1 is out of the window.\n]\n```\n\nBefore filtering, the second column, which corresponds to yAxis, has values `24`, `80`, `9`, `11`. After filtering, only `24` and `9` are left. Then the extent of `yAxis` is adjusted to adapt the two values (if `yAxis.min` and `yAxis.max` are not set).\n\nSo `filterMode: 'filter'` can be used to enable the other axis to auto adapt the filtered data.\n\nThen let's review the sample from the beginning, `dataZoomY` is set as `filterMode: 'empty'`. So if user drags `dataZoomY` (do not touch `dataZoomX`) and its window is changed to `[10, 60]` consequently, `dataZoomY` travels the second column of series.data and set NaN to all of the values that outside the window (NaN cause the graphical elements, i.e., bar elements, do not show, but still hold the place). The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n[90, NaN, 70], // Set to NaN\n[3, NaN, 27],  // Set to NaN\n[1, 11, 111]\n]\n```\n\nIn this case, the first column (i.e., `12`, `90`, `3`, `1`, which corresponds to `xAxis`), will not be changed at all. So dragging `yAxis` will not change extent of `xAxis`, which is good for requirements like outlier filtering.\n\nSee this example:\n~[600x400](doc-example/bar-dataZoom-filterMode&edit=1&reset=1)\n\n\n\nMoreover, when `min`, `max` of an axis is set (e.g., `yAxis: {min: 0, max: 400}`), this extent of the axis will not be modified by the behaviour of dataZoom of other axis any more.\n\n<br>\n\n---\n\n**✦ How to set window ✦**\n\nYou can set the current window in two forms:\n\n+ percent value: see [dataZoom.start](~dataZoom.start) and [dataZoom.end](~dataZoom.end).\n\n+ absolute value: see [dataZoom.startValue](~dataZoom.startValue) and [dataZoom.endValue](~dataZoom.endValue).\n\nNotice: If use percent value form, and it is in the scenario below, the result of dataZoom depends on the sequence of dataZoom definitions appearing in `option`.\n\n\n```javascript\noption = {\ndataZoom: [\n{\nid: 'dataZoomX',\ntype: 'slider',\nxAxisIndex: [0],\nfilterMode: 'filter',   // Set as 'filter' so that the modification\n// of window of xAxis willl effect the\n// window of yAxis.\nstart: 30,\nend: 70\n},\n{\nid: 'dataZoomY',\ntype: 'slider',\nyAxisIndex: [0],\nfilterMode: 'empty',\nstart: 20,\nend: 80\n}\n],\nxAxis: {\ntype: 'value'\n},\nyAxis: {\ntype: 'value'\n// Notice there is no min or max set to\n// restrict the view extent of yAxis.\n},\nseries{\ntype: 'bar',\ndata: [\n// The first column corresponds to xAxis,\n// and the second column corresponds to yAxis.\n[12, 24, 36],\n[90, 80, 70],\n[3, 9, 27],\n[1, 11, 111]\n]\n}\n}\n```\n\nWhat is the exact meaning of `start: 20, end: 80` in `dataZoomY` in the example above?\n\n+ If `yAxis.min` and `yAxis.max` are set:\n\n`start: 20, end: 80` of `dataZoomY` means: from `20%` to `80%` out of `[yAxis.min, yAxis.max]`.\n\nIf one of `yAxis.min` and `yAxis.max` is not set, the corresponding edge of the full extend also follow rule as follows.\n\n+ If `yAxis.min` and `yAxis.max` are not set:\n\n+ If `dataZoomX` is set to be `filterMode: 'empty'`:\n\n`start: 20, end: 80` of `dataZoomY` means: from `20%` to `80%` out of `[dataMinY to dataMaxY]` of series.data (i.e., `[9, 80]` in the example above).\n\n+ If `dataZoomX` is set to `filterMode: 'filter'`:\n\nSince `dataZoomX` is defined before `dataZoomY`, `start: 30, end: 70` of `dataZoomX` means: from `30%` to `70%` out of full series.data, whereas `start: 20, end: 80` of `dataZoomY` means: from `20%` to `80%` out of the series.data having been filtered by `dataZoomX`.\n\nIf you want to change the process sequence, you can just change the sequence of the definitions apearing in `option`.\n\n<br>\n<br>",
-        "uiControl": {
-            "type": [
-                "Array",
-                "Object"
-            ],
-            "detailFileName": "dataZoom"
-        }
+        "detailFileName": "dataZoom"
     },
-    "visualMap": {
+    {
+        "name": "visualMap",
+        "type": [
+            "Array",
+            "Object"
+        ],
         "desc": "`visualMap` is a type of component for visual encoding, which maps the data to visual channels, including:\n\n\n\n+ `symbol`: Type of symbol.\n+ `symbolSize`: Symbol size.\n+ `color`: Symbol color.\n+ `colorAlpha`: Symbol alpha channel.\n+ `opacity`: Opacity of symbol and others (like labels).\n+ `colorLightness`: Lightness in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n+ `colorSaturation`: Saturation in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n+ `colorHue`: Hue in [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV).\n\n\n\nMyltiple `visualMap` component could be defined in a chart instance, which enable that different dimensions of a series data are mapped to different visual channels.\n\n`visualMap` could be defined as [Piecewise (visualMapPiecewise)](~visualMap-piecewise) or [Continuous (visualMapContinuous)](~visualMap-continuous), which is distinguished by the property `type`. For instance:\n\n```javascript\noption = {\nvisualMap: [\n{ // the first visualMap component\ntype: 'continuous', // defined to be continuous visualMap\n...\n},\n{ // the second visualMap component\ntype: 'piecewise', // defined to be piecewise visualMap\n...\n}\n],\n...\n};\n```\n\n<br>\n**✦ Configure mapping ✦**\n\nThe dimension of [series.data](~series.data) can be specified by [visualMap.dimension](~visualMap.dimension), from which the value can be retrieved and mapped onto visual channels, which can be defined in [visualMap.inRange](~visualMap.inRange) and [visualMap.outOfRange](~visualMap.outOfRange).\n\n<br>\nIn series that controlled by visualMap, if a data item needs to escape from controlled by visualMap, you can set like this:\n```\nseries: {\ntype: '...',\ndata: [\n{name: 'Shanghai', value: 251},\n{name: 'Haikou', value: 21},\n// Mark as `visualMap: false`, then this item does not controlled by visualMap any more,\n// and series visual config (like color, symbol, ...) can be used to this item.\n{name: 'Beijing', value: 821, },\n...\n]\n}\n```\n\n\n<br>\n**✦ The relationship between visualMap of ECharts3 and dataRange of ECharts2 ✦**\n\n`visualMap` is renamed from the `dataRange` of ECharts2, and the scope of functionalities are extended a lot. The configurations of `dataRange` are still compatible in ECharts3, which automatically convert them to `visualMap`. It is recommended to use `visualMap` instead of `dataRange` in ECharts3.\n\n<br>\n**✦ The detailed configurations of visualMap are elaborated as follows. ✦**\n\n<br>\n<br>",
-        "uiControl": {
-            "type": [
-                "Array",
-                "Object"
-            ],
-            "detailFileName": "visualMap"
-        }
+        "detailFileName": "visualMap"
     },
-    "tooltip": {
+    {
+        "name": "tooltip",
+        "type": "Object",
         "desc": "Tooltip component.\n\n---\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](~tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](~grid.tooltip), [polar.tooltip](~polar.tooltip), [single.tooltip](~single.tooltip)\n\n+ Configured in a series: [series.tooltip](~series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](~series.data.tooltip)\n\n\n---",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "tooltip"
-        }
+        "detailFileName": "tooltip"
     },
-    "axisPointer": {
+    {
+        "name": "axisPointer",
+        "type": "Object",
         "desc": "This is the global configurations of axisPointer.\n\n\n---\n\n\n\n`axisPointer` is a tool for displaying reference line and axis value under mouse pointer.\n\nFor example:\n~[600x450](doc-example/candlestick-axisPointer&edit=1&reset=1)\n\nIn the demo above, [axisPointer.link](~axisPointer.link) is used to link axisPointer from different coordinate systems.\n\n\n`axisPointer` can also be used on touch device, where user can drag the button to move the reference line and label.\n\n~[600x400](line-tooltip-touch&edit=1&reset=1)\n\nIn the cases that more than one axis exist, axisPointer helps to look inside the data.\n\n~[600x300](multiple-y-axis&edit=1&reset=1)\n~[600x300](multiple-x-axis&edit=1&reset=1)\n\n\n---\n\n> **Notice:**\n> Generally, axisPointers is configured in each axes who need them (for example [xAxis.axisPointer](~xAxis.axisPointer)), or configured in `tooltip` (for example [tooltip.axisPointer](~tooltip.axisPointer)).\n\n> But these configurations can only be configured in global axisPointer:\n[axisPointer.triggerOn](~axisPointer.triggerOn), [axisPointer.link](~axisPointer.link).\n\n---\n\n\n\n---\n\n**How to display axisPointer:**\n\nIn [cartesian (grid)](~grid) and [polar](~polar) and (single axis](~single), each axis has its own axisPointer.\n\nThose axisPointer will not be displayed by default, utill configured as follows:\n\n+ Set `someAxis.axisPointer.show` (like [xAxis.axisPointer.show](~xAxis.axisPointer.show)) as `true`. Then axisPointer of this axis will be displayed.\n\n+ Set [tooltip.trigger](~tooltip.trigger) as `'axis'`, or set [tooltip.axisPointer.type](~tooltip.axisPointer.type) as `'cross'`. Then coordinate system will automatically chose the axes who will display their axisPointers. ([tooltip.axisPointer.axis](~tooltip.axisPointer.axis) can be used to change the choice.) Notice, `axis.axisPointer` will override `tooltip.axisPointer` settings.\n\n---\n\n**How to display the label of axisPointer:**\n\nThe label of axisPointer will not be displayed by default(namely, only reference line will be displayed by default), utill configured as follows:\n\n+ Set `someAxis.axisPointer.label.show` (for example [xAxis.axisPointer.label.show](~xAxis.axisPointer.show)) as `true`. Then the label of the axisPointer will be displayed.\n\n+ Set [tooltip.axisPointer.type](~tooltip.axisPointer.type) as  `'cross'`. Then the label of the crossed axisPointers will be displayed.\n\n---\n\n**How to configure axisPointer on touch device:**\n\nSet `someAxis.axisPointer.handle.show` (for example [xAxis.axisPointer.handle.show](~xAxis.axisPointer.handle.show) as `true`. Then the button for dragging will be displayed. (This feature is not supported on polar).\n\n**Notice:**\nIf tooltip does not work well in this case, try to set[tooltip.triggerOn](~tooltip.triggerOn) as `'none'` (for the effect: show tooltip when finger holding on the button, and hide tooltip after finger left the button), or set [tooltip.alwaysShowContent](~tooltip.alwaysShowContent) as `true` (then tooltip will always be displayed).\n\nSee the [example](line-tooltip-touch&edit=1&reset=1).\n\n\n---\n\n**Snap to point**\n\nIn value axis and time axis, if [snap](~xAxis.axisPointer.snap) is set as true, axisPointer will snap to point automatically.\n\n---\n\n\n\n\n\n---",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "axisPointer"
-        }
+        "detailFileName": "axisPointer"
     },
-    "toolbox": {
+    {
+        "name": "toolbox",
+        "type": "Object",
         "desc": "A group of utility tools, which includes [export](~toolbox.feature.saveAsImage), [data view](~toolbox.feature.dataView), [dynamic type switching](~toolbox.feature.magicType), [data area zooming](~toolbox.feature.dataZoom), and [reset](~toolbox.feature.reset).\n\n**Example: **\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=line-marker&reset=1&edit=1)",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "toolbox"
-        }
+        "detailFileName": "toolbox"
     },
-    "brush": {
+    {
+        "name": "brush",
+        "type": "Object",
         "desc": "`brush` is an area-selecting component, with which user can select part of data from a chart to display in detail, or do calculations with them.\n\n<br>\n\n---\n\n**Brush type and triggering button**\n\nCurrently, supported `brush` types include: `scatter`, `bar`, `candlestick`. (Note that `parallel` contains brush function by itself, which is not provided by brush component.)\n\nClick the button in `toolbox` to enable operations like *area selecting*, or *canceling selecting*.\n\n<br>\nExample of `horizontal brush`: (Click the button in `toolbox` to enable brushing.)\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=candlestick-brush&edit=1&reset=1)\n\n<br>\nExample of `brush` in `bar` charts:\n~[800x400](https://echarts.apache.org/examples/en/view.html?c=bar-brush&edit=1&reset=1)\n\n\nButton for `brush` can be assigned in [`toolbox`](~toolbox.feature.brush.type) or [`brush` configuration](~brush.toolbox).\n\nThe following types of brushes are supported: `rect`, `polygon`, `lineX`, `lineY`. See [brush.toolbox](~brush.toolbox) for more information.\n\n`keep` button can be used to toggle a single or multiple selections.\n\n+ Only one select box is available in single selection mode, and the select-box can be removed by clicking on the blank area.\n+ Multiple select boxes are available in multiple selection mode, and the select-boxes cannot be removed by click on the blank area. Instead, you need to click the *clear* button.\n\n<br>\n\n---\n\n**Relationship between brush-selecting and coordinates**\n\n\n\n`brush` can be set to be *global*, or *belonging to a particular coordinate*.\n\n**Global brushes**\n\nSelecting is enabled for everywhere in ECharts's instance in this case. This is the default situation, when brush is not set to be global.\n\n**Coordinate brushes**\n\nSelecting is enabled only in the assigned coordinates in this case. Selecting-box will be altered according to scaling and translating of coordinate (see `roam` and `dataZoom`).\n\nIn practice, you may often find coordinate brush to be a more frequently made choice, particularly in `geo` charts.\n\nBy assigning [brush.geoIndex](~brush.geoIndex), or [brush.xAxisIndex](~brush.xAxisIndex), or [brush.yAxisIndex](~brush.yAxisIndex), brush selecting axes can be assigned, whose value can be:\n\n+ `'all'`: for all axes;\n+ `number`: like `0`, for a particular coordinate with that index;\n+ `Array`: like `[0, 4, 2]`, for coordinates with those indexes;\n+ `'none'`, or `null`, or `undefined`: for not assigning.\n\nExample:\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // brush selecting is enabled only in all geo charts above\n...\n}\n};\n```\n\nExample:\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0 for grid 1\n{gridIndex: 0, ...}  // xAxis 1 for grid 0\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0 for grid 1\n{gridIndex: 0, ...}  // yAxis 1 for grid 0\n],\nbrush: {\nxAxisIndex: [0, 1], // brush selecting is enabled only in coordinates with xAxisIndex as `0` or `1`\n...\n}\n};\n```\n\n\n\n\n\n<br>\n\n---\n\n**Control select-box with API**\n\n`dispatchAction` can be used to render select-box programatically. For example:\n\n```javascript\nmyChart.dispatchAction({\ntype: 'brush',\nareas: [\n{\ngeoIndex: 0,\n// Assign select-box type\nbrushType: 'polygon',\n// Assign select-box shape\ncoordRange: [[119.72,34.85],[119.68,34.85],[119.5,34.84],[119.19,34.77]]\n}\n]\n});\n```\nPlease refer to [action.brush](api.html#action.brush) for more information.\n\n<br>\n\n---\n\n**brushLink**\n\n\n\nLinks interaction between selected items in different series.\n\nFollowing is an example of enabling selected effect for `scatter` and `parallel` charts once a scatter chart is selected.\n\n`brushLink` is an array of `seriesIndex`es, which assignes the series that can be interacted. For example, it can be:\n\n+ `[3, 4, 5]` for interacting series with seriesIndex as `3`, `4`, or `5`;\n+ `'all'` for interacting all series;\n+ `'none'`, or `null`, or `undefined` for disabling `brushLink`.\n\n**Attention**\n\n`brushLink` is a mapping of `dataIndex`. So **`data` of every series with `brushLink` should be guaranteed to correspond to the other**.\n\nExample:\n```javascript\noption = {\nbrush: {\nbrushLink: [0, 1]\n},\nseries: [\n{\ntype: 'bar'\ndata: [232,    4434,    545,      654]     // data has 4 items\n},\n{\ntype: 'parallel',\ndata: [[4, 5], [3, 5], [66, 33], [99, 66]] // data also has 4 items, which correspond to the data above\n}\n]\n};\n```\n\n\n\n\n\nPlease refer to [brush.brushLink](~brush.brushLink).\n\n\n\n<br>\n\n---\n\n**throttle / debounce**\n\n\n\nBy default, `brushSelected` is always triggered when selection-box is selected or moved, to tell the outside about the event.\n\nBut efficiency problems may occur when events are triggered too frequently, or the animation result may be affected. So brush components provides [brush.throttleType](~brush.throttleType) and [brush.throttleDelay](~brush.throttleDelay) to solve this problem.\n\nValid `throttleType` values can be:\n+ `'debounce'`: for triggering events only when the action has been stopped (no action after some duration). Time threshold can be assigned with [brush.throttleDelay](~brush.throttleDelay);\n+ `'fixRate'`: for triggering event with a certain frequency. The frequency can be assigned with [brush.throttleDelay](~brush.throttleDelay).\n\n\nIn this [example](scatter-map-brush&edit=1&reset=1), `debounce` is used to make sure the bar chart is updated only when the user has stopped action. In other cases, the animation result may not be so good.\n\n\n\n\n\n<br>\n\n---\n\n**Visual configurations of selected and unselected items**\n\nRefer to [brush.inBrush](~brush.inBrush) and [brush.outOfBrush](~brush.outOfBrush).\n\n\n<br>\n\n---\n\nHere is the configuration in detail.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "brush"
-        }
+        "detailFileName": "brush"
     },
-    "geo": {
+    {
+        "name": "geo",
+        "type": "Object",
         "desc": "Geographic coorinate system component.\n\nGeographic coorinate system component is used to draw maps, which also supports [scatter series](~series-scatter), and [line series](~series-lines).\n\n\nFrom `3.1.10`, geo component also supports mouse events, whose parameters are:\n\n```js\n{\ncomponentType: 'geo',\n// geo component's index in option\ngeoIndex: number,\n// name of clicking area, e.g., Shanghai\nname: string,\n// clicking region object as input, see geo.regions\nregion: Object\n}\n```\n\n**Tip:**\nThe region color can also be controlled by map series. See [series-map.geoIndex](~series-map.geoIndex).",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "geo"
-        }
+        "detailFileName": "geo"
     },
-    "parallel": {
+    {
+        "name": "parallel",
+        "type": "Object",
         "desc": "**Introduction about Parallel coordinates**\n\n[Parallel Coordinates](https://en.wikipedia.org/wiki/Parallel_coordinates) is a common way of visualizing high-dimensional geometry and analyzing multivariate data.\n\n\n\nFor example, [series-parallel.data](~series-parallel.data) is the following data:\n\n```javascript\n[\n[1,  55,  9,   56,  0.46,  18,  6,  'good'],\n[2,  25,  11,  21,  0.65,  34,  9,  'excellent'],\n[3,  56,  7,   63,  0.3,   14,  5,  'good'],\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n{ // Data item can also be an Object, so that perticular settings of its line can be set here.\nvalue: [5,  42,  24,  44,  0.76,  40,  16, 'excellent']\nlineStyle: {...},\n}\n...\n]\n```\nIn data above, each row is a \"data item\", and each column represents a \"dimension\". For example, the meanings of columns above are: \"data\", \"AQI\", \"PM2.5\", \"PM10\", \"carbon monoxide level\", \"nitrogen dioxide level\", and \"sulfur dioxide level\".\n\n\n\n\n\nParallel coordinates are often used to visualize multi-dimension data shown above. Each axis represents a dimension (namely, a column), and each line represents a data item. Data can be brush-selected on axes. For example:\n\n~[600x400](doc-example/parallel-all&edit=1&reset=1)\n\n\n**Brief about Configuration**\n\nBasic configuration parallel coordinates is shown as follow:\n\n```javascript\noption = {\nparallelAxis: [                     // Definitions of axes.\n{dim: 0, name: schema[0].text}, // Each axis has a 'dim' attribute, representing dimension index in data.\n{dim: 1, name: schema[1].text},\n{dim: 2, name: schema[2].text},\n{dim: 3, name: schema[3].text},\n{dim: 4, name: schema[4].text},\n{dim: 5, name: schema[5].text},\n{dim: 6, name: schema[6].text},\n{dim: 7, name: schema[7].text,\ntype: 'category',           // Also supports category data.\ndata: ['Excellent', 'good', 'light pollution', 'moderate pollution', 'heavy pollution', 'severe pollution']\n}\n],\nparallel: {                         // Definition of a parallel coordinate system.\nleft: '5%',                     // Location of parallel coordinate system.\nright: '13%',\nbottom: '10%',\ntop: '20%',\nparallelAxisDefault: {          // A pattern for axis definition, which can avoid repeating in `parallelAxis`.\ntype: 'value',\nnameLocation: 'end',\nnameGap: 20\n}\n},\nseries: [                           // Here the three series sharing the same parallel coordinate system.\n{\nname: 'Beijing',\ntype: 'parallel',           // The type of this series is 'parallel'\ndata: [\n[1,  55,  9,   56,  0.46,  18,  6,  'good'],\n[2,  25,  11,  21,  0.65,  34,  9,  'excellent'],\n...\n]\n},\n{\nname: 'Shanghai',\ntype: 'parallel',\ndata: [\n[3,  56,  7,   63,  0.3,   14,  5,  'good'],\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n...\n]\n},\n{\nname: 'Guangzhou',\ntype: 'parallel',\ndata: [\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n[5,  42,  24,  44,  0.76,  40,  16, 'excellent'],\n...\n]\n}\n]\n};\n```\n\nThree components are involved here: [parallel](~parallel), [parallelAxis](~parallelAxis), [series-parallel](~series-parallel)\n\n+ [parallel](~parallel)\n\nThis component is the coordinate system. One or more series (like \"Beijing\", \"Shanghai\", and \"Guangzhou\" in the above example) can share one coordinate system.\n\nLike other coordinate systems, multiple parallel coordinate systems can be created in one echarts instance.\n\nPosition setting is also carried out here.\n\n+ [parallelAxis](~parallelAxis)\n\nThis is axis configuration. Multiple axes are needed in parallel coordinates.\n\n[parallelAxis.parallelIndex](~parallelAxis.parallelIndex) is used to specify which coordinate system this axis belongs to. The first coordinate system is used by default.\n\n+ [series-parallel](~series-parallel)\n\nThis is the definition of parallel series, which will be drawn on parallel coordinate system.\n\n[parallelAxis.parallelIndex](~parallelAxis.parallelIndex) is used to specify which coordinate system this axis belongs to. The first coordinate system is used by default.\n\n**Notes and Best Practices**\n\n\n\nWhen configuring multiple [parallelAxis](~parallelAxis), there might be some common attributes in each axis configuration. To avoid writing them repeatly, they can be put under [parallel.parallelAxisDefault](~parallel.parallelAxisDefault). Before initializing axis, configurations in [parallel.parallelAxisDefault](~parallel.parallelAxisDefault) will be merged into [parallelAxis](~parallelAxis) to generate the final axis configuration.\n\n\n\n\n\n**If data is too large and cause bad performance**\n\nIt is suggested to set [series-parallel.lineStyle.width](~series-parallel.lineStyle.width) to be `0.5` (or less), which may improve performance significantly.\n\n**Display High-Dimension Data**\n\n\n\nWhen dimension number is extremely large, say, more than 50 dimensions, there will be more than 50 axes, which may hardly display in a page.\n\nIn this case, you may use [parallel.axisExpandable](~parallel.axisExpandable) to improve the display. See this example:\n\n~[600x460](map-parallel-prices&edit=1&reset=1)\n\n\n\n\n\n\n\n<br>\n<br>",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "parallel"
-        }
+        "detailFileName": "parallel"
     },
-    "parallelAxis": {
+    {
+        "name": "parallelAxis",
+        "type": "Object",
         "desc": "This component is the coordinate axis for parallel coordinate.\n\n\n\n**Introduction about Parallel coordinates**\n\n[Parallel Coordinates](https://en.wikipedia.org/wiki/Parallel_coordinates) is a common way of visualizing high-dimensional geometry and analyzing multivariate data.\n\n\n\nFor example, [series-parallel.data](~series-parallel.data) is the following data:\n\n```javascript\n[\n[1,  55,  9,   56,  0.46,  18,  6,  'good'],\n[2,  25,  11,  21,  0.65,  34,  9,  'excellent'],\n[3,  56,  7,   63,  0.3,   14,  5,  'good'],\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n{ // Data item can also be an Object, so that perticular settings of its line can be set here.\nvalue: [5,  42,  24,  44,  0.76,  40,  16, 'excellent']\nlineStyle: {...},\n}\n...\n]\n```\nIn data above, each row is a \"data item\", and each column represents a \"dimension\". For example, the meanings of columns above are: \"data\", \"AQI\", \"PM2.5\", \"PM10\", \"carbon monoxide level\", \"nitrogen dioxide level\", and \"sulfur dioxide level\".\n\n\n\n\n\nParallel coordinates are often used to visualize multi-dimension data shown above. Each axis represents a dimension (namely, a column), and each line represents a data item. Data can be brush-selected on axes. For example:\n\n~[600x400](doc-example/parallel-all&edit=1&reset=1)\n\n\n**Brief about Configuration**\n\nBasic configuration parallel coordinates is shown as follow:\n\n```javascript\noption = {\nparallelAxis: [                     // Definitions of axes.\n{dim: 0, name: schema[0].text}, // Each axis has a 'dim' attribute, representing dimension index in data.\n{dim: 1, name: schema[1].text},\n{dim: 2, name: schema[2].text},\n{dim: 3, name: schema[3].text},\n{dim: 4, name: schema[4].text},\n{dim: 5, name: schema[5].text},\n{dim: 6, name: schema[6].text},\n{dim: 7, name: schema[7].text,\ntype: 'category',           // Also supports category data.\ndata: ['Excellent', 'good', 'light pollution', 'moderate pollution', 'heavy pollution', 'severe pollution']\n}\n],\nparallel: {                         // Definition of a parallel coordinate system.\nleft: '5%',                     // Location of parallel coordinate system.\nright: '13%',\nbottom: '10%',\ntop: '20%',\nparallelAxisDefault: {          // A pattern for axis definition, which can avoid repeating in `parallelAxis`.\ntype: 'value',\nnameLocation: 'end',\nnameGap: 20\n}\n},\nseries: [                           // Here the three series sharing the same parallel coordinate system.\n{\nname: 'Beijing',\ntype: 'parallel',           // The type of this series is 'parallel'\ndata: [\n[1,  55,  9,   56,  0.46,  18,  6,  'good'],\n[2,  25,  11,  21,  0.65,  34,  9,  'excellent'],\n...\n]\n},\n{\nname: 'Shanghai',\ntype: 'parallel',\ndata: [\n[3,  56,  7,   63,  0.3,   14,  5,  'good'],\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n...\n]\n},\n{\nname: 'Guangzhou',\ntype: 'parallel',\ndata: [\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n[5,  42,  24,  44,  0.76,  40,  16, 'excellent'],\n...\n]\n}\n]\n};\n```\n\nThree components are involved here: [parallel](~parallel), [parallelAxis](~parallelAxis), [series-parallel](~series-parallel)\n\n+ [parallel](~parallel)\n\nThis component is the coordinate system. One or more series (like \"Beijing\", \"Shanghai\", and \"Guangzhou\" in the above example) can share one coordinate system.\n\nLike other coordinate systems, multiple parallel coordinate systems can be created in one echarts instance.\n\nPosition setting is also carried out here.\n\n+ [parallelAxis](~parallelAxis)\n\nThis is axis configuration. Multiple axes are needed in parallel coordinates.\n\n[parallelAxis.parallelIndex](~parallelAxis.parallelIndex) is used to specify which coordinate system this axis belongs to. The first coordinate system is used by default.\n\n+ [series-parallel](~series-parallel)\n\nThis is the definition of parallel series, which will be drawn on parallel coordinate system.\n\n[parallelAxis.parallelIndex](~parallelAxis.parallelIndex) is used to specify which coordinate system this axis belongs to. The first coordinate system is used by default.\n\n**Notes and Best Practices**\n\n\n\nWhen configuring multiple [parallelAxis](~parallelAxis), there might be some common attributes in each axis configuration. To avoid writing them repeatly, they can be put under [parallel.parallelAxisDefault](~parallel.parallelAxisDefault). Before initializing axis, configurations in [parallel.parallelAxisDefault](~parallel.parallelAxisDefault) will be merged into [parallelAxis](~parallelAxis) to generate the final axis configuration.\n\n\n\n\n\n**If data is too large and cause bad performance**\n\nIt is suggested to set [series-parallel.lineStyle.width](~series-parallel.lineStyle.width) to be `0.5` (or less), which may improve performance significantly.\n\n**Display High-Dimension Data**\n\n\n\nWhen dimension number is extremely large, say, more than 50 dimensions, there will be more than 50 axes, which may hardly display in a page.\n\nIn this case, you may use [parallel.axisExpandable](~parallel.axisExpandable) to improve the display. See this example:\n\n~[600x460](map-parallel-prices&edit=1&reset=1)\n\n\n\n\n\n\n\n<br>\n<br>",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "parallelAxis"
-        }
+        "detailFileName": "parallelAxis"
     },
-    "singleAxis": {
+    {
+        "name": "singleAxis",
+        "type": "Object",
         "desc": "An axis with a single dimension. It can be used to display data in one dimension. For example:\n\n~[700x500](https://echarts.apache.org/examples/en/view.html?c=scatter-single-axis&edit=1&reset=1)",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "singleAxis"
-        }
+        "detailFileName": "singleAxis"
     },
-    "timeline": {
+    {
+        "name": "timeline",
+        "type": "Object",
         "desc": "`timeline` component, which provides functions like switching and playing between multiple ECharts `options`.\n\nHere is an example:\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/mix-timeline-all&edit=1&reset=1)\n\nDifferent from other cases, `timeline` component requires multiple options. We call first the parameter of `setOption` as `ECOption`, and call the traditional single ECharts option as `ECUnitOption`.\n\n+ In the case that `timeline` and `media query` are not set, an `ECUnitOption` is an `ECOption`.\n+ In the case that `timeline` or `media query` are set, an `ECOption` is made up with several `ECUnitOption`s.\n+ The properties at the root of `ECOption` form an `ECUnitOption`, which is also called `baseOption`, representing the default settings.\n+ Each item of the array `options` form an `ECUnitOption`, which can be also called `switchableOption`, representing options for each time tick.\n+ `baseOption` and one `switchableOption` are used to calculate the `finalOption`, based on which the chart will be final rendered.\n\nFor example:\n\n```javascript\nmyChart.setOption({\n// This is the properties of `baseOption`.\ntimeline: {\n...,\n// each item in `timeline.data` corresponds to each\n// `option` in `options` array.\ndata: ['2002-01-01', '2003-01-01', '2004-01-01']\n},\ntitle: {\nsubtext: ' Data is from National Bureau of Statistics '\n},\ngrid: { ... },\nxAxis: [ ... ],\nyAxis: [ ... ],\nseries: [{\n// other configurations of series 1\ntype: 'bar',\n...\n}, {\n// other configurations of series 2\ntype: 'line',\n...\n}, {\n// other configurations of series 3\ntype: 'pie',\n...\n}],\n// `switchableOption`s:\noptions: [{\n// it is an option corresponding to '2002-01-01'\ntitle: {\ntext: 'the statistics of the year 2002'\n},\nseries: [\n{ data: [] }, // the data of series 1\n{ data: [] }, // the data of series 2\n{ data: [] }  // the data of series 3\n]\n}, {\n// it is an option corresponding to '2003-01-01'\ntitle: {\ntext: 'the statistics of the year 2003'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}, {\n// it is an option corresponding to '2004-01-01'\ntitle: {\ntext: 'the statistics of the year 2004'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}]\n});\n```\n\n<br>\n**How the `finalOption` calculated?**\n\n\n\nWhen initializing, a `switchableOption` corresponding to the current time tick are merged into `baseOption` to form the `finalOption`. Each time the current tick changed, the new `switchableOption` corresponding to the new time tick are merged into the `finalOption`.\n\nThere are two merging strategy.\n+ By default, use `NORMAL_MERGE`.\n+ If [timeline.replaceMerge](~option.html#timeline.replaceMerge) is set, use `REPLACE_MERGE`. See [setOption](~api.html#echartsInstance.setOption) for more details of `REPLACE_MERGE`.\n\n\n\n<br>\n**Compatibility with ECharts 4:**\n\nWe also support these equivalent setting styles:\n```js\noption = {\nbaseOption: {\ntimeline: {},\nseries: [],\n// ... other properties of baseOption.\n},\noptions: []\n};\n```",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "timeline"
-        }
+        "detailFileName": "timeline"
     },
-    "graphic": {
+    {
+        "name": "graphic",
+        "type": "*",
         "desc": "`graphic` component enables creating graphic elements in ECharts.\n\nThose graphic type are supported.\n\n\n\n[image](~graphic.elements-image),\n[text](~graphic.elements-text),\n[circle](~graphic.elements-circle),\n[sector](~graphic.elements-sector),\n[ring](~graphic.elements-ring),\n[polygon](~graphic.elements-polygon),\n[polyline](~graphic.elements-polyline),\n[rect](~graphic.elements-rect),\n[line](~graphic.elements-line),\n[bezierCurve](~graphic.elements-bezierCurve),\n[arc](~graphic.elements-arc),\n[group](~graphic.elements-group),\n\n\n\n\n\nThis example shows how to make a watermark and text block:\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=line-graphic&edit=1&reset=1)\n\nThis example use hidden graphic elements to implement dragging:\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=line-draggable&edit=1&reset=1)\n\n**Graphic Component Configuration**\n\nA simple way to define a graphic element:\n```javascript\nmyChart.setOption({\n...,\ngraphic: {\ntype: 'image',\n...\n}\n});\n```\n\nDefine multiple graphic elements:\n```javascript\nmyChart.setOption({\n...,\ngraphic: [\n{ // A 'image' element.\ntype: 'image',\n...\n},\n{ // A 'text' element, with id specified.\ntype: 'text',\nid: 'text1',\n...\n},\n{ // A 'group' element, in which children can be defined.\ntype: 'group',\nchildren: [\n{\ntype: 'rect',\nid: 'rect1',\n...\n},\n{\ntype: 'image',\n...\n},\n...\n]\n}\n...\n]\n});\n\n```\n\nHow to remove or replace existing elements by `setOption`:\n```javascript\nmyChart.setOption({\n...,\ngraphic: [\n{ // Remove the element 'text1' defined above.\nid: 'text1',\n$action: 'remove',\n...\n},\n{ // Replace the element 'rect1' to a new circle element.\n// Note, although in the sample above 'rect1' is a children of a group,\n// it is not necessary to consider level relationship when setOption\n// again if you use id to specify them.\nid: 'rect1',\n$action: 'replace',\ntype: 'circle',\n...\n}\n]\n});\n```\n\nNotice, when using `setOption` to modify existing elements, if id is not specified, new options will be mapped to existing elements by their order, which might bring unexpected result sometimes. So, generally, using id is recommended.\n\n\n\n**Graphic Element Configuration**\n\nDifferent types of graphic elements has their own configuration respectively, but they have these common configuration below:\n\n```javascript\n{\n// id is used to specifying element when willing to update it.\n// id can be ignored if you do not need it.\nid: 'xxx',\n\n// Specify element type. Can not be ignored when define a element at the first time.\ntype: 'image',\n\n// All of the properties below can be ignored and a default value will be assigned.\n\n// Specify the operation should be performed to the element when calling `setOption`.\n// Default value is 'merge', other values can be 'replace' or 'remove'.\n$action: 'replace',\n\n// These four properties is used to locating the element. Each property can be absolute\n// value (like 10, means 10 pixel) or precent (like '12%') or 'center'/'middle'.\nleft: 10,\n// right: 10,\ntop: 'center',\n// bottom: '10%',\n\nshape: {\n// Here are configurations for shape, like `x`, `y`, `cx`, `cy`, `width`,\n// `height`, `r`, `points`, ...\n// Note, if `left`/`right`/`top`/`bottom` has been set, `x`/`y`/`cx`/`cy`\n// do not work here.\n},\n\nstyle: {\n// Here are configurations for style of the element, like `fill`, `stroke`,\n// `lineWidth`, `shadowBlur`, ...\n},\n\n// z value of the elements.\nz: 10,\n// Whether response to mouse events / touch events.\nsilent: true,\n// Whether the element is visible.\ninvisible: false,\n// Used to specify whether the entire transformed element (containing children if is group)\n// is confined in its container. Optional values: 'raw', 'all'.\nbounding: 'raw',\n// Can be dragged or not.\ndraggable: false,\n// Event handler, can also be onmousemove, ondrag, ... (listed below)\nonclick: function () {...}\n}\n```\n\n\n\n**Event Handlers of Graphic Element**\n\nThese events are supported:\n`onclick`, `onmouseover`, `onmouseout`, `onmousemove`, `onmousewheel`, `onmousedown`, `onmouseup`, `ondrag`, `ondragstart`, `ondragend`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`.\n\n\n\n**Hierarchy of Graphic Elements**\n\nOnly `group` element has children, which enable a group of elements to be positioned and transformed together.\n\n\n\n\n**Shape Configuration of Graphic Element**\n\nElements with different types have different shape setting repectively. For example:\n\n```javascript\n{\ntype: 'rect',\nshape: {\nx: 10,\ny: 10,\nwidth: 100,\nheight: 200\n}\n},\n{\ntype: 'circle',\nshape: {\ncx: 20,\ncy: 30,\nr: 100\n}\n},\n{\ntype: 'image',\nstyle: {\nimage: 'http://xxx.xxx.xxx/a.png',\nx: 100,\ny: 200,\nwidth: 230,\nheight: 400\n}\n},\n{\ntype: 'text',\nstyle: {\ntext: 'This text',\nx: 100,\ny: 200\n}\n\n}\n```\n\n\n**Transforming and Absolutely Positioning of Graphic Element**\n\nElement can be transformed (translation, rotation, scale). See [position](~graphic.elements.position), [rotation](~graphic.elements.rotation), [scale](~graphic.elements.scale), [origin](~graphic.elements.origin)\n\nFor example:\n\n```javascript\n{\ntype: 'rect', // or any other types.\n\n// Translation, using [0, 0] by default.\nposition: [100, 200],\n\n// Scale, using [1, 1] by default.\nscale: [2, 4],\n\n// Rotation, using 0 by default. Negative value means rotating clockwise.\nrotation: Math.PI / 4,\n\n// Origin point of rotation and scale, using [0, 0] by default.\norigin: [10, 20],\n\nshape: {\n// ...\n}\n}\n```\n\nEach element is transformed in the coordinate system of its parent, namely, transform of a element and its parent can be \"stacked\".\n\nTransformation is performed by this order:\n\n1. Translate [-el.origin[0], -el.origin[1]].\n2. Scale according to el.scale.\n3. Rotate according to el.rotation.\n4. Translate back according to el.origin.\n5. Translate according to el.position.\n\nNamely, scaling and rotating firstly, and then translate. By this mechanism, translation does not affect origin of scale and rotation.\n\n\n\n**Relatively Positioning**\n\nIn real application, size of a container is always not fixed. So mechanism of relative position is required. In `graphic` component, [left](~graphic.elements.left) / [right](~graphic.elements.right) / [top](~graphic.elements.top) / [bottom](~graphic.elements.bottom) / [width](~graphic.elements.width) / [height](~graphic.elements.height) are used to position element relatively.\n\nFor example:\n```javascript\n{ // Position the image at the bottom center of its container.\ntype: 'image',\nleft: 'center', // Position at the center horizontally.\nbottom: '10%',  // Position beyond the bottom boundary 10%.\nstyle: {\nimage: 'http://xxx.xxx.xxx/a.png',\nwidth: 45,\nheight: 45\n}\n},\n{ // Position the entire rotated group at the right-bottom corner of its container.\ntype: 'group',\nright: 0,  // Position at the right boundary.\nbottom: 0, // Position at the bottom boundary.\nrotation: Math.PI / 4,\nchildren: [\n{\ntype: 'rect',\nleft: 'center', // Position at horizontal center according to its parent.\ntop: 'middle',  // Position at vertical center according to its parent.\nshape: {\nwidth: 190,\nheight: 90\n},\nstyle: {\nfill: '#fff',\nstroke: '#999',\nlineWidth: 2,\nshadowBlur: 8,\nshadowOffsetX: 3,\nshadowOffsetY: 3,\nshadowColor: 'rgba(0,0,0,0.3)'\n}\n},\n{\ntype: 'text',\nleft: 'center', // Position at horizontal center according to its parent.\ntop: 'middle',  // Position at vertical center according to its parent.\nstyle: {\nfill: '#777',\ntext: [\n'This is text',\n'This is text',\n'Print some text'\n].join('\\n'),\nfont: '14px Microsoft YaHei'\n}\n}\n]\n}\n```\n\nNote, [bounding](graphic.elements.bounding) can be used to specify whether the entire transformed element (containing children if is group) is confined in its container.",
-        "uiControl": {
-            "type": "*",
-            "detailFileName": "graphic"
-        }
+        "detailFileName": "graphic"
     },
-    "calendar": {
+    {
+        "name": "calendar",
+        "type": "Object",
         "desc": "Calendar coordinates.\n\nIn ECharts, we are very creative to achieve the calendar chart, by using the calendar coordinates to achieve the calendar chart,\nas shown in the following example, we can use calendar coordinates in heatmap, scatter, effectScatter, and graph.\n\nExample of using heatmap in calendar coordinates:\n~[800x400](https://echarts.apache.org/examples/en/view.html?c=calendar-heatmap&edit=1&reset=1)\n\nExample of using effectScatter in calendar coordinates:\n~[800x600](https://echarts.apache.org/examples/en/view.html?c=calendar-effectscatter&edit=1&reset=1)\n\nExample of using graph in calendar coordinates:\n~[600x600](https://echarts.apache.org/examples/en/view.html?c=calendar-graph&edit=1&reset=1)\n\nBy combining calendar coordinate system and charts, you may be able to create more wonderful effects.\n\n[Display Text in Calendar](calendar-lunar&edit=1&reset=1),\n[Display Pies in Calendar](calendar-pie&edit=1&reset=1)\n\n---\n\n**Calendar layout**\n\nCalendar coordinate system can be placed horizontally or vertically. By convention, the heatmap calendar is horizontal. But if we need bigger cell size in other cases, the total width may be too wide. So [calendar.orient](~calendar.orient) can help in this case.\n\n\n---\n\n**Adapt to container size**\n\nCalendar coordinate system can be configured to adapt to container size, which is useful when page size is not sure. First of all, like other components, those location and size configurations can be specified on canlendar: [left](~calendar.left) [right](~calendar.right) [top](~calendar.top) [bottom](bottom) [width](~calendar.width) [height](~calendar.height), which make calendar possible to modify its size according to container size. Besides, [cellSize](~calendar.cellSize) can be specified to fix the size of each cell of calendar.\n\n\n\n---",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "calendar"
-        }
+        "detailFileName": "calendar"
     },
-    "dataset": {
+    {
+        "name": "dataset",
+        "type": "Object",
         "desc": "`dataset` component is published since ECharts 4. `dataset` brings convenience in data management separated with styles and enables data reuse by different series. More importantly, it enables data encoding from data to visual, which brings convenience in some scenarios.\n\nMore details about `dataset` can be checked in the [tutorial](concepts/dataset/).",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "dataset"
-        }
+        "detailFileName": "dataset"
     },
-    "aria": {
+    {
+        "name": "aria",
+        "type": "*",
         "desc": "The W3C has developed the [WAI-ARIA](https://www.w3.org/WAI/intro/aria), the Accessible Rich Internet Applications Suite, which is dedicated to making web content and web applications accessible. Apache ECharts 4 complies with this specification by supporting the automatic generation of intelligent descriptions based on chart configuration items, allowing blind people to understand the chart content with the help of a reading device, making the chart accessible to a wider audience. In addition, Apache ECharts 5 adds support for applique textures as an auxiliary expression of color to further differentiate the data.\n\nIt is turned off by default and needs to be turned on by setting [aria.enabled](~aria.enabled) to `true`.",
-        "uiControl": {
-            "type": "*",
-            "detailFileName": "aria"
-        }
+        "detailFileName": "aria"
     },
-    "series": {
-        "desc": "",
-        "uiControl": {
-            "type": [
-                "Array",
-                "Object"
-            ],
-            "detailFileName": "series"
-        }
+    {
+        "name": "series",
+        "type": [
+            "Array",
+            "Object"
+        ],
+        "desc": "Graphic series",
+        "detailFileName": "series"
     },
-    "color": {
-        "desc": "The color list of palette. If no color is set in series, the colors would be adopted sequentially and circularly from this list as the colors of series. Defaults:\n```js\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']```",
-        "uiControl": {
-            "type": "Array"
-        }
+    {
+        "name": "color",
+        "type": "Array",
+        "desc": "The color list of palette. If no color is set in series, the colors would be adopted sequentially and circularly from this list as the colors of series.\n\nDefaults:\n```js\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']\n```",
+        "children": []
     },
-    "backgroundColor": {
+    {
+        "name": "backgroundColor",
+        "type": "Color",
         "desc": "Background color. Defaults to have no background.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
-        "uiControl": {
-            "type": "Color"
-        }
+        "children": []
     },
-    "textStyle": {
+    {
+        "name": "textStyle",
+        "type": "Object",
         "desc": "Global font style.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "textStyle"
-        }
+        "children": []
     },
-    "animation": {
+    {
+        "name": "color",
+        "type": "color",
+        "default": "\"#fff\"",
+        "desc": "text color.",
+        "children": []
+    },
+    {
+        "name": "fontStyle",
+        "type": "enum",
+        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+        "children": [],
+        "options": "'normal','italic','oblique'"
+    },
+    {
+        "name": "fontWeight",
+        "type": "enum",
+        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+        "children": [],
+        "options": "'normal','bold','bolder','lighter'"
+    },
+    {
+        "name": "fontFamily",
+        "type": "enum",
+        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+        "children": [],
+        "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+    },
+    {
+        "name": "fontSize",
+        "type": "number",
+        "default": "12",
+        "desc": "font size.",
+        "children": [],
+        "min": "1",
+        "step": "1"
+    },
+    {
+        "name": "lineHeight",
+        "type": "number",
+        "default": "12",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "width",
+        "type": [
+            "number",
+            "string"
+        ],
+        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": [
+            "number",
+            "string"
+        ],
+        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
+        "children": []
+    },
+    {
+        "name": "textBorderColor",
+        "type": "color",
+        "desc": "Storke color of the text.",
+        "children": []
+    },
+    {
+        "name": "textBorderWidth",
+        "type": "number",
+        "desc": "Storke line width of the text.",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "textBorderType",
+        "type": "enum",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+        "children": [],
+        "options": "'solid','dashed','dotted'"
+    },
+    {
+        "name": "textBorderDashOffset",
+        "type": "number",
+        "default": "0",
+        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "textShadowColor",
+        "type": "color",
+        "default": "'transparent'",
+        "desc": "Shadow color of the text itself.",
+        "children": []
+    },
+    {
+        "name": "textShadowBlur",
+        "type": "number",
+        "default": "0",
+        "desc": "Shadow blue of the text itself.",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "textShadowOffsetX",
+        "type": "number",
+        "default": "0",
+        "desc": "Shadow X offset of the text itself.",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "textShadowOffsetY",
+        "type": "number",
+        "default": "0",
+        "desc": "Shadow Y offset of the text itself.",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "width",
+        "type": "number",
+        "default": "100",
+        "desc": "Width of text block.",
+        "children": [],
+        "min": "1",
+        "max": "500",
+        "step": "1"
+    },
+    {
+        "name": "height",
+        "type": "number",
+        "default": "50",
+        "desc": "Height of text block.",
+        "children": [],
+        "min": "1",
+        "max": "500",
+        "step": "1"
+    },
+    {
+        "name": "overflow",
+        "type": "enum",
+        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
+        "children": [],
+        "options": "'truncate','break','breakAll'"
+    },
+    {
+        "name": "ellipsis",
+        "type": "string",
+        "default": "'...'",
+        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
+        "children": []
+    },
+    {
+        "name": "lineOverflow",
+        "type": "string",
+        "default": "'none'",
+        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+        "children": []
+    },
+    {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
         "desc": "Whether to enable animation.",
-        "uiControl": {
-            "default": "true",
-            "type": "boolean"
-        }
+        "children": []
     },
-    "animationThreshold": {
+    {
+        "name": "animationThreshold",
+        "type": "number",
+        "default": "2000",
         "desc": "Whether to set graphic number threshold to animation. Animation will be disabled when graphic number is larger than threshold.",
-        "uiControl": {
-            "default": "2000",
-            "type": "number"
-        }
+        "children": []
     },
-    "animationDuration": {
+    {
+        "name": "animationDuration",
+        "type": "number",
+        "default": "1000",
         "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
-        "uiControl": {
-            "default": "1000",
-            "type": "number",
-            "min": "0",
-            "step": "20"
-        }
+        "children": [],
+        "min": "0",
+        "step": "20"
     },
-    "animationEasing": {
+    {
+        "name": "animationEasing",
+        "type": "enum",
         "desc": "Easing method used for the first animation. Varied easing effects can be found at [easing effect example](line-easing).",
-        "uiControl": {
-            "type": "enum",
-            "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
-        }
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
     },
-    "animationDelay": {
+    {
+        "name": "animationDelay",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
         "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
-        "uiControl": {
-            "default": "0",
-            "type": [
-                "number",
-                "Function"
-            ]
-        }
+        "children": []
     },
-    "animationDurationUpdate": {
+    {
+        "name": "animationDurationUpdate",
+        "type": "number",
+        "default": "300",
         "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
-        "uiControl": {
-            "default": "300",
-            "type": "number",
-            "min": "0",
-            "step": "20"
-        }
+        "children": [],
+        "min": "0",
+        "step": "20"
     },
-    "animationEasingUpdate": {
+    {
+        "name": "animationEasingUpdate",
+        "type": "enum",
         "desc": "Easing method used for animation.",
-        "uiControl": {
-            "type": "enum",
-            "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
-        }
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
     },
-    "animationDelayUpdate": {
+    {
+        "name": "animationDelayUpdate",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
         "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
-        "uiControl": {
-            "default": "0",
-            "type": [
-                "number",
-                "Function"
-            ]
-        }
+        "children": []
     },
-    "stateAnimation": {
+    {
+        "name": "stateAnimation",
+        "type": "Object",
         "desc": "Animation configurations of state switchment. Can be configured in each series individually.",
-        "uiControl": {
-            "type": "Object",
-            "detailFileName": "stateAnimation"
-        }
+        "detailFileName": "stateAnimation"
     },
-    "blendMode": {
+    {
+        "name": "blendMode",
+        "type": "string",
+        "default": "'source-over'",
         "desc": "Sets the type of compositing operation to apply when drawing a new shape. See the different type: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation.\n\nThe default is `'source-over'`. Support settings for each series.\n\n`'lighter'` is also a common type of compositing operation. In this mode, the area where the number of graphics is concentrated is superimposed into a high-brightness color (white). It often used to highlight the effect of the area. See example [Global airline](lines-airline)",
-        "uiControl": {
-            "default": "'source-over'",
-            "type": "string"
-        }
+        "children": []
     },
-    "hoverLayerThreshold": {
+    {
+        "name": "hoverLayerThreshold",
+        "type": "number",
+        "default": "3000",
         "desc": "When the number of element of the whole chart is larger than `hoverLayerThreshold`, a seperate hover layer is used to render hovered elements.\n\nThe seperate hover layer is used to avoid re-painting the whole canvas when hovering on elements. Instead, the hovered elements are rendered in a seperate layer so that other elements don't have to be rendered again.\n\nECharts 2 use seperate layer for all cases. But it brings some problems like the hovered elements may not covering everything else correctly, or translucent elements may not overlay correctly to each other. And it brings extra member cost due to the extra canvas and may bring burden on mobile devices. So since ECharts 3, the hover layer is not used by default. Only when the element amount is large enough will the hover layer used.",
-        "uiControl": {
-            "default": "3000",
-            "type": "number"
-        }
+        "children": []
     },
-    "useUTC": {
+    {
+        "name": "useUTC",
+        "type": "boolean",
+        "default": "false",
         "desc": "Whether to use UTC in display.\n\n+ `true`: When `axis.type` is `'time'`, ticks is determined according to UTC, and `axisLabel` and `tooltip` use UTC by default.\n+ `false`: When `axis.type` is `'time'`, ticks is determined according to local time, and `axisLabel` and `tooltip` use local time by default.\n\nThe default value of `useUTC` is false, for sake of considering:\n\n+ In many cases, labels should be displayed in local time (whether the time is stored in server in local time or UTC).\n+ If user uses time string (like '2012-01-02') in data, it usually means local time if time zone is not specified. Time should be displayed in its original time zone by default.\n\nNotice: the setting only affects \"display time\", not \"parse time\".\nFor how time value (like `1491339540396`, `'2013-01-04'`, ...) is parsed in echarts, see [the time part in date](~series-line.data).",
-        "uiControl": {
-            "default": "false",
-            "type": "boolean"
-        }
+        "children": []
     },
-    "options": {
+    {
+        "name": "options",
+        "type": "Array",
+        "default": "undefined",
         "desc": "Option array used in [timeline](option.html#timeline). Each item of this array is an echarts option (`ECUnitOption`).",
-        "uiControl": {
-            "default": "undefined",
-            "type": "Array"
-        }
+        "children": []
     },
-    "media": {
+    {
+        "name": "media",
+        "type": "Array",
         "desc": "See [Responsive Mobile-End](tutorial.html#Responsive%20Mobile-End) for details.",
-        "uiControl": {
-            "type": "Array"
-        }
+        "detailFileName": "media"
     }
-}
+]

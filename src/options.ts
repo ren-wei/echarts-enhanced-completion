@@ -4,7 +4,7 @@ import Ast, { AstItem } from './ast';
 import Config from './config';
 
 export default class Options {
-    private descObject: DescMsgObject = {};
+    private descTreeList: Tree[] = [];
     private store: Store;
     private astItem: AstItem | undefined;
     private node: AstNode | null;
@@ -40,19 +40,18 @@ export default class Options {
             return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';
-        this.descObject = this.store.getOptionDesc(this.paths, isArray, this.astItem);
-        return completionItems.concat(...this.filterOptions(this.descObject, this.node).map((name, index) => {
-            const typeOfValue = this.descObject[name].uiControl?.type;
+        this.descTreeList = this.store.getOptionDesc(this.paths, isArray, this.astItem);
+        return completionItems.concat(...this.filterOptions(this.descTreeList, this.node).map((tree, index) => {
             return {
                 label: {
-                    label: name,
-                    description: String(typeOfValue || ''),
+                    label: tree.name,
+                    description: String(tree.type || ''),
                 },
                 kind: vscode.CompletionItemKind.Property,
-                detail: this.descObject[name].desc ? 'echarts options' : undefined,
-                documentation: new vscode.MarkdownString(this.descObject[name].desc),
+                detail: tree.desc ? 'echarts options' : undefined,
+                documentation: new vscode.MarkdownString(tree.desc),
                 sortText: String(completionItems.length + index).length > 1 ? String(completionItems.length + index) : '0' + String(completionItems.length + index),
-                insertText: new vscode.SnippetString(this.getInsertText(name, this.descObject[name].uiControl, isArray)),
+                insertText: new vscode.SnippetString(this.getInsertText(tree, isArray)),
             };
         }));
     }
@@ -60,103 +59,110 @@ export default class Options {
     public getHover(): vscode.Hover | null {
         if (!this.node || !this.astItem) return null;
         if (this.node.type === 'Identifier') {
-            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
-            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.name as string].desc));
+            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
+            return new vscode.Hover(new vscode.MarkdownString(this.descTreeList.find(v => v.name === this.node?.name)?.desc));
         } else if (this.node.type === 'Property') {
-            this.descObject = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
-            return new vscode.Hover(new vscode.MarkdownString(this.descObject[this.node.key?.name as string].desc));
+            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
+            return new vscode.Hover(new vscode.MarkdownString(this.descTreeList.find(v => v.name === this.node?.key?.name)?.desc));
         }
         return null;
     }
 
     /** 过滤出现在node中的选项，返回允许的选项列表 */
-    private filterOptions(descObject: DescMsgObject, node: AstNode): string[] {
+    private filterOptions(descTreeList: Tree[], node: AstNode): Tree[] {
         let hasKey: string[] = [];
         if (node.type === 'ObjectExpression') {
             hasKey = node.properties?.map(v => v.key?.name) as string[];
         }
-        return Object.keys(descObject).filter(key => {
-            return !hasKey.some(str => key === str);
+        return descTreeList.filter(tree => {
+            return !hasKey.some(str => tree.name === str);
         });
     }
 
     /**
      * 获取需要插入的代码片段
-     * @param type 父级值类型
-     * @param prop 当前属性名
-     * @param uiControl 属性值的描述
      * @returns 插入值的代码片段
      */
-    private getInsertText(prop: string, uiControl: UiControl | undefined = undefined, isArray: Boolean = false): string {
-        if (/^<.*>$/.test(prop)) {
+    private getInsertText(tree: Tree, isArray: Boolean = false): string {
+        let prop = '';
+        if (/^<.*>$/.test(tree.name)) {
             prop = '$1';
+        } else {
+            prop = tree.name;
         }
         let value = '${0}';
-        if (uiControl) {
-            // 如果存在默认值，则补全默认值
-            if (uiControl.default) {
-                value = `${uiControl.default},`;
-            } else if (typeof uiControl.type === 'string') {
-                switch (uiControl.type) {
-                    case 'string':
-                    case 'color':
-                    case 'icon':
-                    case 'text':
-                        // 将值作为字符串补全
-                        value = "'$0',";
-                        break;
-                    case 'percent':
-                        // 值为百分比时，没有'%'时是数字类型，有'%'时是字符串类型
-                        value = '$0,';
-                        break;
-                    case 'Array':
-                    case 'vector':
-                        // 将值作为数组补全
-                        value = '[$0],';
-                        break;
-                    case 'enum':
-                        value = '${1|' + uiControl.options + '|},';
-                        break;
-                    case 'Object':
-                        if (uiControl.required) {
-                            const result: string[] = ['{'];
-                            uiControl.required.forEach((item, index, array) => {
-                                let str = `\t${item.key}: ${item.value}`;
-                                if (index === array.length - 1) {
-                                    str += ',';
-                                }
-                                result.push(str);
-                            });
+        // 如果存在默认值，则补全默认值
+        if (tree.default) {
+            value = `${tree.default},`;
+        } else if (typeof tree.type === 'string') {
+            switch (tree.type) {
+                case 'string':
+                case 'color':
+                case 'icon':
+                case 'text':
+                    // 将值作为字符串补全
+                    value = "'$0',";
+                    break;
+                case 'percent':
+                    // 值为百分比时，没有'%'时是数字类型，有'%'时是字符串类型
+                    value = '$0,';
+                    break;
+                case 'Array':
+                case 'vector':
+                    // 将值作为数组补全
+                    value = '[$0],';
+                    break;
+                case 'enum':
+                    value = '${1|' + tree.options + '|},';
+                    break;
+                case 'Object':
+                    if (tree.required) {
+                        // FIXME: 需要更通用的方法来判断
+                        const pack = isArray || !tree.name.includes('.'); // 是否使用大括号包裹
+                        const result: string[] = pack ? ['{'] : [];
+                        tree.required.forEach((item, index, array) => {
+                            let str = `${pack ? '\t' : ''}${item.key}: ${item.value}`;
+                            if (index === array.length - 1) {
+                                str += ',';
+                            }
+                            result.push(str);
+                        });
+                        if (pack) {
                             result.push('},');
-                            value = result.join('\n');
-                        } else {
-                            value = '{$0},';
                         }
-                        break;
-                    case 'number':
-                    case 'boolean':
-                    default:
+                        value = result.join('\n');
+                    } else {
+                        value = '{$0},';
+                    }
+                    break;
+                case 'number':
+                case 'boolean':
+                default:
                         // 仅补全默认值
-                }
-            } else if (uiControl.type?.includes('Array')) {
-                value = '[$0],';
-            } else if (uiControl.type?.includes('Object')) {
-                if (uiControl.required) {
-                    const result: string[] = ['{'];
-                    uiControl.required.forEach((item, index, array) => {
-                        let str = `\t${item.key}: ${item.value}`;
-                        if (index === array.length - 1) {
-                            str += ',';
-                        }
-                        result.push(str);
-                    });
+            }
+        } else if (tree.type.includes('Array')) {
+            value = '[$0],';
+        } else if (tree.type.includes('Object')) {
+            if (tree.required) {
+                // FIXME: 需要更通用的方法来判断
+                const pack = !isArray && tree.name.includes('.'); // 是否使用大括号包裹
+                const result: string[] = pack ? ['{'] : [];
+                tree.required.forEach((item, index, array) => {
+                    let str = `${pack ? '\t' : ''}${item.key}: ${item.value}`;
+                    if (index === array.length - 1) {
+                        str += ',';
+                    }
+                    result.push(str);
+                });
+                if (pack) {
                     result.push('},');
-                    value = result.join('\n');
-                } else {
-                    value = '{$0},';
                 }
+                value = result.join('\n');
+            } else {
+                value = '{$0},';
             }
         }
-        return isArray ? value : `${prop}: ${value}`;
+        // FIXME: 需要更通用的方法来判断
+        return isArray || tree.name.includes('.') ? value : `${prop}: ${value}`;
     }
 }

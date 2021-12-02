@@ -1,151 +1,169 @@
-{
-    "color": {
+[
+    {
+        "name": "color",
+        "type": "color",
+        "default": "\"#fff\"",
         "desc": "文字的颜色。",
-        "uiControl": {
-            "default": "\"#fff\"",
-            "type": "color"
-        }
+        "children": []
     },
-    "fontStyle": {
+    {
+        "name": "fontStyle",
+        "type": "enum",
         "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
-        "uiControl": {
-            "type": "enum",
-            "options": "'normal','italic','oblique'"
-        }
+        "children": [],
+        "options": "'normal','italic','oblique'"
     },
-    "fontWeight": {
+    {
+        "name": "fontWeight",
+        "type": "enum",
         "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
-        "uiControl": {
-            "type": "enum",
-            "options": "'normal','bold','bolder','lighter'"
-        }
+        "children": [],
+        "options": "'normal','bold','bolder','lighter'"
     },
-    "fontFamily": {
+    {
+        "name": "fontFamily",
+        "type": "enum",
         "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
-        "uiControl": {
-            "type": "enum",
-            "options": "'sans-serif','serif','monospace','Arial','Courier New'"
-        }
+        "children": [],
+        "options": "'sans-serif','serif','monospace','Arial','Courier New'"
     },
-    "fontSize": {
+    {
+        "name": "fontSize",
+        "type": "number",
+        "default": "12",
         "desc": "文字的字体大小。",
-        "uiControl": {
-            "default": "12",
-            "type": "number",
-            "min": "1",
-            "step": "1"
-        }
+        "children": [],
+        "min": "1",
+        "step": "1"
     },
-    "lineHeight": {
+    {
+        "name": "lineHeight",
+        "type": "number",
+        "default": "12",
         "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
-        "uiControl": {
-            "default": "12",
-            "type": "number",
-            "min": "0",
-            "step": "1"
-        }
+        "children": [],
+        "min": "0",
+        "step": "1"
     },
-    "width": {
-        "desc": "文本显示宽度。",
-        "uiControl": {
-            "default": "100",
-            "type": "number",
-            "min": "1",
-            "max": "500",
-            "step": "1"
-        }
+    {
+        "name": "width",
+        "type": [
+            "number",
+            "string"
+        ],
+        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+        "children": []
     },
-    "height": {
-        "desc": "文本显示高度。",
-        "uiControl": {
-            "default": "50",
-            "type": "number",
-            "min": "1",
-            "max": "500",
-            "step": "1"
-        }
+    {
+        "name": "height",
+        "type": [
+            "number",
+            "string"
+        ],
+        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+        "children": []
     },
-    "textBorderColor": {
+    {
+        "name": "textBorderColor",
+        "type": "color",
         "desc": "文字本身的描边颜色。",
-        "uiControl": {
-            "type": "color"
-        }
+        "children": []
     },
-    "textBorderWidth": {
+    {
+        "name": "textBorderWidth",
+        "type": "number",
         "desc": "文字本身的描边宽度。",
-        "uiControl": {
-            "type": "number",
-            "min": "0",
-            "step": "0.5"
-        }
+        "children": [],
+        "min": "0",
+        "step": "0.5"
     },
-    "textBorderType": {
+    {
+        "name": "textBorderType",
+        "type": "enum",
         "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
-        "uiControl": {
-            "type": "enum",
-            "options": "'solid','dashed','dotted'"
-        }
+        "children": [],
+        "options": "'solid','dashed','dotted'"
     },
-    "textBorderDashOffset": {
+    {
+        "name": "textBorderDashOffset",
+        "type": "number",
+        "default": "0",
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
-        "uiControl": {
-            "default": "0",
-            "type": "number",
-            "min": "0",
-            "step": "1"
-        }
+        "children": [],
+        "min": "0",
+        "step": "1"
     },
-    "textShadowColor": {
+    {
+        "name": "textShadowColor",
+        "type": "color",
+        "default": "'transparent'",
         "desc": "文字本身的阴影颜色。",
-        "uiControl": {
-            "default": "'transparent'",
-            "type": "color"
-        }
+        "children": []
     },
-    "textShadowBlur": {
+    {
+        "name": "textShadowBlur",
+        "type": "number",
+        "default": "0",
         "desc": "文字本身的阴影长度。",
-        "uiControl": {
-            "default": "0",
-            "type": "number",
-            "min": "0",
-            "step": "0.5"
-        }
+        "children": [],
+        "min": "0",
+        "step": "0.5"
     },
-    "textShadowOffsetX": {
+    {
+        "name": "textShadowOffsetX",
+        "type": "number",
+        "default": "0",
         "desc": "文字本身的阴影 X 偏移。",
-        "uiControl": {
-            "default": "0",
-            "type": "number",
-            "step": "0.5"
-        }
+        "children": [],
+        "step": "0.5"
     },
-    "textShadowOffsetY": {
+    {
+        "name": "textShadowOffsetY",
+        "type": "number",
+        "default": "0",
         "desc": "文字本身的阴影 Y 偏移。",
-        "uiControl": {
-            "default": "0",
-            "type": "number",
-            "step": "0.5"
-        }
+        "children": [],
+        "step": "0.5"
     },
-    "overflow": {
+    {
+        "name": "width",
+        "type": "number",
+        "default": "100",
+        "desc": "文本显示宽度。",
+        "children": [],
+        "min": "1",
+        "max": "500",
+        "step": "1"
+    },
+    {
+        "name": "height",
+        "type": "number",
+        "default": "50",
+        "desc": "文本显示高度。",
+        "children": [],
+        "min": "1",
+        "max": "500",
+        "step": "1"
+    },
+    {
+        "name": "overflow",
+        "type": "enum",
         "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
-        "uiControl": {
-            "type": "enum",
-            "options": "'truncate','break','breakAll'"
-        }
+        "children": [],
+        "options": "'truncate','break','breakAll'"
     },
-    "ellipsis": {
+    {
+        "name": "ellipsis",
+        "type": "string",
+        "default": "'...'",
         "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
-        "uiControl": {
-            "default": "'...'",
-            "type": "string"
-        }
+        "children": []
     },
-    "lineOverflow": {
+    {
+        "name": "lineOverflow",
+        "type": "string",
+        "default": "'none'",
         "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-        "uiControl": {
-            "default": "'none'",
-            "type": "string"
-        }
+        "children": []
     }
-}
+]

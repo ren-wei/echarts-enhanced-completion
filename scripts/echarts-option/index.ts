@@ -162,72 +162,82 @@ async function main() {
             })(),
         ]);
 
-        // 获取所有选项
-        const targetNames = Object.keys(engine.targets);
-
         // 保存结果
-        // components
-        const componentTrees: TreeNode[] = [];
-        for (const name of components) {
-            if (targetNames.includes('component-' + name) && !name.includes('transform')) {
-                // 解析markdown文件中的标签，并将所有选项转换为树形结构
-                const tree = transformToTree(engine.render('component-' + name, initVars));
-                componentTrees.push(tree as TreeNode);
-                // 将树形结构转换为扁平结构
-                const descMsg = flatTree(tree as TreeNode);
-                saveFile((tree as TreeNode).name.replace('.', '-'), lang, JSON.stringify(descMsg, null, 4));
-            }
-        }
-        // series
-        const seriesTrees: TreeNode[] = [];
-        for (const name of series) {
-            if (targetNames.includes('series-' + name)) {
-                // 解析markdown文件中的标签，并将所有选项转换为树形结构
-                const tree = transformToTree(engine.render('series-' + name, initVars));
-                seriesTrees.push(tree as TreeNode);
-                // 将树形结构转换为扁平结构
-                const descMsg = flatTree(tree as TreeNode);
-                saveFile((tree as TreeNode).name.replace('.', '-'), lang, JSON.stringify(descMsg, null, 4));
-            }
-        }
-        // index
-        const indexTree: TreeNode = transformToTree(engine.render('option', initVars), {
+        const indexTree = transformToTree(engine.render('option', initVars), {
             level: 0,
             name: 'index',
             type: 'Object',
             desc: '',
             parent: null,
             children: [],
-        }) as TreeNode;
-        let descMsg = flatTree(indexTree as TreeNode);
-        descMsg = Object.fromEntries(Object.entries(descMsg).filter(([k, v]) => !k.includes('.')).reduce((result: [k: string, v: any][], [k, v]) => {
-            // 增加 detailFileName 属性
-            if (['stateAnimation', 'textStyle', 'media'].includes(k) || typeof v.uiControl.type === 'string' ? ['Object', '*'].includes(v.uiControl.type) : v.uiControl.type.includes('Object')) {
-                v.uiControl.detailFileName = k;
+        }) as NormalTree;
+        const dataZoomChildren: DetailTree[] = [];
+        const visualMapChildren: DetailTree[] = [];
+        const seriesChildren: DetailTree[] = [];
+        indexTree.children = indexTree.children.reduce((result: Tree[], child) => {
+            if ((child as NormalTree).children.length || ['dataZoom', 'visualMap'].includes(child.name)) {
+                if (child.name.includes('dataZoom.')) {
+                    dataZoomChildren.push(child as DetailTree);
+                }
+                if (child.name.includes('visualMap.')) {
+                    visualMapChildren.push(child as DetailTree);
+                }
+                if (child.name.includes('series.')) {
+                    seriesChildren.push(child as DetailTree);
+                }
+                // 保存各属性
+                saveFile(child.name, lang, (child as NormalTree).children);
+                // @ts-ignore
+                delete (child as NormalTree).children;
+                (child as DetailTree).detailFileName = child.name;
             }
-            result.push([k, v]);
-            // 增加 series
-            if (k === 'aria') {
-                result.push(['series', {
-                    desc: '',
-                    uiControl: {
-                        type: [
-                            'Array',
-                            'Object',
-                        ],
-                        detailFileName: 'series',
-                    },
-                }]);
+            if (!['dataZoom.', 'visualMap.', 'series.'].find(key => child.name.includes(key))) {
+                result.push(child);
+            }
+            if (child.name === 'aria') {
+                result.push({
+                    name: 'series',
+                    type: ['Array', 'Object'],
+                    desc: lang === 'zh' ? '图形系列' : 'Graphic series',
+                    detailFileName: 'series',
+                });
             }
             return result;
-        }, []));
-        saveFile('index', lang, JSON.stringify(descMsg, null, 4));
-        // stateAnimation、textStyle 和 media
-        ['stateAnimation', 'textStyle', 'media'].forEach(name => {
-            descMsg = flatTree(indexTree.children.find(item => item.name === name) as TreeNode);
-            saveFile(name, lang, JSON.stringify(descMsg, null, 4));
+        }, []);
+        saveFile('index', lang, indexTree.children);
+        // dataZoom.json、visualMap.json、series.json
+        dataZoomChildren.forEach(child => {
+            child.required = [{
+                key: 'type',
+                value: `'${child.name.split('.')[1]}'`,
+                valueRegExp: `^['"]${child.name.split('.')[1].replace(/'/g, '')}['"]$`,
+            }];
         });
-        // TODO: series.json、dataZoom.json、visualMap.json
+        saveFile('dataZoom', lang, dataZoomChildren);
+        visualMapChildren.forEach(child => {
+            child.required = [{
+                key: 'type',
+                value: `'${child.name.split('.')[1]}'`,
+                valueRegExp: `^['"]${child.name.split('.')[1].replace(/'/g, '')}['"]$`,
+            }];
+        });
+        saveFile('visualMap', lang, visualMapChildren);
+        seriesChildren.forEach(child => {
+            if (child.name === 'series.custom') {
+                child.required = [{
+                    key: 'type',
+                    value: "'${0}'",
+                    valueRegExp: "^['\"].*['\"]$",
+                }];
+            } else {
+                child.required = [{
+                    key: 'type',
+                    value: `'${child.name.split('.')[1]}'`,
+                    valueRegExp: `^['"]${child.name.split('.')[1]}['"]$`,
+                }];
+            }
+        });
+        saveFile('series', lang, seriesChildren);
     }
 }
 
@@ -261,8 +271,8 @@ async function getOption(name: string, lang: string, env = 'production') : Promi
 }
 
 /** 保存文件到资源文件夹 */
-function saveFile(name: string, lang: string, data: string) {
-    fs.writeFile(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), data, () => {
+function saveFile(name: string, lang: string, data: any) {
+    fs.writeFile(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), JSON.stringify(data, null, 4), () => {
         // eslint-disable-next-line no-console
         console.log(`Saved file(${lang}): ${name}.json`);
     });
@@ -272,7 +282,7 @@ function saveFile(name: string, lang: string, data: string) {
  * 解析markdown文件中的标签，并将Markdown文本转换为树形结构的对象
  * @param source Markdown文本
  */
-function transformToTree(source: string, tree: TreeNode | null = null): TreeNode | null {
+function transformToTree(source: string, tree: TreeNode | null = null): Tree | null {
     const lines = source.split('\n');
     let prevNode: TreeNode | null = tree;
     for (let i = 0; i < lines.length; i++) {
@@ -332,7 +342,10 @@ function transformToTree(source: string, tree: TreeNode | null = null): TreeNode
             prevNode.desc += text + '\n';
         }
     }
-    return tree;
+    if (tree) {
+        return dealTree(tree);
+    }
+    return null;
 }
 
 /**
@@ -387,6 +400,12 @@ function parseUIControl(node: TreeNode, name: string, type: string = '', handler
     }
 }
 
+interface RequiredRule {
+    key: string;
+    value: string;
+    valueRegExp: string;
+}
+
 interface TreeNode {
     level: number; // 节点层级
     name: string; // 属性名称
@@ -402,40 +421,44 @@ interface TreeNode {
     parent: TreeNode | null; // 父节点
 }
 
-function treeToString(tree: TreeNode): string {
-    const dealTree = (t: TreeNode) => {
-        // @ts-ignore
-        t.parent = undefined;
-        // @ts-ignore
-        t.level = undefined;
-        t.children.forEach(v => dealTree(v));
-    };
-    dealTree(tree);
-    return JSON.stringify(tree, null, 4);
+interface NormalTree {
+    name: string; // 属性名称
+    type: string | string[]; // 值类型
+    desc: string; // 属性的 Markdown 文档
+    default?: string; // 默认值
+    options?: string; // 可选项
+    min?: string; // 允许的最小值
+    max?: string; // 允许的最大值
+    step?: string; // 有效的步进
+    dims?: string; // 向量类型的格式
+    required?: Array<RequiredRule>; // 对值的限制
+    children: Tree[]; // 子节点
 }
 
-function flatTree(tree: TreeNode, parentName: string = ''): Object {
-    let result: {[key: string]: Object} = {};
-    tree.children.forEach(item => {
-        const key = parentName + item.name;
-        result[key] = {
-            desc: item.desc,
-            uiControl: {
-                default: item.default,
-                type: item.type,
-                min: item.min,
-                max: item.max,
-                step: item.step,
-                options: item.options,
-                dims: item.dims,
-            },
-        };
-        result = {
-            ...result,
-            ...flatTree(item, key + '.'),
-        };
-    });
-    return result;
+interface DetailTree {
+    name: string; // 属性名称
+    type: string | string[]; // 值类型
+    desc: string; // 属性的 Markdown 文档
+    default?: string; // 默认值
+    options?: string; // 可选项
+    min?: string; // 允许的最小值
+    max?: string; // 允许的最大值
+    step?: string; // 有效的步进
+    dims?: string; // 向量类型的格式
+    required?: Array<RequiredRule>; // 对值的限制
+    detailFileName: string; // 子属性所在的文件名
 }
+
+type Tree = NormalTree | DetailTree;
+
+/** 删除在数据中无用的属性 */
+function dealTree(t: TreeNode): Tree {
+    // @ts-ignore
+    delete t.parent;
+    // @ts-ignore
+    delete t.level;
+    t.children.forEach(v => dealTree(v));
+    return t as Tree;
+};
 
 main();

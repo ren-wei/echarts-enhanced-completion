@@ -1,131 +1,134 @@
-{
-    "id": {
+[
+    {
+        "name": "id",
+        "type": "string",
         "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
-        "uiControl": {
-            "type": "string"
-        }
+        "children": []
     },
-    "source": {
+    {
+        "name": "source",
+        "type": [
+            "Array",
+            "Object"
+        ],
         "desc": "Source data. Generally speaking, a source data describe a table, where these format below can be applied:\n\n2d array, where [dimension names](~dataset.dimensions) can be provided in the first row/column, or do not provide, only data.\n\n```js\n[\n['product', '2015', '2016', '2017'],\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n```\n\nRow based key-value format (object array), where the keys indicate [dimension names](~dataset.dimensions).\n\n```js\n[\n{product: 'Matcha Latte', count: 823, score: 95.8},\n{product: 'Milk Tea', count: 235, score: 81.4},\n{product: 'Cheese Cocoa', count: 1042, score: 91.2},\n{product: 'Walnut Brownie', count: 988, score: 76.9}\n]\n```\n\nColumn based key-value format, where each value represents a column of a table.\n\n```js\n{\n'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],\n'count': [823, 235, 1042, 988],\n'score': [95.8, 81.4, 91.2, 76.9]\n}\n```\n\nMore details about `dataset` can be checked in the [tutorial](concepts/dataset/).",
-        "uiControl": {
-            "type": [
-                "Array",
-                "Object"
-            ]
-        }
+        "children": []
     },
-    "dimensions": {
+    {
+        "name": "dimensions",
+        "type": "Array",
         "desc": "`dimensions` can be used to define dimension info for `series.data` or `dataset.source`.\n\nNotice: if [dataset](~dataset) is used, we can definite dimensions in [dataset.dimensions](~dataset.dimensions), or provide dimension names in the first column/row of [dataset.source](~dataset.source), and not need to specify `dimensions` here. But if `dimensions` is specified here, it will be used despite the dimension definitions in dataset.\n\n\nFor example:\n\n```js\noption = {\ndataset: {\nsource: [\n// 'date', 'open', 'close', 'highest', 'lowest'\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\n// Specify name for each dimesions, which will be displayed in tooltip.\ndimensions: ['date', 'open', 'close', 'highest', 'lowest']\n}\n}\n```\n\n```js\nseries: {\ntype: 'xxx',\ndimensions: [\nnull,                // If you do not intent to defined this dimension, use null is fine.\n{type: 'ordinal'},   // Specify type of this dimension.\n// 'ordinal' is always used in string.\n// If type is not specified, echarts will guess type by data.\n{name: 'good', type: 'number'},\n'bad'                // Equals to {name: 'bad'}.\n]\n}\n```\n\nEach data item of `dimensions` can be:\n+ `string`, for example, `'someName'`, which equals to `{name: 'someName'}`.\n+ `Object`, where the attributes can be:\n+ name: `string`.\n+ type: `string`, supports:\n+ `number`\n+ `float`, that is, [Float64Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array)\n+ `int`, that is, [Int32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array)\n+ `ordinal`, discrete value, which represents string generally.\n+ `time`, time value, see [data](~series.data) to check the format of time value.\n+ displayName: `string`, generally used in tooltip for dimension display. If not specified, use `name` by default.\n\nWhen `dimensions` is specified, the default `tooltip` will be displayed vertically, which is better to show diemsion names. Otherwise, `tooltip` will displayed only value horizontally.",
-        "uiControl": {
-            "type": "Array"
-        }
+        "children": []
     },
-    "sourceHeader": {
+    {
+        "name": "sourceHeader",
+        "type": "boolean",
         "desc": "Whether the first row/column of `dataset.source` represents [dimension names](dataset.dimensions). Optional values:\n\n+ `null/undefine`: means auto detect whether the first row/column is dimension names or data.\n+ `true`: the first row/column is dimension names.\n+ `false`: data start from the first row/column.\n\nNote: \"the first row/column\" means that if [series.seriesLayoutBy](~series.seriesLayoutBy) is set as `'column'`, pick the first row, otherwise, if it is set as `'row'`, pick the first column.",
-        "uiControl": {
-            "type": "boolean"
-        }
+        "children": []
     },
-    "transform": {
+    {
+        "name": "transform",
+        "type": "Object",
         "desc": "See the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "Object"
-        }
+        "children": []
     },
-    "transform.filter": {
+    {
+        "name": "transform.filter",
+        "type": "Object",
         "desc": "",
-        "uiControl": {
-            "type": "Object"
-        }
+        "children": [
+            {
+                "name": "type",
+                "type": "string",
+                "default": "'filter'",
+                "desc": "",
+                "children": []
+            },
+            {
+                "name": "config",
+                "type": "*",
+                "desc": "The condition of transform \"filter\".\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
+                "children": []
+            },
+            {
+                "name": "print",
+                "type": "boolean",
+                "default": "false",
+                "desc": "When using data transform, we might run into the trouble that the final chart do not display correctly but we do not know where the config is wrong. There is a property `transform.print` might help in such case. (`transform.print` is only available in dev environment).\n\n```js\noption = {\ndataset: [{\nsource: [ ... ]\n}, {\ntransform: {\ntype: 'filter',\nconfig: { ... }\n// The result of this transform will be printed\n// in dev tool via `console.log`.\nprint: true\n}\n}],\n...\n}\n```",
+                "children": []
+            }
+        ]
     },
-    "transform.filter.type": {
+    {
+        "name": "transform.sort",
+        "type": "Object",
         "desc": "",
-        "uiControl": {
-            "default": "'filter'",
-            "type": "string"
-        }
+        "children": [
+            {
+                "name": "type",
+                "type": "string",
+                "default": "'sort'",
+                "desc": "",
+                "children": []
+            },
+            {
+                "name": "config",
+                "type": "*",
+                "desc": "The condition of transform \"sort\".\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
+                "children": []
+            },
+            {
+                "name": "print",
+                "type": "boolean",
+                "default": "false",
+                "desc": "When using data transform, we might run into the trouble that the final chart do not display correctly but we do not know where the config is wrong. There is a property `transform.print` might help in such case. (`transform.print` is only available in dev environment).\n\n```js\noption = {\ndataset: [{\nsource: [ ... ]\n}, {\ntransform: {\ntype: 'filter',\nconfig: { ... }\n// The result of this transform will be printed\n// in dev tool via `console.log`.\nprint: true\n}\n}],\n...\n}\n```",
+                "children": []
+            }
+        ]
     },
-    "transform.filter.config": {
-        "desc": "The condition of transform \"filter\".\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "*"
-        }
-    },
-    "transform.filter.print": {
-        "desc": "When using data transform, we might run into the trouble that the final chart do not display correctly but we do not know where the config is wrong. There is a property `transform.print` might help in such case. (`transform.print` is only available in dev environment).\n\n```js\noption = {\ndataset: [{\nsource: [ ... ]\n}, {\ntransform: {\ntype: 'filter',\nconfig: { ... }\n// The result of this transform will be printed\n// in dev tool via `console.log`.\nprint: true\n}\n}],\n...\n}\n```",
-        "uiControl": {
-            "default": "false",
-            "type": "boolean"
-        }
-    },
-    "transform.sort": {
-        "desc": "",
-        "uiControl": {
-            "type": "Object"
-        }
-    },
-    "transform.sort.type": {
-        "desc": "",
-        "uiControl": {
-            "default": "'sort'",
-            "type": "string"
-        }
-    },
-    "transform.sort.config": {
-        "desc": "The condition of transform \"sort\".\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "*"
-        }
-    },
-    "transform.sort.print": {
-        "desc": "When using data transform, we might run into the trouble that the final chart do not display correctly but we do not know where the config is wrong. There is a property `transform.print` might help in such case. (`transform.print` is only available in dev environment).\n\n```js\noption = {\ndataset: [{\nsource: [ ... ]\n}, {\ntransform: {\ntype: 'filter',\nconfig: { ... }\n// The result of this transform will be printed\n// in dev tool via `console.log`.\nprint: true\n}\n}],\n...\n}\n```",
-        "uiControl": {
-            "default": "false",
-            "type": "boolean"
-        }
-    },
-    "transform.xxx:xxx": {
+    {
+        "name": "transform.xxx:xxx",
+        "type": "Object",
         "desc": "Besides built-in transforms (like 'filter', 'sort'), we can also use external transforms to provide more powerful functionalities.\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "Object"
-        }
+        "children": [
+            {
+                "name": "type",
+                "type": "string",
+                "default": "'xxx:xxx'",
+                "desc": "Built-in transform has no namespace (like `type: 'filter'`, `type: 'sort'`).\n\nExternal transform has namespace (like `type: 'ecStat:regression'`).",
+                "children": []
+            },
+            {
+                "name": "config",
+                "type": "*",
+                "desc": "The needed parameters of this data transform. Each type of transform has its own definition of `config`.",
+                "children": []
+            },
+            {
+                "name": "print",
+                "type": "boolean",
+                "default": "false",
+                "desc": "When using data transform, we might run into the trouble that the final chart do not display correctly but we do not know where the config is wrong. There is a property `transform.print` might help in such case. (`transform.print` is only available in dev environment).\n\n```js\noption = {\ndataset: [{\nsource: [ ... ]\n}, {\ntransform: {\ntype: 'filter',\nconfig: { ... }\n// The result of this transform will be printed\n// in dev tool via `console.log`.\nprint: true\n}\n}],\n...\n}\n```",
+                "children": []
+            }
+        ]
     },
-    "transform.xxx:xxx.type": {
-        "desc": "Built-in transform has no namespace (like `type: 'filter'`, `type: 'sort'`).\n\nExternal transform has namespace (like `type: 'ecStat:regression'`).",
-        "uiControl": {
-            "default": "'xxx:xxx'",
-            "type": "string"
-        }
-    },
-    "transform.xxx:xxx.config": {
-        "desc": "The needed parameters of this data transform. Each type of transform has its own definition of `config`.",
-        "uiControl": {
-            "type": "*"
-        }
-    },
-    "transform.xxx:xxx.print": {
-        "desc": "When using data transform, we might run into the trouble that the final chart do not display correctly but we do not know where the config is wrong. There is a property `transform.print` might help in such case. (`transform.print` is only available in dev environment).\n\n```js\noption = {\ndataset: [{\nsource: [ ... ]\n}, {\ntransform: {\ntype: 'filter',\nconfig: { ... }\n// The result of this transform will be printed\n// in dev tool via `console.log`.\nprint: true\n}\n}],\n...\n}\n```",
-        "uiControl": {
-            "default": "false",
-            "type": "boolean"
-        }
-    },
-    "fromDatasetIndex": {
+    {
+        "name": "fromDatasetIndex",
+        "type": "number",
         "desc": "Specify the input dataset for [dataset.transform](~dataset.transform).\nIf [dataset.transform](~dataset.transform) specified but both `fromDatasetIndex` and `fromDatasetId` are not specified, `fromDatasetIndex: 0` will be used by default.\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "number"
-        }
+        "children": []
     },
-    "fromDatasetId": {
+    {
+        "name": "fromDatasetId",
+        "type": "string",
         "desc": "Specify the input dataset for [dataset.transform](~dataset.transform).\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "string"
-        }
+        "children": []
     },
-    "fromTransformResult": {
+    {
+        "name": "fromTransformResult",
+        "type": "number",
         "desc": "If a [dataset.transform](~dataset.transform) produces more than one result, we can use `fromTransformResult` to retrieve some certain result.\n\nIn most cases, `fromTransformResult` do not need to be specified because most transforms only produce one result. If `fromTransformResult` is not specified, we use `fromTransformResult: 0` by default.\n\n\n\nSee the tutorial of [data transform](tutorial.html#Data%20Transform).",
-        "uiControl": {
-            "type": "number"
-        }
+        "children": []
     }
-}
+]

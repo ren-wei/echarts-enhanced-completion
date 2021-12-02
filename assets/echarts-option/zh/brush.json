@@ -1,136 +1,136 @@
-{
-    "id": {
+[
+    {
+        "name": "id",
+        "type": "string",
         "desc": "组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。",
-        "uiControl": {
-            "type": "string"
-        }
+        "children": []
     },
-    "toolbox": {
+    {
+        "name": "toolbox",
+        "type": "Array",
+        "default": "['rect', 'polygon', 'keep', 'clear']",
         "desc": "使用在 toolbox 中的按钮。\n\n\n\nbrush 相关的 toolbox 按钮有：\n\n+ `'rect'`：开启矩形选框选择功能。\n+ `'polygon'`：开启任意形状选框选择功能。\n+ `'lineX'`：开启横向选择功能。\n+ `'lineY'`：开启纵向选择功能。\n+ `'keep'`：切换『单选』和『多选』模式。后者可支持同时画多个选框。前者支持单击清除所有选框。\n+ `'clear'`：清空所有选框。",
-        "uiControl": {
-            "default": "['rect', 'polygon', 'keep', 'clear']",
-            "type": "Array"
-        }
+        "children": []
     },
-    "brushLink": {
+    {
+        "name": "brushLink",
+        "type": [
+            "Array",
+            "string"
+        ],
+        "default": "null",
         "desc": "不同系列间，选中的项可以联动。\n\n参见如下效果（刷选一个 `scatter`，其他 `scatter` 以及 `parallel` 图都会有选中效果）：\n~[800x550](scatter-matrix&edit=1&reset=1)\n\n`brushLink` 配置项是一个数组，内容是 seriesIndex，指定了哪些 series 可以被联动。例如可以是：\n\n+ `[3, 4, 5]` 表示 seriesIndex 为 `3`, `4`, `5` 的 series 可以被联动。\n+ `'all'` 表示所有 series 都进行 brushLink。\n+ `'none'` 或 `null` 或 `undefined` 表示不启用 brushLink 功能。\n\n**注意**\n\nbrushLink 是通过 dataIndex 进行映射，所以需要保证，**联动的每个系列的 `data` 都是 `index` 对应的**。*\n\n例如：\n```javascript\noption = {\nbrush: {\nbrushLink: [0, 1]\n},\nseries: [\n{\ntype: 'bar'\ndata: [232,    4434,    545,      654]     // data 有四个项\n},\n{\ntype: 'parallel',\ndata: [[4, 5], [3, 5], [66, 33], [99, 66]] // data 同样有四个项，两个系列的 data 是对应的。\n}\n]\n};\n```",
-        "uiControl": {
-            "default": "null",
-            "type": [
-                "Array",
-                "string"
-            ]
-        }
+        "children": []
     },
-    "seriesIndex": {
+    {
+        "name": "seriesIndex",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "default": "'all'",
         "desc": "指定哪些 series 可以被刷选，可取值为：\n\n+ `'all'`: 所有 series\n+ `'Array'`: series index 列表\n+ `'number'`: 某个 series index",
-        "uiControl": {
-            "default": "'all'",
-            "type": [
-                "Array",
-                "number",
-                "string"
-            ]
-        }
+        "children": []
     },
-    "geoIndex": {
+    {
+        "name": "geoIndex",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "default": "null",
         "desc": "指定哪些 geo 可以被刷选。\n\n\n\n可以设置 `brush` 是『全局的』还是『属于坐标系的』。\n\n**全局 brush**\n\n在 echarts 实例中任意地方刷选。这是默认情况。如果没有指定为『坐标系 brush』，就是『全局 brush』。\n\n**坐标系 brush**\n\n在 指定的坐标系中刷选。选框可以跟随坐标系的缩放和平移（roam 和 dataZoom）而移动。\n\n坐标系 brush 实际更为常用，尤其是在 geo 中。\n\n通过指定 [brush.geoIndex](~brush.geoIndex) 或 [brush.xAxisIndex](~brush.xAxisIndex) 或 [brush.yAxisIndex](~brush.yAxisIndex) 来规定可以在哪些坐标系中进行刷选。\n\n这几个配置项的取值可以是：\n\n+ `'all'`，表示所有\n+ `number`，如 `0`，表示这个 index 所对应的坐标系。\n+ `Array`，如 `[0, 4, 2]`，表示指定这些 index 所对应的坐标系。\n+ `'none'` 或 `null` 或 `undefined`，表示不指定。\n\n例如：\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // 只可以在所有 geo 坐标系中刷选，也就是上面定义的 geo 组件中。\n...\n}\n};\n```\n\n例如：\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0，属于 grid 1。\n{gridIndex: 0, ...}  // xAxis 1，属于 grid 0。\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0，属于 grid 1。\n{gridIndex: 0, ...}  // yAxis 1，属于 grid 0。\n],\nbrush: {\nxAxisIndex: [0, 1], // 只可以在 xAxisIndex 为 `0` 和 `1` 的 xAxis 所在的直角坐标系中刷选。\n...\n}\n};\n```",
-        "uiControl": {
-            "default": "null",
-            "type": [
-                "Array",
-                "number",
-                "string"
-            ]
-        }
+        "children": []
     },
-    "xAxisIndex": {
+    {
+        "name": "xAxisIndex",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "default": "null",
         "desc": "指定哪些 xAxisIndex 可以被刷选。\n\n\n\n可以设置 `brush` 是『全局的』还是『属于坐标系的』。\n\n**全局 brush**\n\n在 echarts 实例中任意地方刷选。这是默认情况。如果没有指定为『坐标系 brush』，就是『全局 brush』。\n\n**坐标系 brush**\n\n在 指定的坐标系中刷选。选框可以跟随坐标系的缩放和平移（roam 和 dataZoom）而移动。\n\n坐标系 brush 实际更为常用，尤其是在 geo 中。\n\n通过指定 [brush.geoIndex](~brush.geoIndex) 或 [brush.xAxisIndex](~brush.xAxisIndex) 或 [brush.yAxisIndex](~brush.yAxisIndex) 来规定可以在哪些坐标系中进行刷选。\n\n这几个配置项的取值可以是：\n\n+ `'all'`，表示所有\n+ `number`，如 `0`，表示这个 index 所对应的坐标系。\n+ `Array`，如 `[0, 4, 2]`，表示指定这些 index 所对应的坐标系。\n+ `'none'` 或 `null` 或 `undefined`，表示不指定。\n\n例如：\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // 只可以在所有 geo 坐标系中刷选，也就是上面定义的 geo 组件中。\n...\n}\n};\n```\n\n例如：\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0，属于 grid 1。\n{gridIndex: 0, ...}  // xAxis 1，属于 grid 0。\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0，属于 grid 1。\n{gridIndex: 0, ...}  // yAxis 1，属于 grid 0。\n],\nbrush: {\nxAxisIndex: [0, 1], // 只可以在 xAxisIndex 为 `0` 和 `1` 的 xAxis 所在的直角坐标系中刷选。\n...\n}\n};\n```",
-        "uiControl": {
-            "default": "null",
-            "type": [
-                "Array",
-                "number",
-                "string"
-            ]
-        }
+        "children": []
     },
-    "yAxisIndex": {
+    {
+        "name": "yAxisIndex",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "default": "null",
         "desc": "指定哪些 yAxisIndex 可以被刷选。\n\n\n\n可以设置 `brush` 是『全局的』还是『属于坐标系的』。\n\n**全局 brush**\n\n在 echarts 实例中任意地方刷选。这是默认情况。如果没有指定为『坐标系 brush』，就是『全局 brush』。\n\n**坐标系 brush**\n\n在 指定的坐标系中刷选。选框可以跟随坐标系的缩放和平移（roam 和 dataZoom）而移动。\n\n坐标系 brush 实际更为常用，尤其是在 geo 中。\n\n通过指定 [brush.geoIndex](~brush.geoIndex) 或 [brush.xAxisIndex](~brush.xAxisIndex) 或 [brush.yAxisIndex](~brush.yAxisIndex) 来规定可以在哪些坐标系中进行刷选。\n\n这几个配置项的取值可以是：\n\n+ `'all'`，表示所有\n+ `number`，如 `0`，表示这个 index 所对应的坐标系。\n+ `Array`，如 `[0, 4, 2]`，表示指定这些 index 所对应的坐标系。\n+ `'none'` 或 `null` 或 `undefined`，表示不指定。\n\n例如：\n```javascript\noption = {\ngeo: {\n...\n},\nbrush: {\ngeoIndex: 'all', // 只可以在所有 geo 坐标系中刷选，也就是上面定义的 geo 组件中。\n...\n}\n};\n```\n\n例如：\n```javascript\noption = {\ngrid: [\n{...}, // grid 0\n{...}  // grid 1\n],\nxAxis: [\n{gridIndex: 1, ...}, // xAxis 0，属于 grid 1。\n{gridIndex: 0, ...}  // xAxis 1，属于 grid 0。\n],\nyAxis: [\n{gridIndex: 1, ...}, // yAxis 0，属于 grid 1。\n{gridIndex: 0, ...}  // yAxis 1，属于 grid 0。\n],\nbrush: {\nxAxisIndex: [0, 1], // 只可以在 xAxisIndex 为 `0` 和 `1` 的 xAxis 所在的直角坐标系中刷选。\n...\n}\n};\n```",
-        "uiControl": {
-            "default": "null",
-            "type": [
-                "Array",
-                "number",
-                "string"
-            ]
-        }
+        "children": []
     },
-    "brushType": {
+    {
+        "name": "brushType",
+        "type": "string",
+        "default": "'rect'",
         "desc": "默认的刷子类型。\n\n\n\n+ `'rect'`：矩形选框。\n+ `'polygon'`：任意形状选框。\n+ `'lineX'`：横向选择。\n+ `'lineY'`：纵向选择。",
-        "uiControl": {
-            "default": "'rect'",
-            "type": "string"
-        }
+        "children": []
     },
-    "brushMode": {
+    {
+        "name": "brushMode",
+        "type": "string",
+        "default": "'single'",
         "desc": "默认的刷子的模式。可取值为：\n\n+ `'single'`：单选。\n+ `'multiple'`：多选。",
-        "uiControl": {
-            "default": "'single'",
-            "type": "string"
-        }
+        "children": []
     },
-    "transformable": {
+    {
+        "name": "transformable",
+        "type": "boolean",
+        "default": "true",
         "desc": "已经选好的选框是否可以被调整形状或平移。",
-        "uiControl": {
-            "default": "true",
-            "type": "boolean"
-        }
+        "children": []
     },
-    "brushStyle": {
+    {
+        "name": "brushStyle",
+        "type": "Object",
         "desc": "选框的默认样式，值为：\n\n```javascript\n{\nborderWidth: 1,\ncolor: 'rgba(120,140,180,0.3)',\nborderColor: 'rgba(120,140,180,0.8)'\n},\n```",
-        "uiControl": {
-            "type": "Object"
-        }
+        "children": []
     },
-    "throttleType": {
+    {
+        "name": "throttleType",
+        "type": "string",
+        "default": "'fixRate'",
         "desc": "默认情况，刷选或者移动选区的时候，会不断得发 `brushSelected` 事件，从而告诉外界选中的内容。\n\n但是频繁的事件可能导致性能问题，或者动画效果很差。所以 brush 组件提供了 [brush.throttleType](~brush.throttleType)，[brush.throttleDelay](~brush.throttleDelay) 来解决这个问题。\n\nthrottleType 取值可以是：\n+ `'debounce'`：表示只有停止动作了（即一段时间没有操作了），才会触发事件。时间阈值由 [brush.throttleDelay](~brush.throttleDelay) 指定。\n+ `'fixRate'`：表示按照一定的频率触发事件，时间间隔由 [brush.throttleDelay](~brush.throttleDelay) 指定。",
-        "uiControl": {
-            "default": "'fixRate'",
-            "type": "string"
-        }
+        "children": []
     },
-    "throttleDelay": {
+    {
+        "name": "throttleDelay",
+        "type": "number",
+        "default": "0",
         "desc": "默认为 `0` 表示不开启 throttle。\n\n\n\n默认情况，刷选或者移动选区的时候，会不断得发 `brushSelected` 事件，从而告诉外界选中的内容。\n\n但是频繁的事件可能导致性能问题，或者动画效果很差。所以 brush 组件提供了 [brush.throttleType](~brush.throttleType)，[brush.throttleDelay](~brush.throttleDelay) 来解决这个问题。\n\nthrottleType 取值可以是：\n+ `'debounce'`：表示只有停止动作了（即一段时间没有操作了），才会触发事件。时间阈值由 [brush.throttleDelay](~brush.throttleDelay) 指定。\n+ `'fixRate'`：表示按照一定的频率触发事件，时间间隔由 [brush.throttleDelay](~brush.throttleDelay) 指定。",
-        "uiControl": {
-            "default": "0",
-            "type": "number"
-        }
+        "children": []
     },
-    "removeOnClick": {
+    {
+        "name": "removeOnClick",
+        "type": "boolean",
+        "default": "true",
         "desc": "在 [brush.brushMode](~brush.brushMode) 为 `'single'` 的情况下，是否支持『单击清除所有选框』。",
-        "uiControl": {
-            "default": "true",
-            "type": "boolean"
-        }
+        "children": []
     },
-    "inBrush": {
+    {
+        "name": "inBrush",
+        "type": "Object",
         "desc": "定义 **在选中范围中** 的视觉元素。\n\n可选的视觉元素有：\n\n\n\n+ `symbol`: 图元的图形类别。\n+ `symbolSize`: 图元的大小。\n+ `color`: 图元的颜色。\n+ `colorAlpha`: 图元的颜色的透明度。\n+ `opacity`: 图元以及其附属物（如文字标签）的透明度。\n+ `colorLightness`: 颜色的明暗度，参见 [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)。\n+ `colorSaturation`: 颜色的饱和度，参见 [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)。\n+ `colorHue`: 颜色的色调，参见 [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)。\n\n\n\n大多数情况下，inBrush 可以不指定，维持本来的视觉配置。",
-        "uiControl": {
-            "type": "Object"
-        }
+        "children": []
     },
-    "outOfBrush": {
+    {
+        "name": "outOfBrush",
+        "type": "Object",
         "desc": "定义 **在选中范围外** 的视觉元素。\n\n可选的视觉元素有：\n\n\n\n+ `symbol`: 图元的图形类别。\n+ `symbolSize`: 图元的大小。\n+ `color`: 图元的颜色。\n+ `colorAlpha`: 图元的颜色的透明度。\n+ `opacity`: 图元以及其附属物（如文字标签）的透明度。\n+ `colorLightness`: 颜色的明暗度，参见 [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)。\n+ `colorSaturation`: 颜色的饱和度，参见 [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)。\n+ `colorHue`: 颜色的色调，参见 [HSL](https://en.wikipedia.org/wiki/HSL_and_HSV)。\n\n\n\n**注意**，如果 outOfBrush 没有指定，默认会设置 color: `'#ddd'`，如果你不想要这个color，比如可以\n换成：\n\n```javascript\nbrush: {\n...,\noutOfBrush: {\ncolorAlpha: 0.1\n}\n}\n```",
-        "uiControl": {
-            "type": "Object"
-        }
+        "children": []
     },
-    "z": {
+    {
+        "name": "z",
+        "type": "number",
+        "default": "10000",
         "desc": "brush 选框的 z-index。当有和不想管组件有不正确的重叠时，可以进行调整。",
-        "uiControl": {
-            "default": "10000",
-            "type": "number"
-        }
+        "children": []
     }
-}
+]
