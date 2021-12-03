@@ -31,23 +31,76 @@ export default class Store {
     /** 获取选项下各项的描述数组 */
     public getOptionDesc(paths: Paths, isArray: boolean, astItem: AstItem): Tree[] {
         let descList: Tree[] = this.topOptionDesc;
+        let type: string | string[] = 'Object';
         for (let i = 0; i < paths.length; i++) {
             const path = paths[i];
-            let isRequired = false; // 标记当前是否是通过规则匹配
-            // 找到当前路径匹配的项
-            let target: Tree | undefined;
-            if (typeof path === 'string') {
-                target = descList.find(v => v.name === path || /^<.*>$/.test(v.name));
-            } else {
-                // 根据规则匹配
-                target = descList.filter(v => v.required).find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(path[rule.key]))));
-                // 如果没有规则匹配，则跳过向下寻找
-                if (!target) {
-                    continue;
+            if (type === 'Object') {
+                const target = descList.find(v => v.name === path);
+                if (target) {
+                    if (target.children) {
+                        descList = target.children;
+                    } else if (target.detailFileName) {
+                        descList = this.getFileData(target.detailFileName);
+                    } else {
+                        return [];
+                    }
+                    type = target.type;
+                } else {
+                    return [];
                 }
-                isRequired = true;
+            } else if (type === 'Array') {
+                if (i === paths.length - 1) return []; // 如果当前是最后一个路径，则表示光标位于普通数组
+                if (typeof path === 'string') return [];
+                const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(path[rule.key]))));
+                // 如果 target 存在，那么表示是通过规则匹配的；如果不存在则是普通数组直接跳过
+                if (target) {
+                    if (target.children) {
+                        descList = target.children;
+                    } else if (target.detailFileName) {
+                        descList = this.getFileData(target.detailFileName);
+                    } else {
+                        return [];
+                    }
+                    type = target.type;
+                }
+            } else if (type.length === 2 && type.includes('Object') && type.includes('Array')) {
+                // path 如果是字符串，那么当前是对象，否则是数组
+                if (typeof path === 'string') {
+                    const simple = astItem.getSimpleObjectByPaths(paths.slice(0, i)); // 获取父节点的实际的对象
+                    const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(simple[rule.key]))));
+                    if (target) {
+                        if (target.children) {
+                            descList = target.children;
+                        } else if (target.detailFileName) {
+                            descList = this.getFileData(target.detailFileName);
+                        } else {
+                            return [];
+                        }
+                        i--; // 需要额外向下找一次
+                        type = target.type;
+                    } else {
+                        return [];
+                    }
+                } else {
+                    const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(path[rule.key]))));
+                    // 如果 target 存在，那么表示是通过规则匹配的；如果不存在则是普通数组直接跳过
+                    if (target) {
+                        if (target.children) {
+                            descList = target.children;
+                        } else if (target.detailFileName) {
+                            descList = this.getFileData(target.detailFileName);
+                        } else {
+                            return [];
+                        }
+                        type = target.type;
+                    }
+                }
             }
-            // 向下寻找
+        }
+        // 如果处于对象中，并且同时允许对象和数组，那么需要判断是否是空对象
+        if (!isArray && type.length === 2 && type.includes('Object') && type.includes('Array')) {
+            const simple = astItem.getSimpleObjectByPaths(paths); // 获取父节点的实际的对象
+            const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(simple[rule.key]))));
             if (target) {
                 if (target.children) {
                     descList = target.children;
@@ -56,12 +109,6 @@ export default class Store {
                 } else {
                     return [];
                 }
-                // 如果是普通数组值中触发，返回空数组
-                if (i === paths.length - 1 && !descList.some(v => v.required) && !isRequired && isArray) {
-                    return [];
-                }
-            } else {
-                return [];
             }
         }
         return descList;
