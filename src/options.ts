@@ -93,7 +93,11 @@ export default class Options {
         let value = '${0}';
         // 如果存在默认值，则补全默认值
         if (tree.default) {
-            value = `${tree.default},`;
+            if (typeof tree.type === 'string' && ['vector', 'percentvector'].includes(tree.type) && tree.default.includes(',')) {
+                value = `[${tree.default}],`;
+            } else {
+                value = `${tree.default},`;
+            }
         } else if (typeof tree.type === 'string') {
             switch (tree.type) {
                 case 'string':
@@ -109,6 +113,7 @@ export default class Options {
                     break;
                 case 'Array':
                 case 'vector':
+                case 'percentvector':
                     // 将值作为数组补全
                     value = '[$0],';
                     break;
