@@ -8,9 +8,15 @@ let store: Store;
 let astMap: Map<vscode.Uri, Ast>;
 
 export const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
+export const keyword = '/** @type EChartsOption */';
 
 export function provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null, context: vscode.CompletionContext | null = null): vscode.ProviderResult<vscode.CompletionItem[]> {
-    const ast = astMap.get(document.uri);
+    let ast: Ast | undefined;
+    if (Config.patchUpdate) {
+        ast = astMap.get(document.uri);
+    } else {
+        ast = new Ast(keyword, document);
+    }
     if (!ast?.validate) return [];
     const options = new Options(ast, store, position);
     const result = options.getCompletionItem();
@@ -18,23 +24,29 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
 }
 
 export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
-    const ast = astMap.get(document.uri);
+    let ast: Ast | undefined;
+    if (Config.patchUpdate) {
+        ast = astMap.get(document.uri);
+    } else {
+        ast = new Ast(keyword, document);
+    }
     if (!ast?.validate) return null;
     const options = new Options(ast, store, position);
     return options.getHover();
 }
 
 export function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection, textDocumentChangeEvent: vscode.TextDocumentChangeEvent | null = null): void {
-    let ast: Ast;
-    if (astMap.has(document.uri) && textDocumentChangeEvent) {
-        ast = astMap.get(document.uri) as Ast;
-        ast.patch(textDocumentChangeEvent.contentChanges);
-    } else {
-        const keyword = '/** @type EChartsOption */';
-        ast = new Ast(keyword, document);
-        astMap.set(document.uri, ast);
+    if (Config.patchUpdate) {
+        let ast: Ast;
+        if (astMap.has(document.uri) && textDocumentChangeEvent) {
+            ast = astMap.get(document.uri) as Ast;
+            ast.patch(textDocumentChangeEvent.contentChanges);
+        } else {
+            ast = new Ast(keyword, document);
+            astMap.set(document.uri, ast);
+        }
+        ast.updateDiagnostics(document.uri, collection);
     }
-    ast.updateDiagnostics(document.uri, collection);
 }
 
 export function start() {

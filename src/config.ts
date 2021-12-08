@@ -33,4 +33,8 @@ export default class Config {
             }
         }
     }
+
+    static get patchUpdate(): boolean {
+        return vscode.workspace.getConfiguration().get('echarts-enhanced-completion.patchUpdate') as boolean;
+    }
 };
