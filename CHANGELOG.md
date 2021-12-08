@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.7 (2021-12-08)
+
+### Added
+
+- 将局部更新改为可选，并默认关闭
+
+### Fixed
+
+- 修复series为对象时无法正常补全的问题
+
+- 修复默认值为向量类型时，没有用中括号包裹
+
 ## 1.3.6 (2021-11-30)
 
 ### Fixed
@@ -30,7 +42,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 文档资源来源从官网爬取，改为从 https://github.com/apache/echarts-doc 获取
 
-## 1.3.2 (2021-11-2)
+## 1.3.2 (2021-11-02)
 
 ### Fixed
 
