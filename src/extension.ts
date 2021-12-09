@@ -26,7 +26,13 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
 export function provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken | null = null): vscode.ProviderResult<vscode.Hover> {
     let ast: Ast | undefined;
     if (Config.patchUpdate) {
-        ast = astMap.get(document.uri);
+        if (astMap.has(document.uri)) {
+            ast = astMap.get(document.uri);
+        } else {
+            // 刚打开文件还未编辑时，ast不存在，需要初始化
+            ast = new Ast(keyword, document);
+            astMap.set(document.uri, ast);
+        }
     } else {
         ast = new Ast(keyword, document);
     }
@@ -57,6 +63,9 @@ export function start() {
 export function activate(context: vscode.ExtensionContext) {
     start();
     vscode.workspace.onDidChangeConfiguration(start);
+    vscode.workspace.onDidCloseTextDocument(document => {
+        astMap.delete(document.uri);
+    });
 
     // 自动补全
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
