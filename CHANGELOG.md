@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.8 (2021-12-09)
+
+### Fixed
+
+- 修复局部更新模式下，新打开文件没有hover提示的问题
+
+- 修复itemStyle的borderWidth的描述错误
+
 ## 1.3.7 (2021-12-08)
 
 ### Added
