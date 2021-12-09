@@ -139,7 +139,7 @@ export default class Engine {
                 } else if (match[2] !== undefined) {
                     try {
                         // eslint-disable-next-line no-eval
-                        const value = eval(match[2]);
+                        const value = eval(this.parseString(match[2], vars));
                         if (typeof value === 'string') {
                             replaceValue = "'" + value + "'";
                         } else {
