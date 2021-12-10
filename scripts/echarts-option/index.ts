@@ -128,8 +128,23 @@ async function main() {
         'tree',
         'treemap',
     ];
+    // 如果source目录不存在那么创建source目录
+    if (!fs.existsSync(path.resolve(__dirname, './source'))) {
+        fs.mkdirSync(path.resolve(__dirname, './source'));
+    }
 
     for (const lang of ['zh', 'en']) {
+        // 如果source目录下的文件夹不存在，那么先创建
+        const targetName = path.resolve(__dirname, `./source/${lang}`);
+        if (!fs.existsSync(targetName)) {
+            fs.mkdirSync(targetName);
+        }
+        ['partial', 'component', 'series'].forEach(dirname => {
+            const targetName = path.resolve(__dirname, `./source/${lang}/${dirname}`);
+            if (!fs.existsSync(targetName)) {
+                fs.mkdirSync(targetName);
+            }
+        });
         const initVars = {
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
@@ -264,8 +279,12 @@ async function getOption(name: string, lang: string, env = 'production') : Promi
             return fs.readFileSync(path.resolve(__dirname, `./source/${lang}/${name}.md`), { encoding: 'utf8' });
         }
     } catch (e) {
-        // eslint-disable-next-line no-console
-        console.log("Can't connect to github, the real address is " + address);
+        if (env === 'production') {
+            // eslint-disable-next-line no-console
+            console.log("Can't connect to github, the real address is " + address);
+        } else {
+            console.log("Can't get local cache file: " + path.resolve(__dirname, `./source/${lang}/${name}.md`) + '\nYou can execute the following command:\n\n\tyarn update:assets\n');
+        }
         process.exit(1);
     }
 }
