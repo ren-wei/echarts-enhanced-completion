@@ -187,6 +187,44 @@
         "children": []
     },
     {
+        "name": "symbol",
+        "type": "string",
+        "default": "circle",
+        "desc": "节点标记的图形。\n\n\n\nECharts 提供的标记类型包括\n\n\n\n`'circle'`, `'rect'`, `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`, `'none'`\n\n\n\n\n\n\n\n可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。\n\nURL 为图片链接例如：\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nURL 为 `dataURI` 例如：\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\n可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。\n\n例如：\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+        "children": []
+    },
+    {
+        "name": "symbolSize",
+        "type": "number",
+        "desc": "节点标记的大小，可以设置成诸如 `10` 这样单一的数字，也可以用数组分开表示宽和高，例如 `[20, 10]` 表示标记宽为`20`，高为`10`。",
+        "children": [],
+        "min": "0"
+    },
+    {
+        "name": "symbolRotate",
+        "type": "angle",
+        "desc": "节点标记的旋转角度（而非弧度）。正值表示逆时针旋转。注意在 `markLine` 中当 `symbol` 为 `'arrow'` 时会忽略 `symbolRotate` 强制设置为切线的角度。",
+        "children": [],
+        "min": "-180",
+        "max": "180",
+        "step": "1"
+    },
+    {
+        "name": "symbolKeepAspect",
+        "type": "boolean",
+        "default": "false",
+        "desc": "如果 `symbol` 是 `path://` 的形式，是否在缩放时保持该图形的长宽比。",
+        "children": []
+    },
+    {
+        "name": "symbolOffset",
+        "type": "vector",
+        "default": "[0, 0]",
+        "desc": "节点标记相对于原本位置的偏移。默认情况下，标记会居中置放在数据对应的位置，但是如果 symbol 是自定义的矢量路径或者图片，就有可能不希望 symbol 居中。这时候可以使用该配置项配置 symbol 相对于原本居中的偏移，可以是绝对的像素值，也可以是相对的百分比。\n\n例如 `[0, '-50%']` 就是把自己向上移动了一半的位置，在 symbol 图形是气泡的时候可以让图形下端的箭头对准数据点。",
+        "children": [],
+        "dims": "x,y"
+    },
+    {
         "name": "edgeSymbol",
         "type": [
             "Array",
@@ -494,7 +532,7 @@
             {
                 "name": "color",
                 "type": "color",
-                "default": "\"#fff\"",
+                "default": "'#fff'",
                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                 "children": []
             },
@@ -755,13 +793,6 @@
                 "children": []
             },
             {
-                "name": "lineOverflow",
-                "type": "string",
-                "default": "'none'",
-                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                "children": []
-            },
-            {
                 "name": "rich",
                 "type": "Object",
                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -774,7 +805,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -1037,7 +1068,7 @@
             {
                 "name": "color",
                 "type": "color",
-                "default": "\"#fff\"",
+                "default": "'#fff'",
                 "desc": "文字的颜色。",
                 "children": []
             },
@@ -1298,13 +1329,6 @@
                 "children": []
             },
             {
-                "name": "lineOverflow",
-                "type": "string",
-                "default": "'none'",
-                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                "children": []
-            },
-            {
                 "name": "rich",
                 "type": "Object",
                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -1317,7 +1341,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。",
                                 "children": []
                             },
@@ -1614,7 +1638,7 @@
             {
                 "name": "height",
                 "type": "number",
-                "desc": "标签显示的高度。可以配合`lineOverflow`使用控制标签显示在固定高度内",
+                "desc": "标签显示的高度。",
                 "children": []
             },
             {
@@ -1958,7 +1982,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -2219,13 +2243,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -2238,7 +2255,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -2501,7 +2518,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。",
                         "children": []
                     },
@@ -2762,13 +2779,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -2781,7 +2791,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。",
                                         "children": []
                                     },
@@ -3303,7 +3313,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -3564,13 +3574,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -3583,7 +3586,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -3846,7 +3849,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。",
                         "children": []
                     },
@@ -4107,13 +4110,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -4126,7 +4122,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。",
                                         "children": []
                                     },
@@ -4648,7 +4644,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -4909,13 +4905,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -4928,7 +4917,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -5191,7 +5180,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。",
                         "children": []
                     },
@@ -5452,13 +5441,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -5471,7 +5453,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。",
                                         "children": []
                                     },
@@ -5930,7 +5912,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -6191,13 +6173,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -6210,7 +6185,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -6607,7 +6582,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -6868,13 +6843,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -6887,7 +6855,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -7286,7 +7254,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -7547,13 +7515,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -7566,7 +7527,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -7965,7 +7926,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -8226,13 +8187,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -8245,7 +8199,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -8734,7 +8688,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -8995,13 +8949,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -9014,7 +8961,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -9411,7 +9358,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -9672,13 +9619,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -9691,7 +9631,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -10090,7 +10030,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -10351,13 +10291,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -10370,7 +10303,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -10769,7 +10702,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -11030,13 +10963,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -11049,7 +10975,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -11501,13 +11427,6 @@
                                 "default": "'...'",
                                 "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
                                 "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
                             }
                         ]
                     },
@@ -11701,7 +11620,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。",
                         "children": []
                     },
@@ -11962,13 +11881,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -11981,7 +11893,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。",
                                         "children": []
                                     },
@@ -12381,7 +12293,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -12642,13 +12554,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -12661,7 +12566,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -13063,7 +12968,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -13324,13 +13229,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -13343,7 +13241,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -13745,7 +13643,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -14006,13 +13904,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -14025,7 +13916,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -14404,7 +14295,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -14665,13 +14556,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -14684,7 +14568,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -15090,7 +14974,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -15351,13 +15235,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -15370,7 +15247,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -15778,7 +15655,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -16039,13 +15916,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -16058,7 +15928,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -16661,7 +16531,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -16922,13 +16792,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -16941,7 +16804,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -17227,7 +17090,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -17488,13 +17351,6 @@
                                         "children": []
                                     },
                                     {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                        "children": []
-                                    },
-                                    {
                                         "name": "rich",
                                         "type": "Object",
                                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -17507,7 +17363,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -17973,7 +17829,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -18234,13 +18090,6 @@
                                         "children": []
                                     },
                                     {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                        "children": []
-                                    },
-                                    {
                                         "name": "rich",
                                         "type": "Object",
                                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -18253,7 +18102,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -18992,13 +18841,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -19011,7 +18853,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -19649,13 +19491,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -19668,7 +19503,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -20298,13 +20133,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -20317,7 +20145,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -21177,13 +21005,6 @@
                                         "children": []
                                     },
                                     {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                        "children": []
-                                    },
-                                    {
                                         "name": "rich",
                                         "type": "Object",
                                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -21196,7 +21017,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -21834,13 +21655,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -21853,7 +21667,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -22493,13 +22307,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -22512,7 +22319,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -23265,13 +23072,6 @@
                                         "children": []
                                     },
                                     {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                        "children": []
-                                    },
-                                    {
                                         "name": "rich",
                                         "type": "Object",
                                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -23284,7 +23084,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -23922,13 +23722,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -23941,7 +23734,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -24581,13 +24374,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -24600,7 +24386,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -24967,7 +24753,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
@@ -25228,13 +25014,6 @@
                         "children": []
                     },
                     {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                        "children": []
-                    },
-                    {
                         "name": "rich",
                         "type": "Object",
                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -25247,7 +25026,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -25644,7 +25423,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -25905,13 +25684,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -25924,7 +25696,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -26323,7 +26095,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
@@ -26584,13 +26356,6 @@
                                 "children": []
                             },
                             {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                "children": []
-                            },
-                            {
                                 "name": "rich",
                                 "type": "Object",
                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -26603,7 +26368,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -27173,7 +26938,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -27434,13 +27199,6 @@
                                         "children": []
                                     },
                                     {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                        "children": []
-                                    },
-                                    {
                                         "name": "rich",
                                         "type": "Object",
                                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -27453,7 +27211,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -27850,7 +27608,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -28111,13 +27869,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -28130,7 +27881,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -28529,7 +28280,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -28790,13 +28541,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -28809,7 +28553,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -29265,7 +29009,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -29526,13 +29270,6 @@
                                         "children": []
                                     },
                                     {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                        "children": []
-                                    },
-                                    {
                                         "name": "rich",
                                         "type": "Object",
                                         "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -29545,7 +29282,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -29942,7 +29679,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -30203,13 +29940,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -30222,7 +29952,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -30621,7 +30351,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -30882,13 +30612,6 @@
                                                 "children": []
                                             },
                                             {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
-                                                "children": []
-                                            },
-                                            {
                                                 "name": "rich",
                                                 "type": "Object",
                                                 "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
@@ -30901,7 +30624,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -31553,13 +31276,6 @@
                         "type": "string",
                         "default": "'...'",
                         "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "文本超出高度部分是否截断，配置`height`时有效。\n\n+ `'truncate'` 在文本行数超出高度部分截断。",
                         "children": []
                     }
                 ]

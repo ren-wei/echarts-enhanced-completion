@@ -187,6 +187,44 @@
         "children": []
     },
     {
+        "name": "symbol",
+        "type": "string",
+        "default": "circle",
+        "desc": "Symbol of node.\n\n\n\nIcon types provided by ECharts includes\n\n\n\n`'circle'`, `'rect'`, `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`, `'none'`\n\n\n\n\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+        "children": []
+    },
+    {
+        "name": "symbolSize",
+        "type": "number",
+        "desc": "node symbol size. It can be set to single numbers like `10`, or use an array to represent width and height. For example, `[20, 10]` means symbol width is `20`, and height is`10`.",
+        "children": [],
+        "min": "0"
+    },
+    {
+        "name": "symbolRotate",
+        "type": "angle",
+        "desc": "Rotate degree of node symbol. The negative value represents clockwise. Note that when `symbol` is set to be `'arrow'` in `markLine`, `symbolRotate` value will be ignored, and compulsively use tangent angle.",
+        "children": [],
+        "min": "-180",
+        "max": "180",
+        "step": "1"
+    },
+    {
+        "name": "symbolKeepAspect",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether to keep aspect for symbols in the form of `path://`.",
+        "children": []
+    },
+    {
+        "name": "symbolOffset",
+        "type": "vector",
+        "default": "[0, 0]",
+        "desc": "Offset of node symbol relative to original position. By default, symbol will be put in the center position of data. But if symbol is from user-defined vector path or image, you may not expect symbol to be in center. In this case, you may use this attribute to set offset to default position. It can be in absolute pixel value, or in relative percentage value.\n\nFor example, `[0, '-50%']` means to move upside side position of symbol height. It can be used to make the arrow in the bottom to be at data position when symbol is pin.",
+        "children": [],
+        "dims": "x,y"
+    },
+    {
         "name": "edgeSymbol",
         "type": [
             "Array",
@@ -200,7 +238,7 @@
         "name": "edgeSymbolSize",
         "type": "vector",
         "default": "10",
-        "desc": "Size of symbol of two ends of edge line. Can be an array or a single number.\n\nFor example:\n```js\n// Start symbol has size 5 and end symbol has size 10\nsymbolSize: [5, 10],\n// All has size 10\nsymbolSize: 10\n```",
+        "desc": "Size of symbol of two ends of edge line. Can be an array or a single number.\n\nFor example:\n```js\n// Start symbol has size 5 and end symbol has size 10\nedgeSymbolSize: [5, 10],\n// All has size 10\nedgeSymbolSize: 10\n```",
         "children": [],
         "min": "0"
     },
@@ -494,7 +532,7 @@
             {
                 "name": "color",
                 "type": "color",
-                "default": "\"#fff\"",
+                "default": "'#fff'",
                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                 "children": []
             },
@@ -751,14 +789,7 @@
                 "name": "ellipsis",
                 "type": "string",
                 "default": "'...'",
-                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                "children": []
-            },
-            {
-                "name": "lineOverflow",
-                "type": "string",
-                "default": "'none'",
-                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                 "children": []
             },
             {
@@ -774,7 +805,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -1037,7 +1068,7 @@
             {
                 "name": "color",
                 "type": "color",
-                "default": "\"#fff\"",
+                "default": "'#fff'",
                 "desc": "text color.",
                 "children": []
             },
@@ -1294,14 +1325,7 @@
                 "name": "ellipsis",
                 "type": "string",
                 "default": "'...'",
-                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                "children": []
-            },
-            {
-                "name": "lineOverflow",
-                "type": "string",
-                "default": "'none'",
-                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                 "children": []
             },
             {
@@ -1317,7 +1341,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.",
                                 "children": []
                             },
@@ -1608,13 +1632,13 @@
             {
                 "name": "width",
                 "type": "number",
-                "desc": "The width of displayed label. Can be used with `overflow` to constraint the label in a fixed width",
+                "desc": "The width of displayed label. It can be used with `overflow` to constraint the label in a fixed width.",
                 "children": []
             },
             {
                 "name": "height",
                 "type": "number",
-                "desc": "The height of displayed label. Can be used with `lineOverflow` to constraint the label in a fixed height.",
+                "desc": "The height of displayed label.",
                 "children": []
             },
             {
@@ -1958,7 +1982,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -2215,14 +2239,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -2238,7 +2255,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -2501,7 +2518,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.",
                         "children": []
                     },
@@ -2758,14 +2775,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -2781,7 +2791,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.",
                                         "children": []
                                     },
@@ -3303,7 +3313,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -3560,14 +3570,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -3583,7 +3586,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -3846,7 +3849,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.",
                         "children": []
                     },
@@ -4103,14 +4106,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -4126,7 +4122,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.",
                                         "children": []
                                     },
@@ -4648,7 +4644,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -4905,14 +4901,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -4928,7 +4917,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -5191,7 +5180,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.",
                         "children": []
                     },
@@ -5448,14 +5437,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -5471,7 +5453,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.",
                                         "children": []
                                     },
@@ -5930,7 +5912,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -6187,14 +6169,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -6210,7 +6185,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -6607,7 +6582,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -6864,14 +6839,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -6887,7 +6855,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -7286,7 +7254,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -7543,14 +7511,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -7566,7 +7527,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -7965,7 +7926,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -8222,14 +8183,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -8245,7 +8199,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -8734,7 +8688,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -8991,14 +8945,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -9014,7 +8961,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -9411,7 +9358,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -9668,14 +9615,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -9691,7 +9631,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -10090,7 +10030,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -10347,14 +10287,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -10370,7 +10303,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -10769,7 +10702,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -11026,14 +10959,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -11049,7 +10975,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -11498,14 +11424,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             }
                         ]
@@ -11700,7 +11619,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.",
                         "children": []
                     },
@@ -11957,14 +11876,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -11980,7 +11892,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.",
                                         "children": []
                                     },
@@ -12380,7 +12292,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -12637,14 +12549,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -12660,7 +12565,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -13062,7 +12967,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -13319,14 +13224,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -13342,7 +13240,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -13744,7 +13642,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -14001,14 +13899,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -14024,7 +13915,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -14403,7 +14294,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -14660,14 +14551,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -14683,7 +14567,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -15089,7 +14973,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -15346,14 +15230,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -15369,7 +15246,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -15777,7 +15654,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -16034,14 +15911,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -16057,7 +15927,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -16660,7 +16530,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -16917,14 +16787,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -16940,7 +16803,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -17226,7 +17089,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -17483,14 +17346,7 @@
                                         "name": "ellipsis",
                                         "type": "string",
                                         "default": "'...'",
-                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                         "children": []
                                     },
                                     {
@@ -17506,7 +17362,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -17972,7 +17828,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -18229,14 +18085,7 @@
                                         "name": "ellipsis",
                                         "type": "string",
                                         "default": "'...'",
-                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                         "children": []
                                     },
                                     {
@@ -18252,7 +18101,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -18987,14 +18836,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -19010,7 +18852,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -19644,14 +19486,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -19667,7 +19502,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -20293,14 +20128,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -20316,7 +20144,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -21172,14 +21000,7 @@
                                         "name": "ellipsis",
                                         "type": "string",
                                         "default": "'...'",
-                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                         "children": []
                                     },
                                     {
@@ -21195,7 +21016,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -21829,14 +21650,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -21852,7 +21666,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -22488,14 +22302,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -22511,7 +22318,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -23260,14 +23067,7 @@
                                         "name": "ellipsis",
                                         "type": "string",
                                         "default": "'...'",
-                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                         "children": []
                                     },
                                     {
@@ -23283,7 +23083,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -23917,14 +23717,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -23940,7 +23733,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -24576,14 +24369,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -24599,7 +24385,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -24966,7 +24752,7 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "\"#fff\"",
+                        "default": "'#fff'",
                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
@@ -25223,14 +25009,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     },
                     {
@@ -25246,7 +25025,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -25643,7 +25422,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -25900,14 +25679,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -25923,7 +25695,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -26322,7 +26094,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "\"#fff\"",
+                                "default": "'#fff'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -26579,14 +26351,7 @@
                                 "name": "ellipsis",
                                 "type": "string",
                                 "default": "'...'",
-                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                "children": []
-                            },
-                            {
-                                "name": "lineOverflow",
-                                "type": "string",
-                                "default": "'none'",
-                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                 "children": []
                             },
                             {
@@ -26602,7 +26367,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -27172,7 +26937,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -27429,14 +27194,7 @@
                                         "name": "ellipsis",
                                         "type": "string",
                                         "default": "'...'",
-                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                         "children": []
                                     },
                                     {
@@ -27452,7 +27210,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -27849,7 +27607,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -28106,14 +27864,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -28129,7 +27880,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -28528,7 +28279,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -28785,14 +28536,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -28808,7 +28552,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -29264,7 +29008,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "\"#fff\"",
+                                        "default": "'#fff'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -29521,14 +29265,7 @@
                                         "name": "ellipsis",
                                         "type": "string",
                                         "default": "'...'",
-                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                        "children": []
-                                    },
-                                    {
-                                        "name": "lineOverflow",
-                                        "type": "string",
-                                        "default": "'none'",
-                                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                         "children": []
                                     },
                                     {
@@ -29544,7 +29281,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "\"#fff\"",
+                                                        "default": "'#fff'",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -29941,7 +29678,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -30198,14 +29935,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -30221,7 +29951,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -30620,7 +30350,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "\"#fff\"",
+                                                "default": "'#fff'",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -30877,14 +30607,7 @@
                                                 "name": "ellipsis",
                                                 "type": "string",
                                                 "default": "'...'",
-                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                                                "children": []
-                                            },
-                                            {
-                                                "name": "lineOverflow",
-                                                "type": "string",
-                                                "default": "'none'",
-                                                "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                                                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                                                 "children": []
                                             },
                                             {
@@ -30900,7 +30623,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "\"#fff\"",
+                                                                "default": "'#fff'",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -31568,14 +31291,7 @@
                         "name": "ellipsis",
                         "type": "string",
                         "default": "'...'",
-                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.",
-                        "children": []
-                    },
-                    {
-                        "name": "lineOverflow",
-                        "type": "string",
-                        "default": "'none'",
-                        "desc": "Determine how to display the text when it's overflow on height.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
                         "children": []
                     }
                 ]
