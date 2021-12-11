@@ -283,6 +283,7 @@ async function getOption(name: string, lang: string, env = 'production') : Promi
             // eslint-disable-next-line no-console
             console.log("Can't connect to github, the real address is " + address);
         } else {
+            // eslint-disable-next-line no-console
             console.log("Can't get local cache file: " + path.resolve(__dirname, `./source/${lang}/${name}.md`) + '\nYou can execute the following command:\n\n\tyarn update:assets\n');
         }
         process.exit(1);
