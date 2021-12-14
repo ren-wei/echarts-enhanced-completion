@@ -291,7 +291,7 @@ export class AstItem {
                 // 匹配括号并且忽略引号中的括号
                 const ignoreList: [start: number, end: number][] = [];
                 let match: RegExpExecArray | null;
-                let reg = /('(?:[^']|(?:\'))*')|("(?:[^"]|(?:\"))*")|(`(?:[^`]|(?:\`))*`)/g;
+                let reg = /('(?:[^']|(?:\\'))*')|("(?:[^"]|(?:\\"))*")|(`(?:[^`]|(?:\\`))*`)/g; // 匹配包含引号的字符串
                 while ((match = reg.exec(textLine.text))) {
                     ignoreList.push([match.index, match.index + match[0].length]);
                 }
