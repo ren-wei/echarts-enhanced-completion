@@ -46,7 +46,8 @@ export function updateDiagnostics(document: vscode.TextDocument, collection: vsc
         let ast: Ast;
         if (astMap.has(document.uri) && textDocumentChangeEvent) {
             ast = astMap.get(document.uri) as Ast;
-            ast.patch(textDocumentChangeEvent.contentChanges);
+            // 将存在多行填充contentChange放在后面，以防止重新初始化后，ast结构被破坏
+            ast.patch(Array.from(textDocumentChangeEvent.contentChanges).sort((a, b) => a.text.split('\n').length - b.text.split('\n').length));
         } else {
             ast = new Ast(keyword, document);
             astMap.set(document.uri, ast);
