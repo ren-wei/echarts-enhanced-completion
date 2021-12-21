@@ -113,7 +113,7 @@ export default class Ast {
 export class AstItem {
     public keyword: string;
     public expression: AstNode | null = null; // 目标的 ast 表达式
-    public range: vscode.Range; // 目标对象所在的范围
+    public range: vscode.Range; // 目标对象所在的范围，使用 this.document.getText(this.range) 时必须恰好返回选项对象
     private document: vscode.TextDocument;
     private startRow: number; // 注释所在行
     private endRow: number; // 结尾右括号所在行，如果不存在目标对象，则与开始行相等
@@ -205,8 +205,8 @@ export class AstItem {
         // 如果是 Enter 触发补全，那么只需要调整范围
         if (!contentChange.rangeLength && /^\r?\n[ \t]+$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
             this.translate(this.expression, contentChange.rangeOffset - this.document.offsetAt(this.range.start), contentChange.text.length);
-            this.range = new vscode.Range(this.range.start, this.document.positionAt(this.document.offsetAt(this.range.end) + contentChange.text.length));
-            this.endRow = this.range.end.line;
+            this.endRow += contentChange.text.split('\n').length - 1;
+            this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
             return true;
         }
         // 如果填充包含了多行或者修改包含了结束行，那么需要重新初始化

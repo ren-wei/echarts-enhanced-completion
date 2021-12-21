@@ -222,11 +222,18 @@ suite('Ast class Test Suite', () => {
 
         // 模拟输入 Enter 换行
         text = '\n            ';
-        position = new vscode.Position(13, 25);
         await textEditor.edit((editBuilder) => {
-            editBuilder.insert(position, text);
+            editBuilder.insert(new vscode.Position(13, 25), text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        actual.patch([{
+            range: new vscode.Range(13, 25, 13, 25),
+            rangeLength: 0,
+            rangeOffset: 318,
+            text: text,
+        }]);
+
+        let expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected, '输入 Enter 换行后没有保持一致');
 
         // 删除至原样
         await textEditor.edit((editBuilder) => {
@@ -234,15 +241,15 @@ suite('Ast class Test Suite', () => {
         });
         actual.patch([{
             range: new vscode.Range(13, 25, 14, 12),
-            rangeLength: 14,
-            rangeOffset: 331,
+            rangeLength: 13,
+            rangeOffset: 318,
             text: '',
         }]);
 
         assert.strictEqual(document.getText(), oldText);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
-        assert.deepStrictEqual(actual, expected);
+        expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected, '删除至原样没有保持一致');
     });
 
     test('输入后出现错误的结束行，然后删除至原样应该保持一致', async() => {

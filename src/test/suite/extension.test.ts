@@ -327,7 +327,7 @@ suite('Extension Completion Base Test Suite', () => {
         const target = result[0];
         assert.strictEqual((target.label as vscode.CompletionItemLabel).label, 'color');
         assert.strictEqual((target.documentation as vscode.MarkdownString).value, findTree(angleAxisDescMsg, 'axisLabel.rich.<style_name>.color').desc);
-        assert.strictEqual((target.insertText as vscode.SnippetString).value, 'color: "#fff",');
+        assert.strictEqual((target.insertText as vscode.SnippetString).value, "color: '#fff',");
     });
 });
 

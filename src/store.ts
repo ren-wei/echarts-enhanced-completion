@@ -35,8 +35,10 @@ export default class Store {
         for (let i = 0; i < paths.length; i++) {
             const path = paths[i];
             if (type === 'Object') {
-                const target = descList.find(v => v.name === path);
+                const target = descList.find(v => v.name === path || /^<[^>]+>$/.test(v.name));
                 if (target) {
+                    // 如果最后一个路径是数组，那么是普通数组
+                    if (i === paths.length - 1 && isArray && target.type === 'Array') return [];
                     if (target.children) {
                         descList = target.children;
                     } else if (target.detailFileName) {
