@@ -6,9 +6,23 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.10 (2021-12-19)
+
+### Fixed
+
+- 修复初始化中引号匹配的错误
+
+- 修复局部更新模式下，从下往上交换两行后不能正确提示的问题
+
+### Changed
+
+- 与源文档同步
+
 ## 1.3.9 (2021-12-12)
 
-与源文档同步
+### Changed
+
+- 与源文档同步
 
 ## 1.3.8 (2021-12-09)
 

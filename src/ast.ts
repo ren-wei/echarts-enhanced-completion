@@ -202,6 +202,7 @@ export class AstItem {
             }
             return true;
         }
+
         // 如果是 Enter 触发补全，那么只需要调整范围
         if (!contentChange.rangeLength && /^\r?\n[ \t]+$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
             this.translate(this.expression, contentChange.rangeOffset - this.document.offsetAt(this.range.start), contentChange.text.length);
@@ -209,13 +210,15 @@ export class AstItem {
             this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
             return true;
         }
+
         // 如果填充包含了多行或者修改包含了结束行，那么需要重新初始化
         if (contentChange.text.indexOf('\n') !== -1 || contentChange.range.end.line >= this.endRow) {
             this.init();
             return true;
         }
 
-        // 修改位置在内部
+        /* 修改位置在内部 */
+
         // 调整范围
         this.endRow += contentChange.range.start.line - contentChange.range.end.line + contentChange.text.split('\n').length - 1;
         this.range = new vscode.Range(this.range.start, new vscode.Position(this.endRow, this.range.end.character));
@@ -291,7 +294,7 @@ export class AstItem {
                 // 匹配括号并且忽略引号中的括号
                 const ignoreList: [start: number, end: number][] = [];
                 let match: RegExpExecArray | null;
-                let reg = /('(?:[^']|(?:\'))*')|("(?:[^"]|(?:\"))*")|(`(?:[^`]|(?:\`))*`)/g;
+                let reg = /('(?:[^']|(?:\\'))*')|("(?:[^"]|(?:\\"))*")|(`(?:[^`]|(?:\\`))*`)/g; // 匹配包含引号的字符串
                 while ((match = reg.exec(textLine.text))) {
                     ignoreList.push([match.index, match.index + match[0].length]);
                 }

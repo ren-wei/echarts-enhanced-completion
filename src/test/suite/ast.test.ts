@@ -310,4 +310,55 @@ suite('Ast class Test Suite', () => {
         const expected = new Ast('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
+
+    test('从下往上交换两行，应该保持一致', async() => {
+        let text = [
+            '',
+            '    xAxis: {',
+            "        type: 'category',",
+            "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
+            '    },',
+            '    yAxis: {',
+            "        type: 'value',",
+            '    },',
+            '    series: [',
+            '        {',
+            '            data: [150, 230, 224, 218, 135, 147, 260],',
+            "            type: 'line',",
+            '        },',
+            '    ],',
+            '',
+        ].join('\n');
+        const actual = new Ast('/** @type EChartsOption */', document);
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(position, text);
+        });
+        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+
+        // 从下往上交换两行，先插入第一行到后面，再删除第一行
+        text = '"\n            data: [150, 230, 224, 218, 135, 147, 260],"';
+        await textEditor.edit((editBuilder) => {
+            editBuilder.insert(new vscode.Position(13, 25), text);
+        });
+        await textEditor.edit((editBuilder) => {
+            editBuilder.delete(new vscode.Range(12, 0, 13, 0));
+        });
+        actual.patch([
+            {
+                range: new vscode.Range(13, 25, 13, 25),
+                rangeLength: 0,
+                rangeOffset: 318,
+                text: text,
+            },
+            {
+                range: new vscode.Range(12, 0, 13, 0),
+                rangeLength: 55,
+                rangeOffset: 238,
+                text: '',
+            },
+        ]);
+
+        const expected = new Ast('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected);
+    });
 });

@@ -8,7 +8,7 @@ Search for `echarts-enhanced-completion` in the `vscode` extension, and then cli
 
 ## Getting Started
 
-After install and enable the extension, add a comment on the previous line of the object you need to use as the option of `echarts`: `/** @type EChartsOption */`. It is used to define an object as echarts option object. Now, when you press the `Enter` key in the echarts option object, the extension will display a list of the option you may need, and there is a detailed description of the option in the prompt.
+After install and enable the extension, add a comment on the previous line of the object you need to use as the option of `echarts`: `/** @type EChartsOption */`(Enter `echartsoption` to use code snippets). It is used to define an object as echarts option object. Now, when you press the `Enter` key in the echarts option object, the extension will display a list of the option you may need, and there is a detailed description of the option in the prompt.
 
 ## Snapshots
 
