@@ -336,7 +336,7 @@ suite('Ast class Test Suite', () => {
         actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
 
         // 从下往上交换两行，先插入第一行到后面，再删除第一行
-        text = '"\n            data: [150, 230, 224, 218, 135, 147, 260],"';
+        text = '\n            data: [150, 230, 224, 218, 135, 147, 260],';
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(new vscode.Position(13, 25), text);
         });
@@ -345,16 +345,16 @@ suite('Ast class Test Suite', () => {
         });
         actual.patch([
             {
-                range: new vscode.Range(13, 25, 13, 25),
-                rangeLength: 0,
-                rangeOffset: 318,
-                text: text,
-            },
-            {
                 range: new vscode.Range(12, 0, 13, 0),
                 rangeLength: 55,
                 rangeOffset: 238,
                 text: '',
+            },
+            {
+                range: new vscode.Range(13, 25, 13, 25),
+                rangeLength: 0,
+                rangeOffset: 318,
+                text: text,
             },
         ]);
 
