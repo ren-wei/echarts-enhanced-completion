@@ -57,8 +57,8 @@ export function updateDiagnostics(document: vscode.TextDocument, collection: vsc
 }
 
 export function start() {
-    store = new Store('echarts-option', Config.language);
-    astMap = new Map<vscode.Uri, Ast>();
+    if (!store) store = new Store('echarts-option', Config.language);
+    if (!astMap) astMap = new Map<vscode.Uri, Ast>();
 }
 
 export function activate(context: vscode.ExtensionContext) {

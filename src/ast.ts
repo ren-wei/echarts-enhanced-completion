@@ -67,45 +67,55 @@ export default class Ast {
 
     private init(keyword: string, document: vscode.TextDocument, startLine = 0, endLine = document.lineCount) {
         let start: vscode.Position | null = null;
-        let curRowStart = false;
-        let startRowSpaceCount: number = 0;
-        let startPositionLine: number = 0;
+        let curRowStart = false; // 当前行是开始行
+        let count = 0;
         for (let line = startLine; line < endLine || ((curRowStart || start) && endLine < document.lineCount); line++) {
             const textLine = document.lineAt(line);
-            if (curRowStart) {
-                // 当前行为开始行
-                const index = textLine.text.indexOf('{');
-                if (index !== -1) {
-                    start = new vscode.Position(line, index);
-                    startRowSpaceCount = textLine.firstNonWhitespaceCharacterIndex;
+            if (start) {
+                // 匹配括号并且忽略引号中的括号
+                const ignoreList: [start: number, end: number][] = [];
+                let match: RegExpExecArray | null;
+                let reg = /('(?:[^']|(?:\\'))*')|("(?:[^"]|(?:\\"))*")|(`(?:[^`]|(?:\\`))*`)/g; // 匹配包含引号的字符串
+                while ((match = reg.exec(textLine.text))) {
+                    ignoreList.push([match.index, match.index + match[0].length]);
+                }
+                reg = /[{}]/g;
+                while ((match = reg.exec(textLine.text))) {
+                    // 不在引号中
+                    if (ignoreList.every(([startIndex, endIndex]) => match && (match.index < startIndex || match.index > endIndex))) {
+                        if (match[0] === '{') {
+                            count++;
+                        } else {
+                            count--;
+                            if (!count) {
+                                // 找到结束位置
+                                this.astItems.push(new AstItem(keyword, document, new vscode.Range(start.line, start.character, line, match.index + 1), start.line - 1, line));
+                                start = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+            } else if (curRowStart) {
+                const startCharacter = textLine.text.indexOf('{');
+                if (startCharacter !== -1) {
+                    start = new vscode.Position(line, startCharacter);
+                    line--;
                 } else {
                     // 注释行的下一行不存在目标对象
-                    this.astItems.push(new AstItem(keyword, document, document.lineAt(startPositionLine).range, startPositionLine, line));
+                    this.astItems.push(new AstItem(keyword, document, new vscode.Range(line, 0, line, 0), line - 1, line));
                 }
                 curRowStart = false;
-            } else if (start && !textLine.isEmptyOrWhitespace && textLine.firstNonWhitespaceCharacterIndex <= startRowSpaceCount) {
-                // 运行到这里，则当前行应为结束行
-                const index = textLine.text.indexOf('}');
-                if (index !== -1) {
-                    const end = new vscode.Position(line, index + 1);
-                    this.astItems.push(new AstItem(keyword, document, new vscode.Range(start, end), startPositionLine, end.line));
-                } else {
-                    // 结束行没有 '}'，说明存在格式错误或语法错误
-                    this.astItems.push(new AstItem(keyword, document, document.lineAt(start.line).range, startPositionLine, start.line + 1));
-                }
-                start = null;
             } else if (textLine.text.trim() === keyword) {
-                // 将下一行标记为开始行
                 curRowStart = true;
-                startPositionLine = line;
             }
         }
         if (curRowStart) {
             // 注释行之后没有下一行
-            this.astItems.push(new AstItem(keyword, document, document.lineAt(document.lineCount - 1).range, startPositionLine, startPositionLine + 1));
+            this.astItems.push(new AstItem(keyword, document, document.lineAt(document.lineCount - 1).range, document.lineCount - 1, document.lineCount));
         } else if (start) {
             // 没有找到结束行
-            this.astItems.push(new AstItem(keyword, document, document.lineAt(start.line).range, start.line, start.line + 1));
+            this.astItems.push(new AstItem(keyword, document, document.lineAt(start.line).range, start.line - 1, start.line));
         }
     }
 }
@@ -116,7 +126,7 @@ export class AstItem {
     public range: vscode.Range; // 目标对象所在的范围，使用 this.document.getText(this.range) 时必须恰好返回选项对象
     private document: vscode.TextDocument;
     private startRow: number; // 注释所在行
-    private endRow: number; // 结尾右括号所在行，如果不存在目标对象，则与开始行相等
+    private endRow: number; // 结尾右括号所在行，如果不存在目标对象，则为开始行的下一行
 
     constructor(keyword: string, document: vscode.TextDocument, range: vscode.Range, startRow: number, endRow: number) {
         this.keyword = keyword;
