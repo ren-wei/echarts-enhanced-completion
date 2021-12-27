@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
 
-import { provideCompletionItems, updateDiagnostics, collection } from '../../extension';
+import { provideCompletionItems, updateHandler, collection } from '../../extension';
 import { getFileData, inputText, findTree } from './utils';
 
 suite('Extension Completion Series Option Test Suite', async() => {
@@ -17,7 +17,7 @@ suite('Extension Completion Series Option Test Suite', async() => {
             content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
         });
         textEditor = await vscode.window.showTextDocument(document);
-        updateDiagnostics(document, collection);
+        updateHandler(document, collection);
         position = new vscode.Position(2, 17); // 光标位置
     }
 

@@ -2,9 +2,9 @@ import * as vscode from 'vscode';
 const espree = require('espree');
 
 export default class Ast {
+    public astItems: AstItem[] = [];
     private keyword: string;
     private document: vscode.TextDocument;
-    private astItems: AstItem[] = [];
 
     constructor(keyword: string, document: vscode.TextDocument) {
         this.keyword = keyword;
@@ -48,21 +48,6 @@ export default class Ast {
                 }
             }
         });
-    }
-
-    /** 更新校验 */
-    public updateDiagnostics(uri: vscode.Uri, collection: vscode.DiagnosticCollection) {
-        // TODO: 下面是示例，需要更改
-        // collection.set(uri, [{
-        //     code: 'xAxis',
-        //     message: 'cannot assign twice to immutable variable `x`',
-        //     range: new vscode.Range(new vscode.Position(3, 5), new vscode.Position(3, 9)),
-        //     severity: vscode.DiagnosticSeverity.Warning,
-        //     source: 'echarts-enhanced-completion',
-        //     relatedInformation: [
-        //         new vscode.DiagnosticRelatedInformation(new vscode.Location(document.uri, new vscode.Range(new vscode.Position(1, 8), new vscode.Position(1, 9))), 'first assignment to `x`'),
-        //     ],
-        // }]);
     }
 
     private init(keyword: string, document: vscode.TextDocument, startLine = 0, endLine = document.lineCount) {

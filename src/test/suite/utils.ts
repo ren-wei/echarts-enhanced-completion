@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { updateDiagnostics, collection } from '../../extension';
+import { updateHandler, collection } from '../../extension';
 import Config from '../../config';
 
 /** 获取json文件并解析为对象 */
@@ -22,7 +22,7 @@ export async function inputText(text: [string, string], textEditor: vscode.TextE
         editBuilder.insert(position, text.join(''));
     });
     const event = generateChangeEvent(textEditor.document, position, 0, text.join(''));
-    updateDiagnostics(textEditor.document, collection, event);
+    updateHandler(textEditor.document, collection, event);
     return textEditor.document.positionAt(textEditor.document.offsetAt(position) + text[0].length);
 }
 
