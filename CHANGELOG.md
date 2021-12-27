@@ -6,6 +6,20 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.3.11 (2021-12-27)
+
+### Added
+
+- 改为使用大括号判断配置项对象的范围
+
+### Fixed
+
+- 修复未通过的测试
+
+### Changed
+
+- 文档更新
+
 ## 1.3.10 (2021-12-19)
 
 ### Fixed
