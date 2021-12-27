@@ -79,6 +79,7 @@ export function updateHandler(document: vscode.TextDocument, collection: vscode.
 export function start() {
     if (!store) store = new Store('echarts-option', Config.language);
     if (!astMap) astMap = new Map<vscode.Uri, Ast>();
+    if (!diagMap) diagMap = new Map<vscode.Uri, Diagnosis>();
 }
 
 export function activate(context: vscode.ExtensionContext) {

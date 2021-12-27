@@ -245,6 +245,11 @@ export class AstItem {
         return true;
     }
 
+    /** 获取节点的 key 的范围 */
+    public getNodeKeyRange(node: AstNode): vscode.Range {
+        return new vscode.Range(this.positionAt((node.key as AstNode).start), this.positionAt((node.key as AstNode).end));
+    }
+
     /** 获取更新范围内的最小对象或数组节点 */
     private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null, number] {
         const keyList: Key[] = espree.VisitorKeys[node.type];

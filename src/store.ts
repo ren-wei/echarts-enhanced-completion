@@ -28,8 +28,18 @@ export default class Store {
         this.cache.set(name, result);
         return result;
     }
+
+    private getChildren(target: Tree): Tree[] {
+        if (target.children) {
+            return target.children;
+        } else if (target.detailFileName) {
+            return this.getFileData(target.detailFileName);
+        }
+        return [];
+    }
+
     /** 获取选项下各项的描述数组 */
-    public getOptionDesc(paths: Paths, isArray: boolean, astItem: AstItem): Tree[] {
+    public getOptionDesc(paths: Paths, astItem: AstItem, isArray: boolean = false): Tree[] {
         let descList: Tree[] = this.topOptionDesc;
         let type: string | string[] = 'Object';
         for (let i = 0; i < paths.length; i++) {
@@ -39,13 +49,7 @@ export default class Store {
                 if (target) {
                     // 如果最后一个路径是数组，那么是普通数组
                     if (i === paths.length - 1 && isArray && target.type === 'Array') return [];
-                    if (target.children) {
-                        descList = target.children;
-                    } else if (target.detailFileName) {
-                        descList = this.getFileData(target.detailFileName);
-                    } else {
-                        return [];
-                    }
+                    descList = this.getChildren(target);
                     type = target.type;
                 } else {
                     return [];
@@ -56,13 +60,7 @@ export default class Store {
                 const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(path[rule.key]))));
                 // 如果 target 存在，那么表示是通过规则匹配的；如果不存在则是普通数组直接跳过
                 if (target) {
-                    if (target.children) {
-                        descList = target.children;
-                    } else if (target.detailFileName) {
-                        descList = this.getFileData(target.detailFileName);
-                    } else {
-                        return [];
-                    }
+                    descList = this.getChildren(target);
                     type = target.type;
                 }
             } else if (type.length === 2 && type.includes('Object') && type.includes('Array')) {
@@ -71,13 +69,7 @@ export default class Store {
                     const simple = astItem.getSimpleObjectByPaths(paths.slice(0, i)); // 获取父节点的实际的对象
                     const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(simple[rule.key]))));
                     if (target) {
-                        if (target.children) {
-                            descList = target.children;
-                        } else if (target.detailFileName) {
-                            descList = this.getFileData(target.detailFileName);
-                        } else {
-                            return [];
-                        }
+                        descList = this.getChildren(target);
                         i--; // 需要额外向下找一次
                         type = target.type;
                     } else {
@@ -87,34 +79,25 @@ export default class Store {
                     const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(path[rule.key]))));
                     // 如果 target 存在，那么表示是通过规则匹配的；如果不存在则是普通数组直接跳过
                     if (target) {
-                        if (target.children) {
-                            descList = target.children;
-                        } else if (target.detailFileName) {
-                            descList = this.getFileData(target.detailFileName);
-                        } else {
-                            return [];
-                        }
+                        descList = this.getChildren(target);
                         type = target.type;
                     }
                 }
             }
+            // 没有获取到子项，则直接返回空数组
+            if (!descList.length) return [];
         }
         // 如果处于对象中，并且同时允许对象和数组，那么需要判断是否是空对象
         if (!isArray && type.length === 2 && type.includes('Object') && type.includes('Array')) {
             const simple = astItem.getSimpleObjectByPaths(paths); // 获取父节点的实际的对象
             const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(simple[rule.key]))));
             if (target) {
-                if (target.children) {
-                    descList = target.children;
-                } else if (target.detailFileName) {
-                    descList = this.getFileData(target.detailFileName);
-                } else {
-                    return [];
-                }
+                descList = this.getChildren(target);
             }
         }
         return descList;
     }
+
     /** 获取初始化选项 */
     public getBaseOptions(): BaseOption[] {
         const fileName = path.resolve(__dirname + `../../assets/${this.assetsName}/init/index.json`);

@@ -40,7 +40,7 @@ export default class Options {
             return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';
-        this.descTreeList = this.store.getOptionDesc(this.paths, isArray, this.astItem);
+        this.descTreeList = this.store.getOptionDesc(this.paths, this.astItem, isArray);
         return completionItems.concat(...this.filterOptions(this.descTreeList, this.node).map((tree, index) => {
             return {
                 label: {
@@ -59,10 +59,10 @@ export default class Options {
     public getHover(): vscode.Hover | null {
         if (!this.node || !this.astItem) return null;
         if (this.node.type === 'Identifier') {
-            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
+            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), this.astItem);
             return new vscode.Hover(new vscode.MarkdownString(this.descTreeList.find(v => v.name === this.node?.name)?.desc));
         } else if (this.node.type === 'Property') {
-            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), false, this.astItem);
+            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), this.astItem);
             return new vscode.Hover(new vscode.MarkdownString(this.descTreeList.find(v => v.name === this.node?.key?.name)?.desc));
         }
         return null;
