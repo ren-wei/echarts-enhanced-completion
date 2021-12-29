@@ -44,8 +44,8 @@ interface KeyFunc {
     [propName: string]: Function;
 }
 
-interface SimpleObject {
-    [propName: string]: string | number | boolean;
+interface SimpleObject<T = string | number | boolean> {
+    [propName: string]: T;
 }
 
 interface BaseOption {

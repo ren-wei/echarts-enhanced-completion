@@ -250,6 +250,11 @@ export class AstItem {
         return new vscode.Range(this.positionAt((node.key as AstNode).start), this.positionAt((node.key as AstNode).end));
     }
 
+    /** expression 中的位置转换为 document 中的位置*/
+    public positionAt(offset: number): vscode.Position {
+        return this.document.positionAt(this.document.offsetAt(this.range.start) + offset);
+    }
+
     /** 获取更新范围内的最小对象或数组节点 */
     private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null, number] {
         const keyList: Key[] = espree.VisitorKeys[node.type];
@@ -361,11 +366,6 @@ export class AstItem {
     /** document 中的位置转换为 expression 中的位置 */
     private offsetAt(position: vscode.Position): number {
         return this.document.offsetAt(position) - this.document.offsetAt(this.range.start);
-    }
-
-    /** expression 中的位置转换为 document 中的位置*/
-    private positionAt(offset: number): vscode.Position {
-        return this.document.positionAt(this.document.offsetAt(this.range.start) + offset);
     }
 
     /** 位置是否在节点中 */
