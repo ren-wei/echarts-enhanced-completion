@@ -3,8 +3,8 @@ const espree = require('espree');
 
 export default class Ast {
     public astItems: AstItem[] = [];
+    public document: vscode.TextDocument;
     private keyword: string;
-    private document: vscode.TextDocument;
 
     constructor(keyword: string, document: vscode.TextDocument) {
         this.keyword = keyword;

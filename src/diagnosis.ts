@@ -6,6 +6,10 @@ import localize from './localize';
 export default class Diagnosis {
     private ast: Ast;
     private store: Store;
+    private disableCurrentLine: string = 'echarts-disable-line'; // 禁用当前行校验
+    private disableNextLine: string = 'echarts-disable-next-line'; // 禁用下一行校验
+    private disableBlock: string = 'echarts-disable'; // 禁用段落校验开始
+    private enableBlock: string = 'echarts-enable'; // 禁用段落校验结束
 
     constructor(ast: Ast, store: Store) {
         this.ast = ast;
@@ -43,18 +47,44 @@ export default class Diagnosis {
                 const paths = this.ast.getMinAstNode(astItem, astItem.positionAt(offset))[1];
                 const descTreeList = this.store.getOptionDesc(paths.slice(0, -1), astItem);
                 if (node.value?.type !== 'Identifier' && descTreeList.length && !descTreeList.some(item => item.name === (node.key as AstNode).name)) {
-                    diagList.push({
-                        code: paths.slice(0, -1).filter(v => typeof v === 'string').join('.'),
-                        message: localize('message.unknown-property', (node.key as AstNode).name as string),
-                        range: astItem.getNodeKeyRange(node),
-                        severity: vscode.DiagnosticSeverity.Warning,
-                        source: 'echarts-enhanced-completion',
-                    });
+                    const range = astItem.getNodeKeyRange(node);
+                    // 如果存在禁用校验注释，那么不加入本次校验结果
+                    if (this.isAllowCheck(range.start)) {
+                        diagList.push({
+                            code: paths.slice(0, -1).filter(v => typeof v === 'string').join('.'),
+                            message: localize('message.unknown-property', (node.key as AstNode).name as string),
+                            range: range,
+                            severity: vscode.DiagnosticSeverity.Warning,
+                            source: 'echarts-enhanced-completion',
+                        });
+                    }
                 } else {
                     diagList.push(...this.checkNode(astItem, (node.value as AstNode)));
                 }
                 break;
         }
         return diagList;
+    }
+
+    /** 当前位置是否允许校验 */
+    private isAllowCheck(position: vscode.Position): boolean {
+        // 禁用当前行检查
+        if (new RegExp('(//\\s+' + this.disableCurrentLine + '\\s*$)|(/\\* +' + this.disableCurrentLine + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(position.line).text)) {
+            return false;
+        }
+        // 禁用下一行检查
+        if (new RegExp('(//\\s+' + this.disableNextLine + '\\s*$)|(/\\*\\s+' + this.disableNextLine + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(position.line - 1).text)) {
+            return false;
+        }
+        // 禁用段落检查
+        for (let i = position.line; i >= 0; i--) {
+            if (new RegExp('(//\\s+' + this.disableBlock + '\\s*$)|(/\\*\\s+' + this.disableBlock + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(i).text)) {
+                return false;
+            }
+            if (new RegExp('(//\\s+' + this.enableBlock + '\\s*$)|(/\\*\\s+' + this.enableBlock + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(i).text)) {
+                return true;
+            }
+        }
+        return true;
     }
 };
