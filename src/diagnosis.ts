@@ -45,7 +45,7 @@ export default class Diagnosis {
                 if (node.value?.type !== 'Identifier' && descTreeList.length && !descTreeList.some(item => item.name === (node.key as AstNode).name)) {
                     diagList.push({
                         code: paths.slice(0, -1).filter(v => typeof v === 'string').join('.'),
-                        message: localize('message.unknown-property').replace('${0}', (node.key as AstNode).name as string),
+                        message: localize('message.unknown-property', (node.key as AstNode).name as string),
                         range: astItem.getNodeKeyRange(node),
                         severity: vscode.DiagnosticSeverity.Warning,
                         source: 'echarts-enhanced-completion',
