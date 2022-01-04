@@ -1,24 +1,44 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
-import Diagnosis from '../../diagnosis';
+import { start, keyword, collection, updateDiagnostics } from '../../extension';
+import Ast from '../../ast';
 
-suite('Diagnosis class Test Suite', async() => {
-    let document: vscode.TextDocument;
-    let textEditor: vscode.TextEditor;
+start();
 
-    async function init() {
-        document = await vscode.workspace.openTextDocument({
+suite('Diagnosis class Test Suite', () => {
+    test('单个顶级属性错误应该显示错误提示', async() => {
+        const document = await vscode.workspace.openTextDocument({
             language: 'javascript',
-            content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
+            content: [
+                '// @ts-nocheck',
+                '/** @type EChartsOption */',
+                'const options = {',
+                '    xAxis: {',
+                "        type: 'category',",
+                "        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],",
+                '    },',
+                '    yAxis: {',
+                "        type: 'value',",
+                '    },',
+                '    seriesa: [',
+                '        {',
+                '            data: [150, 230, 224, 218, 135, 147, 260],',
+                "            type: 'line',",
+                '        },',
+                '    ],',
+                '};',
+                '',
+            ].join('\n'),
         });
-        textEditor = await vscode.window.showTextDocument(document);
-    }
-
-    setup(async() => {
-        await init();
+        updateDiagnostics(document, collection, new Ast(keyword, document));
+        assert.deepStrictEqual(collection.get(document.uri), [{
+            code: '',
+            message: "未知的属性: 'seriesa'",
+            range: new vscode.Range(10, 4, 10, 11),
+            severity: vscode.DiagnosticSeverity.Warning,
+            source: 'echarts-enhanced-completion',
+        }]);
     });
-
-    test('单个顶级属性错误应该显示错误提示');
 
     test('单个次级属性错误应该显示错误提示');
 
