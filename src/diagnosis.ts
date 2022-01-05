@@ -1,5 +1,7 @@
 import * as vscode from 'vscode';
+import { simillarCommands } from 'simillar-commands';
 import Store from './store';
+import { ExtensionName } from './extension';
 import Ast, { AstItem } from './ast';
 import localize from './localize';
 
@@ -50,12 +52,18 @@ export default class Diagnosis {
                     const range = astItem.getNodeKeyRange(node);
                     // 如果存在禁用校验注释，那么不加入本次校验结果
                     if (this.isAllowCheck(range.start)) {
+                        const name = (node.key as AstNode).name as string;
+                        const simillarName = simillarCommands(descTreeList.map(child => child.name), name)[0];
+                        let message = localize('message.unknown-property', name, 'EChartsOption');
+                        if (simillarName) {
+                            message += localize('message.fix-unknown-property', simillarName);
+                        }
                         diagList.push({
-                            code: paths.slice(0, -1).filter(v => typeof v === 'string').join('.'),
-                            message: localize('message.unknown-property', (node.key as AstNode).name as string),
+                            code: simillarName,
+                            message: message,
                             range: range,
                             severity: vscode.DiagnosticSeverity.Warning,
-                            source: 'echarts-enhanced-completion',
+                            source: ExtensionName,
                         });
                     }
                 } else {

@@ -4,11 +4,15 @@ import Ast from './ast';
 import Diagnosis from './diagnosis';
 import Options from './options';
 import Config from './config';
+import Fix from './fix';
+import { COMMAND, fixCommand } from './fix';
 
 let store: Store;
 let astMap: Map<vscode.Uri, Ast>;
 let diagMap: Map<vscode.Uri, Diagnosis>;
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const ExtensionName = 'echarts-enhanced-completion';
 export const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
 export const keyword = '/** @type EChartsOption */';
 
@@ -88,14 +92,15 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.workspace.onDidCloseTextDocument(document => {
         astMap.delete(document.uri);
     });
+    const supportLanguageList = ['html', 'javascript', 'typescript', 'vue']; // 支持的语言列表
 
     // 自动补全
-    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(['html', 'javascript', 'typescript', 'vue'], {
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(supportLanguageList, {
         provideCompletionItems,
     }, '\n'));
 
     // hover提示
-    context.subscriptions.push(vscode.languages.registerHoverProvider(['html', 'javascript', 'typescript', 'vue'], {
+    context.subscriptions.push(vscode.languages.registerHoverProvider(supportLanguageList, {
         provideHover,
     }));
 
@@ -106,6 +111,17 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
         updateHandler(textDocumentChangeEvent.document, collection, textDocumentChangeEvent);
     }));
+
+    // 配置项修复
+    const fix = new Fix();
+    context.subscriptions.push(
+        vscode.commands.registerCommand(COMMAND, fixCommand, fix)
+    );
+    context.subscriptions.push(
+        vscode.languages.registerCodeActionsProvider(supportLanguageList, fix, {
+            providedCodeActionKinds: Fix.providedCodeActionKinds,
+        })
+    );
 }
 
 // this method is called when your extension is deactivated
