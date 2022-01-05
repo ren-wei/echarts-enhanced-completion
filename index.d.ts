@@ -56,3 +56,7 @@ interface BaseOption {
 }
 
 type Languages = 'en' | 'zh';
+
+declare module 'simillar-commands' {
+    export function simillarCommands(commands: string[], word: string): string[];
+}
