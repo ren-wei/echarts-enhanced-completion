@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
-import { start, keyword, collection, updateDiagnostics } from '../../extension';
+import { start, keyword, ExtensionName, collection, updateDiagnostics } from '../../extension';
+import localize from '../../localize';
 import Ast from '../../ast';
 
 start();
@@ -32,11 +33,11 @@ suite('Diagnosis class Test Suite', () => {
         });
         updateDiagnostics(document, collection, new Ast(keyword, document));
         assert.deepStrictEqual(collection.get(document.uri), [{
-            code: '',
-            message: "未知的属性: 'seriesa'",
+            code: 'series',
+            message: localize('message.unknown-property', 'seriesa', 'EChartsOption') + localize('message.fix-unknown-property', 'series'),
             range: new vscode.Range(10, 4, 10, 11),
             severity: vscode.DiagnosticSeverity.Warning,
-            source: 'echarts-enhanced-completion',
+            source: ExtensionName,
         }]);
     });
 
@@ -66,11 +67,11 @@ suite('Diagnosis class Test Suite', () => {
         });
         updateDiagnostics(document, collection, new Ast(keyword, document));
         assert.deepStrictEqual(collection.get(document.uri), [{
-            code: 'xAxis',
-            message: "未知的属性: 'typa'",
+            code: undefined,
+            message: localize('message.unknown-property', 'typa', 'EChartsOption'),
             range: new vscode.Range(4, 8, 4, 12),
             severity: vscode.DiagnosticSeverity.Warning,
-            source: 'echarts-enhanced-completion',
+            source: ExtensionName,
         }]);
     });
 
@@ -101,18 +102,18 @@ suite('Diagnosis class Test Suite', () => {
         updateDiagnostics(document, collection, new Ast(keyword, document));
         assert.deepStrictEqual(collection.get(document.uri), [
             {
-                code: '',
-                message: "未知的属性: 'yAis'",
+                code: 'yAxis',
+                message: localize('message.unknown-property', 'yAis', 'EChartsOption') + localize('message.fix-unknown-property', 'yAxis'),
                 range: new vscode.Range(7, 4, 7, 8),
                 severity: vscode.DiagnosticSeverity.Warning,
-                source: 'echarts-enhanced-completion',
+                source: ExtensionName,
             },
             {
-                code: 'series',
-                message: "未知的属性: 'date'",
+                code: undefined,
+                message: localize('message.unknown-property', 'date', 'EChartsOption'),
                 range: new vscode.Range(12, 12, 12, 16),
                 severity: vscode.DiagnosticSeverity.Warning,
-                source: 'echarts-enhanced-completion',
+                source: ExtensionName,
             },
         ]);
     });
@@ -168,11 +169,11 @@ suite('Diagnosis class Test Suite', () => {
         updateDiagnostics(document, collection, new Ast(keyword, document));
         assert.deepStrictEqual(collection.get(document.uri), [
             {
-                code: 'series',
-                message: "未知的属性: 'date'",
+                code: undefined,
+                message: localize('message.unknown-property', 'date', 'EChartsOption'),
                 range: new vscode.Range(12, 12, 12, 16),
                 severity: vscode.DiagnosticSeverity.Warning,
-                source: 'echarts-enhanced-completion',
+                source: ExtensionName,
             },
         ]);
     });
@@ -205,11 +206,11 @@ suite('Diagnosis class Test Suite', () => {
         updateDiagnostics(document, collection, new Ast(keyword, document));
         assert.deepStrictEqual(collection.get(document.uri), [
             {
-                code: 'series',
-                message: "未知的属性: 'date'",
+                code: undefined,
+                message: localize('message.unknown-property', 'date', 'EChartsOption'),
                 range: new vscode.Range(13, 12, 13, 16),
                 severity: vscode.DiagnosticSeverity.Warning,
-                source: 'echarts-enhanced-completion',
+                source: ExtensionName,
             },
         ]);
     });
@@ -272,11 +273,11 @@ suite('Diagnosis class Test Suite', () => {
         updateDiagnostics(document, collection, new Ast(keyword, document));
         assert.deepStrictEqual(collection.get(document.uri), [
             {
-                code: 'series',
-                message: "未知的属性: 'date'",
+                code: undefined,
+                message: localize('message.unknown-property', 'date', 'EChartsOption'),
                 range: new vscode.Range(14, 12, 14, 16),
                 severity: vscode.DiagnosticSeverity.Warning,
-                source: 'echarts-enhanced-completion',
+                source: ExtensionName,
             },
         ]);
     });
