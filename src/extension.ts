@@ -9,7 +9,6 @@ import { COMMAND, fixCommand } from './fix';
 
 let store: Store;
 let astMap: Map<vscode.Uri, Ast>;
-let diagMap: Map<vscode.Uri, Diagnosis>;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const ExtensionName = 'echarts-enhanced-completion';
@@ -52,13 +51,7 @@ export function provideHover(document: vscode.TextDocument, position: vscode.Pos
 /** 更新诊断程序 */
 export async function updateDiagnostics(document: vscode.TextDocument, collection: vscode.DiagnosticCollection, ast: Ast | null) {
     if (!ast) ast = new Ast(keyword, document);
-    let diag: Diagnosis;
-    if (diagMap.has(document.uri)) {
-        diag = diagMap.get(document.uri) as Diagnosis;
-    } else {
-        diag = new Diagnosis(ast, store);
-        diagMap.set(document.uri, diag);
-    }
+    const diag = new Diagnosis(ast, store);
     diag.update(document.uri, collection);
 }
 
@@ -76,14 +69,20 @@ export function updateHandler(document: vscode.TextDocument, collection: vscode.
             astMap.set(document.uri, ast);
         }
     }
-    updateDiagnostics(document, collection, ast);
+    if (Config.enabledVerify) {
+        updateDiagnostics(document, collection, ast);
+    }
 }
 
 /** 插件启用时初始化 */
 export function start() {
     if (!store) store = new Store('echarts-option', Config.language);
     if (!astMap) astMap = new Map<vscode.Uri, Ast>();
-    if (!diagMap) diagMap = new Map<vscode.Uri, Diagnosis>();
+    if (Config.enabledVerify) {
+        vscode.workspace.textDocuments.forEach(document => updateHandler(document, collection));
+    } else {
+        collection.clear();
+    }
 }
 
 export function activate(context: vscode.ExtensionContext) {

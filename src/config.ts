@@ -21,6 +21,10 @@ export default class Config {
         return vscode.workspace.getConfiguration().get('echarts-enhanced-completion.init.showPictures') as boolean;
     }
 
+    static get enabledVerify(): boolean {
+        return vscode.workspace.getConfiguration().get('echarts-enhanced-completion.verify.enabled') as boolean;
+    }
+
     static get language(): Languages {
         const lang = vscode.workspace.getConfiguration().get('echarts-enhanced-completion.language') as string;
         if (lang === 'auto') {
