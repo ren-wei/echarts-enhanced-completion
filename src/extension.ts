@@ -5,7 +5,7 @@ import Diagnosis from './diagnosis';
 import Options from './options';
 import Config from './config';
 import Fix from './fix';
-import { COMMAND, fixCommand } from './fix';
+import { COMMAND, IgnoreCommand, fixCommand, ignoreCommand } from './fix';
 
 let store: Store;
 let astMap: Map<vscode.Uri, Ast>;
@@ -113,9 +113,10 @@ export function activate(context: vscode.ExtensionContext) {
 
     // 配置项修复
     const fix = new Fix();
-    context.subscriptions.push(
-        vscode.commands.registerCommand(COMMAND, fixCommand, fix)
-    );
+    context.subscriptions.push(...[
+        vscode.commands.registerCommand(COMMAND, fixCommand, fix),
+        vscode.commands.registerCommand(IgnoreCommand, ignoreCommand, fix),
+    ]);
     context.subscriptions.push(
         vscode.languages.registerCodeActionsProvider(supportLanguageList, fix, {
             providedCodeActionKinds: Fix.providedCodeActionKinds,

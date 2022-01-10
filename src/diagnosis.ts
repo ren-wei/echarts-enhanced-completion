@@ -8,10 +8,10 @@ import localize from './localize';
 export default class Diagnosis {
     private ast: Ast;
     private store: Store;
-    private disableCurrentLine: string = 'echarts-disable-line'; // 禁用当前行校验
-    private disableNextLine: string = 'echarts-disable-next-line'; // 禁用下一行校验
-    private disableBlock: string = 'echarts-disable'; // 禁用段落校验开始
-    private enableBlock: string = 'echarts-enable'; // 禁用段落校验结束
+    public static disableCurrentLine: string = 'echarts-disable-line'; // 禁用当前行校验
+    public static disableNextLine: string = 'echarts-disable-next-line'; // 禁用下一行校验
+    public static disableBlock: string = 'echarts-disable'; // 禁用段落校验开始
+    public static enableBlock: string = 'echarts-enable'; // 禁用段落校验结束
 
     constructor(ast: Ast, store: Store) {
         this.ast = ast;
@@ -77,19 +77,19 @@ export default class Diagnosis {
     /** 当前位置是否允许校验 */
     private isAllowCheck(position: vscode.Position): boolean {
         // 禁用当前行检查
-        if (new RegExp('(//\\s+' + this.disableCurrentLine + '\\s*$)|(/\\* +' + this.disableCurrentLine + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(position.line).text)) {
+        if (new RegExp('(//\\s+' + Diagnosis.disableCurrentLine + '\\s*$)|(/\\* +' + Diagnosis.disableCurrentLine + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(position.line).text)) {
             return false;
         }
         // 禁用下一行检查
-        if (new RegExp('(//\\s+' + this.disableNextLine + '\\s*$)|(/\\*\\s+' + this.disableNextLine + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(position.line - 1).text)) {
+        if (new RegExp('(//\\s+' + Diagnosis.disableNextLine + '\\s*$)|(/\\*\\s+' + Diagnosis.disableNextLine + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(position.line - 1).text)) {
             return false;
         }
         // 禁用段落检查
         for (let i = position.line; i >= 0; i--) {
-            if (new RegExp('(//\\s+' + this.disableBlock + '\\s*$)|(/\\*\\s+' + this.disableBlock + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(i).text)) {
+            if (new RegExp('(//\\s+' + Diagnosis.disableBlock + '\\s*$)|(/\\*\\s+' + Diagnosis.disableBlock + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(i).text)) {
                 return false;
             }
-            if (new RegExp('(//\\s+' + this.enableBlock + '\\s*$)|(/\\*\\s+' + this.enableBlock + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(i).text)) {
+            if (new RegExp('(//\\s+' + Diagnosis.enableBlock + '\\s*$)|(/\\*\\s+' + Diagnosis.enableBlock + '\\s+\\*/\\s*$)').test(this.ast.document.lineAt(i).text)) {
                 return true;
             }
         }
