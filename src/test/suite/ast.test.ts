@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
-import Ast from '../../ast';
+import ast, { init as astInit } from '../../ast';
 import { generateChangeEvent, translate } from './utils';
 
-suite('Ast class Test Suite', () => {
+suite('Ast Module Test Suite', () => {
     let document: vscode.TextDocument;
     let textEditor: vscode.TextEditor;
     let position: vscode.Position;
@@ -23,46 +23,52 @@ suite('Ast class Test Suite', () => {
 
     test('空对象中输入换行应该保持一致', async() => {
         const text = '\n';
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
-        const expected = new Ast('/** @type EChartsOption */', document);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
     test('空对象中输入按 Enter 键应该保持一致', async() => {
         let text = '\n    \n';
-        let actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
-        let expected = new Ast('/** @type EChartsOption */', document);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
+        let actual = ast.getAstItems(document.uri);
+        let expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
 
         await init();
         text = '\r\n    \n';
-        actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
-        expected = new Ast('/** @type EChartsOption */', document);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
+        actual = ast.getAstItems(document.uri);
+        expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
     test('输入换行应该保持一致', async() => {
         const text = '\n    ';
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
-        assert.deepStrictEqual(actual, expected);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected,
+            [
+                '',
+                document.getText(new vscode.Range(actual[0].positionAt(actual[0].expression!.start), actual[0].positionAt(actual[0].expression!.end))).split('\n').join('"\n') + '"',
+                document.getText(new vscode.Range(expected[0].positionAt(expected[0].expression!.start), expected[0].positionAt(expected[0].expression!.end))).split('\n').join('"\n') + '"',
+            ].join('\n')
+        );
     });
 
     test('在符合语法的位置输入单个字母应该保持一致', async() => {
@@ -83,20 +89,20 @@ suite('Ast class Test Suite', () => {
             '    ],',
             '',
         ].join('\n');
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         position = translate(document, position, 8);
         text = 'a';
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
@@ -118,27 +124,27 @@ suite('Ast class Test Suite', () => {
             '    ],',
             '',
         ].join('\n');
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         position = translate(document, position, 8);
         text = 'ab';
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         position = translate(document, position, 2);
         text = 'cd';
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
@@ -160,19 +166,19 @@ suite('Ast class Test Suite', () => {
             '    ],',
             '',
         ].join('\n');
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         position = translate(document, position, 8);
         await textEditor.edit((editBuilder) => {
             editBuilder.delete(new vscode.Range(position, position.translate(0, 2)));
         });
-        actual.patch(generateChangeEvent(document, position, 2, '').contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 2, '').contentChanges);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
@@ -185,14 +191,20 @@ suite('Ast class Test Suite', () => {
         position = new vscode.Position(0, 14); // 光标位置
 
         const text = '\n/** @type EChartsOption */';
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
-        assert.deepStrictEqual(actual, expected);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
+        assert.deepStrictEqual(actual, expected,
+            [
+                '',
+                document.getText(new vscode.Range(actual[0].positionAt(actual[0].expression!.start), actual[0].positionAt(actual[0].expression!.end))).split('\n').join('"\n') + '"',
+                document.getText(new vscode.Range(expected[0].positionAt(expected[0].expression!.start), expected[0].positionAt(expected[0].expression!.end))).split('\n').join('"\n') + '"',
+            ].join('\n')
+        );
     });
 
     test('先输入 Enter 换行，再删除至原样应该保持一致', async() => {
@@ -213,11 +225,10 @@ suite('Ast class Test Suite', () => {
             '    ],',
             '',
         ].join('\n');
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
         const oldText = document.getText();
 
         // 模拟输入 Enter 换行
@@ -225,21 +236,22 @@ suite('Ast class Test Suite', () => {
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(new vscode.Position(13, 25), text);
         });
-        actual.patch([{
+        ast.patch(document, [{
             range: new vscode.Range(13, 25, 13, 25),
             rangeLength: 0,
             rangeOffset: 318,
             text: text,
         }]);
 
-        let expected = new Ast('/** @type EChartsOption */', document);
+        let actual = ast.getAstItems(document.uri);
+        let expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected, '输入 Enter 换行后没有保持一致');
 
         // 删除至原样
         await textEditor.edit((editBuilder) => {
             editBuilder.delete(new vscode.Range(13, 25, 14, 12));
         });
-        actual.patch([{
+        ast.patch(document, [{
             range: new vscode.Range(13, 25, 14, 12),
             rangeLength: 13,
             rangeOffset: 318,
@@ -248,7 +260,8 @@ suite('Ast class Test Suite', () => {
 
         assert.strictEqual(document.getText(), oldText);
 
-        expected = new Ast('/** @type EChartsOption */', document);
+        actual = ast.getAstItems(document.uri);
+        expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected, '删除至原样没有保持一致');
     });
 
@@ -271,11 +284,10 @@ suite('Ast class Test Suite', () => {
             '    ],',
             '',
         ].join('\n');
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         // 在 id: '' 中的冒号之间输入 Enter 换行
         position = new vscode.Position(14, 17);
@@ -283,13 +295,13 @@ suite('Ast class Test Suite', () => {
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         // 删除空格
         await textEditor.edit((editBuilder) => {
             editBuilder.delete(new vscode.Range(15, 0, 15, 12));
         });
-        actual.patch([{
+        ast.patch(document, [{
             range: new vscode.Range(15, 0, 15, 12),
             rangeLength: 12,
             rangeOffset: 352,
@@ -300,14 +312,15 @@ suite('Ast class Test Suite', () => {
         await textEditor.edit((editBuilder) => {
             editBuilder.delete(new vscode.Range(14, 17, 15, 0));
         });
-        actual.patch([{
+        ast.patch(document, [{
             range: new vscode.Range(14, 17, 15, 0),
             rangeLength: 2,
             rangeOffset: 350,
             text: '',
         }]);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 
@@ -329,11 +342,10 @@ suite('Ast class Test Suite', () => {
             '    ],',
             '',
         ].join('\n');
-        const actual = new Ast('/** @type EChartsOption */', document);
         await textEditor.edit((editBuilder) => {
             editBuilder.insert(position, text);
         });
-        actual.patch(generateChangeEvent(document, position, 0, text).contentChanges);
+        ast.patch(document, generateChangeEvent(document, position, 0, text).contentChanges);
 
         // 从下往上交换两行，先插入第一行到后面，再删除第一行
         text = '\n            data: [150, 230, 224, 218, 135, 147, 260],';
@@ -343,7 +355,7 @@ suite('Ast class Test Suite', () => {
         await textEditor.edit((editBuilder) => {
             editBuilder.delete(new vscode.Range(12, 0, 13, 0));
         });
-        actual.patch([
+        ast.patch(document, [
             {
                 range: new vscode.Range(12, 0, 13, 0),
                 rangeLength: 55,
@@ -358,7 +370,8 @@ suite('Ast class Test Suite', () => {
             },
         ]);
 
-        const expected = new Ast('/** @type EChartsOption */', document);
+        const actual = ast.getAstItems(document.uri);
+        const expected = astInit('/** @type EChartsOption */', document);
         assert.deepStrictEqual(actual, expected);
     });
 });

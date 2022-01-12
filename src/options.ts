@@ -1,18 +1,16 @@
 import * as vscode from 'vscode';
-import Store from './store';
-import Ast, { AstItem } from './ast';
+import { getBaseOptions, getOptionDesc } from './store';
+import ast, { AstItem } from './ast';
 import Config from './config';
 
 export default class Options {
     private descTreeList: Tree[] = [];
-    private store: Store;
     private astItem: AstItem | undefined;
     private node: AstNode | null;
     private paths: Paths = [];
 
-    constructor(ast: Ast, store: Store, position: vscode.Position) {
-        this.store = store;
-        this.astItem = ast.getAstItem(position);
+    constructor(document: vscode.TextDocument, position: vscode.Position) {
+        this.astItem = ast.getAstItem(document, position);
         [this.node, this.paths] = ast.getMinAstNode(this.astItem, position);
     }
 
@@ -21,7 +19,7 @@ export default class Options {
         let completionItems: vscode.CompletionItem[] = [];
         if (Config.initEnabled && this.astItem.isEmpty) {
             // 空对象额外增加初始化选项
-            completionItems = this.store.getBaseOptions().map((item, index) => {
+            completionItems = getBaseOptions().map((item, index) => {
                 let insertText = item.code.slice(1, item.code.length - 1).split('\n').map(v => v.slice(4)).join('\n').trim();
                 insertText = insertText.replaceAll('    ', Config.insertSpaces ? new Array(Config.tabSize).fill(' ').join('') : '\t');
                 return {
@@ -40,7 +38,7 @@ export default class Options {
             return completionItems;
         }
         const isArray = this.node.type === 'ArrayExpression';
-        this.descTreeList = this.store.getOptionDesc(this.paths, this.astItem, isArray);
+        this.descTreeList = getOptionDesc(this.paths, this.astItem, isArray);
         return completionItems.concat(...this.filterOptions(this.descTreeList, this.node).map((tree, index) => {
             return {
                 label: {
@@ -59,10 +57,10 @@ export default class Options {
     public getHover(): vscode.Hover | null {
         if (!this.node || !this.astItem) return null;
         if (this.node.type === 'Identifier') {
-            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), this.astItem);
+            this.descTreeList = getOptionDesc(this.paths.slice(0, -1), this.astItem);
             return new vscode.Hover(new vscode.MarkdownString(this.descTreeList.find(v => v.name === this.node?.name)?.desc));
         } else if (this.node.type === 'Property') {
-            this.descTreeList = this.store.getOptionDesc(this.paths.slice(0, -1), this.astItem);
+            this.descTreeList = getOptionDesc(this.paths.slice(0, -1), this.astItem);
             return new vscode.Hover(new vscode.MarkdownString(this.descTreeList.find(v => v.name === this.node?.key?.name)?.desc));
         }
         return null;

@@ -1,10 +1,8 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
-import { start, keyword, ExtensionName, collection, updateDiagnostics } from '../../extension';
+import { ExtensionName, collection } from '../../extension';
 import localize from '../../localize';
-import Ast from '../../ast';
-
-start();
+import Diagnosis from '../../diagnosis';
 
 suite('Diagnosis class Test Suite', () => {
     test('单个顶级属性错误应该显示错误提示', async() => {
@@ -31,7 +29,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), [{
             code: 'series',
             message: localize('message.unknown-property', 'seriesa', 'EChartsOption') + localize('message.fix-unknown-property', 'series'),
@@ -65,7 +63,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), [{
             code: undefined,
             message: localize('message.unknown-property', 'typa', 'EChartsOption'),
@@ -99,7 +97,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), [
             {
                 code: 'yAxis',
@@ -138,7 +136,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), []);
     });
 
@@ -166,7 +164,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), [
             {
                 code: undefined,
@@ -203,7 +201,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), [
             {
                 code: undefined,
@@ -240,7 +238,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), []);
     });
 
@@ -270,7 +268,7 @@ suite('Diagnosis class Test Suite', () => {
                 '',
             ].join('\n'),
         });
-        updateDiagnostics(document, collection, new Ast(keyword, document));
+        Diagnosis.update(document.uri, collection);
         assert.deepStrictEqual(collection.get(document.uri), [
             {
                 code: undefined,

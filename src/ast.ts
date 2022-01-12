@@ -1,115 +1,142 @@
 import * as vscode from 'vscode';
+import { keyword } from './extension';
+import Config from './config';
 const espree = require('espree');
 
-export default class Ast {
-    public astItems: AstItem[] = [];
-    public document: vscode.TextDocument;
-    private keyword: string;
+export const disposables: vscode.Disposable[] = [
+    vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
+        ast.patch(textDocumentChangeEvent.document, textDocumentChangeEvent.contentChanges);
+    }),
+];
 
-    constructor(keyword: string, document: vscode.TextDocument) {
-        this.keyword = keyword;
-        this.document = document;
-        this.init(keyword, document);
-    }
+const cache = new Map<vscode.Uri, AstItem[]>();
 
-    public get validate() : boolean {
-        return this.astItems.length > 0 && this.astItems.some(v => v.expression);
-    }
+const ast = {
+    validate(astItems: AstItem[]) : boolean {
+        return astItems.length > 0 && astItems.some(v => v.expression);
+    },
 
-    public getAstItem(position: vscode.Position): AstItem | undefined {
-        return this.astItems.find(item => item.range.contains(position));
-    }
+    getAstItem(document: vscode.TextDocument, position: vscode.Position): AstItem | undefined {
+        let astItems: AstItem[];
+        if (cache.has(document.uri)) {
+            astItems = (cache.get(document.uri) as AstItem[]);
+        } else {
+            astItems = init(keyword, document);
+            cache.set(document.uri, astItems);
+        }
+
+        if (Config.patchUpdate) {
+            return astItems.find(item => item.range.contains(position));
+        } else {
+            return init(keyword, document).find(item => item.range.contains(position));
+        }
+    },
+
+    getAstItems(uri: vscode.Uri): AstItem[] {
+        return cache.get(uri) || [];
+    },
 
     /** 获取所在位置的最小Ast节点，并且记录路径 */
-    public getMinAstNode(astItem: AstItem | undefined, position: vscode.Position): [AstNode | null, Paths] {
+    getMinAstNode(astItem: AstItem | undefined, position: vscode.Position): [AstNode | null, Paths] {
         if (!astItem || !astItem.expression) return [null, []];
-        return astItem.getAstNode(this.document.offsetAt(position) - this.document.offsetAt(astItem.range.start) + 1);
-    }
+        return astItem.getAstNode(astItem.document.offsetAt(position) - astItem.document.offsetAt(astItem.range.start) + 1);
+    },
 
     /** 文档内容变更时，对局部进行更新 */
-    public patch(contentChanges: readonly vscode.TextDocumentContentChangeEvent[]): void {
-        contentChanges.forEach(contentChange => {
+    patch(document: vscode.TextDocument, contentChanges: readonly vscode.TextDocumentContentChangeEvent[]): void {
+        let astItems: AstItem[];
+        if (cache.has(document.uri)) {
+            astItems = cache.get(document.uri) || [];
+            contentChanges.forEach(contentChange => {
             // 对已经存在的目标进行更新
-            this.astItems = this.astItems.filter(item => item.patch(contentChange));
-            // 将新的目标加入数组中
-            const lines = contentChange.text.split('\n');
-            for (let index = 0; index < lines.length; index++) {
-                let text: string;
-                if (!index) {
-                    text = this.document.lineAt(contentChange.range.start.line).text;
-                } else if (index === lines.length - 1) {
-                    text = this.document.lineAt(contentChange.range.start.line + lines.length - 1).text;
-                } else {
-                    text = lines[index];
+                astItems = astItems.filter(item => item.patch(contentChange));
+                // 将新的目标加入数组中
+                const lines = contentChange.text.split('\n');
+                for (let index = 0; index < lines.length; index++) {
+                    let text: string;
+                    if (!index) {
+                        text = document.lineAt(contentChange.range.start.line).text;
+                    } else if (index === lines.length - 1) {
+                        text = document.lineAt(contentChange.range.start.line + lines.length - 1).text;
+                    } else {
+                        text = lines[index];
+                    }
+                    if (text.includes(keyword)) {
+                        astItems.push(...init(keyword, document, contentChange.range.start.line + index, 2 * contentChange.range.start.line - contentChange.range.end.line + lines.length));
+                        break;
+                    }
                 }
-                if (text.includes(this.keyword)) {
-                    this.init(this.keyword, this.document, contentChange.range.start.line + index, 2 * contentChange.range.start.line - contentChange.range.end.line + lines.length);
-                    break;
-                }
-            }
-        });
-    }
+            });
+        } else {
+            astItems = init(keyword, document);
+        }
+        cache.set(document.uri, astItems);
+    },
+};
 
-    private init(keyword: string, document: vscode.TextDocument, startLine = 0, endLine = document.lineCount) {
-        let start: vscode.Position | null = null;
-        let curRowStart = false; // 当前行是开始行
-        let count = 0;
-        for (let line = startLine; line < endLine || ((curRowStart || start) && endLine < document.lineCount); line++) {
-            const textLine = document.lineAt(line);
-            if (start) {
-                // 匹配括号并且忽略引号中的括号
-                const ignoreList: [start: number, end: number][] = [];
-                let match: RegExpExecArray | null;
-                let reg = /('(?:[^']|(?:\\'))*')|("(?:[^"]|(?:\\"))*")|(`(?:[^`]|(?:\\`))*`)/g; // 匹配包含引号的字符串
-                while ((match = reg.exec(textLine.text))) {
-                    ignoreList.push([match.index, match.index + match[0].length]);
-                }
-                reg = /[{}]/g;
-                while ((match = reg.exec(textLine.text))) {
-                    // 不在引号中
-                    if (ignoreList.every(([startIndex, endIndex]) => match && (match.index < startIndex || match.index > endIndex))) {
-                        if (match[0] === '{') {
-                            count++;
-                        } else {
-                            count--;
-                            if (!count) {
-                                // 找到结束位置
-                                this.astItems.push(new AstItem(keyword, document, new vscode.Range(start.line, start.character, line, match.index + 1), start.line - 1, line));
-                                start = null;
-                                break;
-                            }
+export default ast;
+
+export function init(keyword: string, document: vscode.TextDocument, startLine = 0, endLine = document.lineCount): AstItem[] {
+    let start: vscode.Position | null = null;
+    let curRowStart = false; // 当前行是开始行
+    let count = 0;
+    const astItems: AstItem[] = [];
+    for (let line = startLine; line < endLine || ((curRowStart || start) && endLine < document.lineCount); line++) {
+        const textLine = document.lineAt(line);
+        if (start) {
+            // 匹配括号并且忽略引号中的括号
+            const ignoreList: [start: number, end: number][] = [];
+            let match: RegExpExecArray | null;
+            let reg = /('(?:[^']|(?:\\'))*')|("(?:[^"]|(?:\\"))*")|(`(?:[^`]|(?:\\`))*`)/g; // 匹配包含引号的字符串
+            while ((match = reg.exec(textLine.text))) {
+                ignoreList.push([match.index, match.index + match[0].length]);
+            }
+            reg = /[{}]/g;
+            while ((match = reg.exec(textLine.text))) {
+                // 不在引号中
+                if (ignoreList.every(([startIndex, endIndex]) => match && (match.index < startIndex || match.index > endIndex))) {
+                    if (match[0] === '{') {
+                        count++;
+                    } else {
+                        count--;
+                        if (!count) {
+                            // 找到结束位置
+                            astItems.push(new AstItem(keyword, document, new vscode.Range(start.line, start.character, line, match.index + 1), start.line - 1, line));
+                            start = null;
+                            break;
                         }
                     }
                 }
-            } else if (curRowStart) {
-                const startCharacter = textLine.text.indexOf('{');
-                if (startCharacter !== -1) {
-                    start = new vscode.Position(line, startCharacter);
-                    line--;
-                } else {
-                    // 注释行的下一行不存在目标对象
-                    this.astItems.push(new AstItem(keyword, document, new vscode.Range(line, 0, line, 0), line - 1, line));
-                }
-                curRowStart = false;
-            } else if (textLine.text.trim() === keyword) {
-                curRowStart = true;
             }
-        }
-        if (curRowStart) {
-            // 注释行之后没有下一行
-            this.astItems.push(new AstItem(keyword, document, document.lineAt(document.lineCount - 1).range, document.lineCount - 1, document.lineCount));
-        } else if (start) {
-            // 没有找到结束行
-            this.astItems.push(new AstItem(keyword, document, document.lineAt(start.line).range, start.line - 1, start.line));
+        } else if (curRowStart) {
+            const startCharacter = textLine.text.indexOf('{');
+            if (startCharacter !== -1) {
+                start = new vscode.Position(line, startCharacter);
+                line--;
+            } else {
+                // 注释行的下一行不存在目标对象
+                astItems.push(new AstItem(keyword, document, new vscode.Range(line, 0, line, 0), line - 1, line));
+            }
+            curRowStart = false;
+        } else if (textLine.text.trim() === keyword) {
+            curRowStart = true;
         }
     }
+    if (curRowStart) {
+        // 注释行之后没有下一行
+        astItems.push(new AstItem(keyword, document, document.lineAt(document.lineCount - 1).range, document.lineCount - 1, document.lineCount));
+    } else if (start) {
+        // 没有找到结束行
+        astItems.push(new AstItem(keyword, document, document.lineAt(start.line).range, start.line - 1, start.line));
+    }
+    return astItems;
 }
 
 export class AstItem {
     public keyword: string;
     public expression: AstNode | null = null; // 目标的 ast 表达式
     public range: vscode.Range; // 目标对象所在的范围，使用 this.document.getText(this.range) 时必须恰好返回选项对象
-    private document: vscode.TextDocument;
+    public document: vscode.TextDocument;
     private startRow: number; // 注释所在行
     private endRow: number; // 结尾右括号所在行，如果不存在目标对象，则为开始行的下一行
 

@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
 import * as assert from 'assert';
 
-import { start, updateHandler, collection, provideCompletionItems, provideHover } from '../../extension';
+import { provideCompletionItems } from '../../completion';
+import { provideHover } from '../../hover';
 import { getFileData, getFileArrayData, inputText, findTree } from './utils';
-
-start();
 
 suite('Extension Completion Base Test Suite', () => {
     let document: vscode.TextDocument;
@@ -17,7 +16,6 @@ suite('Extension Completion Base Test Suite', () => {
             content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
         });
         textEditor = await vscode.window.showTextDocument(document);
-        updateHandler(document, collection);
         position = new vscode.Position(2, 17); // 光标位置
     }
 
@@ -342,7 +340,6 @@ suite('Extension Hover Base Test Suite', () => {
             content: '// @ts-nocheck\n/** @type EChartsOption */\nconst options = {\n};\n',
         });
         textEditor = await vscode.window.showTextDocument(document);
-        updateHandler(document, collection);
         position = new vscode.Position(2, 17); // 光标位置
     }
 
