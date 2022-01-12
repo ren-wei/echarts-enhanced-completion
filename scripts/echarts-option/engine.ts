@@ -53,7 +53,6 @@ export default class Engine {
      * @param source 模板源代码
      */
     public parseSource(source: string) {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         let NodeType: CommandType;
 
         this.parseTextBlock(source, this.options.commandOpen, this.options.commandClose, false,
