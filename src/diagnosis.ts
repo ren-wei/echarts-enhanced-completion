@@ -8,16 +8,29 @@ import Config from './config';
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidOpenTextDocument(document => {
-        Diagnosis.update(document.uri, collection);
+        if (Config.enabledVerify) {
+            Diagnosis.update(document.uri, collection);
+        }
     }),
     vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
-        Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
+        if (Config.enabledVerify) {
+            Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
+        }
     }),
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
         if (configurationChangeEvent.affectsConfiguration(Config.name.language)) {
             vscode.workspace.textDocuments.forEach(document => {
                 Diagnosis.update(document.uri, collection);
             });
+        }
+        if (configurationChangeEvent.affectsConfiguration(Config.name.enabledVerify)) {
+            if (Config.enabledVerify) {
+                vscode.workspace.textDocuments.forEach(document => {
+                    Diagnosis.update(document.uri, collection);
+                });
+            } else {
+                collection.clear();
+            }
         }
     }),
 ];

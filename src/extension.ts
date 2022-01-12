@@ -9,9 +9,6 @@ import completionDisposables from './completion';
 import hoverDisposables from './hover';
 import Fix from './fix';
 
-import { disposables as astDisposables } from './ast';
-import { disposables as diagDisposables } from './diagnosis';
-
 // 插件被启用时此方法会被调用
 export function activate(context: vscode.ExtensionContext) {
     const fix = new Fix();
@@ -22,12 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
         ...fix.commandOwner.disposables,
         ...completionDisposables,
         ...hoverDisposables,
-
-        ...astDisposables,
-        ...diagDisposables,
     );
 }
 
+import { disposables as astDisposables } from './ast';
+import { disposables as diagDisposables } from './diagnosis';
+
 // 插件被停用时此方法会被调用
 export function deactivate() {
+    [
+        ...astDisposables,
+        ...diagDisposables,
+    ].forEach(disposable => {
+        disposable.dispose();
+    });
 }
