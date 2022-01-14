@@ -62,13 +62,7 @@ suite('Ast Module Test Suite', () => {
 
         const actual = ast.getAstItems(document.uri);
         const expected = astInit('/** @type EChartsOption */', document);
-        assert.deepStrictEqual(actual, expected,
-            [
-                '',
-                document.getText(new vscode.Range(actual[0].positionAt(actual[0].expression!.start), actual[0].positionAt(actual[0].expression!.end))).split('\n').join('"\n') + '"',
-                document.getText(new vscode.Range(expected[0].positionAt(expected[0].expression!.start), expected[0].positionAt(expected[0].expression!.end))).split('\n').join('"\n') + '"',
-            ].join('\n')
-        );
+        assert.deepStrictEqual(actual, expected);
     });
 
     test('在符合语法的位置输入单个字母应该保持一致', async() => {
@@ -198,13 +192,7 @@ suite('Ast Module Test Suite', () => {
 
         const actual = ast.getAstItems(document.uri);
         const expected = astInit('/** @type EChartsOption */', document);
-        assert.deepStrictEqual(actual, expected,
-            [
-                '',
-                document.getText(new vscode.Range(actual[0].positionAt(actual[0].expression!.start), actual[0].positionAt(actual[0].expression!.end))).split('\n').join('"\n') + '"',
-                document.getText(new vscode.Range(expected[0].positionAt(expected[0].expression!.start), expected[0].positionAt(expected[0].expression!.end))).split('\n').join('"\n') + '"',
-            ].join('\n')
-        );
+        assert.deepStrictEqual(actual, expected);
     });
 
     test('先输入 Enter 换行，再删除至原样应该保持一致', async() => {
