@@ -5,6 +5,7 @@ import { ExtensionName, collection } from './extension';
 import ast, { AstItem } from './ast';
 import localize from './localize';
 import Config from './config';
+import rules from './rules';
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidOpenTextDocument(document => {
@@ -48,7 +49,7 @@ const Diagnosis = {
         const diagList: vscode.Diagnostic[] = [];
         for (const astItem of ast.getAstItems(uri)) {
             if (astItem.expression) {
-                diagList.push(...checkNode(astItem, astItem.expression));
+                diagList.push(...checkUnknownNode(astItem, astItem.expression), ...checkDependRules(astItem));
             }
         }
         collection.set(uri, diagList);
@@ -57,18 +58,18 @@ const Diagnosis = {
 
 export default Diagnosis;
 
-/** 递归检查节点 */
-function checkNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[] {
+/** 递归检查节点是否存在未知属性 */
+function checkUnknownNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[] {
     const diagList: vscode.Diagnostic[] = [];
     switch (node.type) {
         case 'ArrayExpression':
             (node.elements as AstNode[]).forEach((element) => {
-                diagList.push(...checkNode(astItem, element));
+                diagList.push(...checkUnknownNode(astItem, element));
             });
             break;
         case 'ObjectExpression':
             (node.properties as AstNode[]).forEach(child => {
-                diagList.push(...checkNode(astItem, child));
+                diagList.push(...checkUnknownNode(astItem, child));
             });
             break;
         case 'Property':
@@ -94,10 +95,18 @@ function checkNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[] {
                     });
                 }
             } else {
-                diagList.push(...checkNode(astItem, (node.value as AstNode)));
+                diagList.push(...checkUnknownNode(astItem, (node.value as AstNode)));
             }
             break;
     }
+    return diagList;
+}
+
+/** 检查依赖规则 */
+function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
+    const diagList: vscode.Diagnostic[] = [];
+    rules.forEach(rule => {
+    });
     return diagList;
 }
 

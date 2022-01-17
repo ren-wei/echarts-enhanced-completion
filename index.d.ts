@@ -57,6 +57,16 @@ interface BaseOption {
 
 type Languages = 'en' | 'zh';
 
+type DependRules = DependRule[];
+
+/** 依赖规则 */
+interface DependRule {
+    key: string; // 目标key，以 . 连接
+    value: string | number | boolean | ((key: string) => boolean); // 目标 key 的值满足的条件
+    msg: string; // 错误提示信息
+    depends: DependRules; // 依赖数组
+}
+
 declare module 'simillar-commands' {
     export function simillarCommands(commands: string[], word: string): string[];
 }
