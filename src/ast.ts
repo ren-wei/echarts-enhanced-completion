@@ -180,6 +180,15 @@ export class AstItem {
         return [node, paths];
     }
 
+    /**
+     * 获取属性名对应的节点
+     * @param key 由 . 连接的属性名
+     * @return node: node.key.name === key
+     */
+    public getAstNodeByKey(key: string): AstNode | null {
+        return null;
+    }
+
     /** 根据路径获取对应的 SimpleObject */
     public getSimpleObjectByPaths(paths: Paths): SimpleObject {
         let node = this.expression as AstNode;

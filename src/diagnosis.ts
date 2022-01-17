@@ -106,6 +106,16 @@ function checkUnknownNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[]
 function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
     const diagList: vscode.Diagnostic[] = [];
     rules.forEach(rule => {
+        const node = astItem.getAstNodeByKey(rule.key);
+        if (node) {
+            const relatedInformation: vscode.DiagnosticRelatedInformation[] = [];
+            rule.depends.forEach(dep => {
+                // TODO: 如果不满足规则，则添加至 relatedInformation
+            });
+            if (relatedInformation.length) {
+                // TODO: 加入 diagList
+            }
+        }
     });
     return diagList;
 }
