@@ -9,6 +9,7 @@ export default {
         enabledVerify: 'echarts-enhanced-completion.verify.enabled',
         language: 'echarts-enhanced-completion.language',
         patchUpdate: 'echarts-enhanced-completion.patchUpdate',
+        rule: 'echarts-enhanced-completion.rule',
     },
 
     get insertSpaces() {
@@ -46,5 +47,9 @@ export default {
 
     get patchUpdate(): boolean {
         return vscode.workspace.getConfiguration().get(this.name.patchUpdate) as boolean;
+    },
+
+    get rule(): DependRules {
+        return vscode.workspace.getConfiguration().get(this.name.rule) as DependRules;
     },
 };
