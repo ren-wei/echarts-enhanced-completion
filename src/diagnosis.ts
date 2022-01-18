@@ -151,13 +151,9 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
         }
     };
     keys.forEach(key => {
-        rules[key].forEach(checkRule);
+        rules[key]?.forEach(checkRule);
     });
-    try {
-        Config.rule.forEach(checkRule);
-    } catch (e) {
-        vscode.window.showErrorMessage(localize('message.rule-config-error'));
-    }
+    Config.rule.forEach(checkRule);
     return diagList;
 }
 
