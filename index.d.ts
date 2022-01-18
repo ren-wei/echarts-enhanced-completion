@@ -57,14 +57,47 @@ interface BaseOption {
 
 type Languages = 'en' | 'zh';
 
+/** 依赖规则 */
+
 type DependRules = DependRule[];
 
-/** 依赖规则 */
 interface DependRule {
-    key: string; // 目标key，以 . 连接
-    value: string | number | boolean | ((key: string) => boolean); // 目标 key 的值满足的条件
-    msg: string; // 错误提示信息
-    depends: DependRules; // 依赖数组
+    /** 目标key，以 . 连接 */
+    key: string;
+    /** 依赖提示信息 */
+    msg: string;
+    /** 依赖数组 */
+    depends: DependItem[];
+    /** 值的可选项 */
+    options?: Array<string|number|boolean>;
+    /** 禁用此规则 */
+    disable?: boolean;
+}
+
+type DependItem = ExpectedDepend | ExcludeDepend;
+
+/** 预期依赖 */
+interface ExpectedDepend {
+    /** 目标key，以 . 连接 */
+    key: string;
+    /** 目标默认值 */
+    defaultValue: string | number | boolean | null;
+    /** 目标预期值 */
+    expectedValue: string | number | boolean | null;
+    /** 依赖提示信息 */
+    msg: string;
+}
+
+/** 排除依赖 */
+interface ExcludeDepend {
+    /** 目标key，以 . 连接 */
+    key: string;
+    /** 目标默认值 */
+    defaultValue: string | number | boolean | null;
+    /** 目标排除值 */
+    excludeValue: string | number | boolean | null;
+    /** 依赖提示信息 */
+    msg: string;
 }
 
 declare module 'simillar-commands' {

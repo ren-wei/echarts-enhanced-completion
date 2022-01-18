@@ -182,10 +182,41 @@ export class AstItem {
 
     /**
      * 获取属性名对应的节点
-     * @param key 由 . 连接的属性名
+     * @param key 由 . 连接的属性名，如果存在类似 `parent-child` 的部分，则解析为 parent: {type: 'child'}
      * @return node: node.key.name === key
      */
     public getAstNodeByKey(key: string): AstNode | null {
+        if (!this.expression) return null;
+        const paths = key.split('.');
+        let node: AstNode | undefined = this.expression;
+        paths.forEach(path => {
+            if (!node) return null;
+            switch (node.type) {
+                case 'Property':
+                    if (node.value?.properties) {
+                        node = node.value.properties.find(item => item.key?.name === path);
+                    } else if (node.value?.elements) {
+                        node = node.value.elements[0];
+                    } else {
+                        node = undefined;
+                    }
+                    break;
+                case 'ObjectExpression':
+                    if (path.includes('-')) {
+                        const [parent, type] = path.split('-');
+                        node = node.properties?.find(item => item.key?.name === parent);
+                        if (node) {
+                            node = node.value?.elements?.find(item => this.toSimpleObject(item).type === type);
+                        }
+                    } else {
+                        node = node.properties?.find(item => item.key?.name === path);
+                    }
+                    break;
+            }
+        });
+        if (node?.key?.name === paths[paths.length - 1]) {
+            return node;
+        }
         return null;
     }
 
