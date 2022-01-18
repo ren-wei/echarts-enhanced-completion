@@ -117,7 +117,7 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
                 if (rule.options && !rule.options.includes(node.value!.value as unknown as string)) {
                     relatedInformation.push({
                         location: new vscode.Location(astItem.document.uri, nodeRange),
-                        message: `可选值: [${rule.options.map(v => typeof v === 'string' ? `'${v}'` : v).join(', ')}]`,
+                        message: `${localize('message.option-value')}: [${rule.options.map(v => typeof v === 'string' ? `'${v}'` : v).join(', ')}]`,
                     });
                 }
                 rule.depends.forEach(dep => {
