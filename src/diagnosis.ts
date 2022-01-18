@@ -141,7 +141,7 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
                     code: '',
                     message: rule.msg,
                     range: astItem.getNodeKeyRange(node),
-                    severity: vscode.DiagnosticSeverity.Error,
+                    severity: rule.severity,
                     source: ExtensionName,
                     relatedInformation,
                 });

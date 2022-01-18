@@ -68,6 +68,8 @@ interface DependRule {
     msg: string;
     /** 依赖数组 */
     depends: DependItem[];
+    /** 表示诊断的严重性，越小越严重 */
+    severity: 0 | 1 | 2 | 3; // vscode.DiagnosticSeverity
     /** 值的可选项 */
     options?: Array<string|number|boolean>;
     /** 禁用此规则 */
