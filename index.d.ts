@@ -62,14 +62,14 @@ type Languages = 'en' | 'zh';
 type DependRules = DependRule[];
 
 interface DependRule {
-    /** 目标key，以 . 连接 */
+    /** 目标key，以 . 连接，对于类似 series 的项，使用 series-line 表示 `series: { type: 'line' }` */
     key: string;
     /** 依赖提示信息 */
     msg: string;
     /** 依赖数组 */
     depends: DependItem[];
     /** 表示诊断的严重性，越小越严重 */
-    severity: 0 | 1 | 2 | 3; // vscode.DiagnosticSeverity
+    severity: 0 | 1 | 2 | 3; // 被用于 vscode.DiagnosticSeverity
     /** 值的可选项 */
     options?: Array<string|number|boolean>;
     /** 禁用此规则 */

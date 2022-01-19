@@ -7,7 +7,6 @@ export default {
         onlyInit: 'echarts-enhanced-completion.init.onlyInit',
         initShowPictures: 'echarts-enhanced-completion.init.showPictures',
         language: 'echarts-enhanced-completion.language',
-        patchUpdate: 'echarts-enhanced-completion.patchUpdate',
         unknownProperty: 'echarts-enhanced-completion.validation.unknownProperty',
         enabledRule: 'echarts-enhanced-completion.validation.rule.enabled',
         defaultRule: 'echarts-enhanced-completion.validation.rule.default',
@@ -41,10 +40,6 @@ export default {
         } else {
             return lang === 'English' ? 'en' : 'zh';
         }
-    },
-
-    get patchUpdate(): boolean {
-        return vscode.workspace.getConfiguration().get(this.name.patchUpdate) as boolean;
     },
 
     get unknownProperty(): boolean {

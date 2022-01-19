@@ -25,11 +25,7 @@ const ast = {
             cache.set(document.uri, astItems);
         }
 
-        if (Config.patchUpdate) {
-            return astItems.find(item => item.range.contains(position));
-        } else {
-            return init(keyword, document).find(item => item.range.contains(position));
-        }
+        return astItems.find(item => item.range.contains(position));
     },
 
     getAstItems(uri: vscode.Uri): AstItem[] {
