@@ -30,8 +30,6 @@
 
 * 支持可配置的初始化选项
 
-## Todo
-
 * 支持检查属性值
 
 ## Requirements
@@ -42,35 +40,91 @@
 
 ## Extension Settings
 
-```json
-"echarts-enhanced-completion.language": {
-    "type": "string",
-    "default": "auto",
-    "description": "语言设置",
-    "enum": [
-        "auto",
-        "English",
-        "中文"
-    ]
-},
-"echarts-enhanced-completion.init.enabled": {
-    "type": "boolean",
-    "default": true,
-    "description": "空的配置对象中触发补全时显示额外的示例选项"
-},
-"echarts-enhanced-completion.init.onlyInit": {
-    "type": "boolean",
-    "default": false,
-    "description": "初始化时只显示初始化示例选项"
-},
-"echarts-enhanced-completion.init.showPictures": {
-    "type": "boolean",
-    "default": true,
-    "description": "显示示例选项的顶部的预览图片"
+配置项位于 `设置` => `扩展` => `Echarts Enhanced Completion`。
+
+### Validation > Rule: Custom
+
+校验规则可以帮助您更好的发现在使用配置项时的错误和疏忽。
+目前，默认的规则还很少，因此，我们允许自定义规则来补充。
+在 `vscode` 设置文件中编辑 `echarts-enhanced-completion.validation.rule.custom` 项即可。
+
+值类型为 `DependRules` ，定义如下：
+```ts
+type DependRules = DependRule[];
+
+interface DependRule {
+    /** 目标key，以 . 连接，对于类似 series 的项，使用 series-line 表示 `series: { type: 'line' }` */
+    key: string;
+    /** 依赖提示信息 */
+    msg: string;
+    /** 依赖数组 */
+    depends: DependItem[];
+    /** 表示诊断的严重性，越小越严重 */
+    severity: 0 | 1 | 2 | 3; // 被用于 vscode.DiagnosticSeverity
+    /** 值的可选项 */
+    options?: Array<string|number|boolean>;
+    /** 禁用此规则 */
+    disable?: boolean;
 }
 
+type DependItem = ExpectedDepend | ExcludeDepend;
+
+/** 预期依赖 */
+interface ExpectedDepend {
+    /** 目标key，以 . 连接 */
+    key: string;
+    /** 目标默认值 */
+    defaultValue: string | number | boolean | null;
+    /** 目标预期值 */
+    expectedValue: string | number | boolean | null;
+    /** 依赖提示信息 */
+    msg: string;
+}
+
+/** 排除依赖 */
+interface ExcludeDepend {
+    /** 目标key，以 . 连接 */
+    key: string;
+    /** 目标默认值 */
+    defaultValue: string | number | boolean | null;
+    /** 目标排除值 */
+    excludeValue: string | number | boolean | null;
+    /** 依赖提示信息 */
+    msg: string;
+}
 ```
-![设置](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting_cn.png)
+
+例如，对于 `legend.shadowBlur` 配置项生效的前提是，设置了 `show: true` 以及值不为 `tranparent` 的背景色 `backgroundColor`，可以进行如下的配置(此规则已被作为默认规则)：
+
+```json
+{
+    "echarts-enhanced-completion.validation.rule.custom": [
+        {
+            "key": "legend.shadowBlur",
+            "msg": "此配置项生效的前提是，设置了 show: true 以及值不为 'tranparent' 的背景色 backgroundColor。",
+            "severity": 0,
+            "depends": [
+                {
+                    "key": "legend.show",
+                    "defaultValue": true,
+                    "expectedValue": true,
+                    "msg": "不显示图例组件时不生效",
+                },
+                {
+                    "key": "legend.backgroundColor",
+                    "defaultValue": "transparent",
+                    "excludeValue": "transparent",
+                    "msg": "图例组件背景色透明时无效",
+                },
+            ],
+        }
+    ]
+}
+```
+
+效果如下图所示：
+
+![自定义规则效果演示](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/RuleEffect_cn.gif)
 
 ## Issues
 

@@ -32,8 +32,6 @@ After install and enable the extension, add a comment on the previous line of th
 
 * Support configurable initialization options.
 
-## Todo
-
 * Support checking attribute values.
 
 ## Requirements
@@ -46,35 +44,75 @@ After install and enable the extension, add a comment on the previous line of th
 
 ## Extension Settings
 
-```json
-"echarts-enhanced-completion.language": {
-    "type": "string",
-    "default": "auto",
-    "description": "Language setting.",
-    "enum": [
-        "auto",
-        "English",
-        "中文"
-    ]
-},
-"echarts-enhanced-completion.init.enabled": {
-    "type": "boolean",
-    "default": true,
-    "description": "Additional example options are displayed when completion is triggered in an empty options object."
-},
-"echarts-enhanced-completion.init.onlyInit": {
-    "type": "boolean",
-    "default": false,
-    "description": "Only display the initialization example option during initialization."
-},
-"echarts-enhanced-completion.init.showPictures": {
-    "type": "boolean",
-    "default": true,
-    "description": "Preview image at the top showing sample options."
+Configuration items are in `Settings` => `Extensions` => `Echarts Enhanced Completion`
+
+### Validation > Rule: Custom
+
+Validation rules can help you better spot errors and omissions when using configuration items.
+Currently, there are few default rules, so we allow custom rules to supplement.
+Edit the `echarts-enhanced-completion.validation.rule.custom` item in the `vscode` settings file.
+
+The value type is `DependRules` and is defined as follows:
+```ts
+type DependRules = DependRule[];
+
+interface DependRule {
+    key: string;
+    msg: string;
+    depends: DependItem[];
+    severity: 0 | 1 | 2 | 3; // vscode.DiagnosticSeverity
+    options?: Array<string|number|boolean>;
+    disable?: boolean;
 }
 
+type DependItem = ExpectedDepend | ExcludeDepend;
+
+interface ExpectedDepend {
+    key: string;
+    defaultValue: string | number | boolean | null;
+    expectedValue: string | number | boolean | null;
+    msg: string;
+}
+
+interface ExcludeDepend {
+    key: string;
+    defaultValue: string | number | boolean | null;
+    excludeValue: string | number | boolean | null;
+    msg: string;
+}
 ```
-![Setting](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Setting.png)
+
+For example, this property works only if `show: true` is configured and `backgroundColor` is defined other than `transparent`(This rule has been used as the default rule.):
+
+```json
+{
+    "echarts-enhanced-completion.validation.rule.custom": [
+        {
+            "key": "legend.shadowBlur",
+            "msg": "This property works only if show: true is configured and backgroundColor is defined other than transparent.",
+            "severity": 0,
+            "depends": [
+                {
+                    "key": "legend.show",
+                    "defaultValue": true,
+                    "expectedValue": true,
+                    "msg": "Does not take effect when the legend show is false.",
+                },
+                {
+                    "key": "legend.backgroundColor",
+                    "defaultValue": "transparent",
+                    "excludeValue": "transparent",
+                    "msg": "Invalid when legend backgroundColor is transparent.",
+                },
+            ],
+        }
+    ]
+}
+```
+
+Results as shown below:
+
+![RuleEffect](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/RuleEffect.gif)
 
 ## Issues
 
