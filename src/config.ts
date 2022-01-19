@@ -6,10 +6,12 @@ export default {
         initEnabled: 'echarts-enhanced-completion.init.enabled',
         onlyInit: 'echarts-enhanced-completion.init.onlyInit',
         initShowPictures: 'echarts-enhanced-completion.init.showPictures',
-        enabledVerify: 'echarts-enhanced-completion.verify.enabled',
         language: 'echarts-enhanced-completion.language',
         patchUpdate: 'echarts-enhanced-completion.patchUpdate',
-        rule: 'echarts-enhanced-completion.rule',
+        unknownProperty: 'echarts-enhanced-completion.validation.unknownProperty',
+        enabledRule: 'echarts-enhanced-completion.validation.rule.enabled',
+        defaultRule: 'echarts-enhanced-completion.validation.rule.default',
+        customRule: 'echarts-enhanced-completion.validation.rule.custom',
     },
 
     get insertSpaces() {
@@ -32,10 +34,6 @@ export default {
         return vscode.workspace.getConfiguration().get(this.name.initShowPictures) as boolean;
     },
 
-    get enabledVerify(): boolean {
-        return vscode.workspace.getConfiguration().get(this.name.enabledVerify) as boolean;
-    },
-
     get language(): Languages {
         const lang = vscode.workspace.getConfiguration().get(this.name.language) as string;
         if (lang === 'auto') {
@@ -49,7 +47,19 @@ export default {
         return vscode.workspace.getConfiguration().get(this.name.patchUpdate) as boolean;
     },
 
-    get rule(): DependRules {
-        return vscode.workspace.getConfiguration().get(this.name.rule) as DependRules;
+    get unknownProperty(): boolean {
+        return vscode.workspace.getConfiguration().get(this.name.unknownProperty) as boolean;
+    },
+
+    get enabledRule(): boolean {
+        return vscode.workspace.getConfiguration().get(this.name.enabledRule) as boolean;
+    },
+
+    get defaultRule(): boolean {
+        return vscode.workspace.getConfiguration().get(this.name.defaultRule) as boolean;
+    },
+
+    get customRule(): DependRules {
+        return vscode.workspace.getConfiguration().get(this.name.customRule) as DependRules;
     },
 };

@@ -9,14 +9,10 @@ import rules from './rules';
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidOpenTextDocument(document => {
-        if (Config.enabledVerify) {
-            Diagnosis.update(document.uri, collection);
-        }
+        Diagnosis.update(document.uri, collection);
     }),
     vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
-        if (Config.enabledVerify) {
-            Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
-        }
+        Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
     }),
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
         if (configurationChangeEvent.affectsConfiguration(Config.name.language)) {
@@ -24,14 +20,10 @@ export const disposables: vscode.Disposable[] = [
                 Diagnosis.update(document.uri, collection);
             });
         }
-        if (configurationChangeEvent.affectsConfiguration(Config.name.enabledVerify)) {
-            if (Config.enabledVerify) {
-                vscode.workspace.textDocuments.forEach(document => {
-                    Diagnosis.update(document.uri, collection);
-                });
-            } else {
-                collection.clear();
-            }
+        if (configurationChangeEvent.affectsConfiguration(Config.name.enabledRule)) {
+            vscode.workspace.textDocuments.forEach(document => {
+                Diagnosis.update(document.uri, collection);
+            });
         }
     }),
 ];
@@ -49,7 +41,12 @@ const Diagnosis = {
         const diagList: vscode.Diagnostic[] = [];
         for (const astItem of ast.getAstItems(uri)) {
             if (astItem.expression) {
-                diagList.push(...checkUnknownNode(astItem, astItem.expression), ...checkDependRules(astItem));
+                if (Config.unknownProperty) {
+                    diagList.push(...checkUnknownNode(astItem, astItem.expression));
+                }
+                if (Config.enabledRule) {
+                    diagList.push(...checkDependRules(astItem));
+                }
             }
         }
         collection.set(uri, diagList);
@@ -150,10 +147,14 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
             }
         }
     };
-    keys.forEach(key => {
-        rules[key]?.forEach(checkRule);
-    });
-    Config.rule.forEach(checkRule);
+    // 检查默认规则
+    if (Config.defaultRule) {
+        keys.forEach(key => {
+            rules[key]?.forEach(checkRule);
+        });
+    }
+    // 检查用户自定义规则
+    Config.customRule.forEach(checkRule);
     return diagList;
 }
 
