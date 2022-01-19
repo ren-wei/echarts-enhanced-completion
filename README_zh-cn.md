@@ -124,7 +124,7 @@ interface ExcludeDepend {
 
 效果如下图所示：
 
-![自定义规则效果演示](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/RuleEffect_cn.gif)
+![自定义规则效果演示](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/RuleEffect_cn.png)
 
 ## Issues
 

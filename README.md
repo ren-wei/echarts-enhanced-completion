@@ -112,7 +112,7 @@ For example, this property works only if `show: true` is configured and `backgro
 
 Results as shown below:
 
-![RuleEffect](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/RuleEffect.gif)
+![RuleEffect](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/RuleEffect.png)
 
 ## Issues
 
