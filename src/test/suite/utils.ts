@@ -6,13 +6,13 @@ import Config from '../../config';
 
 /** 获取json文件并解析为对象 */
 export function getFileData(name: string): Tree[] {
-    const fileName = path.resolve(__dirname + `../../../../assets/echarts-option/${Config.language}/${name}.json`);
+    const fileName = path.resolve(__dirname + `../../../../assets/desc/${Config.language}/${name}.json`);
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
 
 /** 获取json文件并解析为数组 */
 export function getFileArrayData(name: string = 'index'): BaseOption[] {
-    const fileName = path.resolve(__dirname + `../../../../assets/echarts-option/init/${name}.json`);
+    const fileName = path.resolve(__dirname + `../../../../assets/desc/init/${name}.json`);
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
 

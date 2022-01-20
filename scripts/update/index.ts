@@ -292,7 +292,7 @@ async function getOption(name: string, lang: string, env = 'production') : Promi
 
 /** 保存文件到资源文件夹 */
 function saveFile(name: string, lang: string, data: any) {
-    fs.writeFile(path.resolve(__dirname, `../../assets/echarts-option/${lang}/${name}.json`), JSON.stringify(data, null, 4), () => {
+    fs.writeFile(path.resolve(__dirname, `../../assets/desc/${lang}/${name}.json`), JSON.stringify(data, null, 4), () => {
         // eslint-disable-next-line no-console
         console.log(`Saved file(${lang}): ${name}.json`);
     });
