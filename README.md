@@ -20,6 +20,8 @@ After install and enable the extension, add a comment on the previous line of th
 
 ![Init](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init.gif)
 
+![Snippets](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Snippets.gif)
+
 ## Features
 
 * Trigger completion prompt after `Enter`.

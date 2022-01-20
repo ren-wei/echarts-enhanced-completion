@@ -18,6 +18,8 @@
 
 ![快速初始化](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Init_cn.gif)
 
+![代码片段](https://github.com/ren-wei/echarts-enhanced-completion/raw/master/images/Snippets.gif)
+
 ## Features
 
 * `Enter` 后触发补全提示
