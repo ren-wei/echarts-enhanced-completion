@@ -125,9 +125,9 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
                     // 节点存在并且等于排除值
                     || (depNode && (dep as ExcludeDepend).excludeValue && depNode.value!.value as unknown as string === (dep as ExcludeDepend).excludeValue)
                     // 节点不存在并且默认值不等于预期值
-                    || (!depNode && dep.defaultValue !== (dep as ExpectedDepend).expectedValue)
+                    || (!depNode && (dep.defaultValue && dep.defaultValue !== (dep as ExpectedDepend).expectedValue))
                     // 节点不存在并且默认值等于排除值
-                    || (!depNode && dep.defaultValue === (dep as ExcludeDepend).excludeValue)
+                    || (!depNode && (!dep.defaultValue || dep.defaultValue === (dep as ExcludeDepend).excludeValue))
                 ) {
                     relatedInformation.push({
                         location: new vscode.Location(astItem.document.uri, depNode ? astItem.getNodeKeyRange(depNode) : astItem.range),
@@ -140,7 +140,7 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
                     code: '',
                     message: rule.msg,
                     range: astItem.getNodeKeyRange(node),
-                    severity: rule.severity,
+                    severity: rule.severity || vscode.DiagnosticSeverity.Error,
                     source: ExtensionName,
                     relatedInformation,
                 });

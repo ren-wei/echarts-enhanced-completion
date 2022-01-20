@@ -61,7 +61,8 @@ interface DependRule {
     key: string;
     msg: string;
     depends: DependItem[];
-    severity: 0 | 1 | 2 | 3; // vscode.DiagnosticSeverity
+    /** Default is 0. */
+    severity?: 0 | 1 | 2 | 3; // vscode.DiagnosticSeverity
     options?: Array<string|number|boolean>;
     disable?: boolean;
 }
@@ -70,14 +71,16 @@ type DependItem = ExpectedDepend | ExcludeDepend;
 
 interface ExpectedDepend {
     key: string;
-    defaultValue: string | number | boolean | null;
+    /** Default value. If not provided, it is equal to the `expectedValue` */
+    defaultValue?: string | number | boolean | null;
     expectedValue: string | number | boolean | null;
     msg: string;
 }
 
 interface ExcludeDepend {
     key: string;
-    defaultValue: string | number | boolean | null;
+    /** Default value. If not provided, it is equal to the `excludeValue` */
+    defaultValue?: string | number | boolean | null;
     excludeValue: string | number | boolean | null;
     msg: string;
 }

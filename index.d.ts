@@ -68,8 +68,8 @@ interface DependRule {
     msg: string;
     /** 依赖数组 */
     depends: DependItem[];
-    /** 表示诊断的严重性，越小越严重 */
-    severity: 0 | 1 | 2 | 3; // 被用于 vscode.DiagnosticSeverity
+    /** 表示诊断的严重性，越小越严重，默认取0 */
+    severity?: 0 | 1 | 2 | 3; // 被用于 vscode.DiagnosticSeverity
     /** 值的可选项 */
     options?: Array<string|number|boolean>;
     /** 禁用此规则 */
@@ -82,8 +82,8 @@ type DependItem = ExpectedDepend | ExcludeDepend;
 interface ExpectedDepend {
     /** 目标key，以 . 连接 */
     key: string;
-    /** 目标默认值 */
-    defaultValue: string | number | boolean | null;
+    /** 目标默认值，不提供则与目标预期值相等 */
+    defaultValue?: string | number | boolean | null;
     /** 目标预期值 */
     expectedValue: string | number | boolean | null;
     /** 依赖提示信息 */
@@ -94,8 +94,8 @@ interface ExpectedDepend {
 interface ExcludeDepend {
     /** 目标key，以 . 连接 */
     key: string;
-    /** 目标默认值 */
-    defaultValue: string | number | boolean | null;
+    /** 目标默认值，不提供则与目标排除值相等 */
+    defaultValue?: string | number | boolean | null;
     /** 目标排除值 */
     excludeValue: string | number | boolean | null;
     /** 依赖提示信息 */
