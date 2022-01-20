@@ -150,7 +150,7 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
     // 检查默认规则
     if (Config.defaultRule) {
         keys.forEach(key => {
-            rules[key]?.forEach(checkRule);
+            rules(key).forEach(checkRule);
         });
     }
     // 检查用户自定义规则
