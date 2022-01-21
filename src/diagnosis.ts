@@ -108,41 +108,43 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
         if (rule.disable) return;
         const node = astItem.getAstNodeByKey(rule.key);
         if (node) {
-            const relatedInformation: vscode.DiagnosticRelatedInformation[] = [];
             const nodeRange = astItem.getNodeKeyRange(node);
-            if (rule.options && !rule.options.includes(node.value!.value as unknown as string)) {
-                relatedInformation.push({
-                    location: new vscode.Location(astItem.document.uri, nodeRange),
-                    message: `${localize('message.option-value')}: [${rule.options.map(v => typeof v === 'string' ? `'${v}'` : v).join(', ')}]`,
-                });
-            }
-            rule.depends.forEach(dep => {
+            if (isAllowCheck(astItem.document, nodeRange.start)) {
+                const relatedInformation: vscode.DiagnosticRelatedInformation[] = [];
+                if (rule.options && !rule.options.includes(node.value!.value as unknown as string)) {
+                    relatedInformation.push({
+                        location: new vscode.Location(astItem.document.uri, nodeRange),
+                        message: `${localize('message.option-value')}: [${rule.options.map(v => typeof v === 'string' ? `'${v}'` : v).join(', ')}]`,
+                    });
+                }
+                rule.depends.forEach(dep => {
                 // 如果不满足规则，则添加至 relatedInformation
-                const depNode = astItem.getAstNodeByKey(dep.key);
-                if (
+                    const depNode = astItem.getAstNodeByKey(dep.key);
+                    if (
                     // 节点存在并且不等于预期值
-                    (depNode && (dep as ExpectedDepend).expectedValue && depNode.value!.value as unknown as string !== (dep as ExpectedDepend).expectedValue)
+                        (depNode && (dep as ExpectedDepend).expectedValue && depNode.value!.value as unknown as string !== (dep as ExpectedDepend).expectedValue)
                     // 节点存在并且等于排除值
                     || (depNode && (dep as ExcludeDepend).excludeValue && depNode.value!.value as unknown as string === (dep as ExcludeDepend).excludeValue)
                     // 节点不存在并且默认值不等于预期值
                     || (!depNode && (dep.defaultValue && dep.defaultValue !== (dep as ExpectedDepend).expectedValue))
                     // 节点不存在并且默认值等于排除值
                     || (!depNode && (!dep.defaultValue || dep.defaultValue === (dep as ExcludeDepend).excludeValue))
-                ) {
-                    relatedInformation.push({
-                        location: new vscode.Location(astItem.document.uri, depNode ? astItem.getNodeKeyRange(depNode) : astItem.range),
-                        message: dep.msg,
+                    ) {
+                        relatedInformation.push({
+                            location: new vscode.Location(astItem.document.uri, depNode ? astItem.getNodeKeyRange(depNode) : astItem.range),
+                            message: dep.msg,
+                        });
+                    }
+                });
+                if (relatedInformation.length) {
+                    diagList.push({
+                        message: rule.msg,
+                        range: astItem.getNodeKeyRange(node),
+                        severity: rule.severity || vscode.DiagnosticSeverity.Error,
+                        source: ExtensionName,
+                        relatedInformation,
                     });
                 }
-            });
-            if (relatedInformation.length && isAllowCheck(astItem.document, nodeRange.start)) {
-                diagList.push({
-                    message: rule.msg,
-                    range: astItem.getNodeKeyRange(node),
-                    severity: rule.severity || vscode.DiagnosticSeverity.Error,
-                    source: ExtensionName,
-                    relatedInformation,
-                });
             }
         }
     };
