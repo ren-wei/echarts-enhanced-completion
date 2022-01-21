@@ -1,21 +1,28 @@
 import * as vscode from 'vscode';
-import { keyword } from './extension';
-import Config from './config';
+import { keyword, supportedLanguageList } from './extension';
 const espree = require('espree');
 
 export const disposables: vscode.Disposable[] = [
+    vscode.workspace.onDidOpenTextDocument(document => {
+        if (supportedLanguageList.includes(document.languageId)) {
+            cache.set(document.uri, init(keyword, document));
+        }
+    }),
+    vscode.workspace.onDidCloseTextDocument(document => {
+        if (supportedLanguageList.includes(document.languageId)) {
+            cache.delete(document.uri);
+        }
+    }),
     vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
-        ast.patch(textDocumentChangeEvent.document, textDocumentChangeEvent.contentChanges);
+        if (supportedLanguageList.includes(textDocumentChangeEvent.document.languageId)) {
+            ast.patch(textDocumentChangeEvent.document, textDocumentChangeEvent.contentChanges);
+        }
     }),
 ];
 
 const cache = new Map<vscode.Uri, AstItem[]>();
 
 const ast = {
-    validate(astItems: AstItem[]) : boolean {
-        return astItems.length > 0 && astItems.some(v => v.expression);
-    },
-
     getAstItem(document: vscode.TextDocument, position: vscode.Position): AstItem | undefined {
         let astItems: AstItem[];
         if (cache.has(document.uri)) {
