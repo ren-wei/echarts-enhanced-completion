@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { simillarCommands } from 'simillar-commands';
 import { getOptionDesc } from './store';
-import { ExtensionName, collection } from './extension';
+import { ExtensionName, collection, supportedLanguageList } from './extension';
 import ast, { AstItem } from './ast';
 import localize from './localize';
 import Config from './config';
@@ -9,20 +9,28 @@ import rules from './rules';
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidOpenTextDocument(document => {
-        Diagnosis.update(document.uri, collection);
+        if (supportedLanguageList.includes(document.languageId)) {
+            Diagnosis.update(document.uri, collection);
+        }
     }),
     vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
-        Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
+        if (supportedLanguageList.includes(textDocumentChangeEvent.document.languageId)) {
+            Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
+        }
     }),
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
         if (configurationChangeEvent.affectsConfiguration(Config.name.language)) {
             vscode.workspace.textDocuments.forEach(document => {
-                Diagnosis.update(document.uri, collection);
+                if (supportedLanguageList.includes(document.languageId)) {
+                    Diagnosis.update(document.uri, collection);
+                }
             });
         }
         if (configurationChangeEvent.affectsConfiguration(Config.name.enabledRule)) {
             vscode.workspace.textDocuments.forEach(document => {
-                Diagnosis.update(document.uri, collection);
+                if (supportedLanguageList.includes(document.languageId)) {
+                    Diagnosis.update(document.uri, collection);
+                }
             });
         }
     }),

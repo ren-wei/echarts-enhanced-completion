@@ -9,12 +9,13 @@ import { AstItem } from './ast';
 import Config from './config';
 
 const cache: Map<string, Tree[]> = new Map<string, Tree[]>(); // 缓存已获取的文件
-const topOptionDesc: Tree[] = getFileData('index'); // 顶级选项的描述对象
+let topOptionDesc: Tree[] = getFileData('index'); // 顶级选项的描述对象
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
-        if (configurationChangeEvent.affectsConfiguration('echarts-enhanced-completion.language')) {
+        if (configurationChangeEvent.affectsConfiguration(Config.name.language)) {
             cache.clear();
+            topOptionDesc = getFileData('index');
         }
     }),
 ];
