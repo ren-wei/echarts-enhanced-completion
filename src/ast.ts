@@ -15,7 +15,8 @@ export const disposables: vscode.Disposable[] = [
     }),
     vscode.workspace.onDidChangeTextDocument(textDocumentChangeEvent => {
         if (supportedLanguageList.includes(textDocumentChangeEvent.document.languageId)) {
-            ast.patch(textDocumentChangeEvent.document, textDocumentChangeEvent.contentChanges);
+            // 将存在多行填充contentChange放在后面，以防止重新初始化后，ast结构被破坏
+            ast.patch(textDocumentChangeEvent.document, Array.from(textDocumentChangeEvent.contentChanges).sort((a, b) => a.text.split('\n').length - b.text.split('\n').length));
         }
     }),
 ];
@@ -50,9 +51,17 @@ const ast = {
         let astItems: AstItem[];
         if (cache.has(document.uri)) {
             astItems = cache.get(document.uri) || [];
-            contentChanges.forEach(contentChange => {
-            // 对已经存在的目标进行更新
-                astItems = astItems.filter(item => item.patch(contentChange));
+            let reinitialize = false; // 只要修改了注释行就重新初始化
+            for (const contentChange of contentChanges) {
+                for (const item of astItems) {
+                    if (!item.patch(contentChange)) {
+                        reinitialize = true;
+                        break;
+                    }
+                }
+                if (reinitialize) {
+                    break;
+                }
                 // 将新的目标加入数组中
                 const lines = contentChange.text.split('\n');
                 for (let index = 0; index < lines.length; index++) {
@@ -69,7 +78,10 @@ const ast = {
                         break;
                     }
                 }
-            });
+            }
+            if (reinitialize) {
+                astItems = init(keyword, document);
+            }
         } else {
             astItems = init(keyword, document);
         }
@@ -244,6 +256,19 @@ export class AstItem {
     }
 
     public patch(contentChange: vscode.TextDocumentContentChangeEvent): boolean {
+        // 如果修改了注释行，那么全部重新初始化
+        if (contentChange.range.start.line <= this.startRow) {
+            return false;
+        }
+
+        // 目标不存在时，尝试初始化
+        if (!this.expression) {
+            if (contentChange.range.start.line === this.startRow + 1 || this.startRow !== this.endRow) {
+                this.init();
+            }
+            return true;
+        }
+
         // 更新位置在当前范围之后，不需要更新
         if (contentChange.range.start.line > this.endRow) {
             return true;
@@ -256,18 +281,6 @@ export class AstItem {
             this.range = new vscode.Range(this.range.start.translate(offset), this.range.end.translate(offset));
             return true;
         }
-        // 如果修改了注释行，那么删除
-        if (contentChange.range.start.line <= this.startRow) {
-            return false;
-        }
-        // 目标不存在时，尝试初始化
-        if (!this.expression) {
-            if (contentChange.range.start.line === this.startRow + 1 || this.startRow !== this.endRow) {
-                this.init();
-            }
-            return true;
-        }
-
         // 如果是 Enter 触发补全，那么只需要调整范围
         if (!contentChange.rangeLength && /^\r?\n[ \t]+$/.test(contentChange.text) && !this.document.lineAt(contentChange.range.start.line + 1).text.trim()) {
             this.translate(this.expression, contentChange.rangeOffset - this.document.offsetAt(this.range.start), contentChange.text.length);
