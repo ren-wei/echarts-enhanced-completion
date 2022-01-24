@@ -120,7 +120,7 @@
         "name": "shadowBlur",
         "type": "number",
         "default": "",
-        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**Attention**: This property works only if `show: true` is configured and `backgroundColor` is defined other than `transparent`.",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**Attention**: This property works only if `show: true` is configured and `backgroundColor` is defined other than `transparent`.",
         "children": [],
         "min": "0",
         "step": "0.5"
@@ -151,7 +151,7 @@
     {
         "name": "tooltip",
         "type": "Object",
-        "desc": "tooltip settings in the coordinate system component.\n\n---\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](~tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](~grid.tooltip), [polar.tooltip](~polar.tooltip), [single.tooltip](~single.tooltip)\n\n+ Configured in a series: [series.tooltip](~series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](~series.data.tooltip)\n\n\n---",
+        "desc": "tooltip settings in the coordinate system component.\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](~tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](~grid.tooltip), [polar.tooltip](~polar.tooltip), [single.tooltip](~single.tooltip)\n\n+ Configured in a series: [series.tooltip](~series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](~series.data.tooltip)",
         "children": [
             {
                 "name": "show",
@@ -227,7 +227,7 @@
                                     "Function"
                                 ],
                                 "default": "null",
-                                "desc": "The formatter of label.\n\nIf set as `string`, for example it can be: `formatter: 'some text {value} some text`, where `{value}` will be replaced by axis value automatically.\n\nIf set as `function`:\n\n**Parameters:**\n\n`{Object}` params: Including fields as follows:\n\n`{Object}` params.value: current value of this axis. If `axis.type` is `'category'`, it is one of the value in `axis.data`. If `axis.type` is `'time'`, it is a timestamp.\n\n`{Array.<Object>}` params.seriesData: An array, containing info of nearest points. Each item is:\n\n`{string}` params.axisDimension: The dimension name of the axis. For example, in catesian it will be `'x'`, `'y'`, and in polar it will be `'radius'`, `'angle'`.\n\n`{number}` params.axisIndex: The index of the axis, for example, `0`,`1`, `2`, ...\n\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n\nEach item also includes axis infomation:\n\n```js\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // The current value of axisPointer\naxisValueLabel: 'text of value'\n}\n```\n\n\n\n**Return:**\n\nThe string to be displayed.\n\nFor example:\n```js\nformatter: function (params) {\n// If axis.type is 'time'\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
+                                "desc": "The formatter of label.\n\nIf set as `string`, for example it can be: `formatter: 'some text {value} some text`, where `{value}` will be replaced by axis value automatically.\n\nIf set as `function`:\n\n**Parameters:**\n\n`{Object}` params: Including fields as follows:\n\n`{Object}` params.value: current value of this axis. If `axis.type` is `'category'`, it is one of the value in `axis.data`. If `axis.type` is `'time'`, it is a timestamp.\n\n`{Array.<Object>}` params.seriesData: An array, containing info of nearest points. Each item is:\n\n`{string}` params.axisDimension: The dimension name of the axis. For example, in catesian it will be `'x'`, `'y'`, and in polar it will be `'radius'`, `'angle'`.\n\n`{number}` params.axisIndex: The index of the axis, for example, `0`,`1`, `2`, ...\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n\n\n\n\nEach item also includes axis infomation:\n\n```ts\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // The current value of axisPointer\naxisValueLabel: 'text of value'\n}\n```\n\n\n\n**Return:**\n\nThe string to be displayed.\n\nFor example:\n```ts\nformatter: function (params) {\n// If axis.type is 'time'\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
                                 "children": []
                             },
                             {
@@ -278,7 +278,7 @@
                                 "name": "lineHeight",
                                 "type": "number",
                                 "default": "12",
-                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -318,7 +318,7 @@
                             {
                                 "name": "textBorderType",
                                 "type": "enum",
-                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -401,7 +401,7 @@
                                 "name": "padding",
                                 "type": "vector",
                                 "default": "[5, 7, 5, 7]",
-                                "desc": "axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
+                                "desc": "axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```ts\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
                                 "children": [],
                                 "min": "0",
                                 "dims": "T,R,B,L"
@@ -431,7 +431,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "3",
-                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -485,7 +485,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -525,7 +525,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -581,7 +581,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -645,7 +645,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -685,7 +685,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -743,7 +743,7 @@
                         "name": "animationDuration",
                         "type": "number",
                         "default": "1000",
-                        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+                        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "20"
@@ -762,14 +762,14 @@
                             "Function"
                         ],
                         "default": "0",
-                        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+                        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```ts\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
                         "children": []
                     },
                     {
                         "name": "animationDurationUpdate",
                         "type": "number",
                         "default": "200",
-                        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+                        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "20"
@@ -788,7 +788,7 @@
                             "Function"
                         ],
                         "default": "0",
-                        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+                        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```ts\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
                         "children": []
                     }
                 ]
@@ -799,7 +799,7 @@
                     "string",
                     "Array"
                 ],
-                "desc": "The position of the tooltip's floating layer, which would follow the position of mouse by default.\n\nOptions:\n\n+ `Array`\n\nDisplay the position of tooltip's floating layer through array, which supports absolute position and relative percentage.\n\nExample:\n\n```js\n// absolute position, which is 10px to the left side and 10px to the top side of the container\nposition: [10, 10]\n// relative position, in the exact center of the container\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\nCallback function in the following form:\n```js\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**Parameters:**<br>\npoint: Mouse position.<br>\nparam: The same as formatter.<br>\ndom: The DOM object of tooltip.<br>\nrect: It is valid only when mouse is on graphic elements, which stands for a bounding box with `x`, `y`, `width`, and `height`.<br>\nsize: The size of dom echarts container. For example: `{contentSize: [width, height], viewSize: [width, height]}`. <br>\n\n**Return:**<br>\nReturn value is an array standing for tooltip position, which can be absolute pixels, or relative percentage.<br>\nOr can be an object, like `{left: 10, top: 30}`, or `{right: '20%', bottom: 40}`.<br>\n\nFor example:\n```js\nposition: function (point, params, dom, rect, size) {\n// fixed at top\nreturn [point[0], '10%'];\n}\n```\nOr:\n```js\nposition: function (pos, params, dom, rect, size) {\n// tooltip will be fixed on the right if mouse hovering on the left,\n// and on the left if hovering on the right.\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n+ `'inside'`\n\nCenter position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'top'`\n\nTop position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'left'`\n\nLeft position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'right'`\n\nRight position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'bottom'`\n\nBottom position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.",
+                "desc": "The position of the tooltip's floating layer, which would follow the position of mouse by default.\n\nOptions:\n\n+ `Array`\n\nDisplay the position of tooltip's floating layer through array, which supports absolute position and relative percentage.\n\nExample:\n\n```ts\n// absolute position, which is 10px to the left side and 10px to the top side of the container\nposition: [10, 10]\n// relative position, in the exact center of the container\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\nCallback function in the following form:\n```ts\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**Parameters:**<br>\npoint: Mouse position.<br>\nparam: The same as formatter.<br>\ndom: The DOM object of tooltip.<br>\nrect: It is valid only when mouse is on graphic elements, which stands for a bounding box with `x`, `y`, `width`, and `height`.<br>\nsize: The size of dom echarts container. For example: `{contentSize: [width, height], viewSize: [width, height]}`. <br>\n\n**Return:**<br>\nReturn value is an array standing for tooltip position, which can be absolute pixels, or relative percentage.<br>\nOr can be an object, like `{left: 10, top: 30}`, or `{right: '20%', bottom: 40}`.<br>\n\nFor example:\n```ts\nposition: function (point, params, dom, rect, size) {\n// fixed at top\nreturn [point[0], '10%'];\n}\n```\nOr:\n```ts\nposition: function (pos, params, dom, rect, size) {\n// tooltip will be fixed on the right if mouse hovering on the left,\n// and on the left if hovering on the right.\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n+ `'inside'`\n\nCenter position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'top'`\n\nTop position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'left'`\n\nLeft position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'right'`\n\nRight position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.\n\n+ `'bottom'`\n\nBottom position of the graphic element where the mouse is in, which is only valid when [trigger](~tooltip.trigger) is `'item'`.",
                 "children": []
             },
             {
@@ -808,7 +808,13 @@
                     "string",
                     "Function"
                 ],
-                "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](~tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be refered as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```js\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```js\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\nWhen [trigger](~tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](~xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```js\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](~tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be refered as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n\n\nWhen [trigger](~tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](~xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "children": []
+            },
+            {
+                "name": "valueFormatter",
+                "type": "string",
+                "desc": "Callback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string) => string\n```\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                 "children": []
             },
             {
@@ -837,7 +843,7 @@
                 "name": "padding",
                 "type": "vector",
                 "default": "5",
-                "desc": "<ExampleUIControlVector min=\"0\" dims=\"T,R,B,L\"  />\n\nThe floating layer of tooltip space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
+                "desc": "<ExampleUIControlVector min=\"0\" dims=\"T,R,B,L\"  />\n\nThe floating layer of tooltip space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```ts\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
                 "children": [],
                 "dims": "T,R,B,L"
             },
@@ -887,7 +893,7 @@
                         "name": "lineHeight",
                         "type": "number",
                         "default": "12",
-                        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -927,7 +933,7 @@
                     {
                         "name": "textBorderType",
                         "type": "enum",
-                        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -1011,7 +1017,7 @@
             {
                 "name": "extraCssText",
                 "type": "text",
-                "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```js\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
                 "children": []
             }
         ]

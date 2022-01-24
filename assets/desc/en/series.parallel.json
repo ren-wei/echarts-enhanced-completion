@@ -34,10 +34,10 @@
     },
     {
         "name": "colorBy",
-        "type": "string",
-        "default": "'series'",
+        "type": "enum",
         "desc": "> Since `v5.2.0`\n\n\n\nThe policy to take color from [option.color](~color). Valid values:\n\n+ `'series'`: assigns the colors in the palette by series, so that all data in the same series are in the same color;\n+ `'data'`: assigns colors in the palette according to data items, with each data item using a different color.",
-        "children": []
+        "children": [],
+        "options": "'series','data'"
     },
     {
         "name": "lineStyle",
@@ -63,7 +63,7 @@
             {
                 "name": "type",
                 "type": "enum",
-                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -103,7 +103,7 @@
                 "name": "shadowBlur",
                 "type": "number",
                 "default": "",
-                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -149,6 +149,13 @@
         "desc": "",
         "children": [
             {
+                "name": "disabled",
+                "type": "boolean",
+                "default": "false",
+                "desc": "Whether to disable the emphasis state.\n\nWhen emphasis state is disabled. There will be no highlight effect when the mouse hovered the element, tooltip is triggered, or the legend is hovered. It can be used to improve interaction fluency when there are massive graphic elements.",
+                "children": []
+            },
+            {
                 "name": "lineStyle",
                 "type": "Object",
                 "desc": "",
@@ -172,7 +179,7 @@
                     {
                         "name": "type",
                         "type": "enum",
-                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -212,7 +219,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -354,7 +361,7 @@
             {
                 "name": "type",
                 "type": "enum",
-                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -394,7 +401,7 @@
                 "name": "shadowBlur",
                 "type": "number",
                 "default": "",
-                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -438,6 +445,13 @@
                 "desc": "",
                 "children": [
                     {
+                        "name": "disabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "Whether to disable the emphasis state.\n\nWhen emphasis state is disabled. There will be no highlight effect when the mouse hovered the element, tooltip is triggered, or the legend is hovered. It can be used to improve interaction fluency when there are massive graphic elements.",
+                        "children": []
+                    },
+                    {
                         "name": "lineStyle",
                         "type": "Object",
                         "desc": "",
@@ -461,7 +475,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -501,7 +515,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -584,7 +598,7 @@
         "name": "animationDuration",
         "type": "number",
         "default": "1000",
-        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -603,14 +617,14 @@
             "Function"
         ],
         "default": "0",
-        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```ts\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
         "children": []
     },
     {
         "name": "animationDurationUpdate",
         "type": "number",
         "default": "300",
-        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -629,7 +643,7 @@
             "Function"
         ],
         "default": "0",
-        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```ts\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
         "children": []
     }
 ]
