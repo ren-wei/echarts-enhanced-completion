@@ -20,10 +20,10 @@
     },
     {
         "name": "colorBy",
-        "type": "string",
-        "default": "'data'",
+        "type": "enum",
         "desc": "> 从 `v5.2.0` 开始支持\n\n\n\n从调色盘 [option.color](~color) 中取色的策略，可取值为：\n\n+ `'series'`：按照系列分配调色盘中的颜色，同一系列中的所有数据都是用相同的颜色；\n+ `'data'`：按照数据项分配调色盘中的颜色，每个数据项都使用不同的颜色。",
-        "children": []
+        "children": [],
+        "options": "'series','data'"
     },
     {
         "name": "zlevel",
@@ -117,7 +117,7 @@
             {
                 "name": "position",
                 "type": "enum",
-                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
                 "children": [],
                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
             },
@@ -189,7 +189,7 @@
                 "name": "lineHeight",
                 "type": "number",
                 "default": "12",
-                "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -198,7 +198,7 @@
                 "name": "backgroundColor",
                 "type": "color",
                 "default": "'transparent'",
-                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                 "children": []
             },
             {
@@ -220,7 +220,7 @@
             {
                 "name": "borderType",
                 "type": "enum",
-                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -318,7 +318,7 @@
             {
                 "name": "textBorderType",
                 "type": "enum",
-                "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -400,7 +400,7 @@
             {
                 "name": "rich",
                 "type": "Object",
-                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```ts\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
                 "children": [
                     {
                         "name": "<style_name>",
@@ -447,14 +447,14 @@
                             {
                                 "name": "align",
                                 "type": "enum",
-                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
+                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
                                 "children": [],
                                 "options": "'left','center','right'"
                             },
                             {
                                 "name": "verticalAlign",
                                 "type": "enum",
-                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
                                 "children": [],
                                 "options": "'top','middle','bottom'"
                             },
@@ -462,7 +462,7 @@
                                 "name": "lineHeight",
                                 "type": "number",
                                 "default": "12",
-                                "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                                "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -471,7 +471,7 @@
                                 "name": "backgroundColor",
                                 "type": "color",
                                 "default": "'transparent'",
-                                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                 "children": []
                             },
                             {
@@ -493,7 +493,7 @@
                             {
                                 "name": "borderType",
                                 "type": "enum",
-                                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -591,7 +591,7 @@
                             {
                                 "name": "textBorderType",
                                 "type": "enum",
-                                "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -709,7 +709,7 @@
                     {
                         "name": "type",
                         "type": "enum",
-                        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -749,7 +749,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -797,7 +797,7 @@
             "Object",
             "Function"
         ],
-        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n标签的统一布局配置。\n\n该配置项是在每个系列默认的标签布局基础上，统一调整标签的`(x, y)`位置，标签对齐等属性以实现想要的标签布局效果。\n\n该配置项也可以是一个有如下参数的回调函数\n\n```js\n// 标签对应数据的 dataIndex\ndataIndex: number\n// 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\ndataType?: string\n// 标签对应的系列的 index\nseriesIndex: number\n// 标签显示的文本\ntext: string\n// 默认的标签的包围盒，由系列默认的标签布局决定\nlabelRect: {x: number, y: number, width: number, height: number}\n// 默认的标签水平对齐\nalign: 'left' | 'center' | 'right'\n// 默认的标签垂直对齐\nverticalAlign: 'top' | 'middle' | 'bottom'\n// 标签所对应的数据图形的包围盒，可用于定位标签位置\nrect: {x: number, y: number, width: number, height: number}\n// 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n// 如果没有该值则为 null\nlabelLinePoints?: number[][]\n```\n\n**示例：**\n\n将标签显示在图形右侧 10px 的位置，并且垂直居中：\n\n```js\nlabelLayout(params) {\nreturn {\nx: params.rect.x + 10,\ny: params.rect.y + params.rect.height / 2,\nverticalAlign: 'middle',\nalign: 'left'\n}\n}\n```\n\n根据图形的包围盒尺寸决定文本尺寸\n\n```js\n\nlabelLayout(params) {\nreturn {\nfontSize: Math.max(params.rect.width / 10, 5)\n};\n}\n```",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n标签的统一布局配置。\n\n该配置项是在每个系列默认的标签布局基础上，统一调整标签的`(x, y)`位置，标签对齐等属性以实现想要的标签布局效果。\n\n该配置项也可以是一个有如下参数的回调函数\n\n```ts\n// 标签对应数据的 dataIndex\ndataIndex: number\n// 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\ndataType?: string\n// 标签对应的系列的 index\nseriesIndex: number\n// 标签显示的文本\ntext: string\n// 默认的标签的包围盒，由系列默认的标签布局决定\nlabelRect: {x: number, y: number, width: number, height: number}\n// 默认的标签水平对齐\nalign: 'left' | 'center' | 'right'\n// 默认的标签垂直对齐\nverticalAlign: 'top' | 'middle' | 'bottom'\n// 标签所对应的数据图形的包围盒，可用于定位标签位置\nrect: {x: number, y: number, width: number, height: number}\n// 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n// 如果没有该值则为 null\nlabelLinePoints?: number[][]\n```\n\n**示例：**\n\n将标签显示在图形右侧 10px 的位置，并且垂直居中：\n\n```ts\nlabelLayout(params) {\nreturn {\nx: params.rect.x + 10,\ny: params.rect.y + params.rect.height / 2,\nverticalAlign: 'middle',\nalign: 'left'\n}\n}\n```\n\n根据图形的包围盒尺寸决定文本尺寸\n\n```ts\n\nlabelLayout(params) {\nreturn {\nfontSize: Math.max(params.rect.width / 10, 5)\n};\n}\n```",
         "children": [
             {
                 "name": "hideOverlap",
@@ -886,7 +886,7 @@
             {
                 "name": "labelLinePoints",
                 "type": "Array",
-                "desc": "标签引导线三个点的位置。格式为：\n\n```js\n[[x, y], [x, y], [x, y]]\n```\n\n在饼图中常用来微调已经计算好的引导线，其它情况一般不建议设置。",
+                "desc": "标签引导线三个点的位置。格式为：\n\n```ts\n[[x, y], [x, y], [x, y]]\n```\n\n在饼图中常用来微调已经计算好的引导线，其它情况一般不建议设置。",
                 "children": []
             }
         ]
@@ -922,7 +922,7 @@
             {
                 "name": "borderType",
                 "type": "enum",
-                "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -962,7 +962,7 @@
                 "name": "shadowBlur",
                 "type": "number",
                 "default": "",
-                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -1094,10 +1094,17 @@
         "desc": "高亮状态的配置。",
         "children": [
             {
+                "name": "disabled",
+                "type": "boolean",
+                "default": "false",
+                "desc": "是否关闭高亮状态。\n\n关闭高亮状态可以在鼠标移到图形上，tooltip 触发，或者图例联动的时候不再触发高亮效果。在图形非常多的时候可以关闭以提升交互流畅性。",
+                "children": []
+            },
+            {
                 "name": "focus",
                 "type": "string",
                 "default": "'none'",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n\n\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。\n\n\n\n\n**示例：**\n\n\n下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。\n\n```js\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](bar-y-category-stack&reset=1&edit=1)",
+                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n\n\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。\n\n\n\n\n**示例：**\n\n\n下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](bar-y-category-stack&reset=1&edit=1)",
                 "children": []
             },
             {
@@ -1122,7 +1129,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -1194,7 +1201,7 @@
                         "name": "lineHeight",
                         "type": "number",
                         "default": "12",
-                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1203,7 +1210,7 @@
                         "name": "backgroundColor",
                         "type": "color",
                         "default": "'transparent'",
-                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
                     {
@@ -1225,7 +1232,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -1323,7 +1330,7 @@
                     {
                         "name": "textBorderType",
                         "type": "enum",
-                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -1405,7 +1412,7 @@
                     {
                         "name": "rich",
                         "type": "Object",
-                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```ts\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
                         "children": [
                             {
                                 "name": "<style_name>",
@@ -1452,14 +1459,14 @@
                                     {
                                         "name": "align",
                                         "type": "enum",
-                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
+                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
                                         "children": [],
                                         "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
                                         "type": "enum",
-                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
                                         "children": [],
                                         "options": "'top','middle','bottom'"
                                     },
@@ -1467,7 +1474,7 @@
                                         "name": "lineHeight",
                                         "type": "number",
                                         "default": "12",
-                                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -1476,7 +1483,7 @@
                                         "name": "backgroundColor",
                                         "type": "color",
                                         "default": "'transparent'",
-                                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
                                     {
@@ -1498,7 +1505,7 @@
                                     {
                                         "name": "borderType",
                                         "type": "enum",
-                                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                                         "children": [],
                                         "options": "'solid','dashed','dotted'"
                                     },
@@ -1596,7 +1603,7 @@
                                     {
                                         "name": "textBorderType",
                                         "type": "enum",
-                                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                         "children": [],
                                         "options": "'solid','dashed','dotted'"
                                     },
@@ -1682,7 +1689,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -1722,7 +1729,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -1795,7 +1802,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -1835,7 +1842,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -1897,7 +1904,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -1969,7 +1976,7 @@
                         "name": "lineHeight",
                         "type": "number",
                         "default": "12",
-                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1978,7 +1985,7 @@
                         "name": "backgroundColor",
                         "type": "color",
                         "default": "'transparent'",
-                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
                     {
@@ -2000,7 +2007,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -2098,7 +2105,7 @@
                     {
                         "name": "textBorderType",
                         "type": "enum",
-                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -2180,7 +2187,7 @@
                     {
                         "name": "rich",
                         "type": "Object",
-                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```ts\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
                         "children": [
                             {
                                 "name": "<style_name>",
@@ -2227,14 +2234,14 @@
                                     {
                                         "name": "align",
                                         "type": "enum",
-                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
+                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
                                         "children": [],
                                         "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
                                         "type": "enum",
-                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
                                         "children": [],
                                         "options": "'top','middle','bottom'"
                                     },
@@ -2242,7 +2249,7 @@
                                         "name": "lineHeight",
                                         "type": "number",
                                         "default": "12",
-                                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -2251,7 +2258,7 @@
                                         "name": "backgroundColor",
                                         "type": "color",
                                         "default": "'transparent'",
-                                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
                                     {
@@ -2273,7 +2280,7 @@
                                     {
                                         "name": "borderType",
                                         "type": "enum",
-                                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                                         "children": [],
                                         "options": "'solid','dashed','dotted'"
                                     },
@@ -2371,7 +2378,7 @@
                                     {
                                         "name": "textBorderType",
                                         "type": "enum",
-                                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                         "children": [],
                                         "options": "'solid','dashed','dotted'"
                                     },
@@ -2457,7 +2464,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -2497,7 +2504,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -2570,7 +2577,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -2610,7 +2617,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -2658,6 +2665,13 @@
         "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n选中状态的配置。",
         "children": [
             {
+                "name": "disabled",
+                "type": "boolean",
+                "default": "false",
+                "desc": "是否可以被选中。在开启`selectedMode`的时候有效，可以用于关闭部分数据。",
+                "children": []
+            },
+            {
                 "name": "label",
                 "type": "Object",
                 "desc": "",
@@ -2672,7 +2686,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```js\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```js\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -2744,7 +2758,7 @@
                         "name": "lineHeight",
                         "type": "number",
                         "default": "12",
-                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2753,7 +2767,7 @@
                         "name": "backgroundColor",
                         "type": "color",
                         "default": "'transparent'",
-                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                         "children": []
                     },
                     {
@@ -2775,7 +2789,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -2873,7 +2887,7 @@
                     {
                         "name": "textBorderType",
                         "type": "enum",
-                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -2955,7 +2969,7 @@
                     {
                         "name": "rich",
                         "type": "Object",
-                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```ts\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
                         "children": [
                             {
                                 "name": "<style_name>",
@@ -3002,14 +3016,14 @@
                                     {
                                         "name": "align",
                                         "type": "enum",
-                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
+                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
                                         "children": [],
                                         "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
                                         "type": "enum",
-                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
                                         "children": [],
                                         "options": "'top','middle','bottom'"
                                     },
@@ -3017,7 +3031,7 @@
                                         "name": "lineHeight",
                                         "type": "number",
                                         "default": "12",
-                                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -3026,7 +3040,7 @@
                                         "name": "backgroundColor",
                                         "type": "color",
                                         "default": "'transparent'",
-                                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
+                                        "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
                                     {
@@ -3048,7 +3062,7 @@
                                     {
                                         "name": "borderType",
                                         "type": "enum",
-                                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                        "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                                         "children": [],
                                         "options": "'solid','dashed','dotted'"
                                     },
@@ -3146,7 +3160,7 @@
                                     {
                                         "name": "textBorderType",
                                         "type": "enum",
-                                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                         "children": [],
                                         "options": "'solid','dashed','dotted'"
                                     },
@@ -3232,7 +3246,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -3272,7 +3286,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -3345,7 +3359,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -3385,7 +3399,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -3430,14 +3444,14 @@
     {
         "name": "selectedMode",
         "type": "enum",
-        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n\n选中模式的配置，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选`'single'`，`'multiple'`，分别表示单选还是多选。",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n\n选中模式的配置，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选`'single'`，`'multiple'`，`'series'` 分别表示单选，多选以及选择整个系列。",
         "children": [],
-        "options": "'false','true','single','multiple'"
+        "options": "'false','true','single','multiple','series'"
     },
     {
         "name": "data",
         "type": "Array",
-        "desc": "```js\ndata: [\n[\"2015/11/09\",10,\"DQ\"],\n[\"2015/11/10\",10,\"DQ\"],\n[\"2015/11/11\",10,\"DQ\"],\n[\"2015/11/08\",10,\"SS\"],\n[\"2015/11/09\",10,\"SS\"],\n[\"2015/11/10\",10,\"SS\"],\n[\"2015/11/11\",10,\"SS\"],\n[\"2015/11/12\",10,\"SS\"],\n[\"2015/11/13\",10,\"QG\"],\n[\"2015/11/08\",10,\"QG\"],\n[\"2015/11/11\",10,\"QG\"],\n[\"2015/11/13\",10,\"QG\"],\n]\n```\n**数据说明：**\n\n如上所示，主题河流的数据格式是二维数组的形式，里层数组的每一项由事件或主题的时间属性、事件或主题在某个时间点的值，以及事件或主题的名称组成。值得注意的是，一定要提供一个具有完整时间段的事件或主题作为主干河流，其他事件或主题以该主干河流为依据，将缺省的时间点上的值补为0，也就是说其他事件或主题的时间段是包含在主干河流内的，如果超出，布局会出错，这么做的原因是，在计算整个图的布局的时候要计算一条baseline，以便将每个事情画成流带状。如上图中的\"SS\"这一事件就是一个主干河流，经过处理，我们会将\"DQ\"中缺省的三个时间点以[\"2015/11/08\",0,\"DQ\"]，[\"2015/11/12\",0,\"DQ\"]，［\"2015/11/13\",0,\"DQ\"］的格式补齐，使其与主干河流对其。从中还可以看出，我们可以在完整时间段的任意位置缺省。",
+        "desc": "```ts\ndata: [\n[\"2015/11/09\",10,\"DQ\"],\n[\"2015/11/10\",10,\"DQ\"],\n[\"2015/11/11\",10,\"DQ\"],\n[\"2015/11/08\",10,\"SS\"],\n[\"2015/11/09\",10,\"SS\"],\n[\"2015/11/10\",10,\"SS\"],\n[\"2015/11/11\",10,\"SS\"],\n[\"2015/11/12\",10,\"SS\"],\n[\"2015/11/13\",10,\"QG\"],\n[\"2015/11/08\",10,\"QG\"],\n[\"2015/11/11\",10,\"QG\"],\n[\"2015/11/13\",10,\"QG\"],\n]\n```\n**数据说明：**\n\n如上所示，主题河流的数据格式是二维数组的形式，里层数组的每一项由事件或主题的时间属性、事件或主题在某个时间点的值，以及事件或主题的名称组成。值得注意的是，一定要提供一个具有完整时间段的事件或主题作为主干河流，其他事件或主题以该主干河流为依据，将缺省的时间点上的值补为0，也就是说其他事件或主题的时间段是包含在主干河流内的，如果超出，布局会出错，这么做的原因是，在计算整个图的布局的时候要计算一条baseline，以便将每个事情画成流带状。如上图中的\"SS\"这一事件就是一个主干河流，经过处理，我们会将\"DQ\"中缺省的三个时间点以[\"2015/11/08\",0,\"DQ\"]，[\"2015/11/12\",0,\"DQ\"]，［\"2015/11/13\",0,\"DQ\"］的格式补齐，使其与主干河流对其。从中还可以看出，我们可以在完整时间段的任意位置缺省。",
         "children": [
             {
                 "name": "date",
@@ -3471,7 +3485,7 @@
                     "Array",
                     "Function"
                 ],
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n+ `Array`\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n\n```js\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\n回调函数，格式如下：\n```js\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数：**<br>\npoint: 鼠标位置，如 [20, 40]。<br>\nparams: 同 formatter 的参数相同。<br>\ndom: tooltip 的 dom 对象。<br>\nrect: 只有鼠标在图形上时有效，是一个用`x`, `y`, `width`, `height`四个属性表达的图形包围盒。<br>\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：`{contentSize: [width, height], viewSize: [width, height]}`。<br>\n\n**返回值：**<br>\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相  百分比。<br>\n也可以是一个对象，如：`{left: 10, top: 30}`，或者 `{right: '20%', bottom: 40}`。<br>\n\n如下示例：\n```js\nposition: function (point, params, dom, rect, size) {\n// 固定在顶部\nreturn [point[0], '10%'];\n}\n```\n或者：\n```js\nposition: function (pos, params, dom, rect, size) {\n// 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n\n+ `'inside'`\n\n鼠标所在图形的内部中心位置，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'top'`\n\n鼠标所在图形上侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'left'`\n\n鼠标所在图形左侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'right'`\n\n鼠标所在图形右侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'bottom'`\n\n鼠标所在图形底侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n+ `Array`\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n\n```ts\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\n回调函数，格式如下：\n```ts\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数：**<br>\npoint: 鼠标位置，如 [20, 40]。<br>\nparams: 同 formatter 的参数相同。<br>\ndom: tooltip 的 dom 对象。<br>\nrect: 只有鼠标在图形上时有效，是一个用`x`, `y`, `width`, `height`四个属性表达的图形包围盒。<br>\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：`{contentSize: [width, height], viewSize: [width, height]}`。<br>\n\n**返回值：**<br>\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相  百分比。<br>\n也可以是一个对象，如：`{left: 10, top: 30}`，或者 `{right: '20%', bottom: 40}`。<br>\n\n如下示例：\n```ts\nposition: function (point, params, dom, rect, size) {\n// 固定在顶部\nreturn [point[0], '10%'];\n}\n```\n或者：\n```ts\nposition: function (pos, params, dom, rect, size) {\n// 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n\n+ `'inside'`\n\n鼠标所在图形的内部中心位置，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'top'`\n\n鼠标所在图形上侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'left'`\n\n鼠标所在图形左侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'right'`\n\n鼠标所在图形右侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'bottom'`\n\n鼠标所在图形底侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。",
                 "children": []
             },
             {
@@ -3480,7 +3494,13 @@
                     "string",
                     "Function"
                 ],
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](~tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```js\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```js\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```js\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](~tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](~xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```js\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string,\n\n{{ for:  as ,  }}{{ /for }}\n\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**注：** ECharts 2.x 使用数组表示各参数的方式不再支持。\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```js\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](~tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string{{ for:  as ,  }}{{ /for }}\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](~tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](~xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string{{ for:  as ,  }}{{ /for }}\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "children": []
+            },
+            {
+                "name": "valueFormatter",
+                "type": "string",
+                "desc": "tooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string) => string\n```\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                 "children": []
             },
             {
@@ -3509,7 +3529,7 @@
                 "name": "padding",
                 "type": "vector",
                 "default": "5",
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n<ExampleUIControlVector min=\"0\" dims=\"T,R,B,L\"  />\n\n提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```js\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n<ExampleUIControlVector min=\"0\" dims=\"T,R,B,L\"  />\n\n提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```ts\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
                 "children": [],
                 "dims": "T,R,B,L"
             },
@@ -3559,7 +3579,7 @@
                         "name": "lineHeight",
                         "type": "number",
                         "default": "12",
-                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -3599,7 +3619,7 @@
                     {
                         "name": "textBorderType",
                         "type": "enum",
-                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -3683,7 +3703,7 @@
             {
                 "name": "extraCssText",
                 "type": "text",
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```js\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](~tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
                 "children": []
             }
         ]

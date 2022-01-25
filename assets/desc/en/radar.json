@@ -60,7 +60,7 @@
                     "string",
                     "Function"
                 ],
-                "desc": "The formatter of indicator's name, in which the string and callback function are supported. See the following example:\n\n```js\n// using string template, the template variable should be the indicator's name {value}\nformatter: '【{value}】'\n// using callback function, the first parameter is the indicator's name, and the second parameter id the indicator's cinfiguration item\nformatter: function (value, indicator) {\nreturn '【' + value + '】';\n}\n```",
+                "desc": "The formatter of indicator's name, in which the string and callback function are supported. See the following example:\n\n```ts\n// using string template, the template variable should be the indicator's name {value}\nformatter: '【{value}】'\n// using callback function, the first parameter is the indicator's name, and the second parameter id the indicator's cinfiguration item\nformatter: function (value, indicator) {\nreturn '【' + value + '】';\n}\n```",
                 "children": []
             },
             {
@@ -104,7 +104,7 @@
                 "name": "lineHeight",
                 "type": "number",
                 "default": "12",
-                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -113,7 +113,7 @@
                 "name": "backgroundColor",
                 "type": "color",
                 "default": "'transparent'",
-                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
+                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
                 "children": []
             },
             {
@@ -135,7 +135,7 @@
             {
                 "name": "borderType",
                 "type": "enum",
-                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -233,7 +233,7 @@
             {
                 "name": "textBorderType",
                 "type": "enum",
-                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -315,7 +315,7 @@
             {
                 "name": "rich",
                 "type": "Object",
-                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```ts\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
                 "children": [
                     {
                         "name": "<style_name>",
@@ -362,14 +362,14 @@
                             {
                                 "name": "align",
                                 "type": "enum",
-                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
                                 "children": [],
                                 "options": "'left','center','right'"
                             },
                             {
                                 "name": "verticalAlign",
                                 "type": "enum",
-                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
                                 "children": [],
                                 "options": "'top','middle','bottom'"
                             },
@@ -377,7 +377,7 @@
                                 "name": "lineHeight",
                                 "type": "number",
                                 "default": "12",
-                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -386,7 +386,7 @@
                                 "name": "backgroundColor",
                                 "type": "color",
                                 "default": "'transparent'",
-                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
+                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
                                 "children": []
                             },
                             {
@@ -408,7 +408,7 @@
                             {
                                 "name": "borderType",
                                 "type": "enum",
-                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -506,7 +506,7 @@
                             {
                                 "name": "textBorderType",
                                 "type": "enum",
-                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -598,7 +598,7 @@
         "name": "triggerEvent",
         "type": "boolean",
         "default": "false",
-        "desc": "Set this to `true` to enable triggering events.\n\nParameters of the event include:\n\n```js\n{\n// Component type: xAxis, yAxis, radiusAxis, angleAxis\n// Each of which has an attribute for index, e.g., xAxisIndex for xAxis\ncomponentType: string,\n// Value on axis before being formatted.\n// Click on value label to trigger event.\nvalue: '',\n// Name of axis.\n// Click on laben name to trigger event.\nname: ''\n}\n```",
+        "desc": "Set this to `true` to enable triggering events.\n\nParameters of the event include:\n\n```ts\n{\n// Component type: xAxis, yAxis, radiusAxis, angleAxis\n// Each of which has an attribute for index, e.g., xAxisIndex for xAxis\ncomponentType: string,\n// Value on axis before being formatted.\n// Click on value label to trigger event.\nvalue: '',\n// Name of axis.\n// Click on laben name to trigger event.\nname: ''\n}\n```",
         "children": []
     },
     {
@@ -661,7 +661,7 @@
                     {
                         "name": "type",
                         "type": "enum",
-                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -701,7 +701,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -788,7 +788,7 @@
                     {
                         "name": "type",
                         "type": "enum",
-                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -828,7 +828,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -913,7 +913,7 @@
                     "Function"
                 ],
                 "default": "null",
-                "desc": "Formatter of axis label, which supports string template and callback function.\n\nExample:\n```js\n// Use string template; template variable is the default label of axis {value}\nformatter: '{value} kg'\n// Use callback.\nformatter: function (value, index) {\nreturn value + 'kg';\n}\n```\n\n---\n\nFor axes of time [type](~.type): `'time'`, `formatter` supports the following forms:\n\n- **String Templates**: an easy and fast way to make frequently used date/time template, formed in `string`\n- **Callback Functions**: customized formatter to make complex format, formed in `Function`\n- **Cascading Templates**: to adopt different formatters for different time granularity, formed in `object`\n\nNext, we are going to introduce these three forms one by one.\n\n** String Templates **\n\nUsing string templates is an easy way to format date/time with frequently used formats. If it can be used to make what you want, you are advised to do so. If not, you could then consider the others. Supported formats are:\n\n| Group        | Template | Value (EN)                                                    | Value (ZH)                                                               |\n|--------------|----------|----------------------------------------------------------------|----------------------------------------------------------------------------|\n| Year         | {yyyy}     | e.g., 2020, 2021, ...                                          | 例：2020, 2021, ...                                                        |\n|              | {yy}       | 00-99                                                          | 00-99                                                                      |\n| Quarter      | {Q}        | 1, 2, 3, 4                                                     | 1, 2, 3, 4                                                                 |\n| Month        | {MMMM}     | e.g., January, February, ...                                   | 一月、二月、…… |\n|              | {MMM}      | e.g., Jan, Feb, ...                                            | 1月、2月、……              |\n|              | {MM}       | 01-12                                                          | 01-12                                                                      |\n|              | {M}        | 1-12                                                           | 1-12                                                                       |\n| Day of Month | {dd}       | 01-31                                                          | 01-31                                                                      |\n|              | {d}        | 1-31                                                           | 1-31                                                                       |\n| Day of Week  | {eeee}     | Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday | 星期日、星期一、星期二、星期三、星期四、星期五、星期六                     |\n|              | {ee}       | Sun, Mon, Tues, Wed, Thu, Fri, Sat                             | 日、一、二、三、四、五、六                                                 |\n|              | {e}        | 1-54                                                           | 1-54                                                                       |\n| Hour         | {HH}       | 00-23                                                          | 00-23                                                                      |\n|              | {H}        | 0-23                                                           | 0-23                                                                       |\n|              | {hh}       | 01-12                                                          | 01-12                                                                      |\n|              | {h}        | 1-12                                                           | 1-12                                                                       |\n| Minute       | {mm}       | 00-59                                                          | 00-59                                                                      |\n|              | {m}        | 0-59                                                           | 0-59                                                                       |\n| Second       | {ss}       | 00-59                                                          | 00-59                                                                      |\n|              | {s}        | 0-59                                                           | 0-59                                                                       |\n| Millisecond  | {SSS}      | 000-999                                                        | 000-999                                                                    |\n|              | {S}        | 0-999                                                          | 0-999                                                                      |\n\n> Templates of other languages can be found in [the language package](https://github.com/apache/echarts/tree/master/src/i18n). Please refer to [echarts.registerLocale](api.html#echarts.registerLocale) to register a language.\n\nExample:\n```js\nformatter: '{yyyy}-{MM}-{dd}' // gets labels like '2020-12-02'\nformatter: 'Day {d}' // gets labels like 'Day 2'\n```\n\n** Callback Functions **\n\nCallback functions can be used to get different formats for different axis tick values. Sometimes, if you have complex date/time formatting requirement, third-party libraries like [Moment.js](https://momentjs.com/) or [date-fns](https://date-fns.org/) can be used to return formatted labels.\n\nExample:\n```js\n// Use callback function; function parameters are axis index\nformatter: function (value, index) {\n// Formatted to be month/day; display year only in the first label\nvar date = new Date(value);\nvar texts = [(date.getMonth() + 1), date.getDate()];\nif (index === 0) {\ntexts.unshift(date.getYear());\n}\nreturn texts.join('/');\n}\n```\n\n** Cascading Templates **\n\nSometimes, we wish to use different formats for different time granularity. For example, in a quarter-year chart, we may wish to see the month name with the first date of the month, while see the date name with others. This can be made with:\n\nExample:\n```js\nformatter: {\nmonth: '{MMMM}', // Jan, Feb, ...\nday: '{d}' // 1, 2, ...\n}\n```\n\nSupported levels and their default formatters are:\n```js\n{\nyear: '{yyyy}',\nmonth: '{MMM}',\nday: '{d}',\nhour: '{HH}:{mm}',\nminute: '{HH}:{mm}',\nsecond: '{HH}:{mm}:{ss}',\nmillisecond: '{hh}:{mm}:{ss} {SSS}',\nnone: '{yyyy}-{MM}-{dd} {hh}:{mm}:{ss} {SSS}'\n}\n```\n\nLet's take `day` for example. When a tick value is `0` for its hour, minute, second, and millisecond, `day` level will be used to make formatter. `none` is used when no other level fulfills, which is for tick values with millisecond values other than `0`.\n\n** Rich Text **\n\nThe above three forms all support rich text, so it can be used to make some complex effects.\n\nExample:\n```js\nxAxis: {\ntype: 'time',\naxisLabel: {\nformatter: {\n// Display year and month information on the first data of a year\nyear: '{yearStyle|{yyyy}}\\n{monthStyle|{MMM}}',\nmonth: '{monthStyle|{MMM}}'\n},\nrich: {\nyearStyle: {\n// Make yearly text more standing out\ncolor: '#000',\nfontWeight: 'bold'\n},\nmonthStyle: {\ncolor: '#999'\n}\n}\n}\n},\n```\n\nThe above example can also be made with a callback function:\n\nExample:\n```js\nxAxis: {\ntype: 'time',\naxisLabel: {\nformatter: function (value) {\nconst date = new Date(value);\nconst yearStart = new Date(value);\nyearStart.setMonth(0);\nyearStart.setDate(1);\nyearStart.setHours(0);\nyearStart.setMinutes(0);\nyearStart.setSeconds(0);\nyearStart.setMilliseconds(0);\n// Whether a tick value is the start of a year\nif (date.getTime() === yearStart.getTime()) {\nreturn '{year|' + date.getFullYear() + '}\\n'\n+ '{month|' + (date.getMonth() + 1) + '月}';\n}\nelse {\nreturn '{month|' + (date.getMonth() + 1) + '月}'\n}\n},\nrich: {\nyear: {\ncolor: '#000',\nfontWeight: 'bold'\n},\nmonth: {\ncolor: '#999'\n}\n}\n}\n},\n```",
+                "desc": "Formatter of axis label, which supports string template and callback function.\n\nExample:\n```ts\n// Use string template; template variable is the default label of axis {value}\nformatter: '{value} kg'\n// Use callback.\nformatter: function (value, index) {\nreturn value + 'kg';\n}\n```\n\n---\n\nFor axes of time [type](~.type): `'time'`, `formatter` supports the following forms:\n\n- **String Templates**: an easy and fast way to make frequently used date/time template, formed in `string`\n- **Callback Functions**: customized formatter to make complex format, formed in `Function`\n- **Cascading Templates**: to adopt different formatters for different time granularity, formed in `object`\n\nNext, we are going to introduce these three forms one by one.\n\n** String Templates **\n\nUsing string templates is an easy way to format date/time with frequently used formats. If it can be used to make what you want, you are advised to do so. If not, you could then consider the others. Supported formats are:\n\n| Group        | Template | Value (EN)                                                    | Value (ZH)                                                               |\n|--------------|----------|----------------------------------------------------------------|----------------------------------------------------------------------------|\n| Year         | {yyyy}     | e.g., 2020, 2021, ...                                          | 例：2020, 2021, ...                                                        |\n|              | {yy}       | 00-99                                                          | 00-99                                                                      |\n| Quarter      | {Q}        | 1, 2, 3, 4                                                     | 1, 2, 3, 4                                                                 |\n| Month        | {MMMM}     | e.g., January, February, ...                                   | 一月、二月、…… |\n|              | {MMM}      | e.g., Jan, Feb, ...                                            | 1月、2月、……              |\n|              | {MM}       | 01-12                                                          | 01-12                                                                      |\n|              | {M}        | 1-12                                                           | 1-12                                                                       |\n| Day of Month | {dd}       | 01-31                                                          | 01-31                                                                      |\n|              | {d}        | 1-31                                                           | 1-31                                                                       |\n| Day of Week  | {eeee}     | Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday | 星期日、星期一、星期二、星期三、星期四、星期五、星期六                     |\n|              | {ee}       | Sun, Mon, Tues, Wed, Thu, Fri, Sat                             | 日、一、二、三、四、五、六                                                 |\n|              | {e}        | 1-54                                                           | 1-54                                                                       |\n| Hour         | {HH}       | 00-23                                                          | 00-23                                                                      |\n|              | {H}        | 0-23                                                           | 0-23                                                                       |\n|              | {hh}       | 01-12                                                          | 01-12                                                                      |\n|              | {h}        | 1-12                                                           | 1-12                                                                       |\n| Minute       | {mm}       | 00-59                                                          | 00-59                                                                      |\n|              | {m}        | 0-59                                                           | 0-59                                                                       |\n| Second       | {ss}       | 00-59                                                          | 00-59                                                                      |\n|              | {s}        | 0-59                                                           | 0-59                                                                       |\n| Millisecond  | {SSS}      | 000-999                                                        | 000-999                                                                    |\n|              | {S}        | 0-999                                                          | 0-999                                                                      |\n\n> Templates of other languages can be found in [the language package](https://github.com/apache/echarts/tree/master/src/i18n). Please refer to [echarts.registerLocale](api.html#echarts.registerLocale) to register a language.\n\nExample:\n```ts\nformatter: '{yyyy}-{MM}-{dd}' // gets labels like '2020-12-02'\nformatter: 'Day {d}' // gets labels like 'Day 2'\n```\n\n** Callback Functions **\n\nCallback functions can be used to get different formats for different axis tick values. Sometimes, if you have complex date/time formatting requirement, third-party libraries like [Moment.js](https://momentjs.com/) or [date-fns](https://date-fns.org/) can be used to return formatted labels.\n\nExample:\n```ts\n// Use callback function; function parameters are axis index\nformatter: function (value, index) {\n// Formatted to be month/day; display year only in the first label\nvar date = new Date(value);\nvar texts = [(date.getMonth() + 1), date.getDate()];\nif (index === 0) {\ntexts.unshift(date.getYear());\n}\nreturn texts.join('/');\n}\n```\n\n** Cascading Templates **\n\nSometimes, we wish to use different formats for different time granularity. For example, in a quarter-year chart, we may wish to see the month name with the first date of the month, while see the date name with others. This can be made with:\n\nExample:\n```ts\nformatter: {\nmonth: '{MMMM}', // Jan, Feb, ...\nday: '{d}' // 1, 2, ...\n}\n```\n\nSupported levels and their default formatters are:\n```ts\n{\nyear: '{yyyy}',\nmonth: '{MMM}',\nday: '{d}',\nhour: '{HH}:{mm}',\nminute: '{HH}:{mm}',\nsecond: '{HH}:{mm}:{ss}',\nmillisecond: '{hh}:{mm}:{ss} {SSS}',\nnone: '{yyyy}-{MM}-{dd} {hh}:{mm}:{ss} {SSS}'\n}\n```\n\nLet's take `day` for example. When a tick value is `0` for its hour, minute, second, and millisecond, `day` level will be used to make formatter. `none` is used when no other level fulfills, which is for tick values with millisecond values other than `0`.\n\n** Rich Text **\n\nThe above three forms all support rich text, so it can be used to make some complex effects.\n\nExample:\n```ts\nxAxis: {\ntype: 'time',\naxisLabel: {\nformatter: {\n// Display year and month information on the first data of a year\nyear: '{yearStyle|{yyyy}}\\n{monthStyle|{MMM}}',\nmonth: '{monthStyle|{MMM}}'\n},\nrich: {\nyearStyle: {\n// Make yearly text more standing out\ncolor: '#000',\nfontWeight: 'bold'\n},\nmonthStyle: {\ncolor: '#999'\n}\n}\n}\n},\n```\n\nThe above example can also be made with a callback function:\n\nExample:\n```ts\nxAxis: {\ntype: 'time',\naxisLabel: {\nformatter: function (value) {\nconst date = new Date(value);\nconst yearStart = new Date(value);\nyearStart.setMonth(0);\nyearStart.setDate(1);\nyearStart.setHours(0);\nyearStart.setMinutes(0);\nyearStart.setSeconds(0);\nyearStart.setMilliseconds(0);\n// Whether a tick value is the start of a year\nif (date.getTime() === yearStart.getTime()) {\nreturn '{year|' + date.getFullYear() + '}\\n'\n+ '{month|' + (date.getMonth() + 1) + '月}';\n}\nelse {\nreturn '{month|' + (date.getMonth() + 1) + '月}'\n}\n},\nrich: {\nyear: {\ncolor: '#000',\nfontWeight: 'bold'\n},\nmonth: {\ncolor: '#999'\n}\n}\n}\n},\n```",
                 "children": []
             },
             {
@@ -976,14 +976,14 @@
             {
                 "name": "align",
                 "type": "enum",
-                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
                 "children": [],
                 "options": "'left','center','right'"
             },
             {
                 "name": "verticalAlign",
                 "type": "enum",
-                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
                 "children": [],
                 "options": "'top','middle','bottom'"
             },
@@ -991,7 +991,7 @@
                 "name": "lineHeight",
                 "type": "number",
                 "default": "12",
-                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -1000,7 +1000,7 @@
                 "name": "backgroundColor",
                 "type": "color",
                 "default": "'transparent'",
-                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
+                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
                 "children": []
             },
             {
@@ -1022,7 +1022,7 @@
             {
                 "name": "borderType",
                 "type": "enum",
-                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -1120,7 +1120,7 @@
             {
                 "name": "textBorderType",
                 "type": "enum",
-                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -1202,7 +1202,7 @@
             {
                 "name": "rich",
                 "type": "Object",
-                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```ts\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
                 "children": [
                     {
                         "name": "<style_name>",
@@ -1249,14 +1249,14 @@
                             {
                                 "name": "align",
                                 "type": "enum",
-                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
                                 "children": [],
                                 "options": "'left','center','right'"
                             },
                             {
                                 "name": "verticalAlign",
                                 "type": "enum",
-                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
                                 "children": [],
                                 "options": "'top','middle','bottom'"
                             },
@@ -1264,7 +1264,7 @@
                                 "name": "lineHeight",
                                 "type": "number",
                                 "default": "12",
-                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -1273,7 +1273,7 @@
                                 "name": "backgroundColor",
                                 "type": "color",
                                 "default": "'transparent'",
-                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
+                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
                                 "children": []
                             },
                             {
@@ -1295,7 +1295,7 @@
                             {
                                 "name": "borderType",
                                 "type": "enum",
-                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -1393,7 +1393,7 @@
                             {
                                 "name": "textBorderType",
                                 "type": "enum",
-                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -1445,7 +1445,7 @@
             {
                 "name": "color",
                 "type": "color",
-                "desc": "Color of axis label is set to be [axisLine.lineStyle.color](~.axisLine.lineStyle.color) by default. Callback function is supported, in the following format:\n\n```js\n(val: string) => Color\n```\n\nParameter is the text of label, and return value is the color. See the following example:\n\n```js\ntextStyle: {\ncolor: function (value, index) {\nreturn value >= 0 ? 'green' : 'red';\n}\n}\n```",
+                "desc": "Color of axis label is set to be [axisLine.lineStyle.color](~.axisLine.lineStyle.color) by default. Callback function is supported, in the following format:\n\n```ts\n(val: string) => Color\n```\n\nParameter is the text of label, and return value is the color. See the following example:\n\n```ts\ntextStyle: {\ncolor: function (value, index) {\nreturn value >= 0 ? 'green' : 'red';\n}\n}\n```",
                 "children": []
             }
         ]
@@ -1486,7 +1486,7 @@
                     {
                         "name": "type",
                         "type": "enum",
-                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "desc": "line type.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`dashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -1526,7 +1526,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -1603,7 +1603,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -1648,7 +1648,7 @@
     {
         "name": "indicator",
         "type": "Array",
-        "desc": "Indicator of radar chart, which is used to assign multiple variables(dimensions) in radar chart. Here is the example.\n\n```js\nindicator: [\n{ name: 'Sales (sales) ', max: 6500},\n{ name: 'Administration (Administration) ', max: 16000, color: 'red'}, // Set the indicator as 'red'\n{ name: 'Information Technology (Information Technology) ', max: 30000},\n{ name: 'Customer Support (Customer Support) ', max: 38000},\n{ name: 'Development (Development) ', max: 52000},\n{ name: 'Marketing (Marketing) ', max: 25000}\n]\n```",
+        "desc": "Indicator of radar chart, which is used to assign multiple variables(dimensions) in radar chart. Here is the example.\n\n```ts\nindicator: [\n{ name: 'Sales (sales) ', max: 6500},\n{ name: 'Administration (Administration) ', max: 16000, color: 'red'}, // Set the indicator as 'red'\n{ name: 'Information Technology (Information Technology) ', max: 30000},\n{ name: 'Customer Support (Customer Support) ', max: 38000},\n{ name: 'Development (Development) ', max: 52000},\n{ name: 'Marketing (Marketing) ', max: 25000}\n]\n```",
         "children": [
             {
                 "name": "name",

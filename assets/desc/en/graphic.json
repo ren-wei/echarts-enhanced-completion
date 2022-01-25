@@ -80,6 +80,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-group.shape), ['`style'`](~graphic.elements-group.style), [`'extra'`](~graphic.elements-group.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -143,7 +280,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -194,7 +331,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -248,6 +385,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -361,6 +504,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-group.shape), ['`style'`](~graphic.elements-group.style), [`'extra'`](~graphic.elements-group.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -424,7 +704,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -475,7 +755,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -529,6 +809,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -706,6 +992,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-image.shape), ['`style'`](~graphic.elements-image.style), [`'extra'`](~graphic.elements-image.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -769,7 +1192,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -820,7 +1243,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -874,6 +1297,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -982,6 +1411,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -1155,6 +1594,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-text.shape), ['`style'`](~graphic.elements-text.style), [`'extra'`](~graphic.elements-text.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -1218,7 +1794,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -1269,7 +1845,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -1323,6 +1899,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -1437,6 +2019,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -1610,6 +2202,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-rect.shape), ['`style'`](~graphic.elements-rect.style), [`'extra'`](~graphic.elements-rect.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -1673,7 +2402,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -1724,7 +2453,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -1778,6 +2507,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -1838,6 +2573,16 @@
                         "type": "Array",
                         "desc": "Specify border radius of the rectangular here. Generally, `r` should be `[topLeftRadius, topRightRadius, BottomRightRadius, bottomLeftRadius]`, where each item is a number.\n\nAbbreviation is enabled, for example:\n+ `r`: `1`         means `[1, 1, 1, 1]`\n+ `r`: `[1]`       means `[1, 1, 1, 1]`\n+ `r`: `[1, 2]`    means `[1, 2, 1, 2]`\n+ `r`: `[1, 2, 3]` means `[1, 2, 3, 2]`",
                         "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
+                        "children": []
                     }
                 ]
             },
@@ -1893,6 +2638,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -2066,6 +2821,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-circle.shape), ['`style'`](~graphic.elements-circle.style), [`'extra'`](~graphic.elements-circle.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -2129,7 +3021,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -2180,7 +3072,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -2236,6 +3128,12 @@
                 ]
             },
             {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
+            },
+            {
                 "name": "cursor",
                 "type": "enum",
                 "desc": "The mouse style when mouse hovers on an element, the same as `cursor` property in `CSS`.",
@@ -2280,6 +3178,16 @@
                         "type": "number",
                         "default": "0",
                         "desc": "Outside radius.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
                         "children": []
                     }
                 ]
@@ -2336,6 +3244,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -2509,6 +3427,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-ring.shape), ['`style'`](~graphic.elements-ring.style), [`'extra'`](~graphic.elements-ring.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -2572,7 +3627,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -2623,7 +3678,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -2679,6 +3734,12 @@
                 ]
             },
             {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
+            },
+            {
                 "name": "cursor",
                 "type": "enum",
                 "desc": "The mouse style when mouse hovers on an element, the same as `cursor` property in `CSS`.",
@@ -2730,6 +3791,16 @@
                         "type": "number",
                         "default": "0",
                         "desc": "Inside radius.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
                         "children": []
                     }
                 ]
@@ -2786,6 +3857,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -2959,6 +4040,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-sector.shape), ['`style'`](~graphic.elements-sector.style), [`'extra'`](~graphic.elements-sector.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -3022,7 +4240,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -3073,7 +4291,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -3127,6 +4345,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -3202,6 +4426,16 @@
                         "default": "true",
                         "desc": "Whether draw clockwise.",
                         "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
+                        "children": []
                     }
                 ]
             },
@@ -3257,6 +4491,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -3430,6 +4674,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-arc.shape), ['`style'`](~graphic.elements-arc.style), [`'extra'`](~graphic.elements-arc.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -3493,7 +4874,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -3544,7 +4925,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -3598,6 +4979,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -3673,6 +5060,16 @@
                         "default": "true",
                         "desc": "Whether draw clockwise.",
                         "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
+                        "children": []
                     }
                 ]
             },
@@ -3728,6 +5125,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -3901,6 +5308,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-polygon.shape), ['`style'`](~graphic.elements-polygon.style), [`'extra'`](~graphic.elements-polygon.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -3964,7 +5508,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -4015,7 +5559,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -4071,6 +5615,12 @@
                 ]
             },
             {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
+            },
+            {
                 "name": "cursor",
                 "type": "enum",
                 "desc": "The mouse style when mouse hovers on an element, the same as `cursor` property in `CSS`.",
@@ -4117,6 +5667,16 @@
                         "type": "boolean",
                         "default": "false",
                         "desc": "Whether prevent the smooth process cause the line out of the bounding box.\n\nOnly works when `smooth` is `number` (bezier smooth).",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
                         "children": []
                     }
                 ]
@@ -4173,6 +5733,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -4346,6 +5916,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-polyline.shape), ['`style'`](~graphic.elements-polyline.style), [`'extra'`](~graphic.elements-polyline.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -4409,7 +6116,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -4460,7 +6167,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -4516,6 +6223,12 @@
                 ]
             },
             {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
+            },
+            {
                 "name": "cursor",
                 "type": "enum",
                 "desc": "The mouse style when mouse hovers on an element, the same as `cursor` property in `CSS`.",
@@ -4562,6 +6275,16 @@
                         "type": "boolean",
                         "default": "false",
                         "desc": "Whether prevent the smooth process cause the line out of the bounding box.\n\nOnly works when `smooth` is `number` (bezier smooth).",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
                         "children": []
                     }
                 ]
@@ -4618,6 +6341,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -4791,6 +6524,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-line.shape), ['`style'`](~graphic.elements-line.style), [`'extra'`](~graphic.elements-line.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -4854,7 +6724,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -4905,7 +6775,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -4959,6 +6829,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -5020,6 +6896,16 @@
                         "default": "1",
                         "desc": "Specify the percentage of drawing, useful in animation.\n\nValue range: [0, 1].",
                         "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
+                        "children": []
                     }
                 ]
             },
@@ -5075,6 +6961,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]
@@ -5248,6 +7144,143 @@
                 "children": []
             },
             {
+                "name": "transition",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "['x', 'y']",
+                "desc": "You can specify that all properties have transition animations turned on with `'all'', or you can specify a single property or an array of properties.\n\nThe properties can be:\n\nTransform related properties:`'x'`, `'y'`, `'scaleX'`, `'scaleY'`, `'rotation'`, `'originX'`, `'originY'`. For example:\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n\nShortcut to transition all of the properties in [`'shape'`](~graphic.elements-bezierCurve.shape), ['`style'`](~graphic.elements-bezierCurve.style), [`'extra'`](~graphic.elements-bezierCurve.extra). For example:\n\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n}\n```\n\nIn the custom series. `'x'` and `'y'` are transitioned by default. If you want to disable the default transition, just set it as: `transition: []`.\n\nSee this [example](doc-example/custom-transition-simple&edit=1&reset=1) please.",
+                "children": []
+            },
+            {
+                "name": "enterFrom",
+                "type": "Object",
+                "desc": "Initial properties for enter animation.\n\nExample:\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// Fade in\nstyle: { opacity: 0 },\n// Slide in from left\nx: 0\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "leaveTo",
+                "type": "Object",
+                "desc": "End properties for leave animation.\n\n\nExample:\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// Fade out\nstyle: { opacity: 0 },\n// Slide out to right\nx: 200\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "enterAnimation",
+                "type": "Object",
+                "desc": "Configurations of enter animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "updateAnimation",
+                "type": "Object",
+                "desc": "Configurations of update animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "leaveAnimation",
+                "type": "Object",
+                "desc": "Configurations of leave animation.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "keyframeAnimation",
+                "type": [
+                    "Object",
+                    "Array"
+                ],
+                "desc": "Configurations of keyframe based animation. Support for configuring an array to use multiple keyframe animations at the same time.\n\nExample:\n\n```ts\nkeyframeAnimation: [{\n// Using scale for breath animation.\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// Translate animation.\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\nIf both keyframe animation and transition animation are applied to a property, the transition animation is ignored.",
+                "children": [
+                    {
+                        "name": "duration",
+                        "type": "number",
+                        "desc": "动画时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "easing",
+                        "type": "string",
+                        "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": []
+                    },
+                    {
+                        "name": "delay",
+                        "type": "number",
+                        "desc": "动画延迟时长，单位 ms",
+                        "children": []
+                    },
+                    {
+                        "name": "loop",
+                        "type": "boolean",
+                        "desc": "If loop the keyframe animation.",
+                        "children": []
+                    },
+                    {
+                        "name": "keyframes",
+                        "type": "Array",
+                        "desc": "The keyframes of the animation. Each item in the array is a keyframe in the following format.\n\n```ts\ninterface Keyframe {\n// Keyframe position. 0 is the first frame, 1 is the last frame\n// The time of keyframe is percent * duration + delay\npercent: number\n// Easing function from the last keyframe to this keyframe. Optional\neasing?: number\n\n// Other properties are for configuring the state of target at this keyframe, such as x, y, style, shape, etc.\n}\n```",
+                        "children": []
+                    }
+                ]
+            },
+            {
                 "name": "left",
                 "type": [
                     "number",
@@ -5311,7 +7344,7 @@
             {
                 "name": "info",
                 "type": "*",
-                "desc": "User defined data, can be visited in event listeners.\n\n```js\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                "desc": "User defined data, can be visited in event listeners.\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
                 "children": []
             },
             {
@@ -5362,7 +7395,7 @@
                     {
                         "name": "layoutRect",
                         "type": "Object",
-                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```js\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                        "desc": "Rect that `textContent` will be positioned.\nDefault to be the bounding box of host element.\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
                         "children": []
                     },
                     {
@@ -5416,6 +7449,12 @@
                         "children": []
                     }
                 ]
+            },
+            {
+                "name": "during",
+                "type": "Function",
+                "desc": "`during` callback enable users to set props to an element in each animation frame.\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// Set transform prop value.\n// Transform prop see `TransformProp`.\nsetTransform(key: TransformProp, val: unknown): void;\n// Get transform prop value of the current animation frame.\ngetTransform(key: TransformProp): unknown;\n// Set shape prop value.\n// Shape prop is like `{ type: 'rect', shape: { xxxProp: xxxValue } }`.\nsetShape(key: string, val: unknown): void;\n// Get shape prop value of the current animation frame.\ngetShape(key: string): unknown;\n// Set style prop value.\n// Style prop is like `{ type: 'rect', style: { xxxProp: xxxValue } }`.\nsetStyle(key: string, val: unknown): void;\n// Get style prop value of the current animation frame.\ngetStyle(key: string): unknown;\n// Set extra prop value.\n// Extra prop is like `{ type: 'rect', extra: { xxxProp: xxxValue } }`.\nsetExtra(key: string, val: unknown): void;\n// Get extra prop value of the current animation frame.\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\nIn most cases users do not need this `during` callback. For example, if some props are specified in [transition](option.html#series-custom.renderItem.return_rect.transition), echarts will make interpolation for these props internally and therefore have animation based on these props automatically. But if this kind of internal interpolation does not match the user requirements of animation, users can use this `during` callback to customize them.\n\nFor example, if users are using [polygon](option.html#series-custom.renderItem.return_polygon) shape. The shape is described by [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points), which is an points array like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\nIf users specify them into [transition](option.html#series-custom.renderItem.return_polygon.transition) like:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\nAlthough the points will be interpolated, the consequent animation will be like that each point runs straight to the target position, which might do not match the user requirement if some kind of track like spiral is actually needed. In this case, users can use the `during` callback like that:\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// Make echarts interpolate `extra.degree` internally, based on which\n// we calculate the `points` in each animation frame.\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\nSee this example [example](custom-spiral-race&edit=1&reset=1).",
+                "children": []
             },
             {
                 "name": "cursor",
@@ -5505,6 +7544,16 @@
                         "default": "1",
                         "desc": "Specify the percentage of drawing, useful in animation.\n\nValue range: [0, 1].",
                         "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `shape`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nshape: {\n...\n},\n// Indicate that all props in `shape` will\n// have transition animation.\ntransition: 'shape',\n};\n```",
+                        "children": []
                     }
                 ]
             },
@@ -5560,6 +7609,16 @@
                         "type": "number",
                         "default": "undefined",
                         "desc": "color of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "undefined",
+                        "desc": "Can be a single property name or an array of property names.\nEnable transition animation when the specified properties changed.\nCan only specify properties that are under this `style`.\n\nFor example:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n// This two props will perform transition animation.\ntransition: ['mmm', 'ppp']\n}\n}\n```\nWe can also specify all of the properties like this:\n```ts\n{\ntype: 'rect',\nstyle: {\n...\n},\n// Indicate that all props in `style` will\n// have transition animation.\ntransition: 'style',\n};\n```",
                         "children": []
                     }
                 ]

@@ -74,7 +74,7 @@
     {
         "name": "tooltip",
         "type": "Object",
-        "desc": "提示框组件。\n\n---\n\n\n\n**提示框组件的通用介绍：**\n\n提示框组件可以设置在多种地方：\n\n+ 可以设置在全局，即 [tooltip](~tooltip)\n\n+ 可以设置在坐标系中，即 [grid.tooltip](~grid.tooltip)、[polar.tooltip](~polar.tooltip)、[single.tooltip](~single.tooltip)\n\n+ 可以设置在系列中，即 [series.tooltip](~series.tooltip)\n\n+ 可以设置在系列的每个数据项中，即 [series.data.tooltip](~series.data.tooltip)\n\n\n---",
+        "desc": "提示框组件。\n\n---\n\n\n\n**提示框组件的通用介绍：**\n\n提示框组件可以设置在多种地方：\n\n+ 可以设置在全局，即 [tooltip](~tooltip)\n\n+ 可以设置在坐标系中，即 [grid.tooltip](~grid.tooltip)、[polar.tooltip](~polar.tooltip)、[single.tooltip](~single.tooltip)\n\n+ 可以设置在系列中，即 [series.tooltip](~series.tooltip)\n\n+ 可以设置在系列的每个数据项中，即 [series.data.tooltip](~series.data.tooltip)",
         "detailFileName": "tooltip"
     },
     {
@@ -98,7 +98,7 @@
     {
         "name": "geo",
         "type": "Object",
-        "desc": "地理坐标系组件。\n\n地理坐标系组件用于地图的绘制，支持在地理坐标系上绘制[散点图](~series-scatter)，[线集](~series-lines)。\n\n`3.1.10` 开始 geo 组件也支持鼠标事件。事件参数为\n```js\n{\ncomponentType: 'geo',\n// Geo 组件在 option 中的 index\ngeoIndex: number,\n// 点击区域的名称，比如\"上海\"\nname: string,\n// 传入的点击区域的 region 对象，见 geo.regions\nregion: Object\n}\n```\n\n**Tip:**\ngeo 区域的颜色也可以被 map series 所控制，参见 [series-map.geoIndex](~series-map.geoIndex)。",
+        "desc": "地理坐标系组件。\n\n地理坐标系组件用于地图的绘制，支持在地理坐标系上绘制[散点图](~series-scatter)，[线集](~series-lines)。\n\n`3.1.10` 开始 geo 组件也支持鼠标事件。事件参数为\n```ts\n{\ncomponentType: 'geo',\n// Geo 组件在 option 中的 index\ngeoIndex: number,\n// 点击区域的名称，比如\"上海\"\nname: string,\n// 传入的点击区域的 region 对象，见 geo.regions\nregion: Object\n}\n```\n\n**Tip:**\ngeo 区域的颜色也可以被 map series 所控制，参见 [series-map.geoIndex](~series-map.geoIndex)。",
         "detailFileName": "geo"
     },
     {
@@ -122,7 +122,7 @@
     {
         "name": "timeline",
         "type": "Object",
-        "desc": "`timeline` 组件，提供了在多个 ECharts `option` 间进行切换、播放等操作的功能。\n\n示例效果如下：\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=doc-example/mix-timeline-all&edit=1&reset=1)\n\n`timeline` 和其他场景有些不同，它需要操作『多个option』。我们把传入 `setOption` 第一个参数的东西，称为 `ECOption`，然后称传统的 ECharts 单个 option 为 `ECUnitOption`。\n\n+ 当 `timeline` 和 `media query` 没有被设置时，一个 `ECUnitOption` 就是一个 `ECOption`。\n+ 当 `timeline` 或 `media query` 被使用设置时，一个 `ECOption` 由几个 `ECUnitOption` 组成。\n+ `ECOption` 的各个根属性，形成一个 `ECUnitOption`，叫做 `baseOption`，它代表了各种默认设置。\n+ `options` 数组每项，形成一个 `ECUnitOption`，我们为了方便也叫做 `switchableOption`，它代表了每个时间粒度对应的 option。\n+ `baseOption` 和一个 `switchableOption` 会用来计算最终的 `finalOption`，图表就是根据这个最终结果绘制的。\n\n例如：\n\n```javascript\n// 如下，baseOption 是一个 『原子option』，options 数组\n// 中的每一项也是一个 『原子option』。\n// 每个『原子option』中就是本文档中描述的各种配置项。\nmyChart.setOption({\n// `baseOption` 的属性.\ntimeline: {\n...,\n// `timeline.data` 中的每一项，对应于 `options`\n// 数组中的每个 `option`\ndata: ['2002-01-01', '2003-01-01', '2004-01-01']\n},\ngrid: { ... },\nxAxis: [ ... ],\nyAxis: [ ... ],\nseries: [{\n// 系列一的一些其他配置\ntype: 'bar',\n...\n}, {\n// 系列二的一些其他配置\ntype: 'line',\n...\n}, {\n// 系列三的一些其他配置\ntype: 'pie',\n...\n}],\n// `switchableOption`s:\noptions: [{\n// 这是'2002-01-01' 对应的 option\ntitle: {\ntext: '2002年统计值'\n},\nseries: [\n{ data: [] }, // 系列一的数据\n{ data: [] }, // 系列二的数据\n{ data: [] }  // 系列三的数据\n]\n}, {\n// 这是'2003-01-01' 对应的 option\ntitle: {\ntext: '2003年统计值'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}, {\n// 这是'2004-01-01' 对应的 option\ntitle: {\ntext: '2004年统计值'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}]\n});\n```\n\n<br>\n**`finalOption` 是怎么计算出来的?**\n\n\n\n初始化的时候，对应于当前时间的那个 `switchableOption` 会被合并（merge）到 `baseOption`，形成 `finalOption`。而每当时间变化时，对应于新时间的 `switchableOption` 会被合并（merge）到`finalOption`。\n\n有两种合并（merge）策略：\n+ 默认使用 `NORMAL_MERGE`。\n+ 如果 [timeline.replaceMerge](~option.html#timeline.replaceMerge) 被指定了，则使用 `REPLACE_MERGE`。如果要知道 `REPLACE_MERGE` 更多信息，可以参见 [setOption](~api.html#echartsInstance.setOption) 中 `REPLACE_MERGE` 一节。\n。\n\n\n\n<br>\n**兼容 ECharts4**\n\n如下这种设置方式，也支持：\n```js\noption = {\nbaseOption: {\ntimeline: {},\nseries: [],\n// ... other properties of baseOption.\n},\noptions: []\n};\n```",
+        "desc": "`timeline` 组件，提供了在多个 ECharts `option` 间进行切换、播放等操作的功能。\n\n示例效果如下：\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=doc-example/mix-timeline-all&edit=1&reset=1)\n\n`timeline` 和其他场景有些不同，它需要操作『多个option』。我们把传入 `setOption` 第一个参数的东西，称为 `ECOption`，然后称传统的 ECharts 单个 option 为 `ECUnitOption`。\n\n+ 当 `timeline` 和 `media query` 没有被设置时，一个 `ECUnitOption` 就是一个 `ECOption`。\n+ 当 `timeline` 或 `media query` 被使用设置时，一个 `ECOption` 由几个 `ECUnitOption` 组成。\n+ `ECOption` 的各个根属性，形成一个 `ECUnitOption`，叫做 `baseOption`，它代表了各种默认设置。\n+ `options` 数组每项，形成一个 `ECUnitOption`，我们为了方便也叫做 `switchableOption`，它代表了每个时间粒度对应的 option。\n+ `baseOption` 和一个 `switchableOption` 会用来计算最终的 `finalOption`，图表就是根据这个最终结果绘制的。\n\n例如：\n\n```javascript\n// 如下，baseOption 是一个 『原子option』，options 数组\n// 中的每一项也是一个 『原子option』。\n// 每个『原子option』中就是本文档中描述的各种配置项。\nmyChart.setOption({\n// `baseOption` 的属性.\ntimeline: {\n...,\n// `timeline.data` 中的每一项，对应于 `options`\n// 数组中的每个 `option`\ndata: ['2002-01-01', '2003-01-01', '2004-01-01']\n},\ngrid: { ... },\nxAxis: [ ... ],\nyAxis: [ ... ],\nseries: [{\n// 系列一的一些其他配置\ntype: 'bar',\n...\n}, {\n// 系列二的一些其他配置\ntype: 'line',\n...\n}, {\n// 系列三的一些其他配置\ntype: 'pie',\n...\n}],\n// `switchableOption`s:\noptions: [{\n// 这是'2002-01-01' 对应的 option\ntitle: {\ntext: '2002年统计值'\n},\nseries: [\n{ data: [] }, // 系列一的数据\n{ data: [] }, // 系列二的数据\n{ data: [] }  // 系列三的数据\n]\n}, {\n// 这是'2003-01-01' 对应的 option\ntitle: {\ntext: '2003年统计值'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}, {\n// 这是'2004-01-01' 对应的 option\ntitle: {\ntext: '2004年统计值'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}]\n});\n```\n\n<br>\n**`finalOption` 是怎么计算出来的?**\n\n\n\n初始化的时候，对应于当前时间的那个 `switchableOption` 会被合并（merge）到 `baseOption`，形成 `finalOption`。而每当时间变化时，对应于新时间的 `switchableOption` 会被合并（merge）到`finalOption`。\n\n有两种合并（merge）策略：\n+ 默认使用 `NORMAL_MERGE`。\n+ 如果 [timeline.replaceMerge](~option.html#timeline.replaceMerge) 被指定了，则使用 `REPLACE_MERGE`。如果要知道 `REPLACE_MERGE` 更多信息，可以参见 [setOption](~api.html#echartsInstance.setOption) 中 `REPLACE_MERGE` 一节。\n。\n\n\n\n<br>\n**兼容 ECharts4**\n\n如下这种设置方式，也支持：\n```ts\noption = {\nbaseOption: {\ntimeline: {},\nseries: [],\n// ... other properties of baseOption.\n},\noptions: []\n};\n```",
         "detailFileName": "timeline"
     },
     {
@@ -167,7 +167,7 @@
     {
         "name": "color",
         "type": "Array",
-        "desc": "调色盘颜色列表。如果系列没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色。 默认为：\n```js\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']\n```\n\n支持的颜色格式：\n\n+ 使用 RGB 表示颜色，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。\n\n+ 渐变色或者纹理填充\n```js\n// 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n{\ntype: 'linear',\nx: 0,\ny: 0,\nx2: 0,\ny2: 1,\ncolorStops: [{\noffset: 0, color: 'red' // 0% 处的颜色\n}, {\noffset: 1, color: 'blue' // 100% 处的颜色\n}],\nglobal: false // 缺省为 false\n}\n// 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n{\ntype: 'radial',\nx: 0.5,\ny: 0.5,\nr: 0.5,\ncolorStops: [{\noffset: 0, color: 'red' // 0% 处的颜色\n}, {\noffset: 1, color: 'blue' // 100% 处的颜色\n}],\nglobal: false // 缺省为 false\n}\n// 纹理填充\n{\nimage: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\nrepeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n}\n```",
+        "desc": "调色盘颜色列表。如果系列没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色。 默认为：\n```ts\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']\n```\n\n支持的颜色格式：\n\n+ 使用 RGB 表示颜色，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。\n\n+ 渐变色或者纹理填充\n```ts\n// 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n{\ntype: 'linear',\nx: 0,\ny: 0,\nx2: 0,\ny2: 1,\ncolorStops: [{\noffset: 0, color: 'red' // 0% 处的颜色\n}, {\noffset: 1, color: 'blue' // 100% 处的颜色\n}],\nglobal: false // 缺省为 false\n}\n// 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n{\ntype: 'radial',\nx: 0.5,\ny: 0.5,\nr: 0.5,\ncolorStops: [{\noffset: 0, color: 'red' // 0% 处的颜色\n}, {\noffset: 1, color: 'blue' // 100% 处的颜色\n}],\nglobal: false // 缺省为 false\n}\n// 纹理填充\n{\nimage: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\nrepeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n}\n```",
         "children": []
     },
     {
@@ -201,7 +201,7 @@
         "name": "animationDuration",
         "type": "number",
         "default": "1000",
-        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```js\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```ts\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -220,14 +220,14 @@
             "Function"
         ],
         "default": "0",
-        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```js\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```ts\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
         "children": []
     },
     {
         "name": "animationDurationUpdate",
         "type": "number",
         "default": "300",
-        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```js\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```ts\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -246,7 +246,7 @@
             "Function"
         ],
         "default": "0",
-        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```js\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```ts\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
         "children": []
     },
     {

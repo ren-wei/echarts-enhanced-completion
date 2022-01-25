@@ -74,7 +74,7 @@
     {
         "name": "tooltip",
         "type": "Object",
-        "desc": "Tooltip component.\n\n---\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](~tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](~grid.tooltip), [polar.tooltip](~polar.tooltip), [single.tooltip](~single.tooltip)\n\n+ Configured in a series: [series.tooltip](~series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](~series.data.tooltip)\n\n\n---",
+        "desc": "Tooltip component.\n\n---\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](~tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](~grid.tooltip), [polar.tooltip](~polar.tooltip), [single.tooltip](~single.tooltip)\n\n+ Configured in a series: [series.tooltip](~series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](~series.data.tooltip)",
         "detailFileName": "tooltip"
     },
     {
@@ -98,7 +98,7 @@
     {
         "name": "geo",
         "type": "Object",
-        "desc": "Geographic coorinate system component.\n\nGeographic coorinate system component is used to draw maps, which also supports [scatter series](~series-scatter), and [line series](~series-lines).\n\n\nFrom `3.1.10`, geo component also supports mouse events, whose parameters are:\n\n```js\n{\ncomponentType: 'geo',\n// geo component's index in option\ngeoIndex: number,\n// name of clicking area, e.g., Shanghai\nname: string,\n// clicking region object as input, see geo.regions\nregion: Object\n}\n```\n\n**Tip:**\nThe region color can also be controlled by map series. See [series-map.geoIndex](~series-map.geoIndex).",
+        "desc": "Geographic coorinate system component.\n\nGeographic coorinate system component is used to draw maps, which also supports [scatter series](~series-scatter), and [line series](~series-lines).\n\n\nFrom `3.1.10`, geo component also supports mouse events, whose parameters are:\n\n```ts\n{\ncomponentType: 'geo',\n// geo component's index in option\ngeoIndex: number,\n// name of clicking area, e.g., Shanghai\nname: string,\n// clicking region object as input, see geo.regions\nregion: Object\n}\n```\n\n**Tip:**\nThe region color can also be controlled by map series. See [series-map.geoIndex](~series-map.geoIndex).",
         "detailFileName": "geo"
     },
     {
@@ -122,7 +122,7 @@
     {
         "name": "timeline",
         "type": "Object",
-        "desc": "`timeline` component, which provides functions like switching and playing between multiple ECharts `options`.\n\nHere is an example:\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/mix-timeline-all&edit=1&reset=1)\n\nDifferent from other cases, `timeline` component requires multiple options. We call first the parameter of `setOption` as `ECOption`, and call the traditional single ECharts option as `ECUnitOption`.\n\n+ In the case that `timeline` and `media query` are not set, an `ECUnitOption` is an `ECOption`.\n+ In the case that `timeline` or `media query` are set, an `ECOption` is made up with several `ECUnitOption`s.\n+ The properties at the root of `ECOption` form an `ECUnitOption`, which is also called `baseOption`, representing the default settings.\n+ Each item of the array `options` form an `ECUnitOption`, which can be also called `switchableOption`, representing options for each time tick.\n+ `baseOption` and one `switchableOption` are used to calculate the `finalOption`, based on which the chart will be final rendered.\n\nFor example:\n\n```javascript\nmyChart.setOption({\n// This is the properties of `baseOption`.\ntimeline: {\n...,\n// each item in `timeline.data` corresponds to each\n// `option` in `options` array.\ndata: ['2002-01-01', '2003-01-01', '2004-01-01']\n},\ntitle: {\nsubtext: ' Data is from National Bureau of Statistics '\n},\ngrid: { ... },\nxAxis: [ ... ],\nyAxis: [ ... ],\nseries: [{\n// other configurations of series 1\ntype: 'bar',\n...\n}, {\n// other configurations of series 2\ntype: 'line',\n...\n}, {\n// other configurations of series 3\ntype: 'pie',\n...\n}],\n// `switchableOption`s:\noptions: [{\n// it is an option corresponding to '2002-01-01'\ntitle: {\ntext: 'the statistics of the year 2002'\n},\nseries: [\n{ data: [] }, // the data of series 1\n{ data: [] }, // the data of series 2\n{ data: [] }  // the data of series 3\n]\n}, {\n// it is an option corresponding to '2003-01-01'\ntitle: {\ntext: 'the statistics of the year 2003'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}, {\n// it is an option corresponding to '2004-01-01'\ntitle: {\ntext: 'the statistics of the year 2004'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}]\n});\n```\n\n<br>\n**How the `finalOption` calculated?**\n\n\n\nWhen initializing, a `switchableOption` corresponding to the current time tick are merged into `baseOption` to form the `finalOption`. Each time the current tick changed, the new `switchableOption` corresponding to the new time tick are merged into the `finalOption`.\n\nThere are two merging strategy.\n+ By default, use `NORMAL_MERGE`.\n+ If [timeline.replaceMerge](~option.html#timeline.replaceMerge) is set, use `REPLACE_MERGE`. See [setOption](~api.html#echartsInstance.setOption) for more details of `REPLACE_MERGE`.\n\n\n\n<br>\n**Compatibility with ECharts 4:**\n\nWe also support these equivalent setting styles:\n```js\noption = {\nbaseOption: {\ntimeline: {},\nseries: [],\n// ... other properties of baseOption.\n},\noptions: []\n};\n```",
+        "desc": "`timeline` component, which provides functions like switching and playing between multiple ECharts `options`.\n\nHere is an example:\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/mix-timeline-all&edit=1&reset=1)\n\nDifferent from other cases, `timeline` component requires multiple options. We call first the parameter of `setOption` as `ECOption`, and call the traditional single ECharts option as `ECUnitOption`.\n\n+ In the case that `timeline` and `media query` are not set, an `ECUnitOption` is an `ECOption`.\n+ In the case that `timeline` or `media query` are set, an `ECOption` is made up with several `ECUnitOption`s.\n+ The properties at the root of `ECOption` form an `ECUnitOption`, which is also called `baseOption`, representing the default settings.\n+ Each item of the array `options` form an `ECUnitOption`, which can be also called `switchableOption`, representing options for each time tick.\n+ `baseOption` and one `switchableOption` are used to calculate the `finalOption`, based on which the chart will be final rendered.\n\nFor example:\n\n```javascript\nmyChart.setOption({\n// This is the properties of `baseOption`.\ntimeline: {\n...,\n// each item in `timeline.data` corresponds to each\n// `option` in `options` array.\ndata: ['2002-01-01', '2003-01-01', '2004-01-01']\n},\ntitle: {\nsubtext: ' Data is from National Bureau of Statistics '\n},\ngrid: { ... },\nxAxis: [ ... ],\nyAxis: [ ... ],\nseries: [{\n// other configurations of series 1\ntype: 'bar',\n...\n}, {\n// other configurations of series 2\ntype: 'line',\n...\n}, {\n// other configurations of series 3\ntype: 'pie',\n...\n}],\n// `switchableOption`s:\noptions: [{\n// it is an option corresponding to '2002-01-01'\ntitle: {\ntext: 'the statistics of the year 2002'\n},\nseries: [\n{ data: [] }, // the data of series 1\n{ data: [] }, // the data of series 2\n{ data: [] }  // the data of series 3\n]\n}, {\n// it is an option corresponding to '2003-01-01'\ntitle: {\ntext: 'the statistics of the year 2003'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}, {\n// it is an option corresponding to '2004-01-01'\ntitle: {\ntext: 'the statistics of the year 2004'\n},\nseries: [\n{ data: [] },\n{ data: [] },\n{ data: [] }\n]\n}]\n});\n```\n\n<br>\n**How the `finalOption` calculated?**\n\n\n\nWhen initializing, a `switchableOption` corresponding to the current time tick are merged into `baseOption` to form the `finalOption`. Each time the current tick changed, the new `switchableOption` corresponding to the new time tick are merged into the `finalOption`.\n\nThere are two merging strategy.\n+ By default, use `NORMAL_MERGE`.\n+ If [timeline.replaceMerge](~option.html#timeline.replaceMerge) is set, use `REPLACE_MERGE`. See [setOption](~api.html#echartsInstance.setOption) for more details of `REPLACE_MERGE`.\n\n\n\n<br>\n**Compatibility with ECharts 4:**\n\nWe also support these equivalent setting styles:\n```ts\noption = {\nbaseOption: {\ntimeline: {},\nseries: [],\n// ... other properties of baseOption.\n},\noptions: []\n};\n```",
         "detailFileName": "timeline"
     },
     {
@@ -161,7 +161,7 @@
     {
         "name": "color",
         "type": "Array",
-        "desc": "The color list of palette. If no color is set in series, the colors would be adopted sequentially and circularly from this list as the colors of series.\n\nDefaults:\n```js\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']\n```\n\nSupported color formats.\n\n+ Use RGB for colors, like `'rgb(128, 128, 128)'`, or RGBA if you want to add an alpha channel for opacity, like `'rgba(128, 128, 128, 0.5)`, or use hex string, like `'#ccc'`.\n\n+ Gradient Color or Pattern\n```js\n// Linear gradient with first four parameters x0, y0, x2, y2, ranging from 0 - 1, corresponding to the percentage in the graphical wraparound box, if globalCoord is ``true``, then the four values are absolute pixel positions\n{\ntype: 'linear',\nx: 0,\ny: 0,\nx2: 0,\ny2: 1,\ncolorStops: [{\noffset: 0, color: 'red' // color at 0%\n}, {\noffset: 1, color: 'blue' // color at 100%\n}],\nglobal: false // default is false\n}\n// Radial gradient, the first three parameters are the center x, y and radius, the values are the same as the linear gradient\n{\ntype: 'radial',\nx: 0.5,\ny: 0.5,\nr: 0.5,\ncolorStops: [{\noffset: 0, color: 'red' // color at 0%\n}, {\noffset: 1, color: 'blue' // color at 100%\n}],\nglobal: false // default is false\n}\n// Pattern\n{\nimage: imageDom, // supported as HTMLImageElement, HTMLCanvasElement, but not path string of SVG\nrepeat: 'repeat' // whether to tile, can be 'repeat-x', 'repeat-y', 'no-repeat'\n}\n```",
+        "desc": "The color list of palette. If no color is set in series, the colors would be adopted sequentially and circularly from this list as the colors of series.\n\nDefaults:\n```ts\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']\n```\n\nSupported color formats.\n\n+ Use RGB for colors, like `'rgb(128, 128, 128)'`, or RGBA if you want to add an alpha channel for opacity, like `'rgba(128, 128, 128, 0.5)`, or use hex string, like `'#ccc'`.\n\n+ Gradient Color or Pattern\n```js\n// Linear gradient with first four parameters x0, y0, x2, y2, ranging from 0 - 1, corresponding to the percentage in the graphical wraparound box, if globalCoord is ``true``, then the four values are absolute pixel positions\n{\ntype: 'linear',\nx: 0,\ny: 0,\nx2: 0,\ny2: 1,\ncolorStops: [{\noffset: 0, color: 'red' // color at 0%\n}, {\noffset: 1, color: 'blue' // color at 100%\n}],\nglobal: false // default is false\n}\n// Radial gradient, the first three parameters are the center x, y and radius, the values are the same as the linear gradient\n{\ntype: 'radial',\nx: 0.5,\ny: 0.5,\nr: 0.5,\ncolorStops: [{\noffset: 0, color: 'red' // color at 0%\n}, {\noffset: 1, color: 'blue' // color at 100%\n}],\nglobal: false // default is false\n}\n// Pattern\n{\nimage: imageDom, // supported as HTMLImageElement, HTMLCanvasElement, but not path string of SVG\nrepeat: 'repeat' // whether to tile, can be 'repeat-x', 'repeat-y', 'no-repeat'\n}\n```",
         "children": []
     },
     {
@@ -217,7 +217,7 @@
         "name": "lineHeight",
         "type": "number",
         "default": "12",
-        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
         "children": [],
         "min": "0",
         "step": "1"
@@ -257,7 +257,7 @@
     {
         "name": "textBorderType",
         "type": "enum",
-        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```js\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
         "children": [],
         "options": "'solid','dashed','dotted'"
     },
@@ -354,7 +354,7 @@
         "name": "animationDuration",
         "type": "number",
         "default": "1000",
-        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -373,14 +373,14 @@
             "Function"
         ],
         "default": "0",
-        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```ts\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
         "children": []
     },
     {
         "name": "animationDurationUpdate",
         "type": "number",
         "default": "300",
-        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -399,7 +399,7 @@
             "Function"
         ],
         "default": "0",
-        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```ts\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
         "children": []
     },
     {

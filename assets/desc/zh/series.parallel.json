@@ -34,10 +34,10 @@
     },
     {
         "name": "colorBy",
-        "type": "string",
-        "default": "'series'",
+        "type": "enum",
         "desc": "> 从 `v5.2.0` 开始支持\n\n\n\n从调色盘 [option.color](~color) 中取色的策略，可取值为：\n\n+ `'series'`：按照系列分配调色盘中的颜色，同一系列中的所有数据都是用相同的颜色；\n+ `'data'`：按照数据项分配调色盘中的颜色，每个数据项都使用不同的颜色。",
-        "children": []
+        "children": [],
+        "options": "'series','data'"
     },
     {
         "name": "lineStyle",
@@ -63,7 +63,7 @@
             {
                 "name": "type",
                 "type": "enum",
-                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -103,7 +103,7 @@
                 "name": "shadowBlur",
                 "type": "number",
                 "default": "",
-                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -149,6 +149,13 @@
         "desc": "",
         "children": [
             {
+                "name": "disabled",
+                "type": "boolean",
+                "default": "false",
+                "desc": "是否关闭高亮状态。\n\n关闭高亮状态可以在鼠标移到图形上，tooltip 触发，或者图例联动的时候不再触发高亮效果。在图形非常多的时候可以关闭以提升交互流畅性。",
+                "children": []
+            },
+            {
                 "name": "lineStyle",
                 "type": "Object",
                 "desc": "",
@@ -172,7 +179,7 @@
                     {
                         "name": "type",
                         "type": "enum",
-                        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -212,7 +219,7 @@
                         "name": "shadowBlur",
                         "type": "number",
                         "default": "",
-                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -354,7 +361,7 @@
             {
                 "name": "type",
                 "type": "enum",
-                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -394,7 +401,7 @@
                 "name": "shadowBlur",
                 "type": "number",
                 "default": "",
-                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -438,6 +445,13 @@
                 "desc": "",
                 "children": [
                     {
+                        "name": "disabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否关闭高亮状态。\n\n关闭高亮状态可以在鼠标移到图形上，tooltip 触发，或者图例联动的时候不再触发高亮效果。在图形非常多的时候可以关闭以提升交互流畅性。",
+                        "children": []
+                    },
+                    {
                         "name": "lineStyle",
                         "type": "Object",
                         "desc": "",
@@ -461,7 +475,7 @@
                             {
                                 "name": "type",
                                 "type": "enum",
-                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```js\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
                                 "children": [],
                                 "options": "'solid','dashed','dotted'"
                             },
@@ -501,7 +515,7 @@
                                 "name": "shadowBlur",
                                 "type": "number",
                                 "default": "",
-                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -584,7 +598,7 @@
         "name": "animationDuration",
         "type": "number",
         "default": "1000",
-        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```js\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```ts\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -603,14 +617,14 @@
             "Function"
         ],
         "default": "0",
-        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```js\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```ts\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
         "children": []
     },
     {
         "name": "animationDurationUpdate",
         "type": "number",
         "default": "300",
-        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```js\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```ts\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
         "children": [],
         "min": "0",
         "step": "20"
@@ -629,7 +643,7 @@
             "Function"
         ],
         "default": "0",
-        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```js\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```ts\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
         "children": []
     }
 ]

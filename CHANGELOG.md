@@ -6,6 +6,26 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.0 (2022-01-25)
+
+### Added
+
+- 支持检查未知选项，并允许通过配置和注释关闭
+
+- 支持检查属性值(后续版本逐渐补充)，并允许通过配置项自定义
+
+### Fixed
+
+- 一些局部更新错误
+
+### Changed
+
+- 与源文档同步
+
+### Removed
+
+- 局部更新配置
+
 ## 1.3.11 (2021-12-27)
 
 ### Added
@@ -99,8 +119,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## 1.3.0 (2021-10-28)
 
 在此版本之前，每次调用，都需要把对应区域的文本全部解析为ast，但是，大多数时候仅仅修改了很小的部分，因此存在很大的性能浪费。现在已经改为使用每次输入时对ast进行局部更新，实现大幅优化性能，响应速度更快。
-
-### 
 
 ## 1.2.5 (2021-10-11)
 
