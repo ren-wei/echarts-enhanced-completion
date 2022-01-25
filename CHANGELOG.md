@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.1 (2022-01-25)
+
+### Added
+
+- 依赖的提示信息允许省略，由程序自动生成提示信息
+
+### Fixed
+
+- 修复点击链接跳转错误
+
 ## 1.4.0 (2022-01-25)
 
 ### Added
