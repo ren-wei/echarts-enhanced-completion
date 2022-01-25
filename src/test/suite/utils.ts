@@ -21,20 +21,7 @@ export async function inputText(text: [string, string], textEditor: vscode.TextE
     await textEditor.edit((editBuilder) => {
         editBuilder.insert(position, text.join(''));
     });
-    const event = generateChangeEvent(textEditor.document, position, 0, text.join(''));
     return textEditor.document.positionAt(textEditor.document.offsetAt(position) + text[0].length);
-}
-
-export function generateChangeEvent(document: vscode.TextDocument, position: vscode.Position, rangeLength: number, text: string) : vscode.TextDocumentChangeEvent {
-    return {
-        document,
-        contentChanges: [{
-            range: new vscode.Range(position, translate(document, position, rangeLength)),
-            rangeOffset: document.offsetAt(position),
-            rangeLength,
-            text,
-        }],
-    };
 }
 
 export function translate(document: vscode.TextDocument, position: vscode.Position, offset: number): vscode.Position {
