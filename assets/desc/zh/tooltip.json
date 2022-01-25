@@ -3,20 +3,20 @@
         "name": "show",
         "type": "boolean",
         "default": "true",
-        "desc": "是否显示提示框组件。\n\n\n包括提示框浮层和 [axisPointer](~tooltip.axisPointer)。",
+        "desc": "是否显示提示框组件。\n\n\n包括提示框浮层和 [axisPointer](https://echarts.apache.org/zh/option.html#tooltip.axisPointer)。",
         "children": []
     },
     {
         "name": "trigger",
         "type": "enum",
-        "desc": "触发类型。\n\n可选：\n+ `'item'`\n\n数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。\n\n+ `'axis'`\n\n坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。\n\n在 ECharts 2.x 中只支持类目轴上使用 axis trigger，在 ECharts 3 中支持在[直角坐标系](~grid)和[极坐标系](~polar)上的所有类型的轴。并且可以通过 [axisPointer.axis](~tooltip.axisPointer.axis) 指定坐标轴。\n\n+ `'none'`\n\n什么都不触发。",
+        "desc": "触发类型。\n\n可选：\n+ `'item'`\n\n数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。\n\n+ `'axis'`\n\n坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。\n\n在 ECharts 2.x 中只支持类目轴上使用 axis trigger，在 ECharts 3 中支持在[直角坐标系](https://echarts.apache.org/zh/option.html#grid)和[极坐标系](https://echarts.apache.org/zh/option.html#polar)上的所有类型的轴。并且可以通过 [axisPointer.axis](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.axis) 指定坐标轴。\n\n+ `'none'`\n\n什么都不触发。",
         "children": [],
         "options": "'item','axis','none'"
     },
     {
         "name": "axisPointer",
         "type": "Object",
-        "desc": "坐标轴指示器配置项。\n\n`tooltip.axisPointer` 是配置坐标轴指示器的快捷方式。实际上坐标轴指示器的全部功能，都可以通过轴上的 axisPointer 配置项完成（例如 [xAxis.axisPointer](~xAxis.axisPointer) 或 [angleAxis.axisPointer](~angleAxis.axisPointer)）。但是使用 `tooltip.axisPointer` 在简单场景下会更方便一些。\n\n> **注意：** `tooltip.axisPointer` 中诸配置项的优先级低于轴上的 axisPointer 的配置项。\n\n\n\n坐标轴指示器是指示坐标轴当前刻度的工具。\n\n如下例，鼠标悬浮到图上，可以出现标线和刻度文本。\n\n~[600x450](doc-example/candlestick-axisPointer&edit=1&reset=1)\n\n上例中，使用了 [axisPointer.link](~axisPointer.link) 来关联不同的坐标系中的 axisPointer。\n\n坐标轴指示器也有适合触屏的交互方式，如下：\n\n~[600x400](line-tooltip-touch&edit=1&reset=1)\n\n坐标轴指示器在多轴的场景能起到辅助作用：\n\n~[600x300](multiple-y-axis&edit=1&reset=1)\n~[600x300](multiple-x-axis&edit=1&reset=1)\n\n\n\n---\n\n> **注意：**\n> 一般来说，axisPointer 的具体配置项会配置在各个轴中（如 [xAxis.axisPointer](~xAxis.axisPointer)）或者 `tooltip` 中（如 [tooltip.axisPointer](~tooltip.axisPointer)）。\n\n> 但是这几个选项只能配置在全局的 axisPointer 中：[axisPointer.triggerOn](~axisPointer.triggerOn)、[axisPointer.link](~axisPointer.link)。\n\n---\n\n**如何显示 axisPointer：**\n\n直角坐标系 [grid](~grid)、极坐标系 [polar](~polar)、单轴坐标系 [single](~single) 中的每个轴都自己的 axisPointer。\n\n他们的 axisPointer 默认不显示。有两种方法可以让他们显示：\n\n+ 设置轴上的 `axisPointer.show`（例如 [xAxis.axisPointer.show](~xAxis.axisPointer.show)）为 `true`，则显示此轴的 axisPointer。\n\n+ 设置 [tooltip.trigger](~tooltip.trigger) 设置为 `'axis'` 或者 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 设置为 `'cross'`，则此时坐标系会自动选择显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis](~tooltip.axisPointer.axis) 改变这种选择。注意，轴上如果设置了 axisPointer，会覆盖此设置。\n\n---\n\n**如何显示 axisPointer 的 label：**\n\naxisPointer 的 label 默认不显示（也就是默认只显示指示线），除非：\n\n+ 设置轴上的 `axisPointer.label.show`（例如 [xAxis.axisPointer.label.show](~xAxis.axisPointer.show)）为 `true`，则显示此轴的 axisPointer 的 label。\n\n+ 设置 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 为 `'cross'` 时会自动显示 axisPointer 的 label。\n\n---\n\n**关于触屏的 axisPointer 的设置**\n\n设置轴上的 `axisPointer.handle.show`（例如 [xAxis.axisPointer.handle.show](~xAxis.axisPointer.handle.show) 为 `true` 则会显示出此 axisPointer 的拖拽按钮。（polar 坐标系暂不支持此功能）。\n\n**注意：**\n如果发现此时 tooltip 效果不良好，可设置 [tooltip.triggerOn](~tooltip.triggerOn) 为 `'none'`（于是效果为：手指按住按钮则显示 tooltip，松开按钮则隐藏 tooltip），或者 [tooltip.alwaysShowContent](~tooltip.alwaysShowContent) 为 `true`（效果为 tooltip 一直显示）。\n\n参见[例子](line-tooltip-touch&edit=1&reset=1)。\n\n---\n\n**自动吸附到数据（snap）**\n\n对于数值轴、时间轴，如果开启了 [snap](~xAxis.axisPointer.snap)，则 axisPointer 会自动吸附到最近的点上。\n\n\n---",
+        "desc": "坐标轴指示器配置项。\n\n`tooltip.axisPointer` 是配置坐标轴指示器的快捷方式。实际上坐标轴指示器的全部功能，都可以通过轴上的 axisPointer 配置项完成（例如 [xAxis.axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 或 [angleAxis.axisPointer](https://echarts.apache.org/zh/option.html#angleAxis.axisPointer)）。但是使用 `tooltip.axisPointer` 在简单场景下会更方便一些。\n\n> **注意：** `tooltip.axisPointer` 中诸配置项的优先级低于轴上的 axisPointer 的配置项。\n\n\n\n坐标轴指示器是指示坐标轴当前刻度的工具。\n\n如下例，鼠标悬浮到图上，可以出现标线和刻度文本。\n\n~[600x450](doc-example/candlestick-axisPointer&edit=1&reset=1)\n\n上例中，使用了 [axisPointer.link](https://echarts.apache.org/zh/option.html#axisPointer.link) 来关联不同的坐标系中的 axisPointer。\n\n坐标轴指示器也有适合触屏的交互方式，如下：\n\n~[600x400](line-tooltip-touch&edit=1&reset=1)\n\n坐标轴指示器在多轴的场景能起到辅助作用：\n\n~[600x300](multiple-y-axis&edit=1&reset=1)\n~[600x300](multiple-x-axis&edit=1&reset=1)\n\n\n\n---\n\n> **注意：**\n> 一般来说，axisPointer 的具体配置项会配置在各个轴中（如 [xAxis.axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer)）或者 `tooltip` 中（如 [tooltip.axisPointer](https://echarts.apache.org/zh/option.html#tooltip.axisPointer)）。\n\n> 但是这几个选项只能配置在全局的 axisPointer 中：[axisPointer.triggerOn](https://echarts.apache.org/zh/option.html#axisPointer.triggerOn)、[axisPointer.link](https://echarts.apache.org/zh/option.html#axisPointer.link)。\n\n---\n\n**如何显示 axisPointer：**\n\n直角坐标系 [grid](https://echarts.apache.org/zh/option.html#grid)、极坐标系 [polar](https://echarts.apache.org/zh/option.html#polar)、单轴坐标系 [single](https://echarts.apache.org/zh/option.html#single) 中的每个轴都自己的 axisPointer。\n\n他们的 axisPointer 默认不显示。有两种方法可以让他们显示：\n\n+ 设置轴上的 `axisPointer.show`（例如 [xAxis.axisPointer.show](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.show)）为 `true`，则显示此轴的 axisPointer。\n\n+ 设置 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 设置为 `'axis'` 或者 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 设置为 `'cross'`，则此时坐标系会自动选择显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.axis) 改变这种选择。注意，轴上如果设置了 axisPointer，会覆盖此设置。\n\n---\n\n**如何显示 axisPointer 的 label：**\n\naxisPointer 的 label 默认不显示（也就是默认只显示指示线），除非：\n\n+ 设置轴上的 `axisPointer.label.show`（例如 [xAxis.axisPointer.label.show](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.show)）为 `true`，则显示此轴的 axisPointer 的 label。\n\n+ 设置 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'cross'` 时会自动显示 axisPointer 的 label。\n\n---\n\n**关于触屏的 axisPointer 的设置**\n\n设置轴上的 `axisPointer.handle.show`（例如 [xAxis.axisPointer.handle.show](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.handle.show) 为 `true` 则会显示出此 axisPointer 的拖拽按钮。（polar 坐标系暂不支持此功能）。\n\n**注意：**\n如果发现此时 tooltip 效果不良好，可设置 [tooltip.triggerOn](https://echarts.apache.org/zh/option.html#tooltip.triggerOn) 为 `'none'`（于是效果为：手指按住按钮则显示 tooltip，松开按钮则隐藏 tooltip），或者 [tooltip.alwaysShowContent](https://echarts.apache.org/zh/option.html#tooltip.alwaysShowContent) 为 `true`（效果为 tooltip 一直显示）。\n\n参见[例子](line-tooltip-touch&edit=1&reset=1)。\n\n---\n\n**自动吸附到数据（snap）**\n\n对于数值轴、时间轴，如果开启了 [snap](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.snap)，则 axisPointer 会自动吸附到最近的点上。\n\n\n---",
         "children": [
             {
                 "name": "type",
@@ -53,7 +53,7 @@
                         "name": "show",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "是否显示文本标签。如果 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 设置为 `'cross'` 则默认显示标签，否则默认不显示。",
+                        "desc": "是否显示文本标签。如果 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 设置为 `'cross'` 则默认显示标签，否则默认不显示。",
                         "children": []
                     },
                     {
@@ -256,7 +256,7 @@
                         "name": "backgroundColor",
                         "type": "string",
                         "default": "'auto'",
-                        "desc": "文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color) 相同。",
+                        "desc": "文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color](https://echarts.apache.org/zh/option.html#xAxis.axisLine.lineStyle.color) 相同。",
                         "children": []
                     },
                     {
@@ -310,13 +310,13 @@
             {
                 "name": "lineStyle",
                 "type": "Object",
-                "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'line'` 时有效。",
+                "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'line'` 时有效。",
                 "children": [
                     {
                         "name": "color",
                         "type": "color",
                         "default": " #555",
-                        "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
+                        "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                         "children": []
                     },
                     {
@@ -414,13 +414,13 @@
             {
                 "name": "shadowStyle",
                 "type": "Object",
-                "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'shadow'` 时有效。",
+                "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'shadow'` 时有效。",
                 "children": [
                     {
                         "name": "color",
                         "type": "color",
                         "default": " 'rgba(150,150,150,0.3)",
-                        "desc": "填充的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
+                        "desc": "填充的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                         "children": []
                     },
                     {
@@ -470,13 +470,13 @@
             {
                 "name": "crossStyle",
                 "type": "Object",
-                "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'cross'` 时有效。",
+                "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'cross'` 时有效。",
                 "children": [
                     {
                         "name": "color",
                         "type": "color",
                         "default": " #555",
-                        "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
+                        "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                         "children": []
                     },
                     {
@@ -650,13 +650,13 @@
         "name": "alwaysShowContent",
         "type": "boolean",
         "default": "false",
-        "desc": "是否永远显示提示框内容，默认情况下在移出可触发提示框区域后 [一定时间](~tooltip.hideDelay) 后隐藏，设置为 `true` 可以保证一直显示提示框内容。\n\n该属性为 ECharts 3.0 中新加。",
+        "desc": "是否永远显示提示框内容，默认情况下在移出可触发提示框区域后 [一定时间](https://echarts.apache.org/zh/option.html#tooltip.hideDelay) 后隐藏，设置为 `true` 可以保证一直显示提示框内容。\n\n该属性为 ECharts 3.0 中新加。",
         "children": []
     },
     {
         "name": "triggerOn",
         "type": "enum",
-        "desc": "提示框触发的条件，可选：\n\n+ `'mousemove'`\n\n鼠标移动时触发。\n\n+ `'click'`\n\n鼠标点击时触发。\n\n+ `'mousemove|click'`\n\n同时鼠标移动和点击时触发。\n\n+ `'none'`\n\n不在 `'mousemove'` 或 `'click'` 时触发，用户可以通过 [action.tooltip.showTip](api.html#action.tooltip.showTip) 和 [action.tooltip.hideTip](api.html#action.tooltip.hideTip) 来手动触发和隐藏。也可以通过 [axisPointer.handle](~xAxis.axisPointer.handle) 来触发或隐藏。\n\n该属性为 ECharts 3.0 中新加。",
+        "desc": "提示框触发的条件，可选：\n\n+ `'mousemove'`\n\n鼠标移动时触发。\n\n+ `'click'`\n\n鼠标点击时触发。\n\n+ `'mousemove|click'`\n\n同时鼠标移动和点击时触发。\n\n+ `'none'`\n\n不在 `'mousemove'` 或 `'click'` 时触发，用户可以通过 [action.tooltip.showTip](api.html#action.tooltip.showTip) 和 [action.tooltip.hideTip](api.html#action.tooltip.hideTip) 来手动触发和隐藏。也可以通过 [axisPointer.handle](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.handle) 来触发或隐藏。\n\n该属性为 ECharts 3.0 中新加。",
         "children": [],
         "options": "'mousemove','click'"
     },
@@ -664,7 +664,7 @@
         "name": "showDelay",
         "type": "number",
         "default": "0",
-        "desc": "浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 [triggerOn](~tooltip.triggerOn) 为 `'mousemove'` 时有效。",
+        "desc": "浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 [triggerOn](https://echarts.apache.org/zh/option.html#tooltip.triggerOn) 为 `'mousemove'` 时有效。",
         "children": [],
         "min": "0",
         "step": "20"
@@ -673,7 +673,7 @@
         "name": "hideDelay",
         "type": "number",
         "default": "100",
-        "desc": "浮层隐藏的延迟，单位为 ms，在 [alwaysShowContent](~tooltip.alwaysShowContent) 为 `true` 的时候无效。",
+        "desc": "浮层隐藏的延迟，单位为 ms，在 [alwaysShowContent](https://echarts.apache.org/zh/option.html#tooltip.alwaysShowContent) 为 `true` 的时候无效。",
         "children": [],
         "min": "0",
         "step": "20"
@@ -703,13 +703,13 @@
         "name": "appendToBody",
         "type": "boolean",
         "default": "false",
-        "desc": "> 从 `v4.7.0` 开始支持\n\n\n\n是否将 tooltip 的 DOM 节点添加为 HTML 的 `<body>` 的子节点。只有当 [renderMode](~tooltip.renderMode) 为 `'html'` 是有意义的。\n\n默认值是 `false`。`false` 表示，tooltip 的 DOM 节点会被添加为本图表的 DOM container 的一个子孙节点。但是这种方式导致，如果本图表的 DOM container 的祖先节点有设置 `overflow: hidden`，那么当 tooltip 超出 container 范围使可能被截断。这个问题一定程度上可以用 [tooltip.confine](~tooltip.confine) 来解决，但是不一定能解决所有场景。\n\n所以这里我们提供了 `appendToBody: true` 来解决这件事。这也是常见的解决此类问题的一种方式。但是 `true` 并不定为默认值，因为要避免 break change，尤其是一些对于 tooltip 深入定制的使用。并且也避免一些未知的 bad case。\n\n注：CSS transform 的场景，这也可以使用。",
+        "desc": "> 从 `v4.7.0` 开始支持\n\n\n\n是否将 tooltip 的 DOM 节点添加为 HTML 的 `<body>` 的子节点。只有当 [renderMode](https://echarts.apache.org/zh/option.html#tooltip.renderMode) 为 `'html'` 是有意义的。\n\n默认值是 `false`。`false` 表示，tooltip 的 DOM 节点会被添加为本图表的 DOM container 的一个子孙节点。但是这种方式导致，如果本图表的 DOM container 的祖先节点有设置 `overflow: hidden`，那么当 tooltip 超出 container 范围使可能被截断。这个问题一定程度上可以用 [tooltip.confine](https://echarts.apache.org/zh/option.html#tooltip.confine) 来解决，但是不一定能解决所有场景。\n\n所以这里我们提供了 `appendToBody: true` 来解决这件事。这也是常见的解决此类问题的一种方式。但是 `true` 并不定为默认值，因为要避免 break change，尤其是一些对于 tooltip 深入定制的使用。并且也避免一些未知的 bad case。\n\n注：CSS transform 的场景，这也可以使用。",
         "children": []
     },
     {
         "name": "className",
         "type": "text",
-        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n指定 tooltip 的 DOM 节点的 CSS 类。（只在 [`html`](~tooltip.renderMode) 模式下生效）。\n\nExample:\n```ts\nclassName: 'echarts-tooltip echarts-tooltip-dark'\n```",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n指定 tooltip 的 DOM 节点的 CSS 类。（只在 [`html`](https://echarts.apache.org/zh/option.html#tooltip.renderMode) 模式下生效）。\n\nExample:\n```ts\nclassName: 'echarts-tooltip echarts-tooltip-dark'\n```",
         "children": []
     },
     {
@@ -728,7 +728,7 @@
             "Array",
             "Function"
         ],
-        "desc": "提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n+ `Array`\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n\n```ts\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\n回调函数，格式如下：\n```ts\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数：**<br>\npoint: 鼠标位置，如 [20, 40]。<br>\nparams: 同 formatter 的参数相同。<br>\ndom: tooltip 的 dom 对象。<br>\nrect: 只有鼠标在图形上时有效，是一个用`x`, `y`, `width`, `height`四个属性表达的图形包围盒。<br>\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：`{contentSize: [width, height], viewSize: [width, height]}`。<br>\n\n**返回值：**<br>\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相  百分比。<br>\n也可以是一个对象，如：`{left: 10, top: 30}`，或者 `{right: '20%', bottom: 40}`。<br>\n\n如下示例：\n```ts\nposition: function (point, params, dom, rect, size) {\n// 固定在顶部\nreturn [point[0], '10%'];\n}\n```\n或者：\n```ts\nposition: function (pos, params, dom, rect, size) {\n// 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n\n+ `'inside'`\n\n鼠标所在图形的内部中心位置，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'top'`\n\n鼠标所在图形上侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'left'`\n\n鼠标所在图形左侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'right'`\n\n鼠标所在图形右侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'bottom'`\n\n鼠标所在图形底侧，只在 [trigger](~tooltip.trigger) 为`'item'`的时候有效。",
+        "desc": "提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n+ `Array`\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n\n```ts\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\n回调函数，格式如下：\n```ts\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数：**<br>\npoint: 鼠标位置，如 [20, 40]。<br>\nparams: 同 formatter 的参数相同。<br>\ndom: tooltip 的 dom 对象。<br>\nrect: 只有鼠标在图形上时有效，是一个用`x`, `y`, `width`, `height`四个属性表达的图形包围盒。<br>\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：`{contentSize: [width, height], viewSize: [width, height]}`。<br>\n\n**返回值：**<br>\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相  百分比。<br>\n也可以是一个对象，如：`{left: 10, top: 30}`，或者 `{right: '20%', bottom: 40}`。<br>\n\n如下示例：\n```ts\nposition: function (point, params, dom, rect, size) {\n// 固定在顶部\nreturn [point[0], '10%'];\n}\n```\n或者：\n```ts\nposition: function (pos, params, dom, rect, size) {\n// 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n\n+ `'inside'`\n\n鼠标所在图形的内部中心位置，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'top'`\n\n鼠标所在图形上侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'left'`\n\n鼠标所在图形左侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'right'`\n\n鼠标所在图形右侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'bottom'`\n\n鼠标所在图形底侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。",
         "children": []
     },
     {
@@ -737,7 +737,7 @@
             "string",
             "Function"
         ],
-        "desc": "提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](~tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string{{ for:  as ,  }}{{ /for }}\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](~tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](~xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string{{ for:  as ,  }}{{ /for }}\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+        "desc": "提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string{{ for:  as ,  }}{{ /for }}\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string{{ for:  as ,  }}{{ /for }}\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
         "children": []
     },
     {

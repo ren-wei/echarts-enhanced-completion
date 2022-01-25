@@ -180,7 +180,7 @@ async function main() {
         ]);
 
         // 保存结果
-        const indexTree = transformToTree(engine.render('option', initVars), {
+        const indexTree = transformToTree(engine.render('option', initVars), lang, {
             level: 0,
             name: 'index',
             type: 'Object',
@@ -304,7 +304,7 @@ function saveFile(name: string, lang: string, data: any) {
  * 解析markdown文件中的标签，并将Markdown文本转换为树形结构的对象
  * @param source Markdown文本
  */
-function transformToTree(source: string, tree: TreeNode | null = null): Tree | null {
+function transformToTree(source: string, lang: string, tree: TreeNode | null = null): Tree | null {
     const lines = source.split('\n');
     let prevNode: TreeNode | null = tree;
     for (let i = 0; i < lines.length; i++) {
@@ -314,6 +314,8 @@ function transformToTree(source: string, tree: TreeNode | null = null): Tree | n
         if (match || i === lines.length - 1) {
             if (prevNode) {
                 // 解析 prevNode.desc 的 markdown 文本中的标签
+                // 处理链接
+                parseLink(prevNode, lang);
                 // 删除 ExampleBaseOption
                 prevNode.desc = prevNode.desc.replace(/<ExampleBaseOption.*<\/ExampleBaseOption>/gs, '');
                 parseUIControl(prevNode, 'ExampleUIControlBoolean');
@@ -420,6 +422,19 @@ function parseUIControl(node: TreeNode, name: string, type: string = '', handler
             }
         }
     }
+}
+
+/** 解析节点的 desc 中的链接 */
+function parseLink(node: TreeNode, lang: string) {
+    const reg = /\[[^\]]*\]\((~[^\)]*)\)/g;
+    let desc = node.desc;
+    let m: RegExpExecArray | null;
+    while ((m = reg.exec(desc))) {
+        const index = m.index + m[0].length - m[1].length - 1;
+        const href = `https://echarts.apache.org/${lang}/option.html#`;
+        desc = desc.slice(0, index) + href + desc.slice(index + 1);
+    }
+    node.desc = desc;
 }
 
 interface RequiredRule {

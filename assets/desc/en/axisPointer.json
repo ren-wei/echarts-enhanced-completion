@@ -9,7 +9,7 @@
         "name": "show",
         "type": "boolean",
         "default": "false",
-        "desc": "axisPointer will not be displayed by default. But if [tooltip.trigger](~tooltip.trigger) is set as `'axis'` or [tooltip.axisPointer.type](~tooltip.axisPointer.type) is set as  `'cross'`, axisPointer will be displayed automatically. Each coordinate system will automatically chose the axes whose will display its axisPointer. [tooltip.axisPointer.axis](~tooltip.axisPointer.axis) can be used to change the choice.",
+        "desc": "axisPointer will not be displayed by default. But if [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set as `'axis'` or [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is set as  `'cross'`, axisPointer will be displayed automatically. Each coordinate system will automatically chose the axes whose will display its axisPointer. [tooltip.axisPointer.axis](https://echarts.apache.org/en/option.html#tooltip.axisPointer.axis) can be used to change the choice.",
         "children": []
     },
     {
@@ -40,7 +40,7 @@
                 "name": "show",
                 "type": "boolean",
                 "default": "false",
-                "desc": "Whether show label. Label will not show by default. But if [tooltip.axisPointer.type](~tooltip.axisPointer.type) is set as  `'cross'`, label will be displayed automatically.",
+                "desc": "Whether show label. Label will not show by default. But if [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is set as  `'cross'`, label will be displayed automatically.",
                 "children": []
             },
             {
@@ -243,7 +243,7 @@
                 "name": "backgroundColor",
                 "type": "string",
                 "default": "'auto'",
-                "desc": "Background color of label, the same as [axis.axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color) by default.",
+                "desc": "Background color of label, the same as [axis.axisLine.lineStyle.color](https://echarts.apache.org/en/option.html#xAxis.axisLine.lineStyle.color) by default.",
                 "children": []
             },
             {
@@ -297,13 +297,13 @@
     {
         "name": "lineStyle",
         "type": "Object",
-        "desc": "It is valid when [axisPointer.type](~tooltip.axisPointer.type) is `'line'`.",
+        "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'line'`.",
         "children": [
             {
                 "name": "color",
                 "type": "color",
                 "default": " #555",
-                "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
+                "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
                 "children": []
             },
             {
@@ -401,13 +401,13 @@
     {
         "name": "shadowStyle",
         "type": "Object",
-        "desc": "It is valid when [axisPointer.type](~tooltip.axisPointer.type) is `'shadow'`.",
+        "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'shadow'`.",
         "children": [
             {
                 "name": "color",
                 "type": "color",
                 "default": " 'rgba(150,150,150,0.3)",
-                "desc": "Fill color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](~color) for details",
+                "desc": "Fill color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
                 "children": []
             },
             {
@@ -565,7 +565,7 @@
     {
         "name": "link",
         "type": "Array",
-        "desc": "axisPointers can be linked to each other. The term \"link\" represents that axes are synchronized and move together. Axes are linked according to the value of axisPointer.\n\nSee [sampleA](https://echarts.apache.org/examples/en/view.html?c=candlestick-brush&edit=1&reset=1) and [sampleB](https://echarts.apache.org/examples/en/view.html?c=scatter-nutrients-matrix&edit=1&reset=1).\n\nlink is an array, where each item represents a \"link group\". Axes will be linked when they are refered in the same link group. For example:\n\n```ts\nlink: [\n{\n// All axes with xAxisIndex 0, 3, 4 and yAxisName 'sameName' will be linked.\nxAxisIndex: [0, 3, 4],\nyAxisName: 'someName'\n},\n{\n// All axes with xAxisId 'aa', 'cc' and all angleAxis will be linked.\nxAxisId: ['aa', 'cc'],\nangleAxis: 'all'\n},\n...\n]\n```\n\nAs illustrated above, axes can be refered in these approaches in a link group:\n\n```ts\n{\n// 'some' represent the dimension name of a axis, namely, 'x', 'y', 'radius', 'angle', 'single'\nsomeAxisIndex: [...], // can be an array or a value or 'all'\nsomeAxisName: [...],  // can be an array or a value or 'all'\nsomeAxisId: [...],    // can be an array or a value or 'all'\n}\n```\n\n---\n\n\n---\n\n**How to link axes with different [axis.type](~xAxis.type)?**\n\nFor example, the type of axisA is 'category', and the type of axisB type is 'time', we can write conversion function (mapper) in link group to convert values from an axis to another axis. For example:\n\n```ts\nlink: [{\nxAxisIndex: [0, 1],\nyAxisName: ['yy'],\nmapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\nif (sourceAxisInfo.axisName === 'yy') {\n// from timestamp to '2012-02-05'\nreturn echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n}\nelse if (targetAxisInfo.axisName === 'yy') {\n// from '2012-02-05' to date\nreturn echarts.number.parseDate(dates[sourceVal]);\n}\nelse {\nreturn sourceVal;\n}\n}\n}]\n```\n\nInput parameters of mapper:\n\n`{number}` sourceVal\n\n`{Object}` sourceAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...}\n\n`{Object}` targetAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...}\n\nReturn of mapper:\n\n`{number}` The result of conversion.",
+        "desc": "axisPointers can be linked to each other. The term \"link\" represents that axes are synchronized and move together. Axes are linked according to the value of axisPointer.\n\nSee [sampleA](https://echarts.apache.org/examples/en/view.html?c=candlestick-brush&edit=1&reset=1) and [sampleB](https://echarts.apache.org/examples/en/view.html?c=scatter-nutrients-matrix&edit=1&reset=1).\n\nlink is an array, where each item represents a \"link group\". Axes will be linked when they are refered in the same link group. For example:\n\n```ts\nlink: [\n{\n// All axes with xAxisIndex 0, 3, 4 and yAxisName 'sameName' will be linked.\nxAxisIndex: [0, 3, 4],\nyAxisName: 'someName'\n},\n{\n// All axes with xAxisId 'aa', 'cc' and all angleAxis will be linked.\nxAxisId: ['aa', 'cc'],\nangleAxis: 'all'\n},\n...\n]\n```\n\nAs illustrated above, axes can be refered in these approaches in a link group:\n\n```ts\n{\n// 'some' represent the dimension name of a axis, namely, 'x', 'y', 'radius', 'angle', 'single'\nsomeAxisIndex: [...], // can be an array or a value or 'all'\nsomeAxisName: [...],  // can be an array or a value or 'all'\nsomeAxisId: [...],    // can be an array or a value or 'all'\n}\n```\n\n---\n\n\n---\n\n**How to link axes with different [axis.type](https://echarts.apache.org/en/option.html#xAxis.type)?**\n\nFor example, the type of axisA is 'category', and the type of axisB type is 'time', we can write conversion function (mapper) in link group to convert values from an axis to another axis. For example:\n\n```ts\nlink: [{\nxAxisIndex: [0, 1],\nyAxisName: ['yy'],\nmapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\nif (sourceAxisInfo.axisName === 'yy') {\n// from timestamp to '2012-02-05'\nreturn echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n}\nelse if (targetAxisInfo.axisName === 'yy') {\n// from '2012-02-05' to date\nreturn echarts.number.parseDate(dates[sourceVal]);\n}\nelse {\nreturn sourceVal;\n}\n}\n}]\n```\n\nInput parameters of mapper:\n\n`{number}` sourceVal\n\n`{Object}` sourceAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...}\n\n`{Object}` targetAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...}\n\nReturn of mapper:\n\n`{number}` The result of conversion.",
         "children": []
     },
     {

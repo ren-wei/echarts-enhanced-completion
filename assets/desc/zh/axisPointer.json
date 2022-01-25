@@ -9,7 +9,7 @@
         "name": "show",
         "type": "boolean",
         "default": "false",
-        "desc": "默认不显示。但是如果 [tooltip.trigger](~tooltip.trigger) 设置为 `'axis'` 或者 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 设置为 `'cross'`，则自动显示 axisPointer。坐标系会自动选择显示显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis](~tooltip.axisPointer.axis) 改变这种选择。",
+        "desc": "默认不显示。但是如果 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 设置为 `'axis'` 或者 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 设置为 `'cross'`，则自动显示 axisPointer。坐标系会自动选择显示显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.axis) 改变这种选择。",
         "children": []
     },
     {
@@ -40,7 +40,7 @@
                 "name": "show",
                 "type": "boolean",
                 "default": "false",
-                "desc": "是否显示文本标签。如果 [tooltip.axisPointer.type](~tooltip.axisPointer.type) 设置为 `'cross'` 则默认显示标签，否则默认不显示。",
+                "desc": "是否显示文本标签。如果 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 设置为 `'cross'` 则默认显示标签，否则默认不显示。",
                 "children": []
             },
             {
@@ -243,7 +243,7 @@
                 "name": "backgroundColor",
                 "type": "string",
                 "default": "'auto'",
-                "desc": "文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color](~xAxis.axisLine.lineStyle.color) 相同。",
+                "desc": "文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color](https://echarts.apache.org/zh/option.html#xAxis.axisLine.lineStyle.color) 相同。",
                 "children": []
             },
             {
@@ -297,13 +297,13 @@
     {
         "name": "lineStyle",
         "type": "Object",
-        "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'line'` 时有效。",
+        "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'line'` 时有效。",
         "children": [
             {
                 "name": "color",
                 "type": "color",
                 "default": " #555",
-                "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
+                "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                 "children": []
             },
             {
@@ -401,13 +401,13 @@
     {
         "name": "shadowStyle",
         "type": "Object",
-        "desc": "[axisPointer.type](~tooltip.axisPointer.type) 为 `'shadow'` 时有效。",
+        "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'shadow'` 时有效。",
         "children": [
             {
                 "name": "color",
                 "type": "color",
                 "default": " 'rgba(150,150,150,0.3)",
-                "desc": "填充的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](~color)",
+                "desc": "填充的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                 "children": []
             },
             {
@@ -565,7 +565,7 @@
     {
         "name": "link",
         "type": "Array",
-        "desc": "不同轴的 axisPointer 可以进行联动，在这里设置。联动表示轴能同步一起活动。轴依据他们的 axisPointer 当前对应的值来联动。\n\n联动的效果可以看这两个例子：[例子A](https://echarts.apache.org/examples/zh/view.html?c=candlestick-brush&edit=1&reset=1)，[例子B](https://echarts.apache.org/examples/zh/view.html?c=scatter-nutrients-matrix&edit=1&reset=1)。\n\nlink 是一个数组，其中每一项表示一个 link group，一个 group 中的坐标轴互相联动。例如：\n\n```ts\nlink: [\n{\n// 表示所有 xAxisIndex 为 0、3、4 和 yAxisName 为 'someName' 的坐标轴联动。\nxAxisIndex: [0, 3, 4],\nyAxisName: 'someName'\n},\n{\n// 表示左右 xAxisId 为 'aa'、'cc' 以及所有的 angleAxis 联动。\nxAxisId: ['aa', 'cc'],\nangleAxis: 'all'\n},\n...\n]\n```\n\n如上所示，每个 link group 中可以用这些方式引用坐标轴：\n\n```ts\n{\n// 以下的 'some' 均表示轴的维度，也就是表示 'x', 'y', 'radius', 'angle', 'single'\nsomeAxisIndex: [...], // 可以是一个数组或单值或 'all'\nsomeAxisName: [...],  // 可以是一个数组或单值或 'all'\nsomeAxisId: [...],    // 可以是一个数组或单值或 'all'\n}\n```\n\n---\n\n**如何联动不同类型（[axis.type](~xAxis.type)）的轴？**\n\n如果 axis 的类型不同，比如 axisA type 为 'category'，axisB type 为 'time'，可以在每个 link group 中写转换函数（mapper）来进行值的转换，例如：\n\n```ts\nlink: [{\nxAxisIndex: [0, 1],\nyAxisName: ['yy'],\nmapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\nif (sourceAxisInfo.axisName === 'yy') {\n// from timestamp to '2012-02-05'\nreturn echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n}\nelse if (targetAxisInfo.axisName === 'yy') {\n// from '2012-02-05' to date\nreturn echarts.number.parseDate(dates[sourceVal]);\n}\nelse {\nreturn sourceVal;\n}\n}\n}]\n```\n\nmapper 的输入参数：\n\n`{number}` sourceVal\n\n`{Object}` sourceAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息\n\n`{Object}` targetAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息\n\nmapper 的返回值：\n\n`{number}` 转换结果",
+        "desc": "不同轴的 axisPointer 可以进行联动，在这里设置。联动表示轴能同步一起活动。轴依据他们的 axisPointer 当前对应的值来联动。\n\n联动的效果可以看这两个例子：[例子A](https://echarts.apache.org/examples/zh/view.html?c=candlestick-brush&edit=1&reset=1)，[例子B](https://echarts.apache.org/examples/zh/view.html?c=scatter-nutrients-matrix&edit=1&reset=1)。\n\nlink 是一个数组，其中每一项表示一个 link group，一个 group 中的坐标轴互相联动。例如：\n\n```ts\nlink: [\n{\n// 表示所有 xAxisIndex 为 0、3、4 和 yAxisName 为 'someName' 的坐标轴联动。\nxAxisIndex: [0, 3, 4],\nyAxisName: 'someName'\n},\n{\n// 表示左右 xAxisId 为 'aa'、'cc' 以及所有的 angleAxis 联动。\nxAxisId: ['aa', 'cc'],\nangleAxis: 'all'\n},\n...\n]\n```\n\n如上所示，每个 link group 中可以用这些方式引用坐标轴：\n\n```ts\n{\n// 以下的 'some' 均表示轴的维度，也就是表示 'x', 'y', 'radius', 'angle', 'single'\nsomeAxisIndex: [...], // 可以是一个数组或单值或 'all'\nsomeAxisName: [...],  // 可以是一个数组或单值或 'all'\nsomeAxisId: [...],    // 可以是一个数组或单值或 'all'\n}\n```\n\n---\n\n**如何联动不同类型（[axis.type](https://echarts.apache.org/zh/option.html#xAxis.type)）的轴？**\n\n如果 axis 的类型不同，比如 axisA type 为 'category'，axisB type 为 'time'，可以在每个 link group 中写转换函数（mapper）来进行值的转换，例如：\n\n```ts\nlink: [{\nxAxisIndex: [0, 1],\nyAxisName: ['yy'],\nmapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\nif (sourceAxisInfo.axisName === 'yy') {\n// from timestamp to '2012-02-05'\nreturn echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n}\nelse if (targetAxisInfo.axisName === 'yy') {\n// from '2012-02-05' to date\nreturn echarts.number.parseDate(dates[sourceVal]);\n}\nelse {\nreturn sourceVal;\n}\n}\n}]\n```\n\nmapper 的输入参数：\n\n`{number}` sourceVal\n\n`{Object}` sourceAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息\n\n`{Object}` targetAxisInfo 里面包含 {axisDim, axisId, axisName, axisIndex} 等信息\n\nmapper 的返回值：\n\n`{number}` 转换结果",
         "children": []
     },
     {

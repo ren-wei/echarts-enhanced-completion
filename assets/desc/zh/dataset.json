@@ -11,13 +11,13 @@
             "Array",
             "Object"
         ],
-        "desc": "原始数据。一般来说，原始数据表达的是二维表。可以用如下这些格式表达二维表：\n\n二维数组，其中第一行/列可以给出 [维度名](~dataset.dimensions)，也可以不给出，直接就是数据：\n\n```ts\n[\n['product', '2015', '2016', '2017'],\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n```\n\n按行的 key-value 形式（对象数组），其中键（key）表明了 [维度名](~dataset.dimensions)：\n```ts\n[\n{product: 'Matcha Latte', count: 823, score: 95.8},\n{product: 'Milk Tea', count: 235, score: 81.4},\n{product: 'Cheese Cocoa', count: 1042, score: 91.2},\n{product: 'Walnut Brownie', count: 988, score: 76.9}\n]\n```\n\n按列的 key-value 形式，每一项表示二维表的 “一列”：\n\n```ts\n{\n'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],\n'count': [823, 235, 1042, 988],\n'score': [95.8, 81.4, 91.2, 76.9]\n}\n```\n\n关于 `dataset` 的详情，请参见[教程](concepts/dataset)。",
+        "desc": "原始数据。一般来说，原始数据表达的是二维表。可以用如下这些格式表达二维表：\n\n二维数组，其中第一行/列可以给出 [维度名](https://echarts.apache.org/zh/option.html#dataset.dimensions)，也可以不给出，直接就是数据：\n\n```ts\n[\n['product', '2015', '2016', '2017'],\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n```\n\n按行的 key-value 形式（对象数组），其中键（key）表明了 [维度名](https://echarts.apache.org/zh/option.html#dataset.dimensions)：\n```ts\n[\n{product: 'Matcha Latte', count: 823, score: 95.8},\n{product: 'Milk Tea', count: 235, score: 81.4},\n{product: 'Cheese Cocoa', count: 1042, score: 91.2},\n{product: 'Walnut Brownie', count: 988, score: 76.9}\n]\n```\n\n按列的 key-value 形式，每一项表示二维表的 “一列”：\n\n```ts\n{\n'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],\n'count': [823, 235, 1042, 988],\n'score': [95.8, 81.4, 91.2, 76.9]\n}\n```\n\n关于 `dataset` 的详情，请参见[教程](concepts/dataset)。",
         "children": []
     },
     {
         "name": "dimensions",
         "type": "Array",
-        "desc": "使用 dimensions 定义 `series.data` 或者 `dataset.source` 的每个维度的信息。\n\n注意：如果使用了 [dataset](~dataset)，那么可以在 [dataset.dimensions](~dataset.dimensions) 中定义 dimension ，或者在 [dataset.source](~dataset.source) 的第一行/列中给出 dimension 名称。于是就不用在这里指定 dimension。但如果在这里指定了 `dimensions`，那么优先使用这里的。\n\n例如：\n\n```ts\noption = {\ndataset: {\nsource: [\n// 有了上面 dimensions 定义后，下面这五个维度的名称分别为：\n// 'date', 'open', 'close', 'highest', 'lowest'\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\n// 定义了每个维度的名称。这个名称会被显示到默认的 tooltip 中。\ndimensions: ['date', 'open', 'close', 'highest', 'lowest']\n}\n}\n```\n\n```ts\nseries: {\ntype: 'xxx',\ndimensions: [\nnull,                // 如果此维度不想给出定义，则使用 null 即可\n{type: 'ordinal'},   // 只定义此维度的类型。\n// 'ordinal' 表示离散型，一般文本使用这种类型。\n// 如果类型没有被定义，会自动猜测类型。\n{name: 'good', type: 'number'},\n'bad'                // 等同于 {name: 'bad'}\n]\n}\n```\n\n`dimensions` 数组中的每一项可以是：\n+ `string`，如 `'someName'`，等同于 `{name: 'someName'}`\n+ `Object`，属性可以有：\n+ name: `string`。\n+ type: `string`，支持\n+ `number`，默认，表示普通数据。\n+ `ordinal`，对于类目、文本这些 string 类型的数据，如果需要能在数轴上使用，须是 'ordinal' 类型。ECharts 默认会自动判断这个类型。但是自动判断也是不可能很完备的，所以使用者也可以手动强制指定。\n+ `float`，即 [Float64Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array)。\n+ `int`，即 [Int32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array)。\n+ `time`，表示时间类型。设置成 'time' 则能支持自动解析数据成时间戳（timestamp），比如该维度的数据是 '2017-05-10'，会自动被解析。时间类型的支持参见 [data](~series.data)。\n+ displayName: 一般用于 tooltip 中维度名的展示。`string` 如果没有指定，默认使用 name 来展示。\n\n值得一提的是，当定义了 `dimensions` 后，默认 `tooltip` 中对个维度的显示，会变为『竖排』，从而方便显示每个维度的名称。如果没有定义 `dimensions`，则默认 `tooltip` 会横排显示，且只显示数值没有维度名称可显示。",
+        "desc": "使用 dimensions 定义 `series.data` 或者 `dataset.source` 的每个维度的信息。\n\n注意：如果使用了 [dataset](https://echarts.apache.org/zh/option.html#dataset)，那么可以在 [dataset.dimensions](https://echarts.apache.org/zh/option.html#dataset.dimensions) 中定义 dimension ，或者在 [dataset.source](https://echarts.apache.org/zh/option.html#dataset.source) 的第一行/列中给出 dimension 名称。于是就不用在这里指定 dimension。但如果在这里指定了 `dimensions`，那么优先使用这里的。\n\n例如：\n\n```ts\noption = {\ndataset: {\nsource: [\n// 有了上面 dimensions 定义后，下面这五个维度的名称分别为：\n// 'date', 'open', 'close', 'highest', 'lowest'\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\n// 定义了每个维度的名称。这个名称会被显示到默认的 tooltip 中。\ndimensions: ['date', 'open', 'close', 'highest', 'lowest']\n}\n}\n```\n\n```ts\nseries: {\ntype: 'xxx',\ndimensions: [\nnull,                // 如果此维度不想给出定义，则使用 null 即可\n{type: 'ordinal'},   // 只定义此维度的类型。\n// 'ordinal' 表示离散型，一般文本使用这种类型。\n// 如果类型没有被定义，会自动猜测类型。\n{name: 'good', type: 'number'},\n'bad'                // 等同于 {name: 'bad'}\n]\n}\n```\n\n`dimensions` 数组中的每一项可以是：\n+ `string`，如 `'someName'`，等同于 `{name: 'someName'}`\n+ `Object`，属性可以有：\n+ name: `string`。\n+ type: `string`，支持\n+ `number`，默认，表示普通数据。\n+ `ordinal`，对于类目、文本这些 string 类型的数据，如果需要能在数轴上使用，须是 'ordinal' 类型。ECharts 默认会自动判断这个类型。但是自动判断也是不可能很完备的，所以使用者也可以手动强制指定。\n+ `float`，即 [Float64Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array)。\n+ `int`，即 [Int32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array)。\n+ `time`，表示时间类型。设置成 'time' 则能支持自动解析数据成时间戳（timestamp），比如该维度的数据是 '2017-05-10'，会自动被解析。时间类型的支持参见 [data](https://echarts.apache.org/zh/option.html#series.data)。\n+ displayName: 一般用于 tooltip 中维度名的展示。`string` 如果没有指定，默认使用 name 来展示。\n\n值得一提的是，当定义了 `dimensions` 后，默认 `tooltip` 中对个维度的显示，会变为『竖排』，从而方便显示每个维度的名称。如果没有定义 `dimensions`，则默认 `tooltip` 会横排显示，且只显示数值没有维度名称可显示。",
         "children": []
     },
     {
@@ -26,7 +26,7 @@
             "boolean",
             "number"
         ],
-        "desc": "`dataset.source` 第一行/列是否是 [维度名](~dataset.dimensions) 信息。可选值：\n\n+ `null/undefined/'auto'`：默认，自动探测。\n+ `true`：第一行/列是维度名信息。\n+ `false`：第一行/列直接开始是数据。\n+ `number`: 维度名行/列数，也就是数据行/列的开始索引。例如：`sourceHeader: 2` 意味着前两行/列为维度名，从第三行/列开始为数据。\n\n注意：“第一行/列” 的意思是，如果 [series.seriesLayoutBy](~series.seriesLayoutBy) 设置为 `'column'`（默认值），则取第一行，如果 `series.seriesLayoutBy` 设置为 `'row'`，则取第一列。",
+        "desc": "`dataset.source` 第一行/列是否是 [维度名](https://echarts.apache.org/zh/option.html#dataset.dimensions) 信息。可选值：\n\n+ `null/undefined/'auto'`：默认，自动探测。\n+ `true`：第一行/列是维度名信息。\n+ `false`：第一行/列直接开始是数据。\n+ `number`: 维度名行/列数，也就是数据行/列的开始索引。例如：`sourceHeader: 2` 意味着前两行/列为维度名，从第三行/列开始为数据。\n\n注意：“第一行/列” 的意思是，如果 [series.seriesLayoutBy](https://echarts.apache.org/zh/option.html#series.seriesLayoutBy) 设置为 `'column'`（默认值），则取第一行，如果 `series.seriesLayoutBy` 设置为 `'row'`，则取第一列。",
         "children": []
     },
     {
@@ -119,19 +119,19 @@
     {
         "name": "fromDatasetIndex",
         "type": "number",
-        "desc": "指定 [dataset.transform](~dataset.transform) 以哪个 dataset 作为输入。如果 [dataset.transform](~dataset.transform) 被指定了，但是 `fromDatasetIndex` 和 `fromDatasetId` 都没有被指定，那么默认会使用 `fromDatasetIndex: 0`.\n\n\n\n参见 [数据变换教程](concepts/data-transform)",
+        "desc": "指定 [dataset.transform](https://echarts.apache.org/zh/option.html#dataset.transform) 以哪个 dataset 作为输入。如果 [dataset.transform](https://echarts.apache.org/zh/option.html#dataset.transform) 被指定了，但是 `fromDatasetIndex` 和 `fromDatasetId` 都没有被指定，那么默认会使用 `fromDatasetIndex: 0`.\n\n\n\n参见 [数据变换教程](concepts/data-transform)",
         "children": []
     },
     {
         "name": "fromDatasetId",
         "type": "string",
-        "desc": "指定 [dataset.transform](~dataset.transform) 以哪个 dataset 作为输入。\n\n\n\n参见 [数据变换教程](concepts/data-transform)",
+        "desc": "指定 [dataset.transform](https://echarts.apache.org/zh/option.html#dataset.transform) 以哪个 dataset 作为输入。\n\n\n\n参见 [数据变换教程](concepts/data-transform)",
         "children": []
     },
     {
         "name": "fromTransformResult",
         "type": "number",
-        "desc": "如果一个 [dataset.transform](~dataset.transform) 会产出多个结果 data ，我们可以使用 `fromTransformResult` 获得特定的结果。\n\n大多数场景下，transform 只会产出一个结果，所以大多数情况下 `fromTransformResult` 并不需要指定。当不指定 `fromTransformResult` 时，默认使用 `fromTransformResult: 0`。\n\n\n\n参见 [数据变换教程](concepts/data-transform)",
+        "desc": "如果一个 [dataset.transform](https://echarts.apache.org/zh/option.html#dataset.transform) 会产出多个结果 data ，我们可以使用 `fromTransformResult` 获得特定的结果。\n\n大多数场景下，transform 只会产出一个结果，所以大多数情况下 `fromTransformResult` 并不需要指定。当不指定 `fromTransformResult` 时，默认使用 `fromTransformResult: 0`。\n\n\n\n参见 [数据变换教程](concepts/data-transform)",
         "children": []
     }
 ]
