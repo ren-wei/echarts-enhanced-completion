@@ -126,22 +126,36 @@ function checkDependRules(astItem: AstItem): vscode.Diagnostic[] {
                     });
                 }
                 rule.depends.forEach(dep => {
-                // 如果不满足规则，则添加至 relatedInformation
+                    // 如果不满足规则，则添加至 relatedInformation
                     const depNode = astItem.getAstNodeByKey(dep.key);
-                    if (
-                    // 节点存在并且不等于预期值
-                        (depNode && (dep as ExpectedDepend).expectedValue && depNode.value!.value as unknown as string !== (dep as ExpectedDepend).expectedValue)
-                    // 节点存在并且等于排除值
-                    || (depNode && (dep as ExcludeDepend).excludeValue && depNode.value!.value as unknown as string === (dep as ExcludeDepend).excludeValue)
-                    // 节点不存在并且默认值不等于预期值
-                    || (!depNode && (dep.defaultValue && dep.defaultValue !== (dep as ExpectedDepend).expectedValue))
-                    // 节点不存在并且默认值等于排除值
-                    || (!depNode && (!dep.defaultValue || dep.defaultValue === (dep as ExcludeDepend).excludeValue))
-                    ) {
-                        relatedInformation.push({
-                            location: new vscode.Location(astItem.document.uri, depNode ? astItem.getNodeKeyRange(depNode) : astItem.range),
-                            message: dep.msg,
-                        });
+                    if (depNode) {
+                        if ((dep as ExpectedDepend).expectedValue !== undefined && depNode.value!.value as unknown as string !== (dep as ExpectedDepend).expectedValue) {
+                            // 节点存在并且不等于预期值
+                            relatedInformation.push({
+                                location: new vscode.Location(astItem.document.uri, astItem.getNodeKeyRange(depNode)),
+                                message: dep.msg || `${localize('message.condition')}: ${dep.key} === ${getRawString((dep as ExpectedDepend).expectedValue)}`,
+                            });
+                        } else if ((dep as ExcludeDepend).excludeValue !== undefined && depNode.value!.value as unknown as string === (dep as ExcludeDepend).excludeValue) {
+                            // 节点存在并且等于排除值
+                            relatedInformation.push({
+                                location: new vscode.Location(astItem.document.uri, astItem.getNodeKeyRange(depNode)),
+                                message: dep.msg || `${localize('message.condition')}: ${dep.key} !== ${getRawString((dep as ExcludeDepend).excludeValue)}`,
+                            });
+                        }
+                    } else {
+                        if ((dep as ExpectedDepend).expectedValue !== undefined && dep.defaultValue !== undefined && dep.defaultValue !== (dep as ExpectedDepend).expectedValue) {
+                            // 节点不存在并且默认值不等于预期值
+                            relatedInformation.push({
+                                location: new vscode.Location(astItem.document.uri, astItem.range),
+                                message: dep.msg || `${localize('message.condition')}: ${dep.key} === ${getRawString(dep.defaultValue)}; ${localize('message.default-value', dep.key, getRawString(dep.defaultValue))}`,
+                            });
+                        } else if ((dep as ExcludeDepend).excludeValue !== undefined && (dep.defaultValue === undefined || dep.defaultValue === (dep as ExcludeDepend).excludeValue)) {
+                            // 节点不存在并且默认值等于排除值
+                            relatedInformation.push({
+                                location: new vscode.Location(astItem.document.uri, astItem.range),
+                                message: dep.msg || `${localize('message.condition')}: ${dep.key} !== ${getRawString((dep as ExcludeDepend).excludeValue)}; ${localize('message.default-value', dep.key, getRawString((dep as ExcludeDepend).excludeValue))}`,
+                            });
+                        }
                     }
                 });
                 if (relatedInformation.length) {
@@ -187,4 +201,9 @@ function isAllowCheck(document: vscode.TextDocument, position: vscode.Position):
         }
     }
     return true;
+}
+
+/** 获取值的真实显示 */
+function getRawString(v: string | number | boolean | null): string {
+    return typeof v === 'string' ? `'${v}'` : String(v);
 }

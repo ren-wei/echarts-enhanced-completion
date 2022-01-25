@@ -76,7 +76,7 @@ interface ExpectedDepend {
     /** Default value. If not provided, it is equal to the `expectedValue` */
     defaultValue?: string | number | boolean | null;
     expectedValue: string | number | boolean | null;
-    msg: string;
+    msg?: string;
 }
 
 interface ExcludeDepend {
@@ -84,7 +84,7 @@ interface ExcludeDepend {
     /** Default value. If not provided, it is equal to the `excludeValue` */
     defaultValue?: string | number | boolean | null;
     excludeValue: string | number | boolean | null;
-    msg: string;
+    msg?: string;
 }
 ```
 
@@ -102,13 +102,11 @@ For example, this property works only if `show: true` is configured and `backgro
                     "key": "legend.show",
                     "defaultValue": true,
                     "expectedValue": true,
-                    "msg": "Does not take effect when the legend show is false.",
                 },
                 {
                     "key": "legend.backgroundColor",
                     "defaultValue": "transparent",
                     "excludeValue": "transparent",
-                    "msg": "Invalid when legend backgroundColor is transparent.",
                 },
             ],
         }

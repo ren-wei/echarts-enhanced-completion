@@ -80,7 +80,7 @@ interface ExpectedDepend {
     /** 目标预期值 */
     expectedValue: string | number | boolean | null;
     /** 依赖提示信息 */
-    msg: string;
+    msg?: string;
 }
 
 /** 排除依赖 */
@@ -92,7 +92,7 @@ interface ExcludeDepend {
     /** 目标排除值 */
     excludeValue: string | number | boolean | null;
     /** 依赖提示信息 */
-    msg: string;
+    msg?: string;
 }
 ```
 
@@ -110,13 +110,11 @@ interface ExcludeDepend {
                     "key": "legend.show",
                     "defaultValue": true,
                     "expectedValue": true,
-                    "msg": "不显示图例组件时不生效",
                 },
                 {
                     "key": "legend.backgroundColor",
                     "defaultValue": "transparent",
                     "excludeValue": "transparent",
-                    "msg": "图例组件背景色透明时无效",
                 },
             ],
         }
