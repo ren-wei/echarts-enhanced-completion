@@ -81,6 +81,8 @@ function checkUnknownNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[]
             const offset = (node.key as AstNode).start;
             const paths = ast.getMinAstNode(astItem, astItem.positionAt(offset))[1];
             const descTreeList = getOptionDesc(paths.slice(0, -1), astItem);
+            // 对于 series.custom 自定义类型，无法获取所有允许的选项，因此忽略自定义类型
+            if (descTreeList[0].default === "'custom'") return diagList;
             if (node.value?.type !== 'Identifier' && descTreeList.length && !descTreeList.some(item => item.name === (node.key as AstNode).name)) {
                 const range = astItem.getNodeKeyRange(node);
                 // 如果存在禁用校验注释，那么不加入本次校验结果
