@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.2 (2022-01-26)
+
+### Fixed
+
+- 修复 series 的错误没有检查
+
+- 自定义类型不应该检查未知选项错误
+
 ## 1.4.1 (2022-01-25)
 
 ### Added
