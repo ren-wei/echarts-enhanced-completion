@@ -221,7 +221,8 @@ export class AstItem {
                         const [parent, type] = path.split('-');
                         node = node.properties?.find(item => item.key?.name === parent);
                         if (node) {
-                            node = node.value?.elements?.find(item => this.toSimpleObject(item).type === type);
+                            const reg = new RegExp('^[\'"]' + type + '[\'"]$');
+                            node = node.value?.elements?.find(item => reg.test(this.toSimpleObject(item).type));
                         }
                     } else {
                         node = node.properties?.find(item => item.key?.name === path);
@@ -461,8 +462,8 @@ export class AstItem {
         return node.start < this.offsetAt(range.start) && this.offsetAt(range.end) < node.end;
     }
 
-    private toSimpleObject(node: AstNode): SimpleObject {
-        const item: SimpleObject = {};
+    private toSimpleObject(node: AstNode): SimpleObject<string> {
+        const item: SimpleObject<string> = {};
         switch (node.type) {
             case 'ObjectExpression':
                 node.properties?.forEach((property) => {
