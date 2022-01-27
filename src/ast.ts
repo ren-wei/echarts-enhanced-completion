@@ -198,12 +198,13 @@ export class AstItem {
     /**
      * 获取属性名对应的节点
      * @param key 由 . 连接的属性名，如果存在类似 `parent-child` 的部分，则解析为 parent: {type: 'child'}
-     * @return node: node.key.name === key
+     * @param root 查询节点的起始节点
+     * @returns node: node.key.name === key
      */
-    public getAstNodeByKey(key: string): AstNode | null {
-        if (!this.expression) return null;
+    public getAstNodeByKey(key: string, root = this.expression): AstNode | null {
+        if (!root) return null;
         const paths = key.split('.');
-        let node: AstNode | undefined = this.expression;
+        let node: AstNode | undefined = root;
         paths.forEach(path => {
             if (!node) return null;
             switch (node.type) {
