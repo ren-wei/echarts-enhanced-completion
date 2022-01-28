@@ -1,8 +1,8 @@
 import * as vscode from 'vscode';
-import { ExtensionName } from './extension';
+import { ExtensionName, supportedLanguageList } from './extension';
 import CommandOwner from './command';
 
-export default class Fix implements vscode.CodeActionProvider {
+class Fix implements vscode.CodeActionProvider {
     public static readonly providedCodeActionKinds = [
         vscode.CodeActionKind.QuickFix,
     ];
@@ -15,3 +15,12 @@ export default class Fix implements vscode.CodeActionProvider {
             .map(diagnostic => this.commandOwner.createCommandCodeAction(document, diagnostic)).flat();
     }
 }
+
+const fix = new Fix();
+
+export default [
+    vscode.languages.registerCodeActionsProvider(supportedLanguageList, fix, {
+        providedCodeActionKinds: Fix.providedCodeActionKinds,
+    }),
+    ...fix.commandOwner.disposables,
+];

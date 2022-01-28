@@ -7,18 +7,14 @@ export const supportedLanguageList = ['html', 'javascript', 'typescript', 'vue']
 
 import completionDisposables from './completion';
 import hoverDisposables from './hover';
-import Fix from './fix';
+import fixDisposables from './fix';
 
 // 插件被启用时此方法会被调用
 export function activate(context: vscode.ExtensionContext) {
-    const fix = new Fix();
     context.subscriptions.push(
-        vscode.languages.registerCodeActionsProvider(supportedLanguageList, fix, {
-            providedCodeActionKinds: Fix.providedCodeActionKinds,
-        }),
-        ...fix.commandOwner.disposables,
         ...completionDisposables,
         ...hoverDisposables,
+        ...fixDisposables,
     );
 }
 
