@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { keyword, supportedLanguageList } from './extension';
-const espree = require('espree');
+import * as esprima from 'esprima';
+import * as estree from 'estree';
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidOpenTextDocument(document => {
@@ -24,6 +25,7 @@ export const disposables: vscode.Disposable[] = [
 const cache = new Map<vscode.Uri, AstItem[]>();
 
 const ast = {
+    /** 获取文档指定位置所在的 AstItem */
     getAstItem(document: vscode.TextDocument, position: vscode.Position): AstItem | undefined {
         let astItems: AstItem[];
         if (cache.has(document.uri)) {
@@ -36,13 +38,14 @@ const ast = {
         return astItems.find(item => item.range.contains(position));
     },
 
+    /** 获取文档的 AstItem[] */
     getAstItems(uri: vscode.Uri): AstItem[] {
         return cache.get(uri) || [];
     },
 
     /** 获取所在位置的最小Ast节点，并且记录路径 */
-    getMinAstNode(astItem: AstItem | undefined, position: vscode.Position): [AstNode | null, Paths] {
-        if (!astItem || !astItem.expression) return [null, []];
+    getMinAstNode(astItem: AstItem | undefined, position: vscode.Position): [estree.Node | null, Paths] {
+        if (!astItem?.expression) return [null, []];
         return astItem.getAstNode(astItem.document.offsetAt(position) - astItem.document.offsetAt(astItem.range.start) + 1);
     },
 
@@ -149,7 +152,7 @@ export function init(keyword: string, document: vscode.TextDocument, startLine =
 
 export class AstItem {
     public keyword: string;
-    public expression: AstNode | null = null; // 目标的 ast 表达式
+    public expression: estree.ObjectExpression | null = null; // 目标的 ast 表达式
     public range: vscode.Range; // 目标对象所在的范围，使用 this.document.getText(this.range) 时必须恰好返回选项对象
     public document: vscode.TextDocument;
     private startRow: number; // 注释所在行
@@ -169,26 +172,29 @@ export class AstItem {
     }
 
     /** 根据位置获取最小节点，并记录获取路径 */
-    public getAstNode(index: number, node: AstNode = this.expression as AstNode, paths: Paths = []): [AstNode, Paths] {
-        const keyList: Key[] = espree.VisitorKeys[node.type];
+    public getAstNode(index: number, node: estree.Node = this.expression as estree.Node, paths: Paths = []): [estree.Node, Paths] {
+        const keyList = this.getNodeKeyList(node);
         for (let i = 0; i < keyList.length; i++) {
             const key = keyList[i];
-            if (Array.isArray(node[key])) {
-                const i = (node[key] as Array<AstNode>).findIndex(item => this.isNodeContainIndex(item, index));
+            const value = (node as any)[key] as estree.Node | estree.Node[];
+            if (Array.isArray(value)) {
+                const i = value.findIndex(item => this.isNodeContainIndex(item, index));
                 if (i !== -1) {
-                    const targetNode = (node[key] as Array<AstNode>)[i];
+                    const targetNode = value[i];
                     switch (targetNode.type) {
-                        case 'Property':
-                            paths.push(targetNode?.key?.name as string);
-                            return this.getAstNode(index, targetNode, paths);
-                        case 'ObjectExpression':
+                        case esprima.Syntax.Property:
+                            if (targetNode.key.type === esprima.Syntax.Identifier) {
+                                paths.push(targetNode.key.name);
+                                return this.getAstNode(index, targetNode, paths);
+                            }
+                        case esprima.Syntax.ObjectExpression:
                             paths.push(this.toSimpleObject(targetNode));
                             return this.getAstNode(index, targetNode, paths);
                     }
                 }
             } else {
-                if (this.isNodeContainIndex(node[key] as AstNode, index)) {
-                    return this.getAstNode(index, node[key] as AstNode, paths);
+                if (this.isNodeContainIndex(value, index)) {
+                    return this.getAstNode(index, value, paths);
                 }
             }
         }
@@ -201,37 +207,37 @@ export class AstItem {
      * @param root 查询节点的起始节点
      * @returns node: node.key.name === key
      */
-    public getAstNodeByKey(key: string, root = this.expression): AstNode | null {
-        if (!root) return null;
+    public getAstNodeByKey(key: string): estree.Node | null {
+        if (!this.expression) return null;
         const paths = key.split('.');
-        let node: AstNode | undefined = root;
+        let node: estree.Node | undefined = this.expression;
         paths.forEach(path => {
             if (!node) return null;
             switch (node.type) {
-                case 'Property':
-                    if (node.value?.properties) {
-                        node = node.value.properties.find(item => item.key?.name === path);
-                    } else if (node.value?.elements) {
-                        node = node.value.elements[0];
+                case esprima.Syntax.Property:
+                    if (node.value.type === esprima.Syntax.ObjectExpression) {
+                        node = node.value.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path);
+                    } else if (node.value.type === esprima.Syntax.ArrayExpression) {
+                        node = node.value.elements[0] || undefined;
                     } else {
                         node = undefined;
                     }
                     break;
-                case 'ObjectExpression':
+                case esprima.Syntax.ObjectExpression:
                     if (path.includes('-')) {
                         const [parent, type] = path.split('-');
-                        node = node.properties?.find(item => item.key?.name === parent);
+                        node = node.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === parent);
                         if (node) {
                             const reg = new RegExp('^[\'"]' + type + '[\'"]$');
-                            node = node.value?.elements?.find(item => reg.test(this.toSimpleObject(item).type));
+                            node = ((node as estree.Property).value as estree.ArrayExpression)?.elements?.find(item => reg.test(this.toSimpleObject(item).type)) || undefined;
                         }
                     } else {
-                        node = node.properties?.find(item => item.key?.name === path);
+                        node = node.properties?.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path);
                     }
                     break;
             }
         });
-        if (node?.key?.name === paths[paths.length - 1]) {
+        if (((node as estree.Node as estree.Property)?.key as estree.Identifier)?.name === paths[paths.length - 1]) {
             return node;
         }
         return null;
@@ -239,18 +245,18 @@ export class AstItem {
 
     /** 根据路径获取对应的 SimpleObject */
     public getSimpleObjectByPaths(paths: Paths): SimpleObject {
-        let node = this.expression as AstNode;
+        let node = this.expression as estree.Node;
         paths.forEach(path => {
             switch (node.type) {
-                case 'Property':
-                    if (typeof path === 'string') {
-                        node = node.value?.properties?.find(item => item.key?.name === path) as AstNode;
-                    } else {
-                        node = node.value?.elements?.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as AstNode;
+                case esprima.Syntax.Property:
+                    if (typeof path === 'string' && node.value.type === esprima.Syntax.ObjectExpression) {
+                        node = node.value.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path) as estree.Node;
+                    } else if (typeof path === 'object' && node.value.type === esprima.Syntax.ArrayExpression) {
+                        node = node.value.elements.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as estree.Node;
                     }
                     break;
-                case 'ObjectExpression':
-                    node = node.properties?.find(item => item.key?.name === path) as AstNode;
+                case esprima.Syntax.ObjectExpression:
+                    node = node.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path) as estree.Node;
                     break;
             }
         });
@@ -308,31 +314,32 @@ export class AstItem {
         if (!key) {
             this.expression = this.parse(this.range) || this.expression;
         } else {
-            let node = parentNode[key] as AstNode | AstNode[];
+            const value = (parentNode as any)[key] as estree.Node | estree.Node[];
+            let node = value;
             if (Array.isArray(node)) {
-                node = (node as AstNode[])[index];
+                node = node[index];
             }
             const range = new vscode.Range(
-                this.positionAt(node.start),
-                this.positionAt(node.end - contentChange.rangeLength + contentChange.text.length),
+                this.positionAt(node.range![0]),
+                this.positionAt(node.range![1] - contentChange.rangeLength + contentChange.text.length),
             );
             // 更新节点位置
-            this.translate(this.expression, node.end, contentChange.text.length - contentChange.rangeLength);
+            this.translate(this.expression, node.range![1], contentChange.text.length - contentChange.rangeLength);
             // 替换节点
-            const newNode = this.parse(range) as AstNode;
-            this.translate(newNode, 0, node.start);
-            if (Array.isArray(parentNode[key])) {
-                (parentNode[key] as AstNode[])[index] = newNode;
+            const newNode = this.parse(range) as estree.Node;
+            this.translate(newNode, 0, node.range![0]);
+            if (Array.isArray(value)) {
+                value[index] = newNode;
             } else {
-                (parentNode[key] as AstNode) = newNode;
+                (parentNode as any)[key] = newNode;
             }
         }
         return true;
     }
 
     /** 获取节点的 key 的范围 */
-    public getNodeKeyRange(node: AstNode): vscode.Range {
-        return new vscode.Range(this.positionAt((node.key as AstNode).start), this.positionAt((node.key as AstNode).end));
+    public getNodeKeyRange(node: estree.Node): vscode.Range {
+        return new vscode.Range(this.positionAt((node as estree.Property).key?.range![0]), this.positionAt((node as estree.Property).key?.range![1]));
     }
 
     /** expression 中的位置转换为 document 中的位置*/
@@ -341,29 +348,30 @@ export class AstItem {
     }
 
     /** 获取更新范围内的最小对象或数组节点 */
-    private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: AstNode = this.expression as AstNode): [AstNode, Key | null, number] {
-        const keyList: Key[] = espree.VisitorKeys[node.type];
+    private getUpdateNode(contentChange: vscode.TextDocumentContentChangeEvent, node: estree.Node = this.expression as estree.Node): [estree.Node, string | null, number] {
+        const keyList = this.getNodeKeyList(node);
         if (!keyList) return [node, null, -1];
         for (let i = 0; i < keyList.length; i++) {
             const key = keyList[i];
-            if (Array.isArray(node[key])) {
-                for (let j = 0; j < (node[key] as AstNode[]).length; j++) {
-                    if (this.isNodeContainRange((node[key] as AstNode[])[j], contentChange.range)) {
-                        const [targetNode, targetKey, targetJ] = this.getUpdateNode(contentChange, (node[key] as AstNode[])[j]);
+            const value = (node as any)[key] as estree.Node | estree.Node[];
+            if (Array.isArray(value)) {
+                for (let j = 0; j < value.length; j++) {
+                    if (this.isNodeContainRange(value[j], contentChange.range)) {
+                        const [targetNode, targetKey, targetJ] = this.getUpdateNode(contentChange, value[j]);
                         if (targetKey) {
                             return [targetNode, targetKey, targetJ];
-                        } else if (['ObjectExpression', 'ArrayExpression'].includes((node[key] as AstNode[])[j].type)) {
+                        } else if (([esprima.Syntax.ObjectExpression, esprima.Syntax.ArrayExpression] as string[]).includes(value[j].type)) {
                             return [node, key, j];
                         } else {
                             return [targetNode, null, -1];
                         }
                     }
                 }
-            } else if (node[key] && typeof node[key] === 'object' && this.isNodeContainRange(node[key] as AstNode, contentChange.range)) {
-                const [targetNode, targetKey, targetJ] = this.getUpdateNode(contentChange, node[key] as AstNode);
+            } else if (typeof value === 'object' && this.isNodeContainRange(value, contentChange.range)) {
+                const [targetNode, targetKey, targetJ] = this.getUpdateNode(contentChange, value);
                 if (targetKey) {
                     return [targetNode, targetKey, targetJ];
-                } else if (['ObjectExpression', 'ArrayExpression'].includes((node[key] as AstNode).type)) {
+                } else if (['ObjectExpression', 'ArrayExpression'].includes((value).type)) {
                     return [node, key, -1];
                 } else {
                     return [targetNode, null, -1];
@@ -410,40 +418,36 @@ export class AstItem {
         }
     }
 
-    private parse(range = this.range): AstNode | null {
+    private parse(range = this.range): estree.ObjectExpression | null {
         if (this.startRow !== this.endRow - 1) {
             const targetText = '(' + this.document.getText(range) + ')';
             try {
-                const ast = espree.parse(targetText, { ecmaVersion: 'latest' });
-                const expression = ast.body[0].expression;
-                this.translate(expression, 0, -1);
+                const ast = esprima.parseScript(targetText, { range: true, tolerant: true, comment: true }, node => {
+                    node.range = [node.range![0] - 1, node.range![1] - 1];
+                });
+                const expression = (ast.body[0] as estree.ExpressionStatement).expression as estree.ObjectExpression;
                 return expression;
             } catch (e) {
-                return {
-                    type: 'ErrorExpression',
-                    start: 0,
-                    end: targetText.length - 2,
-                    raw: targetText,
-                };
+                return null;
             }
         }
         return null;
     }
 
     /** 将表达式中中所有大于等于 limit 的位置偏移 offset */
-    private translate(node: AstNode | null, limit: number, offset: number) {
-        if (!node || node.end < limit) return;
-        if (node.start >= limit) node.start += offset;
-        if (node.end >= limit) node.end += offset;
-        const keyList: Key[] = espree.VisitorKeys[node.type];
-        if (keyList) {
-            for (let i = 0; i < keyList.length; i++) {
-                const key = keyList[i];
-                if (Array.isArray(node[key])) {
-                    (node[key] as AstNode[]).forEach(v => this.translate(v, limit, offset));
-                } else if (typeof node[key] === 'object') {
-                    this.translate(node[key] as AstNode, limit, offset);
-                }
+    private translate(node: estree.Node | null, limit: number, offset: number) {
+        if (!node || node.range![1] < limit) return;
+        if (node.range![0] >= limit) node.range![0] += offset;
+        if (node.range![1] >= limit) node.range![1] += offset;
+        const keyList = this.getNodeKeyList(node);
+        for (let i = 0; i < keyList.length; i++) {
+            const key = keyList[i];
+            // key 是从 node 中取的，因此 node[key] 一定存在
+            const value = (node as any)[key] as estree.Node | estree.Node[];
+            if (Array.isArray(value)) {
+                value.forEach(v => this.translate(v, limit, offset));
+            } else if (typeof value === 'object') {
+                this.translate(value, limit, offset);
             }
         }
     }
@@ -454,27 +458,33 @@ export class AstItem {
     }
 
     /** 位置是否在节点中 */
-    private isNodeContainIndex(node: AstNode, index: number): boolean {
-        return node.start < index && index < node.end;
+    private isNodeContainIndex(node: estree.Node, index: number): boolean {
+        return node.range![0] < index && index < node.range![1];
     }
 
     /** 范围是否在节点中 */
-    private isNodeContainRange(node: AstNode, range: vscode.Range): boolean {
-        return node.start < this.offsetAt(range.start) && this.offsetAt(range.end) < node.end;
+    private isNodeContainRange(node: estree.Node, range: vscode.Range): boolean {
+        return node.range![0] < this.offsetAt(range.start) && this.offsetAt(range.end) < node.range![1];
     }
 
-    private toSimpleObject(node: AstNode): SimpleObject<string> {
+    /** 获取节点的值为节点的key列表 */
+    private getNodeKeyList(node: estree.Node) {
+        return Object.entries(node).filter(([key, value]) => typeof value === 'object' && key !== 'range').map(([key, value]) => key);
+    }
+
+    private toSimpleObject(node: estree.Node | null): SimpleObject<string> {
         const item: SimpleObject<string> = {};
+        if (node === null) return item;
         switch (node.type) {
-            case 'ObjectExpression':
-                node.properties?.forEach((property) => {
-                    if (property.value?.raw) {
-                        item[property.key?.name as string] = property.value.raw;
+            case esprima.Syntax.ObjectExpression:
+                node.properties.forEach((property) => {
+                    if (property.type === esprima.Syntax.Property && property.value.type === esprima.Syntax.Literal && property.key.type === esprima.Syntax.Identifier) {
+                        item[property.key.name] = property.value.raw || '';
                     }
                 });
                 break;
-            case 'Property':
-                return this.toSimpleObject(node.value as AstNode);
+            case esprima.Syntax.Property:
+                return this.toSimpleObject(node.value);
         }
         return item;
     }

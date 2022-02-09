@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as esprima from 'esprima';
+import * as estree from 'estree';
 import { simillarCommands } from 'simillar-commands';
 import { getOptionDesc } from './store';
 import { ExtensionName, collection, supportedLanguageList } from './extension';
@@ -64,30 +66,32 @@ const Diagnosis = {
 export default Diagnosis;
 
 /** 递归检查节点是否存在未知属性 */
-function checkUnknownNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[] {
+function checkUnknownNode(astItem: AstItem, node : estree.Node): vscode.Diagnostic[] {
     const diagList: vscode.Diagnostic[] = [];
     switch (node.type) {
-        case 'ArrayExpression':
-            (node.elements as AstNode[]).forEach((element) => {
-                diagList.push(...checkUnknownNode(astItem, element));
+        case esprima.Syntax.ArrayExpression:
+            node.elements.forEach((element) => {
+                if (element) {
+                    diagList.push(...checkUnknownNode(astItem, element));
+                }
             });
             break;
-        case 'ObjectExpression':
-            (node.properties as AstNode[]).forEach(child => {
+        case esprima.Syntax.ObjectExpression:
+            node.properties.forEach(child => {
                 diagList.push(...checkUnknownNode(astItem, child));
             });
             break;
-        case 'Property':
-            const offset = (node.key as AstNode).start;
+        case esprima.Syntax.Property:
+            const offset = node.key.range![0];
             const paths = ast.getMinAstNode(astItem, astItem.positionAt(offset))[1];
             const descTreeList = getOptionDesc(paths.slice(0, -1), astItem);
             // 对于 series.custom 自定义类型，无法获取所有允许的选项，因此忽略自定义类型
-            if (descTreeList[0].default === "'custom'") return diagList;
-            if (node.value?.type !== 'Identifier' && descTreeList.length && !descTreeList.some(item => item.name === (node.key as AstNode).name)) {
+            if (descTreeList[0]?.default === "'custom'") return diagList;
+            if (node.value.type !== esprima.Syntax.Identifier && descTreeList.length && !descTreeList.some(item => item.name === (node.key as estree.Identifier).name)) {
                 const range = astItem.getNodeKeyRange(node);
                 // 如果存在禁用校验注释，那么不加入本次校验结果
-                if (isAllowCheck(astItem.document, range.start)) {
-                    const name = (node.key as AstNode).name as string;
+                if (isAllowCheck(astItem.document, range.start) && node.key.type === esprima.Syntax.Identifier) {
+                    const name = node.key.name;
                     const simillarName = simillarCommands(descTreeList.map(child => child.name), name)[0];
                     let message = localize('message.unknown-property', name, 'EChartsOption');
                     if (simillarName) {
@@ -102,7 +106,7 @@ function checkUnknownNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[]
                     });
                 }
             } else {
-                diagList.push(...checkUnknownNode(astItem, (node.value as AstNode)));
+                diagList.push(...checkUnknownNode(astItem, (node.value)));
             }
             break;
     }
@@ -112,7 +116,7 @@ function checkUnknownNode(astItem: AstItem, node : AstNode): vscode.Diagnostic[]
 /** 检查依赖规则 */
 function checkRules(astItem: AstItem): vscode.Diagnostic[] {
     const diagList: vscode.Diagnostic[] = [];
-    const keys = astItem.expression?.properties?.map(node => node.key?.name as string);
+    const keys = astItem.expression?.properties.map(node => ((node as estree.Property)?.key as estree.Identifier)?.name as string);
     if (!keys) return [];
     // 检查内置规则
     if (Config.defaultRule) {
@@ -133,7 +137,7 @@ function checkRule(astItem: AstItem, rule: DependRule, diagList: vscode.Diagnost
         const nodeRange = astItem.getNodeKeyRange(node);
         if (isAllowCheck(astItem.document, nodeRange.start)) {
             const relatedInformation: vscode.DiagnosticRelatedInformation[] = [];
-            if (rule.options && !rule.options.includes(node.value!.value as unknown as string)) {
+            if (rule.options && !rule.options.includes(((node as estree.Property).value as estree.Literal)?.value as string)) {
                 relatedInformation.push({
                     location: new vscode.Location(astItem.document.uri, nodeRange),
                     message: `${localize('message.option-value')}: [${rule.options.map(v => typeof v === 'string' ? `'${v}'` : v).join(', ')}]`,
@@ -143,13 +147,13 @@ function checkRule(astItem: AstItem, rule: DependRule, diagList: vscode.Diagnost
                 // 如果不满足规则，则添加至 relatedInformation
                 const depNode = astItem.getAstNodeByKey(dep.key);
                 if (depNode) {
-                    if ((dep as ExpectedDepend).expectedValue !== undefined && depNode.value!.value as unknown as string !== (dep as ExpectedDepend).expectedValue) {
+                    if ((dep as ExpectedDepend).expectedValue !== undefined && ((depNode as estree.Property).value as estree.Literal).value as string !== (dep as ExpectedDepend).expectedValue) {
                         // 节点存在并且不等于预期值
                         relatedInformation.push({
                             location: new vscode.Location(astItem.document.uri, astItem.getNodeKeyRange(depNode)),
                             message: dep.msg || `${localize('message.condition')}: ${dep.key} === ${getRawString((dep as ExpectedDepend).expectedValue)}`,
                         });
-                    } else if ((dep as ExcludeDepend).excludeValue !== undefined && depNode.value!.value as unknown as string === (dep as ExcludeDepend).excludeValue) {
+                    } else if ((dep as ExcludeDepend).excludeValue !== undefined && ((depNode as estree.Property).value as estree.Literal).value as string === (dep as ExcludeDepend).excludeValue) {
                         // 节点存在并且等于排除值
                         relatedInformation.push({
                             location: new vscode.Location(astItem.document.uri, astItem.getNodeKeyRange(depNode)),

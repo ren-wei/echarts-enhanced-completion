@@ -1,17 +1,3 @@
-interface AstNode {
-    type: string;
-    name?: string;
-    start: number;
-    end: number;
-    properties?: [AstNode];
-    elements?: [AstNode];
-    key?: AstNode;
-    value?: AstNode;
-    raw?: string;
-}
-
-type Key = 'type' | 'start' | 'end' | 'properties' | 'elements' | 'key' | 'value';
-
 type Paths = Array<string | SimpleObject>;
 
 interface RequiredRule {
@@ -33,11 +19,6 @@ interface Tree {
     required?: Array<RequiredRule>; // 对值的限制
     children?: Tree[]; // 子节点
     detailFileName?: string; // 子属性所在的文件名
-}
-
-interface PathMsg {
-    name: string;
-    target: AstNode
 }
 
 interface KeyFunc {
