@@ -29,7 +29,7 @@
     {
         "name": "projection",
         "type": "Object",
-        "desc": "自定义地图投影，至少需要提供`project`, `unproject`两个方法分别用来计算投影后的坐标以及计算投影前的坐标。\n\n比如墨卡托投影：\n\n```ts\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => [point[0] / 180 * Math.PI, -Math.log(Math.tan((Math.PI / 2 + point[1] / 180 * Math.PI) / 2))],\nunproject: (point) => [point[0] * 180 / Math.PI, 2 * 180 / Math.PI * Math.atan(Math.exp(point[1])) - 90]\n}\n}\n```\n\n除了我们自己实现投影公式，我们也可以使用 [d3-geo](https://github.com/d3/d3-geo) 等第三方库提供的现成的投影实现：\n\n```ts\nconst projection = d3.geoConicEqualArea();\n// ...\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => projection(point),\nunproject: (point) => projection.invert(point)\n}\n}\n\n```\n\n注：自定义投影只有在使用`GeoJSON`作为数据源的时候有用。",
+        "desc": "自定义地图投影，至少需要提供`project`, `unproject`两个方法分别用来计算投影后的坐标以及计算投影前的坐标。\n\n比如墨卡托投影：\n\n```ts\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => [point[0] / 180 * Math.PI, -Math.log(Math.tan((Math.PI / 2 + point[1] / 180 * Math.PI) / 2))],\nunproject: (point) => [point[0] * 180 / Math.PI, 2 * 180 / Math.PI * Math.atan(Math.exp(point[1])) - 90]\n}\n}\n```\n\n除了我们自己实现投影公式，我们也可以使用 [d3-geo](https://github.com/d3/d3-geo) 等第三方库提供的现成的投影实现：\n\n```ts\nconst projection = d3.geoConicEqualArea();\n// ...\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => projection(point),\nunproject: (point) => projection.invert(point)\n}\n}\n```\n\n注：自定义投影只有在使用`GeoJSON`作为数据源的时候有用。",
         "children": [
             {
                 "name": "project",
@@ -810,7 +810,7 @@
                 "name": "disabled",
                 "type": "boolean",
                 "default": "false",
-                "desc": "是否关闭高亮状态。\n\n关闭高亮状态可以在鼠标移到图形上，tooltip 触发，或者图例联动的时候不再触发高亮效果。在图形非常多的时候可以关闭以提升交互流畅性。",
+                "desc": "> 从 `v5.3.0` 开始支持\n\n\n\n是否关闭高亮状态。\n\n关闭高亮状态可以在鼠标移到图形上，tooltip 触发，或者图例联动的时候不再触发高亮效果。在图形非常多的时候可以关闭以提升交互流畅性。",
                 "children": []
             },
             {
@@ -1512,7 +1512,7 @@
                 "name": "disabled",
                 "type": "boolean",
                 "default": "false",
-                "desc": "是否可以被选中。在开启`selectedMode`的时候有效，可以用于关闭部分数据。",
+                "desc": "> 从 `v5.3.0` 开始支持\n\n\n\n是否可以被选中。在开启`selectedMode`的时候有效，可以用于关闭部分数据。",
                 "children": []
             },
             {
@@ -5737,7 +5737,7 @@
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "tooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string) => string\n```\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                        "desc": "> 从 `v5.3.0` 开始支持\n\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string) => string\n```\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                         "children": []
                     },
                     {
@@ -5988,7 +5988,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "tooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string) => string\n```\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                "desc": "> 从 `v5.3.0` 开始支持\n\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string) => string\n```\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                 "children": []
             },
             {
