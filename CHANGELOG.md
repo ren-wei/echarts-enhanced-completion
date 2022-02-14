@@ -6,6 +6,14 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.3 (2022-02-14)
+
+### Changed
+
+- 与源文档同步
+
+- ast解析器由espree改为esprima
+
 ## 1.4.2 (2022-01-26)
 
 ### Fixed
