@@ -29,10 +29,12 @@ interface SimpleObject<T = string | number | boolean> {
     [propName: string]: T;
 }
 
+type BaseOptions = BaseOption[];
+
 interface BaseOption {
     title: string;
     name: string;
-    imgSrc: string;
+    imgSrc?: string;
     code: string;
 }
 

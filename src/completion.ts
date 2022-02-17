@@ -14,7 +14,7 @@ export function provideCompletionItems(document: vscode.TextDocument, position: 
     let completionItems: vscode.CompletionItem[] = [];
     if (Config.initEnabled && astItem.isEmpty) {
         // 空对象额外增加初始化选项
-        completionItems = getBaseOptions().map((item, index) => {
+        completionItems = [...Config.initCustom, ...getBaseOptions()].map((item, index) => {
             let insertText = item.code.slice(1, item.code.length - 1).split('\n').map(v => v.slice(4)).join('\n').trim();
             insertText = insertText.replaceAll('    ', Config.insertSpaces ? new Array(Config.tabSize).fill(' ').join('') : '\t');
             return {

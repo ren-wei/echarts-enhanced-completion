@@ -44,6 +44,23 @@
 
 配置项位于 `设置` => `扩展` => `Echarts Enhanced Completion`。
 
+### Init: Custom
+
+配置项初始化时程序会提供选项进行快速初始化，但是可能会不符合您的要求，因此我们允许自定义初始化的选项。
+在 `vscode` 设置文件中编辑 `echarts-enhanced-completion.init.custom` 项即可。
+
+值得类型为 `BaseOptions`，定义如下：
+```ts
+type BaseOptions = BaseOption[];
+
+interface BaseOption {
+    title: string;
+    name: string;
+    imgSrc?: string;
+    code: string;
+}
+```
+
 ### Validation > Rule: Custom
 
 校验规则可以帮助您更好的发现在使用配置项时的错误和疏忽。

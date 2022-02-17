@@ -6,6 +6,7 @@ export default {
         initEnabled: 'echarts-enhanced-completion.init.enabled',
         onlyInit: 'echarts-enhanced-completion.init.onlyInit',
         initShowPictures: 'echarts-enhanced-completion.init.showPictures',
+        initCustom: 'echarts-enhanced-completion.init.custom',
         language: 'echarts-enhanced-completion.language',
         unknownProperty: 'echarts-enhanced-completion.validation.unknownProperty',
         enabledRule: 'echarts-enhanced-completion.validation.rule.enabled',
@@ -31,6 +32,10 @@ export default {
 
     get initShowPictures() : boolean {
         return vscode.workspace.getConfiguration().get(this.name.initShowPictures) as boolean;
+    },
+
+    get initCustom(): BaseOptions {
+        return vscode.workspace.getConfiguration().get(this.name.initCustom) as BaseOptions;
     },
 
     get language(): Languages {

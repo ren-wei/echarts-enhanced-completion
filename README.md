@@ -48,6 +48,22 @@ After install and enable the extension, add a comment on the previous line of th
 
 Configuration items are in `Settings` => `Extensions` => `Echarts Enhanced Completion`
 
+### Init: Custom
+
+When the configuration item is initialized, the program will provide options for quick initialization, but it may not meet your requirements, so we allow custom initialization options.
+Edit the `echarts-enhanced-completion.init.custom` item in the `vscode` settings file.
+
+The value type is `BaseOptions` and is defined as follows:
+```ts
+type BaseOptions = BaseOption[];
+
+interface BaseOption {
+    name: string;
+    imgSrc?: string;
+    code: string;
+}
+```
+
 ### Validation > Rule: Custom
 
 Validation rules can help you better spot errors and omissions when using configuration items.
