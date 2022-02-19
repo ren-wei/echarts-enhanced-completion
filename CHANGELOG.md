@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.4 (2022-02-19)
+
+### Added
+
+- 自定义初始化选项配置
+
+### Changed
+
+- 与源文档同步
+
+- 更新规则
+
 ## 1.4.3 (2022-02-14)
 
 ### Changed
