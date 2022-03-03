@@ -40,6 +40,13 @@ interface BaseOption {
 
 type Languages = 'en' | 'zh';
 
+interface EsprimaError {
+    description: string;
+    index: number;
+    lineNumber: number;
+    column: number;
+}
+
 /** 依赖规则 */
 
 type DependRules = DependRule[];

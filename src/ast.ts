@@ -418,9 +418,9 @@ export class AstItem {
         }
     }
 
-    private parse(range = this.range): estree.ObjectExpression | null {
+    private parse(range = this.range, text = ''): estree.ObjectExpression | null {
         if (this.startRow !== this.endRow - 1) {
-            const targetText = '(' + this.document.getText(range) + ')';
+            const targetText = text || '(' + this.document.getText(range) + ')';
             try {
                 const ast = esprima.parseScript(targetText, { range: true, tolerant: true, comment: true }, node => {
                     node.range = [node.range![0] - 1, node.range![1] - 1];
@@ -428,10 +428,49 @@ export class AstItem {
                 const expression = (ast.body[0] as estree.ExpressionStatement).expression as estree.ObjectExpression;
                 return expression;
             } catch (e) {
-                return null;
+                const newTargetText = this.replaceErrorPart(targetText, ((e as EsprimaError).index));
+                if (newTargetText === targetText) return null;
+                return this.parse(range, newTargetText);
             }
         }
         return null;
+    }
+
+    /** 以大括号为最小块，将出现错误的部分替换为空格 */
+    private replaceErrorPart(text: string, index: number): string {
+        // 假设大括号是对称的
+        // 从index开始向前找出当前所在的左大括号的位置
+        let count = 1; // 未匹配的左括号数量
+        let curIndex = index;
+        let startIndex = 2;
+        while (--curIndex) {
+            if (text[curIndex] === '{') {
+                count--;
+            } else if (text[curIndex] === '}') {
+                count++;
+            }
+            if (!count) {
+                startIndex = curIndex;
+                break;
+            }
+        }
+        // 从index开始向后找出当前所在的右大括号的位置
+        count = 1; // 未匹配的右括号的数量
+        let endIndex = text.length - 2;
+        curIndex = index;
+        while (++curIndex) {
+            if (text[curIndex] === '{') {
+                count++;
+            } else if (text[curIndex] === '}') {
+                count--;
+            }
+            if (!count) {
+                endIndex = curIndex;
+                break;
+            }
+        }
+        // 将括号内的部分替换为字符串
+        return text.slice(0, startIndex + 1) + (new Array(endIndex - startIndex)).fill('').join(' ') + text.slice(endIndex);
     }
 
     /** 将表达式中中所有大于等于 limit 的位置偏移 offset */
