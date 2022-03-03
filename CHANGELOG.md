@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.5 (2022-03-03)
+
+### Added
+
+- 忽略不支持的语法或语法错误所在的代码块
+
+### Changed
+
+- 与源文档同步
+
 ## 1.4.4 (2022-02-19)
 
 ### Added
