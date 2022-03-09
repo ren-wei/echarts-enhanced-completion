@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.6 (2022-03-09)
+
+### Fixed
+
+- 修复删除括号导致的卡死问题
+
 ## 1.4.5 (2022-03-03)
 
 ### Added
