@@ -458,7 +458,7 @@ export class AstItem {
         count = 1; // 未匹配的右括号的数量
         let endIndex = text.length - 2;
         curIndex = index;
-        while (++curIndex) {
+        while (++curIndex && curIndex < text.length) {
             if (text[curIndex] === '{') {
                 count++;
             } else if (text[curIndex] === '}') {
