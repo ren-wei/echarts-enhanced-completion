@@ -159,6 +159,12 @@
         "detailFileName": "series"
     },
     {
+        "name": "darkMode",
+        "type": "boolean",
+        "desc": "To specify whether it's dark mode.\n\nECharts will automatically detect it via [backgroundColor](https://echarts.apache.org/en/option.html#backgroundColor) by default and adjust the text color accordingly.\n\nThis option is usually used in themes.",
+        "children": []
+    },
+    {
         "name": "color",
         "type": "Array",
         "desc": "The color list of palette. If no color is set in series, the colors would be adopted sequentially and circularly from this list as the colors of series.\n\nDefaults:\n```ts\n['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']\n```\n\nSupported color formats.\n\n+ Use RGB for colors, like `'rgb(128, 128, 128)'`, or RGBA if you want to add an alpha channel for opacity, like `'rgba(128, 128, 128, 0.5)`, or use hex string, like `'#ccc'`.\n\n+ Gradient Color or Pattern\n```js\n// Linear gradient with first four parameters x0, y0, x2, y2, ranging from 0 - 1, corresponding to the percentage in the graphical wraparound box, if globalCoord is ``true``, then the four values are absolute pixel positions\n{\ntype: 'linear',\nx: 0,\ny: 0,\nx2: 0,\ny2: 1,\ncolorStops: [{\noffset: 0, color: 'red' // color at 0%\n}, {\noffset: 1, color: 'blue' // color at 100%\n}],\nglobal: false // default is false\n}\n// Radial gradient, the first three parameters are the center x, y and radius, the values are the same as the linear gradient\n{\ntype: 'radial',\nx: 0.5,\ny: 0.5,\nr: 0.5,\ncolorStops: [{\noffset: 0, color: 'red' // color at 0%\n}, {\noffset: 1, color: 'blue' // color at 100%\n}],\nglobal: false // default is false\n}\n// Pattern\n{\nimage: imageDom, // supported as HTMLImageElement, HTMLCanvasElement, but not path string of SVG\nrepeat: 'repeat' // whether to tile, can be 'repeat-x', 'repeat-y', 'no-repeat'\n}\n```",
@@ -167,7 +173,7 @@
     {
         "name": "backgroundColor",
         "type": "Color",
-        "desc": "Background color. Defaults to have no background.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
+        "desc": "Background color. No background by default.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
         "children": []
     },
     {
@@ -432,7 +438,6 @@
     {
         "name": "options",
         "type": "Array",
-        "default": "undefined",
         "desc": "Option array used in [timeline](option.html#timeline). Each item of this array is an echarts option (`ECUnitOption`).",
         "children": []
     },
