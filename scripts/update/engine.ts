@@ -37,6 +37,7 @@ export default class Engine {
             'if': IfCommand,
             'elif': ElifCommand,
             'else': ElseCommand,
+            'for': ForCommand,
             ...commandExtends,
         };
         this.analyseContext = {
@@ -767,7 +768,7 @@ class ElseCommand implements Command {
 export class BlockCommand implements Command {
     public name: string;
     public value: string;
-    public type: string = 'else';
+    public type: string = 'block';
     public children: Array<Command | TextNode> = [];
     public engine: Engine;
 
@@ -797,6 +798,44 @@ export class BlockCommand implements Command {
     }
 
     public getRendererBody(vars: Vars): string {
+        return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}
+
+class ForCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'for';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
+
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+    }
+
+    public addChild(node: Command | TextNode) {
+        this.children.push(node);
+    }
+
+    public open(context: AnalyseContext) {
+        context.stack.top()?.addChild(this);
+        context.stack.push(this);
+    }
+
+    public close(context: AnalyseContext) {
+        if (context.stack.top() === this) {
+            context.stack.pop();
+        }
+    }
+
+    public autoClose(context: AnalyseContext) {
+        this.close(context);
+    }
+
+    public getRendererBody(vars: Vars): string {
+        // TODO: echarts-doc 中暂时没有解析的实例，暂时忽略
         return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
