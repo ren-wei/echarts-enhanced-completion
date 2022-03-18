@@ -203,7 +203,7 @@ async function main() {
                     seriesChildren.push(child as DetailTree);
                 }
                 // 保存各属性
-                saveFile(child.name, lang, (child as NormalTree).children);
+                saveFile(child.name, lang, (child as NormalTree).children, env);
                 // @ts-ignore
                 delete (child as NormalTree).children;
                 (child as DetailTree).detailFileName = child.name;
@@ -221,7 +221,7 @@ async function main() {
             }
             return result;
         }, []);
-        saveFile('index', lang, indexTree.children);
+        saveFile('index', lang, indexTree.children, env);
         // dataZoom.json、visualMap.json、series.json
         dataZoomChildren.forEach(child => {
             child.required = [{
@@ -230,7 +230,7 @@ async function main() {
                 valueRegExp: `^['"]${child.name.split('.')[1].replace(/'/g, '')}['"]$`,
             }];
         });
-        saveFile('dataZoom', lang, dataZoomChildren);
+        saveFile('dataZoom', lang, dataZoomChildren, env);
         visualMapChildren.forEach(child => {
             child.required = [{
                 key: 'type',
@@ -238,7 +238,7 @@ async function main() {
                 valueRegExp: `^['"]${child.name.split('.')[1].replace(/'/g, '')}['"]$`,
             }];
         });
-        saveFile('visualMap', lang, visualMapChildren);
+        saveFile('visualMap', lang, visualMapChildren, env);
         seriesChildren.forEach(child => {
             if (child.name === 'series.custom') {
                 child.required = [{
@@ -254,14 +254,16 @@ async function main() {
                 }];
             }
         });
-        saveFile('series', lang, seriesChildren);
+        saveFile('series', lang, seriesChildren, env);
     }
 }
 
 /** 从 echarts-doc 项目中获取原始资源 */
 async function getOption(name: string, lang: string, env = 'production') : Promise<string> {
-    // eslint-disable-next-line no-console
-    console.log(`GET /${lang}/option/${name}.md`);
+    if (env === 'production') {
+        // eslint-disable-next-line no-console
+        console.log(`GET /${lang}/option/${name}.md`);
+    }
     const address = `https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`;
     try {
         if (env === 'production') {
@@ -271,7 +273,7 @@ async function getOption(name: string, lang: string, env = 'production') : Promi
                     fs.writeFile(path.resolve(__dirname, `./source/${lang}/${name}.md`), res.data, () => {});
                 } catch (e) {
                     // eslint-disable-next-line no-console
-                    console.log("Can't save resource file:", path.resolve(__dirname, `./source/${lang}/${name}.md`));
+                    console.error("Can't save resource file:", path.resolve(__dirname, `./source/${lang}/${name}.md`));
                 }
                 return res.data;
             } else {
@@ -283,20 +285,22 @@ async function getOption(name: string, lang: string, env = 'production') : Promi
     } catch (e) {
         if (env === 'production') {
             // eslint-disable-next-line no-console
-            console.log("Can't connect to github, the real address is " + address);
+            console.error("Can't connect to github, the real address is " + address);
         } else {
             // eslint-disable-next-line no-console
-            console.log("Can't get local cache file: " + path.resolve(__dirname, `./source/${lang}/${name}.md`) + '\nYou can execute the following command:\n\n\tyarn update:assets\n');
+            console.error("Can't get local cache file: " + path.resolve(__dirname, `./source/${lang}/${name}.md`) + '\nYou can execute the following command:\n\n\tyarn update:assets\n');
         }
         process.exit(1);
     }
 }
 
 /** 保存文件到资源文件夹 */
-function saveFile(name: string, lang: string, data: any) {
+function saveFile(name: string, lang: string, data: any, env = 'production') {
     fs.writeFile(path.resolve(__dirname, `../../assets/desc/${lang}/${name}.json`), JSON.stringify(data, null, 4), () => {
-        // eslint-disable-next-line no-console
-        console.log(`Saved file(${lang}): ${name}.json`);
+        if (env === 'production') {
+            // eslint-disable-next-line no-console
+            console.log(`Saved file(${lang}): ${name}.json`);
+        }
     });
 }
 
