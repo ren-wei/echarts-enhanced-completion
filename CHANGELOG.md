@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.7 (2022-03-23)
+
+### Fixed
+
+- 修复 formatter 属性的解析错误
+
+### Changed
+
+- 与源文档同步
+
 ## 1.4.6 (2022-03-09)
 
 ### Fixed
