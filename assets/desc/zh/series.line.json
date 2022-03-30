@@ -120,7 +120,7 @@
         "name": "stack",
         "type": "string",
         "default": "null",
-        "desc": "数据堆叠，同个类目轴上系列配置相同的`stack`值后，后一个系列的值会在前一个系列的值上相加。\n\n下面示例可以通过右上角 [toolbox](https://echarts.apache.org/zh/option.html#toolbox) 中的堆叠切换看效果：\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=doc-example/line-stack-tiled&edit=1&reset=1)",
+        "desc": "数据堆叠，同个类目轴上系列配置相同的`stack`值后，后一个系列的值会在前一个系列的值上相加。\n\n注：目前`stack`只支持堆叠于 `value` 和 `log` 类型的类目轴上，不支持 `time` 和 `category` 类型的类目轴。\n\n下面示例可以通过右上角 [toolbox](https://echarts.apache.org/zh/option.html#toolbox) 中的堆叠切换看效果：\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=doc-example/line-stack-tiled&edit=1&reset=1)",
         "children": []
     },
     {
@@ -1846,10 +1846,10 @@
             },
             {
                 "name": "origin",
-                "type": "string",
-                "default": "'auto'",
-                "desc": "图形区域的起始位置。\n\n默认情况下，图形会从坐标轴轴线到数据间进行填充。如果需要填充的区域是坐标轴最大值到数据间，或者坐标轴最小值到数据间，则可以通过这个配置项进行设置。\n\n可选值包括 `'auto'`（默认值）、 `'start'`、 `'end'`。\n\n- `'auto'` 填充坐标轴轴线到数据间的区域；\n- `'start'` 填充坐标轴底部（非 `inverse` 情况是最小值）到数据间的区域；\n- `'end'` 填充坐标轴顶部（非 `inverse` 情况是最大值）到数据间的区域。",
-                "children": []
+                "type": "enum",
+                "desc": "图形区域的起始位置。\n\n默认情况下，图形会从坐标轴轴线到数据间进行填充。如果需要填充的区域是坐标轴最大值到数据间，或者坐标轴最小值到数据间，或者某个数值到数据间则可以通过这个配置项进行设置。\n\n可选值包括：\n\n- `'auto'` 填充坐标轴轴线到数据间的区域（**默认值**）\n- `'start'` 填充坐标轴底部（非 [`inverse`](https://echarts.apache.org/zh/option.html#yAxis.inverse) 情况是最小值）到数据间的区域\n- `'end'` 填充坐标轴顶部（非 [`inverse`](https://echarts.apache.org/zh/option.html#yAxis.inverse) 情况是最大值）到数据间的区域\n- `number` 填充指定数值到数据间的区域（从 `v5.3.2` 开始支持）",
+                "children": [],
+                "options": "'auto','start','end'"
             },
             {
                 "name": "shadowBlur",

@@ -120,7 +120,7 @@
         "name": "stack",
         "type": "string",
         "default": "null",
-        "desc": "If stack the value. On the same category axis, the series with the same `stack` name would be put on top of each other.\n\nThe effect of the below example could be seen through stack switching of [toolbox](https://echarts.apache.org/en/option.html#toolbox) on the top right corner:\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/line-stack-tiled&edit=1&reset=1)",
+        "desc": "If stack the value. On the same category axis, the series with the same `stack` name would be put on top of each other.\n\nNotice: `stack` only supports stacking on `value` and `log` axis for now. `time` and `category` axis are not supported.\n\nThe effect of the below example could be seen through stack switching of [toolbox](https://echarts.apache.org/en/option.html#toolbox) on the top right corner:\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/line-stack-tiled&edit=1&reset=1)",
         "children": []
     },
     {
@@ -382,13 +382,13 @@
             {
                 "name": "textBorderColor",
                 "type": "color",
-                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                 "children": []
             },
             {
                 "name": "textBorderWidth",
                 "type": "number",
-                "desc": "Storke line width of the text.",
+                "desc": "Stroke line width of the text.",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -655,13 +655,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -938,13 +938,13 @@
             {
                 "name": "textBorderColor",
                 "type": "color",
-                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                 "children": []
             },
             {
                 "name": "textBorderWidth",
                 "type": "number",
-                "desc": "Storke line width of the text.",
+                "desc": "Stroke line width of the text.",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -1211,13 +1211,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -1846,10 +1846,10 @@
             },
             {
                 "name": "origin",
-                "type": "string",
-                "default": "'auto'",
-                "desc": "Origin position of area.\n\nBy default, the area between axis line and data will be the area to be filled. This config enables you to fill data to the max or min of the axis data.\n\nValid values include: `'auto'` (default), `'start'`, `'end'`.\n\n- `'auto'` to fill between axis line to data;\n- `'start'` to fill between min axis value (when not `inverse`) to data;\n- `'end'` to fill between max axis value (when not `inverse`) to data;",
-                "children": []
+                "type": "enum",
+                "desc": "Origin position of area.\n\nBy default, the area between axis line and data will be filled. This config enables you to fill the area from data to the max or min of the axis data or a specified value.\n\nValid values:\n\n- `'auto'` to fill between axis line and data (**Default**)\n- `'start'` to fill between min axis value (when not [`inverse`](https://echarts.apache.org/en/option.html#yAxis.inverse)) and data\n- `'end'` to fill between max axis value (when not [`inverse`](https://echarts.apache.org/en/option.html#yAxis.inverse)) and data\n- `number` to fill between specified value and data (Since `v5.3.2`)",
+                "children": [],
+                "options": "'auto','start','end'"
             },
             {
                 "name": "shadowBlur",
@@ -2153,13 +2153,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -2426,13 +2426,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -3088,13 +3088,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -3361,13 +3361,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -3658,13 +3658,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -3931,13 +3931,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -4593,13 +4593,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -4866,13 +4866,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -5170,13 +5170,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -5443,13 +5443,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -6105,13 +6105,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -6378,13 +6378,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -6784,13 +6784,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -7057,13 +7057,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -7610,13 +7610,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -7883,13 +7883,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -8282,13 +8282,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -8555,13 +8555,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -8961,13 +8961,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -9234,13 +9234,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -9543,13 +9543,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.",
+                                "desc": "Stroke color of the text.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -9927,13 +9927,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -10200,13 +10200,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -10613,13 +10613,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -10886,13 +10886,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -11294,13 +11294,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -11567,13 +11567,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -12170,13 +12170,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -12443,13 +12443,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -12736,13 +12736,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -13009,13 +13009,13 @@
                                                     {
                                                         "name": "textBorderColor",
                                                         "type": "color",
-                                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
                                                     {
                                                         "name": "textBorderWidth",
                                                         "type": "number",
-                                                        "desc": "Storke line width of the text.",
+                                                        "desc": "Stroke line width of the text.",
                                                         "children": [],
                                                         "min": "0",
                                                         "step": "0.5"
@@ -13475,13 +13475,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -13748,13 +13748,13 @@
                                                     {
                                                         "name": "textBorderColor",
                                                         "type": "color",
-                                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
                                                     {
                                                         "name": "textBorderWidth",
                                                         "type": "number",
-                                                        "desc": "Storke line width of the text.",
+                                                        "desc": "Stroke line width of the text.",
                                                         "children": [],
                                                         "min": "0",
                                                         "step": "0.5"
@@ -14226,13 +14226,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -14499,13 +14499,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -14883,13 +14883,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -15156,13 +15156,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -15525,13 +15525,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -15798,13 +15798,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -16397,13 +16397,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -16670,13 +16670,13 @@
                                                     {
                                                         "name": "textBorderColor",
                                                         "type": "color",
-                                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
                                                     {
                                                         "name": "textBorderWidth",
                                                         "type": "number",
-                                                        "desc": "Storke line width of the text.",
+                                                        "desc": "Stroke line width of the text.",
                                                         "children": [],
                                                         "min": "0",
                                                         "step": "0.5"
@@ -17054,13 +17054,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -17327,13 +17327,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -17706,13 +17706,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -17979,13 +17979,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -18471,13 +18471,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -18744,13 +18744,13 @@
                                                     {
                                                         "name": "textBorderColor",
                                                         "type": "color",
-                                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
                                                     {
                                                         "name": "textBorderWidth",
                                                         "type": "number",
-                                                        "desc": "Storke line width of the text.",
+                                                        "desc": "Stroke line width of the text.",
                                                         "children": [],
                                                         "min": "0",
                                                         "step": "0.5"
@@ -19128,13 +19128,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -19401,13 +19401,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -19780,13 +19780,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -20053,13 +20053,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -20420,13 +20420,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -20693,13 +20693,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -21097,13 +21097,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -21370,13 +21370,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -21769,13 +21769,13 @@
                             {
                                 "name": "textBorderColor",
                                 "type": "color",
-                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
                             {
                                 "name": "textBorderWidth",
                                 "type": "number",
-                                "desc": "Storke line width of the text.",
+                                "desc": "Stroke line width of the text.",
                                 "children": [],
                                 "min": "0",
                                 "step": "0.5"
@@ -22042,13 +22042,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -22612,13 +22612,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -22885,13 +22885,13 @@
                                                     {
                                                         "name": "textBorderColor",
                                                         "type": "color",
-                                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
                                                     {
                                                         "name": "textBorderWidth",
                                                         "type": "number",
-                                                        "desc": "Storke line width of the text.",
+                                                        "desc": "Stroke line width of the text.",
                                                         "children": [],
                                                         "min": "0",
                                                         "step": "0.5"
@@ -23289,13 +23289,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -23562,13 +23562,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -23961,13 +23961,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -24234,13 +24234,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -24690,13 +24690,13 @@
                                     {
                                         "name": "textBorderColor",
                                         "type": "color",
-                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
                                     {
                                         "name": "textBorderWidth",
                                         "type": "number",
-                                        "desc": "Storke line width of the text.",
+                                        "desc": "Stroke line width of the text.",
                                         "children": [],
                                         "min": "0",
                                         "step": "0.5"
@@ -24963,13 +24963,13 @@
                                                     {
                                                         "name": "textBorderColor",
                                                         "type": "color",
-                                                        "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
                                                     {
                                                         "name": "textBorderWidth",
                                                         "type": "number",
-                                                        "desc": "Storke line width of the text.",
+                                                        "desc": "Stroke line width of the text.",
                                                         "children": [],
                                                         "min": "0",
                                                         "step": "0.5"
@@ -25367,13 +25367,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -25640,13 +25640,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -26039,13 +26039,13 @@
                                             {
                                                 "name": "textBorderColor",
                                                 "type": "color",
-                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
                                             {
                                                 "name": "textBorderWidth",
                                                 "type": "number",
-                                                "desc": "Storke line width of the text.",
+                                                "desc": "Stroke line width of the text.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "0.5"
@@ -26312,13 +26312,13 @@
                                                             {
                                                                 "name": "textBorderColor",
                                                                 "type": "color",
-                                                                "desc": "Storke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
                                                             {
                                                                 "name": "textBorderWidth",
                                                                 "type": "number",
-                                                                "desc": "Storke line width of the text.",
+                                                                "desc": "Stroke line width of the text.",
                                                                 "children": [],
                                                                 "min": "0",
                                                                 "step": "0.5"
@@ -26704,13 +26704,13 @@
                     {
                         "name": "textBorderColor",
                         "type": "color",
-                        "desc": "Storke color of the text.",
+                        "desc": "Stroke color of the text.",
                         "children": []
                     },
                     {
                         "name": "textBorderWidth",
                         "type": "number",
-                        "desc": "Storke line width of the text.",
+                        "desc": "Stroke line width of the text.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
