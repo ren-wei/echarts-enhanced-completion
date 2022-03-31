@@ -279,4 +279,28 @@ suite('Diagnosis class Test Suite', () => {
             },
         ]);
     });
+
+    test('rich 下的 <style_name> 不应该校验是否存在', async() => {
+        const document = await vscode.workspace.openTextDocument({
+            language: 'javascript',
+            content: [
+                '// @ts-nocheck',
+                '/** @type EChartsOption */',
+                'const options = {',
+                '    title: {',
+                '        textStyle: {',
+                '            rich: {',
+                '                abc: {',
+                '                    color: "#fff",',
+                '                },',
+                '            },',
+                '        }',
+                '    },',
+                '};',
+                '',
+            ].join('\n'),
+        });
+        Diagnosis.update(document.uri, collection);
+        assert.deepStrictEqual(collection.get(document.uri), []);
+    });
 });

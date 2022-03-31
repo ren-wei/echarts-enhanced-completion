@@ -87,7 +87,12 @@ function checkUnknownNode(astItem: AstItem, node : estree.Node): vscode.Diagnost
             const descTreeList = getOptionDesc(paths.slice(0, -1), astItem);
             // 对于 series.custom 自定义类型，无法获取所有允许的选项，因此忽略自定义类型
             if (descTreeList[0]?.default === "'custom'") return diagList;
-            if (node.value.type !== esprima.Syntax.Identifier && descTreeList.length && !descTreeList.some(item => item.name === (node.key as estree.Identifier).name)) {
+            if (
+                node.value.type !== esprima.Syntax.Identifier
+                && descTreeList.length
+                && !descTreeList.some(item => item.name === (node.key as estree.Identifier).name)
+                && paths[paths.length - 2] !== 'rich' // 排除 rich 下的 <style_name>
+            ) {
                 const range = astItem.getNodeKeyRange(node);
                 // 如果存在禁用校验注释，那么不加入本次校验结果
                 if (isAllowCheck(astItem.document, range.start) && node.key.type === esprima.Syntax.Identifier) {
