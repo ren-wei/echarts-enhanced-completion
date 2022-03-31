@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.8 (2022-03-31)
+
+### Fixed
+
+- 校验不存在的选项时忽略rich下的<style_name>
+
+### Changed
+
+- 与源文档同步
+
 ## 1.4.7 (2022-03-23)
 
 ### Fixed
