@@ -170,7 +170,7 @@ function checkRule(astItem: AstItem, rule: DependRule, diagList: vscode.Diagnost
                         // 节点不存在并且默认值不等于预期值
                         relatedInformation.push({
                             location: new vscode.Location(astItem.document.uri, astItem.range),
-                            message: dep.msg || `${localize('message.condition')}: ${dep.key} === ${getRawString(dep.defaultValue)}; ${localize('message.default-value', dep.key, getRawString(dep.defaultValue))}`,
+                            message: dep.msg || `${localize('message.condition')}: ${dep.key} === ${getRawString((dep as ExpectedDepend).expectedValue)}; ${localize('message.default-value', dep.key, getRawString(dep.defaultValue))}`,
                         });
                     } else if ((dep as ExcludeDepend).excludeValue !== undefined && (dep.defaultValue === undefined || dep.defaultValue === (dep as ExcludeDepend).excludeValue)) {
                         // 节点不存在并且默认值等于排除值
