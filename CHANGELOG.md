@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.9 (2022-04-16)
+
+### Fixed
+
+- 校验时，节点不存在并且默认值不等于预期值时的提示错误
+
+### Changed
+
+- 与源文档同步
+
 ## 1.4.8 (2022-03-31)
 
 ### Fixed
