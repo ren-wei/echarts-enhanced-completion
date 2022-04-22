@@ -116,7 +116,7 @@ suite('Diagnosis class Test Suite', () => {
         ]);
     });
 
-    test('不存在描述列表的对象不应该显示错误提示', async() => {
+    test('列表中的对象应该显示错误提示', async() => {
         const document = await vscode.workspace.openTextDocument({
             language: 'javascript',
             content: [
@@ -137,7 +137,13 @@ suite('Diagnosis class Test Suite', () => {
             ].join('\n'),
         });
         Diagnosis.update(document.uri, collection);
-        assert.deepStrictEqual(collection.get(document.uri), []);
+        assert.deepStrictEqual(collection.get(document.uri), [{
+            code: 'value',
+            message: localize('message.unknown-property', 'valuea', 'EChartsOption') + localize('message.fix-unknown-property', 'value'),
+            range: new vscode.Range(5, 12, 5, 18),
+            severity: vscode.DiagnosticSeverity.Warning,
+            source: ExtensionName,
+        }]);
     });
 
     test('行内禁用注释应该让本行忽略属性错误', async() => {

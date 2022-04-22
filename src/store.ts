@@ -57,13 +57,15 @@ export function getOptionDesc(paths: Paths, astItem: AstItem, isArray: boolean =
                 return [];
             }
         } else if (type === 'Array') {
-            if (i === paths.length - 1) return []; // 如果当前是最后一个路径，则表示光标位于普通数组
+            if (i === paths.length - 1) return descList; // 如果当前是最后一个路径，则表示光标位于普通数组
             if (typeof path === 'string') return [];
             const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(path[rule.key]))));
             // 如果 target 存在，那么表示是通过规则匹配的；如果不存在则是普通数组直接跳过
             if (target) {
                 descList = getChildren(target);
                 type = target.type;
+            } else {
+                type = typeof path === 'object' ? 'Object' : type;
             }
         } else if (type.length === 2 && type.includes('Object') && type.includes('Array')) {
             // path 如果是字符串，那么当前是对象，否则是数组
