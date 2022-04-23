@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.4.10 (2022-04-23)
+
+### Fixed
+
+- 普通列表中的对象也应该提示
+
+### Changed
+
+- 与源文档同步
+
 ## 1.4.9 (2022-04-16)
 
 ### Fixed
