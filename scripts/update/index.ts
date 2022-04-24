@@ -202,6 +202,13 @@ async function main() {
                 if (child.name.includes('series.')) {
                     seriesChildren.push(child as DetailTree);
                 }
+                // media 选项的 option 指向 index
+                if (child.name === 'media') {
+                    const option = (child as NormalTree).children.find(v => v.name === 'option');
+                    // @ts-ignore
+                    delete (option as NormalTree).children;
+                    (option as DetailTree).detailFileName = 'index';
+                }
                 // 保存各属性
                 saveFile(child.name, lang, (child as NormalTree).children, env);
                 // @ts-ignore
