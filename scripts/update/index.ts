@@ -348,7 +348,7 @@ function transformToTree(source: string, lang: string, tree: TreeNode | null = n
                     level: match[1].length,
                     name: match[2],
                     type: match[3].includes('|') ? match[3].split('|') : match[3],
-                    default: match[4],
+                    default: match[4] === '自适应' ? 'null' : match[4],
                     desc: '',
                     children: [],
                     parent: null,
