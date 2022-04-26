@@ -26,6 +26,7 @@ export default function(key: string): DependRules {
         cache.set(key, result);
         return result;
     } else {
+        cache.set(key, []);
         return [];
     }
 };

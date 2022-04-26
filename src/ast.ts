@@ -201,48 +201,6 @@ export class AstItem {
         return [node, paths];
     }
 
-    /**
-     * 获取属性名对应的节点
-     * @param key 由 . 连接的属性名，如果存在类似 `parent-child` 的部分，则解析为 parent: {type: 'child'}
-     * @param root 查询节点的起始节点
-     * @returns node: node.key.name === key
-     */
-    public getAstNodeByKey(key: string): estree.Node | null {
-        if (!this.expression) return null;
-        const paths = key.split('.');
-        let node: estree.Node | undefined = this.expression;
-        paths.forEach(path => {
-            if (!node) return null;
-            switch (node.type) {
-                case esprima.Syntax.Property:
-                    if (node.value.type === esprima.Syntax.ObjectExpression) {
-                        node = node.value.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path);
-                    } else if (node.value.type === esprima.Syntax.ArrayExpression) {
-                        node = node.value.elements[0] || undefined;
-                    } else {
-                        node = undefined;
-                    }
-                    break;
-                case esprima.Syntax.ObjectExpression:
-                    if (path.includes('-')) {
-                        const [parent, type] = path.split('-');
-                        node = node.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === parent);
-                        if (node) {
-                            const reg = new RegExp('^[\'"]' + type + '[\'"]$');
-                            node = ((node as estree.Property).value as estree.ArrayExpression)?.elements?.find(item => reg.test(this.toSimpleObject(item).type)) || undefined;
-                        }
-                    } else {
-                        node = node.properties?.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path);
-                    }
-                    break;
-            }
-        });
-        if (((node as estree.Node as estree.Property)?.key as estree.Identifier)?.name === paths[paths.length - 1]) {
-            return node;
-        }
-        return null;
-    }
-
     /** 根据路径获取对应的 SimpleObject */
     public getSimpleObjectByPaths(paths: Paths): SimpleObject {
         let node = this.expression as estree.Node;
