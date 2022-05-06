@@ -1,153 +1,159 @@
 {
-    "name": "echarts-enhanced-completion",
-    "displayName": "Echarts Enhanced Completion",
-    "description": "Provide stronger and more friendly complements for echarts.",
-    "version": "1.4.10",
-    "publisher": "ren-wei",
-    "keywords": [
-        "echarts",
-        "vscode",
-        "extension",
-        "config",
-        "options"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ren-wei/echarts-enhanced-completion"
-    },
-    "license": "MIT",
-    "engines": {
-        "vscode": "^1.58.0"
-    },
-    "bugs": {
-        "url": "https://github.com/ren-wei/echarts-enhanced-completion/issues",
-        "email": "demonre@foxmail.com"
-    },
-    "categories": [
-        "Other"
-    ],
-    "icon": "images/logo.png",
-    "activationEvents": [
-        "onLanguage:html",
-        "onLanguage:javascript",
-        "onLanguage:typescript",
-        "onLanguage:vue"
-    ],
-    "main": "./dist/extension.js",
-    "contributes": {
-        "snippets": [
-            {
-                "language": "html",
-                "path": "./snippets/index.json"
-            },
-            {
-                "language": "javascript",
-                "path": "./snippets/index.json"
-            },
-            {
-                "language": "typescript",
-                "path": "./snippets/index.json"
-            },
-            {
-                "language": "vue",
-                "path": "./snippets/index.json"
-            }
-        ],
-        "configuration": {
-            "title": "Echarts Enhanced Completion",
-            "properties": {
-                "echarts-enhanced-completion.language": {
-                    "type": "string",
-                    "default": "auto",
-                    "description": "%echarts-enhanced-completion.language%",
-                    "enum": [
-                        "auto",
-                        "English",
-                        "中文"
-                    ]
-                },
-                "echarts-enhanced-completion.init.enabled": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%echarts-enhanced-completion.init.enabled%"
-                },
-                "echarts-enhanced-completion.init.onlyInit": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "%echarts-enhanced-completion.init.onlyInit%"
-                },
-                "echarts-enhanced-completion.init.showPictures": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%echarts-enhanced-completion.init.showPictures%"
-                },
-                "echarts-enhanced-completion.init.custom": {
-                    "type": "array",
-                    "description": "%echarts-enhanced-completion.init.custom%"
-                },
-                "echarts-enhanced-completion.validation.unknownProperty": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%echarts-enhanced-completion.validation.unknownProperty%"
-                },
-                "echarts-enhanced-completion.validation.rule.enabled": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%echarts-enhanced-completion.validation.rule.enabled%"
-                },
-                "echarts-enhanced-completion.validation.rule.default": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "%echarts-enhanced-completion.validation.rule.default%"
-                },
-                "echarts-enhanced-completion.validation.rule.custom": {
-                    "type": "array",
-                    "description": "%echarts-enhanced-completion.validation.rule.custom%"
-                }
-            }
-        }
-    },
-    "scripts": {
-        "vscode:prepublish": "yarn run package",
-        "compile": "webpack",
-        "watch": "webpack --watch",
-        "package": "webpack --mode production --devtool hidden-source-map",
-        "test-compile": "tsc -p ./",
-        "test-watch": "tsc -watch -p ./",
-        "pretest": "yarn run test-compile && yarn run lint",
-        "lint": "eslint src --ext ts",
-        "test": "node ./out/test/runTest.js",
-        "prepare": "husky install",
-        "update:assets": "ts-node ./scripts/update/index.ts",
-        "update:assets-test": "ts-node ./scripts/update/index.ts test"
-    },
-    "devDependencies": {
-        "@types/esprima": "^4.0.3",
-        "@types/glob": "^7.1.3",
-        "@types/mocha": "^8.2.2",
-        "@types/node": "14.x",
-        "@types/vscode": "^1.58.0",
-        "@typescript-eslint/eslint-plugin": "^5.20.0",
-        "@typescript-eslint/parser": "^5.20.0",
-        "@vscode/test-electron": "^1.6.2",
-        "axios": "^0.21.1",
-        "eslint": "^7.27.0",
-        "glob": "^7.1.7",
-        "html2markdown": "^1.1.0",
-        "husky": ">=6",
-        "lint-staged": ">=10",
-        "mocha": "^8.4.0",
-        "ts-loader": "^9.2.5",
-        "ts-node": "^10.4.0",
-        "typescript": "^4.3.2",
-        "webpack": "^5.38.1",
-        "webpack-cli": "^4.7.0"
-    },
-    "dependencies": {
-        "esprima": "^4.0.1",
-        "simillar-commands": "^1.0.2"
-    },
-    "lint-staged": {
-        "*.ts": "eslint --cache --fix"
-    }
+	"name": "echarts-enhanced-completion",
+	"displayName": "Echarts Enhanced Completion",
+	"description": "Provide stronger and more friendly complements for echarts.",
+	"version": "1.4.10",
+	"publisher": "ren-wei",
+	"keywords": [
+		"echarts",
+		"vscode",
+		"extension",
+		"config",
+		"options"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ren-wei/echarts-enhanced-completion"
+	},
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.58.0"
+	},
+	"bugs": {
+		"url": "https://github.com/ren-wei/echarts-enhanced-completion/issues",
+		"email": "demonre@foxmail.com"
+	},
+	"categories": [
+		"Other"
+	],
+	"icon": "images/logo.png",
+	"activationEvents": [
+		"onLanguage:html",
+		"onLanguage:javascript",
+		"onLanguage:typescript",
+		"onLanguage:vue"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "html",
+				"path": "./snippets/index.json"
+			},
+			{
+				"language": "javascript",
+				"path": "./snippets/index.json"
+			},
+			{
+				"language": "typescript",
+				"path": "./snippets/index.json"
+			},
+			{
+				"language": "vue",
+				"path": "./snippets/index.json"
+			}
+		],
+		"configuration": {
+			"title": "Echarts Enhanced Completion",
+			"properties": {
+				"echarts-enhanced-completion.language": {
+					"type": "string",
+					"default": "auto",
+					"description": "%echarts-enhanced-completion.language%",
+					"enum": [
+						"auto",
+						"English",
+						"中文"
+					]
+				},
+				"echarts-enhanced-completion.init.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "%echarts-enhanced-completion.init.enabled%"
+				},
+				"echarts-enhanced-completion.init.onlyInit": {
+					"type": "boolean",
+					"default": false,
+					"description": "%echarts-enhanced-completion.init.onlyInit%"
+				},
+				"echarts-enhanced-completion.init.showPictures": {
+					"type": "boolean",
+					"default": true,
+					"description": "%echarts-enhanced-completion.init.showPictures%"
+				},
+				"echarts-enhanced-completion.init.custom": {
+					"type": "array",
+					"description": "%echarts-enhanced-completion.init.custom%"
+				},
+				"echarts-enhanced-completion.validation.unknownProperty": {
+					"type": "boolean",
+					"default": true,
+					"description": "%echarts-enhanced-completion.validation.unknownProperty%"
+				},
+				"echarts-enhanced-completion.validation.rule.enabled": {
+					"type": "boolean",
+					"default": true,
+					"description": "%echarts-enhanced-completion.validation.rule.enabled%"
+				},
+				"echarts-enhanced-completion.validation.rule.default": {
+					"type": "boolean",
+					"default": true,
+					"description": "%echarts-enhanced-completion.validation.rule.default%"
+				},
+				"echarts-enhanced-completion.validation.rule.custom": {
+					"type": "array",
+					"description": "%echarts-enhanced-completion.validation.rule.custom%"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run package",
+		"compile": "webpack",
+		"watch": "webpack --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
+		"test-compile": "tsc -p ./",
+		"test-watch": "tsc -watch -p ./",
+		"pretest": "yarn run test-compile && yarn run lint",
+		"lint": "eslint src --ext ts",
+		"test": "node ./out/test/runTest.js",
+		"prepare": "husky install",
+		"update:assets": "ts-node ./scripts/update/index.ts",
+		"update:assets-test": "ts-node ./scripts/update/index.ts test"
+	},
+	"devDependencies": {
+		"@types/esprima": "^4.0.3",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.2.2",
+		"@types/node": "14.x",
+		"@types/vscode": "^1.58.0",
+		"@typescript-eslint/eslint-plugin": "^5.20.0",
+		"@typescript-eslint/parser": "^5.20.0",
+		"@vscode/test-electron": "^1.6.2",
+		"axios": "^0.21.1",
+		"eslint": "^7.27.0",
+		"glob": "^7.1.7",
+		"html2markdown": "^1.1.0",
+		"husky": ">=6",
+		"lint-staged": ">=10",
+		"mocha": "^8.4.0",
+		"ts-loader": "^9.2.5",
+		"ts-node": "^10.4.0",
+		"typescript": "^4.3.2",
+		"webpack": "^5.38.1",
+		"webpack-cli": "^4.7.0"
+	},
+	"dependencies": {
+		"esprima": "^4.0.1",
+		"simillar-commands": "^1.0.2"
+	},
+	"lint-staged": {
+		"*.ts": "eslint --cache --fix"
+	},
+	"__metadata": {
+		"id": "7cacfbc7-fcf6-4db1-8465-03755632f29f",
+		"publisherDisplayName": "ren-wei",
+		"publisherId": "142ee093-58c1-4225-8f7c-832631ef30f1",
+		"isPreReleaseVersion": false
+	}
 }

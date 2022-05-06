@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import Config from './config';
 
-const cache = new Map<string, DependRules>();
+const cache = new Map<string, DependRules>(); // 缓存依赖规则的文件
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
@@ -16,17 +16,25 @@ export const disposables: vscode.Disposable[] = [
     }),
 ];
 
+/** 获取指定 key 的依赖规则 */
 export default function(key: string): DependRules {
-    if (cache.has(key)) {
-        return cache.get(key) as DependRules;
+    let fileRules: DependRules = [];
+    if (Config.defaultRule) {
+        const name = key.split('.')[0];
+        if (cache.has(name)) {
+            fileRules = cache.get(name) as DependRules;
+        } else {
+            const fileName = path.resolve(__dirname + `../../assets/rules/${Config.language}/${name}.json`);
+            if (fs.existsSync(fileName)) {
+                const result = JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
+                cache.set(key, result);
+                fileRules = result;
+            } else {
+                cache.set(key, []);
+                fileRules = [];
+            }
+        }
     }
-    const fileName = path.resolve(__dirname + `../../assets/rules/${Config.language}/${key}.json`);
-    if (fs.existsSync(fileName)) {
-        const result = JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
-        cache.set(key, result);
-        return result;
-    } else {
-        cache.set(key, []);
-        return [];
-    }
+    fileRules.push(...Config.customRule);
+    return fileRules.filter(item => item.key.includes(key));
 };

@@ -70,7 +70,7 @@ export function getOptionDesc(paths: Paths, astItem: AstItem, isArray: boolean =
         } else if (type.length === 2 && type.includes('Object') && type.includes('Array')) {
             // path 如果是字符串，那么当前是对象，否则是数组
             if (typeof path === 'string') {
-                const simple = astItem.getSimpleObjectByPaths(paths.slice(0, i)); // 获取父节点的实际的对象
+                const simple = astItem.toSimpleObject(astItem.getNodeByPaths(paths.slice(0, i))); // 获取父节点的实际的对象
                 const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(simple[rule.key]))));
                 if (target) {
                     descList = getChildren(target);
@@ -93,7 +93,7 @@ export function getOptionDesc(paths: Paths, astItem: AstItem, isArray: boolean =
     }
     // 如果处于对象中，并且同时允许对象和数组，那么需要判断是否是空对象
     if (!isArray && type.length === 2 && type.includes('Object') && type.includes('Array')) {
-        const simple = astItem.getSimpleObjectByPaths(paths); // 获取父节点的实际的对象
+        const simple = astItem.toSimpleObject(astItem.getNodeByPaths(paths)); // 获取父节点的实际的对象
         const target = descList.find(v => v.required?.every(rule => new RegExp(rule.valueRegExp).test(String(simple[rule.key]))));
         if (target) {
             descList = getChildren(target);

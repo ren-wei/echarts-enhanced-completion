@@ -201,26 +201,6 @@ export class AstItem {
         return [node, paths];
     }
 
-    /** 根据路径获取对应的 SimpleObject */
-    public getSimpleObjectByPaths(paths: Paths): SimpleObject {
-        let node = this.expression as estree.Node;
-        paths.forEach(path => {
-            switch (node.type) {
-                case esprima.Syntax.Property:
-                    if (typeof path === 'string' && node.value.type === esprima.Syntax.ObjectExpression) {
-                        node = node.value.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path) as estree.Node;
-                    } else if (typeof path === 'object' && node.value.type === esprima.Syntax.ArrayExpression) {
-                        node = node.value.elements.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as estree.Node;
-                    }
-                    break;
-                case esprima.Syntax.ObjectExpression:
-                    node = node.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path) as estree.Node;
-                    break;
-            }
-        });
-        return this.toSimpleObject(node);
-    }
-
     public patch(contentChange: vscode.TextDocumentContentChangeEvent): boolean {
         // 如果修改了注释行，那么全部重新初始化
         if (contentChange.range.start.line <= this.startRow) {
@@ -300,9 +280,55 @@ export class AstItem {
         return new vscode.Range(this.positionAt((node as estree.Property).key?.range![0]), this.positionAt((node as estree.Property).key?.range![1]));
     }
 
+    /** 获取到达节点的路径 */
+    public getPathsByNode(node: estree.Node): Paths {
+        // TODO: 需要优化
+        const result = this.getAstNode(node.range![0]);
+        return result[1];
+    }
+
+    /** 根据路径获取节点 */
+    public getNodeByPaths(paths: Paths): estree.Node | null {
+        let node = this.expression as estree.Node;
+        paths.forEach(path => {
+            if (!node) return null;
+            switch (node.type) {
+                case esprima.Syntax.Property:
+                    if (typeof path === 'string' && node.value.type === esprima.Syntax.ObjectExpression) {
+                        node = node.value.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path) as estree.Node;
+                    } else if (typeof path === 'object' && node.value.type === esprima.Syntax.ArrayExpression) {
+                        node = node.value.elements.find(item => JSON.stringify(this.toSimpleObject(item)) === JSON.stringify(path)) as estree.Node;
+                    }
+                    break;
+                case esprima.Syntax.ObjectExpression:
+                    node = node.properties.find(item => ((item as estree.Property).key as estree.Identifier)?.name === path) as estree.Node;
+                    break;
+            }
+        });
+        return node;
+    }
+
     /** expression 中的位置转换为 document 中的位置*/
     public positionAt(offset: number): vscode.Position {
         return this.document.positionAt(this.document.offsetAt(this.range.start) + offset);
+    }
+
+    /** 将节点转换为简单对象 */
+    public toSimpleObject(node: estree.Node | null): SimpleObject<string> {
+        const item: SimpleObject<string> = {};
+        if (node === null) return item;
+        switch (node.type) {
+            case esprima.Syntax.ObjectExpression:
+                node.properties.forEach((property) => {
+                    if (property.type === esprima.Syntax.Property && property.value.type === esprima.Syntax.Literal && property.key.type === esprima.Syntax.Identifier) {
+                        item[property.key.name] = property.value.raw || '';
+                    }
+                });
+                break;
+            case esprima.Syntax.Property:
+                return this.toSimpleObject(node.value);
+        }
+        return item;
     }
 
     /** 获取更新范围内的最小对象或数组节点 */
@@ -467,22 +493,5 @@ export class AstItem {
     /** 获取节点的值为节点的key列表 */
     private getNodeKeyList(node: estree.Node) {
         return Object.entries(node).filter(([key, value]) => typeof value === 'object' && key !== 'range').map(([key, value]) => key);
-    }
-
-    private toSimpleObject(node: estree.Node | null): SimpleObject<string> {
-        const item: SimpleObject<string> = {};
-        if (node === null) return item;
-        switch (node.type) {
-            case esprima.Syntax.ObjectExpression:
-                node.properties.forEach((property) => {
-                    if (property.type === esprima.Syntax.Property && property.value.type === esprima.Syntax.Literal && property.key.type === esprima.Syntax.Identifier) {
-                        item[property.key.name] = property.value.raw || '';
-                    }
-                });
-                break;
-            case esprima.Syntax.Property:
-                return this.toSimpleObject(node.value);
-        }
-        return item;
     }
 }
