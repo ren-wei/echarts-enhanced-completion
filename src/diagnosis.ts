@@ -214,7 +214,7 @@ function getDepNode(astItem: AstItem, node: estree.Property, key: string): estre
     while (i >= 0 && typeof paths[i] === 'string') {
         i--;
     }
-    paths = paths.slice(0, i);
+    paths = paths.slice(0, i + 1);
     let j = 0; // key 与路径相同的最后位置
     const keyList = key.split('.');
     const filterPaths = paths.filter(v => typeof v === 'string');

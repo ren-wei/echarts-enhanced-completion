@@ -75,7 +75,7 @@ The value type is `DependRules` and is defined as follows:
 type DependRules = DependRule[];
 
 interface DependRule {
-    /** Target key, concatenated with ., for `series` like items, use `series-line` for `series: { type: 'line' }` */
+    /** Target key, concatenated with `.`. */
     key: string;
     msg: string;
     depends: DependItem[];

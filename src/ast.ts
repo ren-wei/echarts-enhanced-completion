@@ -305,6 +305,7 @@ export class AstItem {
                     break;
             }
         });
+        if (!node) return null;
         return node;
     }
 

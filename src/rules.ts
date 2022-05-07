@@ -36,5 +36,5 @@ export default function(key: string): DependRules {
         }
     }
     fileRules.push(...Config.customRule);
-    return fileRules.filter(item => item.key.includes(key));
+    return fileRules.filter(item => item.key === key);
 };

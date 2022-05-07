@@ -52,7 +52,7 @@ interface EsprimaError {
 type DependRules = DependRule[];
 
 interface DependRule {
-    /** 目标key，以 . 连接，对于类似 series 的项，使用 series-line 表示 `series: { type: 'line' }` */
+    /** 目标key，以 . 连接 */
     key: string;
     /** 依赖提示信息 */
     msg: string;
