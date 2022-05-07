@@ -6,6 +6,22 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.5.0 (2022-05-07)
+
+### Fixed
+
+- media 选项的 option 指向 index
+
+- 值为自适应时补全null
+
+- 修复诊断程序检查数组时只检查了第一项
+
+### Changed
+
+- 与源文档同步
+
+- 配置依赖规则的 key 更新
+
 ## 1.4.10 (2022-04-23)
 
 ### Fixed
