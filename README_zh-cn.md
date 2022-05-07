@@ -1,5 +1,10 @@
 # echarts-enhanced-completion
 
+![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/ren-wei.echarts-enhanced-completion)
+![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/ren-wei.echarts-enhanced-completion)
+![Visual Studio Marketplace Installs](https://img.shields.io/visual-studio-marketplace/i/ren-wei.echarts-enhanced-completion)
+![LICENSE](https://img.shields.io/badge/license-MIT-green)
+
 这是一个用于编辑 `echarts` 的配置项时进行补全提示的 `vscode` 的扩展。
 
 ## Installed extensions
