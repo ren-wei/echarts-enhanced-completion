@@ -45,8 +45,6 @@ After install and enable the extension, add a comment on the previous line of th
 
 * Supported file types: `html`, `javascript`, `typescript`, `vue`.
 
-* Correct indentation is required in the option object. Because the end mark is judged based on indentation.
-
 * There must be no syntax errors in the option object. Because the extension needs to parse the option object when it works.
 
 ## Extension Settings
