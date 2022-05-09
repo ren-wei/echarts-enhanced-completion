@@ -124,7 +124,7 @@ function getInsertText(tree: Tree, isArray: Boolean = false): string {
             case 'number':
             case 'boolean':
             default:
-                    // 仅补全默认值
+                // 原样补全
         }
     } else if (tree.type.includes('Array')) {
         value = '[$0],';

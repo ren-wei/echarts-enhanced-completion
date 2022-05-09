@@ -391,9 +391,9 @@ function transformToTree(source: string, lang: string, tree: TreeNode | null = n
  * @param handler 处理值的回调
  */
 function parseUIControl(node: TreeNode, name: string, type: string = '', handler: Function | null = null) {
-    let r = new RegExp('<' + name + '\\s([^\\/]*)\\/>');
+    let r = new RegExp('<' + name + '\\s([^\\/]*)\\/?>');
     const m = r.exec(node.desc);
-    node.desc = node.desc.replace(r, '').trim();
+    node.desc = node.desc.replace(new RegExp(r, 'g'), '').trim();
     if (m) {
         if (type) {
             node.type = type;
