@@ -321,7 +321,7 @@ function transformToTree(source: string, lang: string, tree: TreeNode | null = n
     for (let i = 0; i < lines.length; i++) {
         const text = lines[i].trim();
         // 如果符合标题的条件，那么将其视为一个节点
-        const match = /^(#+)\s(<?[\w\.\:]+>?)\(([^\)]*)\)(?:\s=(?:\s(.*))?)?$/.exec(text);
+        const match = /^(#+)\s(<?[\w\.\:]+>?)\(([^\)]*)\)(?:\s=(?:\s*(.*))?)?$/.exec(text);
         if (match || i === lines.length - 1) {
             if (prevNode) {
                 // 解析 prevNode.desc 的 markdown 文本中的标签
