@@ -331,7 +331,7 @@ function transformToTree(source: string, lang: string, tree: TreeNode | null = n
                 prevNode.desc = prevNode.desc.replace(/<ExampleBaseOption.*<\/ExampleBaseOption>/gs, '');
                 parseUIControl(prevNode, 'ExampleUIControlBoolean');
                 parseUIControl(prevNode, 'ExampleUIControlColor', 'color', (v: string) => v[0] === '#' ? `'${v}'` : v);
-                parseUIControl(prevNode, 'ExampleUIControlEnum', 'enum', (v: string) => v.split(',').map(item => item[0] === "'" ? item : `'${item}'`).join(','));
+                parseUIControl(prevNode, 'ExampleUIControlEnum', 'enum', (v: string) => v.split(',').map(item => item[0] === "'" || ['true', 'false'].includes(item) ? item : `'${item}'`).join(','));
                 parseUIControl(prevNode, 'ExampleUIControlIcon');
                 // eslint-disable-next-line no-eval
                 parseUIControl(prevNode, 'ExampleUIControlNumber', 'number', (v: string) => v);
