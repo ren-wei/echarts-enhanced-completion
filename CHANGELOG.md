@@ -6,6 +6,20 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Released]
 
+## 1.5.2 (2022-06-05)
+
+### Fixed
+
+- 当枚举项为true和false时不转换为字符串
+
+- 删除补全默认值时的多余空格
+
+- 修复visualMap.continuous的range选项的错误
+
+### Changed
+
+- 与源文档同步
+
 ## 1.5.1 (2022-05-28)
 
 ### Changed
