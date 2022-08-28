@@ -4,7 +4,15 @@ All notable changes to the "echarts-enhanced-completion" extension will be docum
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Released]
+# [Released]
+
+## 1.5.5 (2022-08-28)
+
+### Changed
+
+- 与源文档同步
+
+- 更新依赖
 
 ## 1.5.4 (2022-06-23)
 
