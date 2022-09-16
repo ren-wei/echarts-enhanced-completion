@@ -1,10 +1,10 @@
-export interface RequiredRule {
+interface RequiredRule {
     key: string;
     value: string;
     valueRegExp: string;
 }
 
-export interface TreeNode {
+interface TreeNode {
     level: number; // 节点层级
     name: string; // 属性名称
     type: string | string[]; // 值类型
@@ -19,7 +19,7 @@ export interface TreeNode {
     parent: TreeNode | null; // 父节点
 }
 
-export interface NormalTree {
+interface NormalTree {
     name: string; // 属性名称
     type: string | string[]; // 值类型
     desc: string; // 属性的 Markdown 文档
@@ -33,7 +33,7 @@ export interface NormalTree {
     children: Tree[]; // 子节点
 }
 
-export interface DetailTree {
+interface DetailTree {
     name: string; // 属性名称
     type: string | string[]; // 值类型
     desc: string; // 属性的 Markdown 文档
@@ -47,14 +47,4 @@ export interface DetailTree {
     detailFileName: string; // 子属性所在的文件名
 }
 
-export type Tree = NormalTree | DetailTree;
-
-/** 删除在数据中无用的属性 */
-export function dealTree(t: TreeNode): Tree {
-    // @ts-ignore
-    delete t.parent;
-    // @ts-ignore
-    delete t.level;
-    t.children.forEach(v => dealTree(v));
-    return t as Tree;
-};
+type Tree = NormalTree | DetailTree;

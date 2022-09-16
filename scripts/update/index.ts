@@ -7,7 +7,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import Engine from './engine';
 import { partials, components, series } from './config';
-import { dealTree, DetailTree, NormalTree, Tree, TreeNode } from './types';
 
 (async function main() {
     ready();
@@ -343,3 +342,13 @@ function parseLink(node: TreeNode, lang: string) {
     }
     node.desc = desc;
 }
+
+/** 删除在数据中无用的属性 */
+function dealTree(t: TreeNode): Tree {
+    // @ts-ignore
+    delete t.parent;
+    // @ts-ignore
+    delete t.level;
+    t.children.forEach(v => dealTree(v));
+    return t as Tree;
+};
