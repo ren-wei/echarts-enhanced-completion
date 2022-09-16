@@ -41,7 +41,7 @@ export default {
     get language(): Languages {
         const lang = vscode.workspace.getConfiguration().get(this.name.language) as string;
         if (lang === 'auto') {
-            return vscode.extensions.getExtension('ms-ceintl.vscode-language-pack-zh-hans') ? 'zh' : 'en';
+            return vscode.env.language.startsWith('zh') ? 'zh' : 'en';
         } else {
             return lang === 'English' ? 'en' : 'zh';
         }
