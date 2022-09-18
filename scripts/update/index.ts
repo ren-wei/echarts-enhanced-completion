@@ -7,6 +7,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import Engine from './engine';
 import { partials, components, series } from './config';
+import { DetailTree, NormalTree, Tree, TreeNode } from './types';
 
 (async function main() {
     ready();
