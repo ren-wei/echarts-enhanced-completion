@@ -47,6 +47,10 @@ export default {
         }
     },
 
+    get version(): 'latest' | 'v4' {
+        return 'latest';
+    },
+
     get unknownProperty(): boolean {
         return vscode.workspace.getConfiguration().get(this.name.unknownProperty) as boolean;
     },

@@ -25,7 +25,7 @@ function getFileData(name: string): Tree[] {
     if (cache.has(name)) {
         return cache.get(name) as Tree[];
     }
-    const fileName = path.resolve(__dirname + `../../assets/desc/${Config.language}/${name}.json`);
+    const fileName = path.resolve(__dirname + `../../assets/desc/${Config.version}/${Config.language}/${name}.json`);
     const result = JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
     cache.set(name, result);
     return result;
@@ -104,6 +104,6 @@ export function getOptionDesc(paths: Paths, astItem: AstItem, isArray: boolean =
 
 /** 获取初始化选项 */
 export function getBaseOptions(): BaseOption[] {
-    const fileName = path.resolve(__dirname + '../../assets/desc/init/index.json');
+    const fileName = path.resolve(__dirname + '../../assets/init/index.json');
     return JSON.parse(fs.readFileSync(fileName, { encoding: 'utf8' }));
 }
