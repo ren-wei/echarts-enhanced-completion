@@ -8,6 +8,7 @@ export default {
         initShowPictures: 'echarts-enhanced-completion.init.showPictures',
         initCustom: 'echarts-enhanced-completion.init.custom',
         language: 'echarts-enhanced-completion.language',
+        version: 'echarts-enhanced-completion.version',
         unknownProperty: 'echarts-enhanced-completion.validation.unknownProperty',
         enabledRule: 'echarts-enhanced-completion.validation.rule.enabled',
         defaultRule: 'echarts-enhanced-completion.validation.rule.default',
@@ -48,7 +49,12 @@ export default {
     },
 
     get version(): 'latest' | 'v4' {
-        return 'latest';
+        const version = vscode.workspace.getConfiguration().get(this.name.version) as 'latest' | 'v4' | 'auto';
+        if (version === 'auto') {
+            return 'latest';
+        } else {
+            return version;
+        }
     },
 
     get unknownProperty(): boolean {
