@@ -6,7 +6,7 @@ import axios from 'axios';
 import * as fs from 'fs';
 import * as path from 'path';
 import Engine from './engine';
-import { partials, components, series } from './config';
+import { partials, components, series, partialsV4, componentsV4, seriesV4 } from './config';
 import { DetailTree, NormalTree, Tree, TreeNode } from './types';
 
 (async function main() {
@@ -16,30 +16,31 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
         const engine = new Engine();
-        const env = process.argv.length > 2 && process.argv.slice(-1)[0] !== 'production' ? 'test' : 'production';
+        const env = process.argv.length > 2 && process.argv[2] as 'test' || 'production';
+        const version = process.argv.length > 3 && process.argv[3] as 'v4' || 'master';
 
         // 编译所有模板
         await Promise.all([
             (async function() {
-                for (const name of partials) {
-                    const text = await getOption('partial/' + name, lang, env);
+                for (const name of version === 'master' ? partials : partialsV4) {
+                    const text = await getOption('partial/' + name, lang, env, version);
                     engine.parseSource(text);
                 }
             })(),
             (async function() {
-                for (const name of components) {
-                    const text = await getOption('component/' + name, lang, env);
+                for (const name of version === 'master' ? components : componentsV4) {
+                    const text = await getOption('component/' + name, lang, env, version);
                     engine.parseSource(text);
                 }
             })(),
             (async function() {
-                for (const name of series) {
-                    const text = await getOption('series/' + name, lang, env);
+                for (const name of version === 'master' ? series : seriesV4) {
+                    const text = await getOption('series/' + name, lang, env, version);
                     engine.parseSource(text);
                 }
             })(),
             (async function() {
-                const text = await getOption('option', lang, env);
+                const text = await getOption('option', lang, env, version);
                 engine.parseSource(text);
             })(),
         ]);
@@ -157,12 +158,12 @@ function ready(version = 'latest') {
 }
 
 /** 从 echarts-doc 项目中获取原始资源 */
-async function getOption(name: string, lang: string, env = 'production', version = 'latest') : Promise<string> {
+async function getOption(name: string, lang: string, env: 'production' | 'test', version: 'master' | 'v4') : Promise<string> {
     if (env === 'production') {
         // eslint-disable-next-line no-console
         console.log(`GET /${lang}/option/${name}.md`);
     }
-    const address = `https://raw.githubusercontent.com/apache/echarts-doc/master/${lang}/option/${name}.md`;
+    const address = `https://raw.githubusercontent.com/apache/echarts-doc/${version}/${lang}/option/${name}.md`;
     try {
         if (env === 'production') {
             const res = await axios.get(address);
