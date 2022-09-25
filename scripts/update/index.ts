@@ -76,7 +76,7 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
                     (option as DetailTree).detailFileName = 'index';
                 }
                 // 保存各属性
-                saveFile(child.name, lang, (child as NormalTree).children, env);
+                saveFile(child.name, lang, (child as NormalTree).children, env, version);
                 // @ts-ignore
                 delete (child as NormalTree).children;
                 (child as DetailTree).detailFileName = child.name;
@@ -94,7 +94,7 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
             }
             return result;
         }, []);
-        saveFile('index', lang, indexTree.children, env);
+        saveFile('index', lang, indexTree.children, env, version);
         // dataZoom.json、visualMap.json、series.json
         dataZoomChildren.forEach(child => {
             child.required = [{
@@ -103,7 +103,7 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
                 valueRegExp: `^['"]${child.name.split('.')[1].replace(/'/g, '')}['"]$`,
             }];
         });
-        saveFile('dataZoom', lang, dataZoomChildren, env);
+        saveFile('dataZoom', lang, dataZoomChildren, env, version);
         visualMapChildren.forEach(child => {
             child.required = [{
                 key: 'type',
@@ -111,7 +111,7 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
                 valueRegExp: `^['"]${child.name.split('.')[1].replace(/'/g, '')}['"]$`,
             }];
         });
-        saveFile('visualMap', lang, visualMapChildren, env);
+        saveFile('visualMap', lang, visualMapChildren, env, version);
         seriesChildren.forEach(child => {
             if (child.name === 'series.custom') {
                 child.required = [{
@@ -127,7 +127,7 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
                 }];
             }
         });
-        saveFile('series', lang, seriesChildren, env);
+        saveFile('series', lang, seriesChildren, env, version);
     }
 })();
 
@@ -163,7 +163,7 @@ async function getOption(name: string, lang: string, env: 'production' | 'test',
         // eslint-disable-next-line no-console
         console.log(`GET /${lang}/option/${name}.md`);
     }
-    const address = `https://raw.githubusercontent.com/apache/echarts-doc/${version}/${lang}/option/${name}.md`;
+    const address = `https://raw.githubusercontent.com/ren-wei/echarts-doc/${version}/${lang}/option/${name}.md`;
     try {
         if (env === 'production') {
             const res = await axios.get(address);
@@ -194,7 +194,7 @@ async function getOption(name: string, lang: string, env: 'production' | 'test',
 }
 
 /** 保存文件到资源文件夹 */
-function saveFile(name: string, lang: string, data: any, env = 'production', version = 'latest') {
+function saveFile(name: string, lang: string, data: any, env: 'production' | 'test', version: 'master' | 'v4') {
     const dirName = path.resolve(__dirname, `../../assets/desc/${version}/${lang}`);
     // 如果目录不存在，先创建
     if (!fs.existsSync(dirName)) {
