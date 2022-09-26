@@ -9,6 +9,10 @@ import Engine from './engine';
 import { partials, components, series, partialsV4, componentsV4, seriesV4 } from './config';
 import { DetailTree, NormalTree, Tree, TreeNode } from './types';
 
+// yarn update:assets production master
+// yarn update:assets production v4
+// yarn update:assets test master
+// yarn update:assets test v4
 (async function main() {
     ready();
     for (const lang of ['zh', 'en']) {
@@ -16,8 +20,8 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
         const engine = new Engine();
-        const env = process.argv.length > 2 && process.argv[2] as 'test' || 'production';
-        const version = process.argv.length > 3 && process.argv[3] as 'v4' || 'master';
+        const env = process.argv.length > 2 && process.argv[2] === 'test' ? 'test' : 'production';
+        const version = process.argv.length > 3 && process.argv[3] === 'v4' ? 'v4' : 'master';
 
         // 编译所有模板
         await Promise.all([
