@@ -1,0 +1,626 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。",
+        "children": []
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "children": []
+    },
+    {
+        "name": "left",
+        "type": "percent",
+        "default": "80",
+        "desc": "calendar组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
+        "children": []
+    },
+    {
+        "name": "top",
+        "type": "percent",
+        "default": "60",
+        "desc": "calendar组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
+        "children": []
+    },
+    {
+        "name": "right",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "calendar组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。",
+        "children": []
+    },
+    {
+        "name": "bottom",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "calendar组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "calendar组件的宽度。默认自适应。",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "calendar组件的高度。默认自适应。",
+        "children": []
+    },
+    {
+        "name": "range",
+        "type": [
+            "number",
+            "string",
+            "Array"
+        ],
+        "desc": "必填，日历坐标的范围 支持多种格式\n\n使用示例：\n```js\n\n// 某一年\nrange: 2017\n\n// 某个月\nrange: '2017-02'\n\n// 某个区间\nrange: ['2017-01-02', '2017-02-23']\n\n// 注意 此写法会识别为['2017-01-01', '2017-02-01']\nrange: ['2017-01', '2017-02']\n\n```",
+        "children": []
+    },
+    {
+        "name": "cellSize",
+        "type": "number",
+        "default": "20",
+        "desc": "日历每格框的大小，可设置单值 或数组  第一个元素是宽 第二个元素是高。\n支持设置自适应：`auto`, 默认为高宽均为20\n\n使用示例：\n```js\n\n// 设置宽高均为20\ncellSize: 20\n\n// 设置宽为20，高为40\ncellSize: [20, 40]\n\n// 设置宽高均为40\ncellSize: [40]\n\n// 设置宽高均自适应\ncellSize: 'auto'\n\n// 设置宽自适应，高为40\ncellSize: ['auto', 40]\n\n```",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "width",
+        "type": "number",
+        "default": "auto",
+        "desc": "日历坐标的整体宽度\n\n注意: 默认cellSize 为20，若设置了`width`的值, 则`cellSize`中的宽度强制转为`auto`;",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "height",
+        "type": "number",
+        "default": "auto",
+        "desc": "日历坐标的整体高度，\n\n注意: 默认cellSize 为20，若设置了`height`的值, 则`cellSize`中的高度强制转为`auto`;",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "orient",
+        "type": "enum",
+        "desc": "日历坐标的布局朝向。\n\n可选：\n+ 'horizontal'\n+ 'vertical'",
+        "children": [],
+        "options": "'horizontal','vertical'"
+    },
+    {
+        "name": "splitLine",
+        "type": "Object",
+        "desc": "设置日历坐标分隔线的样式。",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否显示分隔线。默认显示。",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "color",
+                "desc": "#### color(Color)= #000\n\n\n\n分隔线线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "分隔线线宽。",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "type",
+                        "type": "enum",
+                        "desc": "分隔线线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": [],
+                        "options": "'solid','dashed','dotted'"
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "default": "",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "color",
+                        "default": "",
+                        "desc": "阴影颜色。支持的格式同`color`。",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "阴影水平方向上的偏移距离。",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "阴影垂直方向上的偏移距离。",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。\n\n\n\n\n\n\n\n\n\n\n例如：\n```js\ncalendar: [{\nsplitLine: {\nshow: true,\nlineStyle: {\ncolor: '#000',\nwidth: 1,\ntype: 'solid'\n}\n}\n}]\n```",
+                        "children": [],
+                        "min": "0",
+                        "max": "1",
+                        "step": "0.01"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "itemStyle",
+        "type": "color",
+        "desc": "设置日历格的样式\n\n\n### color(Color)=#fff\n\n\n\ncalendar图形的颜色。\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+        "children": [
+            {
+                "name": "borderColor",
+                "type": "color",
+                "default": "'#ccc'",
+                "desc": "calendar图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "1",
+                "desc": "calendar描边线宽。为 0 时无描边。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "borderType",
+                "type": "enum",
+                "desc": "柱条的描边类型，默认为实线，支持 `'solid'`, `'dashed'`, `'dotted'`。",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "",
+                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "shadowColor",
+                "type": "color",
+                "default": "",
+                "desc": "阴影颜色。支持的格式同`color`。",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "阴影水平方向上的偏移距离。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "阴影垂直方向上的偏移距离。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "default": "1",
+                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。\n\n\n\n\n\n\n\n\n\n例如：\n```js\ncalendar: [{\nitemStyle: {\ncolor: '#fff',\nborderWidth: 1,\nborderColor: '#ccc'\n}\n}]\n```",
+                "children": [],
+                "min": "0",
+                "max": "1",
+                "step": "0.01"
+            }
+        ]
+    },
+    {
+        "name": "dayLabel",
+        "type": "Object",
+        "desc": "设置日历坐标中 星期轴的样式",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否在普通状态下显示标签。",
+                "children": []
+            },
+            {
+                "name": "firstDay",
+                "type": "number",
+                "default": "0",
+                "desc": "一周从周几开始，默认从周日开始\n\n例如：\n\n```js\n\ncalendar: [{\ndayLabel: {\nfirstDay: 1 // 从周一开始\n}\n}]\n\n```",
+                "children": [],
+                "min": "0",
+                "max": "6",
+                "step": "1"
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "0",
+                "desc": "星期标签与轴线之间的距离",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "position",
+                "type": "enum",
+                "desc": "星期的位置 在星期轴的开头还是结尾。\n\n可选：\n+ 'start'\n+ 'end'",
+                "children": [],
+                "options": "'start','end'"
+            },
+            {
+                "name": "nameMap",
+                "type": "number",
+                "desc": "星期显示的效果，默认为'en'\n可设置中英文以及自定义\n下标0为对应星期天的文字显示\n\n使用示例：\n```js\n// 快捷设置英文 ['S', 'M', 'T', 'W', 'T', 'F', 'S'],\nnameMap: 'en'\n// 快捷设置中文 ['日', '一', '二', '三', '四', '五', '六']\nnameMap: 'cn'\n// 自定义设置： 中英文混杂 或者不显示\nnameMap: ['S', '一', 'T', '三', '', '五', 'S'],\n\ncalendar: [{\ndayLabel: {\nnameMap: 'en'\n}\n}]\n```\n\n\n\n\n\n### color(Color)=#000\n\n\n\n文字的颜色。\n\n\n\n\n\n### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                "children": [],
+                "options": "'en','cn'",
+                "default": "12",
+                "min": "1",
+                "step": "1"
+            },
+            {
+                "name": "lineHeight",
+                "type": "vector",
+                "default": "'#fff'",
+                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "1",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "number",
+                        "desc": "##### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n\n##### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n##### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n##### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "vector",
+                                "default": "'#fff'",
+                                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n##### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n##### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n##### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n##### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n##### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n##### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n##### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n##### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "1",
+                                "dims": "LT,RT, RB, LB"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": "number",
+                                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n##### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n##### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n##### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n##### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n##### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n##### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            }
+                        ],
+                        "options": "'normal','italic','oblique'",
+                        "default": "12",
+                        "min": "1",
+                        "step": "1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "monthLabel",
+        "type": "Object",
+        "desc": "设置日历坐标中 月份轴的样式",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否在普通状态下显示标签。",
+                "children": []
+            },
+            {
+                "name": "align",
+                "type": "enum",
+                "desc": "设置月份区间内的月份文字位置。\n\n可选：\n+ 'center' // 区间内的中间\n+ 'left'  // 区间内的左边",
+                "children": [],
+                "options": "'left','center'"
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "5",
+                "desc": "月份标签与轴线之间的距离",
+                "children": [],
+                "min": "0",
+                "step": "5"
+            },
+            {
+                "name": "position",
+                "type": "enum",
+                "desc": "月份的位置 在开头还是结尾。\n\n可选：\n+ 'start'\n+ 'end'",
+                "children": [],
+                "options": "'start','end'"
+            },
+            {
+                "name": "nameMap",
+                "type": "enum",
+                "desc": "月份显示的效果，默认为'en'\n可设置中英文以及自定义\n下标0为对应一月的文字显示\n\n使用示例：\n```js\n// 快捷设置英文 [\n'Jan', 'Feb', 'Mar',\n'Apr', 'May', 'Jun',\n'Jul', 'Aug', 'Sep',\n'Oct', 'Nov', 'Dec'\n],\nnameMap: 'en'\n// 快捷设置中文 [\n'一月', '二月', '三月',\n'四月', '五月', '六月',\n'七月', '八月', '九月',\n'十月', '十一月', '十二月'\n]\nnameMap: 'cn'\n// 自定义设置： 中英文混杂 或者不显示\nnameMap: [\n'一月', 'Feb', '三月',\n'四月', 'May', '六月',\n'七月', '八月', '',\n'十月', 'Nov', '十二月'\n],\n\ncalendar: [{\nmonthLabel: {\nnameMap: 'en'\n}\n}]\n```",
+                "children": [],
+                "options": "'en','cn'"
+            },
+            {
+                "name": "formatter",
+                "type": "number",
+                "desc": "用来格式化月份文本，支持字符串模板和回调函数两种形式。\n\n示例：\n```js\n// 使用字符串模板，例如：2017-02\n/*\n模板变量{nameMap} 月份原本名称 eg：'Feb'\n模板变量{yyyy}   四位数年份 eg: 2017\n模板变量{yy}   后两位数年份 eg: 17\n模板变量{MM}   两位数月份 eg: 02\n模板变量{M}   一位数月份 eg: 2\n*/\nformatter: '{yyyy}-{MM}'\n// 使用回调函数\n/*\nparam.nameMap 月份原本名称 eg：'Feb'\nparam.yyyy   四位数年份 eg: 2017\nparam.yy   后两位数年份 eg: 17\nparam.MM   两位数月份 eg: 02\nparam.M   一位数月份 eg: 2\n*/\nformatter: function (param) {\n// ...\nreturn param.MM;\n}\n```\n\n\n\n\n\n### color(Color)=#000\n\n\n\n文字的颜色。\n\n\n\n\n\n### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                "children": [],
+                "options": "'normal','italic','oblique'",
+                "default": "12",
+                "min": "1",
+                "step": "1"
+            },
+            {
+                "name": "lineHeight",
+                "type": "vector",
+                "default": "'#fff'",
+                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "1",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "number",
+                        "desc": "##### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n\n##### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n##### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n##### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "vector",
+                                "default": "'#fff'",
+                                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n##### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n##### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n##### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n##### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n##### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n##### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n##### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n##### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "1",
+                                "dims": "LT,RT, RB, LB"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": "number",
+                                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n##### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n##### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n##### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n##### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n##### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n##### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            }
+                        ],
+                        "options": "'normal','italic','oblique'",
+                        "default": "12",
+                        "min": "1",
+                        "step": "1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "yearLabel",
+        "type": "Object",
+        "desc": "设置日历坐标中 年的样式",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否在普通状态下显示标签。",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "30",
+                "desc": "年份与轴线之间的距离",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "position",
+                "type": "enum",
+                "desc": "年份的位置\n默认横向是'left' 竖向是'top'\n\n可选：\n+ 'top'\n+ 'bottom'\n+ 'left'\n+ 'right'",
+                "children": [],
+                "options": "'top','bottom','left','right'"
+            },
+            {
+                "name": "formatter",
+                "type": "number",
+                "desc": "用来格式化年份文本，支持字符串模板和回调函数两种形式。\n默认显示当前范围的年  若区间跨年 显示('start-end')\n\n示例：\n```js\n// 使用字符串模板，例如：['2017-10-11', '2018-01-21']\n/*\n模板变量{nameMap} 年份原本名称 eg：'2017-2018'\n模板变量{start}   开始年份 eg: 2017\n模板变量{end}   结束年份 eg: 2018\n*/\n\nformatter: '{start}-{end}'\n// 使用回调函数\n/*\nparam.nameMap 年份原本名称 eg：'2017-2018'\nparam.start   开始年份 eg: 2017\nparam.end   结束年份 eg: 2018\n*/\nformatter: function (param) {\n// ...\nreturn param.end;\n}\n```\n\n\n\n\n\n### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n\n### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                "children": [],
+                "options": "'normal','italic','oblique'",
+                "default": "12",
+                "min": "1",
+                "step": "1"
+            },
+            {
+                "name": "lineHeight",
+                "type": "vector",
+                "default": "'#fff'",
+                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "1",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "number",
+                        "desc": "##### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n\n##### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n##### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n##### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "vector",
+                                "default": "'#fff'",
+                                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n##### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n##### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n##### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n##### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n##### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n##### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n##### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n##### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "1",
+                                "dims": "LT,RT, RB, LB"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": "number",
+                                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n##### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n##### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n##### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n##### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n##### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n##### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            }
+                        ],
+                        "options": "'normal','italic','oblique'",
+                        "default": "12",
+                        "min": "1",
+                        "step": "1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "silent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+        "children": []
+    }
+]

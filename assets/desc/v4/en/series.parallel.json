@@ -1,0 +1,508 @@
+[
+    {
+        "name": "type",
+        "type": "string",
+        "default": "'parallel'",
+        "desc": "",
+        "children": []
+    },
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "coordinateSystem",
+        "type": "string",
+        "default": "'parallel'",
+        "desc": "The coordinate used in the series, whose options are:\n\n\n\n\n\n\n\n\n\n\n\n+ `'parallel'`\n\nUse parallel coordinates, with [parallelIndex](https://echarts.apache.org/en/option.html#series-parallel.parallelIndex) to assign the corresponding parallel coordinate components.",
+        "children": []
+    },
+    {
+        "name": "parallelIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "Index of [parallel coordinates](https://echarts.apache.org/en/option.html#parallel) to combine with, which is useful for multiple parallel axes in one chart.",
+        "children": []
+    },
+    {
+        "name": "name",
+        "type": "string",
+        "desc": "Series name used for displaying in [tooltip](https://echarts.apache.org/en/option.html#tooltip) and filtering with [legend](https://echarts.apache.org/en/option.html#legend), or updating data and configuration with `setOption`.",
+        "children": []
+    },
+    {
+        "name": "lineStyle",
+        "type": "Object",
+        "desc": "Line style.\n\n\n### color(Color)= \"#000\"\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+        "children": [
+            {
+                "name": "width",
+                "type": "number",
+                "default": "2",
+                "desc": "line width.",
+                "children": []
+            },
+            {
+                "name": "type",
+                "type": "string",
+                "default": "solid",
+                "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "default": "0",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "emphasis",
+        "type": "Object",
+        "desc": "",
+        "children": [
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "#### color(Color)= \"#000\"\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "2",
+                        "desc": "line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "solid",
+                        "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "inactiveOpacity",
+        "type": "number",
+        "default": "0.05",
+        "desc": "When perform brush selection, the unselected lines will be set as this transparency rate (which could darken those lines).",
+        "children": []
+    },
+    {
+        "name": "activeOpacity",
+        "type": "number",
+        "default": "1",
+        "desc": "When perform brush selection, the selected lines will be set as this transparency rate (which could highlight those lines).",
+        "children": []
+    },
+    {
+        "name": "realtime",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to update view in realtime.",
+        "children": []
+    },
+    {
+        "name": "smooth",
+        "type": [
+            "boolean",
+            "number"
+        ],
+        "default": "false",
+        "desc": "Whether to smooth the line. It defaults to be `false` and can be set as `true` or the values from 0 to 1 which indicating the smoothness.",
+        "children": []
+    },
+    {
+        "name": "progressive",
+        "type": "number",
+        "default": "500",
+        "desc": "`progressive` specifies the amount of graphic elements that can be rendered within a frame (about 16ms) if \"progressive rendering\" enabled.\n\nWhen data amount is from thousand to more than 10 million, it will take too long time to render all of the graphic elements. Since ECharts 4, \"progressive rendering\" is supported in its workflow, which processes and renders data chunk by chunk alone with each frame, avoiding to block the UI thread of the browser.\n\nSet `progressive: 0` to disable progressive permanently. By default, progressive is auto-enabled when data amount is bigger than `progressiveThreshold`.",
+        "children": []
+    },
+    {
+        "name": "progressiveThreshold",
+        "type": "number",
+        "default": "3000",
+        "desc": "If current data amount is over the threshold, \"progressive rendering\" is enabled.",
+        "children": []
+    },
+    {
+        "name": "progressiveChunkMode",
+        "type": "string",
+        "default": "sequential",
+        "desc": "Chunk approach, optional values:\n+ `'sequential'`: slice data by data index.\n+ `'mod'`: slice data by mod, which make the data items of each chunk coming from all over the data, bringing better visual effect while progressive rendering.",
+        "children": []
+    },
+    {
+        "name": "data",
+        "type": "Array",
+        "desc": "For example, [series-parallel.data](https://echarts.apache.org/en/option.html#series-parallel.data) is the following data:\n\n```javascript\n[\n[1,  55,  9,   56,  0.46,  18,  6,  'good'],\n[2,  25,  11,  21,  0.65,  34,  9,  'excellent'],\n[3,  56,  7,   63,  0.3,   14,  5,  'good'],\n[4,  33,  7,   29,  0.33,  16,  6,  'excellent'],\n{ // Data item can also be an Object, so that perticular settings of its line can be set here.\nvalue: [5,  42,  24,  44,  0.76,  40,  16, 'excellent']\nlineStyle: {...},\n}\n...\n]\n```\nIn data above, each row is a \"data item\", and each column represents a \"dimension\". For example, the meanings of columns above are: \"data\", \"AQI\", \"PM2.5\", \"PM10\", \"carbon monoxide level\", \"nitrogen dioxide level\", and \"sulfur dioxide level\".",
+        "children": [
+            {
+                "name": "name",
+                "type": "string",
+                "desc": "The name of a data item.",
+                "children": []
+            },
+            {
+                "name": "value",
+                "type": "Array",
+                "desc": "The value of a data item.",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "Line style.\n\n\n### color(Color)= \"#000\"\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": "number",
+                "default": "2",
+                "desc": "line width.",
+                "children": []
+            },
+            {
+                "name": "type",
+                "type": "string",
+                "default": "solid",
+                "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "default": "0",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                "children": []
+            },
+            {
+                "name": "emphasis",
+                "type": "Object",
+                "desc": "",
+                "children": [
+                    {
+                        "name": "lineStyle",
+                        "type": "Object",
+                        "desc": "##### color(Color)= \"#000\"\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "width",
+                                "type": "number",
+                                "default": "2",
+                                "desc": "line width.",
+                                "children": []
+                            },
+                            {
+                                "name": "type",
+                                "type": "string",
+                                "default": "solid",
+                                "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "`zlevel` value of all graphical elements in parallel.\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "`z` value of all graphical elements in parallel, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "children": []
+    },
+    {
+        "name": "silent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+        "children": []
+    },
+    {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to enable animation.",
+        "children": []
+    },
+    {
+        "name": "animationThreshold",
+        "type": "number",
+        "default": "2000",
+        "desc": "Whether to set graphic number threshold to animation. Animation will be disabled when graphic number is larger than threshold.",
+        "children": []
+    },
+    {
+        "name": "animationDuration",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "1000",
+        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "children": []
+    },
+    {
+        "name": "animationEasing",
+        "type": "string",
+        "default": "linear",
+        "desc": "Easing method used for the first animation. Varied easing effects can be found at [easing effect example](line-easing).",
+        "children": []
+    },
+    {
+        "name": "animationDelay",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "children": []
+    },
+    {
+        "name": "animationDurationUpdate",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "300",
+        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "children": []
+    },
+    {
+        "name": "animationEasingUpdate",
+        "type": "string",
+        "default": "cubicOut",
+        "desc": "Easing method used for animation.",
+        "children": []
+    },
+    {
+        "name": "animationDelayUpdate",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.\n\n\n\n\n\n\n\n## tooltip\n\ntooltip settings in this series.",
+        "children": [
+            {
+                "name": "position",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nThe position of the tooltip's floating layer, which would follow the position of mouse by default.\n\nOptions:\n\n+ `Array`\n\nDisplay the position of tooltip's floating layer through array, which supports absolute position and relative percentage.\n\nExample:\n\n```js\n// absolute position, which is 10px to the left side and 10px to the top side of the container\nposition: [10, 10]\n// relative position, in the exact center of the container\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\nCallback function in the following form:\n```js\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**Parameters:**<br>\npoint: Mouse position.<br>\nparam: The same as formatter.<br>\ndom: The DOM object of tooltip.<br>\nrect: It is valid only when mouse is on graphic elements, which stands for a bounding box with `x`, `y`, `width`, and `height`.<br>\nsize: The size of dom echarts container. For example: `{contentSize: [width, height], viewSize: [width, height]}`. <br>\n\n**Return:**<br>\nReturn value is an array standing for tooltip position, which can be absolute pixels, or relative percentage.<br>\nOr can be an object, like `{left: 10, top: 30}`, or `{right: '20%', bottom: 40}`.<br>\n\nFor example:\n```js\nposition: function (point, params, dom, rect, size) {\n// fixed at top\nreturn [point[0], '10%'];\n}\n```\nOr:\n```js\nposition: function (pos, params, dom, rect, size) {\n// tooltip will be fixed on the right if mouse hovering on the left,\n// and on the left if hovering on the right.\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n+ `'inside'`\n\nCenter position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'top'`\n\nTop position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'left'`\n\nLeft position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'right'`\n\nRight position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'bottom'`\n\nBottom position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nThe content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be refered as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```js\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```js\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\nWhen [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```js\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "children": []
+            },
+            {
+                "name": "backgroundColor",
+                "type": "Color",
+                "default": "'rgba(50,50,50,0.7)'",
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nThe background color of tooltip's floating layer.",
+                "children": []
+            },
+            {
+                "name": "borderColor",
+                "type": "Color",
+                "default": "'#333'",
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nThe border color of tooltip's floating layer.",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "0",
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nThe border width of tooltip's floating layer.",
+                "children": []
+            },
+            {
+                "name": "padding",
+                "type": "number",
+                "default": "5",
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe floating layer of tooltip space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
+                "children": []
+            },
+            {
+                "name": "textStyle",
+                "type": "Object",
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nThe text syle of tooltip's floating layer.\n\n\n\n\n\n\n\n#### color(Color)='#fff'\n\ntext color.\n\n\n\n\n\n#### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n#### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n#### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n#### fontSize(number)=14\n\nfont size.",
+                "children": [
+                    {
+                        "name": "lineHeight",
+                        "type": "number",
+                        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "width",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                        "children": []
+                    },
+                    {
+                        "name": "height",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n#### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n#### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n#### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n#### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n#### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n#### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "extraCssText",
+                "type": "string",
+                "desc": "<br>\n> **Notice：**series.tooltip only works when [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.<br>\n\n\n\n\n\n\n\n\n\n\n\nExtra CSS style for floating layer. The following is an example for adding shadow.\n\n```js\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                "children": []
+            }
+        ]
+    }
+]

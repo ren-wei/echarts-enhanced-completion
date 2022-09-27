@@ -1,0 +1,1713 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to show toolbox component.",
+        "children": []
+    },
+    {
+        "name": "orient",
+        "type": "string",
+        "default": "'horizontal'",
+        "desc": "The layout orientation of toolbox's icon.\n\nOptions:\n+ 'horizontal'\n+ 'vertical'",
+        "children": []
+    },
+    {
+        "name": "itemSize",
+        "type": "number",
+        "default": "15",
+        "desc": "The size of toolbox's icon.",
+        "children": []
+    },
+    {
+        "name": "itemGap",
+        "type": "number",
+        "default": "10",
+        "desc": "The gap between each icon of toolbox. It is horizontal gap in horizontal layout, while vertical gap in vertical layout.",
+        "children": []
+    },
+    {
+        "name": "showTitle",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to show the title of each tool icon when mouse hovers.",
+        "children": []
+    },
+    {
+        "name": "feature",
+        "type": "Object",
+        "desc": "The configuration item for each tool.\n\nBesides the tools we provide, user-defined toolbox is also supported.\n\nNotes: User-defined tool name could only start with `my`, like `myTool1` and `myTool2` in the below example:\n\n```javascript\n{\ntoolbox: {\nfeature: {\nmyTool1: {\nshow: true,\ntitle: 'custom extension method 1',\nicon: 'path://M432.45,595.444c0,2.177-4.661,6.82-11.305,6.82c-6.475,0-11.306-4.567-11.306-6.82s4.852-6.812,11.306-6.812C427.841,588.632,432.452,593.191,432.45,595.444L432.45,595.444z M421.155,589.876c-3.009,0-5.448,2.495-5.448,5.572s2.439,5.572,5.448,5.572c3.01,0,5.449-2.495,5.449-5.572C426.604,592.371,424.165,589.876,421.155,589.876L421.155,589.876z M421.146,591.891c-1.916,0-3.47,1.589-3.47,3.549c0,1.959,1.554,3.548,3.47,3.548s3.469-1.589,3.469-3.548C424.614,593.479,423.062,591.891,421.146,591.891L421.146,591.891zM421.146,591.891',\nonclick: function (){\nalert('myToolHandler1')\n}\n},\nmyTool2: {\nshow: true,\ntitle: 'custom extension method',\nicon: 'image://http://echarts.baidu.com/images/favicon.png',\nonclick: function (){\nalert('myToolHandler2')\n}\n}\n}\n}\n}\n```",
+        "children": [
+            {
+                "name": "saveAsImage",
+                "type": "Object",
+                "desc": "Save as image.",
+                "children": [
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "'png'",
+                        "desc": "File suffix of the image saved.\n\n+ If the `renderer` is set to be `'canvas'` when chart [initialized](api.html#echarts.init) (default), then `'png'` (default) and `'jpeg'` are supported.\n+ If the `renderer` is set to be `'svg'` when when chart [initialized](api.html#echarts.init), then only `'svg'` is supported for `type` (`'svg'` type is supported since `v4.8.0`).",
+                        "children": []
+                    },
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "desc": "Name to save the image, whose default value is [title.text](https://echarts.apache.org/en/option.html#title.text).",
+                        "children": []
+                    },
+                    {
+                        "name": "backgroundColor",
+                        "type": "Color",
+                        "default": "'auto'",
+                        "desc": "Background color to save the image, whose default value is [backgroundColor](https://echarts.apache.org/en/option.html#backgroundColor). If `backgroundColor` is not set, white color is used.",
+                        "children": []
+                    },
+                    {
+                        "name": "connectedBackgroundColor",
+                        "type": "Color",
+                        "default": "'#fff'",
+                        "desc": "When [echarts.connect](api.html#echarts.connect) is used to connect the interaction of multiple chart series, they will all be included in the exported image. This option sets the background color between these charts.",
+                        "children": []
+                    },
+                    {
+                        "name": "excludeComponents",
+                        "type": "Array",
+                        "default": "['toolbox']",
+                        "desc": "Components to be excluded when export. By default, toolbox is excluded.",
+                        "children": []
+                    },
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show the tool.",
+                        "children": []
+                    },
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "default": "'save as image'",
+                        "desc": "#### icon\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "iconStyle",
+                        "type": "Object",
+                        "desc": "The style setting of save as image icon. Since icon label is displayed only when hovering on the icon, the label configuration options are available under `emphasis`.\n\n\n##### color(Color)=none\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "borderColor",
+                                "type": "Color",
+                                "default": "#666",
+                                "desc": "border color, whose format is similar to that of `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "border width. No border when it is set to be 0.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "string",
+                                "default": "'solid'",
+                                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "emphasis",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "iconStyle",
+                                "type": "Object",
+                                "desc": "###### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                                "children": [
+                                    {
+                                        "name": "borderColor",
+                                        "type": "Color",
+                                        "default": "\"#000\"",
+                                        "desc": "border color, whose format is similar to that of `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderWidth",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "border width. No border when it is set to be 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderType",
+                                        "type": "string",
+                                        "default": "'solid'",
+                                        "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowBlur",
+                                        "type": "number",
+                                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowColor",
+                                        "type": "Color",
+                                        "desc": "Shadow color. Support same format as `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the horizontal direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the vertical direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "opacity",
+                                        "type": "number",
+                                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPosition",
+                                        "type": "string",
+                                        "default": "'bottom'",
+                                        "desc": "Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textFill",
+                                        "type": "string",
+                                        "default": "'#000'",
+                                        "desc": "Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textAlign",
+                                        "type": "string",
+                                        "default": "'center'",
+                                        "desc": "Text align: `'left'` / `'center'` / `'right'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBackgroundColor",
+                                        "type": "string",
+                                        "desc": "Text background color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderRadius",
+                                        "type": "number",
+                                        "desc": "Border radius of text area.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPadding",
+                                        "type": "number",
+                                        "desc": "Padding of text area.",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "pixelRatio",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "Resolution ratio to save image, whose default value is that of the container. Values larger than 1 (e.g.: 2) is supported when you need higher resolution.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "restore",
+                "type": "Object",
+                "desc": "Restore configuration item.",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show the tool.",
+                        "children": []
+                    },
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "default": "'restore'",
+                        "desc": "#### icon\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "iconStyle",
+                        "type": "Object",
+                        "desc": "The style setting of restore icon. Since icon label is displayed only when hovering on the icon, the label configuration options are available under `emphasis`.\n\n\n##### color(Color)=none\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "borderColor",
+                                "type": "Color",
+                                "default": "#666",
+                                "desc": "border color, whose format is similar to that of `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "border width. No border when it is set to be 0.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "string",
+                                "default": "'solid'",
+                                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "emphasis",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "iconStyle",
+                                "type": "Object",
+                                "desc": "###### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                                "children": [
+                                    {
+                                        "name": "borderColor",
+                                        "type": "Color",
+                                        "default": "\"#000\"",
+                                        "desc": "border color, whose format is similar to that of `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderWidth",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "border width. No border when it is set to be 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderType",
+                                        "type": "string",
+                                        "default": "'solid'",
+                                        "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowBlur",
+                                        "type": "number",
+                                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowColor",
+                                        "type": "Color",
+                                        "desc": "Shadow color. Support same format as `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the horizontal direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the vertical direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "opacity",
+                                        "type": "number",
+                                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPosition",
+                                        "type": "string",
+                                        "default": "'bottom'",
+                                        "desc": "Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textFill",
+                                        "type": "string",
+                                        "default": "'#000'",
+                                        "desc": "Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textAlign",
+                                        "type": "string",
+                                        "default": "'center'",
+                                        "desc": "Text align: `'left'` / `'center'` / `'right'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBackgroundColor",
+                                        "type": "string",
+                                        "desc": "Text background color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderRadius",
+                                        "type": "number",
+                                        "desc": "Border radius of text area.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPadding",
+                                        "type": "number",
+                                        "desc": "Padding of text area.",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "dataView",
+                "type": "Object",
+                "desc": "Data view tool, which could display data in current chart and updates chart after being edited.",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show the tool.",
+                        "children": []
+                    },
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "default": "'data view'",
+                        "desc": "#### icon\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "iconStyle",
+                        "type": "Object",
+                        "desc": "The style setting of data view icon. Since icon label is displayed only when hovering on the icon, the label configuration options are available under `emphasis`.\n\n\n##### color(Color)=none\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "borderColor",
+                                "type": "Color",
+                                "default": "#666",
+                                "desc": "border color, whose format is similar to that of `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "border width. No border when it is set to be 0.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "string",
+                                "default": "'solid'",
+                                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "emphasis",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "iconStyle",
+                                "type": "Object",
+                                "desc": "###### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                                "children": [
+                                    {
+                                        "name": "borderColor",
+                                        "type": "Color",
+                                        "default": "\"#000\"",
+                                        "desc": "border color, whose format is similar to that of `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderWidth",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "border width. No border when it is set to be 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderType",
+                                        "type": "string",
+                                        "default": "'solid'",
+                                        "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowBlur",
+                                        "type": "number",
+                                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowColor",
+                                        "type": "Color",
+                                        "desc": "Shadow color. Support same format as `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the horizontal direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the vertical direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "opacity",
+                                        "type": "number",
+                                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPosition",
+                                        "type": "string",
+                                        "default": "'bottom'",
+                                        "desc": "Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textFill",
+                                        "type": "string",
+                                        "default": "'#000'",
+                                        "desc": "Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textAlign",
+                                        "type": "string",
+                                        "default": "'center'",
+                                        "desc": "Text align: `'left'` / `'center'` / `'right'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBackgroundColor",
+                                        "type": "string",
+                                        "desc": "Text background color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderRadius",
+                                        "type": "number",
+                                        "desc": "Border radius of text area.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPadding",
+                                        "type": "number",
+                                        "desc": "Padding of text area.",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "readOnly",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "Whether it is read-only.",
+                        "children": []
+                    },
+                    {
+                        "name": "optionToContent",
+                        "type": "Function",
+                        "desc": "```js\n(option:Object) => HTMLDomElement|string\n```\n\nDefine a function to present dataView. It is used to replace default textarea for richer data editing. It can return a DOM object, or an HTML string.\n\nFor example:\n```js\noptionToContent: function(opt) {\nvar axisData = opt.xAxis[0].data;\nvar series = opt.series;\nvar table = '<table style=\"width:100%;text-align:center\"><tbody><tr>'\n+ '<td>Time:</td>'\n+ '<td>' + series[0].name + '</td>'\n+ '<td>' + series[1].name + '</td>'\n+ '</tr>';\nfor (var i = 0, l = axisData.length; i < l; i++) {\ntable += '<tr>'\n+ '<td>' + axisData[i] + '</td>'\n+ '<td>' + series[0].data[i] + '</td>'\n+ '<td>' + series[1].data[i] + '</td>'\n+ '</tr>';\n}\ntable += '</tbody></table>';\nreturn table;\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "contentToOption",
+                        "type": "Function",
+                        "desc": "```js\n(container:HTMLDomElement, option:Object) => Object\n```\n\nWhen optionToContent is used, if you want to support refreshing chart after data changes, you need to implement the logic to merge options in this function.",
+                        "children": []
+                    },
+                    {
+                        "name": "lang",
+                        "type": "Array",
+                        "default": "['data view', 'turn off', 'refresh']",
+                        "desc": "There are 3 names in data view, which are `['data view', 'turn off' and 'refresh']`.",
+                        "children": []
+                    },
+                    {
+                        "name": "backgroundColor",
+                        "type": "string",
+                        "default": "'#fff'",
+                        "desc": "Background color of the floating layer in data view.",
+                        "children": []
+                    },
+                    {
+                        "name": "textareaColor",
+                        "type": "string",
+                        "default": "'#fff'",
+                        "desc": "Background color of input area of the floating layer in data view.",
+                        "children": []
+                    },
+                    {
+                        "name": "textareaBorderColor",
+                        "type": "string",
+                        "default": "'#333'",
+                        "desc": "Border color of input area of the floating layer in data view.",
+                        "children": []
+                    },
+                    {
+                        "name": "textColor",
+                        "type": "string",
+                        "default": "'#000'",
+                        "desc": "Text color.",
+                        "children": []
+                    },
+                    {
+                        "name": "buttonColor",
+                        "type": "string",
+                        "default": "'#c23531'",
+                        "desc": "Button color.",
+                        "children": []
+                    },
+                    {
+                        "name": "buttonTextColor",
+                        "type": "string",
+                        "default": "'#fff'",
+                        "desc": "Color of button text.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "dataZoom",
+                "type": "Object",
+                "desc": "Data area zooming, which only supports rectangular coordinate by now.",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show the tool.",
+                        "children": []
+                    },
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "default": "'data area zooming'",
+                        "desc": "#### icon\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "iconStyle",
+                        "type": "Object",
+                        "desc": "The style setting of data area zooming icon. Since icon label is displayed only when hovering on the icon, the label configuration options are available under `emphasis`.\n\n\n##### color(Color)=none\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "borderColor",
+                                "type": "Color",
+                                "default": "#666",
+                                "desc": "border color, whose format is similar to that of `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "border width. No border when it is set to be 0.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "string",
+                                "default": "'solid'",
+                                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "emphasis",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "iconStyle",
+                                "type": "Object",
+                                "desc": "###### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                                "children": [
+                                    {
+                                        "name": "borderColor",
+                                        "type": "Color",
+                                        "default": "\"#000\"",
+                                        "desc": "border color, whose format is similar to that of `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderWidth",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "border width. No border when it is set to be 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderType",
+                                        "type": "string",
+                                        "default": "'solid'",
+                                        "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowBlur",
+                                        "type": "number",
+                                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowColor",
+                                        "type": "Color",
+                                        "desc": "Shadow color. Support same format as `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the horizontal direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the vertical direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "opacity",
+                                        "type": "number",
+                                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPosition",
+                                        "type": "string",
+                                        "default": "'bottom'",
+                                        "desc": "Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textFill",
+                                        "type": "string",
+                                        "default": "'#000'",
+                                        "desc": "Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textAlign",
+                                        "type": "string",
+                                        "default": "'center'",
+                                        "desc": "Text align: `'left'` / `'center'` / `'right'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBackgroundColor",
+                                        "type": "string",
+                                        "desc": "Text background color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderRadius",
+                                        "type": "number",
+                                        "desc": "Border radius of text area.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPadding",
+                                        "type": "number",
+                                        "desc": "Padding of text area.",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "filterMode",
+                        "type": "string",
+                        "default": "'filter'",
+                        "desc": "The same meaning as [dataZoom.filterMode](https://echarts.apache.org/en/option.html#dataZoom.filterMode).",
+                        "children": []
+                    },
+                    {
+                        "name": "xAxisIndex",
+                        "type": [
+                            "number",
+                            "Array",
+                            "boolean"
+                        ],
+                        "desc": "Defines which [xAxis](https://echarts.apache.org/en/option.html#xAxis) should be controlled. By default, it controls all x axes. If it is set to be `false`, then no x axis is controlled. If it is set to be then it controls axis with axisIndex of `3`. If it is set to be `[0, 3]`, it controls the x-axes with axisIndex of `0` and `3`.",
+                        "children": []
+                    },
+                    {
+                        "name": "yAxisIndex",
+                        "type": [
+                            "number",
+                            "Array",
+                            "boolean"
+                        ],
+                        "desc": "Defines which [yAxis](https://echarts.apache.org/en/option.html#yAxis) should be controlled. By default, it controls all y axes. If it is set to be `false`, then no y axis is controlled. If it is set to be then it controls axis with axisIndex of `3`. If it is set to be `[0, 3]`, it controls the x-axes with axisIndex of `0` and `3`.",
+                        "children": []
+                    },
+                    {
+                        "name": "icon",
+                        "type": "Object",
+                        "desc": "Zooming and restore icon path.",
+                        "children": [
+                            {
+                                "name": "zoom",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "back",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "type": "Object",
+                        "desc": "Restored and zoomed title text.",
+                        "children": [
+                            {
+                                "name": "zoom",
+                                "type": "string",
+                                "default": "'area zooming'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "back",
+                                "type": "string",
+                                "default": "'restore area zooming'",
+                                "desc": "",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "brushStyle",
+                        "type": "Object",
+                        "desc": "Style of brush rectangle.\n\n\n##### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "borderColor",
+                                "type": "Color",
+                                "default": "\"#000\"",
+                                "desc": "border color, whose format is similar to that of `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "border width. No border when it is set to be 0.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "string",
+                                "default": "'solid'",
+                                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "magicType",
+                "type": "Object",
+                "desc": "Magic type switching.\n**示例: **\n```js\nfeature: {\nmagicType: {\ntype: ['line', 'bar', 'stack', 'tiled']\n}\n}\n```",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show the magic type switching.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "Array",
+                        "desc": "Enabled magic types, including `'line'` (for line charts), `'bar'` (for bar charts), `'stack'` (for stacked charts), and `'tiled'` (for tiled charts).",
+                        "children": []
+                    },
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show the tool.",
+                        "children": []
+                    },
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "default": "'magic type switching'",
+                        "desc": "#### icon\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "iconStyle",
+                        "type": "Object",
+                        "desc": "The style setting of magic type switching icon. Since icon label is displayed only when hovering on the icon, the label configuration options are available under `emphasis`.\n\n\n##### color(Color)=none\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "borderColor",
+                                "type": "Color",
+                                "default": "#666",
+                                "desc": "border color, whose format is similar to that of `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "border width. No border when it is set to be 0.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "string",
+                                "default": "'solid'",
+                                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "Color",
+                                "desc": "Shadow color. Support same format as `color`.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the horizontal direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Offset distance on the vertical direction of shadow.",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "emphasis",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "iconStyle",
+                                "type": "Object",
+                                "desc": "###### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                                "children": [
+                                    {
+                                        "name": "borderColor",
+                                        "type": "Color",
+                                        "default": "\"#000\"",
+                                        "desc": "border color, whose format is similar to that of `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderWidth",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "border width. No border when it is set to be 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderType",
+                                        "type": "string",
+                                        "default": "'solid'",
+                                        "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowBlur",
+                                        "type": "number",
+                                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowColor",
+                                        "type": "Color",
+                                        "desc": "Shadow color. Support same format as `color`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the horizontal direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Offset distance on the vertical direction of shadow.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "opacity",
+                                        "type": "number",
+                                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPosition",
+                                        "type": "string",
+                                        "default": "'bottom'",
+                                        "desc": "Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textFill",
+                                        "type": "string",
+                                        "default": "'#000'",
+                                        "desc": "Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textAlign",
+                                        "type": "string",
+                                        "default": "'center'",
+                                        "desc": "Text align: `'left'` / `'center'` / `'right'`.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBackgroundColor",
+                                        "type": "string",
+                                        "desc": "Text background color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderRadius",
+                                        "type": "number",
+                                        "desc": "Border radius of text area.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textPadding",
+                                        "type": "number",
+                                        "desc": "Padding of text area.",
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "icon",
+                        "type": "Object",
+                        "desc": "the different types of icon path , which could be configurated individually.",
+                        "children": [
+                            {
+                                "name": "line",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "bar",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "stack",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "tiled",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "type": "Object",
+                        "desc": "Title for different types, can be configured seperately.",
+                        "children": [
+                            {
+                                "name": "line",
+                                "type": "string",
+                                "default": "'for line charts'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "bar",
+                                "type": "string",
+                                "default": "'for bar charts'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "stack",
+                                "type": "string",
+                                "default": "'for stacked charts'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "tiled",
+                                "type": "string",
+                                "default": "'for tiled charts'",
+                                "desc": "",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "option",
+                        "type": "Object",
+                        "desc": "Configuration item for each type, which will be used when switching to certain type.",
+                        "children": [
+                            {
+                                "name": "line",
+                                "type": "Object",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "bar",
+                                "type": "Object",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "stack",
+                                "type": "Object",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "tiled",
+                                "type": "Object",
+                                "desc": "",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "seriesIndex",
+                        "type": "Object",
+                        "desc": "Series list for each type.",
+                        "children": [
+                            {
+                                "name": "line",
+                                "type": "Array",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "bar",
+                                "type": "Array",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "stack",
+                                "type": "Array",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "tiled",
+                                "type": "Array",
+                                "desc": "",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "brush",
+                "type": "Object",
+                "desc": "Brush-selecting icon.\n\nIt can also be configured at [brush.toolbox](https://echarts.apache.org/en/option.html#brush.toolbox).",
+                "children": [
+                    {
+                        "name": "type",
+                        "type": "Array",
+                        "desc": "Icons used, whose values are:\n\n+ `'rect'`: Enabling selecting with rectangle area.\n+ `'polygon'`: Enabling selecting with any shape.\n+ `'lineX'`: Enabling horizontal selecting.\n+ `'lineY'`: Enabling vertical selecting.\n+ `'keep'`: Switching between *single selecting* and *multiple selecting*. The latter one can select multiple areas, while the former one cancels previous selection.\n+ `'clear'`: Clearing all selection.",
+                        "children": []
+                    },
+                    {
+                        "name": "icon",
+                        "type": "Object",
+                        "desc": "Icon path for each icon.",
+                        "children": [
+                            {
+                                "name": "rect",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "polygon",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "lineX",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "lineY",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "keep",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "clear",
+                                "type": "string",
+                                "desc": "It can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "title",
+                        "type": "Object",
+                        "desc": "Title.",
+                        "children": [
+                            {
+                                "name": "rect",
+                                "type": "string",
+                                "default": "'Rectangle selection'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "polygon",
+                                "type": "string",
+                                "default": "'Polygon selection'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "lineX",
+                                "type": "string",
+                                "default": "'Horizontal selection'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "lineY",
+                                "type": "string",
+                                "default": "'Vertical selection'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "keep",
+                                "type": "string",
+                                "default": "'Keep previous selection'",
+                                "desc": "",
+                                "children": []
+                            },
+                            {
+                                "name": "clear",
+                                "type": "string",
+                                "default": "'Clear selection'",
+                                "desc": "",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "iconStyle",
+        "type": "Object",
+        "desc": "The style setting of Shared icon. Since icon label is displayed only when hovering on the icon, the label configuration options are available under `emphasis`.\n\n\n### color(Color)=none\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+        "children": [
+            {
+                "name": "borderColor",
+                "type": "Color",
+                "default": "#666",
+                "desc": "border color, whose format is similar to that of `color`.",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "1",
+                "desc": "border width. No border when it is set to be 0.",
+                "children": []
+            },
+            {
+                "name": "borderType",
+                "type": "string",
+                "default": "'solid'",
+                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "emphasis",
+        "type": "Object",
+        "desc": "",
+        "children": [
+            {
+                "name": "iconStyle",
+                "type": "Object",
+                "desc": "#### color(Color)=null\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "borderColor",
+                        "type": "Color",
+                        "default": "\"#000\"",
+                        "desc": "border color, whose format is similar to that of `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "borderWidth",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "border width. No border when it is set to be 0.",
+                        "children": []
+                    },
+                    {
+                        "name": "borderType",
+                        "type": "string",
+                        "default": "'solid'",
+                        "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    },
+                    {
+                        "name": "textPosition",
+                        "type": "string",
+                        "default": "'bottom'",
+                        "desc": "Text position: `'left'` / `'right'` / `'top'` / `'bottom'`.",
+                        "children": []
+                    },
+                    {
+                        "name": "textFill",
+                        "type": "string",
+                        "default": "'#000'",
+                        "desc": "Fill color of text. If it's not set, it will use in the order of icon's fill color, stroke color, and `'#000'`.",
+                        "children": []
+                    },
+                    {
+                        "name": "textAlign",
+                        "type": "string",
+                        "default": "'center'",
+                        "desc": "Text align: `'left'` / `'center'` / `'right'`.",
+                        "children": []
+                    },
+                    {
+                        "name": "textBackgroundColor",
+                        "type": "string",
+                        "desc": "Text background color.",
+                        "children": []
+                    },
+                    {
+                        "name": "textBorderRadius",
+                        "type": "number",
+                        "desc": "Border radius of text area.",
+                        "children": []
+                    },
+                    {
+                        "name": "textPadding",
+                        "type": "number",
+                        "desc": "Padding of text area.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "children": []
+    },
+    {
+        "name": "left",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between toolbox component and the left side of the container.\n\n`left` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
+        "children": []
+    },
+    {
+        "name": "top",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between toolbox component and the top side of the container.\n\n`top` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
+        "children": []
+    },
+    {
+        "name": "right",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between toolbox component and the right side of the container.\n\n`right` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "children": []
+    },
+    {
+        "name": "bottom",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between toolbox component and the bottom side of the container.\n\n`bottom` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Width of toolbox component. Adaptive by default.",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Height of toolbox component. Adaptive by default.",
+        "children": []
+    },
+    {
+        "name": "tooltip",
+        "type": "Object",
+        "desc": "Tooltip configuration for toolbox tooltip, which is similar to [tooltip](https://echarts.apache.org/en/option.html#tooltip). It is not shown by default. If you wish to set special style for toolbox icon label (especially when using CSS to control text style), you may set as the following example:\n\n\n```js\noption = {\ntooltip: {\nshow: true // include tooltip component for the feature\n},\ntoolbox: {\nshow: true,\nshowTitle: false, // hide the default text so they don't overlap each other\nfeature: {\nsaveAsImage: {\nshow: true,\ntitle: 'Save As Image'\n},\ndataView: {\nshow: true,\ntitle: 'Data View'\n},\n},\ntooltip: { // same as option.tooltip\nshow: true,\nformatter: function (param) {\nreturn return '<div>' + param.title + '</div>'; // user-defined DOM structure\n},\nbackgroundColor: '#222',\ntextStyle: {\nfontSize: 12,\n},\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);' // user-defined CSS styles\n}\n},\n...\n}\n```",
+        "children": []
+    }
+]

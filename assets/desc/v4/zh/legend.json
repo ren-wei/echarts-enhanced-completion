@@ -1,0 +1,760 @@
+[
+    {
+        "name": "type",
+        "type": "enum",
+        "desc": "图例的类型。可选值：\n\n+ `'plain'`：普通图例。缺省就是普通图例。\n+ `'scroll'`：可滚动翻页的图例。当图例数量较多时可以使用。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。\n\n当使用 `'scroll'` 时，使用这些设置进行细节配置：\n+ [legend.scrollDataIndex](https://echarts.apache.org/zh/option.html#legend.scrollDataIndex)\n+ [legend.pageButtonItemGap](https://echarts.apache.org/zh/option.html#legend.pageButtonItemGap)\n+ [legend.pageButtonGap](https://echarts.apache.org/zh/option.html#legend.pageButtonGap)\n+ [legend.pageButtonPosition](https://echarts.apache.org/zh/option.html#legend.pageButtonPosition)\n+ [legend.pageFormatter](https://echarts.apache.org/zh/option.html#legend.pageFormatter)\n+ [legend.pageIcons](https://echarts.apache.org/zh/option.html#legend.pageIcons)\n+ [legend.pageIconColor](https://echarts.apache.org/zh/option.html#legend.pageIconColor)\n+ [legend.pageIconInactiveColor](https://echarts.apache.org/zh/option.html#legend.pageIconInactiveColor)\n+ [legend.pageIconSize](https://echarts.apache.org/zh/option.html#legend.pageIconSize)\n+ [legend.pageTextStyle](https://echarts.apache.org/zh/option.html#legend.pageTextStyle)\n+ [legend.animation](https://echarts.apache.org/zh/option.html#legend.animation)\n+ [legend.animationDurationUpdate](https://echarts.apache.org/zh/option.html#legend.animationDurationUpdate)",
+        "children": [],
+        "options": "'plain','scroll'"
+    },
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。",
+        "children": []
+    },
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "true",
+        "desc": "",
+        "children": []
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "children": []
+    },
+    {
+        "name": "left",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "图例组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
+        "children": []
+    },
+    {
+        "name": "top",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "图例组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
+        "children": []
+    },
+    {
+        "name": "right",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "图例组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。",
+        "children": []
+    },
+    {
+        "name": "bottom",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "图例组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "图例组件的宽度。默认自适应。",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "图例组件的高度。默认自适应。",
+        "children": []
+    },
+    {
+        "name": "orient",
+        "type": "enum",
+        "desc": "图例列表的布局朝向。\n\n可选：\n+ `'horizontal'`\n+ `'vertical'`",
+        "children": [],
+        "options": "'vertical','horizontal'"
+    },
+    {
+        "name": "align",
+        "type": "enum",
+        "desc": "图例标记和文本的对齐。默认自动，根据组件的位置和 orient 决定，当组件的 [left](https://echarts.apache.org/zh/option.html#legend.left) 值为 `'right'` 以及纵向布局（[orient](https://echarts.apache.org/zh/option.html#legend.orient) 为 `'vertical'`）的时候为右对齐，即为 `'right'`。\n\n可选：\n+ `'auto'`\n+ `'left'`\n+ `'right'`",
+        "children": [],
+        "options": "'auto','left','right'"
+    },
+    {
+        "name": "padding",
+        "type": "vector",
+        "default": "5",
+        "desc": "图例内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```js\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+        "children": [],
+        "dims": "T,R,B,L",
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "itemGap",
+        "type": "number",
+        "default": "10",
+        "desc": "图例每项之间的间隔。横向布局时为水平间隔，纵向布局时为纵向间隔。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "itemWidth",
+        "type": "number",
+        "default": "25",
+        "desc": "图例标记的图形宽度。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "itemHeight",
+        "type": "number",
+        "default": "14",
+        "desc": "图例标记的图形高度。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "symbolKeepAspect",
+        "type": "boolean",
+        "default": "true",
+        "desc": "如果图标（可能来自系列的 `symbol` 或用户自定义的 `legend.data.icon`）是 `path://` 的形式，是否在缩放时保持该图形的长宽比。",
+        "children": []
+    },
+    {
+        "name": "formatter",
+        "type": [
+            "string",
+            "Function"
+        ],
+        "default": "null",
+        "desc": "用来格式化图例文本，支持字符串模板和回调函数两种形式。\n\n示例：\n```js\n// 使用字符串模板，模板变量为图例名称 {name}\nformatter: 'Legend {name}'\n// 使用回调函数\nformatter: function (name) {\nreturn 'Legend ' + name;\n}\n```",
+        "children": []
+    },
+    {
+        "name": "selectedMode",
+        "type": [
+            "string",
+            "boolean"
+        ],
+        "default": "true",
+        "desc": "图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 `false` 关闭。\n\n除此之外也可以设成 `'single'` 或者  `'multiple'` 使用单选或者多选模式。",
+        "children": [],
+        "options": "true,false,single,multiple"
+    },
+    {
+        "name": "inactiveColor",
+        "type": "color",
+        "default": "'#ccc'",
+        "desc": "图例关闭时的颜色。",
+        "children": []
+    },
+    {
+        "name": "selected",
+        "type": "Object",
+        "desc": "图例选中状态表。\n\n示例：\n```\nselected: {\n// 选中'系列1'\n'系列1': true,\n// 不选中'系列2'\n'系列2': false\n}\n```",
+        "children": []
+    },
+    {
+        "name": "textStyle",
+        "type": "number",
+        "desc": "图例的公用文本样式。\n\n\n\n\n\n### color(Color)=#333\n\n\n\n文字的颜色。\n\n\n\n\n\n### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n### fontSize(number)=12\n\n\n\n文字的字体大小。",
+        "children": [
+            {
+                "name": "lineHeight",
+                "type": "vector",
+                "default": "'#fff'",
+                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "1",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "number",
+                        "desc": "##### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n\n##### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n##### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n##### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "vector",
+                                "default": "'#fff'",
+                                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n##### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n##### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n##### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n##### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n##### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n##### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n##### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n##### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "1",
+                                "dims": "LT,RT, RB, LB"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": "number",
+                                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n##### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n##### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n##### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n##### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n##### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n##### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            }
+                        ],
+                        "options": "'normal','italic','oblique'",
+                        "default": "12",
+                        "min": "1",
+                        "step": "1"
+                    }
+                ]
+            }
+        ],
+        "options": "'normal','italic','oblique'",
+        "default": "12",
+        "min": "1",
+        "step": "1"
+    },
+    {
+        "name": "tooltip",
+        "type": "Object",
+        "desc": "图例的 tooltip 配置，配置项同 [tooltip](https://echarts.apache.org/zh/option.html#tooltip)。默认不显示，可以在 legend 文字很多的时候对文字做裁剪并且开启 tooltip，如下示例：\n\n```js\nlegend: {\nformatter: function (name) {\nreturn echarts.format.truncateText(name, 40, '14px Microsoft Yahei', '…');\n},\ntooltip: {\nshow: true\n}\n}\n```",
+        "children": []
+    },
+    {
+        "name": "icon",
+        "type": "string",
+        "desc": "图例项的 icon。\n\n\n\nECharts 提供的标记类型包括\n`'circle'`, `'rect'`, `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`, `'none'`\n\n\n\n\n\n\n可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。\n\nURL 为图片链接例如：\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nURL 为 `dataURI` 例如：\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。\n\n例如：\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+        "children": []
+    },
+    {
+        "name": "data",
+        "type": "Array",
+        "desc": "图例的数据数组。数组项通常为一个字符串，每一项代表一个系列的 `name`（如果是[饼图](https://echarts.apache.org/zh/option.html#series-pie)，也可以是饼图单个数据的 `name`）。图例组件会自动根据对应系列的图形标记（symbol）来绘制自己的颜色和标记，特殊字符串 `''`（空字符串）或者 `'\\n'`（换行字符串）用于图例的换行。\n\n如果 `data` 没有被指定，会自动从当前系列中获取。多数系列会取自 [series.name](https://echarts.apache.org/zh/option.html#series.name) 或者 [series.encode](https://echarts.apache.org/zh/option.html#series.encode) 的 `seriesName` 所指定的维度。如 [饼图](https://echarts.apache.org/zh/option.html#series-pie) and [漏斗图](https://echarts.apache.org/zh/option.html#series-funnel) 等会取自 series.data 中的 name。\n\n如果要设置单独一项的样式，也可以把该项写成配置项对象。此时必须使用 `name` 属性对应表示系列的 `name`。\n\n示例\n```\ndata: [{\nname: '系列1',\n// 强制设置图形为圆。\nicon: 'circle',\n// 设置文本为红色\ntextStyle: {\ncolor: 'red'\n}\n}]\n```",
+        "children": [
+            {
+                "name": "name",
+                "type": "string",
+                "desc": "图例项的名称，应等于某系列的`name`值（如果是饼图，也可以是饼图单个数据的 `name`）。",
+                "children": []
+            },
+            {
+                "name": "icon",
+                "type": "string",
+                "desc": "图例项的 icon。\n\n\n\nECharts 提供的标记类型包括\n`'circle'`, `'rect'`, `'roundRect'`, `'triangle'`, `'diamond'`, `'pin'`, `'arrow'`, `'none'`\n\n\n\n\n\n\n可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。\n\nURL 为图片链接例如：\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nURL 为 `dataURI` 例如：\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。\n\n例如：\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```",
+                "children": []
+            },
+            {
+                "name": "textStyle",
+                "type": "Object",
+                "desc": "图例项的文本样式。",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "backgroundColor",
+        "type": "color",
+        "default": "'transparent'",
+        "desc": "图例背景色，默认透明。\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`   ，如果想要加上 alpha 通道，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`",
+        "children": []
+    },
+    {
+        "name": "borderColor",
+        "type": "color",
+        "default": "'#ccc'",
+        "desc": "图例的边框颜色。支持的颜色格式同 backgroundColor。",
+        "children": []
+    },
+    {
+        "name": "borderWidth",
+        "type": "number",
+        "default": "1",
+        "desc": "图例的边框线宽。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "borderRadius",
+        "type": "vector",
+        "default": "0",
+        "desc": "圆角半径，单位px，支持传入数组分别指定 4 个圆角半径。\n如:\n```\nborderRadius: 5, // 统一设置四个角的圆角大小\nborderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）\n```",
+        "children": [],
+        "min": "0",
+        "dims": "LT,RT,RB,LB"
+    },
+    {
+        "name": "shadowBlur",
+        "type": "number",
+        "default": "",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true` 以及值不为 `tranparent` 的背景色 `backgroundColor`。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "shadowColor",
+        "type": "color",
+        "default": "",
+        "desc": "阴影颜色。支持的格式同`color`。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": []
+    },
+    {
+        "name": "shadowOffsetX",
+        "type": "number",
+        "default": "0",
+        "desc": "阴影水平方向上的偏移距离。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "shadowOffsetY",
+        "type": "number",
+        "default": "0",
+        "desc": "阴影垂直方向上的偏移距离。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "scrollDataIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例当前最左上显示项的 `dataIndex`。\n\n`setOption` 时指定此项的话，可决定当前图例滚动到哪里。\n\n但是，如果仅仅想改变图例翻页，一般并不调用 `setOption`（因为这太重量了），仅仅使用 action [legendScroll](api.html#action.legend.legendScroll) 即可。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageButtonItemGap",
+        "type": "number",
+        "default": "5",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例控制块中，按钮和页信息之间的间隔。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageButtonGap",
+        "type": "number",
+        "default": "null",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例控制块和图例项之间的间隔。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageButtonPosition",
+        "type": "string",
+        "default": "'end'",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例控制块的位置。可选值为：\n\n+ `'start'`：控制块在左或上。\n+ `'end'`：控制块在右或下。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageFormatter",
+        "type": [
+            "string",
+            "Function"
+        ],
+        "default": "'{current}/{total}'",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例控制块中，页信息的显示格式。默认为 `'{current}/{total}'`，其中 `{current}` 是当前页号（从 1 开始计数），`{total}` 是总页数。\n\n如果 `pageFormatter` 使用函数，须返回字符串，参数为：\n```js\n{\ncurrent: number\ntotal: number\n}\n```\n\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageIcons",
+        "type": "Object",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例控制块的图标。",
+        "children": [
+            {
+                "name": "horizontal",
+                "type": "Array",
+                "desc": "[legend.orient](https://echarts.apache.org/zh/option.html#legend.orient) 为 `'horizontal'` 时的翻页按钮图标。\n\n是一个数组，表示 `[previous page button, next page button]`。默认值为 `['M0,0L12,-10L12,10z', 'M0,0L-12,-10L-12,10z']`，。\n\n数组中每项，\n\n\n\n可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。\n\nURL 为图片链接例如：\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nURL 为 `dataURI` 例如：\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。\n\n例如：\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\n\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+                "children": []
+            },
+            {
+                "name": "vertical",
+                "type": "Array",
+                "desc": "[legend.orient](https://echarts.apache.org/zh/option.html#legend.orient) 为 `'vertical'` 时的翻页按钮图标。\n\n是一个数组，表示 `[previous page button, next page button]`。默认值为 `['M0,0L20,0L10,-20z', 'M0,0L20,0L10,20z']`，。\n\n数组中每项，\n\n\n\n可以通过 `'image://url'` 设置为图片，其中 URL 为图片的链接，或者 `dataURI`。\n\nURL 为图片链接例如：\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nURL 为 `dataURI` 例如：\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n可以通过 `'path://'` 将图标设置为任意的矢量路径。这种方式相比于使用图片的方式，不用担心因为缩放而产生锯齿或模糊，而且可以设置为任意颜色。路径图形会自适应调整为合适的大小。路径的格式参见 [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData)。可以从 Adobe Illustrator 等工具编辑导出。\n\n例如：\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\n\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "pageIconColor",
+        "type": "color",
+        "default": "'#2f4554'",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n翻页按钮的颜色。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageIconInactiveColor",
+        "type": "color",
+        "default": "'#aaa'",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n翻页按钮不激活时（即翻页到头时）的颜色。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": []
+    },
+    {
+        "name": "pageIconSize",
+        "type": "vector",
+        "default": "15",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n翻页按钮的大小。可以是数字，也可以是数组，如 `[10, 3]`，表示 `[宽，高]`。\n\n参见 [滚动图例（垂直）](pie-legend&edit=1&reset=1) 或 [滚动图例（水平）](radar2&edit=1&reset=1)。",
+        "children": [],
+        "dims": "w,h"
+    },
+    {
+        "name": "pageTextStyle",
+        "type": "number",
+        "desc": "[legend.type](https://echarts.apache.org/zh/option.html#legend.type) 为 `'scroll'` 时有效。\n\n图例页信息的文字样式。\n\n\n\n\n\n\n\n### color(Color)=#333\n\n\n\n文字的颜色。\n\n\n\n\n\n### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n### fontSize(number)=12\n\n\n\n文字的字体大小。",
+        "children": [
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "default": "12",
+                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            }
+        ],
+        "options": "'normal','italic','oblique'",
+        "default": "12",
+        "min": "1",
+        "step": "1"
+    },
+    {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
+        "desc": "图例翻页是否使用动画。",
+        "children": []
+    },
+    {
+        "name": "animationDurationUpdate",
+        "type": "number",
+        "default": "800",
+        "desc": "图例翻页时的动画时长。",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "emphasis",
+        "type": "Object",
+        "desc": "",
+        "children": [
+            {
+                "name": "selectorLabel",
+                "type": "Object",
+                "desc": "> 从 `v4.4.0` 开始支持",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "是否显示标签。",
+                        "children": []
+                    },
+                    {
+                        "name": "distance",
+                        "type": "number",
+                        "default": "5",
+                        "desc": "距离图形元素的距离。当 position 为字符描述值（如 `'top'`、`'insideRight'`）时候有效。\n\n参见：[label position](doc-example/label-position)。",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "rotate",
+                        "type": "angle",
+                        "default": "0",
+                        "desc": "标签旋转。从 -90 度到 90 度。正值是逆时针。\n\n参见：[label rotation](bar-label-rotation)。",
+                        "children": [],
+                        "min": "-90",
+                        "max": "90",
+                        "step": "1"
+                    },
+                    {
+                        "name": "offset",
+                        "type": "vector",
+                        "desc": "是否对文字进行偏移。默认不偏移。例如：`[30, 40]` 表示文字在横向上偏移 `30`，纵向上偏移 `40`。\n\n\n\n\n\n\n\n\n\n#### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n\n#### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n#### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n#### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n#### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n#### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n#### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                        "children": [],
+                        "options": "'normal','italic','oblique'",
+                        "default": "12",
+                        "min": "1",
+                        "step": "0.5",
+                        "dims": "x,y"
+                    },
+                    {
+                        "name": "lineHeight",
+                        "type": "vector",
+                        "default": "'#fff'",
+                        "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n#### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n#### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n#### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n#### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n#### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n#### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n#### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n#### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n#### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                        "children": [],
+                        "min": "0",
+                        "step": "1",
+                        "dims": "LT,RT, RB, LB"
+                    },
+                    {
+                        "name": "width",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                        "children": []
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n#### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n#### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n#### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n#### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n#### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n#### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "rich",
+                        "type": "Object",
+                        "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                        "children": [
+                            {
+                                "name": "<style_name>",
+                                "type": "number",
+                                "desc": "###### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n\n###### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n###### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n###### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n###### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n###### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n###### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                                "children": [
+                                    {
+                                        "name": "lineHeight",
+                                        "type": "vector",
+                                        "default": "'#fff'",
+                                        "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n###### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n###### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n###### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n###### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n###### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n###### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n###### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n###### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n###### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "1",
+                                        "dims": "LT,RT, RB, LB"
+                                    },
+                                    {
+                                        "name": "width",
+                                        "type": [
+                                            "number",
+                                            "string"
+                                        ],
+                                        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "height",
+                                        "type": "number",
+                                        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n###### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n###### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n###### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n###### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n###### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n###### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "0.5"
+                                    }
+                                ],
+                                "options": "'normal','italic','oblique'",
+                                "default": "12",
+                                "min": "1",
+                                "step": "1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "selector",
+        "type": [
+            "boolean",
+            "Array"
+        ],
+        "default": "false",
+        "desc": "> 从 `v4.4.0` 开始支持\n\n\n\n\n图例组件中的选择器按钮，目前包括全选和反选两种功能。默认不显示，用户可手动开启，也可以手动配置每个按钮的标题。\n\n使用方式如下：\n\n```js\nselector: [\n{\ntype: 'all or inverse',\n// 可以是任意你喜欢的 title\ntitle: '全选'\n},\n{\ntype: 'inverse',\ntitle: '反选'\n}\n]\n\n// 或\nselector: true\n\n// 或\nselector: ['all', 'inverse']\n```",
+        "children": []
+    },
+    {
+        "name": "selectorLabel",
+        "type": "Object",
+        "desc": "> 从 `v4.4.0` 开始支持\n\n\n\n\n选择器按钮的文本标签样式，默认显示。",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否显示标签。",
+                "children": []
+            },
+            {
+                "name": "distance",
+                "type": "number",
+                "default": "5",
+                "desc": "距离图形元素的距离。当 position 为字符描述值（如 `'top'`、`'insideRight'`）时候有效。\n\n参见：[label position](doc-example/label-position)。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rotate",
+                "type": "angle",
+                "default": "0",
+                "desc": "标签旋转。从 -90 度到 90 度。正值是逆时针。\n\n参见：[label rotation](bar-label-rotation)。",
+                "children": [],
+                "min": "-90",
+                "max": "90",
+                "step": "1"
+            },
+            {
+                "name": "offset",
+                "type": "vector",
+                "desc": "是否对文字进行偏移。默认不偏移。例如：`[30, 40]` 表示文字在横向上偏移 `30`，纵向上偏移 `40`。\n\n\n\n\n\n\n\n\n\n### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n\n### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                "children": [],
+                "options": "'normal','italic','oblique'",
+                "default": "12",
+                "min": "1",
+                "step": "0.5",
+                "dims": "x,y"
+            },
+            {
+                "name": "lineHeight",
+                "type": "vector",
+                "default": "'#fff'",
+                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "1",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "在 `rich` 里面，可以自定义富文本样式。利用富文本样式，可以在标签中做出非常丰富的效果。\n\n例如：\n\n```js\nlabel: {\n// 在文本中，可以对部分文本采用 rich 中定义样式。\n// 这里需要在文本中使用标记符号：\n// `{styleName|text content text content}` 标记样式名。\n// 注意，换行仍是使用 '\\n'。\nformatter: [\n'{a|这段文本采用样式a}',\n'{b|这段文本采用样式b}这段用默认样式{x|这段用样式x}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\n详情参见教程：[富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "number",
+                        "desc": "##### color(Color)=\"#fff\"\n\n\n\n文字的颜色。\n\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n\n##### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n##### fontSize(number)=12\n\n\n\n文字的字体大小。\n\n\n\n##### align(string)=\n\n\n\n文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```js\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\n\n\n文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "vector",
+                                "default": "'#fff'",
+                                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\n\n\n文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n##### borderColor(Color)='transparent'\n\n\n\n文字块边框颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n##### borderWidth(number)=0\n\n\n\n文字块边框宽度。\n\n##### borderRadius(number|Array)=0\n\n\n\n文字块的圆角。\n\n##### padding(number|Array)=0\n\n\n\n文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n##### shadowColor(Color)='transparent'\n\n\n\n文字块的背景阴影颜色。\n\n##### shadowBlur(number)=0\n\n\n\n文字块的背景阴影长度。\n\n##### shadowOffsetX(number)=0\n\n\n\n文字块的背景阴影 X 偏移。\n\n##### shadowOffsetY(number)=0\n\n\n\n文字块的背景阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "1",
+                                "dims": "LT,RT, RB, LB"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": "number",
+                                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n##### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n如果设置为 `'auto'`，则为视觉映射得到的颜色，如系列色。\n\n\n\n\n\n\n\n\n##### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n##### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n##### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n##### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n##### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            }
+                        ],
+                        "options": "'normal','italic','oblique'",
+                        "default": "12",
+                        "min": "1",
+                        "step": "1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "selectorPosition",
+        "type": "enum",
+        "desc": "> 从 `v4.4.0` 开始支持\n\n\n\n\n选择器的位置，可以放在图例的尾部或者头部，对应的值分别为 `'end'` 和 `'start'`。默认情况下，图例横向布局的时候，选择器放在图例的尾部；图例纵向布局的时候，选择器放在图例的头部。",
+        "children": [],
+        "options": "'auto','start','end'"
+    },
+    {
+        "name": "selectorItemGap",
+        "type": "number",
+        "default": "7",
+        "desc": "> 从 `v4.4.0` 开始支持\n\n\n\n\n选择器按钮之间的间隔。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "selectorButtonGap",
+        "type": "number",
+        "default": "10",
+        "desc": "> 从 `v4.4.0` 开始支持\n\n\n\n\n选择器按钮与图例组件之间的间隔。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    }
+]

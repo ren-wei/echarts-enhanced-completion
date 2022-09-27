@@ -1,0 +1,518 @@
+[
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to show the tooltip component, including tooltip floating layer and [axisPointer](https://echarts.apache.org/en/option.html#tooltip.axisPointer).",
+        "children": []
+    },
+    {
+        "name": "trigger",
+        "type": "string",
+        "default": "'item'",
+        "desc": "Type of triggering.\n\nOptions:\n+ `'item'`\n\nTriggered by data item, which is mainly used for charts that don't have a category axis like scatter charts or pie charts.\n\n+ `'axis'`\n\nTriggered by axes, which is mainly used for charts that have category axes, like bar charts or line charts.\n\nECharts 2.x only supports axis trigger for category axis. In ECharts 3, it is supported for all types of axes in [grid](https://echarts.apache.org/en/option.html#grid) or [polar](https://echarts.apache.org/en/option.html#polar). Also, you may assign axis with [axisPointer.axis](https://echarts.apache.org/en/option.html#tooltip.axisPointer.axis).\n\n+ `'none'`\n\nTrigger nothing.",
+        "children": []
+    },
+    {
+        "name": "axisPointer",
+        "type": "Object",
+        "desc": "Configuration item for axisPointer.\n\n`tooltip.axisPointer` is like syntactic sugar of axisPointer settings on axes (for example, [xAxis.axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer) or [angleAxis.axisPointer](https://echarts.apache.org/en/option.html#angleAxis.axisPointer)). More detailed features can be configured on `someAxis.axisPointer`. But in common cases, using `tooltip.axisPointer` is more convenient.\n\n> **Notice:** configurations of `tooltip.axisPointer` has lower priority than that of `someAxis.axisPointer`.\n\n---\n\n\n\n`axisPointer` is a tool for displaying reference line and axis value under mouse pointer.\n\nFor example:\n~[600x450](https://echarts.apache.org/examples/en/view.html?c=doc-example/candlestick-axisPointer&edit=1&reset=1)\n\nIn the demo above, [axisPointer.link](https://echarts.apache.org/en/option.html#axisPointer.link) is used to link axisPointer from different coordinate systems.\n\n\n`axisPointer` can also be used on touch device, where user can drag the button to move the reference line and label.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=line-tooltip-touch&edit=1&reset=1)\n\nIn the cases that more than one axis exist, axisPointer helps to look inside the data.\n\n~[600x300](https://echarts.apache.org/examples/en/view.html?c=multiple-y-axis&edit=1&reset=1)\n~[600x300](https://echarts.apache.org/examples/en/view.html?c=multiple-x-axis&edit=1&reset=1)\n\n\n---\n\n> **Notice:**\n> Generally, axisPointers is configured in each axes who need them (for example [xAxis.axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer)), or configured in `tooltip` (for example [tooltip.axisPointer](https://echarts.apache.org/en/option.html#tooltip.axisPointer)).\n\n> But these configurations can only be configured in global axisPointer:\n[axisPointer.triggerOn](https://echarts.apache.org/en/option.html#axisPointer.triggerOn), [axisPointer.link](https://echarts.apache.org/en/option.html#axisPointer.link).\n\n---\n\n\n\n---\n\n**How to display axisPointer:**\n\nIn [cartesian (grid)](https://echarts.apache.org/en/option.html#grid) and [polar](https://echarts.apache.org/en/option.html#polar) and (single axis](~single), each axis has its own axisPointer.\n\nThose axisPointer will not be displayed by default, utill configured as follows:\n\n+ Set `someAxis.axisPointer.show` (like [xAxis.axisPointer.show](https://echarts.apache.org/en/option.html#xAxis.axisPointer.show)) as `true`. Then axisPointer of this axis will be displayed.\n\n+ Set [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) as `'axis'`, or set [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) as `'cross'`. Then coordinate system will automatically chose the axes who will display their axisPointers. ([tooltip.axisPointer.axis](https://echarts.apache.org/en/option.html#tooltip.axisPointer.axis) can be used to change the choice.) Notice, `axis.axisPointer` will override `tooltip.axisPointer` settings.\n\n---\n\n**How to display the label of axisPointer:**\n\nThe label of axisPointer will not be displayed by default(namely, only reference line will be displayed by default), utill configured as follows:\n\n+ Set `someAxis.axisPointer.label.show` (for example [xAxis.axisPointer.label.show](https://echarts.apache.org/en/option.html#xAxis.axisPointer.show)) as `true`. Then the label of the axisPointer will be displayed.\n\n+ Set [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) as  `'cross'`. Then the label of the crossed axisPointers will be displayed.\n\n---\n\n**How to configure axisPointer on touch device:**\n\nSet `someAxis.axisPointer.handle.show` (for example [xAxis.axisPointer.handle.show](https://echarts.apache.org/en/option.html#xAxis.axisPointer.handle.show) as `true`. Then the button for dragging will be displayed. (This feature is not supported on polar).\n\n**Notice:**\nIf tooltip does not work well in this case, try to set[tooltip.triggerOn](https://echarts.apache.org/en/option.html#tooltip.triggerOn) as `'none'` (for the effect: show tooltip when finger holding on the button, and hide tooltip after finger left the button), or set [tooltip.alwaysShowContent](https://echarts.apache.org/en/option.html#tooltip.alwaysShowContent) as `true` (then tooltip will always be displayed).\n\nSee the [example](line-tooltip-touch&edit=1&reset=1).\n\n\n---\n\n**Snap to point**\n\nIn value axis and time axis, if [snap](https://echarts.apache.org/en/option.html#xAxis.axisPointer.snap) is set as true, axisPointer will snap to point automatically.\n\n---",
+        "children": [
+            {
+                "name": "type",
+                "type": "string",
+                "default": "'line'",
+                "desc": "Indicator type.\n\nOptions:\n+ `'line'` line indicator.\n\n+ `'shadow'` shadow crosshair indicator.\n\n+ `'none'` no indicator displayed.\n\n+ `'cross'` crosshair indicator, which is actually the shortcut of enable two axisPointers of two orthometric axes.",
+                "children": []
+            },
+            {
+                "name": "axis",
+                "type": "string",
+                "default": "'auto'",
+                "desc": "The coordinate axis, which could be `'x'`, `'y'`, `'radius'`, or `'angle'`. By default, each coordinate system will automatically chose the axes whose will display its axisPointer (category axis or time axis is used by default).",
+                "children": []
+            },
+            {
+                "name": "snap",
+                "type": "boolean",
+                "desc": "Whether snap to point automatically. The default value is auto determined.\n\nThis feature usually makes sense in value axis and time axis, where tiny points can be seeked automatically.",
+                "children": []
+            },
+            {
+                "name": "z",
+                "type": "number",
+                "desc": "z value, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.",
+                "children": []
+            },
+            {
+                "name": "label",
+                "type": "Object",
+                "desc": "label of axisPointer",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "Whether show label. Label will not show by default. But if [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is set as  `'cross'`, label will be displayed automatically.",
+                        "children": []
+                    },
+                    {
+                        "name": "precision",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "default": "'auto'",
+                        "desc": "The precision of value in label. It is auto determined by default. You can also set it as `'2'`, which indicates that two decimal fractions are reserved.",
+                        "children": []
+                    },
+                    {
+                        "name": "formatter",
+                        "type": [
+                            "string",
+                            "Function"
+                        ],
+                        "default": "null",
+                        "desc": "The formatter of label.\n\nIf set as `string`, for example it can be: `formatter: 'some text {value} some text`, where `{value}` will be replaced by axis value automatically.\n\nIf set as `function`:\n\n**Parameters:**\n\n`{Object}` params: Including fields as follows:\n\n`{Object}` params.value: current value of this axis. If `axis.type` is `'category'`, it is one of the value in `axis.data`. If `axis.type` is `'time'`, it is a timestamp.\n\n`{Array.<Object>}` params.seriesData: An array, containing info of nearest points. Each item is:\n\n`{string}` params.axisDimension: The dimension name of the axis. For example, in catesian it will be `'x'`, `'y'`, and in polar it will be `'radius'`, `'angle'`.\n\n`{number}` params.axisIndex: The index of the axis, for example, `0`,`1`, `2`, ...\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n\n\nEach item also includes axis infomation:\n\n```js\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // The current value of axisPointer\naxisValueLabel: 'text of value'\n}\n```\n\n\n\n**Return:**\n\nThe string to be displayed.\n\nFor example:\n```js\nformatter: function (params) {\n// If axis.type is 'time'\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "margin",
+                        "type": "boolean",
+                        "default": "3",
+                        "desc": "Distance between label and axis.\n\n\n\n\n\n\n\n\n#### color(Color)='#fff'\n\ntext color.\n\n\n\n\n\n#### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n#### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n#### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n#### fontSize(number)=12\n\nfont size.",
+                        "children": []
+                    },
+                    {
+                        "name": "lineHeight",
+                        "type": "number",
+                        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "width",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                        "children": []
+                    },
+                    {
+                        "name": "height",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n#### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n#### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n#### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n#### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n#### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n#### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                        "children": []
+                    },
+                    {
+                        "name": "padding",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "default": "[5, 7, 5, 7]",
+                        "desc": "axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```\n\n\n####backgroundColor(string) = 'auto'\n\nBackground color of label, the same as [axis.axisLine.lineStyle.color](https://echarts.apache.org/en/option.html#xAxis.axisLine.lineStyle.color) by default.\n\n####borderColor(string) = null\n\nBorder color of label.\n\n####borderWidth(string) = 0\n\nBorder width of label.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "default": "3",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "default": "#aaa",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'line'`.\n\n\n\n#### color(Color)= #555\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "solid",
+                        "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "shadowStyle",
+                "type": "Object",
+                "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'shadow'`.\n\n\n\n#### color(Color)= 'rgba(150,150,150,0.3)\n\nFill color.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "crossStyle",
+                "type": "Object",
+                "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'cross'`.\n\n\n\n#### color(Color)= #555\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "dashed",
+                        "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "animation",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Whether to enable animation.",
+                "children": []
+            },
+            {
+                "name": "animationThreshold",
+                "type": "number",
+                "default": "2000",
+                "desc": "Whether to set graphic number threshold to animation. Animation will be disabled when graphic number is larger than threshold.",
+                "children": []
+            },
+            {
+                "name": "animationDuration",
+                "type": [
+                    "number",
+                    "Function"
+                ],
+                "default": "1000",
+                "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+                "children": []
+            },
+            {
+                "name": "animationEasing",
+                "type": "string",
+                "default": "cubicOut",
+                "desc": "Easing method used for the first animation. Varied easing effects can be found at [easing effect example](line-easing).",
+                "children": []
+            },
+            {
+                "name": "animationDelay",
+                "type": [
+                    "number",
+                    "Function"
+                ],
+                "default": "0",
+                "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```js\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+                "children": []
+            },
+            {
+                "name": "animationDurationUpdate",
+                "type": [
+                    "number",
+                    "Function"
+                ],
+                "default": "200",
+                "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```js\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+                "children": []
+            },
+            {
+                "name": "animationEasingUpdate",
+                "type": "string",
+                "default": "exponentialOut",
+                "desc": "Easing method used for animation.",
+                "children": []
+            },
+            {
+                "name": "animationDelayUpdate",
+                "type": [
+                    "number",
+                    "Function"
+                ],
+                "default": "0",
+                "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```js\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "showContent",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to show the tooltip floating layer, whose default value is true. It should be configurated to be `false`, if you only need tooltip to trigger the event or show the axisPointer without content.",
+        "children": []
+    },
+    {
+        "name": "alwaysShowContent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether to show tooltip content all the time. By default, it will be hidden [after some time](https://echarts.apache.org/en/option.html#tooltip.hideDelay). It can be set to be `true` to preserve displaying.\n\nThis attribute is newly added to ECharts 3.0.",
+        "children": []
+    },
+    {
+        "name": "triggerOn",
+        "type": "string",
+        "default": "'mousemove|click'",
+        "desc": "Conditions to trigger tooltip. Options:\n\n+ `'mousemove'`\n\nTrigger when mouse moves.\n\n+ `'click'`\n\nTrigger when mouse clicks.\n\n+ `'mousemove|click'`\n\nTrigger when mouse clicks and moves.\n\n+ `'none'`\n\nDo not triggered by `'mousemove'` and `'click'`. Tooltip can be triggered and hidden manually by calling [action.tooltip.showTip](api.html#action.tooltip.showTip) and [action.tooltip.hideTip](api.html#action.tooltip.hideTip). It can also be triggered by [axisPointer.handle](https://echarts.apache.org/en/option.html#xAxis.axisPointer.handle) in this case.\n\nThis attribute is new to ECharts 3.0.",
+        "children": []
+    },
+    {
+        "name": "showDelay",
+        "type": "number",
+        "default": "0",
+        "desc": "Delay time for showing tooltip, in ms. No delay by default, and it is not recommended to set. Only valid when [triggerOn](https://echarts.apache.org/en/option.html#tooltip.triggerOn) is set to be `'mousemove'`.",
+        "children": []
+    },
+    {
+        "name": "hideDelay",
+        "type": "number",
+        "default": "100",
+        "desc": "Delay time for hiding tooltip, in ms. It will be invalid when [alwaysShowContent](https://echarts.apache.org/en/option.html#tooltip.alwaysShowContent) is `true`.",
+        "children": []
+    },
+    {
+        "name": "enterable",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether mouse is allowed to enter the floating layer of tooltip, whose default value is false. If you need to interact in the tooltip like with links or buttons, it can be set as `true`.",
+        "children": []
+    },
+    {
+        "name": "renderMode",
+        "type": "string",
+        "default": "'html'",
+        "desc": "Render mode for tooltip. By default, it is set to be `'html'` so that extra DOM element is used for tooltip. It can also set to be `'richText'` so that the tooltip will be rendered inside Canvas (SVG rich text is not implemented yet). This is very useful for environments that don't have DOM, such as Wechat applications.",
+        "children": []
+    },
+    {
+        "name": "confine",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether confine tooltip content in the view rect of chart instance.\n\nUseful when tooltip is cut because of `'overflow: hidden'` set on outer dom of chart instance, or because of narrow screen on mobile.",
+        "children": []
+    },
+    {
+        "name": "appendToBody",
+        "type": "boolean",
+        "default": "false",
+        "desc": "> Since `v4.7.0`\n\n\n\n\nWhether to append the tooltip DOM element as a child of the `<body>` of the HTML page, when using [renderMode](https://echarts.apache.org/en/option.html#tooltip.renderMode) `'html'`.\n\nBy default `false`, means that the tooltip DOM element will be one of a descendant of its echarts DOM container. But that means that the tooltip might be cut when overflow the container if some of the ancestors DOM element of the echarts container are styled with `overflow: hidden`. This case could also be resolved by setting [tooltip.confine](https://echarts.apache.org/en/option.html#tooltip.confine), but it might not suitable for all scenarios.\n\nHere we provide `appendToBody: true` to auto append the tooltip element to `<body>`, which is a common way to resolve this kind of issue. But `true` is not set as a default value because to void to bring break change for some cases where tooltip is deeply customized and to void some unexpected bad cases.\n\nNote that it also works when CSS transform used.",
+        "children": []
+    },
+    {
+        "name": "transitionDuration",
+        "type": "number",
+        "default": "0.4",
+        "desc": "The transition duration of tooltip's animation, in seconds. When it is set to be 0, it would move closely with the mouse.",
+        "children": []
+    },
+    {
+        "name": "position",
+        "type": [
+            "string",
+            "Array"
+        ],
+        "desc": "The position of the tooltip's floating layer, which would follow the position of mouse by default.\n\nOptions:\n\n+ `Array`\n\nDisplay the position of tooltip's floating layer through array, which supports absolute position and relative percentage.\n\nExample:\n\n```js\n// absolute position, which is 10px to the left side and 10px to the top side of the container\nposition: [10, 10]\n// relative position, in the exact center of the container\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\nCallback function in the following form:\n```js\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**Parameters:**<br>\npoint: Mouse position.<br>\nparam: The same as formatter.<br>\ndom: The DOM object of tooltip.<br>\nrect: It is valid only when mouse is on graphic elements, which stands for a bounding box with `x`, `y`, `width`, and `height`.<br>\nsize: The size of dom echarts container. For example: `{contentSize: [width, height], viewSize: [width, height]}`. <br>\n\n**Return:**<br>\nReturn value is an array standing for tooltip position, which can be absolute pixels, or relative percentage.<br>\nOr can be an object, like `{left: 10, top: 30}`, or `{right: '20%', bottom: 40}`.<br>\n\nFor example:\n```js\nposition: function (point, params, dom, rect, size) {\n// fixed at top\nreturn [point[0], '10%'];\n}\n```\nOr:\n```js\nposition: function (pos, params, dom, rect, size) {\n// tooltip will be fixed on the right if mouse hovering on the left,\n// and on the left if hovering on the right.\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n+ `'inside'`\n\nCenter position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'top'`\n\nTop position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'left'`\n\nLeft position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'right'`\n\nRight position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.\n\n+ `'bottom'`\n\nBottom position of the graphic element where the mouse is in, which is only valid when [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'item'`.",
+        "children": []
+    },
+    {
+        "name": "formatter",
+        "type": [
+            "string",
+            "Function"
+        ],
+        "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be refered as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```js\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```js\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\nWhen [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```js\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+        "children": []
+    },
+    {
+        "name": "backgroundColor",
+        "type": "Color",
+        "default": "'rgba(50,50,50,0.7)'",
+        "desc": "The background color of tooltip's floating layer.",
+        "children": []
+    },
+    {
+        "name": "borderColor",
+        "type": "Color",
+        "default": "'#333'",
+        "desc": "The border color of tooltip's floating layer.",
+        "children": []
+    },
+    {
+        "name": "borderWidth",
+        "type": "number",
+        "default": "0",
+        "desc": "The border width of tooltip's floating layer.",
+        "children": []
+    },
+    {
+        "name": "padding",
+        "type": "number",
+        "default": "5",
+        "desc": "The floating layer of tooltip space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
+        "children": []
+    },
+    {
+        "name": "textStyle",
+        "type": "Object",
+        "desc": "The text syle of tooltip's floating layer.\n\n\n\n\n\n\n\n### color(Color)='#fff'\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=14\n\nfont size.",
+        "children": [
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "extraCssText",
+        "type": "string",
+        "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```js\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+        "children": []
+    }
+]

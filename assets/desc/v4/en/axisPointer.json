@@ -1,0 +1,335 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "false",
+        "desc": "axisPointer will not be displayed by default. But if [tooltip.trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set as `'axis'` or [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is set as  `'cross'`, axisPointer will be displayed automatically. Each coordinate system will automatically chose the axes whose will display its axisPointer. [tooltip.axisPointer.axis](https://echarts.apache.org/en/option.html#tooltip.axisPointer.axis) can be used to change the choice.",
+        "children": []
+    },
+    {
+        "name": "type",
+        "type": "string",
+        "default": "'line'",
+        "desc": "Indicator type.\n\nOptions:\n+ `'line'` line indicator.\n\n+ `'shadow'` shadow crosshair indicator.\n\n+ `'none'` no indicator displayed.",
+        "children": []
+    },
+    {
+        "name": "snap",
+        "type": "boolean",
+        "desc": "Whether snap to point automatically. The default value is auto determined.\n\nThis feature usually makes sense in value axis and time axis, where tiny points can be seeked automatically.",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "desc": "z value, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.",
+        "children": []
+    },
+    {
+        "name": "label",
+        "type": "Object",
+        "desc": "label of axisPointer",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "false",
+                "desc": "Whether show label. Label will not show by default. But if [tooltip.axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is set as  `'cross'`, label will be displayed automatically.",
+                "children": []
+            },
+            {
+                "name": "precision",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "default": "'auto'",
+                "desc": "The precision of value in label. It is auto determined by default. You can also set it as `'2'`, which indicates that two decimal fractions are reserved.",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "default": "null",
+                "desc": "The formatter of label.\n\nIf set as `string`, for example it can be: `formatter: 'some text {value} some text`, where `{value}` will be replaced by axis value automatically.\n\nIf set as `function`:\n\n**Parameters:**\n\n`{Object}` params: Including fields as follows:\n\n`{Object}` params.value: current value of this axis. If `axis.type` is `'category'`, it is one of the value in `axis.data`. If `axis.type` is `'time'`, it is a timestamp.\n\n`{Array.<Object>}` params.seriesData: An array, containing info of nearest points. Each item is:\n\n`{string}` params.axisDimension: The dimension name of the axis. For example, in catesian it will be `'x'`, `'y'`, and in polar it will be `'radius'`, `'angle'`.\n\n`{number}` params.axisIndex: The index of the axis, for example, `0`,`1`, `2`, ...\n\n\n```js\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string,\n\n}\n```\n\nNote: the usage of encode and dimensionNames can be:\n\nIf data is:\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.encode.y[0]]\n```\n\nIf data is:\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get values that corresponding to y axis by:\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n\n\nEach item also includes axis infomation:\n\n```js\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // The current value of axisPointer\naxisValueLabel: 'text of value'\n}\n```\n\n\n\n**Return:**\n\nThe string to be displayed.\n\nFor example:\n```js\nformatter: function (params) {\n// If axis.type is 'time'\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "boolean",
+                "default": "3",
+                "desc": "Distance between label and axis.\n\n\n\n\n\n\n\n\n### color(Color)='#fff'\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\nfont size.",
+                "children": []
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            },
+            {
+                "name": "padding",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "[5, 7, 5, 7]",
+                "desc": "axisPointer space around content. The unit is px. Default values for each position are 5. And they can be set to different values with left, right, top, and bottom.\n\nExamples:\n```js\n// Set padding to be 5\npadding: 5\n// Set the top and bottom paddings to be 5, and left and right paddings to be 10\npadding: [5, 10]\n// Set each of the four paddings seperately\npadding: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```\n\n\n###backgroundColor(string) = 'auto'\n\nBackground color of label, the same as [axis.axisLine.lineStyle.color](https://echarts.apache.org/en/option.html#xAxis.axisLine.lineStyle.color) by default.\n\n###borderColor(string) = null\n\nBorder color of label.\n\n###borderWidth(string) = 0\n\nBorder width of label.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "3",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "default": "#aaa",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "lineStyle",
+        "type": "Object",
+        "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'line'`.\n\n\n\n### color(Color)= #555\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+        "children": [
+            {
+                "name": "width",
+                "type": "number",
+                "default": "1",
+                "desc": "line width.",
+                "children": []
+            },
+            {
+                "name": "type",
+                "type": "string",
+                "default": "solid",
+                "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "shadowStyle",
+        "type": "Object",
+        "desc": "It is valid when [axisPointer.type](https://echarts.apache.org/en/option.html#tooltip.axisPointer.type) is `'shadow'`.\n\n\n\n### color(Color)= 'rgba(150,150,150,0.3)\n\nFill color.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+        "children": [
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "triggerTooltip",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to trigger tooltip.",
+        "children": []
+    },
+    {
+        "name": "value",
+        "type": "number",
+        "default": "null",
+        "desc": "current value. When using [axisPointer.handle](xAxisPointer.handle), `value` can be set to define the initail position of axisPointer.",
+        "children": []
+    },
+    {
+        "name": "status",
+        "type": "boolean",
+        "desc": "Current status, can be `'show'` 和 `'hide'`.",
+        "children": []
+    },
+    {
+        "name": "handle",
+        "type": "Object",
+        "desc": "A button used to drag axisPointer. This feature is applicable in touch device. See [example](line-tooltip-touch&edit=1&reset=1).",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "false",
+                "desc": "Set to `true` to use handle.\n\n### icon\n\nThe icon of the handle.\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\n\n\n\n\nSee the [example of using image](doc-example/axisPointer-handle-image&edit=1&reset=1)",
+                "children": []
+            },
+            {
+                "name": "size",
+                "type": [
+                    "number",
+                    "Array"
+                ],
+                "default": "45",
+                "desc": "The size of the handle, which can be set as a single value or an array (`[width, height]`).",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "50",
+                "desc": "Distance from handle center to axis.",
+                "children": []
+            },
+            {
+                "name": "color",
+                "type": "string",
+                "default": "'#333'",
+                "desc": "The color of the handle.",
+                "children": []
+            },
+            {
+                "name": "throttle",
+                "type": "number",
+                "default": "40",
+                "desc": "Throttle rate of trigger view update when dragging handle, in ms. Increase the value to improve performance, but decrease the experience.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "3",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "default": "#aaa",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "2",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "link",
+        "type": "Array",
+        "desc": "axisPointers can be linked to each other. The term \"link\" represents that axes are synchronized and move together. Axes are linked according to the value of axisPointer.\n\nSee [sampleA](https://echarts.apache.org/examples/en/view.html?c=candlestick-brush&edit=1&reset=1) and [sampleB](https://echarts.apache.org/examples/en/view.html?c=scatter-nutrients-matrix&edit=1&reset=1).\n\nlink is an array, where each item represents a \"link group\". Axes will be linked when they are refered in the same link group. For example:\n\n```js\nlink: [\n{\n// All axes with xAxisIndex 0, 3, 4 and yAxisName 'sameName' will be linked.\nxAxisIndex: [0, 3, 4],\nyAxisName: 'someName'\n},\n{\n// All axes with xAxisId 'aa', 'cc' and all angleAxis will be linked.\nxAxisId: ['aa', 'cc'],\nangleAxis: 'all'\n},\n...\n]\n```\n\nAs illustrated above, axes can be refered in these approaches in a link group:\n\n```js\n{\n// 'some' represent the dimension name of a axis, namely, 'x', 'y', 'radius', 'angle', 'single'\nsomeAxisIndex: [...], // can be an array or a value or 'all'\nsomeAxisName: [...],  // can be an array or a value or 'all'\nsomeAxisId: [...],    // can be an array or a value or 'all'\n}\n```\n\n---\n\n\n---\n\n**How to link axes with different [axis.type](https://echarts.apache.org/en/option.html#xAxis.type)?**\n\nFor example, the type of axisA is 'category', and the type of axisB type is 'time', we can write conversion function (mapper) in link group to convert values from an axis to another axis. For example:\n\n```js\nlink: [{\nxAxisIndex: [0, 1],\nyAxisName: ['yy'],\nmapper: function (sourceVal, sourceAxisInfo, targetAxisInfo) {\nif (sourceAxisInfo.axisName === 'yy') {\n// from timestamp to '2012-02-05'\nreturn echarts.format.formatTime('yyyy-MM-dd', sourceVal);\n}\nelse if (targetAxisInfo.axisName === 'yy') {\n// from '2012-02-05' to date\nreturn echarts.number.parseDate(dates[sourceVal]);\n}\nelse {\nreturn sourceVal;\n}\n}\n}]\n```\n\nInput parameters of mapper:\n\n`{number}` sourceVal\n\n`{Object}` sourceAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...}\n\n`{Object}` targetAxisInfo Including {axisDim, axisId, axisName, axisIndex, ...}\n\nReturn of mapper:\n\n`{number}` The result of conversion.",
+        "children": []
+    },
+    {
+        "name": "triggerOn",
+        "type": "string",
+        "default": "'mousemove|click'",
+        "desc": "Conditions to trigger tooltip. Options:\n\n+ `'mousemove'`\n\nTrigger when mouse moves.\n\n+ `'click'`\n\nTrigger when mouse clicks.\n\n+ `'mousemove|click'`\n\nTrigger when mouse clicks and moves.\n\n+ `'none'`\n\nDo not triggered by `'mousemove'` and `'click'`",
+        "children": []
+    }
+]

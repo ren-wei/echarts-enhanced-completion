@@ -1,0 +1,646 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "children": []
+    },
+    {
+        "name": "center",
+        "type": "Array",
+        "default": "['50%', '50%']",
+        "desc": "Center position of , the first of which is the horizontal position, and the second is the vertical position.\n\nPercentage is supported. When set in percentage, the item is relative to the container width, and the second item to the height.\n\n**Example: **\n```\n// Set to absolute pixel values\ncenter: [400, 300]\n// Set to relative percent\ncenter: ['50%', '50%']\n```",
+        "children": []
+    },
+    {
+        "name": "radius",
+        "type": [
+            "number",
+            "string",
+            "Array"
+        ],
+        "default": "75%",
+        "desc": "Radius of . Value can be:\n\n+ `number`: Specify outside radius directly.\n+ `string`: For example, `'20%'`, means that the outside radius is 20% of the viewport size (the little one between width and height of the chart container).\n\n+ `Array.<number|string>`: The first item specifies the inside radius, and the second item specifies the outside radius. Each item follows the definitions above.",
+        "children": []
+    },
+    {
+        "name": "startAngle",
+        "type": "number",
+        "default": "90",
+        "desc": "The start angle of coordinate, which is the angle of the first indicator axis.",
+        "children": []
+    },
+    {
+        "name": "name",
+        "type": "Object",
+        "desc": "Name of radar chart.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Whether to display the indicator's name.",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "desc": "The formatter of indicator's name, in which the string and callback function are supported. See the following example:\n\n```js\n// using string template, the template variable should be the indicator's name {value}\nformatter: '【{value}】'\n// using callback function, the first parameter is the indicator's name, and the second parameter id the indicator's cinfiguration item\nformatter: function (value, indicator) {\nreturn '【' + value + '】';\n}\n```",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "textStyle",
+        "type": "Object",
+        "desc": "### color(Color)='#333'\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\nfont size.",
+        "children": [
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n### shadowBlur(number)=0\n\nShow blur of the text block.\n\n### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "Object",
+                        "desc": "##### color(Color)=\"#fff\"\n\ntext color.\n\n\n\n\n\n##### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n##### fontSize(number)=12\n\nfont size.\n\n\n\n##### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n##### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n##### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n##### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n##### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n##### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n##### shadowBlur(number)=0\n\nShow blur of the text block.\n\n##### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n##### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                                "children": []
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n##### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n##### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n##### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n##### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n##### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n##### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "nameGap",
+        "type": "number",
+        "default": "15",
+        "desc": "Distance between the indicator's name and axis.",
+        "children": []
+    },
+    {
+        "name": "splitNumber",
+        "type": "number",
+        "default": "5",
+        "desc": "Segments of indicator axis.",
+        "children": []
+    },
+    {
+        "name": "shape",
+        "type": "string",
+        "default": "'polygon'",
+        "desc": "Radar render type, in which `'polygon'` and `'circle'` are supported.",
+        "children": []
+    },
+    {
+        "name": "scale",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether to prevent calculating the scaling relative to zero. If it is set to be `true`, the coordinate tick would not compulsorily contain zero value, which is usually useful in scatter diagram of double numerical values axis.",
+        "children": []
+    },
+    {
+        "name": "silent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Set this to `true`, to prevent interaction with the axis.",
+        "children": []
+    },
+    {
+        "name": "triggerEvent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Set this to `true` to enable triggering events.\n\nParameters of the event include:\n\n```js\n{\n// Component type: xAxis, yAxis, radiusAxis, angleAxis\n// Each of which has an attribute for index, e.g., xAxisIndex for xAxis\ncomponentType: string,\n// Value on axis before being formatted.\n// Click on value label to trigger event.\nvalue: '',\n// Name of axis.\n// Click on laben name to trigger event.\nname: ''\n}\n```",
+        "children": []
+    },
+    {
+        "name": "axisLine",
+        "type": "Object",
+        "desc": "Settings related to axis line.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent the axis line from showing.",
+                "children": []
+            },
+            {
+                "name": "symbol",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "'none'",
+                "desc": "Symbol of the two ends of the axis. It could be a string, representing the same symbol for two ends; or an array with two string elements, representing the two ends separately. It's set to be `'none'` by default, meaning no arrow for either end. If it is set to be `'arrow'`, there shall be two arrows. If there should only one arrow at the end, it should set to be `['none', 'arrow']`.",
+                "children": []
+            },
+            {
+                "name": "symbolSize",
+                "type": "Array",
+                "default": "[10, 15]",
+                "desc": "Size of the arrows at two ends. The first is the width perpendicular to the axis, the next is the width parallel to the axis.",
+                "children": []
+            },
+            {
+                "name": "symbolOffset",
+                "type": [
+                    "Array",
+                    "number"
+                ],
+                "default": "[0, 0]",
+                "desc": "Arrow offset of axis. If is array, the first number is the offset of the arrow at the beginning, and the second number is the offset of the arrow at the end. If is number, it means the arrows have the same offset.",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "#### color(Color)= '#333'\n\nline styleLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "line style line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "'solid'",
+                        "desc": "line style line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "axisTick",
+        "type": "Object",
+        "desc": "Settings related to axis tick.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent the axis tick from showing.",
+                "children": []
+            },
+            {
+                "name": "length",
+                "type": "number",
+                "default": "5",
+                "desc": "The length of the axis tick.",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "#### color(Color)= '#333'\n\naxisTickLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "axisTick line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "'solid'",
+                        "desc": "axisTick line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.\n\n\n\n\n\n\n\n\n<!-- Overwrite color -->",
+                        "children": []
+                    },
+                    {
+                        "name": "color",
+                        "type": "Color",
+                        "desc": "Color of axis label is set to be [axisLine.lineStyle.color](https://echarts.apache.org/en/option.html#.axisLine.lineStyle.color) by default.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "axisLabel",
+        "type": "Object",
+        "desc": "Settings related to axis label.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent the axis label from appearing.",
+                "children": []
+            },
+            {
+                "name": "rotate",
+                "type": "number",
+                "default": "0",
+                "desc": "Rotation degree of axis label, which is especially useful when there is no enough space for category axis.\n\nRotation degree is from -90 to 90.",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "8",
+                "desc": "The margin between the axis label and the axis line.",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "default": "null",
+                "desc": "Formatter of axis label, which supports string template and callback function.\n\nExample:\n```js\n// Use string template; template variable is the default label of axis {value}\nformatter: '{value} kg'\n\n// Use callback function; function parameters are axis index\nformatter: function (value, index) {\n// Formatted to be month/day; display year only in the first label\nvar date = new Date(value);\nvar texts = [(date.getMonth() + 1), date.getDate()];\nif (idx === 0) {\ntexts.unshift(date.getYear());\n}\nreturn texts.join('/');\n}\n```",
+                "children": []
+            },
+            {
+                "name": "showMinLabel",
+                "type": "boolean",
+                "default": "null",
+                "desc": "Whether to show the label of the min tick. Optional values: `true`, `false`, `null`. It is auto determined by default, that is, if labels are overlapped, the label of the min tick will not be displayed.",
+                "children": []
+            },
+            {
+                "name": "showMaxLabel",
+                "type": "boolean",
+                "default": "null",
+                "desc": "Whether to show the label of the max tick. Optional values: `true`, `false`, `null`. It is auto determined by default, that is, if labels are overlapped, the label of the max tick will not be displayed.\n\n\n\n\n\n### color(Color)='#333'\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\nfont size.\n\n\n\n### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n### shadowBlur(number)=0\n\nShow blur of the text block.\n\n### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "Object",
+                        "desc": "##### color(Color)=\"#fff\"\n\ntext color.\n\n\n\n\n\n##### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n##### fontSize(number)=12\n\nfont size.\n\n\n\n##### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n##### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n##### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n##### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n##### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n##### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n##### shadowBlur(number)=0\n\nShow blur of the text block.\n\n##### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n##### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                                "children": []
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n##### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n##### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n##### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n##### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n##### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n##### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<!-- Overwrite color -->",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "color",
+                "type": [
+                    "Color",
+                    "Function"
+                ],
+                "desc": "Color of axis label is set to be [axisLine.lineStyle.color](https://echarts.apache.org/en/option.html#.axisLine.lineStyle.color) by default. Callback function is supported, in the following format:\n\n```js\n(val: string) => Color\n```\n\nParameter is the text of label, and return value is the color. See the following example:\n\n```js\ntextStyle: {\ncolor: function (value, index) {\nreturn value >= 0 ? 'green' : 'red';\n}\n}\n```",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "splitLine",
+        "type": "Object",
+        "desc": "Split line of axis in [grid](https://echarts.apache.org/en/option.html#grid) area.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent the splitLine from showing.\n`value` type axes are shown by default, while `category` type axes are hidden.",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "#### color(Color)= '#333'\n\nsplitLineLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "splitLine line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "'solid'",
+                        "desc": "splitLine line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.\n\n\n\n\n\n\n\n\n\n<!-- overwrite color -->",
+                        "children": []
+                    },
+                    {
+                        "name": "color",
+                        "type": [
+                            "Array",
+                            "string"
+                        ],
+                        "default": "['#ccc']",
+                        "desc": "The color of the splitLine, which could be set separately.\n\nSplitLine color could also be set in color array, which the split lines would take as their colors in turns.\n\nExample:\n```\nsplitLine: {\nlineStyle: {\n// Dark and light colors will be used in turns\ncolor: ['#aaa', '#ddd']\n}\n}\n```",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "splitArea",
+        "type": "Object",
+        "desc": "Split area of axis in [grid](https://echarts.apache.org/en/option.html#grid) area, not shown by default.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `true` to show the splitArea.",
+                "children": []
+            },
+            {
+                "name": "areaStyle",
+                "type": "Object",
+                "desc": "Split area style.",
+                "children": [
+                    {
+                        "name": "color",
+                        "type": "Array",
+                        "default": "['rgba(250,250,250,0.3)','rgba(200,200,200,0.3)']",
+                        "desc": "Color of split area.\nSplitArea color could also be set in color array, which the split lines would take as their colors in turns. Dark and light colors in turns are used by default.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "indicator",
+        "type": "Array",
+        "desc": "Indicator of radar chart, which is used to assign multiple variables(dimensions) in radar chart. Here is the example.\n\n```js\nindicator: [\n{ name: 'Sales (sales) ', max: 6500},\n{ name: 'Administration (Administration) ', max: 16000, color: 'red'}, // Set the indicator as 'red'\n{ name: 'Information Technology (Information Technology) ', max: 30000},\n{ name: 'Customer Support (Customer Support) ', max: 38000},\n{ name: 'Development (Development) ', max: 52000},\n{ name: 'Marketing (Marketing) ', max: 25000}\n]\n```",
+        "children": [
+            {
+                "name": "name",
+                "type": "string",
+                "desc": "Indicator's name.",
+                "children": []
+            },
+            {
+                "name": "max",
+                "type": "number",
+                "desc": "The maximum value of indicator. It is an optional configuration, but we recommend to set it manually.",
+                "children": []
+            },
+            {
+                "name": "min",
+                "type": "number",
+                "desc": "The minimum value of indicator. It it an optional configuration, with default value of 0.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "color",
+        "type": "string",
+        "desc": "Specfy a color the the indicator.",
+        "children": []
+    }
+]

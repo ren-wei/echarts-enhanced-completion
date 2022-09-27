@@ -1,0 +1,586 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "children": []
+    },
+    {
+        "name": "left",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "80",
+        "desc": "Distance between calendar component and the left side of the container.\n\n`left` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
+        "children": []
+    },
+    {
+        "name": "top",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "60",
+        "desc": "Distance between calendar component and the top side of the container.\n\n`top` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
+        "children": []
+    },
+    {
+        "name": "right",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between calendar component and the right side of the container.\n\n`right` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "children": []
+    },
+    {
+        "name": "bottom",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between calendar component and the bottom side of the container.\n\n`bottom` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Width of calendar component. Adaptive by default.",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Height of calendar component. Adaptive by default.",
+        "children": []
+    },
+    {
+        "name": "range",
+        "type": [
+            "number",
+            "string",
+            "Array"
+        ],
+        "desc": "Required, range of Calendar coordinates, support multiple formats.\n\nExamples:\n```js\n\n// one year\nrange: 2017\n\n// one month\nrange: '2017-02'\n\n//  a range\nrange: ['2017-01-02', '2017-02-23']\n\n// note: they will be identified as ['2017-01-01', '2017-02-01']\nrange: ['2017-01', '2017-02']\n\n```",
+        "children": []
+    },
+    {
+        "name": "cellSize",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "20",
+        "desc": "The size of each rect of calendar coordinates, can be set to a single value or array, the first element is width and the second element is height.\n\nSupport setting self-adaptation: `auto`, the default width and height to be 20.\n\n\nExamples:\n```js\n\n// Set the width and height to be 20\ncellSize: 20\n\n// Set the width to be 20, and height to be 40\ncellSize: [20, 40]\n\n// Set width and height to be self-adaptation\ncellSize: [40]\n\n// Set the width and height to be 20\ncellSize: 'auto'\n\n// Set the width to be self-adaptation, and height to be 40\ncellSize: ['auto', 40]\n\n```",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": [
+            "number",
+            "string"
+        ],
+        "default": "auto",
+        "desc": "The height of calendar coordinates.\n\nNote: `cellSize` is 20 by default. If `width` is set,\n`cellSize[0]` will be forced to `auto`;",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": [
+            "number",
+            "string"
+        ],
+        "default": "auto",
+        "desc": "The height of calendar coordinates.\n\nNote: `cellSize` is 20 by default. If `height` is set,\n`cellSize[1]` will be forced to `auto`;",
+        "children": []
+    },
+    {
+        "name": "orient",
+        "type": "string",
+        "default": "'horizontal'",
+        "desc": "The layout orientation of calendar.\n\nOptions:\n+ 'horizontal'\n+ 'vertical'",
+        "children": []
+    },
+    {
+        "name": "splitLine",
+        "type": "Object",
+        "desc": "Calendar coordinates splitLine style.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent the splitLine from showing",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "#### color(Color)= #000\n\nsplitLineLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "splitLine line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "solid",
+                        "desc": "splitLine line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.\n\n\n\n\n\n\n\n\n\n\nExamples:\n```js\ncalendar: [{\nsplitLine: {\nshow: true,\nlineStyle: {\ncolor: '#000',\nwidth: 1,\ntype: 'solid'\n}\n}\n}]\n```",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "itemStyle",
+        "type": "Object",
+        "desc": "Every rect style in calendar coordinates.\n\n\n\n### color(Color)=#fff\n\ncalendar color.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+        "children": [
+            {
+                "name": "borderColor",
+                "type": "Color",
+                "default": "'#ccc'",
+                "desc": "calendar border color, whose format is similar to that of `color`.",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "1",
+                "desc": "calendar border width. No border when it is set to be 0.",
+                "children": []
+            },
+            {
+                "name": "borderType",
+                "type": "string",
+                "default": "'solid'",
+                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.\n\n\n\n\n\n\n\n\n\nExamples:\n```js\ncalendar: [{\nitemStyle: {\ncolor: '#fff',\nborderWidth: 1,\nborderColor: '#ccc'\n}\n}]\n```",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "dayLabel",
+        "type": "Object",
+        "desc": "Day style in calendar coordinates.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent dayLabel from showing.",
+                "children": []
+            },
+            {
+                "name": "firstDay",
+                "type": "number",
+                "default": "0",
+                "desc": "A week from the beginning of the week, the default starting on Sunday.\n\nExamples:\n\n```js\n\ncalendar: [{\ndayLabel: {\nfirstDay: 1 // start on Monday\n}\n}]\n\n```",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "0",
+                "desc": "The margin between the day label and the axis line.",
+                "children": []
+            },
+            {
+                "name": "position",
+                "type": "string",
+                "default": "'start'",
+                "desc": "Position of week, at the beginning or end of the range.\n\nOptions:\n+ 'start'\n+ 'end'",
+                "children": []
+            },
+            {
+                "name": "nameMap",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "'en'",
+                "desc": "Week text content, defaults to 'en';\nIt supports Chinese, English, and custom;\nindex 0 always means Sunday;\n\nExamples:\n```js\n\n// shortcut to English  ['S', 'M', 'T', 'W', 'T', 'F', 'S'],\nnameMap: 'en'\n\n// shortcut to Chinese ['日', '一', '二', '三', '四', '五', '六']\nnameMap: 'cn'\n\n// Custom settings: mixed in English and Chinese or not displayed\nnameMap: ['S', '一', 'T', '三', '', '五', 'S'],\n\ncalendar: [{\ndayLabel: {\nnameMap: 'en'\n}\n}]\n```\n\n\n\n\n\n### color(Color)=#000\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\nfont size.\n\n\n\n### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n### shadowBlur(number)=0\n\nShow blur of the text block.\n\n### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "Object",
+                        "desc": "##### color(Color)=\"#fff\"\n\ntext color.\n\n\n\n\n\n##### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n##### fontSize(number)=12\n\nfont size.\n\n\n\n##### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n##### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n##### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n##### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n##### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n##### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n##### shadowBlur(number)=0\n\nShow blur of the text block.\n\n##### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n##### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                                "children": []
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n##### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n##### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n##### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n##### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n##### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n##### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "monthLabel",
+        "type": "Object",
+        "desc": "Month label in calendar coordinates.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to prevent monthLabel from showing.",
+                "children": []
+            },
+            {
+                "name": "align",
+                "type": "string",
+                "default": "'center'",
+                "desc": "Set the month text location in the month interval.\n\nOptions:\n+ 'center'\n+ 'left'",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "5",
+                "desc": "The margin between the month label and the axis line.",
+                "children": []
+            },
+            {
+                "name": "position",
+                "type": "string",
+                "default": "'start'",
+                "desc": "Position of week, at the beginning or end of the range.\n\nOptions:\n+ 'start'\n+ 'end'",
+                "children": []
+            },
+            {
+                "name": "nameMap",
+                "type": [
+                    "string",
+                    "Array"
+                ],
+                "default": "'en'",
+                "desc": "Month text content, defaults to 'en';\nIt supports Chinese, English, and custom;\nIndex 0 always means Jan;\n\n\nExamples:\n```js\n// Shortcut to English [\n'Jan', 'Feb', 'Mar',\n'Apr', 'May', 'Jun',\n'Jul', 'Aug', 'Sep',\n'Oct', 'Nov', 'Dec'\n],\nnameMap: 'en'\n\n// Shortcut to Chinese [\n'一月', '二月', '三月',\n'四月', '五月', '六月',\n'七月', '八月', '九月',\n'十月', '十一月', '十二月'\n]\nnameMap: 'cn'\n\n// Custom settings: mixed in English and Chinese or not displayed\nnameMap: [\n'一月', 'Feb', '三月',\n'四月', 'May', '六月',\n'七月', '八月', '',\n'十月', 'Nov', '十二月'\n],\n\n\ncalendar: [{\nmonthLabel: {\nnameMap: 'en'\n}\n}]\n```",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "default": "null",
+                "desc": "Formatter of month text label, which supports string template and callback function.\n\n\nExamples:\n```js\n// Use string template; eg: 2017-02\n/*\ntemplate variables:\n{nameMap} default nameMap eg：'Feb'\n{yyyy}   four-digit years eg: 2017\n{yy}   two-digit years eg: 17\n{MM}   two-digit month eg: 02\n{M}   single-digit month eg: 2\n*/\nformatter: '{yyyy}-{MM}'\n\n// Use callback function;\n/*\nfunction parameters:\nparam.nameMap default nameMap eg：'Feb'\nparam.yyyy   four-digit years eg: 2017\nparam.yy   two-digit years eg: 17\nparam.MM   two-digit month eg: 02\nparam.M   single-digit eg: 2\n*/\nformatter: function (param) {\n// ...\nreturn param.MM;\n}\n```\n\n\n\n\n\n### color(Color)=#000\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\nfont size.\n\n\n\n### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n### shadowBlur(number)=0\n\nShow blur of the text block.\n\n### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "Object",
+                        "desc": "##### color(Color)=\"#fff\"\n\ntext color.\n\n\n\n\n\n##### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n##### fontSize(number)=12\n\nfont size.\n\n\n\n##### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n##### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n##### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n##### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n##### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n##### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n##### shadowBlur(number)=0\n\nShow blur of the text block.\n\n##### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n##### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                                "children": []
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n##### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n##### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n##### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n##### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n##### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n##### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "yearLabel",
+        "type": "Object",
+        "desc": "Year label in calendar coordinates.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Set this to `false` to stop yearLabel from showing",
+                "children": []
+            },
+            {
+                "name": "margin",
+                "type": "number",
+                "default": "30",
+                "desc": "The margin between the month label and the axis line.",
+                "children": []
+            },
+            {
+                "name": "position",
+                "type": "string",
+                "desc": "Position of year.\n\nDefault:\nwhen orient is set as `horizontal`, position is `left`\nwhen orient is set as `vertical`, position is `top`\n\nOptions:\n+ 'top'\n+ 'bottom'\n+ 'left'\n+ 'right'",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "default": "null",
+                "desc": "Formatter of year text label, which supports string template and callback function.\n\nBy default, the current range of the year, if the interval across the year, showing the first year and the last year\n\nExamples:\n```js\n// Use string template; eg: ['2017-10-11', '2018-01-21']\n/*\ntemplate variables:\n{nameMap} default nameMap eg：'2017-2018'\n{start}   start year eg: 2017\n{end}   end year eg: 2018\n*/\n\nformatter: '{start}-{end}'\n\n// Use callback function;\n/*\nfunction parameters:\nparam.nameMap default nameMap eg：'2017-2018'\nparam.start   start year eg: 2017\nparam.end   end year eg: 2018\n*/\nformatter: function (param) {\n// ...\nreturn param.end;\n}\n```\n\n\n\n\n\n### color(Color)=\"#fff\"\n\ntext color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\nfont size.\n\n\n\n### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n### shadowBlur(number)=0\n\nShow blur of the text block.\n\n### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```js\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "Object",
+                        "desc": "##### color(Color)=\"#fff\"\n\ntext color.\n\n\n\n\n\n##### fontStyle(string)='normal'\n\nfont style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\nfont thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\nfont family.\n\nCan also be 'serif' , 'monospace', ...\n\n##### fontSize(number)=12\n\nfont size.\n\n\n\n##### align(string)=\n\nHorizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```js\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```\n\n\n\n\n##### verticalAlign(string)=\n\nVertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```js\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                        "children": [
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```\n\n\n\n\n##### backgroundColor(string|Object)='transparent'\n\nBackground color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```js\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n##### borderColor(Color)='transparent'\n\nBorder color of the text fragment.\n\n\n\n##### borderWidth(number)=0\n\nBorder width of the text fragment.\n\n##### borderRadius(number)=0\n\nBorder radius of the text fragment.\n\n##### padding(number|Array)=0\n\nPadding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n##### shadowColor(Color)='transparent'\n\nShadow color of the text block.\n\n##### shadowBlur(number)=0\n\nShow blur of the text block.\n\n##### shadowOffsetX(number)=0\n\nShadow X offset of the text block.\n\n##### shadowOffsetY(number)=0\n\nShadow Y offset of the text block.",
+                                "children": []
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n##### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n##### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n##### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n##### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n##### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n##### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "silent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+        "children": []
+    }
+]

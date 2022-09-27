@@ -1,0 +1,654 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。",
+        "children": []
+    },
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "false",
+        "desc": "是否显示直角坐标系网格。",
+        "children": []
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "children": []
+    },
+    {
+        "name": "left",
+        "type": "percent",
+        "default": "'10%'",
+        "desc": "grid 组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为`'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
+        "children": []
+    },
+    {
+        "name": "top",
+        "type": "percent",
+        "default": "60",
+        "desc": "grid 组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为`'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
+        "children": []
+    },
+    {
+        "name": "right",
+        "type": "percent",
+        "default": "'10%'",
+        "desc": "grid 组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。",
+        "children": []
+    },
+    {
+        "name": "bottom",
+        "type": "percent",
+        "default": "60",
+        "desc": "grid 组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "grid 组件的宽度。默认自适应。",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": "percent",
+        "default": "'auto'",
+        "desc": "grid 组件的高度。默认自适应。",
+        "children": []
+    },
+    {
+        "name": "containLabel",
+        "type": "boolean",
+        "default": "false",
+        "desc": "grid 区域是否包含坐标轴的[刻度标签](https://echarts.apache.org/zh/option.html#yAxis.axisLabel)。\n\n+ containLabel 为 `false` 的时候：\n+ `grid.left` `grid.right` `grid.top` `grid.bottom` `grid.width` `grid.height` 决定的是由坐标轴形成的矩形的尺寸和位置。\n+ 这比较适用于多个 `grid` 进行对齐的场景，因为往往多个 `grid` 对齐的时候，是依据坐标轴来对齐的。\n+ containLabel 为 `true` 的时候：\n+ `grid.left` `grid.right` `grid.top` `grid.bottom` `grid.width` `grid.height` 决定的是包括了坐标轴标签在内的所有内容所形成的矩形的位置。\n+ 这常用于『防止标签溢出』的场景，标签溢出指的是，标签长度动态变化时，可能会溢出容器或者覆盖其他组件。",
+        "children": []
+    },
+    {
+        "name": "backgroundColor",
+        "type": "color",
+        "default": "'transparent'",
+        "desc": "网格背景色，默认透明。\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`   ，如果想要加上 alpha 通道，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": []
+    },
+    {
+        "name": "borderColor",
+        "type": "color",
+        "default": "'#ccc'",
+        "desc": "网格的边框颜色。支持的颜色格式同 backgroundColor。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": []
+    },
+    {
+        "name": "borderWidth",
+        "type": "number",
+        "default": "1",
+        "desc": "网格的边框线宽。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "shadowBlur",
+        "type": "number",
+        "default": "",
+        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true` 以及值不为 `tranparent` 的背景色 `backgroundColor`。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "shadowColor",
+        "type": "color",
+        "default": "",
+        "desc": "阴影颜色。支持的格式同`color`。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": []
+    },
+    {
+        "name": "shadowOffsetX",
+        "type": "number",
+        "default": "0",
+        "desc": "阴影水平方向上的偏移距离。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "shadowOffsetY",
+        "type": "number",
+        "default": "0",
+        "desc": "阴影垂直方向上的偏移距离。\n\n\n**注意**：此配置项生效的前提是，设置了 `show: true`。",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "tooltip",
+        "type": "Object",
+        "desc": "本坐标系特定的 tooltip 设定。\n\n---\n\n\n\n**提示框组件的通用介绍：**\n\n提示框组件可以设置在多种地方：\n\n+ 可以设置在全局，即 [tooltip](https://echarts.apache.org/zh/option.html#tooltip)\n\n+ 可以设置在坐标系中，即 [grid.tooltip](https://echarts.apache.org/zh/option.html#grid.tooltip)、[polar.tooltip](https://echarts.apache.org/zh/option.html#polar.tooltip)、[single.tooltip](https://echarts.apache.org/zh/option.html#single.tooltip)\n\n+ 可以设置在系列中，即 [series.tooltip](https://echarts.apache.org/zh/option.html#series.tooltip)\n\n+ 可以设置在系列的每个数据项中，即 [series.data.tooltip](https://echarts.apache.org/zh/option.html#series.data.tooltip)\n\n\n---",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否显示提示框组件，包括提示框浮层和 [axisPointer](https://echarts.apache.org/zh/option.html#tooltip.axisPointer)。",
+                "children": []
+            },
+            {
+                "name": "trigger",
+                "type": "enum",
+                "desc": "触发类型。\n\n可选：\n+ `'item'`\n\n数据项图形触发，主要在散点图，饼图等无类目轴的图表中使用。\n\n+ `'axis'`\n\n坐标轴触发，主要在柱状图，折线图等会使用类目轴的图表中使用。\n\n在 ECharts 2.x 中只支持类目轴上使用 axis trigger，在 ECharts 3 中支持在[直角坐标系](https://echarts.apache.org/zh/option.html#grid)和[极坐标系](https://echarts.apache.org/zh/option.html#polar)上的所有类型的轴。并且可以通过 [axisPointer.axis](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.axis) 指定坐标轴。\n\n+ `'none'`\n\n什么都不触发。",
+                "children": []
+            },
+            {
+                "name": "axisPointer",
+                "type": "Object",
+                "desc": "坐标轴指示器配置项。\n\n`tooltip.axisPointer` 是配置坐标轴指示器的快捷方式。实际上坐标轴指示器的全部功能，都可以通过轴上的 axisPointer 配置项完成（例如 [xAxis.axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 或 [angleAxis.axisPointer](https://echarts.apache.org/zh/option.html#angleAxis.axisPointer)）。但是使用 `tooltip.axisPointer` 在简单场景下会更方便一些。\n\n> **注意：** `tooltip.axisPointer` 中诸配置项的优先级低于轴上的 axisPointer 的配置项。\n\n---\n\n\n\n坐标轴指示器是指示坐标轴当前刻度的工具。\n\n如下例，鼠标悬浮到图上，可以出现标线和刻度文本。\n\n~[600x450](https://echarts.apache.org/examples/zh/view.html?c=doc-example/candlestick-axisPointer&edit=1&reset=1)\n\n上例中，使用了 [axisPointer.link](https://echarts.apache.org/zh/option.html#axisPointer.link) 来关联不同的坐标系中的 axisPointer。\n\n坐标轴指示器也有适合触屏的交互方式，如下：\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=line-tooltip-touch&edit=1&reset=1)\n\n坐标轴指示器在多轴的场景能起到辅助作用：\n\n~[600x300](https://echarts.apache.org/examples/zh/view.html?c=multiple-y-axis&edit=1&reset=1)\n~[600x300](https://echarts.apache.org/examples/zh/view.html?c=multiple-x-axis&edit=1&reset=1)\n\n\n\n---\n\n> **注意：**\n> 一般来说，axisPointer 的具体配置项会配置在各个轴中（如 [xAxis.axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer)）或者 `tooltip` 中（如 [tooltip.axisPointer](https://echarts.apache.org/zh/option.html#tooltip.axisPointer)）。\n\n> 但是这几个选项只能配置在全局的 axisPointer 中：[axisPointer.triggerOn](https://echarts.apache.org/zh/option.html#axisPointer.triggerOn)、[axisPointer.link](https://echarts.apache.org/zh/option.html#axisPointer.link)。\n\n---\n\n**如何显示 axisPointer：**\n\n直角坐标系 [grid](https://echarts.apache.org/zh/option.html#grid)、极坐标系 [polar](https://echarts.apache.org/zh/option.html#polar)、单轴坐标系 [single](https://echarts.apache.org/zh/option.html#single) 中的每个轴都自己的 axisPointer。\n\n他们的 axisPointer 默认不显示。有两种方法可以让他们显示：\n\n+ 设置轴上的 `axisPointer.show`（例如 [xAxis.axisPointer.show](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.show)）为 `true`，则显示此轴的 axisPointer。\n\n+ 设置 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 设置为 `'axis'` 或者 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 设置为 `'cross'`，则此时坐标系会自动选择显示哪个轴的 axisPointer，也可以使用 [tooltip.axisPointer.axis](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.axis) 改变这种选择。注意，轴上如果设置了 axisPointer，会覆盖此设置。\n\n---\n\n**如何显示 axisPointer 的 label：**\n\naxisPointer 的 label 默认不显示（也就是默认只显示指示线），除非：\n\n+ 设置轴上的 `axisPointer.label.show`（例如 [xAxis.axisPointer.label.show](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.show)）为 `true`，则显示此轴的 axisPointer 的 label。\n\n+ 设置 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'cross'` 时会自动显示 axisPointer 的 label。\n\n---\n\n**关于触屏的 axisPointer 的设置**\n\n设置轴上的 `axisPointer.handle.show`（例如 [xAxis.axisPointer.handle.show](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.handle.show) 为 `true` 则会显示出此 axisPointer 的拖拽按钮。（polar 坐标系暂不支持此功能）。\n\n**注意：**\n如果发现此时 tooltip 效果不良好，可设置 [tooltip.triggerOn](https://echarts.apache.org/zh/option.html#tooltip.triggerOn) 为 `'none'`（于是效果为：手指按住按钮则显示 tooltip，松开按钮则隐藏 tooltip），或者 [tooltip.alwaysShowContent](https://echarts.apache.org/zh/option.html#tooltip.alwaysShowContent) 为 `true`（效果为 tooltip 一直显示）。\n\n参见[例子](line-tooltip-touch&edit=1&reset=1)。\n\n---\n\n**自动吸附到数据（snap）**\n\n对于数值轴、时间轴，如果开启了 [snap](https://echarts.apache.org/zh/option.html#xAxis.axisPointer.snap)，则 axisPointer 会自动吸附到最近的点上。\n\n\n---",
+                "children": [
+                    {
+                        "name": "type",
+                        "type": "enum",
+                        "desc": "指示器类型。\n\n可选\n+ `'line'` 直线指示器\n\n+ `'shadow'` 阴影指示器\n\n+ `'none'` 无指示器\n\n+ `'cross'` 十字准星指示器。其实是种简写，表示启用两个正交的轴的 axisPointer。",
+                        "children": []
+                    },
+                    {
+                        "name": "axis",
+                        "type": "string",
+                        "default": "'auto'",
+                        "desc": "指示器的坐标轴。\n\n默认情况，坐标系会自动选择显示哪个轴的 axisPointer（默认取类目轴或者时间轴）。\n\n可以是 `'x'`, `'y'`, `'radius'`, `'angle'`。",
+                        "children": []
+                    },
+                    {
+                        "name": "snap",
+                        "type": "boolean",
+                        "desc": "坐标轴指示器是否自动吸附到点上。默认自动判断。\n\n这个功能在数值轴和时间轴上比较有意义，可以自动寻找细小的数值点。",
+                        "children": []
+                    },
+                    {
+                        "name": "z",
+                        "type": "number",
+                        "desc": "坐标轴指示器的 z 值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。",
+                        "children": []
+                    },
+                    {
+                        "name": "label",
+                        "type": "Object",
+                        "desc": "坐标轴指示器的文本标签。",
+                        "children": [
+                            {
+                                "name": "show",
+                                "type": "boolean",
+                                "default": "false",
+                                "desc": "是否显示文本标签。如果 [tooltip.axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 设置为 `'cross'` 则默认显示标签，否则默认不显示。",
+                                "children": []
+                            },
+                            {
+                                "name": "precision",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "default": "'auto'",
+                                "desc": "文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 `2` 表示保留两位小数。",
+                                "children": []
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "default": "null",
+                                "desc": "文本标签文字的格式化器。\n\n如果为 `string`，可以是例如：`formatter: 'some text {value} some text`，其中 `{value}` 会被自动替换为轴的值。\n\n如果为 `function`，可以是例如：\n\n**参数：**\n\n`{Object}` params: 含有：\n\n`{Object}` params.value: 轴当前值，如果 axis.type 为 'category' 时，其值为 axis.data 里的数值。如果 axis.type 为 `'time'`，其值为时间戳。\n\n`{Array.<Object>}` params.seriesData: 一个数组，是当前 axisPointer 最近的点的信息，每项内容为\n\n`{string}` params.axisDimension: 轴的维度名，例如直角坐标系中是 `'x'`、`'y'`，极坐标系中是 `'radius'`、`'angle'`。\n\n`{number}` params.axisIndex: 轴的 index，`0`、`1`、`2`、...\n\n\n```js\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string,\n\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n\n\n每项内容还包括轴的信息：\n\n```js\n{\naxisDim: 'x', // 'x', 'y', 'angle', 'radius', 'single'\naxisId: 'xxx',\naxisName: 'xxx',\naxisIndex: 3,\naxisValue: 121, // 当前 axisPointer 对应的 value。\naxisValueLabel: '文本'\n}\n```\n\n\n**返回值：**\n\n显示的 string。\n\n例如：\n```js\nformatter: function (params) {\n// 假设此轴的 type 为 'time'。\nreturn 'some text' + echarts.format.formatTime(params.value);\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "margin",
+                                "type": "number",
+                                "desc": "label 距离轴的距离。\n\n\n\n\n\n\n\n\n##### color(Color)='#fff'\n\n\n\n文字的颜色。\n\n\n\n\n\n##### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n##### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n##### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n##### fontSize(number)=12\n\n\n\n文字的字体大小。",
+                                "children": [],
+                                "options": "'normal','italic','oblique'",
+                                "default": "12",
+                                "min": "1",
+                                "step": "1"
+                            },
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "default": "12",
+                                "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "1"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": "number",
+                                "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n##### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n##### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n##### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n##### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n##### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n##### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "padding",
+                                "type": "vector",
+                                "default": "[5, 7, 5, 7]",
+                                "desc": "axisPointer内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```js\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+                                "children": [],
+                                "min": "0",
+                                "dims": "T,R,B,L"
+                            },
+                            {
+                                "name": "backgroundColor",
+                                "type": "string",
+                                "default": "'auto'",
+                                "desc": "文本标签的背景颜色，默认是和 [axis.axisLine.lineStyle.color](https://echarts.apache.org/zh/option.html#xAxis.axisLine.lineStyle.color) 相同。",
+                                "children": []
+                            },
+                            {
+                                "name": "borderColor",
+                                "type": "string",
+                                "default": "null",
+                                "desc": "文本标签的边框颜色。",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "string",
+                                "default": "0",
+                                "desc": "文本标签的边框宽度。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "3",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "color",
+                                "default": "'#aaa'",
+                                "desc": "阴影颜色。支持的格式同`color`。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影水平方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影垂直方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "lineStyle",
+                        "type": "color",
+                        "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'line'` 时有效。\n\n\n\n##### color(Color)= #555\n\n\n\n线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "width",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "线宽。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "type",
+                                "type": "enum",
+                                "desc": "线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                                "children": [],
+                                "options": "'solid','dashed','dotted'"
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "color",
+                                "default": "",
+                                "desc": "阴影颜色。支持的格式同`color`。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影水平方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影垂直方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                                "children": [],
+                                "min": "0",
+                                "max": "1",
+                                "step": "0.01"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "shadowStyle",
+                        "type": "color",
+                        "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'shadow'` 时有效。\n\n\n\n##### color(Color)= 'rgba(150,150,150,0.3)\n\n\n\n填充的颜色。\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "color",
+                                "default": "",
+                                "desc": "阴影颜色。支持的格式同`color`。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影水平方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影垂直方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                                "children": [],
+                                "min": "0",
+                                "max": "1",
+                                "step": "0.01"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "crossStyle",
+                        "type": "color",
+                        "desc": "[axisPointer.type](https://echarts.apache.org/zh/option.html#tooltip.axisPointer.type) 为 `'cross'` 时有效。\n\n\n\n##### color(Color)= #555\n\n\n\n线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "width",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "线宽。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "type",
+                                "type": "enum",
+                                "desc": "线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                                "children": [],
+                                "options": "'solid','dashed','dotted'"
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "color",
+                                "default": "",
+                                "desc": "阴影颜色。支持的格式同`color`。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影水平方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影垂直方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                                "children": [],
+                                "min": "0",
+                                "max": "1",
+                                "step": "0.01"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "animation",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "是否开启动画。",
+                        "children": []
+                    },
+                    {
+                        "name": "animationThreshold",
+                        "type": "number",
+                        "default": "2000",
+                        "desc": "是否开启动画的阈值，当单个系列显示的图形数量大于这个阈值时会关闭动画。",
+                        "children": []
+                    },
+                    {
+                        "name": "animationDuration",
+                        "type": "number",
+                        "default": "1000",
+                        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```js\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "20"
+                    },
+                    {
+                        "name": "animationEasing",
+                        "type": "enum",
+                        "desc": "初始动画的缓动效果。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                        "children": [],
+                        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+                    },
+                    {
+                        "name": "animationDelay",
+                        "type": [
+                            "number",
+                            "Function"
+                        ],
+                        "default": "0",
+                        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```js\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+                        "children": []
+                    },
+                    {
+                        "name": "animationDurationUpdate",
+                        "type": "number",
+                        "default": "200",
+                        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```js\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "20"
+                    },
+                    {
+                        "name": "animationEasingUpdate",
+                        "type": "enum",
+                        "desc": "数据更新动画的缓动效果。",
+                        "children": [],
+                        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+                    },
+                    {
+                        "name": "animationDelayUpdate",
+                        "type": [
+                            "number",
+                            "Function"
+                        ],
+                        "default": "0",
+                        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```js\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "position",
+                "type": [
+                    "string",
+                    "Array",
+                    "Function"
+                ],
+                "desc": "提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。\n\n可选：\n\n+ `Array`\n\n通过数组表示提示框浮层的位置，支持数字设置绝对位置，百分比设置相对位置。\n\n示例:\n\n```js\n// 绝对位置，相对于容器左侧 10px, 上侧 10 px\nposition: [10, 10]\n// 相对位置，放置在容器正中间\nposition: ['50%', '50%']\n```\n\n+ `Function`\n\n回调函数，格式如下：\n```js\n(point: Array, params: Object|Array.<Object>, dom: HTMLDomElement, rect: Object, size: Object) => Array\n```\n\n**参数：**<br>\npoint: 鼠标位置，如 [20, 40]。<br>\nparams: 同 formatter 的参数相同。<br>\ndom: tooltip 的 dom 对象。<br>\nrect: 只有鼠标在图形上时有效，是一个用`x`, `y`, `width`, `height`四个属性表达的图形包围盒。<br>\nsize: 包括 dom 的尺寸和 echarts 容器的当前尺寸，例如：`{contentSize: [width, height], viewSize: [width, height]}`。<br>\n\n**返回值：**<br>\n可以是一个表示 tooltip 位置的数组，数组值可以是绝对的像素值，也可以是相  百分比。<br>\n也可以是一个对象，如：`{left: 10, top: 30}`，或者 `{right: '20%', bottom: 40}`。<br>\n\n如下示例：\n```js\nposition: function (point, params, dom, rect, size) {\n// 固定在顶部\nreturn [point[0], '10%'];\n}\n```\n或者：\n```js\nposition: function (pos, params, dom, rect, size) {\n// 鼠标在左侧时 tooltip 显示到右侧，鼠标在右侧时 tooltip 显示到左侧。\nvar obj = {top: 60};\nobj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 5;\nreturn obj;\n}\n```\n\n\n+ `'inside'`\n\n鼠标所在图形的内部中心位置，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'top'`\n\n鼠标所在图形上侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'left'`\n\n鼠标所在图形左侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'right'`\n\n鼠标所在图形右侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。\n\n+ `'bottom'`\n\n鼠标所在图形底侧，只在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为`'item'`的时候有效。",
+                "children": []
+            },
+            {
+                "name": "formatter",
+                "type": [
+                    "string",
+                    "Function"
+                ],
+                "desc": "提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1, 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```js\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2, 回调函数**\n\n回调函数格式：\n\n```js\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string\n```\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n```js\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string,\n\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n```js\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefied，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string,\n\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```js\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```js\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```js\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**注：** ECharts 2.x 使用数组表示各参数的方式不再支持。\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```js\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "children": []
+            },
+            {
+                "name": "backgroundColor",
+                "type": "Color",
+                "default": "'rgba(50,50,50,0.7)'",
+                "desc": "提示框浮层的背景颜色。",
+                "children": []
+            },
+            {
+                "name": "borderColor",
+                "type": "color",
+                "default": "'#333'",
+                "desc": "提示框浮层的边框颜色。",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "0",
+                "desc": "提示框浮层的边框宽。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "padding",
+                "type": "vector",
+                "default": "5",
+                "desc": "提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```js\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+                "children": [],
+                "dims": "T,R,B,L"
+            },
+            {
+                "name": "textStyle",
+                "type": "number",
+                "desc": "提示框浮层的文本样式。\n\n\n\n\n\n\n\n#### color(Color)='#fff'\n\n\n\n文字的颜色。\n\n\n\n\n\n#### fontStyle(string)='normal'\n\n\n\n文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n#### fontWeight(string|number)=normal\n\n\n\n文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n#### fontFamily(string)='sans-serif'\n\n\n\n文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...\n\n#### fontSize(number)=14\n\n\n\n文字的字体大小。",
+                "children": [
+                    {
+                        "name": "lineHeight",
+                        "type": "number",
+                        "default": "12",
+                        "desc": "行高。\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "1"
+                    },
+                    {
+                        "name": "width",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+                        "children": []
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。\n\n#### textBorderColor(Color)='transparent'\n\n\n\n文字本身的描边颜色。\n\n\n\n#### textBorderWidth(number)=0\n\n\n\n文字本身的描边宽度。\n\n#### textShadowColor(Color)='transparent'\n\n\n\n文字本身的阴影颜色。\n\n#### textShadowBlur(number)=0\n\n\n\n文字本身的阴影长度。\n\n#### textShadowOffsetX(number)=0\n\n\n\n文字本身的阴影 X 偏移。\n\n#### textShadowOffsetY(number)=0\n\n\n\n文字本身的阴影 Y 偏移。",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    }
+                ],
+                "options": "'normal','italic','oblique'",
+                "default": "14",
+                "min": "1",
+                "step": "1"
+            },
+            {
+                "name": "extraCssText",
+                "type": "string",
+                "desc": "额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```js\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                "children": []
+            }
+        ]
+    }
+]

@@ -1,0 +1,486 @@
+[
+    {
+        "name": "type",
+        "type": "string",
+        "default": "'slider'",
+        "desc": "",
+        "children": []
+    },
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to show the  component. If is set to be `false`, it will not show, but its data filtering function still works.",
+        "children": []
+    },
+    {
+        "name": "backgroundColor",
+        "type": "Color",
+        "default": "'rgba(47,69,84,0)'",
+        "desc": "The background color of the component.",
+        "children": []
+    },
+    {
+        "name": "dataBackground",
+        "type": "Object",
+        "desc": "The style of data shadow.",
+        "children": [
+            {
+                "name": "lineStyle",
+                "type": "Object",
+                "desc": "Line style of shadow\n\n\n\n#### color(Color)= #2f4554\n\nLine color.\n\n\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "line width.",
+                        "children": []
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "solid",
+                        "desc": "line type.\n\nOptions are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "areaStyle",
+                "type": "Object",
+                "desc": "Area style of shadow\n\n\n\n#### color(Color)= rgba(47,69,84,0.3)\n\nFill color.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "Color",
+                        "desc": "Shadow color. Support same format as `color`.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the horizontal direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Offset distance on the vertical direction of shadow.",
+                        "children": []
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "fillerColor",
+        "type": "Color",
+        "default": "'rgba(47,69,84,0.25)'",
+        "desc": "The color to fill selected area.",
+        "children": []
+    },
+    {
+        "name": "borderColor",
+        "type": "Color",
+        "default": "'#ddd'",
+        "desc": "The color of border.",
+        "children": []
+    },
+    {
+        "name": "handleIcon",
+        "type": "string",
+        "desc": "Icon shape of handle, which supports path string. Its default value is:\n```js\n'M8.2,13.6V3.9H6.3v9.7H3.1v14.9h3.3v9.7h1.8v-9.7h3.3V13.6H8.2z M9.7,24.4H4.8v-1.4h4.9V24.4z M9.7,19.1H4.8v-1.4h4.9V19.1z'\n```\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://xxx.xxx.xxx/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\n\n\n\n\nRefer to [area-simple example](area-simple) for customized icon.",
+        "children": []
+    },
+    {
+        "name": "handleSize",
+        "type": [
+            "number",
+            "string"
+        ],
+        "default": "'100%'",
+        "desc": "The size of control handle. It can be in pixels, or in percentage relative to the width of dataZoom component. By default, it's the same as the width of dataZoom component.",
+        "children": []
+    },
+    {
+        "name": "handleStyle",
+        "type": "Object",
+        "desc": "Style of handle. Please refer to [area-simple example](area-simple).\n\n\n\n### color(Color)=#a7b7cc\n\ncolor.\n\n\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`. Gradient color and texture are also supported besides single colors.\n> ```js\n> // Linear gradient. First four parameters are x0, y0, x2, and y2, each ranged from 0 to 1, standing for percentage in the bounding box. If global is `true`, then the first four parameters are in absolute pixel positions.\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Radial gradient. First three parameters are x and y positions of center, and radius, similar to linear gradient.\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // color at 0% position\n>     }, {\n>         offset: 1, color: 'blue' // color at 100% position\n>     }],\n>     global: false // false by default\n> }\n> // Fill with texture\n> color: {\n>     image: imageDom, // HTMLImageElement, and HTMLCanvasElement are supported, while string path is not supported\n>     repeat: 'repeat' // whether to repeat texture, whose value can be repeat-x, repeat-y, or no-repeat\n> }\n> ```",
+        "children": [
+            {
+                "name": "borderColor",
+                "type": "Color",
+                "default": "\"#000\"",
+                "desc": "border color, whose format is similar to that of `color`.",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "0",
+                "desc": "border width. No border when it is set to be 0.",
+                "children": []
+            },
+            {
+                "name": "borderType",
+                "type": "string",
+                "default": "'solid'",
+                "desc": "Border type, which can be `'solid'`, `'dashed'`, or `'dotted'`. `'solid'` by default.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": []
+            },
+            {
+                "name": "shadowColor",
+                "type": "Color",
+                "desc": "Shadow color. Support same format as `color`.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the horizontal direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Offset distance on the vertical direction of shadow.",
+                "children": []
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "desc": "Opacity of the component. Supports value from 0 to 1, and the component will not be drawn when set to 0.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "labelPrecision",
+        "type": [
+            "number",
+            "string"
+        ],
+        "default": "'auto'",
+        "desc": "Precision of label if in number form. By default, it is decided based on the number of data.",
+        "children": []
+    },
+    {
+        "name": "labelFormatter",
+        "type": [
+            "string",
+            "Function"
+        ],
+        "default": "null",
+        "desc": "The formatter tool for the label.\n\n+ It is a template if in `string`. For instance, `aaaa{value}bbbb`, where `{value}` will be replaced by the value of actual data value.\n\n+ It is a callback function if in `Function`. For example:\n\n```javascript\n/**\n* @param {*} value If axis.type is 'category', `value` is the index of axis.data.\n*                  else `value` is current value.\n* @param {strign} valueStr Inner formatted string.\n* @return {string} Returns the label formatted.\n*/\nlabelFormatter: function (value, valueStr) {\nreturn 'aaa' + value + 'bbb';\n}\n```",
+        "children": []
+    },
+    {
+        "name": "showDetail",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to show detail, that is, show the detailed data information when dragging.",
+        "children": []
+    },
+    {
+        "name": "showDataShadow",
+        "type": "string",
+        "default": "'auto'",
+        "desc": "Whether to show data shadow in `dataZoom-silder` component, to indicate the data tendency in brief.",
+        "children": []
+    },
+    {
+        "name": "realtime",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to update view while dragging. If it is set as `false`, the view will be updated only at the end of dragging.\n\n\n## textStyle\n\n\n\n\n\n\n\n### color(Color)=#333\n\ndataZoom  text color.\n\n\n\n\n\n### fontStyle(string)='normal'\n\ndataZoom  font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`\n\n\n### fontWeight(string|number)=normal\n\ndataZoom  font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...\n\n\n### fontFamily(string)='sans-serif'\n\ndataZoom  font family.\n\nCan also be 'serif' , 'monospace', ...\n\n### fontSize(number)=12\n\ndataZoom  font size.",
+        "children": [
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```js\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.\n\n\n### textBorderColor(Color)='transparent'\n\nStorke color of the text.\n\n\n\n\n### textBorderWidth(number)=0\n\nStorke line width of the text.\n\n### textShadowColor(Color)='transparent'\n\nShadow color of the text itself.\n\n### textShadowBlur(number)=0\n\nShadow blue of the text itself.\n\n### textShadowOffsetX(number)=0\n\nShadow X offset of the text itself.\n\n### textShadowOffsetY(number)=0\n\nShadow Y offset of the text itself.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "xAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [xAxis](https://echarts.apache.org/en/option.html#xAxis) is/are controlled by the `dataZoom-slider` when [catesian coordinate system](https://echarts.apache.org/en/option.html#grid) is used.\n\nBy default the first `xAxis` that parallel to `dataZoom` are controlled when [dataZoom-slider.orient](https://echarts.apache.org/en/option.html#dataZoom-slider.orient) is set as `'horizontal'`. But it is recommended to specify it explicitly but not use default value.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nxAxis: [\n{...}, // The first xAxis\n{...}, // The second xAxis\n{...}, // The third xAxis\n{...}  // The fourth xAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nxAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third xAxis\n},\n{ // The second dataZoom component\nxAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth xAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "yAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [yAxis](https://echarts.apache.org/en/option.html#yAxis) is/are controlled by the `dataZoom-slider` when [catesian coordinate system](https://echarts.apache.org/en/option.html#grid) is used.\n\nBy default the first `yAxis` that parallel to `dataZoom` are controlled when [dataZoom-slider.orient](https://echarts.apache.org/en/option.html#dataZoom-slider.orient) is set as `'vertical'`. But it is recommended to specify it explicitly but not use default value.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nyAxis: [\n{...}, // The first yAxis\n{...}, // The second yAxis\n{...}, // The third yAxis\n{...}  // The fourth yAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nyAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third yAxis\n},\n{ // The second dataZoom component\nyAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth yAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "radiusAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [radiusAxis](https://echarts.apache.org/en/option.html#radiusAxis) is/are controlled by the `dataZoom-slider` when [polar coordinate system](https://echarts.apache.org/en/option.html#polar) is used.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nradiusAxis: [\n{...}, // The first radiusAxis\n{...}, // The second radiusAxis\n{...}, // The third radiusAxis\n{...}  // The fourth radiusAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nradiusAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third radiusAxis\n},\n{ // The second dataZoom component\nradiusAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth radiusAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "angleAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [angleAxis](https://echarts.apache.org/en/option.html#angleAxis) is/are controlled by the `dataZoom-slider` when [polar coordinate system](https://echarts.apache.org/en/option.html#polar) is used.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nangleAxis: [\n{...}, // The first angleAxis\n{...}, // The second angleAxis\n{...}, // The third angleAxis\n{...}  // The fourth angleAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nangleAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third angleAxis\n},\n{ // The second dataZoom component\nangleAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth angleAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "filterMode",
+        "type": "string",
+        "default": "'filter'",
+        "desc": "Generally `dataZoom` component zoom or roam coordinate system through data filtering and set the windows of axes internally.\n\nIts behaviours vary according to filtering mode settings ([dataZoom.filterMode](https://echarts.apache.org/en/option.html#dataZoom.filterMode)).\n\nPossible values:\n\n+ 'filter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered if one of the relevant dimensions is out of the window.\n\n+ 'weakFilter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered only if all of the relevant dimensions are out of the same side of the window.\n\n+ 'empty': data that outside the window will be **set to NaN**, which will not lead to changes of windows of other axes.\n\n+ 'none': Do not filter data.\n\nHow to set `filterMode` is up to users, depending on the requirments and scenarios. Expirically:\n\n+ If only `xAxis` or only `yAxis` is controlled by `dataZoom`, `filterMode: 'filter'` is typically used, which enable the other axis auto adapte its window to the extent of the filtered data.\n\n+ If both `xAxis` and `yAxis` are operated by `dataZoom`:\n\n+ If `xAxis` and `yAxis` should not effect mutually (e.g. a scatter chart with both axes on the type of `'value'`), they should be set to be `filterMode: 'empty'`.\n\n+ If `xAxis` is the main axis and `yAxis` is the auxiliary axis (or vise versa) (e.g., in a bar chart, when dragging `dataZoomX` to change the window of xAxis, we need the yAxis to adapt to the clipped data, but when dragging `dataZoomY` to change the window of yAxis, we need the xAxis not to be changed), in this case, `xAxis` should be set to be `fiterMode: 'filter'`, while `yAxis` should be set to be `fiterMode: 'empty'`.\n\nIt can be demonstrated by the sample:\n\n```javascript\noption = {\ndataZoom: [\n{\nid: 'dataZoomX',\ntype: 'slider',\nxAxisIndex: [0],\nfilterMode: 'filter'\n},\n{\nid: 'dataZoomY',\ntype: 'slider',\nyAxisIndex: [0],\nfilterMode: 'empty'\n}\n],\nxAxis: {type: 'value'},\nyAxis: {type: 'value'},\nseries{\ntype: 'bar',\ndata: [\n// The first column corresponds to xAxis,\n// and the second coloum corresponds to yAxis.\n[12, 24, 36],\n[90, 80, 70],\n[3, 9, 27],\n[1, 11, 111]\n]\n}\n}\n```\n\nIn the sample above, `dataZoomX` is set as `filterMode: 'filter'`. When use drags `dataZoomX` (do not touch `dataZoomY`) and the valueWindow of `xAxis` is changed to `[2, 50]` consequently, `dataZoomX` travel the first column of series.data and filter items that out of the window. The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n// [90, 80, 70] This item is filtered, as 90 is out of the window.\n[3, 9, 27]\n// [1, 11, 111] This item is filtered, as 1 is out of the window.\n]\n```\n\nBefore filtering, the second column, which corresponds to yAxis, has values `24`, `80`, `9`, `11`. After filtering, only `24` and `9` are left. Then the extent of `yAxis` is adjusted to adapt the two values (if `yAxis.min` and `yAxis.max` are not set).\n\nSo `filterMode: 'filter'` can be used to enable the other axis to auto adapt the filtered data.\n\nThen let's review the sample from the beginning, `dataZoomY` is set as `filterMode: 'empty'`. So if user drags `dataZoomY` (do not touch `dataZoomX`) and its window is changed to `[10, 60]` consequently, `dataZoomY` travels the second column of series.data and set NaN to all of the values that outside the window (NaN cause the graphical elements, i.e., bar elements, do not show, but still hold the place). The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n[90, NaN, 70], // Set to NaN\n[3, NaN, 27],  // Set to NaN\n[1, 11, 111]\n]\n```\n\nIn this case, the first column (i.e., `12`, `90`, `3`, `1`, which corresponds to `xAxis`), will not be changed at all. So dragging `yAxis` will not change extent of `xAxis`, which is good for requirements like outlier filtering.\n\nSee this example:\n~[600x400](doc-example/bar-dataZoom-filterMode&edit=1&reset=1)",
+        "children": []
+    },
+    {
+        "name": "start",
+        "type": "number",
+        "default": "0",
+        "desc": "The start percentage of the window out of the data extent, in the range of 0 ~ 100.\n\n[dataZoom-slider.start](https://echarts.apache.org/en/option.html#dataZoom-slider.start) and [dataZoom-slider.end](https://echarts.apache.org/en/option.html#dataZoom-slider.end) define the window of the data in **percent** form.\n\nMore info about the relationship between `dataZoom-slider.start` and axis extent can be checked in [dataZoom-slider.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-slider.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "end",
+        "type": "number",
+        "default": "100",
+        "desc": "The end percentage of the window out of the data extent, in the range of 0 ~ 100.\n\n[dataZoom-slider.start](https://echarts.apache.org/en/option.html#dataZoom-slider.start) and [dataZoom-slider.end](https://echarts.apache.org/en/option.html#dataZoom-slider.end) define the window of the data in **percent** form.\n\nMore info about the relationship between `dataZoom-slider.end` and axis extent can be checked in [dataZoom-slider.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-slider.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "startValue",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "The start absolute value of the window, not works when [dataZoom-slider.start](https://echarts.apache.org/en/option.html#dataZoom-slider.start) is set.\n\n[dataZoom-slider.startValue](https://echarts.apache.org/en/option.html#dataZoom-slider.startValue) and [dataZoom-slider.endValue](https://echarts.apache.org/en/option.html#dataZoom-slider.endValue) define the window of the data window in **absolute value** form.\n\nNotice, if an axis is set to be `category`, `startValue` could be set as `index` of the array of `axis.data` or as the array value itself. In the latter case, it will internally and automatically translate to the index of array.\n\nMore info about the relationship between `dataZoom-slider.startValue` and axis extent can be checked in [dataZoom-slider.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-slider.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "endValue",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "The end absolute value of the window, doesn't work when [dataZoom-slider.end](https://echarts.apache.org/en/option.html#dataZoom-slider.end) is set.\n\n[dataZoom-slider.startValue](https://echarts.apache.org/en/option.html#dataZoom-slider.startValue) and [dataZoom-slider.endValue](https://echarts.apache.org/en/option.html#dataZoom-slider.endValue) define the window of the data window in **absolute value** form.\n\nNotice, if an axis is set to be `category`, `startValue` could be set as `index` of the array of `axis.data` or as the array value itself. In the latter case, it will internally and automatically translate to the index of array.\n\nMore info about the relationship between `dataZoom-slider.endValue` and axis extent can be checked in [dataZoom-slider.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-slider.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "minSpan",
+        "type": "number",
+        "default": "null",
+        "desc": "Used to restrict minimal window size, in percent, which value is in the range of [0, 100].\n\nIf [dataZoom-slider.minValueSpan](https://echarts.apache.org/en/option.html#dataZoom-slider.minValueSpan) is set, `minSpan` does not work any more.",
+        "children": []
+    },
+    {
+        "name": "maxSpan",
+        "type": "number",
+        "default": "null",
+        "desc": "Used to restrict maximal window size, in percent, which value is in the range of [0, 100].\n\nIf [dataZoom-slider.maxValueSpan](https://echarts.apache.org/en/option.html#dataZoom-slider.maxValueSpan) is set, `maxSpan` does not work any more.",
+        "children": []
+    },
+    {
+        "name": "minValueSpan",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "Used to restrict minimal window size.\n\nFor example:\nIn time axis it can be set as `3600 * 24 * 1000 * 5` to represent \"5 day\".\nIn category axis it can be set as `5` to represent 5 categories.",
+        "children": []
+    },
+    {
+        "name": "maxValueSpan",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "Used to restrict maximal window size.\n\nFor example:\nIn time axis it can be set as `3600 * 24 * 1000 * 5` to represent \"5 day\".\nIn category axis it can be set as `5` to represent 5 categories.",
+        "children": []
+    },
+    {
+        "name": "orient",
+        "type": "string",
+        "default": "null",
+        "desc": "Specify whether the layout of `dataZoom` component is horizontal or vertical. What's more, it indicates whether the horizontal axis or vertical axis is controlled by default in catesian coordinate system.\n\nValid values:\n\n+ `'horizontal'`: horizontal.\n\n+ `'vertical'`: vertical.",
+        "children": []
+    },
+    {
+        "name": "zoomLock",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Specify whether to lock the size of window (selected area).\n\nWhen set as `true`, the size of window is locked, that is, only the translation (by mouse drag or touch drag) is avialable but zoom is not.",
+        "children": []
+    },
+    {
+        "name": "throttle",
+        "type": "number",
+        "default": "100",
+        "desc": "Specify the frame rate of views refreshing, with unit millisecond (ms).\n\n\nIf [animation](https://echarts.apache.org/en/option.html#animation) set as `true` and [animationDurationUpdate](https://echarts.apache.org/en/option.html#animationDurationUpdate) set as bigger than `0`, you can keep `throttle` as the default value `100` (or set it as a value bigger than `0`), otherwise it might be not smooth when dragging.\n\nIf [animation](https://echarts.apache.org/en/option.html#animation) set as `false` or [animationDurationUpdate](https://echarts.apache.org/en/option.html#animationDurationUpdate) set as `0`, and data size is not very large, and it seems to be not smooth when dragging, you can set `throttle` as `0` to improve that.",
+        "children": []
+    },
+    {
+        "name": "rangeMode",
+        "type": "Array",
+        "desc": "The format is `[rangeModeForStart, rangeModeForEnd]`.\n\nFor example `rangeMode: ['value', 'percent']` means that use absolute value in `start` and percent value in `end`.\n\nOptional value for each item: `'value'`, `'percent'`.\n\n+ `'value'` mode: the axis extent will always only be determined by `dataZoom.startValue` and `dataZoom.endValue`, despite how data like and how `axis.min` and `axis.max` are.\n+ `'percent'` mode: `100` represents 100% of the `[dMin, dMax]`, where `dMin` is `axis.min` if `axis.min` specified, otherwise `data.extent[0]`, and `dMax` is `axis.max` if `axis.max` specified, otherwise `data.extent[1]`. Axis extent will only be determined by the result of the percent of `[dMin, dMax]`.\n\n`rangeMode` are auto determined by whether `option.start`/`option.end` are specified (represents `'percent'` mode) or `option.startValue`/`option.endValue` specified (represents `'value'` mode). And when user behavior trigger the changing of the view, the `rangeMode` would be modified automatically. For example, if triggered by `toolbox.dataZoom`, it will be modefied to `'value'`, and if triggered by `dataZoom-inside` or `dataZoom-slider`, it will be modified to `'percent'`.\n\nIf we specify `rangeMode` manually in `option`, it only works when both `start` and `startValue` specified or both `end` and `endValue` specified. So usually we do not need to specify `dataZoom.rangeMode` manually.\n\nTake a scenario as an example. When we are using dynamic data (update data periodically via `setOption`), if in `'value`' mode, the window will be kept in a fixed value range despite how data are appended, while if in `'percent'` mode, whe window range will be changed alone with the appended data (suppose `axis.min` and `axis.max` are not specified).",
+        "children": []
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "children": []
+    },
+    {
+        "name": "left",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between dataZoom-slider component and the left side of the container.\n\n`left` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
+        "children": []
+    },
+    {
+        "name": "top",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between dataZoom-slider component and the top side of the container.\n\n`top` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `left` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
+        "children": []
+    },
+    {
+        "name": "right",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between dataZoom-slider component and the right side of the container.\n\n`right` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "children": []
+    },
+    {
+        "name": "bottom",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Distance between dataZoom-slider component and the bottom side of the container.\n\n`bottom` value can be instant pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "children": []
+    }
+]

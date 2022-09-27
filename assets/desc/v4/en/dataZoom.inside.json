@@ -1,0 +1,205 @@
+[
+    {
+        "name": "type",
+        "type": "string",
+        "default": "'inside'",
+        "desc": "",
+        "children": []
+    },
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether disable inside zoom.",
+        "children": []
+    },
+    {
+        "name": "xAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [xAxis](https://echarts.apache.org/en/option.html#xAxis) is/are controlled by the `dataZoom-inside` when [catesian coordinate system](https://echarts.apache.org/en/option.html#grid) is used.\n\nBy default the first `xAxis` that parallel to `dataZoom` are controlled when [dataZoom-inside.orient](https://echarts.apache.org/en/option.html#dataZoom-inside.orient) is set as `'horizontal'`. But it is recommended to specify it explicitly but not use default value.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nxAxis: [\n{...}, // The first xAxis\n{...}, // The second xAxis\n{...}, // The third xAxis\n{...}  // The fourth xAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nxAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third xAxis\n},\n{ // The second dataZoom component\nxAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth xAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "yAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [yAxis](https://echarts.apache.org/en/option.html#yAxis) is/are controlled by the `dataZoom-inside` when [catesian coordinate system](https://echarts.apache.org/en/option.html#grid) is used.\n\nBy default the first `yAxis` that parallel to `dataZoom` are controlled when [dataZoom-inside.orient](https://echarts.apache.org/en/option.html#dataZoom-inside.orient) is set as `'vertical'`. But it is recommended to specify it explicitly but not use default value.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nyAxis: [\n{...}, // The first yAxis\n{...}, // The second yAxis\n{...}, // The third yAxis\n{...}  // The fourth yAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nyAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third yAxis\n},\n{ // The second dataZoom component\nyAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth yAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "radiusAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [radiusAxis](https://echarts.apache.org/en/option.html#radiusAxis) is/are controlled by the `dataZoom-inside` when [polar coordinate system](https://echarts.apache.org/en/option.html#polar) is used.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nradiusAxis: [\n{...}, // The first radiusAxis\n{...}, // The second radiusAxis\n{...}, // The third radiusAxis\n{...}  // The fourth radiusAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nradiusAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third radiusAxis\n},\n{ // The second dataZoom component\nradiusAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth radiusAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "angleAxisIndex",
+        "type": [
+            "number",
+            "Array"
+        ],
+        "default": "null",
+        "desc": "Specify which [angleAxis](https://echarts.apache.org/en/option.html#angleAxis) is/are controlled by the `dataZoom-inside` when [polar coordinate system](https://echarts.apache.org/en/option.html#polar) is used.\n\n\nIf it is set as a single `number`, one axis is controlled, while if it is set as an `Array` , multiple axes are controlled.\n\nFor example:\n\n```javascript\noption: {\nangleAxis: [\n{...}, // The first angleAxis\n{...}, // The second angleAxis\n{...}, // The third angleAxis\n{...}  // The fourth angleAxis\n],\ndataZoom: [\n{ // The first dataZoom component\nangleAxisIndex: [0, 2] // Indicates that this dataZoom component\n// controls the first and the third angleAxis\n},\n{ // The second dataZoom component\nangleAxisIndex: 3      // indicates that this dataZoom component\n// controls the fourth angleAxis\n}\n]\n}\n```",
+        "children": []
+    },
+    {
+        "name": "filterMode",
+        "type": "string",
+        "default": "'filter'",
+        "desc": "Generally `dataZoom` component zoom or roam coordinate system through data filtering and set the windows of axes internally.\n\nIts behaviours vary according to filtering mode settings ([dataZoom.filterMode](https://echarts.apache.org/en/option.html#dataZoom.filterMode)).\n\nPossible values:\n\n+ 'filter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered if one of the relevant dimensions is out of the window.\n\n+ 'weakFilter': data that outside the window will be **filtered**, which may lead to some changes of windows of other axes. For each data item, it will be filtered only if all of the relevant dimensions are out of the same side of the window.\n\n+ 'empty': data that outside the window will be **set to NaN**, which will not lead to changes of windows of other axes.\n\n+ 'none': Do not filter data.\n\nHow to set `filterMode` is up to users, depending on the requirments and scenarios. Expirically:\n\n+ If only `xAxis` or only `yAxis` is controlled by `dataZoom`, `filterMode: 'filter'` is typically used, which enable the other axis auto adapte its window to the extent of the filtered data.\n\n+ If both `xAxis` and `yAxis` are operated by `dataZoom`:\n\n+ If `xAxis` and `yAxis` should not effect mutually (e.g. a scatter chart with both axes on the type of `'value'`), they should be set to be `filterMode: 'empty'`.\n\n+ If `xAxis` is the main axis and `yAxis` is the auxiliary axis (or vise versa) (e.g., in a bar chart, when dragging `dataZoomX` to change the window of xAxis, we need the yAxis to adapt to the clipped data, but when dragging `dataZoomY` to change the window of yAxis, we need the xAxis not to be changed), in this case, `xAxis` should be set to be `fiterMode: 'filter'`, while `yAxis` should be set to be `fiterMode: 'empty'`.\n\nIt can be demonstrated by the sample:\n\n```javascript\noption = {\ndataZoom: [\n{\nid: 'dataZoomX',\ntype: 'slider',\nxAxisIndex: [0],\nfilterMode: 'filter'\n},\n{\nid: 'dataZoomY',\ntype: 'slider',\nyAxisIndex: [0],\nfilterMode: 'empty'\n}\n],\nxAxis: {type: 'value'},\nyAxis: {type: 'value'},\nseries{\ntype: 'bar',\ndata: [\n// The first column corresponds to xAxis,\n// and the second coloum corresponds to yAxis.\n[12, 24, 36],\n[90, 80, 70],\n[3, 9, 27],\n[1, 11, 111]\n]\n}\n}\n```\n\nIn the sample above, `dataZoomX` is set as `filterMode: 'filter'`. When use drags `dataZoomX` (do not touch `dataZoomY`) and the valueWindow of `xAxis` is changed to `[2, 50]` consequently, `dataZoomX` travel the first column of series.data and filter items that out of the window. The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n// [90, 80, 70] This item is filtered, as 90 is out of the window.\n[3, 9, 27]\n// [1, 11, 111] This item is filtered, as 1 is out of the window.\n]\n```\n\nBefore filtering, the second column, which corresponds to yAxis, has values `24`, `80`, `9`, `11`. After filtering, only `24` and `9` are left. Then the extent of `yAxis` is adjusted to adapt the two values (if `yAxis.min` and `yAxis.max` are not set).\n\nSo `filterMode: 'filter'` can be used to enable the other axis to auto adapt the filtered data.\n\nThen let's review the sample from the beginning, `dataZoomY` is set as `filterMode: 'empty'`. So if user drags `dataZoomY` (do not touch `dataZoomX`) and its window is changed to `[10, 60]` consequently, `dataZoomY` travels the second column of series.data and set NaN to all of the values that outside the window (NaN cause the graphical elements, i.e., bar elements, do not show, but still hold the place). The series.data turns out to be:\n\n```javascript\n[\n[12, 24, 36],\n[90, NaN, 70], // Set to NaN\n[3, NaN, 27],  // Set to NaN\n[1, 11, 111]\n]\n```\n\nIn this case, the first column (i.e., `12`, `90`, `3`, `1`, which corresponds to `xAxis`), will not be changed at all. So dragging `yAxis` will not change extent of `xAxis`, which is good for requirements like outlier filtering.\n\nSee this example:\n~[600x400](doc-example/bar-dataZoom-filterMode&edit=1&reset=1)",
+        "children": []
+    },
+    {
+        "name": "start",
+        "type": "number",
+        "default": "0",
+        "desc": "The start percentage of the window out of the data extent, in the range of 0 ~ 100.\n\n[dataZoom-inside.start](https://echarts.apache.org/en/option.html#dataZoom-inside.start) and [dataZoom-inside.end](https://echarts.apache.org/en/option.html#dataZoom-inside.end) define the window of the data in **percent** form.\n\nMore info about the relationship between `dataZoom-inside.start` and axis extent can be checked in [dataZoom-inside.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-inside.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "end",
+        "type": "number",
+        "default": "100",
+        "desc": "The end percentage of the window out of the data extent, in the range of 0 ~ 100.\n\n[dataZoom-inside.start](https://echarts.apache.org/en/option.html#dataZoom-inside.start) and [dataZoom-inside.end](https://echarts.apache.org/en/option.html#dataZoom-inside.end) define the window of the data in **percent** form.\n\nMore info about the relationship between `dataZoom-inside.end` and axis extent can be checked in [dataZoom-inside.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-inside.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "startValue",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "The start absolute value of the window, not works when [dataZoom-inside.start](https://echarts.apache.org/en/option.html#dataZoom-inside.start) is set.\n\n[dataZoom-inside.startValue](https://echarts.apache.org/en/option.html#dataZoom-inside.startValue) and [dataZoom-inside.endValue](https://echarts.apache.org/en/option.html#dataZoom-inside.endValue) define the window of the data window in **absolute value** form.\n\nNotice, if an axis is set to be `category`, `startValue` could be set as `index` of the array of `axis.data` or as the array value itself. In the latter case, it will internally and automatically translate to the index of array.\n\nMore info about the relationship between `dataZoom-inside.startValue` and axis extent can be checked in [dataZoom-inside.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-inside.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "endValue",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "The end absolute value of the window, doesn't work when [dataZoom-inside.end](https://echarts.apache.org/en/option.html#dataZoom-inside.end) is set.\n\n[dataZoom-inside.startValue](https://echarts.apache.org/en/option.html#dataZoom-inside.startValue) and [dataZoom-inside.endValue](https://echarts.apache.org/en/option.html#dataZoom-inside.endValue) define the window of the data window in **absolute value** form.\n\nNotice, if an axis is set to be `category`, `startValue` could be set as `index` of the array of `axis.data` or as the array value itself. In the latter case, it will internally and automatically translate to the index of array.\n\nMore info about the relationship between `dataZoom-inside.endValue` and axis extent can be checked in [dataZoom-inside.rangeMode](https://echarts.apache.org/en/option.html#dataZoom-inside.rangeMode).",
+        "children": []
+    },
+    {
+        "name": "minSpan",
+        "type": "number",
+        "default": "null",
+        "desc": "Used to restrict minimal window size, in percent, which value is in the range of [0, 100].\n\nIf [dataZoom-inside.minValueSpan](https://echarts.apache.org/en/option.html#dataZoom-inside.minValueSpan) is set, `minSpan` does not work any more.",
+        "children": []
+    },
+    {
+        "name": "maxSpan",
+        "type": "number",
+        "default": "null",
+        "desc": "Used to restrict maximal window size, in percent, which value is in the range of [0, 100].\n\nIf [dataZoom-inside.maxValueSpan](https://echarts.apache.org/en/option.html#dataZoom-inside.maxValueSpan) is set, `maxSpan` does not work any more.",
+        "children": []
+    },
+    {
+        "name": "minValueSpan",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "Used to restrict minimal window size.\n\nFor example:\nIn time axis it can be set as `3600 * 24 * 1000 * 5` to represent \"5 day\".\nIn category axis it can be set as `5` to represent 5 categories.",
+        "children": []
+    },
+    {
+        "name": "maxValueSpan",
+        "type": [
+            "number",
+            "string",
+            "Date"
+        ],
+        "default": "null",
+        "desc": "Used to restrict maximal window size.\n\nFor example:\nIn time axis it can be set as `3600 * 24 * 1000 * 5` to represent \"5 day\".\nIn category axis it can be set as `5` to represent 5 categories.",
+        "children": []
+    },
+    {
+        "name": "orient",
+        "type": "string",
+        "default": "null",
+        "desc": "Specify whether the layout of `dataZoom` component is horizontal or vertical. What's more, it indicates whether the horizontal axis or vertical axis is controlled by default in catesian coordinate system.\n\nValid values:\n\n+ `'horizontal'`: horizontal.\n\n+ `'vertical'`: vertical.",
+        "children": []
+    },
+    {
+        "name": "zoomLock",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Specify whether to lock the size of window (selected area).\n\nWhen set as `true`, the size of window is locked, that is, only the translation (by mouse drag or touch drag) is avialable but zoom is not.",
+        "children": []
+    },
+    {
+        "name": "throttle",
+        "type": "number",
+        "default": "100",
+        "desc": "Specify the frame rate of views refreshing, with unit millisecond (ms).\n\n\nIf [animation](https://echarts.apache.org/en/option.html#animation) set as `true` and [animationDurationUpdate](https://echarts.apache.org/en/option.html#animationDurationUpdate) set as bigger than `0`, you can keep `throttle` as the default value `100` (or set it as a value bigger than `0`), otherwise it might be not smooth when dragging.\n\nIf [animation](https://echarts.apache.org/en/option.html#animation) set as `false` or [animationDurationUpdate](https://echarts.apache.org/en/option.html#animationDurationUpdate) set as `0`, and data size is not very large, and it seems to be not smooth when dragging, you can set `throttle` as `0` to improve that.",
+        "children": []
+    },
+    {
+        "name": "rangeMode",
+        "type": "Array",
+        "desc": "The format is `[rangeModeForStart, rangeModeForEnd]`.\n\nFor example `rangeMode: ['value', 'percent']` means that use absolute value in `start` and percent value in `end`.\n\nOptional value for each item: `'value'`, `'percent'`.\n\n+ `'value'` mode: the axis extent will always only be determined by `dataZoom.startValue` and `dataZoom.endValue`, despite how data like and how `axis.min` and `axis.max` are.\n+ `'percent'` mode: `100` represents 100% of the `[dMin, dMax]`, where `dMin` is `axis.min` if `axis.min` specified, otherwise `data.extent[0]`, and `dMax` is `axis.max` if `axis.max` specified, otherwise `data.extent[1]`. Axis extent will only be determined by the result of the percent of `[dMin, dMax]`.\n\n`rangeMode` are auto determined by whether `option.start`/`option.end` are specified (represents `'percent'` mode) or `option.startValue`/`option.endValue` specified (represents `'value'` mode). And when user behavior trigger the changing of the view, the `rangeMode` would be modified automatically. For example, if triggered by `toolbox.dataZoom`, it will be modefied to `'value'`, and if triggered by `dataZoom-inside` or `dataZoom-slider`, it will be modified to `'percent'`.\n\nIf we specify `rangeMode` manually in `option`, it only works when both `start` and `startValue` specified or both `end` and `endValue` specified. So usually we do not need to specify `dataZoom.rangeMode` manually.\n\nTake a scenario as an example. When we are using dynamic data (update data periodically via `setOption`), if in `'value`' mode, the window will be kept in a fixed value range despite how data are appended, while if in `'percent'` mode, whe window range will be changed alone with the appended data (suppose `axis.min` and `axis.max` are not specified).",
+        "children": []
+    },
+    {
+        "name": "zoomOnMouseWheel",
+        "type": [
+            "boolean",
+            "string"
+        ],
+        "default": "true",
+        "desc": "How to trigger zoom. Optional values:\n\n+ `true`：Mouse wheel triggers zoom.\n+ `false`：Mouse wheel can not triggers zoom.\n+ `'shift'`：Holding `shift` and mouse wheel triggers zoom.\n+ `'ctrl'`：Holding `ctrl` and mouse wheel triggers zoom.\n+ `'alt'`：Holding `alt` and mouse wheel triggers zoom.",
+        "children": []
+    },
+    {
+        "name": "moveOnMouseMove",
+        "type": [
+            "boolean",
+            "string"
+        ],
+        "default": "true",
+        "desc": "How to trigger data window move. Optional values:\n\n+ `true`：Mouse move triggers data window move.\n+ `false`：Mouse move can not triggers data window move.\n+ `'shift'`：Holding `shift` and mouse move triggers data window move.\n+ `'ctrl'`：Holding `ctrl` and mouse move triggers data window move.\n+ `'alt'`：Holding `alt` and mouse move triggers data window move.",
+        "children": []
+    },
+    {
+        "name": "moveOnMouseWheel",
+        "type": [
+            "boolean",
+            "string"
+        ],
+        "default": "false",
+        "desc": "How to trigger data window move. Optional values:\n\n+ `true`：Mouse wheel triggers data window move.\n+ `false`：Mouse wheel can not triggers data window move.\n+ `'shift'`：Holding `shift` and mouse wheel triggers data window move.\n+ `'ctrl'`：Holding `ctrl` and mouse wheel triggers data window move.\n+ `'alt'`：Holding `alt` and mouse wheel triggers data window move.",
+        "children": []
+    },
+    {
+        "name": "preventDefaultMouseMove",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to prevent default behavior of mouse move event.",
+        "children": []
+    }
+]

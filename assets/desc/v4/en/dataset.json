@@ -1,0 +1,218 @@
+[
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "Component ID, not specified by default. If specified, it can be used to refer the component in option or API.",
+        "children": []
+    },
+    {
+        "name": "source",
+        "type": [
+            "Array",
+            "Object"
+        ],
+        "desc": "Source data. Generally speaking, a source data describe a table, where these format below can be applied:\n\n2d array, where [dimension names](https://echarts.apache.org/en/option.html#dataset.dimensions) can be provided in the first row/column, or do not provide, only data.\n\n```js\n[\n['product', '2015', '2016', '2017'],\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n```\n\nRow based key-value format (object array), where the keys indicate [dimension names](https://echarts.apache.org/en/option.html#dataset.dimensions).\n\n```js\n[\n{product: 'Matcha Latte', count: 823, score: 95.8},\n{product: 'Milk Tea', count: 235, score: 81.4},\n{product: 'Cheese Cocoa', count: 1042, score: 91.2},\n{product: 'Walnut Brownie', count: 988, score: 76.9}\n]\n```\n\nColumn based key-value format, where each value represents a column of a table.\n\n```js\n{\n'product': ['Matcha Latte', 'Milk Tea', 'Cheese Cocoa', 'Walnut Brownie'],\n'count': [823, 235, 1042, 988],\n'score': [95.8, 81.4, 91.2, 76.9]\n}\n```\n\nMore details about `dataset` can be checked in the [tutorial](tutorial.html#dataset).",
+        "children": []
+    },
+    {
+        "name": "dimensions",
+        "type": "Array",
+        "desc": "`dimensions` can be used to define dimension info for `series.data` or `dataset.source`.\n\nNotice: if [dataset](https://echarts.apache.org/en/option.html#dataset) is used, we can provide dimension names in the first column/row of [dataset.source](https://echarts.apache.org/en/option.html#dataset.source), and not need to specify `dimensions` here. But if `dimensions` is specified here, echarts will not retrieve dimension names from the first row/column of `dataset.source` any more.\n\n\nFor example:\n\n```js\noption = {\ndataset: {\nsource: [\n// 'date', 'open', 'close', 'highest', 'lowest'\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\n// Specify name for each dimesions, which will be displayed in tooltip.\ndimensions: ['date', 'open', 'close', 'highest', 'lowest']\n}\n}\n```\n\n```js\nseries: {\ntype: 'xxx',\ndimensions: [\nnull,                // If you do not intent to defined this dimension, use null is fine.\n{type: 'ordinal'},   // Specify type of this dimension.\n// 'ordinal' is always used in string.\n// If type is not specified, echarts will guess type by data.\n{name: 'good', type: 'number'},\n'bad'                // Equals to {name: 'bad'}.\n]\n}\n```\n\nEach data item of `dimensions` can be:\n+ `string`, for example, `'someName'`, which equals to `{name: 'someName'}`.\n+ `Object`, where the attributes can be:\n+ name: `string`.\n+ type: `string`, supports:\n+ `number`\n+ `float`, that is, [Float64Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array)\n+ `int`, that is, [Int32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array)\n+ `ordinal`, discrete value, which represents string generally.\n+ `time`, time value, see [data](https://echarts.apache.org/en/option.html#series.data) to check the format of time value.\n+ displayName: `string`, generally used in tooltip for dimension display. If not specified, use `name` by default.\n\nWhen `dimensions` is specified, the default `tooltip` will be displayed vertically, which is better to show diemsion names. Otherwise, `tooltip` will displayed only value horizontally.",
+        "children": []
+    },
+    {
+        "name": "sourceHeader",
+        "type": "boolean",
+        "desc": "Whether the first row/column of `dataset.source` represents [dimension names](dataset.dimensions). Optional values:\n\n+ `null/undefine`: means auto detect whether the first row/column is dimension names or data.\n+ `true`: the first row/column is dimension names.\n+ `false`: data start from the first row/column.\n\nNote: \"the first row/column\" means that if [series.seriesLayoutBy](https://echarts.apache.org/en/option.html#series.seriesLayoutBy) is set as `'column'`, pick the first row, otherwise, if it is set as `'row'`, pick the first column.\n\n\n\n# aria\n\nW3C defined the Accessible Rich Internet Applications Suite ([WAI-ARIA](https://www.w3.org/WAI/intro/aria)) to make Web content and Web applications more accessible to the disabled. From ECharts 4.0, we support ARIA by generating description for charts automatically.\n\nBy default, ARIA is disabled. To enable it, you should set [aria.show](https://echarts.apache.org/en/option.html#aria.show) to be `true`. After enabling, it will generate descriptions based on charts, series, data, and so on. Users may change the generated description.\n\n**For example:**\n\nFor config:\n\n```js\noption = {\naria: {\nshow: true\n},\ntitle: {\ntext: 'Source of user access to a site',\nx: 'center'\n},\nseries: [\n{\nName: 'access source',\ntype: 'pie',\ndata: [\n{ value: 335, name: 'direct access' },\n{ value: 310, name: 'mail marketing' },\n{ value: 234, name: 'union ad' },\n{ value: 135, name: 'video ad' },\n{ value: 1548, name: 'search engine' }\n]\n}\n]\n};\n```\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-pie&edit=1&reset=1)\n\nThere should be an `aria-label` attribute on the chart DOM, which can help the disabled understand the content of charts with the help of certain devices. The value of the label is:\n\n```\nThis is a chart of \"Source of user access to a site.\" The chart type is a pie chart that indicates the source of the visit. The data is - direct access data is 335, mail marketing data is 310, union ad data is 234, video ad data is 135, search engine data is 1548.\n```\n\nThe default language is in Chinese, but you can configure it with templates. The following document shows how to do it.",
+        "children": []
+    },
+    {
+        "name": "show",
+        "type": "boolean",
+        "default": "false",
+        "desc": "Whether to enable ARIA. When enabled, there should be an `aria-label` label.",
+        "children": []
+    },
+    {
+        "name": "description",
+        "type": "string",
+        "default": "null",
+        "desc": "By default, the description is generated by our algorithm based on charts. If user wants to set their own description, `description` should be set to the whole description.\n\nThis is useful when single data values cannot represent what the chart means. For example, if the chart is a map containing many scatter points. Default description can only show the data, but the users may find it hard to interpret. In this case, `description` should be set to describe the meaning of chart.",
+        "children": []
+    },
+    {
+        "name": "general",
+        "type": "Object",
+        "desc": "General description of chart.",
+        "children": [
+            {
+                "name": "withTitle",
+                "type": "string",
+                "default": "'This is a chart about \"{title}\".'",
+                "desc": "If [title.text](https://echarts.apache.org/en/option.html#title.text) exists, then this is used. Template variable:\n\n- `{title}`: will be replaced by [title.text](https://echarts.apache.org/en/option.html#title.text).",
+                "children": []
+            },
+            {
+                "name": "withoutTitle",
+                "type": "string",
+                "default": "'This is a chart'",
+                "desc": "If [title.text](https://echarts.apache.org/en/option.html#title.text) does not exist, then this is used.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "series",
+        "type": "Object",
+        "desc": "Series-related configures.",
+        "children": [
+            {
+                "name": "maxCount",
+                "type": "number",
+                "default": "10",
+                "desc": "Maximum series number.",
+                "children": []
+            },
+            {
+                "name": "single",
+                "type": "Object",
+                "desc": "Description used when there is only one chart.",
+                "children": [
+                    {
+                        "name": "prefix",
+                        "type": "string",
+                        "default": "''",
+                        "desc": "General description for all series. This displays before all series descriptions. Template variable:\n\n- `{seriesCount}`: will be replaced by series count, which is 1.",
+                        "children": []
+                    },
+                    {
+                        "name": "withName",
+                        "type": "string",
+                        "default": "'The chart type is {seriesType}, which means {seriesName}. '",
+                        "desc": "If chart contains `name` attribute, then this is used. Template variable:\n\n- `{seriesName}`: will be replaced by the series `name`;\n- `{seriesType}`: will be replaced by the series type name.",
+                        "children": []
+                    },
+                    {
+                        "name": "withoutName",
+                        "type": "string",
+                        "default": "'The chart type is {seriesType}.'",
+                        "desc": "If chart doesn't contain `name` attribute, then this is used. Template variable:\n\n- `{seriesType}`: will be replaced by series type name.",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "name": "multiple",
+                "type": "Object",
+                "desc": "Description used when there are more than one chart.",
+                "children": [
+                    {
+                        "name": "prefix",
+                        "type": "string",
+                        "default": "'It consists of {seriesCount} chart series. '",
+                        "desc": "General description for all series. This displays before all series descriptions. Template variable:\n\n- `{seriesCount}`: will be replaced by series count.",
+                        "children": []
+                    },
+                    {
+                        "name": "withName",
+                        "type": "string",
+                        "default": "'The chart type is {seriesType}, which means {seriesName}. '",
+                        "desc": "If series contains `name` attribute, then this is used. Template variable:\n\n- `{seriesName}`: will be replaced by series `name`;\n- `{seriesType}`: will be replaced by series type name.",
+                        "children": []
+                    },
+                    {
+                        "name": "withoutName",
+                        "type": "string",
+                        "default": "'The chart type is {seriesType}.'",
+                        "desc": "If series doesn't contain `name` attribute, then this is used. Template variable:\n\n- `{seriesType}`: will be replaced by series type name.",
+                        "children": []
+                    },
+                    {
+                        "name": "separator",
+                        "type": "Object",
+                        "desc": "Separators between series and series.",
+                        "children": [
+                            {
+                                "name": "middle",
+                                "type": "string",
+                                "default": "'；'",
+                                "desc": "Separators other than the last one.",
+                                "children": []
+                            },
+                            {
+                                "name": "end",
+                                "type": "string",
+                                "default": "'.'",
+                                "desc": "The last series seperator.",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "data",
+        "type": "Object",
+        "desc": "Data-related configures.",
+        "children": [
+            {
+                "name": "maxCount",
+                "type": "number",
+                "default": "10",
+                "desc": "Maximum data number.",
+                "children": []
+            },
+            {
+                "name": "allData",
+                "type": "string",
+                "default": "'Its data is --'",
+                "desc": "Description used when all data is displayed. Note that this option will **not** set to display all data. If all data should be displayed, [aria.data.maxCount](https://echarts.apache.org/en/option.html#aria.data.maxCount) should be set to be `Number.MAX_VALUE`.",
+                "children": []
+            },
+            {
+                "name": "partialData",
+                "type": "string",
+                "default": "''Where the first {displayCnt} entry is -''",
+                "desc": "Description used when only part of data is displayed. Template variable:\n\n- `{displayCnt}`: number of data displayed.",
+                "children": []
+            },
+            {
+                "name": "withName",
+                "type": "string",
+                "default": "'{name}'s data is {value}'",
+                "desc": "If data contains `name` attribute, then this is used. Template variable:\n\n- `{name}`: will be replaced by data `name`;\n- `{value}`: will be replaced by data value.",
+                "children": []
+            },
+            {
+                "name": "withoutName",
+                "type": "string",
+                "default": "'{value}'",
+                "desc": "If data doesn't contain `name` attribute, then this is used. Template variable:\n\n- `{value}`: will be replaced by data value.",
+                "children": []
+            },
+            {
+                "name": "separator",
+                "type": "Object",
+                "desc": "Separators between data and data.",
+                "children": [
+                    {
+                        "name": "middle",
+                        "type": "string",
+                        "default": "'，'",
+                        "desc": "Separators other than the last one.",
+                        "children": []
+                    },
+                    {
+                        "name": "end",
+                        "type": "string",
+                        "default": "''",
+                        "desc": "The last data separator.\n\nNote that since series `separator.end` is used after the last data, `data.separator.end` is not needed in most cases.",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+]

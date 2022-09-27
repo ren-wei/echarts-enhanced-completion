@@ -1,0 +1,472 @@
+[
+    {
+        "name": "type",
+        "type": "string",
+        "default": "'parallel'",
+        "desc": "",
+        "children": []
+    },
+    {
+        "name": "id",
+        "type": "string",
+        "desc": "组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。",
+        "children": []
+    },
+    {
+        "name": "coordinateSystem",
+        "type": "string",
+        "default": "'parallel'",
+        "desc": "该系列使用的坐标系，可选：\n\n\n\n\n\n\n\n\n\n\n\n+ `'parallel'`\n\n使用平行坐标系，通过 [parallelIndex](https://echarts.apache.org/zh/option.html#series-parallel.parallelIndex) 指定相应的平行坐标系组件。",
+        "children": []
+    },
+    {
+        "name": "parallelIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "使用的[平行坐标系](https://echarts.apache.org/zh/option.html#parallel)的 index，在单个图表实例中存在多个平行坐标系的时候有用。",
+        "children": []
+    },
+    {
+        "name": "name",
+        "type": "string",
+        "desc": "系列名称，用于[tooltip](https://echarts.apache.org/zh/option.html#tooltip)的显示，[legend](https://echarts.apache.org/zh/option.html#legend) 的图例筛选，在 `setOption` 更新数据和配置项时用于指定对应的系列。",
+        "children": []
+    },
+    {
+        "name": "lineStyle",
+        "type": "color",
+        "desc": "线条样式。\n\n\n\n### color(Color)= \"#000\"\n\n\n\n线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+        "children": [
+            {
+                "name": "width",
+                "type": "number",
+                "default": "2",
+                "desc": "线宽。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "type",
+                "type": "enum",
+                "desc": "线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "",
+                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "shadowColor",
+                "type": "color",
+                "default": "",
+                "desc": "阴影颜色。支持的格式同`color`。",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "阴影水平方向上的偏移距离。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "阴影垂直方向上的偏移距离。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "default": "0",
+                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                "children": [],
+                "min": "0",
+                "max": "1",
+                "step": "0.01"
+            }
+        ]
+    },
+    {
+        "name": "emphasis",
+        "type": "Object",
+        "desc": "",
+        "children": [
+            {
+                "name": "lineStyle",
+                "type": "color",
+                "desc": "#### color(Color)= \"#000\"\n\n\n\n线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                "children": [
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "2",
+                        "desc": "线宽。",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "type",
+                        "type": "enum",
+                        "desc": "线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                        "children": [],
+                        "options": "'solid','dashed','dotted'"
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "default": "",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "color",
+                        "default": "",
+                        "desc": "阴影颜色。支持的格式同`color`。",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "阴影水平方向上的偏移距离。",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "阴影垂直方向上的偏移距离。",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                        "children": [],
+                        "min": "0",
+                        "max": "1",
+                        "step": "0.01"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "inactiveOpacity",
+        "type": "number",
+        "default": "0.05",
+        "desc": "框选时，未被选中的条线会设置成这个『透明度』（从而可以达到变暗的效果）。",
+        "children": [],
+        "min": "0",
+        "max": "1",
+        "step": "0.01"
+    },
+    {
+        "name": "activeOpacity",
+        "type": "number",
+        "default": "1",
+        "desc": "框选时，选中的条线会设置成这个『透明度』（从而可以达到高亮的效果）。",
+        "children": [],
+        "min": "0",
+        "max": "1",
+        "step": "0.01"
+    },
+    {
+        "name": "realtime",
+        "type": "boolean",
+        "default": "true",
+        "desc": "是否实时刷新。",
+        "children": []
+    },
+    {
+        "name": "smooth",
+        "type": [
+            "boolean",
+            "number"
+        ],
+        "default": "false",
+        "desc": "是否使用平滑曲线。默认为 `false`，可以设置为 `true` 或者一个范围为 `0` 到 `1` 的小数值，指定平滑程度。",
+        "children": []
+    },
+    {
+        "name": "progressive",
+        "type": "number",
+        "default": "500",
+        "desc": "渐进式渲染时每一帧绘制图形数量，设为 0 时不启用渐进式渲染，支持每个系列单独配置。\n\n\n在图中有数千到几千万图形元素的时候，一下子把图形绘制出来，或者交互重绘的时候可能会造成界面的卡顿甚至假死。ECharts 4 开始全流程支持渐进渲染（progressive rendering），渲染的时候会把创建好的图形分到数帧中渲染，每一帧渲染只渲染指定数量的图形。\n\n该配置项就是用于配置该系列每一帧渲染的图形数，可以根据图表图形复杂度的需要适当调整这个数字使得在不影响交互流畅性的前提下达到绘制速度的最大化。比如在 lines 图或者平行坐标中线宽大于 1 的 polyline 绘制会很慢，这个数字就可以设置小一点，而线宽小于等于 1 的 polyline 绘制非常快，该配置项就可以相对调得比较大。",
+        "children": []
+    },
+    {
+        "name": "progressiveThreshold",
+        "type": "number",
+        "default": "3000",
+        "desc": "启用渐进式渲染的图形数量阈值，在单个系列的图形数量超过该阈值时启用渐进式渲染。",
+        "children": []
+    },
+    {
+        "name": "progressiveChunkMode",
+        "type": "string",
+        "default": "sequential",
+        "desc": "分片的方式。可选值：\n+ `'sequential'`: 按照数据的顺序分片。缺点是渲染过程不自然。\n+ `'mod'`: 取模分片，即每个片段中的点会遍布于整个数据，从而能够视觉上均匀得渲染。",
+        "children": []
+    },
+    {
+        "name": "data",
+        "type": "Array",
+        "desc": "例如 [series-parallel.data](https://echarts.apache.org/zh/option.html#series-parallel.data) 中有如下数据：\n\n```javascript\n[\n[1,  55,  9,   56,  0.46,  18,  6,  '良'],\n[2,  25,  11,  21,  0.65,  34,  9,  '优'],\n[3,  56,  7,   63,  0.3,   14,  5,  '良'],\n[4,  33,  7,   29,  0.33,  16,  6,  '优'],\n{ // 数据项也可以是 Object，从而里面能含有对线条的特殊设置。\nvalue: [5,  42,  24,  44,  0.76,  40,  16, '优']\nlineStyle: {...},\n}\n...\n]\n```\n数据中，每一行是一个『数据项』，每一列属于一个『维度』。（例如上面数据每一列的含义分别是：『日期』,『AQI指数』, 『PM2.5』, 『PM10』, 『一氧化碳值』, 『二氧化氮值』, 『二氧化硫值』）。",
+        "children": [
+            {
+                "name": "name",
+                "type": "string",
+                "desc": "数据项名称。",
+                "children": []
+            },
+            {
+                "name": "value",
+                "type": "Array",
+                "desc": "数据项值。",
+                "children": []
+            },
+            {
+                "name": "lineStyle",
+                "type": "color",
+                "desc": "线条样式。\n\n\n\n### color(Color)= \"#000\"\n\n\n\n线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                "children": []
+            },
+            {
+                "name": "width",
+                "type": "number",
+                "default": "2",
+                "desc": "线宽。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "type",
+                "type": "enum",
+                "desc": "线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "",
+                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "shadowColor",
+                "type": "color",
+                "default": "",
+                "desc": "阴影颜色。支持的格式同`color`。",
+                "children": []
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "阴影水平方向上的偏移距离。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "阴影垂直方向上的偏移距离。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "opacity",
+                "type": "number",
+                "default": "0",
+                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                "children": [],
+                "min": "0",
+                "max": "1",
+                "step": "0.01"
+            },
+            {
+                "name": "emphasis",
+                "type": "Object",
+                "desc": "",
+                "children": [
+                    {
+                        "name": "lineStyle",
+                        "type": "color",
+                        "desc": "##### color(Color)= \"#000\"\n\n\n\n线的颜色。\n\n\n\n\n\n> 颜色可以使用 RGB 表示，比如 `'rgb(128, 128, 128)'`，如果想要加上 alpha 通道表示不透明度，可以使用 RGBA，比如 `'rgba(128, 128, 128, 0.5)'`，也可以使用十六进制格式，比如 `'#ccc'`。除了纯色之外颜色也支持渐变色和纹理填充\n> ```js\n> // 线性渐变，前四个参数分别是 x0, y0, x2, y2, 范围从 0 - 1，相当于在图形包围盒中的百分比，如果 globalCoord 为 `true`，则该四个值是绝对的像素位置\n> color: {\n>     type: 'linear',\n>     x: 0,\n>     y: 0,\n>     x2: 0,\n>     y2: 1,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 径向渐变，前三个参数分别是圆心 x, y 和半径，取值同线性渐变\n> color: {\n>     type: 'radial',\n>     x: 0.5,\n>     y: 0.5,\n>     r: 0.5,\n>     colorStops: [{\n>         offset: 0, color: 'red' // 0% 处的颜色\n>     }, {\n>         offset: 1, color: 'blue' // 100% 处的颜色\n>     }],\n>     global: false // 缺省为 false\n> }\n> // 纹理填充\n> color: {\n>     image: imageDom, // 支持为 HTMLImageElement, HTMLCanvasElement，不支持路径字符串\n>     repeat: 'repeat' // 是否平铺，可以是 'repeat-x', 'repeat-y', 'no-repeat'\n> }\n> ```",
+                        "children": [
+                            {
+                                "name": "width",
+                                "type": "number",
+                                "default": "2",
+                                "desc": "线宽。",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "type",
+                                "type": "enum",
+                                "desc": "线的类型。\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`",
+                                "children": [],
+                                "options": "'solid','dashed','dotted'"
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "",
+                                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```js\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "color",
+                                "default": "",
+                                "desc": "阴影颜色。支持的格式同`color`。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影水平方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "阴影垂直方向上的偏移距离。",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                                "children": [],
+                                "min": "0",
+                                "max": "1",
+                                "step": "0.01"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "zlevel",
+        "type": "number",
+        "default": "0",
+        "desc": "平行坐标所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "children": []
+    },
+    {
+        "name": "z",
+        "type": "number",
+        "default": "2",
+        "desc": "平行坐标组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "children": []
+    },
+    {
+        "name": "silent",
+        "type": "boolean",
+        "default": "false",
+        "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+        "children": []
+    },
+    {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
+        "desc": "是否开启动画。",
+        "children": []
+    },
+    {
+        "name": "animationThreshold",
+        "type": "number",
+        "default": "2000",
+        "desc": "是否开启动画的阈值，当单个系列显示的图形数量大于这个阈值时会关闭动画。",
+        "children": []
+    },
+    {
+        "name": "animationDuration",
+        "type": "number",
+        "default": "1000",
+        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```js\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "animationEasing",
+        "type": "enum",
+        "desc": "初始动画的缓动效果。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+    },
+    {
+        "name": "animationDelay",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```js\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "children": []
+    },
+    {
+        "name": "animationDurationUpdate",
+        "type": "number",
+        "default": "300",
+        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```js\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "animationEasingUpdate",
+        "type": "enum",
+        "desc": "数据更新动画的缓动效果。",
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+    },
+    {
+        "name": "animationDelayUpdate",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```js\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "children": []
+    }
+]
