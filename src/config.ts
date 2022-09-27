@@ -48,10 +48,10 @@ export default {
         }
     },
 
-    get version(): 'latest' | 'v4' {
-        const version = vscode.workspace.getConfiguration().get(this.name.version) as 'latest' | 'v4' | 'auto';
+    get version(): 'master' | 'v4' {
+        const version = vscode.workspace.getConfiguration().get(this.name.version) as 'master' | 'v4' | 'auto';
         if (version === 'auto') {
-            return 'latest';
+            return 'master';
         } else {
             return version;
         }
