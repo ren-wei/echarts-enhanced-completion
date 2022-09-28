@@ -6,6 +6,18 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.0 (2022-09-28)
+
+### Added
+
+- 支持版本选择，可选版本为最新版和4.x版本
+
+- 支持php语言
+
+### Changed
+
+- 与源文档同步
+
 ## 1.5.5 (2022-08-28)
 
 ### Changed
