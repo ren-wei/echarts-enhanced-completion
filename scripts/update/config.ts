@@ -25,6 +25,7 @@ export const partials = [
     'item-style',
     'label-layout',
     'label-line',
+    'label-rotate-tangential',
     'label',
     'large',
     'legend-hover-link',
