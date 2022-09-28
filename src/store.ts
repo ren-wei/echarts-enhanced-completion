@@ -13,7 +13,7 @@ let topOptionDesc: Tree[] = getFileData('index'); // 顶级选项的描述对象
 
 export const disposables: vscode.Disposable[] = [
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
-        if (configurationChangeEvent.affectsConfiguration(Config.name.language)) {
+        if ([Config.name.version, Config.name.language].some(config => configurationChangeEvent.affectsConfiguration(config))) {
             cache.clear();
             topOptionDesc = getFileData('index');
         }
