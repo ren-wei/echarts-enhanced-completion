@@ -12,7 +12,7 @@ export default class Engine {
     public commandTypes: CommandTypes;
     public options: EngineOptions;
     public deps: string[] = []; // 需要导入的目标，长度为0时才能 render
-    private analyseContext: AnalyseContext; // 语法分析环境对象
+    private analysesContext: AnalysesContext; // 语法分析环境对象
 
     /**
      * 实例化模板引擎
@@ -40,7 +40,7 @@ export default class Engine {
             'for': ForCommand,
             ...commandExtends,
         };
-        this.analyseContext = {
+        this.analysesContext = {
             stack: new Stack<Command>(),
             deps: {},
             target: null,
@@ -75,26 +75,26 @@ export default class Engine {
                     let currentNode;
                     // match[1] 存在则是 close 命令，不存在则是 open 命令
                     if (match[1]) {
-                        currentNode = this.autoCloseCommand(this.analyseContext, NodeType);
+                        currentNode = this.autoCloseCommand(this.analysesContext, NodeType);
                     } else {
                         // @ts-ignore
                         currentNode = new NodeType(match[3], this);
-                        (currentNode as Command).open(this.analyseContext);
+                        (currentNode as Command).open(this.analysesContext);
                     }
-                    this.analyseContext.current = currentNode;
+                    this.analysesContext.current = currentNode;
                 } else if (!/^\s*\/\//.test(text)) {
                     // 不是模板注释，作为普通文本写入缓冲区
-                    this.analyseContext.textBuf.push(this.options.commandOpen, text, this.options.commandClose);
+                    this.analysesContext.textBuf.push(this.options.commandOpen, text, this.options.commandClose);
                 }
             },
             (text) => {
                 // 普通文本直接写入缓冲区
-                this.analyseContext.textBuf.push(text);
+                this.analysesContext.textBuf.push(text);
             }
         );
 
         this.flushTextBuf(); // 解析完成之后，刷新缓冲区
-        this.autoCloseCommand(this.analyseContext);
+        this.autoCloseCommand(this.analysesContext);
     }
 
     /**
@@ -127,7 +127,7 @@ export default class Engine {
             , 'g'
         );
         // 获取需要替换的位置和值
-        const opers: Array<[start: number, end: number, replaceValue: string]> = [];
+        const operationList: Array<[start: number, end: number, replaceValue: string]> = [];
         let match: RegExpExecArray | null;
         while ((match = reg.exec(source))) {
             if (match[1]) {
@@ -159,13 +159,13 @@ export default class Engine {
                 if (/^((".*")|('.*'))$/.test(replaceValue)) {
                     replaceValue = replaceValue.slice(1, replaceValue.length - 1);
                 }
-                opers.push([start, end, replaceValue]);
+                operationList.push([start, end, replaceValue]);
             }
         }
         // 源码所在的位置替换为值
-        let oper: [start: number, end: number, replaceValue: string] | undefined;
-        while ((oper = opers.pop())) {
-            const [start, end, replaceValue] = oper;
+        let operation: [start: number, end: number, replaceValue: string] | undefined;
+        while ((operation = operationList.pop())) {
+            const [start, end, replaceValue] = operation;
             source = `${source.slice(0, start)}${replaceValue}${source.slice(end)}`;
         }
         return source;
@@ -256,13 +256,13 @@ export default class Engine {
      * 刷新缓冲区
      */
     private flushTextBuf() {
-        const text: string = this.analyseContext.textBuf.join('');
+        const text: string = this.analysesContext.textBuf.join('');
         if (text) {
             const textNode = new TextNode(text, this);
 
-            this.analyseContext.stack.top()?.addChild(textNode);
-            this.analyseContext.textBuf = [];
-            this.analyseContext.current = textNode;
+            this.analysesContext.stack.top()?.addChild(textNode);
+            this.analysesContext.textBuf = [];
+            this.analysesContext.current = textNode;
         }
     }
 
@@ -272,7 +272,7 @@ export default class Engine {
      * @param commandType 节点类型
      * @return 找到并且最后被闭合的节点
      */
-    public autoCloseCommand(context: AnalyseContext, commandType: CommandType | null = null): Command | null {
+    public autoCloseCommand(context: AnalysesContext, commandType: CommandType | null = null): Command | null {
         const stack = context.stack;
         const closeEndCommand = commandType ? stack.findTop(item => item instanceof commandType) : stack.bottom();
 
@@ -307,7 +307,7 @@ export type EngineOptions = {
 };
 
 /** 语法分析环境对象 */
-type AnalyseContext = {
+type AnalysesContext = {
     stack: Stack<Command>;
     deps: { [targetName: string]: string[] }; // target依赖的其他target名称
     target: TargetCommand | null; // 解析过程中正在解析的target
@@ -333,9 +333,9 @@ class Exp {
     constructor() {
         this.exp = {
             /** 单引号 */
-            singleQuotaion: "(?:'[^']*')",
+            singleQuotation: "(?:'[^']*')",
             /** 双引号 */
-            doubleQuotaion: '(?:"[^"]*")',
+            doubleQuotation: '(?:"[^"]*")',
             /** true、false等字面量值 */
             literal: '(?:true|false|null)',
             /** 数字 */
@@ -407,13 +407,13 @@ export abstract class Command {
     public abstract addChild(node: Command | TextNode): void;
 
     /** 节点open，解析开始 */
-    public abstract open(context: AnalyseContext) : void;
+    public abstract open(context: AnalysesContext) : void;
 
     /** 节点闭合，解析结束 */
-    public abstract close(context: AnalyseContext): void;
+    public abstract close(context: AnalysesContext): void;
 
     /** 自动闭合方法，实现此方法表示允许自动闭合 */
-    public abstract autoClose?(context: AnalyseContext): void;
+    public abstract autoClose?(context: AnalysesContext): void;
 
     /** 获取生成的代码 */
     public abstract getRendererBody(vars: Vars): string;
@@ -444,7 +444,7 @@ export class TargetCommand implements Command {
         this.children.push(node);
     }
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         this.engine.autoCloseCommand(context);
         context.stack.top()?.addChild(this);
         context.stack.push(this);
@@ -471,13 +471,13 @@ export class TargetCommand implements Command {
         }
     }
 
-    public close(context: AnalyseContext) {
+    public close(context: AnalysesContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
         }
     }
 
-    public autoClose(context: AnalyseContext) {
+    public autoClose(context: AnalysesContext) {
         this.close(context);
     }
 
@@ -522,7 +522,7 @@ class UseCommand implements Command {
 
     public addChild(node: Command | TextNode) {}
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         // use命令打开完后立即闭合，不需要入栈
         context.stack.top()?.addChild(this);
         if (!this.engine.targets[this.name] && !this.engine.deps.includes(this.name)) {
@@ -530,7 +530,7 @@ class UseCommand implements Command {
         }
     }
 
-    public close(context: AnalyseContext) {}
+    public close(context: AnalysesContext) {}
 
     public getRendererBody(vars: Vars): string {
         if (this.engine.targets[this.name]) {
@@ -597,7 +597,7 @@ class ImportCommand implements Command {
 
     public addChild(node: Command | TextNode) {}
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         // import命令打开完后立即闭合，不需要入栈
         context.stack.top()?.addChild(this);
         if (!this.engine.targets[this.name] && !this.engine.deps.includes(this.name)) {
@@ -605,7 +605,7 @@ class ImportCommand implements Command {
         }
     }
 
-    public close(context: AnalyseContext) {}
+    public close(context: AnalysesContext) {}
 
     public getRendererBody(vars: Vars): string {
         if (this.engine.targets[this.name]) {
@@ -636,7 +636,7 @@ class IfCommand implements Command {
         this.children.push(node);
     }
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         context.stack.top()?.addChild(this);
         context.stack.push(this);
         // 创建一个 block 节点来划分范围
@@ -644,7 +644,7 @@ class IfCommand implements Command {
         node.open(context);
     }
 
-    public close(context: AnalyseContext) {
+    public close(context: AnalysesContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
         }
@@ -696,7 +696,7 @@ class ElifCommand implements Command {
         this.children.push(node);
     }
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         this.engine.autoCloseCommand(context, BlockCommand);
         this.engine.autoCloseCommand(context, ElifCommand);
         if (!context.stack.top() && (context.stack.top() instanceof IfCommand || context.stack.top() instanceof ElifCommand)) {
@@ -706,13 +706,13 @@ class ElifCommand implements Command {
         context.stack.push(this);
     }
 
-    public close(context: AnalyseContext) {
+    public close(context: AnalysesContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
         }
     }
 
-    public autoClose(context: AnalyseContext) {
+    public autoClose(context: AnalysesContext) {
         this.close(context);
     }
 
@@ -739,7 +739,7 @@ class ElseCommand implements Command {
         this.children.push(node);
     }
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         this.engine.autoCloseCommand(context, BlockCommand);
         this.engine.autoCloseCommand(context, ElifCommand);
         if (!context.stack.top() && (context.stack.top() instanceof IfCommand || context.stack.top() instanceof ElifCommand)) {
@@ -749,13 +749,13 @@ class ElseCommand implements Command {
         context.stack.push(this);
     }
 
-    public close(context: AnalyseContext) {
+    public close(context: AnalysesContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
         }
     }
 
-    public autoClose(context: AnalyseContext) {
+    public autoClose(context: AnalysesContext) {
         this.close(context);
     }
 
@@ -782,18 +782,18 @@ export class BlockCommand implements Command {
         this.children.push(node);
     }
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         context.stack.top()?.addChild(this);
         context.stack.push(this);
     }
 
-    public close(context: AnalyseContext) {
+    public close(context: AnalysesContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
         }
     }
 
-    public autoClose(context: AnalyseContext) {
+    public autoClose(context: AnalysesContext) {
         this.close(context);
     }
 
@@ -819,18 +819,18 @@ class ForCommand implements Command {
         this.children.push(node);
     }
 
-    public open(context: AnalyseContext) {
+    public open(context: AnalysesContext) {
         context.stack.top()?.addChild(this);
         context.stack.push(this);
     }
 
-    public close(context: AnalyseContext) {
+    public close(context: AnalysesContext) {
         if (context.stack.top() === this) {
             context.stack.pop();
         }
     }
 
-    public autoClose(context: AnalyseContext) {
+    public autoClose(context: AnalysesContext) {
         this.close(context);
     }
 
