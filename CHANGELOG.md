@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.1 (2022-10-03)
+
+### Fixed
+
+- 修复php文件中插件没有激活的问题
+
 ## 1.6.0 (2022-09-28)
 
 ### Added
