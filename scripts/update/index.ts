@@ -14,7 +14,9 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
 // yarn update:assets test master
 // yarn update:assets test v4
 (async function main() {
-    ready();
+    ready('master');
+    ready('v4');
+
     for (const lang of ['zh', 'en']) {
         const initVars = {
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
@@ -136,7 +138,7 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
 })();
 
 /** 一些准备工作，确保目录存在 */
-function ready(version = 'latest') {
+function ready(version: 'master' | 'v4') {
     // source 目录
     if (!fs.existsSync(path.resolve(__dirname, './source'))) {
         fs.mkdirSync(path.resolve(__dirname, './source'));
