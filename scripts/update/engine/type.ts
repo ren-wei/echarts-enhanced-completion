@@ -14,11 +14,8 @@ export type EngineOptions = {
 /** 语法分析环境对象 */
 export type AnalysesContext = {
     stack: Stack<Command>;
-    deps: { [targetName: string]: string[] }; // target依赖的其他target名称
+    deps: Record<string, string[]>; // target依赖的其他target名称
     target: TargetCommand | null; // 解析过程中正在解析的target
     textBuf: string[]; // 文本缓冲区
     current: Command | TextNode | null; // 解析过程中当前所在的节点
 };
-
-/** 当前的环境变量 */
-export type Vars = Record<string, string>;

@@ -9,7 +9,7 @@ import * as os from 'os';
 import { BlockCommand, Command, ElifCommand, ElseCommand, ForCommand, IfCommand, ImportCommand, TargetCommand, TextNode, UseCommand } from './command';
 import { expression } from './exp';
 import { Stack } from './stack';
-import { AnalysesContext, EngineOptions, Vars } from './type';
+import { AnalysesContext, EngineOptions } from './type';
 
 export default class Engine {
     public targets: Targets = {};
@@ -107,7 +107,7 @@ export default class Engine {
      * @param vars 变量默认值
      * @returns 渲染结果
      */
-    public render(name: string, vars: Vars = {}): string {
+    public render(name: string, vars: Record<string, string> = {}): string {
         return this.targets[name].children.map(child => child.getRendererBody(vars)).join('').trim() + os.EOL;
     }
 
@@ -117,7 +117,7 @@ export default class Engine {
      * @param vars 变量的值
      * @return 编译后的结果
      */
-    public compileVariable(source: string, vars: Vars = {}): string {
+    public compileVariable(source: string, vars: Record<string, string> = {}): string {
         const reg = new RegExp(
             this.options.variableOpen
             + '(\\w+)'
@@ -181,7 +181,7 @@ export default class Engine {
      * @param vars 环境变量
      * @return 原始字符串表示的值
      */
-    public parseString(source: string, vars: Vars) : string {
+    public parseString(source: string, vars: Record<string, string>) : string {
         try {
             return (new Function(`
                 ${Object.entries(vars).map(([k, v]) => {
