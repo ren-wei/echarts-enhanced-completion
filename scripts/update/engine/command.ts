@@ -1,6 +1,6 @@
 import Engine from '.';
 import { valueExp } from './exp';
-import { AnalysesContext, Vars } from './type';
+import { AnalysesContext } from './type';
 
 /** 所有命令的抽象基类 */
 export abstract class Command {
@@ -23,7 +23,7 @@ export abstract class Command {
     public abstract autoClose?(context: AnalysesContext): void;
 
     /** 获取生成的代码 */
-    public abstract getRendererBody(vars: Vars): string;
+    public abstract getRendererBody(vars: Record<string, string>): string;
 }
 
 /** 普通文本节点 */
@@ -36,7 +36,7 @@ export class TextNode {
         this.engine = engine;
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         return this.engine.compileVariable(this.value, vars);
     }
 
@@ -102,7 +102,7 @@ export class TargetCommand implements Command {
         this.close(context);
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         const key = JSON.stringify(vars);
         if (this.cache[key]) {
             return this.cache[key];
@@ -153,7 +153,7 @@ export class UseCommand implements Command {
 
     public close(context: AnalysesContext) {}
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         if (this.engine.targets[this.name]) {
             return this.engine.targets[this.name].getRendererBody(this.parseVars(vars));
         } else if (this.engine.options.missTarget === 'error') {
@@ -164,7 +164,7 @@ export class UseCommand implements Command {
     }
 
     /** 解析参数 */
-    private parseVars(vars: Vars): Vars {
+    private parseVars(vars: Record<string, string>): Record<string, string> {
         const reg = new RegExp(
             '(?:\\s*' // 开头空白
             + '(\\w+)' // 参数的key
@@ -176,12 +176,12 @@ export class UseCommand implements Command {
             , 'msg'
         );
         let match: RegExpExecArray | null;
-        const raw: Vars = {};
+        const raw: Record<string, string> = {};
         while ((match = reg.exec(this.argsStr))) {
             raw[match[1]] = match[2];
         }
         // 获取当前的参数和对应值
-        const newVars: Vars = Object.fromEntries(Object.entries(raw).map(([k, v]) => {
+        const newVars: Record<string, string> = Object.fromEntries(Object.entries(raw).map(([k, v]) => {
             return [k, this.engine.parseString(v, vars)];
         }));
         Object.entries(newVars).forEach(([k, v]) => {
@@ -228,7 +228,7 @@ export class ImportCommand implements Command {
 
     public close(context: AnalysesContext) {}
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         if (this.engine.targets[this.name]) {
             return this.engine.targets[this.name].getRendererBody(vars);
         } else if (this.engine.options.missTarget === 'error') {
@@ -271,7 +271,7 @@ export class IfCommand implements Command {
         }
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         if (this.validate(vars)) {
             return this.children[0].getRendererBody(vars);
         }
@@ -285,7 +285,7 @@ export class IfCommand implements Command {
     }
 
     /** 校验条件是否成立 */
-    private validate(vars: Vars, value = this.value): boolean {
+    private validate(vars: Record<string, string>, value = this.value): boolean {
         try {
             return (new Function(`return ${this.engine.parseString(value, vars)}`))();
         } catch (e) {
@@ -337,7 +337,7 @@ export class ElifCommand implements Command {
         this.close(context);
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
@@ -380,7 +380,7 @@ export class ElseCommand implements Command {
         this.close(context);
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
@@ -418,7 +418,7 @@ export class BlockCommand implements Command {
         this.close(context);
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         return this.children.map(child => child.getRendererBody(vars)).join('');
     }
 }
@@ -455,7 +455,7 @@ export class ForCommand implements Command {
         this.close(context);
     }
 
-    public getRendererBody(vars: Vars): string {
+    public getRendererBody(vars: Record<string, string>): string {
         // TODO: echarts-doc 中暂时没有解析的实例，暂时忽略
         return this.children.map(child => child.getRendererBody(vars)).join('');
     }
