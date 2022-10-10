@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import * as vscode from 'vscode';
 
 /** 用户配置 */
@@ -51,6 +52,19 @@ export default {
     get version(): 'master' | 'v4' {
         const version = vscode.workspace.getConfiguration().get(this.name.version) as 'master' | 'v4' | 'auto';
         if (version === 'auto') {
+            if (vscode.workspace.workspaceFolders?.length) {
+                const root = vscode.workspace.workspaceFolders[0].uri;
+                const path = vscode.Uri.joinPath(root, './package.json').fsPath;
+                try {
+                    const { dependencies, devDependencies } = JSON.parse(fs.readFileSync(path, { encoding: 'utf-8' })) as { dependencies?: Record<string, string>, devDependencies?: Record<string, string> };
+                    const version = dependencies?.echarts || devDependencies?.echarts || '^5.0';
+                    if (/^[\^\~]?4/.test(version)) {
+                        return 'v4';
+                    }
+                } catch {
+                    return 'master';
+                }
+            }
             return 'master';
         } else {
             return version;
