@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.2 (2022-10-11)
+
+### Added
+
+- 完成自动识别echarts版本
+
+### Changed
+
+- 与源文档同步
+
 ## 1.6.1 (2022-10-03)
 
 ### Fixed
