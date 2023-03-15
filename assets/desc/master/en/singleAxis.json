@@ -3181,6 +3181,72 @@
         ]
     },
     {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to enable animation.",
+        "children": []
+    },
+    {
+        "name": "animationThreshold",
+        "type": "number",
+        "default": "2000",
+        "desc": "Whether to set graphic number threshold to animation. Animation will be disabled when graphic number is larger than threshold.",
+        "children": []
+    },
+    {
+        "name": "animationDuration",
+        "type": "number",
+        "default": "1000",
+        "desc": "Duration of the first animation, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDuration: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "animationEasing",
+        "type": "enum",
+        "desc": "Easing method used for the first animation. Varied easing effects can be found at [easing effect example](line-easing).",
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+    },
+    {
+        "name": "animationDelay",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "Delay before updating the first animation, which supports callback function for different data to have different animation effect.\n\nFor example:\n```ts\nanimationDelay: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "children": []
+    },
+    {
+        "name": "animationDurationUpdate",
+        "type": "number",
+        "default": "300",
+        "desc": "Time for animation to complete, which supports callback function for different data to have different animation effect:\n\n```ts\nanimationDurationUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "animationEasingUpdate",
+        "type": "enum",
+        "desc": "Easing method used for animation.",
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+    },
+    {
+        "name": "animationDelayUpdate",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "Delay before updating animation, which supports callback function for different data to have different animation effects.\n\nFor example:\n```ts\nanimationDelayUpdate: function (idx) {\n// delay for later data is larger\nreturn idx * 100;\n}\n```\n\nSee [this example](bar-animation-delay) for more information.",
+        "children": []
+    },
+    {
         "name": "tooltip",
         "type": "Object",
         "desc": "tooltip settings in the coordinate system component.\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](https://echarts.apache.org/en/option.html#tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](https://echarts.apache.org/en/option.html#grid.tooltip), [polar.tooltip](https://echarts.apache.org/en/option.html#polar.tooltip), [single.tooltip](https://echarts.apache.org/en/option.html#single.tooltip)\n\n+ Configured in a series: [series.tooltip](https://echarts.apache.org/en/option.html#series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](https://echarts.apache.org/en/option.html#series.data.tooltip)",

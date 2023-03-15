@@ -3146,6 +3146,72 @@
         ]
     },
     {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
+        "desc": "是否开启动画。",
+        "children": []
+    },
+    {
+        "name": "animationThreshold",
+        "type": "number",
+        "default": "2000",
+        "desc": "是否开启动画的阈值，当单个系列显示的图形数量大于这个阈值时会关闭动画。",
+        "children": []
+    },
+    {
+        "name": "animationDuration",
+        "type": "number",
+        "default": "1000",
+        "desc": "初始动画的时长，支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的初始动画效果：\n\n```ts\nanimationDuration: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "animationEasing",
+        "type": "enum",
+        "desc": "初始动画的缓动效果。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+    },
+    {
+        "name": "animationDelay",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "初始动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的初始动画效果。\n\n如下示例：\n```ts\nanimationDelay: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "children": []
+    },
+    {
+        "name": "animationDurationUpdate",
+        "type": "number",
+        "default": "300",
+        "desc": "数据更新动画的时长。\n\n支持回调函数，可以通过每个数据返回不同的时长实现更戏剧的更新动画效果：\n\n```ts\nanimationDurationUpdate: function (idx) {\n// 越往后的数据时长越大\nreturn idx * 100;\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "animationEasingUpdate",
+        "type": "enum",
+        "desc": "数据更新动画的缓动效果。",
+        "children": [],
+        "options": "'linear','quadraticIn','quadraticOut','quadraticInOut','cubicIn','cubicOut','cubicInOut','quarticIn','quarticOut','quarticInOut','quinticIn','quinticOut','quinticInOut','sinusoidalIn','sinusoidalOut','sinusoidalInOut','exponentialIn','exponentialOut','exponentialInOut','circularIn','circularOut','circularInOut','elasticIn','elasticOut','elasticInOut','backIn','backOut','backInOut','bounceIn','bounceOut','bounceInOut'"
+    },
+    {
+        "name": "animationDelayUpdate",
+        "type": [
+            "number",
+            "Function"
+        ],
+        "default": "0",
+        "desc": "数据更新动画的延迟，支持回调函数，可以通过每个数据返回不同的 delay 时间实现更戏剧的更新动画效果。\n\n如下示例：\n```ts\nanimationDelayUpdate: function (idx) {\n// 越往后的数据延迟越大\nreturn idx * 100;\n}\n```\n\n也可以看[该示例](bar-animation-delay)",
+        "children": []
+    },
+    {
         "name": "zlevel",
         "type": "number",
         "default": "0",
