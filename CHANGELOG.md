@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.3 (2023-03-15)
+
+### Changed
+
+- 与源文档同步
+
 ## 1.6.2 (2022-10-11)
 
 ### Added
