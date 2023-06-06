@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.4 (2023-06-06)
+
+### Added
+
+- 增加对jsx和tsx的支持
+
+### Changed
+
+- 与源文档同步
+
 ## 1.6.3 (2023-03-15)
 
 ### Changed
