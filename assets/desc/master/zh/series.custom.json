@@ -1316,7 +1316,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -1833,7 +1833,7 @@
                                 "name": "height",
                                 "type": "numbr",
                                 "default": "0",
-                                "desc": "图形元素的高度。\n\n\n\n\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                                "desc": "图形元素的高度。\n\n\n\n\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                                 "children": []
                             },
                             {
@@ -2355,9 +2355,27 @@
                                 "children": []
                             },
                             {
+                                "name": "width",
+                                "type": "number",
+                                "desc": "文本限制宽度，用于提供 [overflow](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_text.style.overflow) 的参考。",
+                                "children": []
+                            },
+                            {
+                                "name": "overflow",
+                                "type": "string",
+                                "desc": "当文本内容超出 [width](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_text.style.width) 时的文本显示策略，取值：`'break'`, `'breakAll'`, `'truncate'`, `'none'`。\n\n- `'break'`: 尽可能保证完整的单词不被截断(类似 `CSS` 重的 `word-break: break-word;`)\n- `'breakAll'`: 可在任意字符间断行\n- `'truncate'`: 截断文本屏显示 '...'，可以使用 [ellipsis](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_text.style.ellipsis) 来自定义省略号的显示\n- `'none'`: 不换行",
+                                "children": []
+                            },
+                            {
+                                "name": "ellipsis",
+                                "type": "string",
+                                "desc": "当 [overflow](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_text.style.overflow) 设置为 `'truncate'` 时生效，默认为 `...`。",
+                                "children": []
+                            },
+                            {
                                 "name": "textVerticalAlign",
                                 "type": "string",
-                                "desc": "垂直对齐方式，取值：`'top'`, `'middle'`, `'bottom'`。\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                                "desc": "垂直对齐方式，取值：`'top'`, `'middle'`, `'bottom'`。\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                                 "children": []
                             },
                             {
@@ -2899,7 +2917,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -3427,7 +3445,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -3962,7 +3980,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -4518,7 +4536,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -5074,7 +5092,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -5604,7 +5622,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -6134,7 +6152,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -6676,7 +6694,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
@@ -7246,7 +7264,7 @@
                     {
                         "name": "style",
                         "type": "Object",
-                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                         "children": [
                             {
                                 "name": "fill",
