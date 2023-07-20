@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.5 (2023-07-20)
+
+### Added
+
+- 增加配置项允许禁用 Enter 触发补全
+
+### Changed
+
+- 与源文档同步
+
 ## 1.6.4 (2023-06-06)
 
 ### Added
