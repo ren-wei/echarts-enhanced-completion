@@ -155,7 +155,7 @@ function getInsertText(tree: Tree, isArray: Boolean = false): string {
 const disposables = [
     vscode.languages.registerCompletionItemProvider(supportedLanguageList, {
         provideCompletionItems,
-    }, '\n'),
+    }, Config.disableEnterTriggerCharacters ? '' : '\n'),
 ];
 
 export default disposables;

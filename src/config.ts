@@ -14,6 +14,7 @@ export default {
         enabledRule: 'echarts-enhanced-completion.validation.rule.enabled',
         defaultRule: 'echarts-enhanced-completion.validation.rule.default',
         customRule: 'echarts-enhanced-completion.validation.rule.custom',
+        disableEnterTriggerCharacters: 'echarts-enhanced-completion.completion.disableEnterTriggerCharacters',
     },
 
     get insertSpaces() {
@@ -85,5 +86,9 @@ export default {
 
     get customRule(): DependRules {
         return vscode.workspace.getConfiguration().get(this.name.customRule) as DependRules;
+    },
+
+    get disableEnterTriggerCharacters(): boolean {
+        return vscode.workspace.getConfiguration().get(this.name.disableEnterTriggerCharacters) as boolean;
     },
 };
