@@ -12,6 +12,166 @@
         "detailFileName": "legend"
     },
     {
+        "name": "color",
+        "type": "color",
+        "default": "'#fff'",
+        "desc": "文字的颜色。",
+        "children": []
+    },
+    {
+        "name": "fontStyle",
+        "type": "enum",
+        "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+        "children": [],
+        "options": "'normal','italic','oblique'"
+    },
+    {
+        "name": "fontWeight",
+        "type": "enum",
+        "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+        "children": [],
+        "options": "'normal','bold','bolder','lighter'"
+    },
+    {
+        "name": "fontFamily",
+        "type": "enum",
+        "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
+        "children": [],
+        "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+    },
+    {
+        "name": "fontSize",
+        "type": "number",
+        "default": "12",
+        "desc": "文字的字体大小。",
+        "children": [],
+        "min": "1",
+        "step": "1"
+    },
+    {
+        "name": "lineHeight",
+        "type": "number",
+        "default": "12",
+        "desc": "行高。\n\n\n\n`rich` 中如果没有设置 `lineHeight`，则会取父层级的 `lineHeight`。例如：\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// 没有设置 `lineHeight`，则 `lineHeight` 为 56\n}\n}\n}\n```",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "width",
+        "type": [
+            "number",
+            "string"
+        ],
+        "desc": "文字块的宽度。一般不用指定，不指定则自动是文字的宽度。在想做表格项或者使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n`width` 也可以是百分比字符串，如 `'100%'`。表示的是所在文本块的 `contentWidth`（即不包含文本块的 `padding`）的百分之多少。之所以以 `contentWidth` 做基数，因为每个文本片段只能基于 `content box` 布局。如果以 `outerWidth` 做基数，则百分比的计算在实用中不具有意义，可能会超出。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": [
+            "number",
+            "string"
+        ],
+        "desc": "文字块的高度。一般不用指定，不指定则自动是文字的高度。在使用图片（参见 `backgroundColor`）时，可能会使用它。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。\n\n注意，如果不定义 `rich` 属性，则不能指定 `width` 和 `height`。",
+        "children": []
+    },
+    {
+        "name": "textBorderColor",
+        "type": "color",
+        "desc": "文字本身的描边颜色。",
+        "children": []
+    },
+    {
+        "name": "textBorderWidth",
+        "type": "number",
+        "desc": "文字本身的描边宽度。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "textBorderType",
+        "type": "enum",
+        "desc": "文字本身的描边类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`textBorderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+        "children": [],
+        "options": "'solid','dashed','dotted'"
+    },
+    {
+        "name": "textBorderDashOffset",
+        "type": "number",
+        "default": "0",
+        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+        "children": [],
+        "min": "0",
+        "step": "1"
+    },
+    {
+        "name": "textShadowColor",
+        "type": "color",
+        "default": "'transparent'",
+        "desc": "文字本身的阴影颜色。",
+        "children": []
+    },
+    {
+        "name": "textShadowBlur",
+        "type": "number",
+        "default": "0",
+        "desc": "文字本身的阴影长度。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "textShadowOffsetX",
+        "type": "number",
+        "default": "0",
+        "desc": "文字本身的阴影 X 偏移。",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "textShadowOffsetY",
+        "type": "number",
+        "default": "0",
+        "desc": "文字本身的阴影 Y 偏移。",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "width",
+        "type": "number",
+        "default": "100",
+        "desc": "文本显示宽度。",
+        "children": [],
+        "min": "1",
+        "max": "500",
+        "step": "1"
+    },
+    {
+        "name": "height",
+        "type": "number",
+        "default": "50",
+        "desc": "文本显示高度。",
+        "children": [],
+        "min": "1",
+        "max": "500",
+        "step": "1"
+    },
+    {
+        "name": "overflow",
+        "type": "enum",
+        "desc": "文字超出宽度是否截断或者换行。配置`width`时有效\n\n+ `'truncate'` 截断，并在末尾显示`ellipsis`配置的文本，默认为`...`\n+ `'break'` 换行\n+ `'breakAll'` 换行，跟`'break'`不同的是，在英语等拉丁文中，`'breakAll'`还会强制单词内换行",
+        "children": [],
+        "options": "'truncate','break','breakAll'"
+    },
+    {
+        "name": "ellipsis",
+        "type": "string",
+        "default": "'...'",
+        "desc": "在`overflow`配置为`'truncate'`的时候，可以通过该属性配置末尾显示的文本。",
+        "detailFileName": "ellipsis"
+    },
+    {
         "name": "grid",
         "type": "Object",
         "desc": "直角坐标系内绘图网格，单个 grid 内最多可以放置上下两个 X 轴，左右两个 Y 轴。可以在网格上绘制[折线图](https://echarts.apache.org/zh/option.html#series-line)，[柱状图](https://echarts.apache.org/zh/option.html#series-bar)，[散点图（气泡图）](https://echarts.apache.org/zh/option.html#series-scatter)。\n\n在 ECharts 2.x 里单个 echarts 实例中最多只能存在一个 grid 组件，在 ECharts 3 中可以存在任意个 grid 组件。\n\n**例如下面这个 Anscombe Quartet 的示例：**\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=scatter-anscombe-quartet&edit=1&reset=1)",

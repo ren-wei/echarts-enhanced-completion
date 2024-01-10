@@ -1,0 +1,1464 @@
+[
+    {
+        "name": "backgroundColor",
+        "type": "color",
+        "default": "'transparent'",
+        "desc": "Background color of legend, which is transparent by default.\n\n> Color can be represented in RGB, for example `'rgb(128, 128, 128)'`. RGBA can be used when you need alpha channel, for example `'rgba(128, 128, 128, 0.5)'`. You may also use hexadecimal format, for example `'#ccc'`.",
+        "children": []
+    },
+    {
+        "name": "borderColor",
+        "type": "color",
+        "default": "'#ccc'",
+        "desc": "Border color of legend. Support the same color format as backgroundColor.",
+        "children": []
+    },
+    {
+        "name": "borderWidth",
+        "type": "number",
+        "default": "1",
+        "desc": "Border width of legend.",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "borderRadius",
+        "type": "vector",
+        "default": "0",
+        "desc": "The radius of rounded corner. Its unit is px. And it supports use array to respectively specify the 4 corner radiuses.\n\nFor example:\n```\nborderRadius: 5, // consistently set the size of 4 rounded corners\nborderRadius: [5, 5, 0, 0] // (clockwise upper left, upper right, bottom right and bottom left)\n```",
+        "children": [],
+        "min": "0",
+        "dims": "LT,RT,RB,LB"
+    },
+    {
+        "name": "shadowBlur",
+        "type": "number",
+        "default": "",
+        "desc": "Size of shadow blur. This attribute should be used along with `shadowColor`,`shadowOffsetX`, `shadowOffsetY` to set shadow to component.\n\nFor example:\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```\n\n\n**Attention**: This property works only if `show: true` is configured and `backgroundColor` is defined other than `transparent`.",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "shadowColor",
+        "type": "color",
+        "default": "",
+        "desc": "Shadow color. Support same format as `color`.\n\n\n**Attention**: This property works only if `show: true` configured.",
+        "children": []
+    },
+    {
+        "name": "shadowOffsetX",
+        "type": "number",
+        "default": "0",
+        "desc": "Offset distance on the horizontal direction of shadow.\n\n\n**Attention**: This property works only if `show: true` configured.",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "shadowOffsetY",
+        "type": "number",
+        "default": "0",
+        "desc": "Offset distance on the vertical direction of shadow.\n\n\n**Attention**: This property works only if `show: true` configured.",
+        "children": [],
+        "step": "0.5"
+    },
+    {
+        "name": "scrollDataIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\n`dataIndex` of the left top most displayed item.\n\nAlthough the scrolling of legend items can be controlled by calling `setOption` and specifying this property, we suggest that do not control legend in this way unless necessary (`setOption` might be time-consuming), but just use action [legendScroll](api.html#action.legend.legendScroll) to do that.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageButtonItemGap",
+        "type": "number",
+        "default": "5",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe gap between page buttons and page info text.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageButtonGap",
+        "type": "number",
+        "default": "null",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe gap between page buttons and legend items.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageButtonPosition",
+        "type": "string",
+        "default": "'end'",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe position of page buttons and page info. Optional values:\n\n+ `'start'`: on the left or top.\n+ `'end'`: on the right or bottom.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageFormatter",
+        "type": [
+            "string",
+            "Function"
+        ],
+        "default": "'{current}/{total}'",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nPage info formatter. It is `'{current}/{total}'` by default, where `{current}` is current page number (start from 1), and `{total}` is the total page number.\n\nIf `pageFormatter` is a function, it should return a string. The parameters is:\n```ts\n{\ncurrent: number\ntotal: number\n}\n```\n\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageIcons",
+        "type": "Object",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe icons of page buttons.",
+        "children": [
+            {
+                "name": "horizontal",
+                "type": "Array",
+                "desc": "The icons of page buttons when [legend.orient](https://echarts.apache.org/en/option.html#legend.orient) is `'horizontal'`.\n\nIt should be an array, `[previous page button, next page button]`, `['M0,0L12,-10L12,10z', 'M0,0L-12,-10L-12,10z']` by default.\n\nFor the each item of the array,\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://example.website/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+                "children": []
+            },
+            {
+                "name": "vertical",
+                "type": "Array",
+                "desc": "The icons of page buttons when [legend.orient](https://echarts.apache.org/en/option.html#legend.orient) is `'vertical'`.\n\nIt should be an array, `[previous page button, next page button]`, `['M0,0L20,0L10,-20z', 'M0,0L20,0L10,20z']` by default.\n\nFor the each item of the array,\n\n\n\nIt can be set to an image with `'image://url'` , in which URL is the link to an image, or `dataURI` of an image.\n\n\nAn image URL example:\n\n```\n'image://http://example.website/a/b.png'\n```\n\nA `dataURI` example:\n\n```\n'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'\n```\n\n\n\nIcons can be set to arbitrary vector path via `'path://'` in ECharts. As compared with a raster image, vector paths prevent jagging and blurring when scaled, and have better control over changing colors. The size of the vector icon will be adapted automatically. Refer to [SVG PathData](http://www.w3.org/TR/SVG/paths.html#PathData) for more information about the format of the path. You may export vector paths from tools like Adobe\n\nFor example:\n\n```\n'path://M30.9,53.2C16.8,53.2,5.3,41.7,5.3,27.6S16.8,2,30.9,2C45,2,56.4,13.5,56.4,27.6S45,53.2,30.9,53.2z M30.9,3.5C17.6,3.5,6.8,14.4,6.8,27.6c0,13.3,10.8,24.1,24.101,24.1C44.2,51.7,55,40.9,55,27.6C54.9,14.4,44.1,3.5,30.9,3.5z M36.9,35.8c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H36c0.5,0,0.9,0.4,0.9,1V35.8z M27.8,35.8 c0,0.601-0.4,1-0.9,1h-1.3c-0.5,0-0.9-0.399-0.9-1V19.5c0-0.6,0.4-1,0.9-1H27c0.5,0,0.9,0.4,0.9,1L27.8,35.8L27.8,35.8z'\n```\n\n\n\n\n\n\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "pageIconColor",
+        "type": "color",
+        "default": "'#2f4554'",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe color of page buttons.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageIconInactiveColor",
+        "type": "color",
+        "default": "'#aaa'",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe color of page buttons when they are inactive.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "pageIconSize",
+        "type": "vector",
+        "default": "15",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe size of page buttons. It can be a number, or an array, like `[10, 3]`, represents `[width, height]`.\n\nSee [vertically scrollable legend](pie-legend&edit=1&reset=1) or [horizontally scrollable legend](radar2&edit=1&reset=1).",
+        "children": [],
+        "dims": "w,h"
+    },
+    {
+        "name": "pageTextStyle",
+        "type": "Object",
+        "desc": "It works when [legend.type](https://echarts.apache.org/en/option.html#legend.type) is `'scroll'`.\n\nThe text style of page info.",
+        "children": [
+            {
+                "name": "color",
+                "type": "color",
+                "default": "'#333'",
+                "desc": "text color.",
+                "children": []
+            },
+            {
+                "name": "fontStyle",
+                "type": "enum",
+                "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                "children": [],
+                "options": "'normal','italic','oblique'"
+            },
+            {
+                "name": "fontWeight",
+                "type": "enum",
+                "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                "children": [],
+                "options": "'normal','bold','bolder','lighter'"
+            },
+            {
+                "name": "fontFamily",
+                "type": "enum",
+                "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                "children": [],
+                "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+            },
+            {
+                "name": "fontSize",
+                "type": "number",
+                "default": "12",
+                "desc": "font size.",
+                "children": [],
+                "min": "1",
+                "step": "1"
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "default": "12",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "textBorderColor",
+                "type": "color",
+                "desc": "Stroke color of the text.",
+                "children": []
+            },
+            {
+                "name": "textBorderWidth",
+                "type": "number",
+                "desc": "Stroke line width of the text.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "textBorderType",
+                "type": "enum",
+                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "textBorderDashOffset",
+                "type": "number",
+                "default": "0",
+                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "textShadowColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "Shadow color of the text itself.",
+                "children": []
+            },
+            {
+                "name": "textShadowBlur",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow blue of the text itself.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "textShadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow X offset of the text itself.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "textShadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow Y offset of the text itself.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "width",
+                "type": "number",
+                "default": "100",
+                "desc": "Width of text block.",
+                "children": [],
+                "min": "1",
+                "max": "500",
+                "step": "1"
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "default": "50",
+                "desc": "Height of text block.",
+                "children": [],
+                "min": "1",
+                "max": "500",
+                "step": "1"
+            },
+            {
+                "name": "overflow",
+                "type": "enum",
+                "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
+                "children": [],
+                "options": "'truncate','break','breakAll'"
+            },
+            {
+                "name": "ellipsis",
+                "type": "string",
+                "default": "'...'",
+                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
+                "children": []
+            }
+        ]
+    },
+    {
+        "name": "animation",
+        "type": "boolean",
+        "default": "true",
+        "desc": "Whether to use animation when page scrolls.",
+        "children": []
+    },
+    {
+        "name": "animationDurationUpdate",
+        "type": "number",
+        "default": "800",
+        "desc": "Duration of the page scroll animation.",
+        "children": [],
+        "min": "0",
+        "step": "20"
+    },
+    {
+        "name": "emphasis",
+        "type": "Object",
+        "desc": "",
+        "children": [
+            {
+                "name": "selectorLabel",
+                "type": "Object",
+                "desc": "> Since `v4.4.0`",
+                "children": [
+                    {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "Whether to show label.",
+                        "children": []
+                    },
+                    {
+                        "name": "distance",
+                        "type": "number",
+                        "default": "5",
+                        "desc": "Distance to the host graphic element.",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "rotate",
+                        "type": "angle",
+                        "default": "0",
+                        "desc": "Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.\n\nSee: [label rotation](bar-label-rotation).",
+                        "children": [],
+                        "min": "-90",
+                        "max": "90",
+                        "step": "1"
+                    },
+                    {
+                        "name": "offset",
+                        "type": "vector",
+                        "desc": "Whether to move text slightly. For example: `[30, 40]` means move `30` horizontally and move `40` vertically.",
+                        "children": [],
+                        "dims": "x,y",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "color",
+                        "type": "color",
+                        "default": "'#fff'",
+                        "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "children": []
+                    },
+                    {
+                        "name": "fontStyle",
+                        "type": "enum",
+                        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                        "children": [],
+                        "options": "'normal','italic','oblique'"
+                    },
+                    {
+                        "name": "fontWeight",
+                        "type": "enum",
+                        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                        "children": [],
+                        "options": "'normal','bold','bolder','lighter'"
+                    },
+                    {
+                        "name": "fontFamily",
+                        "type": "enum",
+                        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                        "children": [],
+                        "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                    },
+                    {
+                        "name": "fontSize",
+                        "type": "number",
+                        "default": "12",
+                        "desc": "font size.",
+                        "children": [],
+                        "min": "1",
+                        "step": "1"
+                    },
+                    {
+                        "name": "align",
+                        "type": "enum",
+                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                        "children": [],
+                        "options": "'left','center','right'"
+                    },
+                    {
+                        "name": "verticalAlign",
+                        "type": "enum",
+                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                        "children": [],
+                        "options": "'top','middle','bottom'"
+                    },
+                    {
+                        "name": "lineHeight",
+                        "type": "number",
+                        "default": "12",
+                        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "1"
+                    },
+                    {
+                        "name": "backgroundColor",
+                        "type": "color",
+                        "default": "'transparent'",
+                        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "children": []
+                    },
+                    {
+                        "name": "borderColor",
+                        "type": "color",
+                        "default": "'#fff'",
+                        "desc": "Border color of the text fragment.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "children": []
+                    },
+                    {
+                        "name": "borderWidth",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Border width of the text fragment.",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "borderType",
+                        "type": "enum",
+                        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "children": [],
+                        "options": "'solid','dashed','dotted'"
+                    },
+                    {
+                        "name": "borderDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "children": [],
+                        "min": "0",
+                        "step": "1"
+                    },
+                    {
+                        "name": "borderRadius",
+                        "type": "vector",
+                        "default": "0",
+                        "desc": "Border radius of the text fragment.",
+                        "children": [],
+                        "min": "0",
+                        "dims": "LT,RT, RB, LB"
+                    },
+                    {
+                        "name": "padding",
+                        "type": "vector",
+                        "default": "0",
+                        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
+                        "children": [],
+                        "min": "0",
+                        "dims": "T,R,B,L"
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "color",
+                        "default": "'transparent'",
+                        "desc": "Shadow color of the text block.",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Show blur of the text block.",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Shadow X offset of the text block.",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Shadow Y offset of the text block.",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "width",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                        "children": []
+                    },
+                    {
+                        "name": "height",
+                        "type": [
+                            "number",
+                            "string"
+                        ],
+                        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
+                        "children": []
+                    },
+                    {
+                        "name": "textBorderColor",
+                        "type": "color",
+                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                        "children": []
+                    },
+                    {
+                        "name": "textBorderWidth",
+                        "type": "number",
+                        "desc": "Stroke line width of the text.",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "textBorderType",
+                        "type": "enum",
+                        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                        "children": [],
+                        "options": "'solid','dashed','dotted'"
+                    },
+                    {
+                        "name": "textBorderDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "children": [],
+                        "min": "0",
+                        "step": "1"
+                    },
+                    {
+                        "name": "textShadowColor",
+                        "type": "color",
+                        "default": "'transparent'",
+                        "desc": "Shadow color of the text itself.",
+                        "children": []
+                    },
+                    {
+                        "name": "textShadowBlur",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Shadow blue of the text itself.",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "textShadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Shadow X offset of the text itself.",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "textShadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "Shadow Y offset of the text itself.",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "100",
+                        "desc": "Width of text block.",
+                        "children": [],
+                        "min": "1",
+                        "max": "500",
+                        "step": "1"
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "default": "50",
+                        "desc": "Height of text block.",
+                        "children": [],
+                        "min": "1",
+                        "max": "500",
+                        "step": "1"
+                    },
+                    {
+                        "name": "overflow",
+                        "type": "enum",
+                        "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
+                        "children": [],
+                        "options": "'truncate','break','breakAll'"
+                    },
+                    {
+                        "name": "ellipsis",
+                        "type": "string",
+                        "default": "'...'",
+                        "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
+                        "children": []
+                    },
+                    {
+                        "name": "rich",
+                        "type": "Object",
+                        "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```ts\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                        "children": [
+                            {
+                                "name": "<style_name>",
+                                "type": "Object",
+                                "desc": "",
+                                "children": [
+                                    {
+                                        "name": "color",
+                                        "type": "color",
+                                        "default": "'#fff'",
+                                        "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "fontStyle",
+                                        "type": "enum",
+                                        "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                                        "children": [],
+                                        "options": "'normal','italic','oblique'"
+                                    },
+                                    {
+                                        "name": "fontWeight",
+                                        "type": "enum",
+                                        "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                                        "children": [],
+                                        "options": "'normal','bold','bolder','lighter'"
+                                    },
+                                    {
+                                        "name": "fontFamily",
+                                        "type": "enum",
+                                        "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                                        "children": [],
+                                        "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                                    },
+                                    {
+                                        "name": "fontSize",
+                                        "type": "number",
+                                        "default": "12",
+                                        "desc": "font size.",
+                                        "children": [],
+                                        "min": "1",
+                                        "step": "1"
+                                    },
+                                    {
+                                        "name": "align",
+                                        "type": "enum",
+                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                                        "children": [],
+                                        "options": "'left','center','right'"
+                                    },
+                                    {
+                                        "name": "verticalAlign",
+                                        "type": "enum",
+                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                                        "children": [],
+                                        "options": "'top','middle','bottom'"
+                                    },
+                                    {
+                                        "name": "lineHeight",
+                                        "type": "number",
+                                        "default": "12",
+                                        "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "1"
+                                    },
+                                    {
+                                        "name": "backgroundColor",
+                                        "type": "color",
+                                        "default": "'transparent'",
+                                        "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderColor",
+                                        "type": "color",
+                                        "default": "'#fff'",
+                                        "desc": "Border color of the text fragment.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "borderWidth",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Border width of the text fragment.",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "borderType",
+                                        "type": "enum",
+                                        "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                        "children": [],
+                                        "options": "'solid','dashed','dotted'"
+                                    },
+                                    {
+                                        "name": "borderDashOffset",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "1"
+                                    },
+                                    {
+                                        "name": "borderRadius",
+                                        "type": "vector",
+                                        "default": "0",
+                                        "desc": "Border radius of the text fragment.",
+                                        "children": [],
+                                        "min": "0",
+                                        "dims": "LT,RT, RB, LB"
+                                    },
+                                    {
+                                        "name": "padding",
+                                        "type": "vector",
+                                        "default": "0",
+                                        "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
+                                        "children": [],
+                                        "min": "0",
+                                        "dims": "T,R,B,L"
+                                    },
+                                    {
+                                        "name": "shadowColor",
+                                        "type": "color",
+                                        "default": "'transparent'",
+                                        "desc": "Shadow color of the text block.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "shadowBlur",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Show blur of the text block.",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "shadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Shadow X offset of the text block.",
+                                        "children": [],
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "shadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Shadow Y offset of the text block.",
+                                        "children": [],
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "width",
+                                        "type": [
+                                            "number",
+                                            "string"
+                                        ],
+                                        "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "height",
+                                        "type": [
+                                            "number",
+                                            "string"
+                                        ],
+                                        "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderColor",
+                                        "type": "color",
+                                        "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textBorderWidth",
+                                        "type": "number",
+                                        "desc": "Stroke line width of the text.",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "textBorderType",
+                                        "type": "enum",
+                                        "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                        "children": [],
+                                        "options": "'solid','dashed','dotted'"
+                                    },
+                                    {
+                                        "name": "textBorderDashOffset",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "1"
+                                    },
+                                    {
+                                        "name": "textShadowColor",
+                                        "type": "color",
+                                        "default": "'transparent'",
+                                        "desc": "Shadow color of the text itself.",
+                                        "children": []
+                                    },
+                                    {
+                                        "name": "textShadowBlur",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Shadow blue of the text itself.",
+                                        "children": [],
+                                        "min": "0",
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "textShadowOffsetX",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Shadow X offset of the text itself.",
+                                        "children": [],
+                                        "step": "0.5"
+                                    },
+                                    {
+                                        "name": "textShadowOffsetY",
+                                        "type": "number",
+                                        "default": "0",
+                                        "desc": "Shadow Y offset of the text itself.",
+                                        "children": [],
+                                        "step": "0.5"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "selector",
+        "type": [
+            "boolean",
+            "Array"
+        ],
+        "default": "false",
+        "desc": "> Since `v4.4.0`\n\n\n\nThe selector button in the legend component. Currently, there are two types of button:\n\n- `all`: Select All\n- `inverse`: Inverse Selection\n\nThe selector button doesn't display by default, you need to enable it manually as follows.\n\n```ts\nselector: [\n{\ntype: 'all',\n// can be any title you like\ntitle: 'All'\n},\n{\ntype: 'inverse',\n// can be any title you like\ntitle: 'Inv'\n}\n]\n\n// or\nselector: true\n\n// or\nselector: ['all', 'inverse']\n```",
+        "children": []
+    },
+    {
+        "name": "selectorLabel",
+        "type": "Object",
+        "desc": "> Since `v4.4.0`\n\n\n\nThe text label style of the selector button, which is displayed by default.",
+        "children": [
+            {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "Whether to show label.",
+                "children": []
+            },
+            {
+                "name": "distance",
+                "type": "number",
+                "default": "5",
+                "desc": "Distance to the host graphic element.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "rotate",
+                "type": "angle",
+                "default": "0",
+                "desc": "Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.\n\nSee: [label rotation](bar-label-rotation).",
+                "children": [],
+                "min": "-90",
+                "max": "90",
+                "step": "1"
+            },
+            {
+                "name": "offset",
+                "type": "vector",
+                "desc": "Whether to move text slightly. For example: `[30, 40]` means move `30` horizontally and move `40` vertically.",
+                "children": [],
+                "dims": "x,y",
+                "step": "0.5"
+            },
+            {
+                "name": "color",
+                "type": "color",
+                "default": "'#fff'",
+                "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                "children": []
+            },
+            {
+                "name": "fontStyle",
+                "type": "enum",
+                "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                "children": [],
+                "options": "'normal','italic','oblique'"
+            },
+            {
+                "name": "fontWeight",
+                "type": "enum",
+                "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                "children": [],
+                "options": "'normal','bold','bolder','lighter'"
+            },
+            {
+                "name": "fontFamily",
+                "type": "enum",
+                "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                "children": [],
+                "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+            },
+            {
+                "name": "fontSize",
+                "type": "number",
+                "default": "12",
+                "desc": "font size.",
+                "children": [],
+                "min": "1",
+                "step": "1"
+            },
+            {
+                "name": "align",
+                "type": "enum",
+                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                "children": [],
+                "options": "'left','center','right'"
+            },
+            {
+                "name": "verticalAlign",
+                "type": "enum",
+                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                "children": [],
+                "options": "'top','middle','bottom'"
+            },
+            {
+                "name": "lineHeight",
+                "type": "number",
+                "default": "12",
+                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "backgroundColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                "children": []
+            },
+            {
+                "name": "borderColor",
+                "type": "color",
+                "default": "'#fff'",
+                "desc": "Border color of the text fragment.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "0",
+                "desc": "Border width of the text fragment.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "borderType",
+                "type": "enum",
+                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "borderDashOffset",
+                "type": "number",
+                "default": "0",
+                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "borderRadius",
+                "type": "vector",
+                "default": "0",
+                "desc": "Border radius of the text fragment.",
+                "children": [],
+                "min": "0",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "padding",
+                "type": "vector",
+                "default": "0",
+                "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
+                "children": [],
+                "min": "0",
+                "dims": "T,R,B,L"
+            },
+            {
+                "name": "shadowColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "Shadow color of the text block.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "0",
+                "desc": "Show blur of the text block.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow X offset of the text block.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow Y offset of the text block.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "width",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "height",
+                "type": [
+                    "number",
+                    "string"
+                ],
+                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
+                "children": []
+            },
+            {
+                "name": "textBorderColor",
+                "type": "color",
+                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                "children": []
+            },
+            {
+                "name": "textBorderWidth",
+                "type": "number",
+                "desc": "Stroke line width of the text.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "textBorderType",
+                "type": "enum",
+                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "textBorderDashOffset",
+                "type": "number",
+                "default": "0",
+                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "textShadowColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "Shadow color of the text itself.",
+                "children": []
+            },
+            {
+                "name": "textShadowBlur",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow blue of the text itself.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "textShadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow X offset of the text itself.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "textShadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow Y offset of the text itself.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "width",
+                "type": "number",
+                "default": "100",
+                "desc": "Width of text block.",
+                "children": [],
+                "min": "1",
+                "max": "500",
+                "step": "1"
+            },
+            {
+                "name": "height",
+                "type": "number",
+                "default": "50",
+                "desc": "Height of text block.",
+                "children": [],
+                "min": "1",
+                "max": "500",
+                "step": "1"
+            },
+            {
+                "name": "overflow",
+                "type": "enum",
+                "desc": "Determine how to display the text when it's overflow. Available when `width` is set.\n\n+ `'truncate'` Truncate the text and trailing with `ellipsis`.\n+ `'break'` Break by word\n+ `'breakAll'` Break by character.",
+                "children": [],
+                "options": "'truncate','break','breakAll'"
+            },
+            {
+                "name": "ellipsis",
+                "type": "string",
+                "default": "'...'",
+                "desc": "Ellipsis to be displayed when `overflow` is set to `truncate`.\n\n+ `'truncate'` Truncate the overflow lines.",
+                "children": []
+            },
+            {
+                "name": "rich",
+                "type": "Object",
+                "desc": "\"Rich text styles\" can be defined in this `rich` property. For example:\n\n```ts\nlabel: {\n// Styles defined in 'rich' can be applied to some fragments\n// of text by adding some markers to those fragment, like\n// `{styleName|text content text content}`.\n// `'\\n'` is the newline character.\nformatter: [\n'{a|Style \"a\" is applied to this snippet}'\n'{b|Style \"b\" is applied to this snippet}This snippet use default style{x|use style \"x\"}'\n].join('\\n'),\n\nrich: {\na: {\ncolor: 'red',\nlineHeight: 10\n},\nb: {\nbackgroundColor: {\nimage: 'xxx/xxx.jpg'\n},\nheight: 40\n},\nx: {\nfontSize: 18,\nfontFamily: 'Microsoft YaHei',\nborderColor: '#449933',\nborderRadius: 4\n},\n...\n}\n}\n```\n\n\nFor more details, see [Rich Text](tutorial.html#Rich%20Text) please.",
+                "children": [
+                    {
+                        "name": "<style_name>",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "color",
+                                "type": "color",
+                                "default": "'#fff'",
+                                "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "children": []
+                            },
+                            {
+                                "name": "fontStyle",
+                                "type": "enum",
+                                "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                                "children": [],
+                                "options": "'normal','italic','oblique'"
+                            },
+                            {
+                                "name": "fontWeight",
+                                "type": "enum",
+                                "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                                "children": [],
+                                "options": "'normal','bold','bolder','lighter'"
+                            },
+                            {
+                                "name": "fontFamily",
+                                "type": "enum",
+                                "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                                "children": [],
+                                "options": "'sans-serif','serif','monospace','Arial','Courier New'"
+                            },
+                            {
+                                "name": "fontSize",
+                                "type": "number",
+                                "default": "12",
+                                "desc": "font size.",
+                                "children": [],
+                                "min": "1",
+                                "step": "1"
+                            },
+                            {
+                                "name": "align",
+                                "type": "enum",
+                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
+                                "children": [],
+                                "options": "'left','center','right'"
+                            },
+                            {
+                                "name": "verticalAlign",
+                                "type": "enum",
+                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
+                                "children": [],
+                                "options": "'top','middle','bottom'"
+                            },
+                            {
+                                "name": "lineHeight",
+                                "type": "number",
+                                "default": "12",
+                                "desc": "Line height of the text fragment.\n\n\n\nIf `lineHeight` is not set in `rich`, `lineHeight` in parent level will be used. For example:\n\n```ts\n{\nlineHeight: 56,\nrich: {\na: {\n// `lineHeight` is not set, then it will be 56\n}\n}\n}\n```",
+                                "children": [],
+                                "min": "0",
+                                "step": "1"
+                            },
+                            {
+                                "name": "backgroundColor",
+                                "type": "color",
+                                "default": "'transparent'",
+                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderColor",
+                                "type": "color",
+                                "default": "'#fff'",
+                                "desc": "Border color of the text fragment.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "children": []
+                            },
+                            {
+                                "name": "borderWidth",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Border width of the text fragment.",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "borderType",
+                                "type": "enum",
+                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                                "children": [],
+                                "options": "'solid','dashed','dotted'"
+                            },
+                            {
+                                "name": "borderDashOffset",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "children": [],
+                                "min": "0",
+                                "step": "1"
+                            },
+                            {
+                                "name": "borderRadius",
+                                "type": "vector",
+                                "default": "0",
+                                "desc": "Border radius of the text fragment.",
+                                "children": [],
+                                "min": "0",
+                                "dims": "LT,RT, RB, LB"
+                            },
+                            {
+                                "name": "padding",
+                                "type": "vector",
+                                "default": "0",
+                                "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
+                                "children": [],
+                                "min": "0",
+                                "dims": "T,R,B,L"
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "color",
+                                "default": "'transparent'",
+                                "desc": "Shadow color of the text block.",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Show blur of the text block.",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Shadow X offset of the text block.",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Shadow Y offset of the text block.",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "width",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Width of the text block. It is the width of the text by default. In most cases, there is no need to specify it. You may want to use it in some cases like make simple table or using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\n`width` can also be percent string, like `'100%'`, which represents the percent of `contentWidth` (that is, the width without `padding`) of its container box. It is based on `contentWidth` because that each text fragment is layout based on the `content box`, where it makes no sense that calculating width based on `outerWith` in prectice.\n\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "height",
+                                "type": [
+                                    "number",
+                                    "string"
+                                ],
+                                "desc": "Height of the text block. It is the width of the text by default. You may want to use it in some cases like using background image (see `backgroundColor`).\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.\n\nNotice, `width` and `height` only work when `rich` specified.",
+                                "children": []
+                            },
+                            {
+                                "name": "textBorderColor",
+                                "type": "color",
+                                "desc": "Stroke color of the text.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
+                                "children": []
+                            },
+                            {
+                                "name": "textBorderWidth",
+                                "type": "number",
+                                "desc": "Stroke line width of the text.",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "textBorderType",
+                                "type": "enum",
+                                "desc": "Stroke line type of the text.\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`textBorderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\ntextBorderType: [5, 10],\n\ntextBorderDashOffset: 5\n}\n```",
+                                "children": [],
+                                "options": "'solid','dashed','dotted'"
+                            },
+                            {
+                                "name": "textBorderDashOffset",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "children": [],
+                                "min": "0",
+                                "step": "1"
+                            },
+                            {
+                                "name": "textShadowColor",
+                                "type": "color",
+                                "default": "'transparent'",
+                                "desc": "Shadow color of the text itself.",
+                                "children": []
+                            },
+                            {
+                                "name": "textShadowBlur",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Shadow blue of the text itself.",
+                                "children": [],
+                                "min": "0",
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "textShadowOffsetX",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Shadow X offset of the text itself.",
+                                "children": [],
+                                "step": "0.5"
+                            },
+                            {
+                                "name": "textShadowOffsetY",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "Shadow Y offset of the text itself.",
+                                "children": [],
+                                "step": "0.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "selectorPosition",
+        "type": "enum",
+        "desc": "> Since `v4.4.0`\n\n\n\nThe position of the selector button, which can be placed at the end or start of the legend component, the corresponding values are `'end'` and `'start'`. By default, when the legend is laid out horizontally, the selector is placed at the end of it, and when the legend is laid out vertically, the selector is placed at the start of it.",
+        "children": [],
+        "options": "'auto','start','end'"
+    },
+    {
+        "name": "selectorItemGap",
+        "type": "number",
+        "default": "7",
+        "desc": "> Since `v4.4.0`\n\n\n\nThe gap between the selector button.",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "selectorButtonGap",
+        "type": "number",
+        "default": "10",
+        "desc": "> Since `v4.4.0`\n\n\n\nThe gap between selector button and legend component.",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    }
+]

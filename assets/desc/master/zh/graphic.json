@@ -259,7 +259,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -664,7 +664,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -1133,7 +1133,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -1339,14 +1339,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -1744,7 +1794,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -1929,7 +1979,7 @@
                     {
                         "name": "font",
                         "type": "string",
-                        "desc": "字体大小、字体类型、粗细、字体样式。格式参见 [css font](https://developer.mozilla.org/en-US/docs/Web/CSS/font)。\n\n例如：\n```\n// size | family\nfont: '2em \"STHeiti\", sans-serif'\n\n// style | weight | size | family\nfont: 'italic bolder 16px cursive'\n\n// weight | size | family\nfont: 'bolder 2em \"Microsoft YaHei\", sans-serif'\n```",
+                        "desc": "字体大小、字体类型、粗细、字体样式。格式参见 [css font](https://developer.mozilla.org/zh-CN/docs/Web/CSS/font)。\n\n例如：\n```\n// size | family\nfont: '2em \"STHeiti\", sans-serif'\n\n// style | weight | size | family\nfont: 'italic bolder 16px cursive'\n\n// weight | size | family\nfont: 'bolder 2em \"Microsoft YaHei\", sans-serif'\n```",
                         "children": []
                     },
                     {
@@ -1974,14 +2024,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -2379,7 +2479,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -2602,14 +2702,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -3007,7 +3157,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -3217,14 +3367,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -3622,7 +3822,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -3839,14 +4039,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -4244,7 +4494,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -4482,14 +4732,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -4887,7 +5187,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -5125,14 +5425,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "\"#000\"",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "1",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -5530,7 +5880,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -5742,14 +6092,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -6147,7 +6547,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -6359,14 +6759,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "\"#000\"",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "5",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -6764,7 +7214,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -6988,14 +7438,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "\"#000\"",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "5",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
@@ -7393,7 +7893,7 @@
                 "name": "bounding",
                 "type": "string",
                 "default": "'all'",
-                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 tranform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
+                "desc": "决定此图形元素在定位时，对自身的包围盒计算方式。\n\n参见例子：\n~[500x500](doc-example/graphic-bounding&edit=1&reset=1)\n\n可取值：\n\n+ `'all'`：（默认）\n表示用自身以及子节点整体的经过 transform 后的包围盒进行定位。\n这种方式易于使整体都限制在父元素范围中。\n\n+ `'raw'`：\n表示仅仅用自身（不包括子节点）的没经过 transform 的包围盒进行定位。\n这种方式易于内容超出父元素范围的定位方式。",
                 "children": []
             },
             {
@@ -7645,14 +8145,64 @@
                         "name": "stroke",
                         "type": "string",
                         "default": "null",
-                        "desc": "笔画颜色。",
+                        "desc": "线条颜色。",
                         "children": []
                     },
                     {
                         "name": "lineWidth",
                         "type": "number",
                         "default": "0",
-                        "desc": "笔画宽度。",
+                        "desc": "线条宽度。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDash",
+                        "type": [
+                            "null ",
+                            " false ",
+                            " number[] ",
+                            " 'solid' ",
+                            " 'dashed' ",
+                            " 'dotted'"
+                        ],
+                        "default": "null",
+                        "desc": "在填充线时使用虚线模式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "在填充线时使用虚线的偏移量。详细见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineCap",
+                        "type": [
+                            "'butt' ",
+                            " 'round' ",
+                            " 'square'"
+                        ],
+                        "default": "'butt'",
+                        "desc": "如何绘制每一条线段末端的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": []
+                    },
+                    {
+                        "name": "lineJoin",
+                        "type": [
+                            "'bevel' ",
+                            " 'round' ",
+                            " 'miter'"
+                        ],
+                        "default": "'miter'",
+                        "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": []
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": []
                     },
                     {
