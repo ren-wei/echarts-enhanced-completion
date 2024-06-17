@@ -16,7 +16,7 @@
         "name": "type",
         "type": "string",
         "default": "'value'",
-        "desc": "Type of axis.\n\nOption:\n+ `'value'`\nNumerical axis, suitable for continuous data.\n\n+ `'category'`\nCategory axis, suitable for discrete category data. Category data can be auto retrieved from [series.data](https://echarts.apache.org/en/option.html#series.data) or [dataset.source](https://echarts.apache.org/en/option.html#dataset.source), or can be specified via [radiusAxis.data](https://echarts.apache.org/en/option.html#radiusAxis.data).\n\n+ `'time'`\nTime axis, suitable for continuous time series data. As compared to value axis, it has a better formatting for time and a different tick calculation method. For example, it decides to use month, week, day or hour for tick based on the range of span.\n\n+ `'log'`\nLog axis, suitable for log data.",
+        "desc": "Type of axis.\n\nOption:\n+ `'value'`\nNumerical axis, suitable for continuous data.\n\n+ `'category'`\nCategory axis, suitable for discrete category data. Category data can be auto retrieved from [series.data](https://echarts.apache.org/en/option.html#series.data) or [dataset.source](https://echarts.apache.org/en/option.html#dataset.source), or can be specified via [radiusAxis.data](https://echarts.apache.org/en/option.html#radiusAxis.data).\n\n+ `'time'`\nTime axis, suitable for continuous time series data. As compared to value axis, it has a better formatting for time and a different tick calculation method. For example, it decides to use month, week, day or hour for tick based on the range of span.\n\n+ `'log'`\nLog axis, suitable for log data. Stacked bar or line series with `type: 'log'` axes may lead to significant visual errors and may have unintended effects in certain circumstances. Their use should be avoided.",
         "children": []
     },
     {
@@ -568,6 +568,26 @@
         "min": "-360",
         "max": "360",
         "step": "1"
+    },
+    {
+        "name": "nameTruncate",
+        "type": "Object",
+        "desc": "Truncation of the axis name.",
+        "children": [
+            {
+                "name": "maxWidth",
+                "type": "number",
+                "desc": "The maximum length for the truncated text. Any text exceeding this length will be truncated.",
+                "children": []
+            },
+            {
+                "name": "ellipsis",
+                "type": "string",
+                "default": "'...'",
+                "desc": "The content displayed at the end of the text after truncation.",
+                "children": []
+            }
+        ]
     },
     {
         "name": "inverse",

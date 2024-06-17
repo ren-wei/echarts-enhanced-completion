@@ -703,7 +703,17 @@
         "name": "appendToBody",
         "type": "boolean",
         "default": "false",
-        "desc": "> 从 `v4.7.0` 开始支持\n\n\n\n是否将 tooltip 的 DOM 节点添加为 HTML 的 `<body>` 的子节点。只有当 [renderMode](https://echarts.apache.org/zh/option.html#tooltip.renderMode) 为 `'html'` 是有意义的。\n\n默认值是 `false`。`false` 表示，tooltip 的 DOM 节点会被添加为本图表的 DOM container 的一个子孙节点。但是这种方式导致，如果本图表的 DOM container 的祖先节点有设置 `overflow: hidden`，那么当 tooltip 超出 container 范围使可能被截断。这个问题一定程度上可以用 [tooltip.confine](https://echarts.apache.org/zh/option.html#tooltip.confine) 来解决，但是不一定能解决所有场景。\n\n所以这里我们提供了 `appendToBody: true` 来解决这件事。这也是常见的解决此类问题的一种方式。但是 `true` 并不定为默认值，因为要避免 break change，尤其是一些对于 tooltip 深入定制的使用。并且也避免一些未知的 bad case。\n\n注：CSS transform 的场景，这也可以使用。",
+        "desc": "> 从 `v4.7.0` 开始支持\n\n\n\n（自 `v5.5.0` 已废弃，请使用 [appendTo](https://echarts.apache.org/zh/option.html#tooltip.appendTo)。）\n\n是否将 tooltip 的 DOM 节点添加为 HTML 的 `<body>` 的子节点。只有当 [renderMode](https://echarts.apache.org/zh/option.html#tooltip.renderMode) 为 `'html'` 是有意义的。\n\n默认值是 `false`。`false` 表示，tooltip 的 DOM 节点会被添加为本图表的 DOM container 的一个子孙节点。但是这种方式导致，如果本图表的 DOM container 的祖先节点有设置 `overflow: hidden`，那么当 tooltip 超出 container 范围使可能被截断。这个问题一定程度上可以用 [tooltip.confine](https://echarts.apache.org/zh/option.html#tooltip.confine) 来解决，但是不一定能解决所有场景。\n\n所以这里我们提供了 `appendToBody: true` 来解决这件事。这也是常见的解决此类问题的一种方式。但是 `true` 并不定为默认值，因为要避免 break change，尤其是一些对于 tooltip 深入定制的使用。并且也避免一些未知的 bad case。\n\n注：CSS transform 的场景，这也可以使用。",
+        "children": []
+    },
+    {
+        "name": "appendTo",
+        "type": [
+            "string",
+            "HTMLElement",
+            "Function"
+        ],
+        "desc": "> 从 `v5.5.0` 开始支持\n\n\n\n将 tooltip 的 DOM 节点添加到哪个节点下。只有当 [renderMode](https://echarts.apache.org/zh/option.html#tooltip.renderMode) 为 `'html'` 是有意义的。\n\n默认值是 `null`，表示 tooltip 的 DOM 节点会被添加为本图表的 DOM container 的一个子孙节点。但是这种方式导致，如果本图表的 DOM container 的祖先节点有设置 `overflow: hidden`，那么当 tooltip 超出 container 范围使可能被截断。这个问题一定程度上可以用 [tooltip.confine](https://echarts.apache.org/zh/option.html#tooltip.confine) 来解决，但是不一定能解决所有场景。\n\n对于这样的场景，可以指定 `appendTo`。当其为 `Function` 形式时，接口形如\n\n```ts\n(chartContainer: HTMLElement) => HTMLElement | undefined | null\n```\n\n即返回 tooltip 的 DOM 节点应该添加到哪个节点下。返回 `undefined` 或 `null` 表示采用上述的默认逻辑。返回 `HTMLElement` 表示添加到该节点下。\n\n注：CSS transform 的场景，这也可以使用。",
         "children": []
     },
     {
@@ -743,7 +753,7 @@
     {
         "name": "valueFormatter",
         "type": "string",
-        "desc": "> 从 `v5.3.0` 开始支持\n\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string) => string\n```\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+        "desc": "> 从 `v5.3.0` 开始支持\n\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> 自 `v5.5.0` 版本起提供 `dataIndex`。\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
         "children": []
     },
     {

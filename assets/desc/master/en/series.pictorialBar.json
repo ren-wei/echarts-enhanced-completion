@@ -107,6 +107,12 @@
                 "step": "0.5"
             },
             {
+                "name": "minMargin",
+                "type": "number",
+                "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).",
+                "children": []
+            },
+            {
                 "name": "formatter",
                 "type": [
                     "string",
@@ -3720,13 +3726,13 @@
     {
         "name": "encode",
         "type": "Object",
-        "desc": "Define what is encoded to for each dimension of `data`. For example:\n\n```ts\noption = {\ndataset: {\nsource: [\n// Each column is called a dimension.\n// There are five dimensions: 0, 1, 2, 3, 4.\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\nencode: {\nx: [3, 1, 5],      // Dimension 3, 1, 5 is mapped to x axis.\ny: 2,              // Dimension 2 is mapped to y axis.\ntooltip: [3, 2, 4] // Dimension 3, 2, 4 will be displayed in tooltip.\n}\n}\n}\n```\n\nWhen [dimensions](https://echarts.apache.org/en/option.html#series.dimensions) is used to defined name for a certain dimension, `encode` can refer the name directly. For example:\n\n```ts\nseries: {\ntype: 'xxx',\ndimensions: ['date', 'open', 'close', 'highest', 'lowest'],\nencode: {\nx: 'date',\ny: ['open', 'close', 'highest', 'lowest']\n}\n}\n```\n\nThe basic structure of [encode](option.html#series.encode) is illustrated as follows, where the left part of colon is the name of axis like `'x'`, `'y'`, `'radius'`, `'angle'` or some special reserved names like \"tooltip\", \"itemName\" etc., and the right part of the colon is the dimension names or dimension indices (based on 0). One or more dimensions can be specified. Usually not all of mappings need to be specified, only specify needed ones.\n\nThe properties available in `encode` listed as follows:\n\n```ts\n// In any of the series and coordinate systems,\n// these properties are available:\nencode: {\n// Display dimension \"product\" and \"score\" in the tooltip.\ntooltip: ['product', 'score']\n// Set the series name as the concat of the names of dimensions[1] and dimensions[3].\n// (sometimes the dimension names are too long to type in series.name manually).\nseriesName: [1, 3],\n// Using dimensions[2] as the id of each data item. This is useful when dynamically\n// update data by `chart.setOption()`, where the new and old data item can be\n// corresponded by id, by which the appropriate animation can be performed when updating.\nitemId: 2,\n// Using dimensions[3] as the name of each data item. This is useful in charts like\n// 'pie', 'funnel', where data item name can be displayed in legend.\nitemName: 3,\n// Using dimensions[4] as the groupId of each data item. groupId will be used to categorize the data. And to determine\n// How the merge and split animation are performed in the universal transition. See universalTransition option for detail.\nitemGroupId: 4\n}\n\n// These properties only work in cartesian(grid) coordinate system:\nencode: {\n// Map dimensions[1], dimensions[5] and dimension \"score\" to the X axis.\nx: [1, 5, 'score'],\n// Map dimensions[0] to the Y axis.\ny: 0\n}\n\n// These properties only work in polar coordinate system:\nencode: {\nradius: 3,\nangle: 2,\n...\n}\n\n// These properties only work in geo coordinate system:\nencode: {\nlng: 3,\nlat: 2\n}\n\n// For some type of series that are not in any coordinate system,\n// like 'pie', 'funnel' etc.:\nencode: {\nvalue: 3\n}\n```\n\nThis is an [example](dataset-encode1&edit=1&reset=1) for `encode`.\n\n\nSpecially, in [custom series(~series-custom), some property in `encode`, corresponding to axis, can be set as null to make the series not controlled by the axis, that is, the series data will not be count in the extent of the axis, and the [dataZoom](https://echarts.apache.org/en/option.html#dataZoom) on the axis will not filter the series.\n\n\n```ts\nvar option = {\nxAxis: {},\nyAxis: {},\ndataZoom: [{\nxAxisIndex: 0\n}, {\nyAxisIndex: 0\n}],\nseries: {\ntype: 'custom',\nrenderItem: function (params, api) {\nreturn {\ntype: 'circle',\nshape: {\ncx: 100, // x position is always 100\ncy: api.coord([0, api.value(0)])[1],\nr: 30\n},\nstyle: {\nfill: 'blue'\n}\n};\n},\nencode: {\n// Then the series will not be controlled\n// by x axis and corresponding dataZoom.\nx: -1,\ny: 1\n},\ndata: [ ... ]\n}\n};\n```",
+        "desc": "Define what is encoded to for each dimension of `data`. For example:\n\n```ts\noption = {\ndataset: {\nsource: [\n// Each column is called a dimension.\n// There are five dimensions: 0, 1, 2, 3, 4.\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\nencode: {\nx: [3, 1, 5],      // Dimension 3, 1, 5 is mapped to x axis.\ny: 2,              // Dimension 2 is mapped to y axis.\ntooltip: [3, 2, 4] // Dimension 3, 2, 4 will be displayed in tooltip.\n}\n}\n}\n```\n\nWhen [dimensions](https://echarts.apache.org/en/option.html#series.dimensions) is used to defined name for a certain dimension, `encode` can refer the name directly. For example:\n\n```ts\nseries: {\ntype: 'xxx',\ndimensions: ['date', 'open', 'close', 'highest', 'lowest'],\nencode: {\nx: 'date',\ny: ['open', 'close', 'highest', 'lowest']\n}\n}\n```\n\nThe basic structure of [encode](option.html#series.encode) is illustrated as follows, where the left part of colon is the name of axis like `'x'`, `'y'`, `'radius'`, `'angle'` or some special reserved names like \"tooltip\", \"itemName\" etc., and the right part of the colon is the dimension names or dimension indices (based on 0). One or more dimensions can be specified. Usually not all of mappings need to be specified, only specify needed ones.\n\nThe properties available in `encode` listed as follows:\n\n```ts\n// In any of the series and coordinate systems,\n// these properties are available:\nencode: {\n// Display dimension \"product\" and \"score\" in the tooltip.\ntooltip: ['product', 'score']\n// Set the series name as the concat of the names of dimensions[1] and dimensions[3].\n// (sometimes the dimension names are too long to type in series.name manually).\nseriesName: [1, 3],\n// Using dimensions[2] as the id of each data item. This is useful when dynamically\n// update data by `chart.setOption()`, where the new and old data item can be\n// corresponded by id, by which the appropriate animation can be performed when updating.\nitemId: 2,\n// Using dimensions[3] as the name of each data item. This is useful in charts like\n// 'pie', 'funnel', where data item name can be displayed in legend.\nitemName: 3,\n// Using dimensions[4] as the group ID for each data item. With universalTransition enabled,\n// the data items from the old option and those from the new one, if sharing a same group ID,\n// will then be matched and applied to a proper animation after `setOption` is called.\nitemGroupId: 4,\n// Using dimension[5] as the child group ID for each data item. This option is introduced to\n// make multiple levels drilldown and aggregation animation come true. See childGroupId for more.\n// Since v5.5.0\nitemChildGroupId: 5\n}\n\n// These properties only work in cartesian(grid) coordinate system:\nencode: {\n// Map dimensions[1], dimensions[5] and dimension \"score\" to the X axis.\nx: [1, 5, 'score'],\n// Map dimensions[0] to the Y axis.\ny: 0\n}\n\n// These properties only work in polar coordinate system:\nencode: {\nradius: 3,\nangle: 2,\n...\n}\n\n// These properties only work in geo coordinate system:\nencode: {\nlng: 3,\nlat: 2\n}\n\n// For some type of series that are not in any coordinate system,\n// like 'pie', 'funnel' etc.:\nencode: {\nvalue: 3\n}\n```\n\nThis is an [example](dataset-encode1&edit=1&reset=1) for `encode`.\n\n\nSpecially, in [custom series(~series-custom), some property in `encode`, corresponding to axis, can be set as null to make the series not controlled by the axis, that is, the series data will not be count in the extent of the axis, and the [dataZoom](https://echarts.apache.org/en/option.html#dataZoom) on the axis will not filter the series.\n\n\n```ts\nvar option = {\nxAxis: {},\nyAxis: {},\ndataZoom: [{\nxAxisIndex: 0\n}, {\nyAxisIndex: 0\n}],\nseries: {\ntype: 'custom',\nrenderItem: function (params, api) {\nreturn {\ntype: 'circle',\nshape: {\ncx: 100, // x position is always 100\ncy: api.coord([0, api.value(0)])[1],\nr: 30\n},\nstyle: {\nfill: 'blue'\n}\n};\n},\nencode: {\n// Then the series will not be controlled\n// by x axis and corresponding dataZoom.\nx: -1,\ny: 1\n},\ndata: [ ... ]\n}\n};\n```",
         "children": []
     },
     {
         "name": "dataGroupId",
         "type": "string",
-        "desc": "A groupID common to all data in the series. the groupID will be used to classify the data and determine how merge and split animations are performed in the universal transition animation.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent the data, it is recommended to use `encode.itemGroupID` to specify which dimension is encoded as the groupID.",
+        "desc": "A group ID assigned to all data items in the series.\n\nThis option has a lower priority than `groupId`, which means when `groupId` is specified for a certain data item the `dataGroupId` will be simply ignored for that data item. For more information, please see `series.data.groupId`.",
         "children": []
     },
     {
@@ -3749,7 +3755,13 @@
             {
                 "name": "groupId",
                 "type": "string",
-                "desc": "The groupID of this data item. groupID will be used to classify the data.",
+                "desc": "The group ID of a data item. When `universalTransition` is enabled, the data items from the old option and those from the new one, if sharing a same group ID, will then be matched and applied to a proper animation after `setOption` is called.\n\nIf a data item is not specified with a `groupId`, Apache ECharts will try to use `series.dataGroupId` as the group ID for the data item. If `series.dataGroupId` is not specified either, Apache ECharts will fall back to using the data item's ID as its group ID.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent data, you are recommended to use `encode.itemGroupId` to specify the dimension that is to be encoded as the group ID.",
+                "children": []
+            },
+            {
+                "name": "childGroupId",
+                "type": "string",
+                "desc": "> Since `v5.5.0`\n\n\n\nThe group ID of the child data of a data item. This option is introduced to make multiple levels drilldown and aggregation animation possilbe.\n\n~[700x300](doc-example/bar-multi-drilldown&edit=1&reset=1)\n\nBefore `childGroupId` is introduced, developers actually can use `groupId` to make drilldown and aggregation animation already, but with the limit on the times that a continious drilldown or aggregation can happen, which is only one time.\n\n`childGroupId`, together with `groupId`, help to form \"parent-child\" relationships between data items of different options, such as:\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\nThe 3 groups of data above come from 3 options, and by specifying `groupId` and `childGroupId` for the data items a relationship of \"parent-child-grandChild\" is formed in the 3 options. In this way,  after `setOption` is called, Apache ECharts will try to find the \"parent-child\" or \"child-parent\" relationship of the old option and the new one. If the relationship exists, the matching data items will be applied to a drilldown animation or an aggregation one.\n\nIf a data item has no child data then there is no need to specify a `childGroupId` at all.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent data, you are recommended to use `encode.itemChildGroupId` to specify the dimension that is to be encoded as the child group ID.",
                 "children": []
             },
             {
@@ -3959,6 +3971,12 @@
                         "children": [],
                         "dims": "x,y",
                         "step": "0.5"
+                    },
+                    {
+                        "name": "minMargin",
+                        "type": "number",
+                        "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).",
+                        "children": []
                     },
                     {
                         "name": "color",
@@ -4866,6 +4884,12 @@
                                 "step": "0.5"
                             },
                             {
+                                "name": "minMargin",
+                                "type": "number",
+                                "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).",
+                                "children": []
+                            },
+                            {
                                 "name": "color",
                                 "type": "color",
                                 "default": "'#fff'",
@@ -5716,6 +5740,12 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "minMargin",
+                                "type": "number",
+                                "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -6577,6 +6607,12 @@
                                 "step": "0.5"
                             },
                             {
+                                "name": "minMargin",
+                                "type": "number",
+                                "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).",
+                                "children": []
+                            },
+                            {
                                 "name": "color",
                                 "type": "color",
                                 "default": "'#fff'",
@@ -7410,7 +7446,7 @@
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string) => string\n```\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                         "children": []
                     },
                     {
@@ -24424,6 +24460,13 @@
         ]
     },
     {
+        "name": "clip",
+        "type": "boolean",
+        "default": "false",
+        "desc": "> Since `v`\n\n\n\nIf clip the overflow on the coordinate system. Clip results varies between series:\n\n+ Scatter/EffectScatter：Ignore the symbols exceeds the coordinate system. Not clip the elements.\n+ Bar：Clip all the overflowed. With bar width kept.\n+ Line：Clip the overflowed line.\n+ Lines: Clip all the overflowed.\n+ Candlestick: Ignore the elements exceeds the coordinate system.\n+ PictorialBar: Clip all the overflowed. (Supported since v5.5.0)\n+ Custom: Clip all the olverflowed.\n\nAll these series have default value `true` except pictorialBar and custom series. Set it to `false` if you don't want to clip.",
+        "children": []
+    },
+    {
         "name": "zlevel",
         "type": "number",
         "default": "0",
@@ -24493,7 +24536,7 @@
     {
         "name": "universalTransition",
         "type": "object",
-        "desc": "> Since `v5.2.0`\n\n\n\nConfiguration related to universal transition animation.\n\nUniversal Transition provides the ability to morph between any series. With this feature enabled, each time `setOption`, transitions between series with the same `id` will be automatically associated with each other.\n\nOne-to-many or many-to-one animations such as drill-down, aggregation, etc. can also be achieved by specifying groups of data such as `encode.itemGroupId` or `dataGroupId`.\n\nThis can be enabled directly by configuring `universalTransition: true` in the series. It is also possible to provide an object for more detailed configuration.",
+        "desc": "> Since `v5.2.0`\n\n\n\nConfiguration related to universal transition animation.\n\nUniversal Transition provides the ability to morph between any series. With this feature enabled, each time `setOption`, transitions between series with the same `id` will be automatically associated with each other.\n\nOne-to-many or many-to-one animations such as drill-down, aggregation, etc. can also be achieved by specifying data items' `groupId` and `childGroupId`.\n\nThis can be enabled directly by configuring `universalTransition: true` in the series. It is also possible to provide an object for more detailed configuration.",
         "children": [
             {
                 "name": "enabled",
@@ -24571,7 +24614,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string) => string\n```\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                 "children": []
             },
             {

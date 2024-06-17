@@ -54,7 +54,7 @@
             {
                 "name": "width",
                 "type": "number",
-                "default": "2",
+                "default": "1",
                 "desc": "线宽。",
                 "children": [],
                 "min": "0",
@@ -158,7 +158,7 @@
             {
                 "name": "lineStyle",
                 "type": "Object",
-                "desc": "",
+                "desc": "高亮状态下的线条样式。",
                 "children": [
                     {
                         "name": "color",
@@ -170,7 +170,7 @@
                     {
                         "name": "width",
                         "type": "number",
-                        "default": "2",
+                        "default": "1",
                         "desc": "线宽。",
                         "children": [],
                         "min": "0",
@@ -340,104 +340,105 @@
                 "name": "lineStyle",
                 "type": "Object",
                 "desc": "线条样式。",
-                "children": []
-            },
-            {
-                "name": "color",
-                "type": "color",
-                "default": "\"#000\"",
-                "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
-                "children": []
-            },
-            {
-                "name": "width",
-                "type": "number",
-                "default": "2",
-                "desc": "线宽。",
-                "children": [],
-                "min": "0",
-                "step": "0.5"
-            },
-            {
-                "name": "type",
-                "type": "enum",
-                "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
-                "children": [],
-                "options": "'solid','dashed','dotted'"
-            },
-            {
-                "name": "dashOffset",
-                "type": "number",
-                "default": "0",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
-                "children": [],
-                "min": "0",
-                "step": "1"
-            },
-            {
-                "name": "cap",
-                "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
-                "children": [],
-                "options": "'butt','round','square'"
-            },
-            {
-                "name": "join",
-                "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
-                "children": [],
-                "options": "'bevel','round','miter'"
-            },
-            {
-                "name": "miterLimit",
-                "type": "number",
-                "default": "10",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
-                "children": [],
-                "min": "0",
-                "step": "1"
-            },
-            {
-                "name": "shadowBlur",
-                "type": "number",
-                "default": "",
-                "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
-                "children": [],
-                "min": "0",
-                "step": "0.5"
-            },
-            {
-                "name": "shadowColor",
-                "type": "color",
-                "default": "",
-                "desc": "阴影颜色。支持的格式同`color`。",
-                "children": []
-            },
-            {
-                "name": "shadowOffsetX",
-                "type": "number",
-                "default": "0",
-                "desc": "阴影水平方向上的偏移距离。",
-                "children": [],
-                "step": "0.5"
-            },
-            {
-                "name": "shadowOffsetY",
-                "type": "number",
-                "default": "0",
-                "desc": "阴影垂直方向上的偏移距离。",
-                "children": [],
-                "step": "0.5"
-            },
-            {
-                "name": "opacity",
-                "type": "number",
-                "default": "0",
-                "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
-                "children": [],
-                "min": "0",
-                "max": "1",
-                "step": "0.01"
+                "children": [
+                    {
+                        "name": "color",
+                        "type": "color",
+                        "default": "\"#000\"",
+                        "desc": "线的颜色。\n\n\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
+                        "children": []
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "线宽。",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "type",
+                        "type": "enum",
+                        "desc": "线的类型。\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`dashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\ntype: [5, 10],\n\ndashOffset: 5\n}\n```",
+                        "children": [],
+                        "options": "'solid','dashed','dotted'"
+                    },
+                    {
+                        "name": "dashOffset",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "children": [],
+                        "min": "0",
+                        "step": "1"
+                    },
+                    {
+                        "name": "cap",
+                        "type": "enum",
+                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "children": [],
+                        "options": "'butt','round','square'"
+                    },
+                    {
+                        "name": "join",
+                        "type": "enum",
+                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "children": [],
+                        "options": "'bevel','round','miter'"
+                    },
+                    {
+                        "name": "miterLimit",
+                        "type": "number",
+                        "default": "10",
+                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                        "children": [],
+                        "min": "0",
+                        "step": "1"
+                    },
+                    {
+                        "name": "shadowBlur",
+                        "type": "number",
+                        "default": "",
+                        "desc": "图形阴影的模糊大小。该属性配合 `shadowColor`,`shadowOffsetX`, `shadowOffsetY` 一起设置图形的阴影效果。\n\n示例：\n```ts\n{\nshadowColor: 'rgba(0, 0, 0, 0.5)',\nshadowBlur: 10\n}\n```",
+                        "children": [],
+                        "min": "0",
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowColor",
+                        "type": "color",
+                        "default": "",
+                        "desc": "阴影颜色。支持的格式同`color`。",
+                        "children": []
+                    },
+                    {
+                        "name": "shadowOffsetX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "阴影水平方向上的偏移距离。",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "shadowOffsetY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "阴影垂直方向上的偏移距离。",
+                        "children": [],
+                        "step": "0.5"
+                    },
+                    {
+                        "name": "opacity",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。",
+                        "children": [],
+                        "min": "0",
+                        "max": "1",
+                        "step": "0.01"
+                    }
+                ]
             },
             {
                 "name": "emphasis",
@@ -454,7 +455,7 @@
                     {
                         "name": "lineStyle",
                         "type": "Object",
-                        "desc": "",
+                        "desc": "高亮状态下的线条样式。",
                         "children": [
                             {
                                 "name": "color",
@@ -466,7 +467,7 @@
                             {
                                 "name": "width",
                                 "type": "number",
-                                "default": "2",
+                                "default": "1",
                                 "desc": "线宽。",
                                 "children": [],
                                 "min": "0",

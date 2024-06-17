@@ -703,7 +703,17 @@
         "name": "appendToBody",
         "type": "boolean",
         "default": "false",
-        "desc": "> Since `v4.7.0`\n\n\n\nWhether to append the tooltip DOM element as a child of the `<body>` of the HTML page, when using [renderMode](https://echarts.apache.org/en/option.html#tooltip.renderMode) `'html'`.\n\nBy default `false`, means that the tooltip DOM element will be one of a descendant of its echarts DOM container. But that means that the tooltip might be cut when overflow the container if some of the ancestors DOM element of the echarts container are styled with `overflow: hidden`. This case could also be resolved by setting [tooltip.confine](https://echarts.apache.org/en/option.html#tooltip.confine), but it might not suitable for all scenarios.\n\nHere we provide `appendToBody: true` to auto append the tooltip element to `<body>`, which is a common way to resolve this kind of issue. But `true` is not set as a default value because to void to bring break change for some cases where tooltip is deeply customized and to void some unexpected bad cases.\n\nNote that it also works when CSS transform used.",
+        "desc": "> Since `v4.7.0`\n\n\n\n(DEPRECATED since `v5.5.0`, use [appendTo](https://echarts.apache.org/en/option.html#tooltip.appendTo) instead.)\n\nWhether to append the tooltip DOM element as a child of the `<body>` of the HTML page, when using [renderMode](https://echarts.apache.org/en/option.html#tooltip.renderMode) `'html'`.\n\nThe default value is `false`, which means that the tooltip DOM element will be one of a descendant of its echarts DOM container. But that means that the tooltip might be cut when overflow the container if some of the ancestors DOM element of the echarts container are styled with `overflow: hidden`. This case could also be resolved by setting [tooltip.confine](https://echarts.apache.org/en/option.html#tooltip.confine), but it might not suitable for all scenarios.\n\nHere we provide `appendToBody: true` to auto append the tooltip element to `<body>`, which is a common way to resolve this kind of issue. But `true` is not set as a default value because to void to bring break change for some cases where tooltip is deeply customized and to void some unexpected bad cases.\n\nNote that it also works when CSS transform used.",
+        "children": []
+    },
+    {
+        "name": "appendTo",
+        "type": [
+            "string",
+            "HTMLElement",
+            "Function"
+        ],
+        "desc": "> Since `v5.5.0`\n\n\n\nWhich DOM element to append the tooltip to. Only available when using [renderMode](https://echarts.apache.org/en/option.html#tooltip.renderMode) `'html'`.\n\nThe default value is `null`, which means that the tooltip's DOM node will be added as a descendant node of the chart’s DOM container. However, this approach can cause the tooltip to be truncated if it extends beyond the container, due to ancestors of the chart's DOM container having overflow: hidden set. This issue can be partially addressed using tooltip.confine, but it may not cover all scenarios.\n\nFor such scenarios, `appendTo` can be specified. When it is a function, the interface is in the form of\n\n```ts\n(chartContainer: HTMLElement) => HTMLElement | undefined | null\n```\n\nwhich means it returns the node that the tooltip's DOM node should be added to. Returning `undefined` or `null` indicates that the default logic described above should be used. Returning an HTMLElement means that it should be added under that node.\n\nNote that it also works when CSS transform used.",
         "children": []
     },
     {
@@ -742,7 +752,7 @@
     {
         "name": "valueFormatter",
         "type": "string",
-        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string) => string\n```\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
         "children": []
     },
     {

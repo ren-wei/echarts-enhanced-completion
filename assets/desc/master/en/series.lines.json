@@ -306,6 +306,12 @@
                 "children": []
             },
             {
+                "name": "minMargin",
+                "type": "number",
+                "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series-lines.labelLayout).",
+                "children": []
+            },
+            {
                 "name": "formatter",
                 "type": [
                     "string",
@@ -2915,7 +2921,7 @@
     {
         "name": "dataGroupId",
         "type": "string",
-        "desc": "A groupID common to all data in the series. the groupID will be used to classify the data and determine how merge and split animations are performed in the universal transition animation.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent the data, it is recommended to use `encode.itemGroupID` to specify which dimension is encoded as the groupID.",
+        "desc": "A group ID assigned to all data items in the series.\n\nThis option has a lower priority than `groupId`, which means when `groupId` is specified for a certain data item the `dataGroupId` will be simply ignored for that data item. For more information, please see `series.data.groupId`.",
         "children": []
     },
     {
@@ -2932,7 +2938,13 @@
             {
                 "name": "groupId",
                 "type": "string",
-                "desc": "The groupID of this data item. groupID will be used to classify the data.",
+                "desc": "The group ID of a data item. When `universalTransition` is enabled, the data items from the old option and those from the new one, if sharing a same group ID, will then be matched and applied to a proper animation after `setOption` is called.\n\nIf a data item is not specified with a `groupId`, Apache ECharts will try to use `series.dataGroupId` as the group ID for the data item. If `series.dataGroupId` is not specified either, Apache ECharts will fall back to using the data item's ID as its group ID.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent data, you are recommended to use `encode.itemGroupId` to specify the dimension that is to be encoded as the group ID.",
+                "children": []
+            },
+            {
+                "name": "childGroupId",
+                "type": "string",
+                "desc": "> Since `v5.5.0`\n\n\n\nThe group ID of the child data of a data item. This option is introduced to make multiple levels drilldown and aggregation animation possilbe.\n\n~[700x300](doc-example/bar-multi-drilldown&edit=1&reset=1)\n\nBefore `childGroupId` is introduced, developers actually can use `groupId` to make drilldown and aggregation animation already, but with the limit on the times that a continious drilldown or aggregation can happen, which is only one time.\n\n`childGroupId`, together with `groupId`, help to form \"parent-child\" relationships between data items of different options, such as:\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\nThe 3 groups of data above come from 3 options, and by specifying `groupId` and `childGroupId` for the data items a relationship of \"parent-child-grandChild\" is formed in the 3 options. In this way,  after `setOption` is called, Apache ECharts will try to find the \"parent-child\" or \"child-parent\" relationship of the old option and the new one. If the relationship exists, the matching data items will be applied to a drilldown animation or an aggregation one.\n\nIf a data item has no child data then there is no need to specify a `childGroupId` at all.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent data, you are recommended to use `encode.itemChildGroupId` to specify the dimension that is to be encoded as the child group ID.",
                 "children": []
             },
             {
@@ -3072,6 +3084,12 @@
                         "type": "string",
                         "default": "'end'",
                         "desc": "the position of label, options:\n+ `'start'`\n+ `'middle'`\n+ `'end'`",
+                        "children": []
+                    },
+                    {
+                        "name": "minMargin",
+                        "type": "number",
+                        "desc": "> Since `v5.0.0`\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series-lines.labelLayout).",
                         "children": []
                     },
                     {
@@ -5572,7 +5590,7 @@
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string) => string\n```\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                         "children": []
                     },
                     {
@@ -22449,7 +22467,7 @@
         "name": "clip",
         "type": "boolean",
         "default": "true",
-        "desc": "> Since `v`\n\n\n\nIf clip the overflow on the coordinate system. Clip results varies between series:\n\n+ Scatter/EffectScatter：Ignore the symbols exceeds the coordinate system. Not clip the elements.\n+ Bar：Clip all the overflowed. With bar width kept.\n+ Line：Clip the overflowed line.\n+ Lines: Clip all the overflowed.\n+ Candlestick: Ignore the elements exceeds the coordinate system.\n+ Custom: Clip all the olverflowed.\n\nAll these series have default value `true` except custom series. Set it to `false` if you don't want to clip.",
+        "desc": "> Since `v`\n\n\n\nIf clip the overflow on the coordinate system. Clip results varies between series:\n\n+ Scatter/EffectScatter：Ignore the symbols exceeds the coordinate system. Not clip the elements.\n+ Bar：Clip all the overflowed. With bar width kept.\n+ Line：Clip the overflowed line.\n+ Lines: Clip all the overflowed.\n+ Candlestick: Ignore the elements exceeds the coordinate system.\n+ PictorialBar: Clip all the overflowed. (Supported since v5.5.0)\n+ Custom: Clip all the olverflowed.\n\nAll these series have default value `true` except pictorialBar and custom series. Set it to `false` if you don't want to clip.",
         "children": []
     },
     {
@@ -22542,7 +22560,7 @@
     {
         "name": "universalTransition",
         "type": "object",
-        "desc": "> Since `v5.2.0`\n\n\n\nConfiguration related to universal transition animation.\n\nUniversal Transition provides the ability to morph between any series. With this feature enabled, each time `setOption`, transitions between series with the same `id` will be automatically associated with each other.\n\nOne-to-many or many-to-one animations such as drill-down, aggregation, etc. can also be achieved by specifying groups of data such as `encode.itemGroupId` or `dataGroupId`.\n\nThis can be enabled directly by configuring `universalTransition: true` in the series. It is also possible to provide an object for more detailed configuration.",
+        "desc": "> Since `v5.2.0`\n\n\n\nConfiguration related to universal transition animation.\n\nUniversal Transition provides the ability to morph between any series. With this feature enabled, each time `setOption`, transitions between series with the same `id` will be automatically associated with each other.\n\nOne-to-many or many-to-one animations such as drill-down, aggregation, etc. can also be achieved by specifying data items' `groupId` and `childGroupId`.\n\nThis can be enabled directly by configuring `universalTransition: true` in the series. It is also possible to provide an object for more detailed configuration.",
         "children": [
             {
                 "name": "enabled",
@@ -22600,7 +22618,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string) => string\n```\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
                 "children": []
             },
             {
