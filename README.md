@@ -43,7 +43,7 @@ After install and enable the extension, add a comment on the previous line of th
 
 ## Requirements
 
-* Supported file types: `html`, `javascript`, `typescript`, `vue`, `php`.
+* Supported file types: `html`, `javascript`, `typescript`, `vue`, `php`, `razor`.
 
 * There must be no syntax errors in the option object. Because the extension needs to parse the option object when it works.
 

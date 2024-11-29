@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 export const ExtensionName = 'echarts-enhanced-completion';
 export const collection = vscode.languages.createDiagnosticCollection('echarts-options-diagnostic');
 export const keyword = '/** @type EChartsOption */';
-export const supportedLanguageList = ['html', 'javascript', 'typescript', 'vue', 'php', 'javascriptreact', 'typescriptreact']; // 支持的语言列表
+export const supportedLanguageList = ['html', 'javascript', 'typescript', 'vue', 'php', 'razor', 'javascriptreact', 'typescriptreact']; // 支持的语言列表
 
 import completionDisposables from './completion';
 import hoverDisposables from './hover';

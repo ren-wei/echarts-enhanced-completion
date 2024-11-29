@@ -41,7 +41,7 @@
 
 ## Requirements
 
-* 支持的文件类型：`html`, `javascript`, `typescript`, `vue`, `php`。
+* 支持的文件类型：`html`, `javascript`, `typescript`, `vue`, `php`, `razor`。
 
 * 配置项对象中不能存在语法错误。因为插件工作时需要对配置项对象进行解析。
 
