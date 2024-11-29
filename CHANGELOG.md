@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.8 (2024-11-29)
+
+### Added
+
+- 支持razor语言
+
 ## 1.6.7 (2024-06-17)
 
 ### Changed
