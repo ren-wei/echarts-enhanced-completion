@@ -7832,7 +7832,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "是否显示标签。",
                                 "children": []
                             },
@@ -8513,7 +8513,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "是否显示标签。",
                                 "children": []
                             },
@@ -9189,8 +9189,7 @@
                     {
                         "name": "name",
                         "type": "string",
-                        "default": "''",
-                        "desc": "标注名称。",
+                        "desc": "标注名称。定义后可在 [label formatter](https://echarts.apache.org/zh/option.html#series-scatter.markPoint.data.label.formatter) 中作为**数据名** `{b}` 模板变量使用。",
                         "children": []
                     },
                     {
@@ -9398,7 +9397,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "是否显示标签。",
                                 "children": []
                             },
@@ -9435,6 +9434,15 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -9964,7 +9972,7 @@
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "是否显示标签。",
                                         "children": []
                                     },
@@ -10001,6 +10009,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -10703,7 +10720,7 @@
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "是否显示标签。",
                                         "children": []
                                     },
@@ -10740,6 +10757,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -11460,6 +11486,16 @@
                     "Array"
                 ],
                 "desc": "标线两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。\n\n**注意：** 这里无法像一般的 `symbolSize` 那样通过数组分别指定高宽。",
+                "children": []
+            },
+            {
+                "name": "symbolOffset",
+                "type": [
+                    "number",
+                    "string",
+                    "Array"
+                ],
+                "desc": "标线两端的标记相对于原本位置的偏移，可以是一个数组分别指定两端，也可以是单个统一指定。如果希望单独指定两端标记的水平/垂直偏移，也可以是一个二维数组，每个元素为单个标记的偏移量，例：\n\n```js\nsymbolOffset: [\n[-10, 20],    // 起始标记偏移\n['50%', 100]  // 结束标记偏移\n]\n```\n\n\n\n> 从 `v5.1.0` 开始支持",
                 "children": []
             },
             {
@@ -13446,8 +13482,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'起点'",
-                                "desc": "标注名称，将会作为文字显示。",
+                                "default": "''",
+                                "desc": "标注名称。定义后可在 [label formatter](https://echarts.apache.org/zh/option.html#series-scatter.markLine.data.label.formatter) 中作为**数据名** `{b}` 模板变量使用。",
                                 "children": []
                             },
                             {
@@ -15520,8 +15556,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'终点'",
-                                "desc": "标注名称，将会作为文字显示。",
+                                "default": "''",
+                                "desc": "标注名称。定义后可在 [label formatter](https://echarts.apache.org/zh/option.html#series-scatter.markLine.data.label.formatter) 中作为**数据名** `{b}` 模板变量使用。",
                                 "children": []
                             },
                             {
@@ -17648,7 +17684,7 @@
                     {
                         "name": "show",
                         "type": "boolean",
-                        "default": "false",
+                        "default": "true",
                         "desc": "是否显示标签。",
                         "children": []
                     },
@@ -17685,6 +17721,15 @@
                         "children": [],
                         "dims": "x,y",
                         "step": "0.5"
+                    },
+                    {
+                        "name": "formatter",
+                        "type": [
+                            "string",
+                            "Function"
+                        ],
+                        "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                        "children": []
                     },
                     {
                         "name": "color",
@@ -18325,7 +18370,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "是否显示标签。",
                                 "children": []
                             },
@@ -18362,6 +18407,15 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -18997,7 +19051,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "是否显示标签。",
                                 "children": []
                             },
@@ -19034,6 +19088,15 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -19697,8 +19760,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'起点'",
-                                "desc": "标注名称，将会作为文字显示。",
+                                "default": "''",
+                                "desc": "标注名称，将会作为文字显示。定义后可在 [label formatter](https://echarts.apache.org/zh/option.html#series-scatter.markArea.data.label.formatter) 中作为**数据名** `{b}` 模板变量使用。",
                                 "children": []
                             },
                             {
@@ -19724,7 +19787,7 @@
                             {
                                 "name": "itemStyle",
                                 "type": "Object",
-                                "desc": "该数据项区域的样式，起点和终点项的`itemStyle`会合并到一起。",
+                                "desc": "该数据项区域的样式，起点和终点项的 `itemStyle` 会合并到一起。",
                                 "children": [
                                     {
                                         "name": "color",
@@ -19835,12 +19898,12 @@
                             {
                                 "name": "label",
                                 "type": "Object",
-                                "desc": "该数据项标签的样式，起点和终点项的`label`会合并到一起。",
+                                "desc": "该数据项标签的样式，起点和终点项的 `label` 会合并到一起。",
                                 "children": [
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "是否显示标签。",
                                         "children": []
                                     },
@@ -19877,6 +19940,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -20517,7 +20589,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "是否显示标签。",
                                                 "children": []
                                             },
@@ -20554,6 +20626,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
@@ -21189,7 +21270,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "是否显示标签。",
                                                 "children": []
                                             },
@@ -21226,6 +21307,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
@@ -21775,8 +21865,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'终点'",
-                                "desc": "标注名称，将会作为文字显示。",
+                                "default": "''",
+                                "desc": "标注名称，将会作为文字显示。定义后可在 [label formatter](https://echarts.apache.org/zh/option.html#series-scatter.markArea.data.label.formatter) 中作为**数据名** `{b}` 模板变量使用。",
                                 "children": []
                             },
                             {
@@ -21802,7 +21892,7 @@
                             {
                                 "name": "itemStyle",
                                 "type": "Object",
-                                "desc": "该数据项区域的样式，起点和终点项的`itemStyle`会合并到一起。",
+                                "desc": "该数据项区域的样式，起点和终点项的 `itemStyle` 会合并到一起。",
                                 "children": [
                                     {
                                         "name": "color",
@@ -21913,12 +22003,12 @@
                             {
                                 "name": "label",
                                 "type": "Object",
-                                "desc": "该数据项标签的样式，起点和终点项的`label`会合并到一起。",
+                                "desc": "该数据项标签的样式，起点和终点项的 `label` 会合并到一起。",
                                 "children": [
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "是否显示标签。",
                                         "children": []
                                     },
@@ -21955,6 +22045,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -22595,7 +22694,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "是否显示标签。",
                                                 "children": []
                                             },
@@ -22632,6 +22731,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
@@ -23267,7 +23375,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "是否显示标签。",
                                                 "children": []
                                             },
@@ -23304,6 +23412,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 `\\n` 换行。\n\n**字符串模板**\n模板变量有：\n+ `{a}`：系列名。\n+ `{b}`：数据名。\n+ `{c}`：数据值。\n+ `{@xxx}`：数据中名为 `'xxx'` 的维度的值，如 `{@product}` 表示名为 `'product'` 的维度的值。\n+ `{@[n]}`：数据中维度 `n` 的值，如 `{@[3]}` 表示维度 3 的值，从 0 开始计数。\n\n**示例：**\n```ts\nformatter: '{b}: {@score}'\n```\n\n**回调函数**\n\n回调函数格式：\n```ts\n(params: Object|Array) => string\n```\n参数 `params` 是 formatter 需要的单个数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",

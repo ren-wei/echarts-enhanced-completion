@@ -94,7 +94,7 @@
     {
         "name": "scaleLimit",
         "type": "Object",
-        "desc": "Limit of scaling, with `min` and `max`. `1` by default.",
+        "desc": "Limit of scaling, with `min` and `max`.",
         "children": [
             {
                 "name": "min",
@@ -6017,7 +6017,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "Whether to show label.",
                                 "children": []
                             },
@@ -6698,7 +6698,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "Whether to show label.",
                                 "children": []
                             },
@@ -7374,8 +7374,7 @@
                     {
                         "name": "name",
                         "type": "string",
-                        "default": "''",
-                        "desc": "Mark point name.",
+                        "desc": "Mark point name. Can be used as a template variable **data name** `{b}` in [label formatter](https://echarts.apache.org/en/option.html#series-map.markPoint.data.label.formatter).",
                         "children": []
                     },
                     {
@@ -7576,7 +7575,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "Whether to show label.",
                                 "children": []
                             },
@@ -7613,6 +7612,15 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -8142,7 +8150,7 @@
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "Whether to show label.",
                                         "children": []
                                     },
@@ -8179,6 +8187,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -8881,7 +8898,7 @@
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "Whether to show label.",
                                         "children": []
                                     },
@@ -8918,6 +8935,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -9638,6 +9664,16 @@
                     "Array"
                 ],
                 "desc": "Symbol size at the two ends of the mark line. It can be an array for two ends, or assigned separately.\n\n**Attention: ** You cannot assign width and height separately as normal `symbolSize`.",
+                "children": []
+            },
+            {
+                "name": "symbolOffset",
+                "type": [
+                    "number",
+                    "string",
+                    "Array"
+                ],
+                "desc": "Offset of symbol relative to original position. It can be an array for two ends, or assigned separately. If you want to set specific horizontal/vertical offset for single end, you can set it as a 2d array. For example,\n\n```js\nsymbolOffset: [\n[-10, 20],    // offset of starting symbol\n['50%', 100]  // offset of ending symbol\n]\n```\n\n\n\n> Since `v5.1.0`",
                 "children": []
             },
             {
@@ -11617,8 +11653,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'starting point'",
-                                "desc": "Name of the marker, which will display as a label.",
+                                "default": "''",
+                                "desc": "Name of the marker. Can be used as a template variable **data name** `{b}` in [label formatter](https://echarts.apache.org/en/option.html#series-map.markLine.data.label.formatter).",
                                 "children": []
                             },
                             {
@@ -13684,8 +13720,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'ending point'",
-                                "desc": "Name of the marker, which will display as a label.",
+                                "default": "''",
+                                "desc": "Name of the marker. Can be used as a template variable **data name** `{b}` in [label formatter](https://echarts.apache.org/en/option.html#series-map.markLine.data.label.formatter).",
                                 "children": []
                             },
                             {
@@ -15812,7 +15848,7 @@
                     {
                         "name": "show",
                         "type": "boolean",
-                        "default": "false",
+                        "default": "true",
                         "desc": "Whether to show label.",
                         "children": []
                     },
@@ -15849,6 +15885,15 @@
                         "children": [],
                         "dims": "x,y",
                         "step": "0.5"
+                    },
+                    {
+                        "name": "formatter",
+                        "type": [
+                            "string",
+                            "Function"
+                        ],
+                        "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                        "children": []
                     },
                     {
                         "name": "color",
@@ -16489,7 +16534,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "Whether to show label.",
                                 "children": []
                             },
@@ -16526,6 +16571,15 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -17161,7 +17215,7 @@
                             {
                                 "name": "show",
                                 "type": "boolean",
-                                "default": "false",
+                                "default": "true",
                                 "desc": "Whether to show label.",
                                 "children": []
                             },
@@ -17198,6 +17252,15 @@
                                 "children": [],
                                 "dims": "x,y",
                                 "step": "0.5"
+                            },
+                            {
+                                "name": "formatter",
+                                "type": [
+                                    "string",
+                                    "Function"
+                                ],
+                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                "children": []
                             },
                             {
                                 "name": "color",
@@ -17854,8 +17917,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'start'",
-                                "desc": "Name of the marker, which will display as a label.",
+                                "default": "''",
+                                "desc": "Name of the marker, which will display as a label. Can be used as a template variable **data name** `{b}` in [label formatter](https://echarts.apache.org/en/option.html#series-map.markArea.data.label.formatter).",
                                 "children": []
                             },
                             {
@@ -17997,7 +18060,7 @@
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "Whether to show label.",
                                         "children": []
                                     },
@@ -18034,6 +18097,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -18674,7 +18746,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "Whether to show label.",
                                                 "children": []
                                             },
@@ -18711,6 +18783,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
@@ -19346,7 +19427,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "Whether to show label.",
                                                 "children": []
                                             },
@@ -19383,6 +19464,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
@@ -19925,8 +20015,8 @@
                             {
                                 "name": "name",
                                 "type": "string",
-                                "default": "'end'",
-                                "desc": "Name of the marker, which will display as a label.",
+                                "default": "''",
+                                "desc": "Name of the marker, which will display as a label. Can be used as a template variable **data name** `{b}` in [label formatter](https://echarts.apache.org/en/option.html#series-map.markArea.data.label.formatter).",
                                 "children": []
                             },
                             {
@@ -20068,7 +20158,7 @@
                                     {
                                         "name": "show",
                                         "type": "boolean",
-                                        "default": "false",
+                                        "default": "true",
                                         "desc": "Whether to show label.",
                                         "children": []
                                     },
@@ -20105,6 +20195,15 @@
                                         "children": [],
                                         "dims": "x,y",
                                         "step": "0.5"
+                                    },
+                                    {
+                                        "name": "formatter",
+                                        "type": [
+                                            "string",
+                                            "Function"
+                                        ],
+                                        "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                        "children": []
                                     },
                                     {
                                         "name": "color",
@@ -20745,7 +20844,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "Whether to show label.",
                                                 "children": []
                                             },
@@ -20782,6 +20881,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
@@ -21417,7 +21525,7 @@
                                             {
                                                 "name": "show",
                                                 "type": "boolean",
-                                                "default": "false",
+                                                "default": "true",
                                                 "desc": "Whether to show label.",
                                                 "children": []
                                             },
@@ -21454,6 +21562,15 @@
                                                 "children": [],
                                                 "dims": "x,y",
                                                 "step": "0.5"
+                                            },
+                                            {
+                                                "name": "formatter",
+                                                "type": [
+                                                    "string",
+                                                    "Function"
+                                                ],
+                                                "desc": "Data label formatter, which supports string template and callback function. In either form, `\\n` is supported to represent a new line.\n\n\n**String template**\n\nModel variation includes:\n+ `{a}`: series name.\n+ `{b}`: the name of a data item.\n+ `{c}`: the value of a data item.\n+ `{@xxx}`: the value of a dimension named `'xxx'`, for example, `{@product}` refers the value of `'product'` dimension.\n+ `{@[n]}`: the value of a dimension at the index of `n`, for example, `{@[3]}` refers the value at dimensions[3].\n\n**example: **\n```ts\nformatter: '{b}: {@score}'\n```\n\n**Callback function**\n\nCallback function is in form of:\n```ts\n(params: Object|Array) => string\n```\nwhere `params` is the single dataset needed by formatter, which is formed as:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```",
+                                                "children": []
                                             },
                                             {
                                                 "name": "color",
