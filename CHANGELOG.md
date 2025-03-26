@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.10 (2025-03-26)
+
+### Fixed
+
+- 修复从某版本起开始支持的描述缺失版本号的问题
+
+### Changed
+
+- 与源文档同步
+
 ## 1.6.9 (2024-12-02)
 
 ### Changed
