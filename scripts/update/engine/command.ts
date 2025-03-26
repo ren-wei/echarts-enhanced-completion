@@ -1,5 +1,5 @@
 import Engine from '.';
-import { valueExp } from './exp';
+import { templateExpWithDefault, valueExp } from './exp';
 import { AnalysesContext } from './type';
 
 /** 所有命令的抽象基类 */
@@ -179,6 +179,10 @@ export class UseCommand implements Command {
         const raw: Record<string, string> = {};
         while ((match = reg.exec(this.argsStr))) {
             raw[match[1]] = match[2];
+            const m = (new RegExp(templateExpWithDefault)).exec(match[2]);
+            if (m) {
+                raw[match[1]] = `$\{${m[1]}\}||${m[2]}`;
+            }
         }
         // 获取当前的参数和对应值
         const newVars: Record<string, string> = Object.fromEntries(Object.entries(raw).map(([k, v]) => {

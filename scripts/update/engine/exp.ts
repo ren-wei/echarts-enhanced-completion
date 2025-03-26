@@ -7,10 +7,12 @@ const exp = {
     literal: '(?:true|false|null)',
     /** 数字 */
     digital: '(?:\\d+)',
-    /** 形如 ${name} 的模板变量值 */
-    template: '(?:\\$\\{\\w+\\})',
-
+    /** 形如 ${name} 或者 ${name|default('xxx')} 的模板变量值 */
+    template: "(?:\\$\\{\\w+(?:\\|default\\(['\"][^']*['\"]\\))?\\})",
 };
+
+/** 带有默认值的模板表达式 */
+export const templateExpWithDefault = "(?:\\$\\{(\\w+)(?:\\|default\\((['\"][^']*['\"])\\))\\})";
 
 /** 匹配所有的简单值 */
 export const valueExp = '(?:' + Object.values(exp).join('|') + ')';
