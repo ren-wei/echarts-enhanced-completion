@@ -6,6 +6,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.11 (2025-08-21)
+
+### Fixed
+
+- [#12](https://github.com/ren-wei/echarts-enhanced-completion/issues/12) 检查未知属性时，检查是否是必填属性未填写
+
+### Changed
+
+- 保存时重新初始化
+
 ## 1.6.10 (2025-03-26)
 
 ### Fixed
