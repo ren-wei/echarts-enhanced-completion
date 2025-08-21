@@ -9,18 +9,24 @@ import completionDisposables from './completion';
 import hoverDisposables from './hover';
 import fixDisposables from './fix';
 
+import ast, { disposables as astDisposables } from './ast';
+import Diagnosis, { disposables as diagDisposables } from './diagnosis';
+import { disposables as rulesDisposables } from './rules';
+
 // 插件被启用时此方法会被调用
 export function activate(context: vscode.ExtensionContext) {
+    vscode.workspace.textDocuments.forEach(document => {
+        if (supportedLanguageList.includes(document.languageId)) {
+            ast.getAstItem(document, new vscode.Position(0, 0));
+            Diagnosis.update(document.uri, collection);
+        }
+    });
     context.subscriptions.push(
         ...completionDisposables,
         ...hoverDisposables,
         ...fixDisposables,
     );
 }
-
-import { disposables as astDisposables } from './ast';
-import { disposables as diagDisposables } from './diagnosis';
-import { disposables as rulesDisposables } from './rules';
 
 // 插件被停用时此方法会被调用
 export function deactivate() {

@@ -20,6 +20,11 @@ export const disposables: vscode.Disposable[] = [
             Diagnosis.update(textDocumentChangeEvent.document.uri, collection);
         }
     }),
+    vscode.workspace.onDidSaveTextDocument(document => {
+        if (supportedLanguageList.includes(document.languageId)) {
+            Diagnosis.update(document.uri, collection);
+        }
+    }),
     vscode.workspace.onDidChangeConfiguration(configurationChangeEvent => {
         if (configurationChangeEvent.affectsConfiguration(Config.name.language)) {
             vscode.workspace.textDocuments.forEach(document => {

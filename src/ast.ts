@@ -20,6 +20,11 @@ export const disposables: vscode.Disposable[] = [
             ast.patch(textDocumentChangeEvent.document, Array.from(textDocumentChangeEvent.contentChanges).sort((a, b) => a.text.split('\n').length - b.text.split('\n').length));
         }
     }),
+    vscode.workspace.onDidSaveTextDocument(document => {
+        if (supportedLanguageList.includes(document.languageId)) {
+            cache.set(document.uri, init(keyword, document));
+        }
+    }),
 ];
 
 const cache = new Map<vscode.Uri, AstItem[]>();
