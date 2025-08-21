@@ -66,19 +66,19 @@ const Diagnosis = {
 export default Diagnosis;
 
 /** 递归检查节点是否存在未知属性 */
-function checkUnknownNode(astItem: AstItem, node : estree.Node): vscode.Diagnostic[] {
+function checkUnknownNode(astItem: AstItem, node : estree.Node, parent: estree.Node | null = null): vscode.Diagnostic[] {
     const diagList: vscode.Diagnostic[] = [];
     switch (node.type) {
         case esprima.Syntax.ArrayExpression:
             node.elements.forEach((element) => {
                 if (element) {
-                    diagList.push(...checkUnknownNode(astItem, element));
+                    diagList.push(...checkUnknownNode(astItem, element, node));
                 }
             });
             break;
         case esprima.Syntax.ObjectExpression:
             node.properties.forEach(child => {
-                diagList.push(...checkUnknownNode(astItem, child));
+                diagList.push(...checkUnknownNode(astItem, child, node));
             });
             break;
         case esprima.Syntax.Property:
@@ -94,24 +94,37 @@ function checkUnknownNode(astItem: AstItem, node : estree.Node): vscode.Diagnost
                 && paths[paths.length - 2] !== 'rich' // 排除 rich 下的 <style_name>
             ) {
                 const range = astItem.getNodeKeyRange(node);
-                // 如果存在禁用校验注释，那么不加入本次校验结果
-                if (isAllowCheck(astItem.document, range.start) && node.key.type === esprima.Syntax.Identifier) {
-                    const name = node.key.name;
-                    const simillarName = simillarCommands(descTreeList.map(child => child.name), name)[0];
-                    let message = localize('message.unknown-property', name, 'EChartsOption');
-                    if (simillarName) {
-                        message += localize('message.fix-unknown-property', simillarName);
+                const keyList = descTreeList.map(item => item.required?.[0]?.key).filter(Boolean) as string[];
+                if (new Set(keyList).size === 1 && parent) {
+                    const parentRange = new vscode.Range(astItem.positionAt((parent as estree.ObjectExpression).range![0]), astItem.positionAt((parent as estree.ObjectExpression).range![1]));
+                    if (isAllowCheck(astItem.document, parentRange.start)) {
+                        diagList.push({
+                            message: localize('message.option-required', keyList[0]),
+                            range: parentRange,
+                            severity: vscode.DiagnosticSeverity.Warning,
+                            source: ExtensionName,
+                        });
                     }
-                    diagList.push({
-                        code: simillarName,
-                        message: message,
-                        range: range,
-                        severity: vscode.DiagnosticSeverity.Warning,
-                        source: ExtensionName,
-                    });
+                } else {
+                    // 如果存在禁用校验注释，那么不加入本次校验结果
+                    if (isAllowCheck(astItem.document, range.start) && node.key.type === esprima.Syntax.Identifier) {
+                        const name = node.key.name;
+                        const simillarName = simillarCommands(descTreeList.map(child => child.name), name)[0];
+                        let message = localize('message.unknown-property', name, 'EChartsOption');
+                        if (simillarName) {
+                            message += localize('message.fix-unknown-property', simillarName);
+                        }
+                        diagList.push({
+                            code: simillarName,
+                            message: message,
+                            range: range,
+                            severity: vscode.DiagnosticSeverity.Warning,
+                            source: ExtensionName,
+                        });
+                    }
                 }
             } else {
-                diagList.push(...checkUnknownNode(astItem, (node.value)));
+                diagList.push(...checkUnknownNode(astItem, node.value, node));
             }
             break;
     }
