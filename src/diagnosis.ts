@@ -83,7 +83,23 @@ function checkUnknownNode(astItem: AstItem, node : estree.Node, parent: estree.N
             break;
         case esprima.Syntax.ObjectExpression:
             node.properties.forEach(child => {
-                diagList.push(...checkUnknownNode(astItem, child, node));
+                const result = checkUnknownNode(astItem, child, node);
+                if (result.length > 1) {
+                    const last = result.pop()!;
+                    const prev = result.pop()!;
+                    if (last.message !== prev.message
+                        || last.range.start.line !== prev.range.start.line
+                        || last.range.start.character !== prev.range.start.character
+                        || last.range.end.line !== prev.range.end.line
+                        || last.range.end.character !== prev.range.end.character
+                    ) {
+                        diagList.push(prev);
+                        diagList.push(last);
+                    } else {
+                        diagList.push(prev);
+                    }
+                }
+                diagList.push(...result);
             });
             break;
         case esprima.Syntax.Property:
