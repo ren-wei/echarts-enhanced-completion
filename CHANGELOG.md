@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.12 (2025-08-22)
+
+### Fixed
+
+- 过滤重复校验提示
+
 ## 1.6.11 (2025-08-21)
 
 ### Fixed
