@@ -37,7 +37,7 @@ export class TextNode {
     }
 
     public getRendererBody(vars: Record<string, string>): string {
-        return this.engine.compileVariable(this.value, vars);
+        return this.engine.compile(this.value, vars);
     }
 
     public clone(): TextNode {
@@ -298,7 +298,7 @@ export class IfCommand implements Command {
                 return false;
             }
             // eslint-disable-next-line no-eval
-            return eval(this.engine.compileVariable(value, vars));
+            return eval(this.engine.compile(value, vars));
         }
     }
 }
@@ -462,5 +462,67 @@ export class ForCommand implements Command {
     public getRendererBody(vars: Record<string, string>): string {
         // TODO: echarts-doc 中暂时没有解析的实例，暂时忽略
         return this.children.map(child => child.getRendererBody(vars)).join('');
+    }
+}
+
+/** var 命令用于定义变量 */
+export class VarCommand implements Command {
+    public name: string;
+    public value: string;
+    public type: string = 'var';
+    public children: Array<Command | TextNode> = [];
+    public engine: Engine;
+
+    private varName: string = '';
+    private varValue: string = '';
+
+    constructor(value: string, engine: Engine) {
+        this.name = '';
+        this.value = value;
+        this.engine = engine;
+        // 解析变量名和值
+        const match = /\s*(\w+)\s*=\s*(.*)/.exec(value);
+        if (match) {
+            this.varName = match[1];
+            this.varValue = match[2];
+        }
+    }
+
+    public addChild(node: Command | TextNode) {}
+
+    public open(context: AnalysesContext) {
+        // var命令打开完后立即闭合，不需要入栈
+        context.stack.top()?.addChild(this);
+    }
+
+    public close(context: AnalysesContext) {}
+
+    public getRendererBody(vars: Record<string, string>): string {
+        // 解析变量值，支持表达式
+        if (this.varName) {
+            let value = this.varValue;
+            try {
+                // 尝试解析表达式
+                value = this.engine.parseString(value, vars);
+                try {
+                    // 尝试求值
+                    // eslint-disable-next-line no-eval
+                    const evalValue = eval(value);
+                    if (typeof evalValue === 'string') {
+                        vars[this.varName] = `'${evalValue.replace(/'/g, "\\'")}'`;
+                    } else {
+                        vars[this.varName] = String(evalValue);
+                    }
+                } catch (e) {
+                    // 如果求值失败，直接使用原始值
+                    vars[this.varName] = value;
+                }
+            } catch (e) {
+                // 如果解析失败，直接使用原始值
+                vars[this.varName] = this.varValue;
+            }
+        }
+        // var命令不产生任何输出
+        return '';
     }
 }

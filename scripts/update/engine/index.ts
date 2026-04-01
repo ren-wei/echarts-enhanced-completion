@@ -6,7 +6,7 @@
  */
 
 import * as os from 'os';
-import { BlockCommand, Command, ElifCommand, ElseCommand, ForCommand, IfCommand, ImportCommand, TargetCommand, TextNode, UseCommand } from './command';
+import { BlockCommand, Command, ElifCommand, ElseCommand, ForCommand, IfCommand, ImportCommand, TargetCommand, TextNode, UseCommand, VarCommand } from './command';
 import { expression } from './exp';
 import { Stack } from './stack';
 import { AnalysesContext, EngineOptions } from './type';
@@ -42,6 +42,7 @@ export default class Engine {
             'elif': ElifCommand,
             'else': ElseCommand,
             'for': ForCommand,
+            'var': VarCommand,
             ...commandExtends,
         };
         this.analysesContext = {
@@ -112,12 +113,12 @@ export default class Engine {
     }
 
     /**
-     * `command use` 编译变量
+     * 编译带有变量的字符串，返回编译后的字符串。变量的格式为 `${variableName}`，如果变量不存在或者值为 'null'，可以通过 `|default(defaultValue)` 指定默认值
      * @param source 源代码
      * @param vars 变量的值
      * @return 编译后的结果
      */
-    public compileVariable(source: string, vars: Record<string, string> = {}): string {
+    public compile(source: string, vars: Record<string, string> = {}): string {
         const reg = new RegExp(
             this.options.variableOpen
             + '(\\w+)'
