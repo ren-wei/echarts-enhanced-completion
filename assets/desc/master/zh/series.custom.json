@@ -21,7 +21,7 @@
     {
         "name": "colorBy",
         "type": "enum",
-        "desc": "> 从 `v5.2.0` 开始支持\n\n\n\n从调色盘 [option.color](https://echarts.apache.org/zh/option.html#color) 中取色的策略，可取值为：\n\n+ `'series'`：按照系列分配调色盘中的颜色，同一系列中的所有数据都是用相同的颜色；\n+ `'data'`：按照数据项分配调色盘中的颜色，每个数据项都使用不同的颜色。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.2.0` 开始支持\n\n</div>\n\n\n从调色盘 [option.color](https://echarts.apache.org/zh/option.html#color) 中取色的策略，可取值为：\n\n+ `'series'`：按照系列分配调色盘中的颜色，同一系列中的所有数据都是用相同的颜色；\n+ `'data'`：按照数据项分配调色盘中的颜色，每个数据项都使用不同的颜色。",
         "children": [],
         "options": "'series','data'"
     },
@@ -36,48 +36,131 @@
         "name": "coordinateSystem",
         "type": "string",
         "default": "'cartesian2d'",
-        "desc": "该系列使用的坐标系，可选：\n\n\n+ `null` 或者 `'none'`\n\n无坐标系。\n\n\n\n+ `'cartesian2d'`\n\n使用二维的直角坐标系（也称笛卡尔坐标系），通过 [xAxisIndex](https://echarts.apache.org/zh/option.html#series-custom.xAxisIndex), [yAxisIndex](https://echarts.apache.org/zh/option.html#series-custom.yAxisIndex)指定相应的坐标轴组件。\n\n\n\n+ `'polar'`\n\n使用极坐标系，通过 [polarIndex](https://echarts.apache.org/zh/option.html#series-custom.polarIndex) 指定相应的极坐标组件\n\n\n\n+ `'geo'`\n\n使用地理坐标系，通过 [geoIndex](https://echarts.apache.org/zh/option.html#series-custom.geoIndex) 指定相应的地理坐标系组件。\n\n\n\n\n\n+ `'calendar'`\n\n使用日历坐标系，通过 [calendarIndex](https://echarts.apache.org/zh/option.html#series-custom.calendarIndex) 指定相应的日历坐标系组件。\n\n\n\n+ `'none'`\n\n不使用坐标系。",
+        "desc": "指定另一个坐标系组件，本 `series-custom` 布局在那个坐标系中。\n\n可选值：\n\n\n+ `null`、`undefined` 或者 `'none'`\n\n不布局在任何坐标系中。自己独立完成布局。\n\n\n\n+ `'cartesian2d'`\n\n布局在一个二维 [直角坐标系（也称笛卡尔坐标系）](https://echarts.apache.org/zh/option.html#grid) 中。当一个 ECharts 实例中存在多个 x 坐标轴（`xAxis`）时或者多个 y 坐标轴（`yAxis`）时，须通过 [xAxisIndex](https://echarts.apache.org/zh/option.html#series-custom.xAxisIndex) 和 [yAxisIndex](https://echarts.apache.org/zh/option.html#series-custom.yAxisIndex) 或者 [xAxisId](https://echarts.apache.org/zh/option.html#series-custom.xAxisId) 和 [yAxisId](https://echarts.apache.org/zh/option.html#series-custom.yAxisId) 指定所使用的坐标轴。\n\n注：一些常用的系列，例如 [折线图（series-line）](https://echarts.apache.org/zh/option.html#series-line), [柱状图（series-bar）](https://echarts.apache.org/zh/option.html#series-bar) 等，不能直接布局于 [矩阵坐标系（matrix）](https://echarts.apache.org/zh/option.html#matrix) 或者 [日历坐标系（calendar）](https://echarts.apache.org/zh/option.html#calendar) 中，但是他们能布局在 [直角坐标系（grid）](https://echarts.apache.org/zh/option.html#grid) 中，然后这个 [直角坐标系（grid）](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [矩阵坐标系（matrix）](https://echarts.apache.org/zh/option.html#matrix) 或 [日历坐标系（calendar）](https://echarts.apache.org/zh/option.html#calendar) 中。\n\n\n\n+ `'polar'`\n\n布局在一个 [极坐标系](https://echarts.apache.org/zh/option.html#polar) 中。当一个 ECharts 实例中存在多个极坐标系时，须通过 [polarIndex](https://echarts.apache.org/zh/option.html#series-custom.polarIndex) 或 [polarId](https://echarts.apache.org/zh/option.html#series-custom.polarId) 指定所使用的极坐标系。\n\n\n\n+ `'geo'`\n\n布局在一个 [地理坐标系](https://echarts.apache.org/zh/option.html#geo) 中。当一个 ECharts 实例中存在多个地理坐标系时，须通过 [geoIndex](https://echarts.apache.org/zh/option.html#series-custom.geoIndex) 或 [geoId](https://echarts.apache.org/zh/option.html#series-custom.geoId) 指定所使用的地理坐标系。\n\n\n\n+ `'singleAxis'`\n\n布局在一个 [单轴坐标系](https://echarts.apache.org/zh/option.html#singleAxis) 中。当一个 ECharts 实例中存在多个单轴坐标系时，须通过 [singleAxisIndex](https://echarts.apache.org/zh/option.html#series-custom.singleAxisIndex) 或 [singleAxisId](https://echarts.apache.org/zh/option.html#series-custom.singleAxisId) 指定所使用的单轴标系。\n\n\n\n\n\n+ `'calendar'`\n\n布局在一个 [日历坐标系](https://echarts.apache.org/zh/option.html#calendar) 中。当一个 ECharts 实例中存在多个日历坐标系时，须通过 [calendarIndex](https://echarts.apache.org/zh/option.html#series-custom.calendarIndex) 或 [calendarId](https://echarts.apache.org/zh/option.html#series-custom.calendarId) 指定所使用的日历坐标系。\n\n\n\n+ `'matrix'`\n\n布局在一个 [矩阵坐标系](https://echarts.apache.org/zh/option.html#matrix)中。当一个 ECharts 实例中存在多个矩阵坐标系时，须通过 [matrixIndex](https://echarts.apache.org/zh/option.html#series-custom.matrixIndex) 或 [matrixId](https://echarts.apache.org/zh/option.html#series-custom.matrixId) 指定所使用的矩阵坐标系。\n\n\n\n**下表总结了“某系列或组件是否支持布局在某坐标系上”：**\n\n最左列列出了要布局的系列和组件（坐标系本身也是组件），最上行列出了所基于的坐标系。\n\n|                              | no coord sys | [grid](https://echarts.apache.org/zh/option.html#grid) (cartesian2d) | [polar](https://echarts.apache.org/zh/option.html#polar) | [geo](https://echarts.apache.org/zh/option.html#geo) | [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis) | [radar](https://echarts.apache.org/zh/option.html#radar) | [parallel](https://echarts.apache.org/zh/option.html#parallel) | [calendar](https://echarts.apache.org/zh/option.html#calendar) | [matrix](https://echarts.apache.org/zh/option.html#matrix) |\n|------------------------------------------------|----------|----------|---------|----------|----------|----------|----------|\n| [grid](https://echarts.apache.org/zh/option.html#grid) (cartesian2d)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [polar](https://echarts.apache.org/zh/option.html#polar)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [geo](https://echarts.apache.org/zh/option.html#geo)                                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis)                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [calendar](https://echarts.apache.org/zh/option.html#calendar)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [matrix](https://echarts.apache.org/zh/option.html#matrix)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-line](https://echarts.apache.org/zh/option.html#series-line)                   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-bar](https://echarts.apache.org/zh/option.html#series-bar)                     | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-pie](https://echarts.apache.org/zh/option.html#series-pie)                     | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-scatter](https://echarts.apache.org/zh/option.html#series-scatter)             | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-effectScatter](https://echarts.apache.org/zh/option.html#series-effectScatter) | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-radar](https://echarts.apache.org/zh/option.html#series-radar)                 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ (✅ 如果通过 [radar](https://echarts.apache.org/zh/option.html#radar) 坐标系) | ❌ (✅ 如果通过 [radar](https://echarts.apache.org/zh/option.html#radar) 坐标系) |\n| [series-tree](https://echarts.apache.org/zh/option.html#series-tree)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-treemap](https://echarts.apache.org/zh/option.html#series-treemap)             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sunburst](https://echarts.apache.org/zh/option.html#series-sunburst)           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-boxplot](https://echarts.apache.org/zh/option.html#series-boxplot)             | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-candlestick](https://echarts.apache.org/zh/option.html#series-candlestick)     | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-heatmap](https://echarts.apache.org/zh/option.html#series-heatmap)             | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-map](https://echarts.apache.org/zh/option.html#series-map)                     | ✅ (create a geo coord sys exclusively) | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-parallel](https://echarts.apache.org/zh/option.html#series-parallel)           | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (✅ 如果通过 [parallel](https://echarts.apache.org/zh/option.html#parallel) 坐标系) | ❌ (✅ 如果通过 [parallel](https://echarts.apache.org/zh/option.html#parallel) 坐标系) |\n| [series-lines](https://echarts.apache.org/zh/option.html#series-lines)                 | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [geo](https://echarts.apache.org/zh/option.html#geo)) | ❌ (✅ 如果通过其他坐标系，如 [geo](https://echarts.apache.org/zh/option.html#geo)) |\n| [series-graph](https://echarts.apache.org/zh/option.html#series-graph)                 | ✅ (create a \"view\" coord sys exclusively) | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sankey](https://echarts.apache.org/zh/option.html#series-sankey)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-funnel](https://echarts.apache.org/zh/option.html#series-funnel)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-gauge](https://echarts.apache.org/zh/option.html#series-gauge)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-pictorialBar](https://echarts.apache.org/zh/option.html#series-pictorialBar)   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-themeRiver](https://echarts.apache.org/zh/option.html#series-themeRiver)       | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis)) | ❌ (✅ 如果通过其他坐标系，如 [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis)) |\n| [series-chord](https://echarts.apache.org/zh/option.html#series-chord)                 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [title](https://echarts.apache.org/zh/option.html#title)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [legend](https://echarts.apache.org/zh/option.html#legend)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [dataZoom](https://echarts.apache.org/zh/option.html#dataZoom)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [visualMap](https://echarts.apache.org/zh/option.html#visualMap)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [toolbox](https://echarts.apache.org/zh/option.html#toolbox)                           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [timeline](https://echarts.apache.org/zh/option.html#timeline)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [thumbnail](https://echarts.apache.org/zh/option.html#thumbnail)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n\n也参见 [series-custom.coordinateSystemUsage](https://echarts.apache.org/zh/option.html#series-custom.coordinateSystemUsage)。",
+        "children": []
+    },
+    {
+        "name": "coordinateSystemUsage",
+        "type": "string",
+        "default": "\\'data\\'",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n如何在指定的 [坐标系](https://echarts.apache.org/zh/option.html#series-custom.coordinateSystem) 上布局本 `series-custom`。\n\n在大多数情况下，无需显式指定 `coordinateSystemUsage`，除非默认行为不符合预期。\n\n可选值：\n- `'data'`：\n\n此系列的每个数据项（例如，每个 `series.data[i]`）将独立地在指定的坐标系进行布局。\n注：当前没有任何“非系列组件”支持 `coordinateSystemUsage: 'data'`。\n\n- `'box'`：**（不适用于 [series-custom](https://echarts.apache.org/zh/option.html#series-custom)）**\n\n此系列或组件作为一个整体，在指定的坐标系中进行布局——即根据坐标系计算整体的包围盒或基础锚点。\n\n- 例如，[grid 组件](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [matrix 坐标系](https://echarts.apache.org/zh/option.html#matrix) 或 [calendar 坐标系](https://echarts.apache.org/zh/option.html#calendar) 中，这时其布局矩形是由 [series-custom.coords](https://echarts.apache.org/zh/option.html#series-custom.coords) 在坐标系中计算出来的。参见示例：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1)。\n- 又如，[饼图系列](https://echarts.apache.org/zh/option.html#series-pie) 或 [和弦图系列](https://echarts.apache.org/zh/option.html#series-chord) 可以布局在 [geo 坐标系](https://echarts.apache.org/zh/option.html#geo) 或 [cartesian2d 坐标系](https://echarts.apache.org/zh/option.html#grid) 中，这时其中心点是由 [series-pie.coords](https://echarts.apache.org/zh/option.html#series-pie.coords) 或 [series-pie.center](https://echarts.apache.org/zh/option.html#series-pie.center) 在坐标系中计算出来的。参见示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)。\n\n\n只有少数系列同时支持 `coordinateSystemUsage: 'data'` 和 `coordinateSystemUsage: 'box'`，如：[series-graph](https://echarts.apache.org/zh/option.html#series-graph)、[series-map](https://echarts.apache.org/zh/option.html#series-map)。例如，在 [例子 coordinateSystemUsage: 'data'](matrix-graph&edit=1&reset=1) 中，关系图每个节点分别布局在矩阵坐标系中，而在 [例子 coordinateSystemUsage: 'box'](doc-example/matrix-graph-box&edit=1&reset=1) 中，关系图系列整体被布局在一个单元格中。\n\n大多数系列仅支持 `coordinateSystemUsage: 'data'`，例如：[series-line](https://echarts.apache.org/zh/option.html#series-line)、[series-bar](https://echarts.apache.org/zh/option.html#series-bar)、[series-scatter](https://echarts.apache.org/zh/option.html#series-scatter)。\n\n同时，一些系列仅支持 `coordinateSystemUsage: 'box'`，例如：[series-pie](https://echarts.apache.org/zh/option.html#series-pie)（示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)）、[series-tree](https://echarts.apache.org/zh/option.html#series-tree)、[series-treemap](https://echarts.apache.org/zh/option.html#series-treemap)、[series-sankey](https://echarts.apache.org/zh/option.html#series-sankey)。\n\n\n另参考：[series-custom.coordinateSystem](https://echarts.apache.org/zh/option.html#series-custom.coordinateSystem)。",
+        "children": []
+    },
+    {
+        "name": "coord",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#series-custom.coordinateSystemUsage) 为 `'box'` 时, `coord` 被输入给坐标系，计算得到布局位置（布局盒或者中心点）。\n\n例子：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1), [矩阵中的关系图](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> 注：当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#series-custom.coordinateSystemUsage) 为 `'data'` 时，输入给坐标系的是 `series.data[i]` 而非此 `coord`。\n\n`coord` 的具体格式定义，取决于每个坐标系，并且，和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 的第二个参数相同。",
         "children": []
     },
     {
         "name": "xAxisIndex",
         "type": "number",
         "default": "0",
-        "desc": "使用的 [x 轴](https://echarts.apache.org/zh/option.html#xAxis)的 index，在单个图表实例中存在多个 x 轴的时候有用。",
+        "desc": "布局时所基于的 [x 轴](https://echarts.apache.org/zh/option.html#xAxis) 的 index。当一个 ECharts 实例中存在多个 x 轴时，用其指定所使用的 x 轴。",
+        "children": []
+    },
+    {
+        "name": "xAxisId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [x 轴](https://echarts.apache.org/zh/option.html#xAxis) 的 id。当一个 ECharts 实例中存在多个 x 轴时，用其指定所使用的 x 轴。",
         "children": []
     },
     {
         "name": "yAxisIndex",
         "type": "number",
         "default": "0",
-        "desc": "使用的 [y 轴](https://echarts.apache.org/zh/option.html#yAxis)的 index，在单个图表实例中存在多个 y轴的时候有用。",
+        "desc": "布局时所基于的 [y 轴](https://echarts.apache.org/zh/option.html#yAxis) 的 index。当一个 ECharts 实例中存在多个 y轴时，用其指定所使用的 y 轴。",
+        "children": []
+    },
+    {
+        "name": "yAxisId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [y 轴](https://echarts.apache.org/zh/option.html#yAxis) 的 id。当一个 ECharts 实例中存在多个 y轴时，用其指定所使用的 x 轴。",
         "children": []
     },
     {
         "name": "polarIndex",
         "type": "number",
         "default": "0",
-        "desc": "使用的[极坐标系](https://echarts.apache.org/zh/option.html#polar)的 index，在单个图表实例中存在多个极坐标系的时候有用。",
+        "desc": "布局时所基于的 [极坐标系](https://echarts.apache.org/zh/option.html#polar) 的 index。当一个 ECharts 实例中存在多个极坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "polarId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [极坐标系](https://echarts.apache.org/zh/option.html#polar) 的 id。当一个 ECharts 实例中存在多个极坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "singleAxisIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "布局时所基于的 [单轴标系](https://echarts.apache.org/zh/option.html#singleAxis) 的 index。当一个 ECharts 实例中存在多个单轴坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "singleAxisId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [单轴标系](https://echarts.apache.org/zh/option.html#singleAxis) 的 id。当一个 ECharts 实例中存在多个单轴坐标系时，用其指定所使用的坐标系。",
         "children": []
     },
     {
         "name": "geoIndex",
         "type": "number",
         "default": "0",
-        "desc": "使用的[地理坐标系](https://echarts.apache.org/zh/option.html#geo)的 index，在单个图表实例中存在多个地理坐标系的时候有用。",
+        "desc": "布局时所基于的 [地理坐标系](https://echarts.apache.org/zh/option.html#geo) 的 index。当一个 ECharts 实例中存在多个地理坐标系时，用其指定所使用的坐标系。\n\n\n\n**参见示例**: [geo-choropleth-scatter](geo-choropleth-scatter&reset=1&edit=1)",
+        "children": []
+    },
+    {
+        "name": "geoId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [地理坐标系](https://echarts.apache.org/zh/option.html#geo) 的 id。当一个 ECharts 实例中存在多个地理坐标系时，用其指定所使用的坐标系。\n\n\n\n**参见示例**: [geo-choropleth-scatter](geo-choropleth-scatter&reset=1&edit=1)",
         "children": []
     },
     {
         "name": "calendarIndex",
         "type": "number",
         "default": "0",
-        "desc": "使用的[日历坐标系](https://echarts.apache.org/zh/option.html#calendar)的 index，在单个图表实例中存在多个日历坐标系的时候有用。",
+        "desc": "布局时所基于的 [日历坐标系](https://echarts.apache.org/zh/option.html#calendar) 的 index。当一个 ECharts 实例中存在多个日历坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "calendarId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [日历坐标系](https://echarts.apache.org/zh/option.html#calendar) 的 id。当一个 ECharts 实例中存在多个日历坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "matrixIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "布局时所基于的 [矩阵坐标系](https://echarts.apache.org/zh/option.html#matrix) 的 index。当一个 ECharts 实例中存在多个矩阵坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "matrixId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "布局时所基于的 [矩阵坐标系](https://echarts.apache.org/zh/option.html#matrix) 的 id。当一个 ECharts 实例中存在多个矩阵坐标系时，用其指定所使用的坐标系。",
         "children": []
     },
     {
         "name": "renderItem",
-        "type": "Function",
-        "desc": "custom 系列需要开发者自己提供图形渲染的逻辑。这个渲染逻辑一般命名为 [renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem)。例如：\n\n```ts\nvar option = {\n...,\nseries: [{\ntype: 'custom',\nrenderItem: function (params, api) {\nvar categoryIndex = api.value(0);\nvar start = api.coord([api.value(1), categoryIndex]);\nvar end = api.coord([api.value(2), categoryIndex]);\nvar height = api.size([0, 1])[1] * 0.6;\n\nvar rectShape = echarts.graphic.clipRectByRect({\nx: start[0],\ny: start[1] - height / 2,\nwidth: end[0] - start[0],\nheight: height\n}, {\nx: params.coordSys.x,\ny: params.coordSys.y,\nwidth: params.coordSys.width,\nheight: params.coordSys.height\n});\n\nreturn rectShape && {\ntype: 'rect',\nshape: rectShape,\nstyle: api.style()\n};\n},\ndata: data\n}]\n}\n```\n\n对于 `data` 中的每个数据项（为方便描述，这里称为 `dataItem`)，会调用此 [renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数。\n\n[renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数提供了两个参数：\n+ [params](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.params)：包含了当前数据信息和坐标系的信息。\n+ [api](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api)：是一些开发者可调用的方法集合。\n\n[renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数须返回根据此 `dataItem` 绘制出的图形元素的定义信息，参见 [renderItem.return](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return)。\n\n一般来说，[renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数的主要逻辑，是将 `dataItem` 里的值映射到坐标系上的图形元素。这一般需要用到 [renderItem.arguments.api](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api) 中的两个函数：\n+ [api.value(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.value)，意思是取出 `dataItem` 中的数值。例如 `api.value(0)` 表示取出当前 `dataItem` 中第一个维度的数值。\n+ [api.coord(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.coord)，意思是进行坐标转换计算。例如 `var point = api.coord([api.value(0), api.value(1)])` 表示 `dataItem` 中的数值转换成坐标系上的点。\n\n有时候还需要用到 [api.size(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.size) 函数，表示得到坐标系上一段数值范围对应的长度。\n\n返回值中样式的设置可以使用 [api.style(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.style) 函数，他能得到 [series.itemStyle](https://echarts.apache.org/zh/option.html#series-custom.itemStyle) 中定义的样式信息，以及视觉映射的样式信息。也可以用这种方式覆盖这些样式信息：`api.style({fill: 'green', stroke: 'yellow'})`。",
+        "type": [
+            "Function",
+            "string"
+        ],
+        "desc": "custom 系列需要开发者以 `Function` 形式提供图形渲染的逻辑或者以 `string` 形式使用预先注册的图形渲染逻辑（从 `v6.0.0` 开始支持，详见 [echarts.registerCustomSeries](api.html#echarts.registerCustomSeries)）。这个渲染逻辑一般命名为 [renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem)。例如：\n\n```ts\nvar option = {\n...,\nseries: [{\ntype: 'custom',\nrenderItem: function (params, api) {\nvar categoryIndex = api.value(0);\nvar start = api.coord([api.value(1), categoryIndex]);\nvar end = api.coord([api.value(2), categoryIndex]);\nvar height = api.size([0, 1])[1] * 0.6;\n\nvar rectShape = echarts.graphic.clipRectByRect({\nx: start[0],\ny: start[1] - height / 2,\nwidth: end[0] - start[0],\nheight: height\n}, {\nx: params.coordSys.x,\ny: params.coordSys.y,\nwidth: params.coordSys.width,\nheight: params.coordSys.height\n});\n\nreturn rectShape && {\ntype: 'rect',\nshape: rectShape,\nstyle: api.style()\n};\n},\ndata: data\n}]\n}\n```\n\n对于 `data` 中的每个数据项（为方便描述，这里称为 `dataItem`)，会调用此 [renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数。\n\n[renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数提供了两个参数：\n+ [params](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.params)：包含了当前数据信息和坐标系的信息。\n+ [api](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api)：是一些开发者可调用的方法集合。\n\n[renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数须返回根据此 `dataItem` 绘制出的图形元素的定义信息，参见 [renderItem.return](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return)。\n\n一般来说，[renderItem](https://echarts.apache.org/zh/option.html#series-custom.renderItem) 函数的主要逻辑，是将 `dataItem` 里的值映射到坐标系上的图形元素。这一般需要用到 [renderItem.arguments.api](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api) 中的两个函数：\n+ [api.value(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.value)，意思是取出 `dataItem` 中的数值。例如 `api.value(0)` 表示取出当前 `dataItem` 中第一个维度的数值。\n+ [api.coord(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.coord)，意思是进行坐标转换计算。例如 `var point = api.coord([api.value(0), api.value(1)])` 表示 `dataItem` 中的数值转换成坐标系上的点。\n\n有时候还需要用到 [api.size(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.size) 函数，表示得到坐标系上一段数值范围对应的长度。\n\n返回值中样式的设置可以使用 [api.style(...)](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api.style) 函数，他能得到 [series.itemStyle](https://echarts.apache.org/zh/option.html#series-custom.itemStyle) 中定义的样式信息，以及视觉映射的样式信息。也可以用这种方式覆盖这些样式信息：`api.style({fill: 'green', stroke: 'yellow'})`。",
         "children": [
             {
                 "name": "arguments",
@@ -87,7 +170,7 @@
                     {
                         "name": "params",
                         "type": "Object",
-                        "desc": "renderItem 函数的第一个参数，含有：\n\n```ts\n{\ncontext: // {Object} 一个可供开发者暂存东西的对象。生命周期只为：当前次的渲染。\nseriesId: // {string} 本系列 id。\nseriesName: // {string} 本系列 name。\nseriesIndex: // {number} 本系列 index。\ndataIndex: // {number} 数据项的 index。\ndataIndexInside: // {number} 数据项在当前坐标系中可见的数据的 index（即 dataZoom 当前窗口中的数据的 index）。\ndataInsideLength: // {number} 当前坐标系中可见的数据长度（即 dataZoom 当前窗口中的数据数量）。\nactionType: // {string} 触发此次重绘的 action 的 type。\ncoordSys: // 不同的坐标系中，coordSys 里的信息不一样，含有如下这些可能：\ncoordSys: {\ntype: 'cartesian2d',\nx: // {number} grid rect 的 x\ny: // {number} grid rect 的 y\nwidth: // {number} grid rect 的 width\nheight: // {number} grid rect 的 height\n},\ncoordSys: {\ntype: 'calendar',\nx: // {number} calendar rect 的 x\ny: // {number} calendar rect 的 y\nwidth: // {number} calendar rect 的 width\nheight: // {number} calendar rect 的 height\ncellWidth: // {number} calendar cellWidth\ncellHeight: // {number} calendar cellHeight\nrangeInfo: {\nstart: // calendar 日期开端\nend: // calendar 日期结尾\nweeks: // calendar 周数\ndayCount: // calendar 日数\n}\n},\ncoordSys: {\ntype: 'geo',\nx: // {number} geo rect 的 x\ny: // {number} geo rect 的 y\nwidth: // {number} geo rect 的 width\nheight: // {number} geo rect 的 height\nzoom: // {number} 缩放的比率。如果没有缩放，则值为 1。例如 0.5 表示缩小了一半。\n},\ncoordSys: {\ntype: 'polar',\ncx: // {number} polar 的中心坐标\ncy: // {number} polar 的中心坐标\nr: // {number} polar 的外半径\nr0: // {number} polar 的内半径\n},\ncoordSys: {\ntype: 'singleAxis',\nx: // {number} singleAxis rect 的 x\ny: // {number} singleAxis rect 的 y\nwidth: // {number} singleAxis rect 的 width\nheight: // {number} singleAxis rect 的 height\n}\n}\n```\n\n其中，关于 `dataIndex` 和 `dataIndexInside` 的区别：\n\n\n\n+ `dataIndex` 指的 `dataItem` 在原始数据中的 index。\n+ `dataIndexInside` 指的是 `dataItem` 在当前数据窗口（参见 [dataZoom](https://echarts.apache.org/zh/option.html#dataZoom)）中的 index。\n\n[renderItem.arguments.api](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api) 中使用的参数都是 `dataIndexInside` 而非 `dataIndex`，因为从 `dataIndex` 转换成 `dataIndexInside` 需要时间开销。",
+                        "desc": "renderItem 函数的第一个参数，含有：\n\n```ts\n{\ncontext: // {Object} 一个可供开发者暂存东西的对象。生命周期只为：当前次的渲染。\nseriesId: // {string} 本系列 id。\nseriesName: // {string} 本系列 name。\nseriesIndex: // {number} 本系列 index。\ndataIndex: // {number} 数据项的 index。\ndataIndexInside: // {number} 数据项在当前坐标系中可见的数据的 index（即 dataZoom 当前窗口中的数据的 index）。\ndataInsideLength: // {number} 当前坐标系中可见的数据长度（即 dataZoom 当前窗口中的数据数量）。\nactionType: // {string} 触发此次重绘的 action 的 type。\ncoordSys: // 不同的坐标系中，coordSys 里的信息不一样，含有如下这些可能：\ncoordSys: {\ntype: 'cartesian2d',\nx: // {number} grid rect 的 x\ny: // {number} grid rect 的 y\nwidth: // {number} grid rect 的 width\nheight: // {number} grid rect 的 height\n},\ncoordSys: {\ntype: 'calendar',\nx: // {number} calendar 组件 rect 的 x\ny: // {number} calendar 组件 rect 的 y\nwidth: // {number} calendar 组件 rect 的 width\nheight: // {number} calendar 组件 rect 的 height\ncellWidth: // {number} calendar cellWidth\ncellHeight: // {number} calendar cellHeight\nrangeInfo: {\nstart: // calendar 日期开端\nend: // calendar 日期结尾\nweeks: // calendar 周数\ndayCount: // calendar 日数\n}\n},\ncoordSys: {\ntype: 'matrix',\nx: // {number} matrix 组件 rect 的 x\ny: // {number} matrix 组件 rect 的 y\nwidth: // {number} matrix 组件 rect 的 width\nheight: // {number} matrix 组件 rect 的 height\n},\ncoordSys: {\ntype: 'geo',\nx: // {number} geo rect 的 x\ny: // {number} geo rect 的 y\nwidth: // {number} geo rect 的 width\nheight: // {number} geo rect 的 height\nzoom: // {number} 缩放的比率。如果没有缩放，则值为 1。例如 0.5 表示缩小了一半。\n},\ncoordSys: {\ntype: 'polar',\ncx: // {number} polar 的中心坐标\ncy: // {number} polar 的中心坐标\nr: // {number} polar 的外半径\nr0: // {number} polar 的内半径\n},\ncoordSys: {\ntype: 'singleAxis',\nx: // {number} singleAxis rect 的 x\ny: // {number} singleAxis rect 的 y\nwidth: // {number} singleAxis rect 的 width\nheight: // {number} singleAxis rect 的 height\n}\n}\n```\n\n其中，关于 `dataIndex` 和 `dataIndexInside` 的区别：\n\n\n\n+ `dataIndex` 指的 `dataItem` 在原始数据中的 index。\n+ `dataIndexInside` 指的是 `dataItem` 在当前数据窗口（参见 [dataZoom](https://echarts.apache.org/zh/option.html#dataZoom)）中的 index。\n\n[renderItem.arguments.api](https://echarts.apache.org/zh/option.html#series-custom.renderItem.arguments.api) 中使用的参数都是 `dataIndexInside` 而非 `dataIndex`，因为从 `dataIndex` 转换成 `dataIndexInside` 需要时间开销。",
                         "children": []
                     },
                     {
@@ -104,7 +187,13 @@
                             {
                                 "name": "coord",
                                 "type": "Function",
-                                "desc": "将数据值映射到坐标系上。\n\n```\n@param {Array.<number>} data 数据值。\n@return {Array.<number>} 画布上的点的坐标，至少包含：[x, y]\n对于polar坐标系，还会包含其他信息：\npolar: [x, y, radius, angle]\n```",
+                                "desc": "将数据值转换成坐标系的坐标。\n\n其行为、输入参数和返回值和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 相同（只是去除它的第一个参数 `finder`）。",
+                                "children": []
+                            },
+                            {
+                                "name": "layout",
+                                "type": "Function",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n将数据值转换成坐标系上的布局信息。\n\n其行为、输入参数和返回值和 [chart.convertToLayout](api.html#echartsInstance.convertToLayout) 相同（只是去除它的第一个参数 `finder`）。",
                                 "children": []
                             },
                             {
@@ -412,6 +501,13 @@
                         "type": "boolean",
                         "default": "false",
                         "desc": "是否不响应鼠标以及触摸事件。",
+                        "children": []
+                    },
+                    {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
                         "children": []
                     },
                     {
@@ -780,6 +876,13 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "ignore",
                         "type": "boolean",
                         "default": "false",
@@ -1131,10 +1234,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -1296,7 +1406,7 @@
                             },
                             {
                                 "name": "height",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的高度。",
                                 "children": []
@@ -1429,14 +1539,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -1461,7 +1571,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -1474,7 +1584,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -1718,10 +1828,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -1870,7 +1987,7 @@
                             },
                             {
                                 "name": "height",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的高度。\n\n\n\n\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                                 "children": []
@@ -1986,14 +2103,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -2018,7 +2135,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -2031,7 +2148,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -2275,10 +2392,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -2567,14 +2691,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -2599,7 +2723,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -2612,7 +2736,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -2862,10 +2986,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -3008,7 +3139,7 @@
                             },
                             {
                                 "name": "height",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的高度。",
                                 "children": []
@@ -3147,14 +3278,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -3179,7 +3310,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -3192,7 +3323,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -3442,10 +3573,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -3574,7 +3712,7 @@
                             },
                             {
                                 "name": "cy",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的中心在父节点坐标系（以父节点左上角为原点）中的纵坐标值。",
                                 "children": []
@@ -3714,14 +3852,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -3746,7 +3884,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -3759,7 +3897,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -4009,10 +4147,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -4141,7 +4286,7 @@
                             },
                             {
                                 "name": "cy",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的中心在父节点坐标系（以父节点左上角为原点）中的纵坐标值。",
                                 "children": []
@@ -4288,14 +4433,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -4320,7 +4465,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -4333,7 +4478,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -4583,10 +4728,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -4715,7 +4867,7 @@
                             },
                             {
                                 "name": "cy",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的中心在父节点坐标系（以父节点左上角为原点）中的纵坐标值。",
                                 "children": []
@@ -4732,6 +4884,15 @@
                                 "type": "number",
                                 "default": "0",
                                 "desc": "内半径。",
+                                "children": []
+                            },
+                            {
+                                "name": "cornerRadius",
+                                "type": [
+                                    "number",
+                                    "Array"
+                                ],
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\n扇形的圆角。\n\n+ `cornerRadius: 10`：表示内圆角半径和外圆角半径都是 `10px`。\n+ `cornerRadius: [10, 20]`：表示为环形图时，内圆角半径是 `10px`、外圆角半径是 `20px`。\n+ `cornerRadius: [5, 10, 15, 20]`：表示内圆角半径分别为 `5px` 和 `10px`，外圆角半径分别为 `15px` 和 `20px`。",
                                 "children": []
                             },
                             {
@@ -4883,14 +5044,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -4915,7 +5076,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -4928,7 +5089,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -5178,10 +5339,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -5310,7 +5478,7 @@
                             },
                             {
                                 "name": "cy",
-                                "type": "numbr",
+                                "type": "number",
                                 "default": "0",
                                 "desc": "图形元素的中心在父节点坐标系（以父节点左上角为原点）中的纵坐标值。",
                                 "children": []
@@ -5478,14 +5646,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -5510,7 +5678,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -5523,7 +5691,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -5773,10 +5941,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -6047,14 +6222,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -6079,7 +6254,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -6092,7 +6267,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -6342,10 +6517,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -6616,14 +6798,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -6648,7 +6830,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -6661,7 +6843,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -6911,10 +7093,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -7089,6 +7278,565 @@
                             {
                                 "name": "fill",
                                 "type": "string",
+                                "default": "'#000'",
+                                "desc": "填充色。",
+                                "children": []
+                            },
+                            {
+                                "name": "stroke",
+                                "type": "string",
+                                "default": "null",
+                                "desc": "线条颜色。",
+                                "children": []
+                            },
+                            {
+                                "name": "lineWidth",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "线条宽度。",
+                                "children": []
+                            },
+                            {
+                                "name": "lineDash",
+                                "type": [
+                                    "string",
+                                    "number",
+                                    "Array"
+                                ],
+                                "default": "'solid'",
+                                "desc": "线条样式。可选：\n\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n+ `number` 或 `number` 数组。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash)。",
+                                "children": []
+                            },
+                            {
+                                "name": "lineDashOffset",
+                                "type": "number",
+                                "default": "0",
+                                "desc": "用于设置虚线的偏移量。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                                "children": []
+                            },
+                            {
+                                "name": "lineCap",
+                                "type": "string",
+                                "default": "'butt'",
+                                "desc": "用于指定线段末端的绘制方式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                                "children": []
+                            },
+                            {
+                                "name": "lineJoin",
+                                "type": "string",
+                                "default": "'miter'",
+                                "desc": "设置线条转折点的样式。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                                "children": []
+                            },
+                            {
+                                "name": "miterLimit",
+                                "type": "number",
+                                "default": "10",
+                                "desc": "设置斜接面限制比例的属性。详见 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowBlur",
+                                "type": "number",
+                                "default": "undefined",
+                                "desc": "阴影宽度。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetX",
+                                "type": "number",
+                                "default": "undefined",
+                                "desc": "阴影 X 方向偏移。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowOffsetY",
+                                "type": "number",
+                                "default": "undefined",
+                                "desc": "阴影 Y 方向偏移。",
+                                "children": []
+                            },
+                            {
+                                "name": "shadowColor",
+                                "type": "number",
+                                "default": "undefined",
+                                "desc": "阴影颜色。",
+                                "children": []
+                            },
+                            {
+                                "name": "opacity",
+                                "type": "number",
+                                "default": "1",
+                                "desc": "不透明度。",
+                                "children": []
+                            },
+                            {
+                                "name": "transition",
+                                "type": [
+                                    "string",
+                                    "Array"
+                                ],
+                                "default": "undefined",
+                                "desc": "可以是一个属性名，或者一组属性名。\n被指定的属性，在其指发生变化时，会开启过渡动画。\n只可以指定本 `style` 下的属性。\n\n例如：\n```ts\n{\ntype: 'rect',\nstyle: {\n// ...\n// 这两个属性会开启过渡动画。\ntransition: ['mmm', 'ppp']\n}\n}\n```\n我们这样可以指定 `style` 下所有属性开启过渡动画：\n```ts\n{\ntype: 'rect',\nstyle: { ... },\n// `style` 下所有属性开启过渡动画。\ntransition: 'style',\n}\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "focus",
+                        "type": "string",
+                        "default": "'none'",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "children": []
+                    },
+                    {
+                        "name": "blurScope",
+                        "type": "string",
+                        "default": "'coordinateSystem'",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "children": []
+                    },
+                    {
+                        "name": "emphasisDisabled",
+                        "type": "boolean",
+                        "desc": "是否关闭高亮状态。",
+                        "children": []
+                    },
+                    {
+                        "name": "emphasis",
+                        "type": "Object",
+                        "desc": "图形元素的高亮状态",
+                        "children": [
+                            {
+                                "name": "style",
+                                "type": "Object",
+                                "desc": "结构同 [style](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_polygon.style)。",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "blur",
+                        "type": "Object",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "children": [
+                            {
+                                "name": "style",
+                                "type": "Object",
+                                "desc": "结构同 [style](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_polygon.style)。",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "select",
+                        "type": "Object",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "children": [
+                            {
+                                "name": "style",
+                                "type": "Object",
+                                "desc": "结构同 [style](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_polygon.style)。",
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "return_compoundPath",
+                "type": "Object",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n多个图形元素并集组成的复合元素。",
+                "children": [
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "default": "compoundPath",
+                        "desc": "用 setOption 首次设定图形元素时必须指定。\n可取值：\n\n\n\n[image](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_image),\n[text](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_text),\n[circle](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_circle),\n[sector](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_sector),\n[ring](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_ring),\n[polygon](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_polygon),\n[polyline](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_polyline),\n[rect](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_rect),\n[line](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_line),\n[bezierCurve](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_bezierCurve),\n[arc](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_arc),\n[group](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_group),",
+                        "children": []
+                    },
+                    {
+                        "name": "id",
+                        "type": "string",
+                        "default": "undefined",
+                        "desc": "id 用于在更新或删除图形元素时指定更新哪个图形元素，如果不需要用可以忽略。",
+                        "children": []
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "元素的 x 像素位置。",
+                        "children": []
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "元素的 y 像素位置。",
+                        "children": []
+                    },
+                    {
+                        "name": "rotation",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "元素的旋转",
+                        "children": []
+                    },
+                    {
+                        "name": "scaleX",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "元素在 x 方向上的缩放。",
+                        "children": []
+                    },
+                    {
+                        "name": "scaleY",
+                        "type": "number",
+                        "default": "1",
+                        "desc": "元素在 y 方向上的缩放。",
+                        "children": []
+                    },
+                    {
+                        "name": "originX",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "元素旋转和缩放原点的 x 像素位置。",
+                        "children": []
+                    },
+                    {
+                        "name": "originY",
+                        "type": "number",
+                        "default": "0",
+                        "desc": "元素旋转和缩放原点的 y 像素位置。",
+                        "children": []
+                    },
+                    {
+                        "name": "transition",
+                        "type": [
+                            "string",
+                            "Array"
+                        ],
+                        "desc": "可以通过`'all'`指定所有属性都开启过渡动画，也可以指定单个或一组属性。\n\nTransform 相关的属性：`'x'`、 `'y'`、`'scaleX'`、`'scaleY'`、`'rotation'`、`'originX'`、`'originY'`。例如：\n```ts\n{\ntype: 'rect',\nx: 100,\ny: 200,\ntransition: ['x', 'y']\n}\n```\n还可以是这三个属性 `'shape'`、`'style'`、`'extra'`。表示这三个属性中所有的子属性都开启过渡动画。例如：\n```ts\n{\ntype: 'rect',\nshape: { // ... },\n// 表示 shape 中所有属性都开启过渡动画。\ntransition: 'shape',\n}\n```\n\n在自定义系列中，当 transition 没有指定时，`'x'` 和 `'y'` 会默认开启过渡动画。如果想禁用这种默认，可设定为空数组：`transition: []`\n\n`transition` 效果参考 [例子](doc-example/custom-transition-simple&edit=1&reset=1)。",
+                        "children": []
+                    },
+                    {
+                        "name": "enterFrom",
+                        "type": "Object",
+                        "desc": "配置图形的入场属性用于入场动画。例如：\n\n```ts\n{\ntype: 'circle',\nx: 100,\nenterFrom: {\n// 淡入\nstyle: { opacity: 0 },\n// 从左飞入\nx: 0\n}\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "leaveTo",
+                        "type": "Object",
+                        "desc": "配置图形的退场属性用于退场动画。例如：\n\n```ts\n{\ntype: 'circle',\nx: 100,\nleaveTo: {\n// 淡出\nstyle: { opacity: 0 },\n// 向右飞出\nx: 200\n}\n}\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "enterAnimation",
+                        "type": "Object",
+                        "desc": "入场动画配置。",
+                        "children": [
+                            {
+                                "name": "duration",
+                                "type": "number",
+                                "desc": "动画时长，单位 ms",
+                                "children": []
+                            },
+                            {
+                                "name": "easing",
+                                "type": "string",
+                                "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                                "children": []
+                            },
+                            {
+                                "name": "delay",
+                                "type": "number",
+                                "desc": "动画延迟时长，单位 ms",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "updateAnimation",
+                        "type": "Object",
+                        "desc": "更新属性的动画配置。",
+                        "children": [
+                            {
+                                "name": "duration",
+                                "type": "number",
+                                "desc": "动画时长，单位 ms",
+                                "children": []
+                            },
+                            {
+                                "name": "easing",
+                                "type": "string",
+                                "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                                "children": []
+                            },
+                            {
+                                "name": "delay",
+                                "type": "number",
+                                "desc": "动画延迟时长，单位 ms",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "leaveAnimation",
+                        "type": "Object",
+                        "desc": "退场动画配置。",
+                        "children": [
+                            {
+                                "name": "duration",
+                                "type": "number",
+                                "desc": "动画时长，单位 ms",
+                                "children": []
+                            },
+                            {
+                                "name": "easing",
+                                "type": "string",
+                                "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                                "children": []
+                            },
+                            {
+                                "name": "delay",
+                                "type": "number",
+                                "desc": "动画延迟时长，单位 ms",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "keyframeAnimation",
+                        "type": [
+                            "Object",
+                            "Array"
+                        ],
+                        "desc": "关键帧动画配置。支持配置为数组同时使用多个关键帧动画。\n\n示例：\n\n```ts\nkeyframeAnimation: [{\n// 呼吸效果的缩放动画\nduration: 1000,\nloop: true,\nkeyframes: [{\npercent: 0.5,\neasing: 'sinusoidalInOut',\nscaleX: 0.1,\nscaleY: 0.1\n}, {\npercent: 1,\neasing: 'sinusoidalInOut',\nscaleX: 1,\nscaleY: 1\n}]\n}, {\n// 平移动画\nduration: 2000,\nloop: true,\nkeyframes: [{\npercent: 0,\nx: 10\n}, {\npercent: 1,\nx: 100\n}]\n}]\n\n```\n\n假如一个属性同时被应用了关键帧动画和过渡动画，过渡动画会被忽略。",
+                        "children": [
+                            {
+                                "name": "duration",
+                                "type": "number",
+                                "desc": "动画时长，单位 ms",
+                                "children": []
+                            },
+                            {
+                                "name": "easing",
+                                "type": "string",
+                                "desc": "动画缓动。不同的缓动效果可以参考 [缓动示例](line-easing)。",
+                                "children": []
+                            },
+                            {
+                                "name": "delay",
+                                "type": "number",
+                                "desc": "动画延迟时长，单位 ms",
+                                "children": []
+                            },
+                            {
+                                "name": "loop",
+                                "type": "boolean",
+                                "desc": "是否循环播放动画。",
+                                "children": []
+                            },
+                            {
+                                "name": "keyframes",
+                                "type": "Array",
+                                "desc": "动画的关键帧。数组中每一项为一个关键帧，格式如下：\n\n```ts\ninterface Keyframe {\n// 关键帧位置。0 为第一帧，1 为最后一帧\n// 关键帧时间为 percent * duration + delay\npercent: number\n// 上一个关键帧到这个关键帧运行时的缓动函数。可选\neasing?: number\n\n// 其它属性为图形在这个关键帧的属性，例如 x, y, style, shape 等\n}\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "morph",
+                        "type": "boolean",
+                        "desc": "是否开启形变动画。\n\n开启 [universalTransition](https://echarts.apache.org/zh/option.html#series-custom.universalTransition) 后如果前后两次更新图形类型不一样，比如从`rect`变为了`circle`，会通过形变动画过渡。如果想要关闭可以设置该属性为`false`。",
+                        "children": []
+                    },
+                    {
+                        "name": "z2",
+                        "type": "number",
+                        "default": "undefined",
+                        "desc": "用于决定图形元素的覆盖关系。",
+                        "children": []
+                    },
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "default": "undefined",
+                        "desc": "参见 [diffChildrenByName](https://echarts.apache.org/zh/option.html#series-custom.renderItem.return_compoundPath.diffChildrenByName)。",
+                        "children": []
+                    },
+                    {
+                        "name": "info",
+                        "type": "*",
+                        "desc": "用户定义的任意数据，可以在 event listener 中访问，如：\n\n```ts\nchart.on('click', function (params) {\nconsole.log(params.info);\n});\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "silent",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应鼠标以及触摸事件。",
+                        "children": []
+                    },
+                    {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
+                        "name": "invisible",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "节点是否不可见。",
+                        "children": []
+                    },
+                    {
+                        "name": "ignore",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "节点是否完全被忽略（既不渲染，也不响应事件）。",
+                        "children": []
+                    },
+                    {
+                        "name": "textContent",
+                        "type": "Object",
+                        "desc": "这是一个文本定义，附着在一个节点上，会依据 `textConfig` 配置，相对于节点布局。\n\n\n里面的属性同于 [text](option.html#series-custom.renderItem.return_text)。",
+                        "children": []
+                    },
+                    {
+                        "name": "textConfig",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "position",
+                                "type": "",
+                                "default": "'inside'",
+                                "desc": "Position of `textContent`.\n\n+ 'left'\n+ 'right'\n+ 'top'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideTopRight'\n+ 'insideBottomLeft'\n+ 'insideBottomRight'\n+ or like `[12, 33]`\n+ or like `['50%', '50%']`",
+                                "children": []
+                            },
+                            {
+                                "name": "rotation",
+                                "type": "number",
+                                "desc": "`textContent` 的旋转弧度。",
+                                "children": []
+                            },
+                            {
+                                "name": "layoutRect",
+                                "type": "Object",
+                                "desc": "`textContent` 根据此矩形来布局位置。\n默认是节点的包围盒。\n\n```ts\n{\nx: number\ny: number\nwidth: number\nheight: number\n}\n```",
+                                "children": []
+                            },
+                            {
+                                "name": "offset",
+                                "type": "Array",
+                                "desc": "`textContent` 的偏移。\n\n`offset` 和 `position` 的区别是，`offset` 是旋转（rotation）后计算。\n\n##### origin\n\n`origin` 相对于节点的包围盒。\n可以是百分数。\n如果指定为 `'center'`，则定位在包围盒中心。\n\n只有当 `position` and `rotation` 都设置时，生效。\n\n+ 如 `[12, 33]`\n+ 或如 `['50%', '50%']`\n+ 'center'",
+                                "children": []
+                            },
+                            {
+                                "name": "distance",
+                                "type": "number",
+                                "default": "5",
+                                "desc": "距离 `layoutRect` 的距离。",
+                                "children": []
+                            },
+                            {
+                                "name": "local",
+                                "type": "boolean",
+                                "default": "false",
+                                "desc": "如果 `true` 的话，会采用节点的 transform。",
+                                "children": []
+                            },
+                            {
+                                "name": "insideFill",
+                                "type": "string",
+                                "desc": "`insideFill` 可以是一个颜色字符串，或者空着。\n\n如果 `textContent` 是 `\"inside\"`，它的 `fill` 会按这个优先级来选取：\n`textContent.style.fill` > `textConfig.insideFill` > \"auto-calculated-fill\"\n在绝大多数场景下，\"auto-calculated-fill\" 是白色。",
+                                "children": []
+                            },
+                            {
+                                "name": "insideStroke",
+                                "type": "string",
+                                "desc": "`insideStroke` 可以是一个颜色字符串，或者空着。\n\n如果 `textContent` 是 `\"inside\"`，它的 `stroke` 会按这个优先级来选取：\n`textContent.style.stroke` > `textConfig.insideStroke` > \"auto-calculated-stroke\"\n\n\"auto-calculated-stroke\" 的规则是：\n\n+ 如果\n+ (A) `fill` 在 style 中被指定（无论是在 `textContent.style` 还是 `textContent.style.rich` 里）\n+ 或者 (B) 需要画文字的背景（无论是定义在 `textContent.style` 还是 `textContent.style.rich` 里）\n+ \"auto-calculated-stroke\" 都会为 `null`。\n+ 否则\n+ \"auto-calculated-stroke\" 会和节点的 `fill` 相同，如果 `fill` 没有的话则为 `null`。",
+                                "children": []
+                            },
+                            {
+                                "name": "outsideFill",
+                                "type": "string",
+                                "desc": "`outsideFill` 可以是一个颜色字符串，或者空着。\n\n如果 `textContent` 是 \"inside\"，它的 `fill` 会按这个优先级来选取：\n`textContent.style.fill` > `textConfig.outsideFill` > #000",
+                                "children": []
+                            },
+                            {
+                                "name": "outsideStroke",
+                                "type": "string",
+                                "desc": "`outsideStroke` 可以是一个颜色字符串，或者空着。\n\n如果 `textContent` 不是 \"inside\"，它的 `stroke` 会按这个优先级来选取：\n`textContent.style.stroke` > `textConfig.outsideStroke` > \"auto-calculated-stroke\"\n\n\"auto-calculated-stroke\" 的规则是：\n\n+ 如果\n+ (A) `fill` 在 style 中被指定（无论是在 `textContent.style` 还是 `textContent.style.rich` 里）\n+ 或者 (B) 需要画文字的背景（无论是定义在 `textContent.style` 还是 `textContent.style.rich` 里）\n+ \"auto-calculated-stroke\" 都会为 `null`。\n+ 否则\n+ \"auto-calculated-stroke\" 会为一个近似于白色的颜色，来区别于背景。",
+                                "children": []
+                            },
+                            {
+                                "name": "inside",
+                                "type": "boolean",
+                                "desc": "如果确定文本是在节点中的话，则此可设置为 `true`，避免 echarts 额外猜测。",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "during",
+                        "type": "Function",
+                        "desc": "在动画的每一帧里，用户可以使用 `during` 回调来设定节点的各种属性。\n\n```ts\n(duringAPI: CustomDuringAPI) => void\n\ninterface CustomDuringAPI {\n// 设置 transform 属性值。\n// transform 属性参见 `TransformProp`。\nsetTransform(key: TransformProp, val: unknown): void;\n// 获得当前动画帧的 transform 属性值。\ngetTransform(key: TransformProp): unknown;\n// 设置 shape 属性值。\n// shape 属性形如：`{ type: 'rect', shape: { xxxProp: xxxValue } }`。\nsetShape(key: string, val: unknown): void;\n// 获得当前动画帧的 shape 属性值。\ngetShape(key: string): unknown;\n// 设置 style 属性值。\n// style 属性形如：`{ type: 'rect', style: { xxxProp: xxxValue } }`。\nsetStyle(key: string, val: unknown): void;\n// 获得当前动画帧的 style 属性值。\ngetStyle(key: string): unknown;\n// 设置 extra 属性值。\n// extra 属性形如：`{ type: 'rect', extra: { xxxProp: xxxValue } }`。\nsetExtra(key: string, val: unknown): void;\n// 获得当前动画帧的 extra 属性值。\ngetExtra(key: string): unknown;\n}\n\ntype TransformProp =\n'x' | 'y' | 'scaleX' | 'scaleY' | 'originX' | 'originY' | 'rotation';\n```\n\n在绝大多数场景下，用户不需要这个 `during` 回调。因为，假如属性被设定到 [transition](option.html#series-custom.renderItem.return_rect.transition) 中后，echarts 会自动对它进行插值，并且基于这些插值形成动画。但是，如果这些插值形成的动画不满足用户需求，那么用户可以使用 `during` 回调来定制他们。\n\n例如，如果用户使用 [polygon](option.html#series-custom.renderItem.return_polygon) 画图形，图形的形状会由 [shape.points](option.html#series-custom.renderItem.return_polygon.shape.points) 来定义，形如：\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...]\n},\n// ...\n}\n```\n如果用户指定了 [transition](option.html#series-custom.renderItem.return_polygon.transition) 如：\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: [[12, 33], [15, 36], [19, 39], ...],\n},\ntransition: 'shape'\n// ...\n}\n```\n尽管这些 `points` 会被 echarts 自动插值，但是这样形成的动画里，这些点会直线走向目标位置。假如用户需求是，这些点要按照某种特定的路径（如弧线、螺旋）来移动，则这就不满足了。所以在这种情况下，可以使用 `during` 回调如下：\n```ts\n{\ntype: 'polygon',\nshape: {\npoints: calculatePoints(initialDegree),\ntransition: 'points'\n},\nextra: {\ndegree: nextDegree\n},\n// 让 echarts 对 `extra.degree` 进行插值，然后基于\n// `extra.degree` 来计算动画中每一帧时的 polygon 形状。\ntransition: 'extra',\nduring: function (duringAPI) {\nvar currentDegree = duringAPI.getExtra('degree');\nduringAPI.setShape(calculatePoints(currentDegree));\n}\n// ...\n}\n```\n\n也参见这个 [例子](custom-spiral-race&edit=1&reset=1)。",
+                        "children": []
+                    },
+                    {
+                        "name": "extra",
+                        "type": "Object",
+                        "desc": "用户可以在 `extra` 字段中定义自己的属性。`extra` 的往往会结合 [during](option.html#series-custom.renderItem.return_rect.during) 一起使用。",
+                        "children": [
+                            {
+                                "name": "transition",
+                                "type": [
+                                    "string",
+                                    "Array"
+                                ],
+                                "default": "undefined",
+                                "desc": "可以是一个属性名，或者一组属性名。\n被指定的属性，在其指发生变化时，会开启过渡动画。\n只可以指定本 `extra` 下的属性。\n\n例如：\n```ts\n{\ntype: 'rect',\nextra: {\n// ...\n// 这两个属性会开启过渡动画。\ntransition: ['mmm', 'ppp']\n}\n}\n```\n我们这样可以指定 `extra` 下所有属性开启过渡动画：\n```ts\n{\ntype: 'rect',\nextra: { ... },\n// `extra` 下所有属性开启过渡动画。\ntransition: 'extra',\n}\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "shape",
+                        "type": "Object",
+                        "desc": "",
+                        "children": [
+                            {
+                                "name": "paths",
+                                "type": "Array",
+                                "desc": "图形元素的数组，元素可以是 path/rect/circle/……",
+                                "children": []
+                            },
+                            {
+                                "name": "transition",
+                                "type": [
+                                    "string",
+                                    "Array"
+                                ],
+                                "default": "undefined",
+                                "desc": "可以是一个属性名，或者一组属性名。\n被指定的属性，在其指发生变化时，会开启过渡动画。\n只可以指定本 `shape` 下的属性。\n\n例如：\n```ts\n{\ntype: 'rect',\nshape: {\n// ...\n// 这两个属性会开启过渡动画。\ntransition: ['mmm', 'ppp']\n}\n}\n```\n我们这样可以指定 `shape` 下所有属性开启过渡动画：\n```ts\n{\ntype: 'rect',\nshape: { ... },\n// `shape` 下所有属性开启过渡动画。\ntransition: 'shape',\n}\n```",
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "style",
+                        "type": "Object",
+                        "desc": "注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                        "children": [
+                            {
+                                "name": "fill",
+                                "type": "string",
                                 "default": "null",
                                 "desc": "填充色。",
                                 "children": []
@@ -7197,14 +7945,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -7229,7 +7977,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -7242,7 +7990,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -7492,10 +8240,17 @@
                         "children": []
                     },
                     {
+                        "name": "tooltipDisabled",
+                        "type": "boolean",
+                        "default": "false",
+                        "desc": "是否不响应 tooltip。\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>",
+                        "children": []
+                    },
+                    {
                         "name": "invisible",
                         "type": "boolean",
                         "default": "false",
-                        "desc": "节点是否可见。",
+                        "desc": "节点是否不可见。",
                         "children": []
                     },
                     {
@@ -7806,14 +8561,14 @@
                         "name": "focus",
                         "type": "string",
                         "default": "'none'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。",
                         "children": []
                     },
                     {
                         "name": "blurScope",
                         "type": "string",
                         "default": "'coordinateSystem'",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n在开启`focus`的时候，可以通过`blurScope`配置淡出的范围。支持如下配置\n\n+ `'coordinateSystem'` 淡出范围为坐标系，默认使用该配置。\n+ `'series'` 淡出范围为系列。\n+ `'global'` 淡出范围为全局。",
                         "children": []
                     },
                     {
@@ -7838,7 +8593,7 @@
                     {
                         "name": "blur",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的淡出状态，配置`focus`时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的淡出状态，配置`focus`时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -7851,7 +8606,7 @@
                     {
                         "name": "select",
                         "type": "Object",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n图形元素的选中状态，配置自定义系列的 [selectedMode](https://echarts.apache.org/zh/option.html#series-custom.selectedMode) 时有效。",
                         "children": [
                             {
                                 "name": "style",
@@ -7904,7 +8659,7 @@
                 "name": "borderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -7912,14 +8667,14 @@
             {
                 "name": "borderCap",
                 "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                 "children": [],
                 "options": "'butt','round','square'"
             },
             {
                 "name": "borderJoin",
                 "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                 "children": [],
                 "options": "'bevel','round','miter'"
             },
@@ -7927,7 +8682,7 @@
                 "name": "borderMiterLimit",
                 "type": "number",
                 "default": "10",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -8065,7 +8820,7 @@
     {
         "name": "labelLine",
         "type": "Object",
-        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n标签的视觉引导线配置。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n标签的视觉引导线配置。",
         "children": [
             {
                 "name": "show",
@@ -8076,7 +8831,7 @@
             {
                 "name": "showAbove",
                 "type": "boolean",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n是否显示在图形上方。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n是否显示在图形上方。",
                 "children": []
             },
             {
@@ -8102,7 +8857,7 @@
                 "name": "minTurnAngle",
                 "type": "number",
                 "default": "null",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n通过调整第二段线的长度，限制引导线两端之间最小的夹角，以防止过小的夹角导致显示不美观。\n\n可以设置为 0 - 180 度。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n通过调整第二段线的长度，限制引导线两端之间最小的夹角，以防止过小的夹角导致显示不美观。\n\n可以设置为 0 - 180 度。",
                 "children": []
             },
             {
@@ -8137,7 +8892,7 @@
                         "name": "dashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -8145,14 +8900,14 @@
                     {
                         "name": "cap",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "join",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -8160,7 +8915,7 @@
                         "name": "miterLimit",
                         "type": "number",
                         "default": "10",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -8217,7 +8972,7 @@
             "Object",
             "Function"
         ],
-        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n标签的统一布局配置。\n\n该配置项是在每个系列默认的标签布局基础上，统一调整标签的`(x, y)`位置，标签对齐等属性以实现想要的标签布局效果。\n\n该配置项也可以是一个有如下参数的回调函数\n\n```ts\n// 标签对应数据的 dataIndex\ndataIndex: number\n// 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\ndataType?: string\n// 标签对应的系列的 index\nseriesIndex: number\n// 标签显示的文本\ntext: string\n// 默认的标签的包围盒，由系列默认的标签布局决定\nlabelRect: {x: number, y: number, width: number, height: number}\n// 默认的标签水平对齐\nalign: 'left' | 'center' | 'right'\n// 默认的标签垂直对齐\nverticalAlign: 'top' | 'middle' | 'bottom'\n// 标签所对应的数据图形的包围盒，可用于定位标签位置\nrect: {x: number, y: number, width: number, height: number}\n// 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n// 如果没有该值则为 null\nlabelLinePoints?: number[][]\n```\n\n**示例：**\n\n将标签显示在图形右侧 10px 的位置，并且垂直居中：\n\n```ts\nlabelLayout(params) {\nreturn {\nx: params.rect.x + 10,\ny: params.rect.y + params.rect.height / 2,\nverticalAlign: 'middle',\nalign: 'left'\n}\n}\n```\n\n根据图形的包围盒尺寸决定文本尺寸\n\n```ts\n\nlabelLayout(params) {\nreturn {\nfontSize: Math.max(params.rect.width / 10, 5)\n};\n}\n```",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n标签的统一布局配置。\n\n该配置项是在每个系列默认的标签布局基础上，统一调整标签的`(x, y)`位置，标签对齐等属性以实现想要的标签布局效果。\n\n该配置项也可以是一个有如下参数的回调函数\n\n```ts\n// 标签对应数据的 dataIndex\ndataIndex: number\n// 标签对应的数据类型，只在关系图中会有 node 和 edge 数据类型的区分\ndataType?: string\n// 标签对应的系列的 index\nseriesIndex: number\n// 标签显示的文本\ntext: string\n// 默认的标签的包围盒，由系列默认的标签布局决定\nlabelRect: {x: number, y: number, width: number, height: number}\n// 默认的标签水平对齐\nalign: 'left' | 'center' | 'right'\n// 默认的标签垂直对齐\nverticalAlign: 'top' | 'middle' | 'bottom'\n// 标签所对应的数据图形的包围盒，可用于定位标签位置\nrect: {x: number, y: number, width: number, height: number}\n// 默认引导线的位置，目前只有饼图(pie)和漏斗图(funnel)有默认标签位置\n// 如果没有该值则为 null\nlabelLinePoints?: number[][]\n```\n\n**示例：**\n\n将标签显示在图形右侧 10px 的位置，并且垂直居中：\n\n```ts\nlabelLayout(params) {\nreturn {\nx: params.rect.x + 10,\ny: params.rect.y + params.rect.height / 2,\nverticalAlign: 'middle',\nalign: 'left'\n}\n}\n```\n\n根据图形的包围盒尺寸决定文本尺寸\n\n```ts\n\nlabelLayout(params) {\nreturn {\nfontSize: Math.max(params.rect.width / 10, 5)\n};\n}\n```",
         "children": [
             {
                 "name": "hideOverlap",
@@ -8314,7 +9069,7 @@
     {
         "name": "selectedMode",
         "type": "enum",
-        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n\n选中模式的配置，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选`'single'`，`'multiple'`，`'series'` 分别表示单选，多选以及选择整个系列。\n\n> 从 v5.3.0 开始支持 `'series'`。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n\n选中模式的配置，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选`'single'`，`'multiple'`，`'series'` 分别表示单选，多选以及选择整个系列。\n\n> 从 v5.3.0 开始支持 `'series'`。",
         "children": [],
         "options": "false,true,'single','multiple','series'"
     },
@@ -8376,7 +9131,7 @@
             {
                 "name": "childGroupId",
                 "type": "string",
-                "desc": "> 从 `v5.5.0` 开始支持\n\n\n\n该数据项对应的子数据组 ID，用于实现多层下钻和聚合。\n\n~[700x300](doc-example/bar-multi-drilldown&edit=1&reset=1)\n\n通过`groupId`已经可以达到数据下钻和聚合的效果，但只支持一层的下钻和聚合。为了实现多层下钻和聚合，我们又引入了`childGroupId`。\n\n引入`childGroupId`后，不同`option`的数据项之间就能形成逻辑上的父子关系，例如：\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\n上面 3 组 data 分别来自 3 个 option ，通过`groupId`和`childGroupId`，它们之间存在了“父-子-孙”的关系。在`setOption`时，Apache ECharts 会尝试寻找前后`option`数据项间的父子关系，若存在父子关系，则会对相关数据项进行下钻或聚合动画的过渡。\n\n没有对应子数据组的数据项不需要指定`childGroupId`。\n\n如果你使用了[dataset](https://echarts.apache.org/zh/option.html#dataset)组件来表达数据，推荐使用`encode.itemChildGroupId`来指定哪个维度被编码为子数据组 ID。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.5.0` 开始支持\n\n</div>\n\n\n该数据项对应的子数据组 ID，用于实现多层下钻和聚合。\n\n~[700x300](doc-example/bar-multi-drilldown&edit=1&reset=1)\n\n通过`groupId`已经可以达到数据下钻和聚合的效果，但只支持一层的下钻和聚合。为了实现多层下钻和聚合，我们又引入了`childGroupId`。\n\n引入`childGroupId`后，不同`option`的数据项之间就能形成逻辑上的父子关系，例如：\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\n上面 3 组 data 分别来自 3 个 option ，通过`groupId`和`childGroupId`，它们之间存在了“父-子-孙”的关系。在`setOption`时，Apache ECharts 会尝试寻找前后`option`数据项间的父子关系，若存在父子关系，则会对相关数据项进行下钻或聚合动画的过渡。\n\n没有对应子数据组的数据项不需要指定`childGroupId`。\n\n如果你使用了[dataset](https://echarts.apache.org/zh/option.html#dataset)组件来表达数据，推荐使用`encode.itemChildGroupId`来指定哪个维度被编码为子数据组 ID。",
                 "children": []
             },
             {
@@ -8418,7 +9173,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -8426,14 +9181,14 @@
                     {
                         "name": "borderCap",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "borderJoin",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -8441,7 +9196,7 @@
                         "name": "borderMiterLimit",
                         "type": "number",
                         "default": "10",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -8620,7 +9375,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -8628,14 +9383,14 @@
                             {
                                 "name": "borderCap",
                                 "type": "enum",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                                 "children": [],
                                 "options": "'butt','round','square'"
                             },
                             {
                                 "name": "borderJoin",
                                 "type": "enum",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                                 "children": [],
                                 "options": "'bevel','round','miter'"
                             },
@@ -8643,7 +9398,7 @@
                                 "name": "borderMiterLimit",
                                 "type": "number",
                                 "default": "10",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -8715,13 +9470,13 @@
                             "string",
                             "Function"
                         ],
-                        "desc": "> **注意：**`series.data.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                        "desc": "> **注意：**`series.data.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string | HTMLElement | HTMLElement[])) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n> **警告**:\n\n组装 HTML 字符串时，**必须进行 HTML 转义（HTML-escaping）**。例如：\n```js\n{\ntooltip: {\nformatter: params => {\nconst { name, value } = params;\n// 必须进行 HTML 转义。\n// 否则，如果 name 或 value 中含有功能性字符，如 '<' '>' 等，\n// 则可能渲染不正确。\n// 同时，如果 name 或 value 的值来自于“非受信任”的来源，则可能被注入恶意代码；\n// 如果未被转义，则会被运行。\nreturn echarts.format.encodeHTML(name)\n+ '<b>' + echarts.format.encodeHTML(value) + '</b>';\n// 注：`echarts.format.encodeHTML` 是个工具函数，把特殊字符\n//  （'&'、'<'、'>'、'\"'、\"'\"）转换成他们对应的 HTML entities.\n//  这只是个例子，任何 HTML 转义工具函数都可使用。\n}\n}\n}\n```\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
                         "children": []
                     },
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "> 从 `v5.3.0` 开始支持\n\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> 自 `v5.5.0` 版本起提供 `dataIndex`。\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` 参数 从 `v5.3.0` 开始支持\n\n</div>\n\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n> **[注]:** 不同于 [tooltip.formater](https://echarts.apache.org/zh/option.html#tooltip.formatter)，本方式不支持返回原始 HTML。返回内容渲染前会被自动按需转义。",
                         "children": []
                     },
                     {
@@ -8848,7 +9603,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -8924,7 +9679,7 @@
                     {
                         "name": "extraCssText",
                         "type": "text",
-                        "desc": "> **注意：**`series.data.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                        "desc": "> **注意：**`series.data.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```\n\n> **警告**:",
                         "children": []
                     }
                 ]
@@ -8935,7 +9690,7 @@
         "name": "clip",
         "type": "boolean",
         "default": "false",
-        "desc": "> 从 `v4.4.0` 开始支持\n\n\n\n是否裁剪超出坐标系部分的图形，具体裁剪效果根据系列决定：\n\n+ 散点图/带有涟漪特效动画的散点（气泡）图：忽略中心点超出坐标系的图形，但是不裁剪单个图形\n+ 柱状图：裁掉完全超出的柱子，但是不会裁剪只超出部分的柱子\n+ 折线图：裁掉所有超出坐标系的折线部分，拐点图形的逻辑按照散点图处理\n+ 路径图：裁掉所有超出坐标系的部分\n+ K 线图：忽略整体都超出坐标系的图形，但是不裁剪单个图形\n+ 象形柱图：裁掉所有超出坐标系的部分（从 v5.5.0 开始支持）\n+ 自定义系列：裁掉所有超出坐标系的部分\n\n除了象形柱图和自定义系列，其它系列的默认值都为 true，及开启裁剪，如果你觉得不想要裁剪的话，可以设置成 false 关闭。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v4.4.0` 开始支持\n\n</div>\n\n\n是否裁剪超出坐标系部分的图形，具体裁剪效果根据系列决定：\n\n+ 散点图/带有涟漪特效动画的散点（气泡）图：忽略中心点超出坐标系的图形，但是不裁剪单个图形\n+ 柱状图：裁掉完全超出的柱子，但是不会裁剪只超出部分的柱子\n+ 折线图：裁掉所有超出坐标系的折线部分，拐点图形的逻辑按照散点图处理\n+ 路径图：裁掉所有超出坐标系的部分\n+ K 线图：忽略整体都超出坐标系的图形，但是不裁剪单个图形\n+ 象形柱图：裁掉所有超出坐标系的部分（从 v5.5.0 开始支持）\n+ 自定义系列：裁掉所有超出坐标系的部分\n\n除了象形柱图和自定义系列，其它系列的默认值都为 true，及开启裁剪，如果你觉得不想要裁剪的话，可以设置成 false 关闭。",
         "children": []
     },
     {
@@ -9027,8 +9782,8 @@
     },
     {
         "name": "universalTransition",
-        "type": "object",
-        "desc": "> 从 `v5.2.0` 开始支持\n\n\n\n全局过渡动画相关的配置。\n\n全局过渡动画（Universal Transition）提供了任意系列之间进行变形动画的功能。开启该功能后，每次`setOption`，相同`id`的系列之间会自动关联进行动画的过渡，更细粒度的关联配置见`universalTransition.seriesKey`配置。\n\n通过配置数据项的`groupId`和`childGroupId`，还可以实现诸如下钻，聚合等一对多或者多对一的动画。\n\n可以直接在系列中配置 `universalTransition: true` 开启该功能。也可以提供一个对象进行更多属性的配置。",
+        "type": "Object",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.2.0` 开始支持\n\n</div>\n\n\n全局过渡动画相关的配置。\n\n全局过渡动画（Universal Transition）提供了任意系列之间进行变形动画的功能。开启该功能后，每次`setOption`，相同`id`的系列之间会自动关联进行动画的过渡，更细粒度的关联配置见`universalTransition.seriesKey`配置。\n\n通过配置数据项的`groupId`和`childGroupId`，还可以实现诸如下钻，聚合等一对多或者多对一的动画。\n\n可以直接在系列中配置 `universalTransition: true` 开启该功能。也可以提供一个对象进行更多属性的配置。",
         "children": [
             {
                 "name": "enabled",
@@ -9081,13 +9836,13 @@
                     "string",
                     "Function"
                 ],
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n提示框浮层内容格式器，支持字符串模板和回调函数两种形式。\n\n**1. 字符串模板**\n\n模板变量有 `{a}`, `{b}`，`{c}`，`{d}`，`{e}`，分别表示系列名，数据名，数据值等。\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，会有多个系列的数据，此时可以通过 `{a0}`, `{a1}`, `{a2}` 这种后面加索引的方式表示系列的索引。\n不同图表类型下的 `{a}`，`{b}`，`{c}`，`{d}` 含义不一样。\n其中变量`{a}`, `{b}`, `{c}`, `{d}`在不同图表类型下代表数据含义为：\n\n+ 折线（区域）图、柱状（条形）图、K线图 : `{a}`（系列名称），`{b}`（类目值），`{c}`（数值）, `{d}`（无）\n\n+ 散点图（气泡）图 : `{a}`（系列名称），`{b}`（数据名称），`{c}`（数值数组）, `{d}`（无）\n\n+ 地图 : `{a}`（系列名称），`{b}`（区域名称），`{c}`（合并数值）, `{d}`（无）\n\n+ 饼图、仪表盘、漏斗图: `{a}`（系列名称），`{b}`（数据项名称），`{c}`（数值）, `{d}`（百分比）\n\n更多其它图表模板变量的含义可以见相应的图表的 label.formatter 配置项。\n\n**示例：**\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. 回调函数**\n\n回调函数格式：\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string | HTMLElement | HTMLElement[])) => string | HTMLElement | HTMLElement[]\n```\n\n支持返回 HTML 字符串或者创建的 DOM 实例。\n\n> **警告**:\n\n组装 HTML 字符串时，**必须进行 HTML 转义（HTML-escaping）**。例如：\n```js\n{\ntooltip: {\nformatter: params => {\nconst { name, value } = params;\n// 必须进行 HTML 转义。\n// 否则，如果 name 或 value 中含有功能性字符，如 '<' '>' 等，\n// 则可能渲染不正确。\n// 同时，如果 name 或 value 的值来自于“非受信任”的来源，则可能被注入恶意代码；\n// 如果未被转义，则会被运行。\nreturn echarts.format.encodeHTML(name)\n+ '<b>' + echarts.format.encodeHTML(value) + '</b>';\n// 注：`echarts.format.encodeHTML` 是个工具函数，把特殊字符\n//  （'&'、'<'、'>'、'\"'、\"'\"）转换成他们对应的 HTML entities.\n//  这只是个例子，任何 HTML 转义工具函数都可使用。\n}\n}\n}\n```\n\n第一个参数 `params` 是 formatter 需要的数据集。格式如下：\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n在 [trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'axis'` 的时候，或者 tooltip 被 [axisPointer](https://echarts.apache.org/zh/option.html#xAxis.axisPointer) 触发的时候，`params` 是多个系列的数据数组。其中每项内容格式同上，并且，\n\n\n\n```ts\n{\ncomponentType: 'series',\n// 系列类型\nseriesType: string,\n// 系列在传入的 option.series 中的 index\nseriesIndex: number,\n// 系列名称\nseriesName: string,\n// 数据名，类目名\nname: string,\n// 数据在传入的 data 数组中的 index\ndataIndex: number,\n// 传入的原始数据项\ndata: Object,\n// 传入的数据值。在多数系列下它和 data 相同。在一些系列下是 data 中的分量（如 map、radar 中）\nvalue: number|Array|Object,\n// 坐标轴 encode 映射信息，\n// key 为坐标轴（如 'x' 'y' 'radius' 'angle' 等）\n// value 必然为数组，不会为 null/undefined，表示 dimension index 。\n// 其内容如：\n// {\n//     x: [2] // dimension index 为 2 的数据映射到 x 轴\n//     y: [0] // dimension index 为 0 的数据映射到 y 轴\n// }\nencode: Object,\n// 维度名列表\ndimensionNames: Array<String>,\n// 数据的维度 index，如 0 或 1 或 2 ...\n// 仅在雷达图中使用。\ndimensionIndex: number,\n// 数据图形的颜色\ncolor: string\n}\n```\n\n注：encode 和 dimensionNames 的使用方式，例如：\n\n如果数据为：\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.encode.y[0]]\n```\n\n如果数据为：\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\n则可这样得到 y 轴对应的 value：\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n第二个参数 `ticket` 是异步回调标识，配合第三个参数 `callback` 使用。\n第三个参数 `callback` 是异步回调，在提示框浮层内容是异步获取的时候，可以通过 callback 传入上述的 `ticket` 和 `html` 更新提示框浮层内容。\n\n示例：\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
                 "children": []
             },
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "> 从 `v5.3.0` 开始支持\n\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> 自 `v5.5.0` 版本起提供 `dataIndex`。\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` 参数 从 `v5.3.0` 开始支持\n\n</div>\n\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n> **[注]:** 不同于 [tooltip.formater](https://echarts.apache.org/zh/option.html#tooltip.formatter)，本方式不支持返回原始 HTML。返回内容渲染前会被自动按需转义。",
                 "children": []
             },
             {
@@ -9214,7 +9969,7 @@
                         "name": "textBorderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -9290,7 +10045,7 @@
             {
                 "name": "extraCssText",
                 "type": "text",
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n额外附加到浮层的 css 样式。如下为浮层添加阴影的示例：\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```\n\n> **警告**:",
                 "children": []
             }
         ]

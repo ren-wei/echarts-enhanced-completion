@@ -37,42 +37,94 @@
         "name": "left",
         "type": "percent",
         "default": "'auto'",
-        "desc": "图例组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为 `'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
+        "desc": "null组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为 `'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
         "children": []
     },
     {
         "name": "top",
         "type": "percent",
         "default": "'auto'",
-        "desc": "图例组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为 `'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
+        "desc": "null组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为 `'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
         "children": []
     },
     {
         "name": "right",
         "type": "percent",
         "default": "'auto'",
-        "desc": "图例组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。",
+        "desc": "null组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比。\n\n默认自适应。",
         "children": []
     },
     {
         "name": "bottom",
         "type": "percent",
         "default": "'auto'",
-        "desc": "图例组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高宽的百分比。\n\n默认自适应。",
+        "desc": "null组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比。\n\n默认自适应。",
         "children": []
     },
     {
         "name": "width",
         "type": "percent",
         "default": "'auto'",
-        "desc": "图例组件的宽度。默认自适应。",
+        "desc": "图例（legend）组件的宽度。默认自适应。\n\n`width` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比。",
         "children": []
     },
     {
         "name": "height",
         "type": "percent",
         "default": "'auto'",
-        "desc": "图例组件的高度。默认自适应。",
+        "desc": "图例（legend）组件的高度。默认自适应。\n\n`height` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比。",
+        "children": []
+    },
+    {
+        "name": "coordinateSystem",
+        "type": "string",
+        "default": "'none'",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n\n指定另一个坐标系组件，本 `legend` 布局在那个坐标系中。\n\n可选值：\n\n\n+ `null`、`undefined` 或者 `'none'`\n\n不布局在任何坐标系中。自己独立完成布局。\n\n\n\n\n\n\n\n\n\n\n\n\n\n+ `'calendar'`\n\n布局在一个 [日历坐标系](https://echarts.apache.org/zh/option.html#calendar) 中。当一个 ECharts 实例中存在多个日历坐标系时，须通过 [calendarIndex](https://echarts.apache.org/zh/option.html#legend.calendarIndex) 或 [calendarId](https://echarts.apache.org/zh/option.html#legend.calendarId) 指定所使用的日历坐标系。\n\n\n\n+ `'matrix'`\n\n布局在一个 [矩阵坐标系](https://echarts.apache.org/zh/option.html#matrix)中。当一个 ECharts 实例中存在多个矩阵坐标系时，须通过 [matrixIndex](https://echarts.apache.org/zh/option.html#legend.matrixIndex) 或 [matrixId](https://echarts.apache.org/zh/option.html#legend.matrixId) 指定所使用的矩阵坐标系。\n\n\n\n**下表总结了“某系列或组件是否支持布局在某坐标系上”：**\n\n最左列列出了要布局的系列和组件（坐标系本身也是组件），最上行列出了所基于的坐标系。\n\n|                              | no coord sys | [grid](https://echarts.apache.org/zh/option.html#grid) (cartesian2d) | [polar](https://echarts.apache.org/zh/option.html#polar) | [geo](https://echarts.apache.org/zh/option.html#geo) | [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis) | [radar](https://echarts.apache.org/zh/option.html#radar) | [parallel](https://echarts.apache.org/zh/option.html#parallel) | [calendar](https://echarts.apache.org/zh/option.html#calendar) | [matrix](https://echarts.apache.org/zh/option.html#matrix) |\n|------------------------------------------------|----------|----------|---------|----------|----------|----------|----------|\n| [grid](https://echarts.apache.org/zh/option.html#grid) (cartesian2d)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [polar](https://echarts.apache.org/zh/option.html#polar)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [geo](https://echarts.apache.org/zh/option.html#geo)                                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis)                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [calendar](https://echarts.apache.org/zh/option.html#calendar)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [matrix](https://echarts.apache.org/zh/option.html#matrix)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-line](https://echarts.apache.org/zh/option.html#series-line)                   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-bar](https://echarts.apache.org/zh/option.html#series-bar)                     | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-pie](https://echarts.apache.org/zh/option.html#series-pie)                     | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-scatter](https://echarts.apache.org/zh/option.html#series-scatter)             | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-effectScatter](https://echarts.apache.org/zh/option.html#series-effectScatter) | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-radar](https://echarts.apache.org/zh/option.html#series-radar)                 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ (✅ 如果通过 [radar](https://echarts.apache.org/zh/option.html#radar) 坐标系) | ❌ (✅ 如果通过 [radar](https://echarts.apache.org/zh/option.html#radar) 坐标系) |\n| [series-tree](https://echarts.apache.org/zh/option.html#series-tree)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-treemap](https://echarts.apache.org/zh/option.html#series-treemap)             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sunburst](https://echarts.apache.org/zh/option.html#series-sunburst)           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-boxplot](https://echarts.apache.org/zh/option.html#series-boxplot)             | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-candlestick](https://echarts.apache.org/zh/option.html#series-candlestick)     | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-heatmap](https://echarts.apache.org/zh/option.html#series-heatmap)             | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-map](https://echarts.apache.org/zh/option.html#series-map)                     | ✅ (create a geo coord sys exclusively) | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-parallel](https://echarts.apache.org/zh/option.html#series-parallel)           | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (✅ 如果通过 [parallel](https://echarts.apache.org/zh/option.html#parallel) 坐标系) | ❌ (✅ 如果通过 [parallel](https://echarts.apache.org/zh/option.html#parallel) 坐标系) |\n| [series-lines](https://echarts.apache.org/zh/option.html#series-lines)                 | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [geo](https://echarts.apache.org/zh/option.html#geo)) | ❌ (✅ 如果通过其他坐标系，如 [geo](https://echarts.apache.org/zh/option.html#geo)) |\n| [series-graph](https://echarts.apache.org/zh/option.html#series-graph)                 | ✅ (create a \"view\" coord sys exclusively) | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sankey](https://echarts.apache.org/zh/option.html#series-sankey)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-funnel](https://echarts.apache.org/zh/option.html#series-funnel)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-gauge](https://echarts.apache.org/zh/option.html#series-gauge)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-pictorialBar](https://echarts.apache.org/zh/option.html#series-pictorialBar)   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) | ❌ (✅ 如果通过其他坐标系，如 [grid](https://echarts.apache.org/zh/option.html#grid)) |\n| [series-themeRiver](https://echarts.apache.org/zh/option.html#series-themeRiver)       | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ (✅ 如果通过其他坐标系，如 [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis)) | ❌ (✅ 如果通过其他坐标系，如 [singleAxis](https://echarts.apache.org/zh/option.html#singleAxis)) |\n| [series-chord](https://echarts.apache.org/zh/option.html#series-chord)                 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [title](https://echarts.apache.org/zh/option.html#title)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [legend](https://echarts.apache.org/zh/option.html#legend)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [dataZoom](https://echarts.apache.org/zh/option.html#dataZoom)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [visualMap](https://echarts.apache.org/zh/option.html#visualMap)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [toolbox](https://echarts.apache.org/zh/option.html#toolbox)                           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [timeline](https://echarts.apache.org/zh/option.html#timeline)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [thumbnail](https://echarts.apache.org/zh/option.html#thumbnail)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n\n也参见 [legend.coordinateSystemUsage](https://echarts.apache.org/zh/option.html#legend.coordinateSystemUsage)。",
+        "children": []
+    },
+    {
+        "name": "coordinateSystemUsage",
+        "type": "string",
+        "default": "\\'box\\'",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n如何在指定的 [坐标系](https://echarts.apache.org/zh/option.html#legend.coordinateSystem) 上布局本 `legend`。\n\n在大多数情况下，无需显式指定 `coordinateSystemUsage`，除非默认行为不符合预期。\n\n可选值：\n- `'data'`：**（不适用于 [legend](https://echarts.apache.org/zh/option.html#legend)）**\n\n此系列的每个数据项（例如，每个 `series.data[i]`）将独立地在指定的坐标系进行布局。\n注：当前没有任何“非系列组件”支持 `coordinateSystemUsage: 'data'`。\n\n- `'box'`：\n\n此系列或组件作为一个整体，在指定的坐标系中进行布局——即根据坐标系计算整体的包围盒或基础锚点。\n\n- 例如，[grid 组件](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [matrix 坐标系](https://echarts.apache.org/zh/option.html#matrix) 或 [calendar 坐标系](https://echarts.apache.org/zh/option.html#calendar) 中，这时其布局矩形是由 [legend.coords](https://echarts.apache.org/zh/option.html#legend.coords) 在坐标系中计算出来的。参见示例：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1)。\n- 又如，[饼图系列](https://echarts.apache.org/zh/option.html#series-pie) 或 [和弦图系列](https://echarts.apache.org/zh/option.html#series-chord) 可以布局在 [geo 坐标系](https://echarts.apache.org/zh/option.html#geo) 或 [cartesian2d 坐标系](https://echarts.apache.org/zh/option.html#grid) 中，这时其中心点是由 [series-pie.coords](https://echarts.apache.org/zh/option.html#series-pie.coords) 或 [series-pie.center](https://echarts.apache.org/zh/option.html#series-pie.center) 在坐标系中计算出来的。参见示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)。\n\n\n\n另参考：[legend.coordinateSystem](https://echarts.apache.org/zh/option.html#legend.coordinateSystem)。",
+        "children": []
+    },
+    {
+        "name": "coord",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#legend.coordinateSystemUsage) 为 `'box'` 时, `coord` 被输入给坐标系，计算得到布局位置（布局盒或者中心点）。\n\n例子：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1), [矩阵中的关系图](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> 注：当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#legend.coordinateSystemUsage) 为 `'data'` 时，输入给坐标系的是 `series.data[i]` 而非此 `coord`。\n\n`coord` 的具体格式定义，取决于每个坐标系，并且，和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 的第二个参数相同。",
+        "children": []
+    },
+    {
+        "name": "calendarIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n\n布局时所基于的 [日历坐标系](https://echarts.apache.org/zh/option.html#calendar) 的 index。当一个 ECharts 实例中存在多个日历坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "calendarId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n\n布局时所基于的 [日历坐标系](https://echarts.apache.org/zh/option.html#calendar) 的 id。当一个 ECharts 实例中存在多个日历坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "matrixIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n\n布局时所基于的 [矩阵坐标系](https://echarts.apache.org/zh/option.html#matrix) 的 index。当一个 ECharts 实例中存在多个矩阵坐标系时，用其指定所使用的坐标系。",
+        "children": []
+    },
+    {
+        "name": "matrixId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n\n布局时所基于的 [矩阵坐标系](https://echarts.apache.org/zh/option.html#matrix) 的 id。当一个 ECharts 实例中存在多个矩阵坐标系时，用其指定所使用的坐标系。",
         "children": []
     },
     {
@@ -165,7 +217,7 @@
                 "name": "borderDashOffset",
                 "type": "number",
                 "default": "inherit",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -173,14 +225,14 @@
             {
                 "name": "borderCap",
                 "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                 "children": [],
                 "options": "'butt','round','square'"
             },
             {
                 "name": "borderJoin",
                 "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                 "children": [],
                 "options": "'bevel','round','miter'"
             },
@@ -188,7 +240,7 @@
                 "name": "borderMiterLimit",
                 "type": "number",
                 "default": "inherit",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -356,7 +408,7 @@
                 "name": "dashOffset",
                 "type": "number",
                 "default": "inherit",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -364,14 +416,14 @@
             {
                 "name": "cap",
                 "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                 "children": [],
                 "options": "'butt','round','square'"
             },
             {
                 "name": "join",
                 "type": "enum",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                 "children": [],
                 "options": "'bevel','round','miter'"
             },
@@ -379,7 +431,7 @@
                 "name": "miterLimit",
                 "type": "number",
                 "default": "inherit",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -588,7 +640,7 @@
                 "name": "borderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -686,7 +738,7 @@
                 "name": "textBorderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -861,7 +913,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -959,7 +1011,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`textBorderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -1070,7 +1122,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "inherit",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1078,14 +1130,14 @@
                     {
                         "name": "borderCap",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "borderJoin",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`borderMiterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -1093,7 +1145,7 @@
                         "name": "borderMiterLimit",
                         "type": "number",
                         "default": "inherit",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`borderJoin`\n为 `miter` 时，\n`borderMiterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1261,7 +1313,7 @@
                         "name": "dashOffset",
                         "type": "number",
                         "default": "inherit",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`type`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1269,14 +1321,14 @@
                     {
                         "name": "cap",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于指定线段末端的绘制方式，可以是：\n+ `'butt'`: 线段末端以方形结束。\n+ `'round'`: 线段末端以圆形结束。\n+ `'square'`: 线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。\n\n默认值为 `'butt'`。 更多详情可以参考 MDN [lineCap](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineCap)。",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "join",
                         "type": "enum",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置2个长度不为0的相连部分（线段，圆弧，曲线）如何连接在一起的属性（长度为0的变形部分，其指定的末端和控制点在同一位置，会被忽略）。\n\n可以是：\n+ `'bevel'`: 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。\n+ `'round'`: 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。\n+ `'miter'`: 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。这个设置可以通过\n`miterLimit`\n属性看到效果。\n\n默认值为 `'bevel'`。 更多详情可以参考 MDN [lineJoin](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineJoin)。",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -1284,7 +1336,7 @@
                         "name": "miterLimit",
                         "type": "number",
                         "default": "inherit",
-                        "desc": "> 从 `v5.0.0` 开始支持\n\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置斜接面限制比例。只有当\n`join`\n为 `miter` 时，\n`miterLimit`\n才有效。\n\n默认值为 `10`。负数、`0`、`Infinity` 和 `NaN` 均会被忽略。\n\n更多详情可以参考 MDN [miterLimit](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/miterLimit)。",
                         "children": [],
                         "min": "0",
                         "step": "1"

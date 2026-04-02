@@ -154,9 +154,20 @@
         "name": "seriesIndex",
         "type": [
             "number",
+            "string",
             "Array"
         ],
-        "desc": "Specify visual mapping should be performed on which series, from which\n[series.data](https://echarts.apache.org/en/option.html#series.data) is fetched.\n\nAll series are used by default.",
+        "desc": "Specify visual mapping should be performed on which series, from which\n[series.data](https://echarts.apache.org/en/option.html#series.data) is fetched.\n\nOptions:\n- A index number\n- An array of index numbers\n- `'all'`/`null`/`undefined` (default): means all of the series.",
+        "children": []
+    },
+    {
+        "name": "seriesId",
+        "type": [
+            "number",
+            "string",
+            "Array"
+        ],
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nSpecify visual mapping should be performed on which series, from which\n[series.data](https://echarts.apache.org/en/option.html#series.data) is fetched.\n\nCan be a id or a list of ids.\nAll series are used by default.",
         "children": []
     },
     {
@@ -218,7 +229,7 @@
             "number"
         ],
         "default": "0",
-        "desc": "Distance between visualMap  component and the left side of the container.\n\n`left` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
+        "desc": "Distance between visualMap component and the left side of the container.\n\n`left` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
         "children": []
     },
     {
@@ -228,7 +239,7 @@
             "number"
         ],
         "default": "auto",
-        "desc": "Distance between visualMap  component and the top side of the container.\n\n`top` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `top` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
+        "desc": "Distance between visualMap component and the top side of the container.\n\n`top` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `top` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
         "children": []
     },
     {
@@ -238,7 +249,7 @@
             "number"
         ],
         "default": "auto",
-        "desc": "Distance between visualMap  component and the right side of the container.\n\n`right` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.",
+        "desc": "Distance between visualMap component and the right side of the container.\n\n`right` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`.",
         "children": []
     },
     {
@@ -248,7 +259,59 @@
             "number"
         ],
         "default": "0",
-        "desc": "Distance between visualMap  component and the bottom side of the container.\n\n`bottom` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.",
+        "desc": "Distance between visualMap component and the bottom side of the container.\n\n`bottom` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`.",
+        "children": []
+    },
+    {
+        "name": "coordinateSystem",
+        "type": "string",
+        "default": "'none'",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nSpecifies another coordinate system component on which this `visualMap-piecewise` is laid out.\n\nOptions:\n\n\n+ `null`/`undefined`/`'none'`\n\nNot laid out in any coordinate system; instead, laid out independently.\n\n\n\n\n\n\n\n\n\n\n\n\n\n+ `'calendar'`\n\nLay out based on a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar). When multiple calendar coordinate systems exist within an ECharts instance, the corresponding system should be specified using [calendarIndex](https://echarts.apache.org/en/option.html#visualMap-piecewise.calendarIndex) or [calendarId](https://echarts.apache.org/en/option.html#visualMap-piecewise.calendarId).\n\n\n\n+ `'matrix'`\n\nLay out based on a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix). When multiple matrix coordinate systems exist within an ECharts instance, the corresponding system should be specified using [matrixIndex](https://echarts.apache.org/en/option.html#visualMap-piecewise.matrixIndex) or [matrixId](https://echarts.apache.org/en/option.html#visualMap-piecewise.matrixId).\n\n\n\n**Support for series and component layout on coordinate systems:**\n\nThe leftmost column lists the series and components that will be laid out (coordinate systems themselves are also components), and the topmost row lists the coordinate systems that can be laid out on.\n\n|                              | no coord sys | [grid](https://echarts.apache.org/en/option.html#grid) (cartesian2d) | [polar](https://echarts.apache.org/en/option.html#polar) | [geo](https://echarts.apache.org/en/option.html#geo) | [singleAxis](https://echarts.apache.org/en/option.html#singleAxis) | [radar](https://echarts.apache.org/en/option.html#radar) | [parallel](https://echarts.apache.org/en/option.html#parallel) | [calendar](https://echarts.apache.org/en/option.html#calendar) | [matrix](https://echarts.apache.org/en/option.html#matrix) |\n|------------------------------------------------|----------|----------|---------|----------|----------|----------|----------|\n| [grid](https://echarts.apache.org/en/option.html#grid) (cartesian2d)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [polar](https://echarts.apache.org/en/option.html#polar)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [geo](https://echarts.apache.org/en/option.html#geo)                                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [singleAxis](https://echarts.apache.org/en/option.html#singleAxis)                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [calendar](https://echarts.apache.org/en/option.html#calendar)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌        | ❌       |\n| [matrix](https://echarts.apache.org/en/option.html#matrix)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌        | ❌       |\n| [series-line](https://echarts.apache.org/en/option.html#series-line)                   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-bar](https://echarts.apache.org/en/option.html#series-bar)                     | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-pie](https://echarts.apache.org/en/option.html#series-pie)                     | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-scatter](https://echarts.apache.org/en/option.html#series-scatter)             | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-effectScatter](https://echarts.apache.org/en/option.html#series-effectScatter) | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-radar](https://echarts.apache.org/en/option.html#series-radar)                 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ (✅ if via [radar](https://echarts.apache.org/en/option.html#radar) coord sys) | ❌ (✅ if via [radar](https://echarts.apache.org/en/option.html#radar) coord sys) |\n| [series-tree](https://echarts.apache.org/en/option.html#series-tree)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sunburst](https://echarts.apache.org/en/option.html#series-sunburst)           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-boxplot](https://echarts.apache.org/en/option.html#series-boxplot)             | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-candlestick](https://echarts.apache.org/en/option.html#series-candlestick)     | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-heatmap](https://echarts.apache.org/en/option.html#series-heatmap)             | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-map](https://echarts.apache.org/en/option.html#series-map)                     | ✅ (create a geo coord sys exclusively) | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-parallel](https://echarts.apache.org/en/option.html#series-parallel)           | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (✅ if via [parallel](https://echarts.apache.org/en/option.html#parallel) coord sys) | ❌ (✅ if via [parallel](https://echarts.apache.org/en/option.html#parallel) coord sys) |\n| [series-lines](https://echarts.apache.org/en/option.html#series-lines)                 | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ (✅ if via another coord sys like [geo](https://echarts.apache.org/en/option.html#geo)) | ❌ (✅ if via another coord sys like [geo](https://echarts.apache.org/en/option.html#geo)) |\n| [series-graph](https://echarts.apache.org/en/option.html#series-graph)                 | ✅ (create a \"view\" coord sys exclusively) | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sankey](https://echarts.apache.org/en/option.html#series-sankey)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-funnel](https://echarts.apache.org/en/option.html#series-funnel)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-gauge](https://echarts.apache.org/en/option.html#series-gauge)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-pictorialBar](https://echarts.apache.org/en/option.html#series-pictorialBar)   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-themeRiver](https://echarts.apache.org/en/option.html#series-themeRiver)       | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ (✅ if via another coord sys like [singleAxis](https://echarts.apache.org/en/option.html#singleAxis)) | ❌ (✅ if via another coord sys like [singleAxis](https://echarts.apache.org/en/option.html#singleAxis)) |\n| [series-chord](https://echarts.apache.org/en/option.html#series-chord)                 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [title](https://echarts.apache.org/en/option.html#title)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [legend](https://echarts.apache.org/en/option.html#legend)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [visualMap](https://echarts.apache.org/en/option.html#visualMap)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [toolbox](https://echarts.apache.org/en/option.html#toolbox)                           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [timeline](https://echarts.apache.org/en/option.html#timeline)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [thumbnail](https://echarts.apache.org/en/option.html#thumbnail)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n\nSee also [visualMap-piecewise.coordinateSystemUsage](https://echarts.apache.org/en/option.html#visualMap-piecewise.coordinateSystemUsage).",
+        "children": []
+    },
+    {
+        "name": "coordinateSystemUsage",
+        "type": "string",
+        "default": "\\'box\\'",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nSpecify how to lay out this `visualMap-piecewise` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#visualMap-piecewise.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`: **(Not applicable in [visualMap-piecewise](https://echarts.apache.org/en/option.html#visualMap-piecewise))**\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`:\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [visualMap-piecewise.coords](https://echarts.apache.org/en/option.html#visualMap-piecewise.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\n\nSee also [visualMap-piecewise.coordinateSystem](https://echarts.apache.org/en/option.html#visualMap-piecewise.coordinateSystem).",
+        "children": []
+    },
+    {
+        "name": "coord",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#visualMap-piecewise.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#visualMap-piecewise.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
+        "children": []
+    },
+    {
+        "name": "calendarIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe index of the [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar) to base on. When mutiple `calendar` exist within an ECharts instance, use this to specify the corresponding `calendar`.",
+        "children": []
+    },
+    {
+        "name": "calendarId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe id of the [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar) to base on. When mutiple `calendar` exist within an ECharts instance, use this to specify the corresponding `calendar`.",
+        "children": []
+    },
+    {
+        "name": "matrixIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe index of the [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) to base on. When mutiple `matrix` exist within an ECharts instance, use this to specify the corresponding `matrix`.",
+        "children": []
+    },
+    {
+        "name": "matrixId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe id of the [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) to base on. When mutiple `matrix` exist within an ECharts instance, use this to specify the corresponding `matrix`.",
         "children": []
     },
     {
@@ -389,7 +452,7 @@
                 "name": "textBorderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                 "children": [],
                 "min": "0",
                 "step": "1"

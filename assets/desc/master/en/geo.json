@@ -16,20 +16,13 @@
         "name": "map",
         "type": "string",
         "default": "''",
-        "desc": "Map name registered in [registerMap](api.html#echarts.registerMap).\n\n\n**Use geoJSON**\n```ts\n$.get('map/china_geo.json', function (chinaJson) {\necharts.registerMap('china', {geoJSON: geoJson});\nvar chart = echarts.init(document.getElementById('main'));\nchart.setOption({\ngeo: [{\nmap: 'china',\n...\n}]\n});\n});\n```\nSee also [geoJSON hexbin](custom-hexbin).\n\n\nThe demo above shows that ECharts can uses [geoJSON](http://geojson.org/) format as map outline. You can use third-party [geoJSON](http://geojson.org/) data (like [maps](https://github.com/echarts-maps)) and register them into ECharts.\n\n\n**Use SVG**\n```ts\n$.get('map/topographic_map.svg', function (svg) {\necharts.registerMap('topo', {svg: svg});\nvar chart = echarts.init(document.getElementById('main'));\nchart.setOption({\ngeo: [{\nmap: 'topo',\n...\n}]\n});\n});\n```\nSee also [Flight Seatmap](geo-seatmap-flight).\n\n\nThe demo above shows that SVG format can be used in ECharts. See more info in [SVG Base Map](tutorial.html#SVG%20Base%20Map%20in%20Geo%20Coords%20and%20Map%20Series).",
+        "desc": "Map name registered in [registerMap](api.html#echarts.registerMap).\n\n\n**Use geoJSON**\n```ts\n$.get('map/china_geo.json', function (chinaJson) {\necharts.registerMap('china', {geoJSON: geoJson});\nvar chart = echarts.init(document.getElementById('main'));\nchart.setOption({\ngeo: [{\nmap: 'china',\n...\n}]\n});\n});\n```\nSee also [geoJSON hexbin](custom-hexbin).\n\n\nThe demo above shows that ECharts can uses [geoJSON](http://geojson.org/) format as map outline. You can use third-party [geoJSON](http://geojson.org/) data (like [maps](https://github.com/echarts-maps)) and register them into ECharts.\n\n\n**Use SVG**\n```ts\n$.get('map/topographic_map.svg', function (svg) {\necharts.registerMap('topo', {svg: svg});\nvar chart = echarts.init(document.getElementById('main'));\nchart.setOption({\ngeo: [{\nmap: 'topo',\n...\n}]\n});\n});\n```\nSee also [Flight Seatmap](geo-seatmap-flight).\n\n\nThe demo above shows that SVG format can be used in ECharts. See more info in [SVG Base Map](how-to/component-types/geo/svg-base-map).",
         "children": []
-    },
-    {
-        "name": "roam",
-        "type": "enum",
-        "desc": "Whether to enable mouse zooming and translating. `false` by default. If either zooming or translating is wanted, it can be set to `'scale'` or `'move'`. Otherwise, set it to be `true` to enable both.",
-        "children": [],
-        "options": "true,false,'scale','move'"
     },
     {
         "name": "projection",
         "type": "Object",
-        "desc": "> Since `v5.3.0`\n\n\n\nFor custom map projection, at least two methods `project`, `unproject` should be provided to calculate the coordinates after projection and before projection respectively.\n\nFor example, for the Mercator projection.\n\n```ts\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => [point[0] / 180 * Math.PI, -Math.log(Math.tan((Math.PI / 2 + point[1] / 180 * Math.PI) / 2))],\nunproject: (point) => [point[0] * 180 / Math.PI, 2 * 180 / Math.PI * Math.atan(Math.exp(point[1])) - 90]\n}\n}\n```\n\nIn addition to our own implementation of the projection formula, we can also use exists projection implementations provided by third-party libraries such as [d3-geo](https://github.com/d3/d3-geo).\n\n```ts\nconst projection = d3.geoConicEqualArea();\n// ...\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => projection(point),\nunproject: (point) => projection.invert(point)\n}\n}\n\n```\n\nNote: Custom projections are only useful when using `GeoJSON` as a data source.",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nFor custom map projection, at least two methods `project`, `unproject` should be provided to calculate the coordinates after projection and before projection respectively.\n\nFor example, for the Mercator projection.\n\n```ts\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => [point[0] / 180 * Math.PI, -Math.log(Math.tan((Math.PI / 2 + point[1] / 180 * Math.PI) / 2))],\nunproject: (point) => [point[0] * 180 / Math.PI, 2 * 180 / Math.PI * Math.atan(Math.exp(point[1])) - 90]\n}\n}\n```\n\nIn addition to our own implementation of the projection formula, we can also use exists projection implementations provided by third-party libraries such as [d3-geo](https://github.com/d3/d3-geo).\n\n```ts\nconst projection = d3.geoConicEqualArea();\n// ...\nseries: {\ntype: 'map',\nprojection: {\nproject: (point) => projection(point),\nunproject: (point) => projection.invert(point)\n}\n}\n\n```\n\nNote: Custom projections are only useful when using `GeoJSON` as a data source.",
         "children": [
             {
                 "name": "project",
@@ -52,16 +45,10 @@
         ]
     },
     {
-        "name": "center",
-        "type": "Array",
-        "desc": "Center of current view-port, in longitude and latitude by default. Use the projected coordinates if `projection` is set.\n\nExample:\n\n```ts\ncenter: [115.97, 29.71]\n```\n\n```ts\nprojection: {\nprojection: (pt) => project(pt)\n},\ncenter: project([115.97, 29.71])\n```",
-        "children": []
-    },
-    {
         "name": "aspectScale",
         "type": "number",
         "default": "0.75",
-        "desc": "Used to scale aspect of geo. Will be ignored if `projection` is set.\n\nThe final aspect is calculated by: `geoBoundingRect.width / geoBoundingRect.height * aspectScale`.",
+        "desc": "Used to scale aspect of geo. It will be ignored if [projection](https://echarts.apache.org/en/option.html#geo.projection) is set.\n\nThe final calculated `pixelWidth` and `pixelHeight` of the map will satisfy `pixelWidth / pixelHeight = lngSpan / latSpan * aspectScale` (assume [projection](https://echarts.apache.org/en/option.html#geo.projection) is not specified, and [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect) is truthy).\n\nIf no [projection](https://echarts.apache.org/en/option.html#geo.projection) is applied, the latitudes and longitudes in GeoJSON are linearly mapped to pixel coordinates diarectly. `aspectScale` offers a simple way to visually compensates for the distortion caused by the fact that the longitudinal spacing shrinks as latitude increases. For example, an `aspectScale` can be roughly calculated as `aspectScale = Math.cos(center_latitude * Maht.PI / 180)`, which is similar to a sinusoidal projection.\n\nSee [example](geo-graph&edit=1&reset=1).",
         "children": []
     },
     {
@@ -70,32 +57,6 @@
         "default": "null",
         "desc": "Two dimension array. Define coord of left-top, right-bottom in layout box.\n\n```ts\n// A complete world map\nmap: 'world',\nleft: 0, top: 0, right: 0, bottom: 0,\nboundingCoords: [\n// [lng, lat] of left-top corner\n[-180, 90],\n// [lng, lat] of right-bottom corner\n[180, -90]\n],\n```",
         "children": []
-    },
-    {
-        "name": "zoom",
-        "type": "number",
-        "default": "1",
-        "desc": "Zoom rate of current view-port.",
-        "children": []
-    },
-    {
-        "name": "scaleLimit",
-        "type": "Object",
-        "desc": "Limit of scaling, with `min` and `max`.",
-        "children": [
-            {
-                "name": "min",
-                "type": "number",
-                "desc": "Minimum scaling",
-                "children": []
-            },
-            {
-                "name": "max",
-                "type": "number",
-                "desc": "Maximum scaling",
-                "children": []
-            }
-        ]
     },
     {
         "name": "nameMap",
@@ -107,7 +68,7 @@
         "name": "nameProperty",
         "type": "string",
         "default": "'name'",
-        "desc": "> Since `v4.8.0`\n\n\n\ncustomized property key for GeoJSON feature. By default, 'name' is used as primary key to identify GeoJSON feature.\nFor example:\n```ts\n{\nnameProperty: 'NAME', // key to connect following data point to GeoJSON region {\"type\":\"Feature\",\"id\":\"01\",\"properties\":{\"NAME\":\"Alabama\"}, \"geometry\": { ... }}\ndata:[\n{name: 'Alabama', value: 4822023},\n{name: 'Alaska', value: 731449},\n]\n}\n```",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v4.8.0`\n\n</div>\n\n\n\ncustomized property key for GeoJSON feature. By default, 'name' is used as primary key to identify GeoJSON feature.\nFor example:\n```ts\n{\nnameProperty: 'NAME', // key to connect following data point to GeoJSON region {\"type\":\"Feature\",\"id\":\"01\",\"properties\":{\"NAME\":\"Alabama\"}, \"geometry\": { ... }}\ndata:[\n{name: 'Alabama', value: 4822023},\n{name: 'Alaska', value: 731449},\n]\n}\n```",
         "children": []
     },
     {
@@ -269,7 +230,7 @@
                 "name": "borderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -367,7 +328,7 @@
                 "name": "textBorderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -542,7 +503,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -640,7 +601,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -729,7 +690,7 @@
                 "name": "borderDashOffset",
                 "type": "number",
                 "default": "0",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -737,14 +698,14 @@
             {
                 "name": "borderCap",
                 "type": "enum",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                 "children": [],
                 "options": "'butt','round','square'"
             },
             {
                 "name": "borderJoin",
                 "type": "enum",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                 "children": [],
                 "options": "'bevel','round','miter'"
             },
@@ -752,7 +713,7 @@
                 "name": "borderMiterLimit",
                 "type": "number",
                 "default": "10",
-                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                 "children": [],
                 "min": "0",
                 "step": "1"
@@ -810,14 +771,14 @@
                 "name": "disabled",
                 "type": "boolean",
                 "default": "false",
-                "desc": "> Since `v5.3.0`\n\n\n\nWhether to disable the emphasis state.\n\nWhen emphasis state is disabled. There will be no highlight effect when the mouse hovered the element, tooltip is triggered, or the legend is hovered. It can be used to improve interaction fluency when there are massive graphic elements.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nWhether to disable the emphasis state.\n\nWhen emphasis state is disabled. There will be no highlight effect when the mouse hovered the element, tooltip is triggered, or the legend is hovered. It can be used to improve interaction fluency when there are massive graphic elements.",
                 "children": []
             },
             {
                 "name": "focus",
                 "type": "string",
                 "default": "'none'",
-                "desc": "> Since `v5.1.0`\n\n\n\n\nWhen the data is highlighted, whether to fade out of other data to focus the highlighted. The following configurations are supported:\n\n+ `'none'` Do not fade out other data, it's by default.\n+ `'self'` Only focus (not fade out) the element of the currently highlighted data.\n\n\n\n\n\n\n\n**Example: **\n\n\n```ts\nemphasis: {\nfocus: 'self'\n}\n```\n\n~[600x400](geo-organ&reset=1&edit=1)",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.1.0`\n\n</div>\n\n\n\n\nWhen the data is highlighted, whether to fade out of other data to focus the highlighted. The following configurations are supported:\n\n+ `'none'` Do not fade out other data, it's by default.\n+ `'self'` Only focus (not fade out) the element of the currently highlighted data.\n\n\n\n\n\n\n\n**Example: **\n\n\n```ts\nemphasis: {\nfocus: 'self'\n}\n```\n\n~[600x400](geo-organ&reset=1&edit=1)",
                 "children": []
             },
             {
@@ -969,7 +930,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1067,7 +1028,7 @@
                         "name": "textBorderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1242,7 +1203,7 @@
                                         "name": "borderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -1340,7 +1301,7 @@
                                         "name": "textBorderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -1429,7 +1390,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1437,14 +1398,14 @@
                     {
                         "name": "borderCap",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "borderJoin",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -1452,7 +1413,7 @@
                         "name": "borderMiterLimit",
                         "type": "number",
                         "default": "10",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1512,7 +1473,7 @@
                 "name": "disabled",
                 "type": "boolean",
                 "default": "false",
-                "desc": "> Since `v5.3.0`\n\n\n\nIf data can be selected. Available when `selectedMode` is used. Can be used to disable selection for part of the data.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nIf data can be selected. Available when `selectedMode` is used. Can be used to disable selection for part of the data.",
                 "children": []
             },
             {
@@ -1664,7 +1625,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1762,7 +1723,7 @@
                         "name": "textBorderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -1937,7 +1898,7 @@
                                         "name": "borderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -2035,7 +1996,7 @@
                                         "name": "textBorderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -2124,7 +2085,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2132,14 +2093,14 @@
                     {
                         "name": "borderCap",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "borderJoin",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -2147,7 +2108,7 @@
                         "name": "borderMiterLimit",
                         "type": "number",
                         "default": "10",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2201,7 +2162,7 @@
     {
         "name": "blur",
         "type": "Object",
-        "desc": "> Since `v5.1.0`\n\n\n\nMap area style in blurred state.",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.1.0`\n\n</div>\n\n\n\nMap area style in blurred state.",
         "children": [
             {
                 "name": "label",
@@ -2352,7 +2313,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2450,7 +2411,7 @@
                         "name": "textBorderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2625,7 +2586,7 @@
                                         "name": "borderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -2723,7 +2684,7 @@
                                         "name": "textBorderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -2812,7 +2773,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2820,14 +2781,14 @@
                     {
                         "name": "borderCap",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "borderJoin",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -2835,7 +2796,7 @@
                         "name": "borderMiterLimit",
                         "type": "number",
                         "default": "10",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -2907,7 +2868,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between  component and the left side of the container.\n\n`left` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
+        "desc": "Distance between geo component and the left side of the container.\n\n`left` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.\n\n\n\n\n> Note: If the graphic elements are unexpectedly distorted, see [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect).\n\n\n\n\n\n\n\n\n\n> Note: There are two rectangular layout approaches for geo. You can use either one:\n> - [geo.left](https://echarts.apache.org/en/option.html#geo.left) / [.right](https://echarts.apache.org/en/option.html#geo.right) / [.top](https://echarts.apache.org/en/option.html#geo.top) / [.bottom](https://echarts.apache.org/en/option.html#geo.bottom) / [.width](https://echarts.apache.org/en/option.html#geo.width) / [.height](https://echarts.apache.org/en/option.html#geo.height)\n> - [geo.layoutCenter](https://echarts.apache.org/en/option.html#geo.layoutCenter) / [.layoutSize](https://echarts.apache.org/en/option.html#geo.layoutSize)",
         "children": []
     },
     {
@@ -2917,7 +2878,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between  component and the top side of the container.\n\n`top` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `top` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
+        "desc": "Distance between geo component and the top side of the container.\n\n`top` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `top` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.\n\n\n\n\n> Note: If the graphic elements are unexpectedly distorted, see [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect).\n\n\n\n\n\n\n\n\n\n> Note: There are two rectangular layout approaches for geo. You can use either one:\n> - [geo.left](https://echarts.apache.org/en/option.html#geo.left) / [.right](https://echarts.apache.org/en/option.html#geo.right) / [.top](https://echarts.apache.org/en/option.html#geo.top) / [.bottom](https://echarts.apache.org/en/option.html#geo.bottom) / [.width](https://echarts.apache.org/en/option.html#geo.width) / [.height](https://echarts.apache.org/en/option.html#geo.height)\n> - [geo.layoutCenter](https://echarts.apache.org/en/option.html#geo.layoutCenter) / [.layoutSize](https://echarts.apache.org/en/option.html#geo.layoutSize)",
         "children": []
     },
     {
@@ -2927,7 +2888,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between  component and the right side of the container.\n\n`right` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "desc": "Distance between geo component and the right side of the container.\n\n`right` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`.\n\nAdaptive by default.\n\n\n\n\n> Note: If the graphic elements are unexpectedly distorted, see [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect).\n\n\n\n\n\n\n\n\n\n> Note: There are two rectangular layout approaches for geo. You can use either one:\n> - [geo.left](https://echarts.apache.org/en/option.html#geo.left) / [.right](https://echarts.apache.org/en/option.html#geo.right) / [.top](https://echarts.apache.org/en/option.html#geo.top) / [.bottom](https://echarts.apache.org/en/option.html#geo.bottom) / [.width](https://echarts.apache.org/en/option.html#geo.width) / [.height](https://echarts.apache.org/en/option.html#geo.height)\n> - [geo.layoutCenter](https://echarts.apache.org/en/option.html#geo.layoutCenter) / [.layoutSize](https://echarts.apache.org/en/option.html#geo.layoutSize)",
         "children": []
     },
     {
@@ -2937,14 +2898,34 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between  component and the bottom side of the container.\n\n`bottom` can be a pixel value like `20`; it can also be a percentage value relative to container width like `'20%'`.\n\nAdaptive by default.",
+        "desc": "Distance between geo component and the bottom side of the container.\n\n`bottom` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`.\n\nAdaptive by default.\n\n\n\n\n> Note: If the graphic elements are unexpectedly distorted, see [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect).\n\n\n\n\n\n\n\n\n\n> Note: There are two rectangular layout approaches for geo. You can use either one:\n> - [geo.left](https://echarts.apache.org/en/option.html#geo.left) / [.right](https://echarts.apache.org/en/option.html#geo.right) / [.top](https://echarts.apache.org/en/option.html#geo.top) / [.bottom](https://echarts.apache.org/en/option.html#geo.bottom) / [.width](https://echarts.apache.org/en/option.html#geo.width) / [.height](https://echarts.apache.org/en/option.html#geo.height)\n> - [geo.layoutCenter](https://echarts.apache.org/en/option.html#geo.layoutCenter) / [.layoutSize](https://echarts.apache.org/en/option.html#geo.layoutSize)",
+        "children": []
+    },
+    {
+        "name": "width",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Width of geo component. Adaptive by default.\n\n`width` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`.\n\n\n\n\n> Note: If the graphic elements are unexpectedly distorted, see [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect).",
+        "children": []
+    },
+    {
+        "name": "height",
+        "type": [
+            "string",
+            "number"
+        ],
+        "default": "'auto'",
+        "desc": "Height of geo component. Adaptive by default.\n\n`height` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`.\n\n\n\n\n> Note: If the graphic elements are unexpectedly distorted, see [preserveAspect](https://echarts.apache.org/en/option.html#geo.preserveAspect).",
         "children": []
     },
     {
         "name": "layoutCenter",
         "type": "Array",
         "default": "null",
-        "desc": "`layoutCenter` and `layoutSize` provides layout strategy other than `left/right/top/bottom/width/height`.\n\nWhen using `left/right/top/bottom/width/height`, it is hard to put the map inside a box area with a fixed width-height ratio. In this case, `layoutCenter` attribute can be used to define the center position of map, and `layoutSize` can be used to define the size of map. For example:\n\n```ts\nlayoutCenter: ['30%', '30%'],\n// If width-height ratio is larger than 1, then width is set to be 100.\n// Otherwise, height is set to be 100.\n// This makes sure that it will not exceed the area of 100x100\nlayoutSize: 100\n```\n\nAfter setting these two values, `left/right/top/bottom/width/height` becomes invalid.",
+        "desc": "`layoutCenter` and `layoutSize` can specify the rectangular area allocated to geo component, where `layoutCenter` defines the center position of the area, and `layoutSize` defines the size of the area. For example:\n\n```ts\nlayoutCenter: ['30%', '30%'],\n// If width-height ratio is larger than 1, then width is set to be 100.\n// Otherwise, height is set to be 100.\n// This makes sure that it will not exceed the area of 100x100\nlayoutSize: 100\n```\n\nAfter setting these two values, `left/right/top/bottom/width/height` becomes invalid.\n\n\n\n\n> Note: There are two rectangular layout approaches for geo. You can use either one:\n> - [geo.left](https://echarts.apache.org/en/option.html#geo.left) / [.right](https://echarts.apache.org/en/option.html#geo.right) / [.top](https://echarts.apache.org/en/option.html#geo.top) / [.bottom](https://echarts.apache.org/en/option.html#geo.bottom) / [.width](https://echarts.apache.org/en/option.html#geo.width) / [.height](https://echarts.apache.org/en/option.html#geo.height)\n> - [geo.layoutCenter](https://echarts.apache.org/en/option.html#geo.layoutCenter) / [.layoutSize](https://echarts.apache.org/en/option.html#geo.layoutSize)",
         "children": []
     },
     {
@@ -2953,7 +2934,66 @@
             "number",
             "string"
         ],
-        "desc": "Size of map, see `layoutCenter` for more information. Percentage relative to screen width, and absolute pixel values are supported.",
+        "desc": "Size of map, see [layoutCenter](geo.layoutCenter) for more information. Percentage relative to container width/height, and absolute pixel values are supported.\n\n\n\n\n> Note: There are two rectangular layout approaches for geo. You can use either one:\n> - [geo.left](https://echarts.apache.org/en/option.html#geo.left) / [.right](https://echarts.apache.org/en/option.html#geo.right) / [.top](https://echarts.apache.org/en/option.html#geo.top) / [.bottom](https://echarts.apache.org/en/option.html#geo.bottom) / [.width](https://echarts.apache.org/en/option.html#geo.width) / [.height](https://echarts.apache.org/en/option.html#geo.height)\n> - [geo.layoutCenter](https://echarts.apache.org/en/option.html#geo.layoutCenter) / [.layoutSize](https://echarts.apache.org/en/option.html#geo.layoutSize)",
+        "children": []
+    },
+    {
+        "name": "clip",
+        "type": "boolean",
+        "default": "false",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\n\n`clip` specifies whether to hide the outside part of the map with respect to the allocated rect.\n\n**See example:** [geo roam indicator](doc-example/geo-roam-indicator&edit=1&reset=1).",
+        "children": []
+    },
+    {
+        "name": "coordinateSystem",
+        "type": "string",
+        "default": "'none'",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nSpecifies another coordinate system component on which this `geo` is laid out.\n\nOptions:\n\n\n+ `null`/`undefined`/`'none'`\n\nNot laid out in any coordinate system; instead, laid out independently.\n\n\n\n\n\n\n\n\n\n\n\n\n\n+ `'calendar'`\n\nLay out based on a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar). When multiple calendar coordinate systems exist within an ECharts instance, the corresponding system should be specified using [calendarIndex](https://echarts.apache.org/en/option.html#geo.calendarIndex) or [calendarId](https://echarts.apache.org/en/option.html#geo.calendarId).\n\n\n\n+ `'matrix'`\n\nLay out based on a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix). When multiple matrix coordinate systems exist within an ECharts instance, the corresponding system should be specified using [matrixIndex](https://echarts.apache.org/en/option.html#geo.matrixIndex) or [matrixId](https://echarts.apache.org/en/option.html#geo.matrixId).\n\n\n\n**Support for series and component layout on coordinate systems:**\n\nThe leftmost column lists the series and components that will be laid out (coordinate systems themselves are also components), and the topmost row lists the coordinate systems that can be laid out on.\n\n|                              | no coord sys | [grid](https://echarts.apache.org/en/option.html#grid) (cartesian2d) | [polar](https://echarts.apache.org/en/option.html#polar) | [geo](https://echarts.apache.org/en/option.html#geo) | [singleAxis](https://echarts.apache.org/en/option.html#singleAxis) | [radar](https://echarts.apache.org/en/option.html#radar) | [parallel](https://echarts.apache.org/en/option.html#parallel) | [calendar](https://echarts.apache.org/en/option.html#calendar) | [matrix](https://echarts.apache.org/en/option.html#matrix) |\n|------------------------------------------------|----------|----------|---------|----------|----------|----------|----------|\n| [grid](https://echarts.apache.org/en/option.html#grid) (cartesian2d)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [polar](https://echarts.apache.org/en/option.html#polar)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [geo](https://echarts.apache.org/en/option.html#geo)                                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [singleAxis](https://echarts.apache.org/en/option.html#singleAxis)                     | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [calendar](https://echarts.apache.org/en/option.html#calendar)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌        | ❌       |\n| [matrix](https://echarts.apache.org/en/option.html#matrix)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌        | ❌       |\n| [series-line](https://echarts.apache.org/en/option.html#series-line)                   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-bar](https://echarts.apache.org/en/option.html#series-bar)                     | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-pie](https://echarts.apache.org/en/option.html#series-pie)                     | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-scatter](https://echarts.apache.org/en/option.html#series-scatter)             | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-effectScatter](https://echarts.apache.org/en/option.html#series-effectScatter) | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [series-radar](https://echarts.apache.org/en/option.html#series-radar)                 | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ (✅ if via [radar](https://echarts.apache.org/en/option.html#radar) coord sys) | ❌ (✅ if via [radar](https://echarts.apache.org/en/option.html#radar) coord sys) |\n| [series-tree](https://echarts.apache.org/en/option.html#series-tree)                   | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-treemap](https://echarts.apache.org/en/option.html#series-treemap)             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sunburst](https://echarts.apache.org/en/option.html#series-sunburst)           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-boxplot](https://echarts.apache.org/en/option.html#series-boxplot)             | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-candlestick](https://echarts.apache.org/en/option.html#series-candlestick)     | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-heatmap](https://echarts.apache.org/en/option.html#series-heatmap)             | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-map](https://echarts.apache.org/en/option.html#series-map)                     | ✅ (create a geo coord sys exclusively) | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-parallel](https://echarts.apache.org/en/option.html#series-parallel)           | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ (✅ if via [parallel](https://echarts.apache.org/en/option.html#parallel) coord sys) | ❌ (✅ if via [parallel](https://echarts.apache.org/en/option.html#parallel) coord sys) |\n| [series-lines](https://echarts.apache.org/en/option.html#series-lines)                 | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ (✅ if via another coord sys like [geo](https://echarts.apache.org/en/option.html#geo)) | ❌ (✅ if via another coord sys like [geo](https://echarts.apache.org/en/option.html#geo)) |\n| [series-graph](https://echarts.apache.org/en/option.html#series-graph)                 | ✅ (create a \"view\" coord sys exclusively) | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-sankey](https://echarts.apache.org/en/option.html#series-sankey)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-funnel](https://echarts.apache.org/en/option.html#series-funnel)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-gauge](https://echarts.apache.org/en/option.html#series-gauge)                 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [series-pictorialBar](https://echarts.apache.org/en/option.html#series-pictorialBar)   | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) | ❌ (✅ if via another coord sys like [grid](https://echarts.apache.org/en/option.html#grid)) |\n| [series-themeRiver](https://echarts.apache.org/en/option.html#series-themeRiver)       | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ (✅ if via another coord sys like [singleAxis](https://echarts.apache.org/en/option.html#singleAxis)) | ❌ (✅ if via another coord sys like [singleAxis](https://echarts.apache.org/en/option.html#singleAxis)) |\n| [series-chord](https://echarts.apache.org/en/option.html#series-chord)                 | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ✅        | ✅       |\n| [title](https://echarts.apache.org/en/option.html#title)                               | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [legend](https://echarts.apache.org/en/option.html#legend)                             | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [dataZoom](https://echarts.apache.org/en/option.html#dataZoom)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [visualMap](https://echarts.apache.org/en/option.html#visualMap)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [toolbox](https://echarts.apache.org/en/option.html#toolbox)                           | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [timeline](https://echarts.apache.org/en/option.html#timeline)                         | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n| [thumbnail](https://echarts.apache.org/en/option.html#thumbnail)                       | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅        | ✅       |\n\nSee also [geo.coordinateSystemUsage](https://echarts.apache.org/en/option.html#geo.coordinateSystemUsage).",
+        "children": []
+    },
+    {
+        "name": "coordinateSystemUsage",
+        "type": "string",
+        "default": "\\'box\\'",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nSpecify how to lay out this `geo` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#geo.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`: **(Not applicable in [geo](https://echarts.apache.org/en/option.html#geo))**\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`:\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [geo.coords](https://echarts.apache.org/en/option.html#geo.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\n\nSee also [geo.coordinateSystem](https://echarts.apache.org/en/option.html#geo.coordinateSystem).",
+        "children": []
+    },
+    {
+        "name": "coord",
+        "type": [
+            "Array",
+            "number",
+            "string"
+        ],
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#geo.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#geo.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
+        "children": []
+    },
+    {
+        "name": "calendarIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe index of the [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar) to base on. When mutiple `calendar` exist within an ECharts instance, use this to specify the corresponding `calendar`.",
+        "children": []
+    },
+    {
+        "name": "calendarId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe id of the [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar) to base on. When mutiple `calendar` exist within an ECharts instance, use this to specify the corresponding `calendar`.",
+        "children": []
+    },
+    {
+        "name": "matrixIndex",
+        "type": "number",
+        "default": "0",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe index of the [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) to base on. When mutiple `matrix` exist within an ECharts instance, use this to specify the corresponding `matrix`.",
+        "children": []
+    },
+    {
+        "name": "matrixId",
+        "type": "number",
+        "default": "undefined",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\n\nThe id of the [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) to base on. When mutiple `matrix` exist within an ECharts instance, use this to specify the corresponding `matrix`.",
         "children": []
     },
     {
@@ -3019,7 +3059,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -3027,14 +3067,14 @@
                     {
                         "name": "borderCap",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                         "children": [],
                         "options": "'butt','round','square'"
                     },
                     {
                         "name": "borderJoin",
                         "type": "enum",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                         "children": [],
                         "options": "'bevel','round','miter'"
                     },
@@ -3042,7 +3082,7 @@
                         "name": "borderMiterLimit",
                         "type": "number",
                         "default": "10",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -3240,7 +3280,7 @@
                         "name": "borderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -3338,7 +3378,7 @@
                         "name": "textBorderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -3513,7 +3553,7 @@
                                         "name": "borderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -3611,7 +3651,7 @@
                                         "name": "textBorderDashOffset",
                                         "type": "number",
                                         "default": "0",
-                                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                         "children": [],
                                         "min": "0",
                                         "step": "1"
@@ -3704,7 +3744,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -3712,14 +3752,14 @@
                             {
                                 "name": "borderCap",
                                 "type": "enum",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                                 "children": [],
                                 "options": "'butt','round','square'"
                             },
                             {
                                 "name": "borderJoin",
                                 "type": "enum",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                                 "children": [],
                                 "options": "'bevel','round','miter'"
                             },
@@ -3727,7 +3767,7 @@
                                 "name": "borderMiterLimit",
                                 "type": "number",
                                 "default": "10",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -3925,7 +3965,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -4023,7 +4063,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -4198,7 +4238,7 @@
                                                 "name": "borderDashOffset",
                                                 "type": "number",
                                                 "default": "0",
-                                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "1"
@@ -4296,7 +4336,7 @@
                                                 "name": "textBorderDashOffset",
                                                 "type": "number",
                                                 "default": "0",
-                                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "1"
@@ -4391,7 +4431,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -4399,14 +4439,14 @@
                             {
                                 "name": "borderCap",
                                 "type": "enum",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                                 "children": [],
                                 "options": "'butt','round','square'"
                             },
                             {
                                 "name": "borderJoin",
                                 "type": "enum",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                                 "children": [],
                                 "options": "'bevel','round','miter'"
                             },
@@ -4414,7 +4454,7 @@
                                 "name": "borderMiterLimit",
                                 "type": "number",
                                 "default": "10",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -4612,7 +4652,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -4710,7 +4750,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -4885,7 +4925,7 @@
                                                 "name": "borderDashOffset",
                                                 "type": "number",
                                                 "default": "0",
-                                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "1"
@@ -4983,7 +5023,7 @@
                                                 "name": "textBorderDashOffset",
                                                 "type": "number",
                                                 "default": "0",
-                                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "1"
@@ -5031,7 +5071,7 @@
             {
                 "name": "blur",
                 "type": "Object",
-                "desc": "> Since `v5.1.0`\n\n\n\nStyle of blurred region.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.1.0`\n\n</div>\n\n\n\nStyle of blurred region.",
                 "children": [
                     {
                         "name": "itemStyle",
@@ -5078,7 +5118,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -5086,14 +5126,14 @@
                             {
                                 "name": "borderCap",
                                 "type": "enum",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo specify how to draw the end points of the line.\nPossible values are:\n+ `'butt'`: The ends of lines are squared off at the endpoints.\n+ `'round'`: The ends of lines are rounded.\n+ `'square'`: The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.\n\nDefault value is `'butt'`. Refer to MDN [lineCap](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap) for more details.",
                                 "children": [],
                                 "options": "'butt','round','square'"
                             },
                             {
                                 "name": "borderJoin",
                                 "type": "enum",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo determine the shape used to join two line segments where they meet.\n\nPossible values are:\n+ `'bevel'`: Fills an additional triangular area between the common endpoint of connected segments, and the separate outside rectangular corners of each segment.\n+ `'round'`: Rounds off the corners of a shape by filling an additional sector of disc centered at the common endpoint of connected segments. The radius for these rounded corners is equal to the line width.\n+ `'miter'`: Connected segments are joined by extending their outside edges to connect at a single point, with the effect of filling an additional lozenge-shaped area. This setting is affected by the\n`borderMiterLimit`\nproperty.\n\nDefault value is `'bevel'`. Refer to MDN [lineJoin](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin) for more details.",
                                 "children": [],
                                 "options": "'bevel','round','miter'"
                             },
@@ -5101,7 +5141,7 @@
                                 "name": "borderMiterLimit",
                                 "type": "number",
                                 "default": "10",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the miter limit ratio. Only works when\n`borderJoin`\nis set as `miter`.\n\nDefault value is `10`. Negative、`0`、`Infinity` and `NaN` values are ignored.\n\nRefer to MDN [miterLimit](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/miterLimit) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -5299,7 +5339,7 @@
                                 "name": "borderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -5397,7 +5437,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -5572,7 +5612,7 @@
                                                 "name": "borderDashOffset",
                                                 "type": "number",
                                                 "default": "0",
-                                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "1"
@@ -5670,7 +5710,7 @@
                                                 "name": "textBorderDashOffset",
                                                 "type": "number",
                                                 "default": "0",
-                                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                                 "children": [],
                                                 "min": "0",
                                                 "step": "1"
@@ -5718,7 +5758,7 @@
             {
                 "name": "tooltip",
                 "type": "Object",
-                "desc": "> Since `v5.1.0`\n\n\n\n\ntooltip settings in this region.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.1.0`\n\n</div>\n\n\n\n\ntooltip settings in this region.",
                 "children": [
                     {
                         "name": "show",
@@ -5742,13 +5782,13 @@
                             "string",
                             "Function"
                         ],
-                        "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be referred as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\nWhen [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                        "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be referred as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string | HTMLElement | HTMLElement[])) => string | HTMLElement | HTMLElement[]\n```\n\n> **警告**:\n\n**HTML-escaping must be enforced** before passing the HTML to ECharts. For example,\n```js\n{\ntooltip: {\nformatter: params => {\nconst { name, value } = params;\n// HTML-escaping must be performed.\n// Otherwise, the rendering may be incorrect if `name` or\n// `value` contain special charactors like '<', '>', etc.\n// Additionally, unescaped strings may introduces XSS risks\n// if `name` or `value` come from untrusted sources, where\n// malicious code may be injected into that strings.\nreturn echarts.format.encodeHTML(name)\n+ '<b>' + echarts.format.encodeHTML(value) + '</b>';\n// NOTE: `echarts.format.encodeHTML` is an utility that converts special\n//  characters ('&', '<', '>', '\"', \"'\") to their corresponding HTML entities.\n//  This is just an example -- any HTML-escaping utility can be used.\n}\n}\n}\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\nWhen [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
                         "children": []
                     },
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                         "children": []
                     },
                     {
@@ -5875,7 +5915,7 @@
                                 "name": "textBorderDashOffset",
                                 "type": "number",
                                 "default": "0",
-                                "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
@@ -5951,7 +5991,7 @@
                     {
                         "name": "extraCssText",
                         "type": "text",
-                        "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                        "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```\n\n> **警告**:",
                         "children": []
                     }
                 ]
@@ -5960,7 +6000,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "> Since `v5.6.0`\n\n\n\n\nWhether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.6.0`\n\n</div>\n\n\n\n\nWhether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
                 "children": []
             }
         ]
@@ -5975,7 +6015,7 @@
     {
         "name": "tooltip",
         "type": "Object",
-        "desc": "> Since `v5.1.0`\n\n\n\n\ntooltip settings in the coordinate system component.\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](https://echarts.apache.org/en/option.html#tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](https://echarts.apache.org/en/option.html#grid.tooltip), [polar.tooltip](https://echarts.apache.org/en/option.html#polar.tooltip), [single.tooltip](https://echarts.apache.org/en/option.html#single.tooltip)\n\n+ Configured in a series: [series.tooltip](https://echarts.apache.org/en/option.html#series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](https://echarts.apache.org/en/option.html#series.data.tooltip)",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.1.0`\n\n</div>\n\n\n\n\ntooltip settings in the coordinate system component.\n\n\n\n**General Introduction:**\n\ntooltip can be configured on different places:\n\n+ Configured on global: [tooltip](https://echarts.apache.org/en/option.html#tooltip)\n\n+ Configured in a coordinate system: [grid.tooltip](https://echarts.apache.org/en/option.html#grid.tooltip), [polar.tooltip](https://echarts.apache.org/en/option.html#polar.tooltip), [single.tooltip](https://echarts.apache.org/en/option.html#single.tooltip)\n\n+ Configured in a series: [series.tooltip](https://echarts.apache.org/en/option.html#series.tooltip)\n\n+ Configured in each item of `series.data`: [series.data.tooltip](https://echarts.apache.org/en/option.html#series.data.tooltip)",
         "children": [
             {
                 "name": "show",
@@ -5999,13 +6039,13 @@
                     "string",
                     "Function"
                 ],
-                "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be referred as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string)) => string | HTMLElement | HTMLElement[]\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\nWhen [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
+                "desc": "The content formatter of tooltip's floating layer which supports string template and callback function.\n\n**1. String template**\n\nThe template variables are `{a}`, `{b}`, `{c}`, `{d}` and `{e}`, which stands for series name, data name and data value and ect. When [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is set to be `'axis'`, there may be data from multiple series. In this time, series index can be referred as `{a0}`, `{a1}`, or `{a2}`.\n\n`{a}`, `{b}`, `{c}`, `{d}` have different meanings for different series types:\n\n+ Line (area) charts, bar (column) charts, K charts: `{a}` for series name, `{b}` for category name, `{c}` for data value, `{d}` for none;\n\n+ Scatter (bubble) charts: `{a}` for series name, `{b}` for data name, `{c}` for data value, `{d}` for none;\n\n+ Map: `{a}` for series name, `{b}` for area name, `{c}` for merging data, `{d}` for none;\n\n+ Pie charts, gauge charts, funnel charts: `{a}` for series name, `{b}` for data item name, `{c}` for data value, `{d}` for percentage.\n\n**Example: **\n```ts\nformatter: '{b0}: {c0}<br />{b1}: {c1}'\n```\n\n\n**2. Callback function**\n\nThe format of callback function:\n\n```ts\n(params: Object|Array, ticket: string, callback: (ticket: string, html: string | HTMLElement | HTMLElement[])) => string | HTMLElement | HTMLElement[]\n```\n\n> **警告**:\n\n**HTML-escaping must be enforced** before passing the HTML to ECharts. For example,\n```js\n{\ntooltip: {\nformatter: params => {\nconst { name, value } = params;\n// HTML-escaping must be performed.\n// Otherwise, the rendering may be incorrect if `name` or\n// `value` contain special charactors like '<', '>', etc.\n// Additionally, unescaped strings may introduces XSS risks\n// if `name` or `value` come from untrusted sources, where\n// malicious code may be injected into that strings.\nreturn echarts.format.encodeHTML(name)\n+ '<b>' + echarts.format.encodeHTML(value) + '</b>';\n// NOTE: `echarts.format.encodeHTML` is an utility that converts special\n//  characters ('&', '<', '>', '\"', \"'\") to their corresponding HTML entities.\n//  This is just an example -- any HTML-escaping utility can be used.\n}\n}\n}\n```\n\nThe first parameter `params` is the data that the formatter needs. Its format is shown as follows:\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\nWhen [trigger](https://echarts.apache.org/en/option.html#tooltip.trigger) is `'axis'`, or when tooltip is triggered by [axisPointer](https://echarts.apache.org/en/option.html#xAxis.axisPointer), `params` is the data array of multiple series. The content of each item of the array is the same as above. Besides,\n\n\n\n```ts\n{\ncomponentType: 'series',\n// Series type\nseriesType: string,\n// Series index in option.series\nseriesIndex: number,\n// Series name\nseriesName: string,\n// Data name, or category name\nname: string,\n// Data index in input data array\ndataIndex: number,\n// Original data as input\ndata: Object,\n// Value of data. In most series it is the same as data.\n// But in some series it is some part of the data (e.g., in map, radar)\nvalue: number|Array|Object,\n// encoding info of coordinate system\n// Key: coord, like ('x' 'y' 'radius' 'angle')\n// value: Must be an array, not null/undefined. Contain dimension indices, like:\n// {\n//     x: [2] // values on dimension index 2 are mapped to x axis.\n//     y: [0] // values on dimension index 0 are mapped to y axis.\n// }\nencode: Object,\n// dimension names list\ndimensionNames: Array<String>,\n// data dimension index, for example 0 or 1 or 2 ...\n// Only work in `radar` series.\ndimensionIndex: number,\n// Color of data\ncolor: string\n}\n```\n\n**How to use `encode` and `dimensionNames`?**\n\nWhen the dataset is like\n```ts\ndataset: {\nsource: [\n['Matcha Latte', 43.3, 85.8, 93.7],\n['Milk Tea', 83.1, 73.4, 55.1],\n['Cheese Cocoa', 86.4, 65.2, 82.5],\n['Walnut Brownie', 72.4, 53.9, 39.1]\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.encode.y[0]]\n```\n\nWhen the dataset is like\n```ts\ndataset: {\ndimensions: ['product', '2015', '2016', '2017'],\nsource: [\n{product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},\n{product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},\n{product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},\n{product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}\n]\n}\n```\nWe can get the value of the y-axis via\n```ts\nparams.value[params.dimensionNames[params.encode.y[0]]]\n```\n\n\n\n**Note: **Using array to present all the parameters in ECharts 2.x is not supported anymore.\n\nThe second parameter `ticket` is the asynchronous callback flag which should be used along with the third parameter `callback` when it is used.\n\nThe third parameter `callback` is asynchronous callback. When the content of tooltip is acquired asynchronously, `ticket` and `htm` as introduced above can be used to update tooltip with callback.\n\nExample:\n```ts\nformatter: function (params, ticket, callback) {\n$.get('detail?name=' + params.name, function (content) {\ncallback(ticket, toHTML(content));\n});\nreturn 'Loading';\n}\n```",
                 "children": []
             },
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "> Since `v5.3.0`\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n> `dataIndex` is provided since `v5.5.0`.\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                 "children": []
             },
             {
@@ -6132,7 +6172,7 @@
                         "name": "textBorderDashOffset",
                         "type": "number",
                         "default": "0",
-                        "desc": "> Since `v5.0.0`\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`textBorderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
                         "children": [],
                         "min": "0",
                         "step": "1"
@@ -6208,7 +6248,7 @@
             {
                 "name": "extraCssText",
                 "type": "text",
-                "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```",
+                "desc": "Extra CSS style for floating layer. The following is an example for adding shadow.\n\n```ts\nextraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);'\n```\n\n> **警告**:",
                 "children": []
             }
         ]
