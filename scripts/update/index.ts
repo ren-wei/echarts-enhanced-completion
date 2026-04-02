@@ -2,12 +2,13 @@
  * 从 https://github.com/apache/echarts-doc 获取文档资源，并处理为当前程序可识别的格式，然后保存到资源文件夹
  */
 
-import axios from 'axios';
 import * as fs from 'fs';
 import * as path from 'path';
 import Engine from './engine';
+import { TargetCommand, TextNode } from './engine/command';
 import { partials, components, series, partialsV4, componentsV4, seriesV4 } from './config';
 import { DetailTree, NormalTree, Tree, TreeNode } from './types';
+import { getOption } from './option';
 
 // yarn update:assets production master
 // yarn update:assets production v4
@@ -21,7 +22,20 @@ import { DetailTree, NormalTree, Tree, TreeNode } from './types';
         const initVars = {
             galleryViewPath: `"https://echarts.apache.org/examples/${lang}/view.html?c="`,
         };
-        const engine = new Engine();
+        const engine = new Engine({ missTarget: 'ignore' });
+
+        // 添加内置的 partial-security-warning target
+        const securityWarningTarget = new TargetCommand('partial-security-warning', engine);
+        const securityWarningText = new TextNode('> **警告**: ${securityRiskExclamation}', engine);
+        securityWarningTarget.addChild(securityWarningText);
+        engine.targets['partial-security-warning'] = securityWarningTarget;
+
+        // 添加内置 partial-security-url-common-warning target
+        const securityUrlCommonWarningTarget = new TargetCommand('partial-security-url-common-warning', engine);
+        const securityUrlCommonWarningText = new TextNode('> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。', engine);
+        securityUrlCommonWarningTarget.addChild(securityUrlCommonWarningText);
+        engine.targets['partial-security-url-common-warning'] = securityUrlCommonWarningTarget;
+
         const env = process.argv.length > 2 && process.argv[2] === 'test' ? 'test' : 'production';
         const version = process.argv.length > 3 && process.argv[3] === 'v4' ? 'v4' : 'master';
 
@@ -160,42 +174,6 @@ function ready(version: 'master' | 'v4') {
                 fs.mkdirSync(targetName);
             }
         });
-    }
-}
-
-/** 从 echarts-doc 项目中获取原始资源 */
-async function getOption(name: string, lang: string, env: 'production' | 'test', version: 'master' | 'v4') : Promise<string> {
-    if (env === 'production') {
-        // eslint-disable-next-line no-console
-        console.log(`GET /${lang}/option/${name}.md`);
-    }
-    const address = `https://raw.githubusercontent.com/ren-wei/echarts-doc/${version}/${lang}/option/${name}.md`;
-    try {
-        if (env === 'production') {
-            const res = await axios.get(address);
-            if (res.status === 200) {
-                try {
-                    fs.writeFile(path.resolve(__dirname, `./source/${version}/${lang}/${name}.md`), res.data, () => {});
-                } catch (e) {
-                    // eslint-disable-next-line no-console
-                    console.error("Can't save resource file:", path.resolve(__dirname, `./source/${version}/${lang}/${name}.md`));
-                }
-                return res.data;
-            } else {
-                return '';
-            }
-        } else {
-            return fs.readFileSync(path.resolve(__dirname, `./source/${version}/${lang}/${name}.md`), { encoding: 'utf8' });
-        }
-    } catch (e) {
-        if (env === 'production') {
-            // eslint-disable-next-line no-console
-            console.error("Can't connect to github, the real address is " + address);
-        } else {
-            // eslint-disable-next-line no-console
-            console.error("Can't get local cache file: " + path.resolve(__dirname, `./source/${version}/${lang}/${name}.md`) + '\nYou can execute the following command:\n\n\tyarn update:assets\n');
-        }
-        process.exit(1);
     }
 }
 
