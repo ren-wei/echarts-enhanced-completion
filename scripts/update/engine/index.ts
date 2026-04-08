@@ -121,7 +121,7 @@ export default class Engine {
     public compile(source: string, vars: Record<string, string> = {}): string {
         const reg = new RegExp(
             this.options.variableOpen
-            + '(\\w+)'
+            + '(\\w+(?:\\.\\w+)*)' // 支持嵌套属性，如 item.name
             + '(?:\\|default\\('
             + '(' // 匹配括号内的默认值
             + expression
@@ -186,7 +186,12 @@ export default class Engine {
         try {
             return (new Function(`
                 ${Object.entries(vars).map(([k, v]) => {
-                    return 'const ' + k + ' = \`' + v.replace(/`/g, '\\`') + '\`;';
+                    // 处理非字符串值
+                    if (typeof v === 'string') {
+                        return 'const ' + k + ' = \`' + v.replace(/`/g, '\\`') + '\`;';
+                    } else {
+                        return 'const ' + k + ' = ' + JSON.stringify(v) + ';';
+                    }
                 }).join('\n')}
                 return \`${source.replace(/`/g, '\\`')}\`;
             `))();

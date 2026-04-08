@@ -434,10 +434,29 @@ export class ForCommand implements Command {
     public children: Array<Command | TextNode> = [];
     public engine: Engine;
 
+    private list: string;
+    private item: string;
+    private index: string;
+
     constructor(value: string, engine: Engine) {
         this.name = '';
         this.value = value;
         this.engine = engine;
+
+        // 解析 for 命令语法
+        const rule = new RegExp(
+            '^\\s*' + engine.options.variableOpen + '([\\s\\S]+)' + engine.options.variableClose + '\\s+as\\s+' + engine.options.variableOpen + '([0-9a-z_]+)' + engine.options.variableClose + '\\s*(,\\s*' + engine.options.variableOpen + '([0-9a-z_]+)' + engine.options.variableClose + ')?\\s*$',
+            'i'
+        );
+
+        const match = rule.exec(value);
+        if (!match) {
+            throw new Error('Invalid ' + this.type + ' syntax: ' + value);
+        }
+
+        this.list = match[1];
+        this.item = match[2];
+        this.index = match[4] || '';
     }
 
     public addChild(node: Command | TextNode) {
@@ -460,8 +479,68 @@ export class ForCommand implements Command {
     }
 
     public getRendererBody(vars: Record<string, string>): string {
-        // TODO: echarts-doc 中暂时没有解析的实例，暂时忽略
-        return this.children.map(child => child.getRendererBody(vars)).join('');
+        // 解析列表表达式
+        const listValue = this.engine.parseString(this.list, vars);
+        let list: any;
+
+        try {
+            // 尝试从 vars 中获取列表
+            // eslint-disable-next-line no-eval
+            list = eval(listValue);
+        } catch (e) {
+            // 如果解析失败，尝试直接从 vars 获取
+            list = vars[this.list];
+        }
+
+        let result = '';
+        const indexName = this.index || 'index';
+
+        // 处理数组
+        if (Array.isArray(list)) {
+            for (let i = 0; i < list.length; i++) {
+                // 创建新的变量对象，避免修改原始 vars
+                const loopVars = { ...vars };
+                loopVars[indexName] = String(i);
+
+                if (typeof list[i] === 'object' && list[i] !== null) {
+                    // 将对象的属性展开到变量中
+                    Object.keys(list[i]).forEach(key => {
+                        loopVars[`${this.item}.${key}`] = String(list[i][key]);
+                    });
+                    // 将整个对象序列化为字符串
+                    loopVars[this.item] = JSON.stringify(list[i]);
+                } else {
+                    loopVars[this.item] = String(list[i]);
+                }
+
+                // 渲染子节点
+                result += this.children.map(child => child.getRendererBody(loopVars)).join('');
+            }
+        } else if (typeof list === 'object' && list !== null) {
+            // 处理对象
+            const keys = Object.keys(list);
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                // 创建新的变量对象，避免修改原始 vars
+                const loopVars = { ...vars };
+                loopVars[indexName] = key;
+
+                if (typeof list[key] === 'object' && list[key] !== null) {
+                    // 将对象的属性展开到变量中
+                    Object.keys(list[key]).forEach(subKey => {
+                        loopVars[`${this.item}.${subKey}`] = String(list[key][subKey]);
+                    });
+                    loopVars[this.item] = JSON.stringify(list[key]);
+                } else {
+                    loopVars[this.item] = String(list[key]);
+                }
+
+                // 渲染子节点
+                result += this.children.map(child => child.getRendererBody(loopVars)).join('');
+            }
+        }
+
+        return result;
     }
 }
 
