@@ -1,6 +1,9 @@
 name: Auto Update Assets
 
 on:
+  push:
+    branches:
+      - master
   schedule:
     # 每天0点运行 (UTC时间16:00，对应北京时间0:00)
     - cron: '0 16 * * *'
@@ -84,7 +87,7 @@ jobs:
       - name: Bump version and create tag
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
-          npm version patch -m "chore: release %s"
+          npm version patch
 
       - name: Push changes and tags
         if: steps.check_changes.outputs.has_changes == 'true'
