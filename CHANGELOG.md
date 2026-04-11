@@ -6,6 +6,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 # [Released]
 
+## 1.6.14 (2026-04-11)
+
+### Fixed
+
+- 消除未安装支持 vue 语言的插件时的警告
+
 ## 1.6.13 (2026-04-02)
 
 ### Changed
