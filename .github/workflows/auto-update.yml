@@ -1,0 +1,91 @@
+name: Auto Update Assets
+
+on:
+  schedule:
+    # 每天0点运行 (UTC时间16:00，对应北京时间0:00)
+    - cron: '0 16 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  update-assets:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Update assets
+        run: yarn run update:assets
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure Git
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Get current date
+        if: steps.check_changes.outputs.has_changes == 'true'
+        id: get_date
+        run: |
+          echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+
+      - name: Update CHANGELOG.md
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          DATE="${{ steps.get_date.outputs.date }}"
+          # 获取当前版本号并计算新版本号
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          # 解析版本号并增加 patch 版本
+          IFS='.' read -r major minor patch <<< "$CURRENT_VERSION"
+          NEW_VERSION="${major}.${minor}.$((patch + 1))"
+          # 使用 awk 在第8行后插入新的更新日志
+          awk -v date="$DATE" -v ver="$NEW_VERSION" '
+          NR==8 {
+            print
+            print ""
+            print "## " ver " (" date ")"
+            print ""
+            print "### Changed"
+            print ""
+            print "- 与源文档同步"
+            next
+          }
+          { print }
+          ' CHANGELOG.md > CHANGELOG.md.tmp && mv CHANGELOG.md.tmp CHANGELOG.md
+
+      - name: Commit changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git add -A
+          git commit -m "chore: 同步源文档"
+
+      - name: Bump version and create tag
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          npm version patch -m "chore: release %s"
+
+      - name: Push changes and tags
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: git push --follow-tags
