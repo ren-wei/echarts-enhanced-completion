@@ -8,7 +8,7 @@ export async function getOption(name: string, lang: string, env: 'production' | 
         // eslint-disable-next-line no-console
         console.log(`GET /${lang}/option/${name}.md`);
     }
-    const address = `https://raw.githubusercontent.com/ren-wei/echarts-doc/${version}/${lang}/option/${name}.md`;
+    const address = `https://raw.githubusercontent.com/apache/echarts-doc/${version}/${lang}/option/${name}.md`;
     try {
         if (env === 'production') {
             const res = await axios.get(address);
