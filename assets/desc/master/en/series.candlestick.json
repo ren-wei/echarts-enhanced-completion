@@ -579,7 +579,7 @@
     {
         "name": "data",
         "type": "Array",
-        "desc": "Data should be the two-dimensional array shown as follows.\n\n```javascript\n[\n[2320.26, 2320.26, 2287.3,  2362.94],\n[2300,    2291.3,  2288.26, 2308.38],\n{ // the data item could also be an Object, so that it could contains special settings for this data item.\nvalue: [2300,    2291.3,  2288.26, 2308.38],\nitemStyle: {...}\n},\n...\n]\n```\n\nEvery data item (each line in the example above) represents a box, which contains 4 values. They are:\n\n```javascript\n[open, close, lowest, highest]  (namely: [opening value, closing value, lowest value, highest value])\n```",
+        "desc": "Data should be the two-dimensional array shown as follows.\n\n```javascript\n[\n[2320.26, 2320.26, 2287.3,  2362.94],\n[2300,    2291.3,  2288.26, 2308.38],\n{ // the data item could also be an Object, so that it could contains special settings for this data item.\nvalue: [2300,    2291.3,  2288.26, 2308.38],\nitemStyle: {...}\n},\n...\n]\n```\n\nEvery data item (each line in the example above) represents a box, which contains 4 values. They are:\n\n```javascript\n[open, close, lowest, highest]  (namely: [opening value, closing value, lowest value, highest value])\n```\n\nThat means the default dimension order of `candlestick` is **OCLH**. If your source data is in the **OHLC** order (`[open, highest, lowest, close]`), you can explicitly remap dimensions via [series-candlestick.encode](https://echarts.apache.org/en/option.html#series-candlestick.encode). This applies to both [dataset](https://echarts.apache.org/en/option.html#dataset) and [series.data](https://echarts.apache.org/en/option.html#series-candlestick.data).\n\nFor example, if each item in `series.data` is `[open, high, low, close]`, you can configure:\n\n```javascript\nseries: [{\ntype: 'candlestick',\ndata: [\n// [date, open, high, low, close]\n['2025-05-01', 2320.26, 2362.94, 2287.3, 2320.26],\n['2025-05-02', 2300, 2308.38, 2288.26, 2291.3]\n],\nencode: {\nx: 0,\ny: [1, 4, 3, 2] // Remap OHLC to OCLH without reordering the source data array\n}\n}]\n```",
         "children": [
             {
                 "name": "name",
@@ -590,7 +590,7 @@
             {
                 "name": "value",
                 "type": "Array",
-                "desc": "Value of data item.\n\n```javascript\n[open, close, lowest, highest]  (namely: [opening value, closing value, lowest value, highest value])\n```",
+                "desc": "Value of data item. Default dimension order is **OCLH**.\n\n```javascript\n[open, close, lowest, highest]  (namely: [opening value, closing value, lowest value, highest value])\n```\n\nTo adjust the default dimension order, see [series-candlestick.data](https://echarts.apache.org/en/option.html#series-candlestick.data) above.",
                 "children": []
             },
             {

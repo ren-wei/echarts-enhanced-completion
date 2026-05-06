@@ -579,7 +579,7 @@
     {
         "name": "data",
         "type": "Array",
-        "desc": "数据格式是如下的二维数组。\n\n```javascript\n[\n[2320.26, 2320.26, 2287.3,  2362.94],\n[2300,    2291.3,  2288.26, 2308.38],\n{ // 数据项也可以是 Object，从而里面能含有对此数据项的特殊设置。\nvalue: [2300,    2291.3,  2288.26, 2308.38],\nitemStyle: {...}\n},\n...\n]\n```\n\n二维数组的每一数组项（上例中的每行）是渲染一个box，它含有四个量值，依次是：\n\n```javascript\n[open, close, lowest, highest] （即：[开盘值, 收盘值, 最低值, 最高值]）\n```",
+        "desc": "数据格式是如下的二维数组。\n\n```javascript\n[\n[2320.26, 2320.26, 2287.3,  2362.94],\n[2300,    2291.3,  2288.26, 2308.38],\n{ // 数据项也可以是 Object，从而里面能含有对此数据项的特殊设置。\nvalue: [2300,    2291.3,  2288.26, 2308.38],\nitemStyle: {...}\n},\n...\n]\n```\n\n二维数组的每一数组项（上例中的每行）是渲染一个box，它含有四个量值，依次是：\n\n```javascript\n[open, close, lowest, highest] （即：[开盘值, 收盘值, 最低值, 最高值]）\n```\n\n也就是说，`candlestick` 默认维度顺序是 **OCLH**。如果你的原始数据是 **OHLC**（`[open, highest, lowest, close]`），可以通过 [series.encode](https://echarts.apache.org/zh/option.html#series-candlestick.encode) 显式指定维度映射来调整。这对 [dataset](https://echarts.apache.org/zh/option.html#dataset) 和 [series.data](https://echarts.apache.org/zh/option.html#series-candlestick.data) 两种写法都支持。\n\n例如，OHLC 数据可这样映射：\n\n```javascript\nseries: [{\ntype: 'candlestick',\ndata: [\n// [date, open, high, low, close]\n['2025-05-01', 2320.26, 2362.94, 2287.3, 2320.26],\n['2025-05-02', 2300, 2308.38, 2288.26, 2291.3]\n],\nencode: {\nx: 0,\ny: [1, 4, 3, 2] // 不修改 data，而是通过 encode 将 OHLC 映射到 OCLH\n}\n}]\n```",
         "children": [
             {
                 "name": "name",
@@ -590,7 +590,7 @@
             {
                 "name": "value",
                 "type": "Array",
-                "desc": "数据项值。\n\n\n```javascript\n[open, close, lowest, highest] （即：[开盘值, 收盘值, 最低值, 最高值]）\n```",
+                "desc": "数据项值。默认维度顺序为 **OCLH**。\n\n```javascript\n[open, close, lowest, highest] （即：[开盘值, 收盘值, 最低值, 最高值]）\n```\n\n如需调整默认维度顺序，参见上文 [series-candlestick.data](https://echarts.apache.org/zh/option.html#series-candlestick.data)。",
                 "children": []
             },
             {
