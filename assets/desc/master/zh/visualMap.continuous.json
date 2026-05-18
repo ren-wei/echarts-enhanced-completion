@@ -140,6 +140,12 @@
         "children": []
     },
     {
+        "name": "seriesTargets",
+        "type": "Array",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.1.0` 开始支持\n\n</div>\n\n\n指定多个系列及其对应的维度映射关系。当配置了 `seriesTargets` 时，`seriesIndex`、`seriesId` 和 `dimension` 将被忽略。\n\n这个选项允许单个 `visualMap` 组件同时控制多个系列的不同维度，特别适用于使用 dataset 的场景。\n\n每个目标对象应包含以下属性：\n- `seriesIndex` 或 `seriesId`：指定系列（二者选其一）\n- `dimension`：指定该系列使用的数据维度\n\n示例：\n```javascript\noption = {\ndataset: {\nsource: [\n['product', 'sales', 'price', 'year'],\n['A', 100, 20, 2020],\n['B', 200, 30, 2021],\n['C', 150, 25, 2022]\n]\n},\nvisualMap: {\ntype: 'continuous',\nmin: 0,\nmax: 100,\n// 配置不同系列使用不同维度\nseriesTargets: [\n{\nseriesIndex: 0,\ndimension: 1  // 第一个系列使用 'sales' 维度\n},\n{\nseriesIndex: 1,\ndimension: 2  // 第二个系列使用 'price' 维度\n}\n],\ninRange: {\ncolor: ['#50a3ba', '#eac736', '#d94e5d']\n}\n},\nseries: [\n{ type: 'bar' },\n{ type: 'line' }\n]\n};\n```",
+        "children": []
+    },
+    {
         "name": "hoverLink",
         "type": "boolean",
         "default": "true",
