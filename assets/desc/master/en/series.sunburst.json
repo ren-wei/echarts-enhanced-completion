@@ -22,14 +22,14 @@
         "name": "zlevel",
         "type": "number",
         "default": "0",
-        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "desc": "`zlevel` value of all graphical elements in Sunburst chart.\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
         "children": []
     },
     {
         "name": "z",
         "type": "number",
         "default": "2",
-        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "desc": "`z` value of all graphical elements in Sunburst chart, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
         "children": []
     },
     {
@@ -59,7 +59,7 @@
         "name": "coordinateSystemUsage",
         "type": "string",
         "default": "\\'data\\'",
-        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nSpecify how to lay out this `series-sunburst` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`:\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`: **(Not applicable in [series-sunburst](https://echarts.apache.org/en/option.html#series-sunburst))**\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [series-sunburst.coords](https://echarts.apache.org/en/option.html#series-sunburst.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\nOnly a few series support both `coordinateSystemUsage: 'data'` and `coordinateSystemUsage: 'box'`, such as [series-graph](https://echarts.apache.org/en/option.html#series-graph), [series-map](https://echarts.apache.org/en/option.html#series-map). For examle, in [this example (coordinateSystemUsage: 'data')](matrix-graph&edit=1&reset=1), each node of a graph series is laid out on a matrix coordinate system, while in [this example (coordinateSystemUsage: 'box')](doc-example/matrix-graph-box&edit=1&reset=1), the entire graph series is laid out within a matrix cell.\n\nMost series only support `coordinateSystemUsage: 'data'` - such as [series-line](https://echarts.apache.org/en/option.html#series-line), [series-bar](https://echarts.apache.org/en/option.html#series-bar), [series-scatter](https://echarts.apache.org/en/option.html#series-scatter), etc. Meanwhile, some series only support `coordinateSystemUsage: 'box'` - such as [series-pie](https://echarts.apache.org/en/option.html#series-pie) ([example: pie in geo](map-iceland-pie&edit=1&reset=1)), [series-tree](https://echarts.apache.org/en/option.html#series-pie), [series-treemap](https://echarts.apache.org/en/option.html#series-treemap), [series-sankey](https://echarts.apache.org/en/option.html#series-sankey), etc.\n\n\nSee also [series-sunburst.coordinateSystem](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystem).",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nSpecify how to lay out this `series-sunburst` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`:\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`: **(Not applicable in [series-sunburst](https://echarts.apache.org/en/option.html#series-sunburst))**\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [series-sunburst.coords](https://echarts.apache.org/en/option.html#series-sunburst.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\nOnly a few series support both `coordinateSystemUsage: 'data'` and `coordinateSystemUsage: 'box'`, such as [series-graph](https://echarts.apache.org/en/option.html#series-graph), [series-map](https://echarts.apache.org/en/option.html#series-map). For examle, in [this example (coordinateSystemUsage: 'data')](matrix-graph&edit=1&reset=1), each node of a graph series is laid out on a matrix coordinate system, while in [this example (coordinateSystemUsage: 'box')](doc-example/matrix-graph-box&edit=1&reset=1), the entire graph series is laid out within a matrix cell.\n\nMost series only support `coordinateSystemUsage: 'data'` - such as [series-line](https://echarts.apache.org/en/option.html#series-line), [series-bar](https://echarts.apache.org/en/option.html#series-bar), [series-scatter](https://echarts.apache.org/en/option.html#series-scatter), etc. Meanwhile, some series only support `coordinateSystemUsage: 'box'` - such as [series-pie](https://echarts.apache.org/en/option.html#series-pie) ([example: pie in geo](map-iceland-pie&edit=1&reset=1)), [series-tree](https://echarts.apache.org/en/option.html#series-pie), [series-treemap](https://echarts.apache.org/en/option.html#series-treemap), [series-sankey](https://echarts.apache.org/en/option.html#series-sankey), etc.\n\n\nSee also [series-sunburst.coordinateSystem](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystem).",
         "children": []
     },
     {
@@ -69,7 +69,7 @@
             "number",
             "string"
         ],
-        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#series-sunburst.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
         "children": []
     },
     {
@@ -120,7 +120,7 @@
             {
                 "name": "link",
                 "type": "string",
-                "desc": "Link address that redirects to when this sector is clicked. Only useful when [series-sunburst.nodeClick](https://echarts.apache.org/en/option.html#series-sunburst.nodeClick) is set to be `'link'`.\n\nSee [series-sunburst.data.target](https://echarts.apache.org/en/option.html#series-sunburst.data.target).\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
+                "desc": "Link address that redirects to when this sector is clicked. Only useful when [series-sunburst.nodeClick](https://echarts.apache.org/en/option.html#series-sunburst.nodeClick) is set to be `'link'`.\n\nSee [series-sunburst.data.target](https://echarts.apache.org/en/option.html#series-sunburst.data.target).\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于\"不受信任\"的来源，必须考虑 安全风险。文档 [\"安全指南\"](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
                 "children": []
             },
             {
@@ -142,7 +142,7 @@
                             "number"
                         ],
                         "default": "'radial'",
-                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -172,7 +172,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -519,13 +519,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
@@ -1026,7 +1019,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -1036,7 +1029,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -1092,7 +1085,7 @@
                                     "number"
                                 ],
                                 "default": "'radial'",
-                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -1122,7 +1115,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -1469,13 +1462,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
                                             },
                                             {
                                                 "name": "verticalAlign",
@@ -1976,7 +1962,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -1986,7 +1972,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -2044,7 +2030,7 @@
                                     "number"
                                 ],
                                 "default": "'radial'",
-                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -2074,7 +2060,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -2421,13 +2407,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
                                             },
                                             {
                                                 "name": "verticalAlign",
@@ -2928,7 +2907,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -2938,7 +2917,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -2996,7 +2975,7 @@
                                     "number"
                                 ],
                                 "default": "'radial'",
-                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -3026,7 +3005,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -3373,13 +3352,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
                                             },
                                             {
                                                 "name": "verticalAlign",
@@ -3880,7 +3852,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -3890,7 +3862,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -3956,7 +3928,7 @@
                             "number"
                         ],
                         "default": "'radial'",
-                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -3986,7 +3958,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -4333,13 +4305,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
@@ -4840,7 +4805,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -4850,7 +4815,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -4922,7 +4887,7 @@
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v5.5.0` `dataIndex` is provided; but not reasonable when `dataZoom` exists, since it is the index after dataZoom filtering.\n\n</div>\n\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v6.1.0` `dataIndex` is corrected to the index before `dataZoom` filtering.\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                         "children": []
                     },
                     {
@@ -5182,13 +5147,13 @@
                     "number"
                 ],
                 "default": "'radial'",
-                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                 "children": []
             },
             {
                 "name": "align",
                 "type": "enum",
-                "desc": "Align of text, which can be `'left'`, `'center'`, or `'right'`. Note that `'left'` stands for inner side, and `'right'` stands for outer side.\n\n\n~[700x400](doc-example/sunburst-label-align&edit=1&reset=1)",
+                "desc": "Align of text, which can be `'left'`, `'center'`, or `'right'`. Note that `'left'` stands for inner side, and `'right'` stands for outer side.\n\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=doc-example/sunburst-label-align&edit=1&reset=1)",
                 "children": [],
                 "options": "'left','center','right'"
             },
@@ -5212,7 +5177,7 @@
             {
                 "name": "position",
                 "type": "enum",
-                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                 "children": [],
                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
             },
@@ -5559,13 +5524,6 @@
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
-                            },
-                            {
-                                "name": "align",
-                                "type": "enum",
-                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'left','center','right'"
                             },
                             {
                                 "name": "verticalAlign",
@@ -5918,13 +5876,13 @@
             {
                 "name": "hideOverlap",
                 "type": "boolean",
-                "desc": "If hide the overlapped labels.\n\nThe following example shows how to hide the overlapped labels in graph automatically when zooming.\n\n~[600x400](graph-label-overlap&edit=1&reset=1)",
+                "desc": "If hide the overlapped labels.\n\nThe following example shows how to hide the overlapped labels in graph automatically when zooming.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=graph-label-overlap&edit=1&reset=1)",
                 "children": []
             },
             {
                 "name": "moveOverlap",
                 "type": "string",
-                "desc": "If move the overlapped labels to avoid overlapping.\n\nCurrently supported configurations:\n\n+ `'shiftX'` Place the labels on horizontal direction sequencely, used when aligned horizontally.\n+ `'shiftY'` Place the labels on vertical direction sequencely, used when aligned vertically.\n\nThe following example shows how to use `moverOverlap: 'shiftY'` to place the labels aligned vertically.\n\n~[600x400](scatter-label-align-right&edit=1&reset=1)",
+                "desc": "If move the overlapped labels to avoid overlapping.\n\nCurrently supported configurations:\n\n+ `'shiftX'` Place the labels on horizontal direction sequencely, used when aligned horizontally.\n+ `'shiftY'` Place the labels on vertical direction sequencely, used when aligned vertically.\n\nThe following example shows how to use `moverOverlap: 'shiftY'` to place the labels aligned vertically.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=scatter-label-align-right&edit=1&reset=1)",
                 "children": []
             },
             {
@@ -6166,7 +6124,7 @@
                             "Array"
                         ],
                         "default": "5",
-                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -6176,7 +6134,7 @@
                             "Array"
                         ],
                         "default": "5",
-                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -6215,7 +6173,7 @@
                 "name": "focus",
                 "type": "string",
                 "default": "'none'",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\nWhen the data is highlighted, whether to fade out of other data to focus the highlighted. The following configurations are supported:\n\n+ `'none'` Do not fade out other data, it's by default.\n+ `'self'` Only focus (not fade out) the element of the currently highlighted data.\n\n\n+ `'series'` Focus on all elements of the series which the currently highlighted data belongs to.\n\n\n\n+ `'ancestor'` Focus on all ancestor nodes.\n+ `'descendant'` Focus on all descendants nodes.\n\n\n+ `'relative'` Focus on all ancestor and descendants nodes. (Since `v5.6.0`)\n\n\n\n**Example: **\n\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](bar-y-category-stack&reset=1&edit=1)",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\nWhen the data is highlighted, whether to fade out of other data to focus the highlighted. The following configurations are supported:\n\n+ `'none'` Do not fade out other data, it's by default.\n+ `'self'` Only focus (not fade out) the element of the currently highlighted data.\n\n\n+ `'series'` Focus on all elements of the series which the currently highlighted data belongs to.\n\n\n\n+ `'ancestor'` Focus on all ancestor nodes.\n+ `'descendant'` Focus on all descendants nodes.\n\n\n+ `'relative'` Focus on all ancestor and descendants nodes. (Since `v5.6.0`)\n\n\n\n**Example: **\n\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=bar-y-category-stack&reset=1&edit=1)",
                 "children": []
             },
             {
@@ -6237,7 +6195,7 @@
                             "number"
                         ],
                         "default": "'radial'",
-                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -6267,7 +6225,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -6614,13 +6572,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
@@ -7121,7 +7072,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -7131,7 +7082,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -7189,7 +7140,7 @@
                             "number"
                         ],
                         "default": "'radial'",
-                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -7219,7 +7170,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -7566,13 +7517,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
@@ -8073,7 +8017,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -8083,7 +8027,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -8141,7 +8085,7 @@
                             "number"
                         ],
                         "default": "'radial'",
-                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -8171,7 +8115,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -8518,13 +8462,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
@@ -9025,7 +8962,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -9035,7 +8972,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -9113,7 +9050,7 @@
                             "number"
                         ],
                         "default": "'radial'",
-                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                        "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -9143,7 +9080,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -9475,13 +9412,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
                                     },
                                     {
                                         "name": "verticalAlign",
@@ -9921,7 +9851,7 @@
                                     "number"
                                 ],
                                 "default": "'radial'",
-                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -9951,7 +9881,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -10298,13 +10228,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
                                             },
                                             {
                                                 "name": "verticalAlign",
@@ -10805,7 +10728,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -10815,7 +10738,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -10873,7 +10796,7 @@
                                     "number"
                                 ],
                                 "default": "'radial'",
-                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -10903,7 +10826,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -11250,13 +11173,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
                                             },
                                             {
                                                 "name": "verticalAlign",
@@ -11757,7 +11673,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -11767,7 +11683,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -11825,7 +11741,7 @@
                                     "number"
                                 ],
                                 "default": "'radial'",
-                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](sunburst-label-rotate&edit=1&reset=1)",
+                                "desc": "If it is `number` type, then is stands for rotation, from -90 degrees to 90 degrees, and positive values stand for counterclockwise.\n\nBesides, it can be string `'radial'`, standing for radial rotation; or `'tangential'`, standing for tangential rotation.\n\nIf no rotation is wanted, it can be set to `0`.\n\nThe following example shows different `rotate` settings:\n\n~[700x400](https://echarts.apache.org/examples/en/view.html?c=sunburst-label-rotate&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -11855,7 +11771,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -12202,13 +12118,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
                                             },
                                             {
                                                 "name": "verticalAlign",
@@ -12709,7 +12618,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -12719,7 +12628,7 @@
                                             "Array"
                                         ],
                                         "default": "5",
-                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                         "children": []
                                     },
                                     {
@@ -12795,7 +12704,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v5.5.0` `dataIndex` is provided; but not reasonable when `dataZoom` exists, since it is the index after dataZoom filtering.\n\n</div>\n\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v6.1.0` `dataIndex` is corrected to the index before `dataZoom` filtering.\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                 "children": []
             },
             {

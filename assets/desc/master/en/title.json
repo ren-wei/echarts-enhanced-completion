@@ -23,7 +23,7 @@
         "name": "link",
         "type": "string",
         "default": "''",
-        "desc": "The hyper link of main title text.\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
+        "desc": "The hyper link of main title text.\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于\"不受信任\"的来源，必须考虑 安全风险。文档 [\"安全指南\"](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
         "children": []
     },
     {
@@ -211,53 +211,39 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
-                                "desc": "text color.",
+                                "default": "'#333'",
+                                "desc": "main title text color.",
                                 "children": []
                             },
                             {
                                 "name": "fontStyle",
                                 "type": "enum",
-                                "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                                "desc": "main title font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
                                 "children": [],
                                 "options": "'normal','italic','oblique'"
                             },
                             {
                                 "name": "fontWeight",
                                 "type": "enum",
-                                "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                                "desc": "main title font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
                                 "children": [],
                                 "options": "'normal','bold','bolder','lighter'"
                             },
                             {
                                 "name": "fontFamily",
                                 "type": "enum",
-                                "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                                "desc": "main title font family.\n\nCan also be 'serif' , 'monospace', ...",
                                 "children": [],
                                 "options": "'sans-serif','serif','monospace','Arial','Courier New'"
                             },
                             {
                                 "name": "fontSize",
                                 "type": "number",
-                                "default": "12",
-                                "desc": "font size.",
+                                "default": "18",
+                                "desc": "main title font size.",
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
-                            },
-                            {
-                                "name": "align",
-                                "type": "enum",
-                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'left','center','right'"
-                            },
-                            {
-                                "name": "verticalAlign",
-                                "type": "enum",
-                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'top','middle','bottom'"
                             },
                             {
                                 "name": "lineHeight",
@@ -267,95 +253,6 @@
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
-                            },
-                            {
-                                "name": "backgroundColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
-                                "children": []
-                            },
-                            {
-                                "name": "borderColor",
-                                "type": "color",
-                                "default": "'#fff'",
-                                "desc": "Border color of the text fragment.",
-                                "children": []
-                            },
-                            {
-                                "name": "borderWidth",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Border width of the text fragment.",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "borderType",
-                                "type": "enum",
-                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
-                                "children": [],
-                                "options": "'solid','dashed','dotted'"
-                            },
-                            {
-                                "name": "borderDashOffset",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
-                                "children": [],
-                                "min": "0",
-                                "step": "1"
-                            },
-                            {
-                                "name": "borderRadius",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "Border radius of the text fragment.",
-                                "children": [],
-                                "min": "0",
-                                "dims": "LT,RT, RB, LB"
-                            },
-                            {
-                                "name": "padding",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
-                                "children": [],
-                                "min": "0",
-                                "dims": "T,R,B,L"
-                            },
-                            {
-                                "name": "shadowColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "Shadow color of the text block.",
-                                "children": []
-                            },
-                            {
-                                "name": "shadowBlur",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Show blur of the text block.",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetX",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Shadow X offset of the text block.",
-                                "children": [],
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetY",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Shadow Y offset of the text block.",
-                                "children": [],
-                                "step": "0.5"
                             },
                             {
                                 "name": "width",
@@ -454,7 +351,7 @@
         "name": "sublink",
         "type": "string",
         "default": "''",
-        "desc": "The hyper link of subtitle text.\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
+        "desc": "The hyper link of subtitle text.\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于\"不受信任\"的来源，必须考虑 安全风险。文档 [\"安全指南\"](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
         "children": []
     },
     {
@@ -656,28 +553,28 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
-                                "desc": "text color.",
+                                "default": "'#aaa'",
+                                "desc": "subtitle text color.",
                                 "children": []
                             },
                             {
                                 "name": "fontStyle",
                                 "type": "enum",
-                                "desc": "font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                                "desc": "subtitle font style.\n\nOptions are:\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
                                 "children": [],
                                 "options": "'normal','italic','oblique'"
                             },
                             {
                                 "name": "fontWeight",
                                 "type": "enum",
-                                "desc": "font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                                "desc": "subtitle font thick weight.\n\nOptions are:\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
                                 "children": [],
                                 "options": "'normal','bold','bolder','lighter'"
                             },
                             {
                                 "name": "fontFamily",
                                 "type": "enum",
-                                "desc": "font family.\n\nCan also be 'serif' , 'monospace', ...",
+                                "desc": "subtitle font family.\n\nCan also be 'serif' , 'monospace', ...",
                                 "children": [],
                                 "options": "'sans-serif','serif','monospace','Arial','Courier New'"
                             },
@@ -685,7 +582,7 @@
                                 "name": "fontSize",
                                 "type": "number",
                                 "default": "12",
-                                "desc": "font size.",
+                                "desc": "subtitle font size.",
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
@@ -712,95 +609,6 @@
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
-                            },
-                            {
-                                "name": "backgroundColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
-                                "children": []
-                            },
-                            {
-                                "name": "borderColor",
-                                "type": "color",
-                                "default": "'#fff'",
-                                "desc": "Border color of the text fragment.",
-                                "children": []
-                            },
-                            {
-                                "name": "borderWidth",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Border width of the text fragment.",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "borderType",
-                                "type": "enum",
-                                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
-                                "children": [],
-                                "options": "'solid','dashed','dotted'"
-                            },
-                            {
-                                "name": "borderDashOffset",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
-                                "children": [],
-                                "min": "0",
-                                "step": "1"
-                            },
-                            {
-                                "name": "borderRadius",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "Border radius of the text fragment.",
-                                "children": [],
-                                "min": "0",
-                                "dims": "LT,RT, RB, LB"
-                            },
-                            {
-                                "name": "padding",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
-                                "children": [],
-                                "min": "0",
-                                "dims": "T,R,B,L"
-                            },
-                            {
-                                "name": "shadowColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "Shadow color of the text block.",
-                                "children": []
-                            },
-                            {
-                                "name": "shadowBlur",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Show blur of the text block.",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetX",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Shadow X offset of the text block.",
-                                "children": [],
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetY",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "Shadow Y offset of the text block.",
-                                "children": [],
-                                "step": "0.5"
                             },
                             {
                                 "name": "width",
@@ -906,7 +714,7 @@
         "name": "triggerEvent",
         "type": "boolean",
         "default": "false",
-        "desc": "Set this to `true` to enable triggering events",
+        "desc": "Whether to enable to dispatch mouse/touch events to user-registered listeners (i.e., `chart.on('xxx', function (event) {})`).\n\nSupported mouse/touch events are `'click'`, `'dblclick'`, `'mouseover'`, `'mouseout'`, `'mousemove'`, `'mousedown'`, `'mouseup'`, `'globalout'`, `'contextmenu'`. Note, both mouse and touch events are unified to the event type `'mouse{xxx}'`.\n\n\n\nValues:\n- `true`: Enable to trigger events. But dispatching also requires option `silent` to be falsy.\n- `false`: Disable to trigger mouse/touch events, even if option `silent` is falsy.\n\n\n\n\nThe parameters of the event:\n\n```ts\n{\ncomponentType: 'title';\n// The index of the title component (base on echarts option)\ncomponentIndex: number;\n}\n```",
         "children": []
     },
     {
@@ -931,14 +739,14 @@
         "name": "zlevel",
         "type": "number",
         "default": "0",
-        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "desc": "`zlevel` value of all graphical elements in title.\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
         "children": []
     },
     {
         "name": "z",
         "type": "number",
         "default": "2",
-        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "desc": "`z` value of all graphical elements in title, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
         "children": []
     },
     {
@@ -992,7 +800,7 @@
         "name": "coordinateSystemUsage",
         "type": "string",
         "default": "\\'box\\'",
-        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nSpecify how to lay out this `title` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#title.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`: **(Not applicable in [title](https://echarts.apache.org/en/option.html#title))**\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`:\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [title.coords](https://echarts.apache.org/en/option.html#title.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\n\nSee also [title.coordinateSystem](https://echarts.apache.org/en/option.html#title.coordinateSystem).",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nSpecify how to lay out this `title` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#title.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`: **(Not applicable in [title](https://echarts.apache.org/en/option.html#title))**\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`:\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [title.coords](https://echarts.apache.org/en/option.html#title.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\n\nSee also [title.coordinateSystem](https://echarts.apache.org/en/option.html#title.coordinateSystem).",
         "children": []
     },
     {
@@ -1002,7 +810,7 @@
             "number",
             "string"
         ],
-        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#title.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#title.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#title.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#title.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
         "children": []
     },
     {

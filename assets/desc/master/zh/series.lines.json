@@ -915,13 +915,13 @@
             {
                 "name": "hideOverlap",
                 "type": "boolean",
-                "desc": "是否隐藏重叠的标签。\n\n下面示例演示了在关系图中开启该配置后，在缩放时可以实现自动的标签隐藏。\n\n~[600x400](graph-label-overlap&edit=1&reset=1)",
+                "desc": "是否隐藏重叠的标签。\n\n下面示例演示了在关系图中开启该配置后，在缩放时可以实现自动的标签隐藏。\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=graph-label-overlap&edit=1&reset=1)",
                 "children": []
             },
             {
                 "name": "moveOverlap",
                 "type": "string",
-                "desc": "在标签重叠的时候是否挪动标签位置以防止重叠。\n\n目前支持配置为：\n\n+ `'shiftX'` 水平方向依次位移，在水平方向对齐时使用\n+ `'shiftY'` 垂直方向依次位移，在垂直方向对齐时使用\n\n下面是标签右对齐并配置垂直方向依次位移以防止重叠的示例。\n\n~[600x400](scatter-label-align-right&edit=1&reset=1)",
+                "desc": "在标签重叠的时候是否挪动标签位置以防止重叠。\n\n目前支持配置为：\n\n+ `'shiftX'` 水平方向依次位移，在水平方向对齐时使用\n+ `'shiftY'` 垂直方向依次位移，在垂直方向对齐时使用\n\n下面是标签右对齐并配置垂直方向依次位移以防止重叠的示例。\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=scatter-label-align-right&edit=1&reset=1)",
                 "children": []
             },
             {
@@ -1020,7 +1020,7 @@
                 "name": "focus",
                 "type": "string",
                 "default": "'none'",
-                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n\n\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。\n\n\n\n\n\n\n**示例：**\n\n\n下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](bar-y-category-stack&reset=1&edit=1)",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n在高亮图形时，是否淡出其它数据的图形已达到聚焦的效果。支持如下配置：\n\n+ `'none'` 不淡出其它图形，默认使用该配置。\n+ `'self'` 只聚焦（不淡出）当前高亮的数据的图形。\n\n\n+ `'series'` 聚焦当前高亮的数据所在的系列的所有图形。\n\n\n\n\n\n\n**示例：**\n\n\n下面代码配置了柱状图在高亮一个图形的时候，淡出当前直角坐标系所有其它的系列。\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](https://echarts.apache.org/examples/zh/view.html?c=bar-y-category-stack&reset=1&edit=1)",
                 "children": []
             },
             {
@@ -3020,7 +3020,7 @@
             {
                 "name": "childGroupId",
                 "type": "string",
-                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.5.0` 开始支持\n\n</div>\n\n\n该数据项对应的子数据组 ID，用于实现多层下钻和聚合。\n\n~[700x300](doc-example/bar-multi-drilldown&edit=1&reset=1)\n\n通过`groupId`已经可以达到数据下钻和聚合的效果，但只支持一层的下钻和聚合。为了实现多层下钻和聚合，我们又引入了`childGroupId`。\n\n引入`childGroupId`后，不同`option`的数据项之间就能形成逻辑上的父子关系，例如：\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\n上面 3 组 data 分别来自 3 个 option ，通过`groupId`和`childGroupId`，它们之间存在了“父-子-孙”的关系。在`setOption`时，Apache ECharts 会尝试寻找前后`option`数据项间的父子关系，若存在父子关系，则会对相关数据项进行下钻或聚合动画的过渡。\n\n没有对应子数据组的数据项不需要指定`childGroupId`。\n\n如果你使用了[dataset](https://echarts.apache.org/zh/option.html#dataset)组件来表达数据，推荐使用`encode.itemChildGroupId`来指定哪个维度被编码为子数据组 ID。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.5.0` 开始支持\n\n</div>\n\n\n该数据项对应的子数据组 ID，用于实现多层下钻和聚合。\n\n~[700x300](https://echarts.apache.org/examples/zh/view.html?c=doc-example/bar-multi-drilldown&edit=1&reset=1)\n\n通过`groupId`已经可以达到数据下钻和聚合的效果，但只支持一层的下钻和聚合。为了实现多层下钻和聚合，我们又引入了`childGroupId`。\n\n引入`childGroupId`后，不同`option`的数据项之间就能形成逻辑上的父子关系，例如：\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\n上面 3 组 data 分别来自 3 个 option ，通过`groupId`和`childGroupId`，它们之间存在了“父-子-孙”的关系。在`setOption`时，Apache ECharts 会尝试寻找前后`option`数据项间的父子关系，若存在父子关系，则会对相关数据项进行下钻或聚合动画的过渡。\n\n没有对应子数据组的数据项不需要指定`childGroupId`。\n\n如果你使用了[dataset](https://echarts.apache.org/zh/option.html#dataset)组件来表达数据，推荐使用`encode.itemChildGroupId`来指定哪个维度被编码为子数据组 ID。",
                 "children": []
             },
             {
@@ -5691,7 +5691,7 @@
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` 参数 从 `v5.3.0` 开始支持\n\n</div>\n\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n> **[注]:** 不同于 [tooltip.formater](https://echarts.apache.org/zh/option.html#tooltip.formatter)，本方式不支持返回原始 HTML。返回内容渲染前会被自动按需转义。",
+                        "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v5.5.0` 开始支持`dataIndex` 参数。但是其值当 `dataZoom` 存在时不合理，因为所取的值是数据被 `dataZoom` 过滤后的 index。\n\n</div>\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.1.0` 开始支持`dataIndex` 参数修正 `dataZoom` 过滤前的 index\n\n</div>\n\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n> **[注]:** 不同于 [tooltip.formater](https://echarts.apache.org/zh/option.html#tooltip.formatter)，本方式不支持返回原始 HTML。返回内容渲染前会被自动按需转义。",
                         "children": []
                     },
                     {
@@ -5952,7 +5952,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+                "desc": "图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
                 "children": []
             },
             {
@@ -5970,7 +5970,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -6656,7 +6656,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -7337,7 +7337,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -8205,7 +8205,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -8780,7 +8780,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -9528,7 +9528,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -10268,7 +10268,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+                "desc": "图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
                 "children": []
             },
             {
@@ -10322,7 +10322,7 @@
                         "name": "position",
                         "type": "string",
                         "default": "'end'",
-                        "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                        "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                         "children": []
                     },
                     {
@@ -10605,7 +10605,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "'#fff'",
+                                        "default": "",
                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                         "children": []
                                     },
@@ -10633,25 +10633,11 @@
                                     {
                                         "name": "fontSize",
                                         "type": "number",
-                                        "default": "12",
+                                        "default": "",
                                         "desc": "文字的字体大小。",
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
-                                    },
-                                    {
-                                        "name": "verticalAlign",
-                                        "type": "enum",
-                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'top','middle','bottom'"
                                     },
                                     {
                                         "name": "lineHeight",
@@ -10979,7 +10965,7 @@
                                 "name": "position",
                                 "type": "string",
                                 "default": "'end'",
-                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                 "children": []
                             },
                             {
@@ -11262,7 +11248,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "'#fff'",
+                                                "default": "",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -11290,25 +11276,11 @@
                                             {
                                                 "name": "fontSize",
                                                 "type": "number",
-                                                "default": "12",
+                                                "default": "",
                                                 "desc": "文字的字体大小。",
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
-                                            },
-                                            {
-                                                "name": "verticalAlign",
-                                                "type": "enum",
-                                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'top','middle','bottom'"
                                             },
                                             {
                                                 "name": "lineHeight",
@@ -11621,7 +11593,7 @@
                                 "name": "position",
                                 "type": "string",
                                 "default": "'end'",
-                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                 "children": []
                             },
                             {
@@ -11904,7 +11876,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "'#fff'",
+                                                "default": "",
                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                 "children": []
                                             },
@@ -11932,25 +11904,11 @@
                                             {
                                                 "name": "fontSize",
                                                 "type": "number",
-                                                "default": "12",
+                                                "default": "",
                                                 "desc": "文字的字体大小。",
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
-                                            },
-                                            {
-                                                "name": "verticalAlign",
-                                                "type": "enum",
-                                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'top','middle','bottom'"
                                             },
                                             {
                                                 "name": "lineHeight",
@@ -12471,7 +12429,7 @@
                                         "name": "position",
                                         "type": "string",
                                         "default": "'end'",
-                                        "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                        "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                         "children": []
                                     },
                                     {
@@ -12754,7 +12712,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "'#fff'",
+                                                        "default": "",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -12782,25 +12740,11 @@
                                                     {
                                                         "name": "fontSize",
                                                         "type": "number",
-                                                        "default": "12",
+                                                        "default": "",
                                                         "desc": "文字的字体大小。",
                                                         "children": [],
                                                         "min": "1",
                                                         "step": "1"
-                                                    },
-                                                    {
-                                                        "name": "align",
-                                                        "type": "enum",
-                                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'left','center','right'"
-                                                    },
-                                                    {
-                                                        "name": "verticalAlign",
-                                                        "type": "enum",
-                                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'top','middle','bottom'"
                                                     },
                                                     {
                                                         "name": "lineHeight",
@@ -13128,7 +13072,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -13411,7 +13355,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -13439,25 +13383,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "文字的字体大小。",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -13780,7 +13710,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -14063,7 +13993,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -14091,25 +14021,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "文字的字体大小。",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -14523,7 +14439,7 @@
                                         "name": "position",
                                         "type": "string",
                                         "default": "'end'",
-                                        "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                        "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                         "children": []
                                     },
                                     {
@@ -14806,7 +14722,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "'#fff'",
+                                                        "default": "",
                                                         "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                         "children": []
                                                     },
@@ -14834,25 +14750,11 @@
                                                     {
                                                         "name": "fontSize",
                                                         "type": "number",
-                                                        "default": "12",
+                                                        "default": "",
                                                         "desc": "文字的字体大小。",
                                                         "children": [],
                                                         "min": "1",
                                                         "step": "1"
-                                                    },
-                                                    {
-                                                        "name": "align",
-                                                        "type": "enum",
-                                                        "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'left','center','right'"
-                                                    },
-                                                    {
-                                                        "name": "verticalAlign",
-                                                        "type": "enum",
-                                                        "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'top','middle','bottom'"
                                                     },
                                                     {
                                                         "name": "lineHeight",
@@ -15180,7 +15082,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -15463,7 +15365,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -15491,25 +15393,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "文字的字体大小。",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -15832,7 +15720,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-.markLine.label.distance) 调整。\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "标签位置，可选：\n+ `'start'` 线的起始点。\n+ `'middle'` 线的中点。\n+ `'end'` 线的结束点。\n\n4.7.0 版本起，支持更多标签位置：`'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`。\n\n其中，`'insideMiddleBottom'` 等同于 `'middle'`。具体位置参见下图。\n\n文字与线的间距可以通过 [label.distance](https://echarts.apache.org/zh/option.html#series-lines.markLine.label.distance) 调整。\n\n~[800x500](https://echarts.apache.org/examples/zh/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -16115,7 +16003,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "文字的颜色。\n\n\n\n\n如果设置为 `'inherit'`，则为视觉映射得到的颜色，如系列色。",
                                                                 "children": []
                                                             },
@@ -16143,25 +16031,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "文字的字体大小。",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -16430,7 +16304,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+                "desc": "图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
                 "children": []
             },
             {
@@ -16448,7 +16322,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -17134,7 +17008,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -17815,7 +17689,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -18645,7 +18519,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -19331,7 +19205,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -20012,7 +19886,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -20728,7 +20602,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                        "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -21414,7 +21288,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -22095,7 +21969,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](doc-example/label-position)。",
+                                                "desc": "标签的位置。\n\n+ 可以通过内置的语义声明位置：\n\n示例：\n```ts\nposition: 'top'\n```\n\n支持：`top` / `left` / `right` / `bottom` / `inside` / `insideLeft` / `insideRight` / `insideTop` / `insideBottom` / `insideTopLeft` / `insideBottomLeft` / `insideTopRight` / `insideBottomRight`\n\n+ 也可以用一个数组表示相对的百分比或者绝对像素值表示标签相对于图形包围盒左上角的位置。\n\n示例：\n```ts\n// 绝对的像素值\nposition: [10, 10],\n// 相对的百分比\nposition: ['50%', '50%']\n```\n\n参见：[label position](https://echarts.apache.org/examples/zh/view.html?c=doc-example/label-position)。",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -22721,7 +22595,7 @@
         "name": "clip",
         "type": "boolean",
         "default": "true",
-        "desc": "<div class=\"doc-partial-version\">\n\n从 `v4.4.0` 开始支持\n\n</div>\n\n\n是否裁剪超出坐标系部分的图形，具体裁剪效果根据系列决定：\n\n+ 散点图/带有涟漪特效动画的散点（气泡）图：忽略中心点超出坐标系的图形，但是不裁剪单个图形\n+ 柱状图：裁掉完全超出的柱子，但是不会裁剪只超出部分的柱子\n+ 折线图：裁掉所有超出坐标系的折线部分，拐点图形的逻辑按照散点图处理\n+ 路径图：裁掉所有超出坐标系的部分\n+ K 线图：忽略整体都超出坐标系的图形，但是不裁剪单个图形\n+ 象形柱图：裁掉所有超出坐标系的部分（从 v5.5.0 开始支持）\n+ 自定义系列：裁掉所有超出坐标系的部分\n\n除了象形柱图和自定义系列，其它系列的默认值都为 true，及开启裁剪，如果你觉得不想要裁剪的话，可以设置成 false 关闭。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v4.4.0` 开始支持\n\n</div>\n\n\n是否基于坐标系区域对系列的图形进行剪裁。\n\n具体裁剪效果是：\n\n\n对于任一图形，裁掉超出坐标系的部分。",
         "children": []
     },
     {
@@ -22742,7 +22616,7 @@
         "name": "silent",
         "type": "boolean",
         "default": "false",
-        "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+        "desc": "图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
         "children": []
     },
     {
@@ -22873,7 +22747,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` 参数 从 `v5.3.0` 开始支持\n\n</div>\n\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n> **[注]:** 不同于 [tooltip.formater](https://echarts.apache.org/zh/option.html#tooltip.formatter)，本方式不支持返回原始 HTML。返回内容渲染前会被自动按需转义。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.3.0` 开始支持\n\n</div>\n\n\ntooltip 中数值显示部分的格式化回调函数。\n\n回调函数格式：\n\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v5.5.0` 开始支持`dataIndex` 参数。但是其值当 `dataZoom` 存在时不合理，因为所取的值是数据被 `dataZoom` 过滤后的 index。\n\n</div>\n\n\n\n<div class=\"doc-partial-version\">\n\n从 `v6.1.0` 开始支持`dataIndex` 参数修正 `dataZoom` 过滤前的 index\n\n</div>\n\n\n示例：\n\n```ts\n// 添加 $ 前缀\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n> **[注]:** 不同于 [tooltip.formater](https://echarts.apache.org/zh/option.html#tooltip.formatter)，本方式不支持返回原始 HTML。返回内容渲染前会被自动按需转义。",
                 "children": []
             },
             {

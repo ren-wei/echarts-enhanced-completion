@@ -23,7 +23,7 @@
         "name": "link",
         "type": "string",
         "default": "''",
-        "desc": "主标题文本超链接。\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
+        "desc": "主标题文本超链接。\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于\"不受信任\"的来源，必须考虑 安全风险。文档 [\"安全指南\"](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
         "children": []
     },
     {
@@ -211,53 +211,39 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
-                                "desc": "文字的颜色。",
+                                "default": "'#333'",
+                                "desc": "主标题文字的颜色。",
                                 "children": []
                             },
                             {
                                 "name": "fontStyle",
                                 "type": "enum",
-                                "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                                "desc": "主标题文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
                                 "children": [],
                                 "options": "'normal','italic','oblique'"
                             },
                             {
                                 "name": "fontWeight",
                                 "type": "enum",
-                                "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                                "desc": "主标题文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
                                 "children": [],
                                 "options": "'normal','bold','bolder','lighter'"
                             },
                             {
                                 "name": "fontFamily",
                                 "type": "enum",
-                                "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
+                                "desc": "主标题文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
                                 "children": [],
                                 "options": "'sans-serif','serif','monospace','Arial','Courier New'"
                             },
                             {
                                 "name": "fontSize",
                                 "type": "number",
-                                "default": "12",
-                                "desc": "文字的字体大小。",
+                                "default": "18",
+                                "desc": "主标题文字的字体大小。",
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
-                            },
-                            {
-                                "name": "align",
-                                "type": "enum",
-                                "desc": "文字水平对齐方式，默认自动。\n\n可选：\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\n`rich` 中如果没有设置 `align`，则会取父层级的 `align`。例如：\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// 没有设置 `align`，则 `align` 为 right\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'left','center','right'"
-                            },
-                            {
-                                "name": "verticalAlign",
-                                "type": "enum",
-                                "desc": "文字垂直对齐方式，默认自动。\n\n可选：\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\n`rich` 中如果没有设置 `verticalAlign`，则会取父层级的 `verticalAlign`。例如：\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// 没有设置 `verticalAlign`，则 `verticalAlign` 为 bottom\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'top','middle','bottom'"
                             },
                             {
                                 "name": "lineHeight",
@@ -267,95 +253,6 @@
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
-                            },
-                            {
-                                "name": "backgroundColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
-                                "children": []
-                            },
-                            {
-                                "name": "borderColor",
-                                "type": "color",
-                                "default": "'#fff'",
-                                "desc": "文字块边框颜色。",
-                                "children": []
-                            },
-                            {
-                                "name": "borderWidth",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块边框宽度。",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "borderType",
-                                "type": "enum",
-                                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
-                                "children": [],
-                                "options": "'solid','dashed','dotted'"
-                            },
-                            {
-                                "name": "borderDashOffset",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
-                                "children": [],
-                                "min": "0",
-                                "step": "1"
-                            },
-                            {
-                                "name": "borderRadius",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "文字块的圆角。",
-                                "children": [],
-                                "min": "0",
-                                "dims": "LT,RT, RB, LB"
-                            },
-                            {
-                                "name": "padding",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
-                                "children": [],
-                                "min": "0",
-                                "dims": "T,R,B,L"
-                            },
-                            {
-                                "name": "shadowColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "文字块的背景阴影颜色。",
-                                "children": []
-                            },
-                            {
-                                "name": "shadowBlur",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块的背景阴影长度。",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetX",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块的背景阴影 X 偏移。",
-                                "children": [],
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetY",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块的背景阴影 Y 偏移。",
-                                "children": [],
-                                "step": "0.5"
                             },
                             {
                                 "name": "width",
@@ -454,7 +351,7 @@
         "name": "sublink",
         "type": "string",
         "default": "''",
-        "desc": "副标题文本超链接。\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
+        "desc": "副标题文本超链接。\n\n> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于\"不受信任\"的来源，必须考虑 安全风险。文档 [\"安全指南\"](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。",
         "children": []
     },
     {
@@ -656,28 +553,28 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
-                                "desc": "文字的颜色。",
+                                "default": "'#aaa'",
+                                "desc": "副标题文字的颜色。",
                                 "children": []
                             },
                             {
                                 "name": "fontStyle",
                                 "type": "enum",
-                                "desc": "文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
+                                "desc": "副标题文字字体的风格。\n\n可选：\n+ `'normal'`\n+ `'italic'`\n+ `'oblique'`",
                                 "children": [],
                                 "options": "'normal','italic','oblique'"
                             },
                             {
                                 "name": "fontWeight",
                                 "type": "enum",
-                                "desc": "文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
+                                "desc": "副标题文字字体的粗细。\n\n可选：\n+ `'normal'`\n+ `'bold'`\n+ `'bolder'`\n+ `'lighter'`\n+ 100 | 200 | 300 | 400...",
                                 "children": [],
                                 "options": "'normal','bold','bolder','lighter'"
                             },
                             {
                                 "name": "fontFamily",
                                 "type": "enum",
-                                "desc": "文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
+                                "desc": "副标题文字的字体系列。\n\n还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei', ...",
                                 "children": [],
                                 "options": "'sans-serif','serif','monospace','Arial','Courier New'"
                             },
@@ -685,7 +582,7 @@
                                 "name": "fontSize",
                                 "type": "number",
                                 "default": "12",
-                                "desc": "文字的字体大小。",
+                                "desc": "副标题文字的字体大小。",
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
@@ -712,95 +609,6 @@
                                 "children": [],
                                 "min": "0",
                                 "step": "1"
-                            },
-                            {
-                                "name": "backgroundColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
-                                "children": []
-                            },
-                            {
-                                "name": "borderColor",
-                                "type": "color",
-                                "default": "'#fff'",
-                                "desc": "文字块边框颜色。",
-                                "children": []
-                            },
-                            {
-                                "name": "borderWidth",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块边框宽度。",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "borderType",
-                                "type": "enum",
-                                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
-                                "children": [],
-                                "options": "'solid','dashed','dotted'"
-                            },
-                            {
-                                "name": "borderDashOffset",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
-                                "children": [],
-                                "min": "0",
-                                "step": "1"
-                            },
-                            {
-                                "name": "borderRadius",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "文字块的圆角。",
-                                "children": [],
-                                "min": "0",
-                                "dims": "LT,RT, RB, LB"
-                            },
-                            {
-                                "name": "padding",
-                                "type": "vector",
-                                "default": "0",
-                                "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
-                                "children": [],
-                                "min": "0",
-                                "dims": "T,R,B,L"
-                            },
-                            {
-                                "name": "shadowColor",
-                                "type": "color",
-                                "default": "'transparent'",
-                                "desc": "文字块的背景阴影颜色。",
-                                "children": []
-                            },
-                            {
-                                "name": "shadowBlur",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块的背景阴影长度。",
-                                "children": [],
-                                "min": "0",
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetX",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块的背景阴影 X 偏移。",
-                                "children": [],
-                                "step": "0.5"
-                            },
-                            {
-                                "name": "shadowOffsetY",
-                                "type": "number",
-                                "default": "0",
-                                "desc": "文字块的背景阴影 Y 偏移。",
-                                "children": [],
-                                "step": "0.5"
                             },
                             {
                                 "name": "width",
@@ -906,7 +714,7 @@
         "name": "triggerEvent",
         "type": "boolean",
         "default": "false",
-        "desc": "是否触发事件。",
+        "desc": "鼠标和触摸事件是否发送给开发者注册的监听器（`chart.on('xxx', function (event) {})`）。\n\n支持的鼠标和触摸事件为 `'click'`、`'dblclick'`、`'mouseover'`、`'mouseout'`、`'mousemove'`、`'mousedown'`、`'mouseup'`、`'globalout'`、`'contextmenu'`。注意，鼠标和触摸事件都统一使用名字 `'mouse{xxx}'`。\n\n\n\n可取值：\n- `true`: 允许对外发送事件。但是它也需要 `silent` 配置项为 `false` 才能真正发送事件。\n- `false`: 禁止对外发送事件，哪怕 `silent` 配置项为 `false`。\n\n\n\n\n事件对象的内容为：\n```ts\n{\ncomponentType: 'title';\n// title 组件的 index（基于 echarts option）。\ncomponentIndex: number;\n}\n```",
         "children": []
     },
     {
@@ -931,14 +739,14 @@
         "name": "zlevel",
         "type": "number",
         "default": "0",
-        "desc": "所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "desc": "标题（title）所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
         "children": []
     },
     {
         "name": "z",
         "type": "number",
         "default": "2",
-        "desc": "组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "desc": "标题（title）组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
         "children": []
     },
     {
@@ -980,7 +788,7 @@
         "name": "coordinateSystemUsage",
         "type": "string",
         "default": "\\'box\\'",
-        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n如何在指定的 [坐标系](https://echarts.apache.org/zh/option.html#title.coordinateSystem) 上布局本 `title`。\n\n在大多数情况下，无需显式指定 `coordinateSystemUsage`，除非默认行为不符合预期。\n\n可选值：\n- `'data'`：**（不适用于 [title](https://echarts.apache.org/zh/option.html#title)）**\n\n此系列的每个数据项（例如，每个 `series.data[i]`）将独立地在指定的坐标系进行布局。\n注：当前没有任何“非系列组件”支持 `coordinateSystemUsage: 'data'`。\n\n- `'box'`：\n\n此系列或组件作为一个整体，在指定的坐标系中进行布局——即根据坐标系计算整体的包围盒或基础锚点。\n\n- 例如，[grid 组件](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [matrix 坐标系](https://echarts.apache.org/zh/option.html#matrix) 或 [calendar 坐标系](https://echarts.apache.org/zh/option.html#calendar) 中，这时其布局矩形是由 [title.coords](https://echarts.apache.org/zh/option.html#title.coords) 在坐标系中计算出来的。参见示例：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1)。\n- 又如，[饼图系列](https://echarts.apache.org/zh/option.html#series-pie) 或 [和弦图系列](https://echarts.apache.org/zh/option.html#series-chord) 可以布局在 [geo 坐标系](https://echarts.apache.org/zh/option.html#geo) 或 [cartesian2d 坐标系](https://echarts.apache.org/zh/option.html#grid) 中，这时其中心点是由 [series-pie.coords](https://echarts.apache.org/zh/option.html#series-pie.coords) 或 [series-pie.center](https://echarts.apache.org/zh/option.html#series-pie.center) 在坐标系中计算出来的。参见示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)。\n\n\n\n另参考：[title.coordinateSystem](https://echarts.apache.org/zh/option.html#title.coordinateSystem)。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n如何在指定的 [坐标系](https://echarts.apache.org/zh/option.html#title.coordinateSystem) 上布局本 `title`。\n\n在大多数情况下，无需显式指定 `coordinateSystemUsage`，除非默认行为不符合预期。\n\n可选值：\n- `'data'`：**（不适用于 [title](https://echarts.apache.org/zh/option.html#title)）**\n\n此系列的每个数据项（例如，每个 `series.data[i]`）将独立地在指定的坐标系进行布局。\n注：当前没有任何“非系列组件”支持 `coordinateSystemUsage: 'data'`。\n\n- `'box'`：\n\n此系列或组件作为一个整体，在指定的坐标系中进行布局——即根据坐标系计算整体的包围盒或基础锚点。\n\n- 例如，[grid 组件](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [matrix 坐标系](https://echarts.apache.org/zh/option.html#matrix) 或 [calendar 坐标系](https://echarts.apache.org/zh/option.html#calendar) 中，这时其布局矩形是由 [title.coords](https://echarts.apache.org/zh/option.html#title.coords) 在坐标系中计算出来的。参见示例：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1)。\n- 又如，[饼图系列](https://echarts.apache.org/zh/option.html#series-pie) 或 [和弦图系列](https://echarts.apache.org/zh/option.html#series-chord) 可以布局在 [geo 坐标系](https://echarts.apache.org/zh/option.html#geo) 或 [cartesian2d 坐标系](https://echarts.apache.org/zh/option.html#grid) 中，这时其中心点是由 [series-pie.coords](https://echarts.apache.org/zh/option.html#series-pie.coords) 或 [series-pie.center](https://echarts.apache.org/zh/option.html#series-pie.center) 在坐标系中计算出来的。参见示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)。\n\n\n\n另参考：[title.coordinateSystem](https://echarts.apache.org/zh/option.html#title.coordinateSystem)。",
         "children": []
     },
     {
@@ -990,7 +798,7 @@
             "number",
             "string"
         ],
-        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#title.coordinateSystemUsage) 为 `'box'` 时, `coord` 被输入给坐标系，计算得到布局位置（布局盒或者中心点）。\n\n例子：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1), [矩阵中的关系图](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> 注：当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#title.coordinateSystemUsage) 为 `'data'` 时，输入给坐标系的是 `series.data[i]` 而非此 `coord`。\n\n`coord` 的具体格式定义，取决于每个坐标系，并且，和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 的第二个参数相同。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#title.coordinateSystemUsage) 为 `'box'` 时, `coord` 被输入给坐标系，计算得到布局位置（布局盒或者中心点）。\n\n例子：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1), [矩阵中的关系图](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> 注：当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#title.coordinateSystemUsage) 为 `'data'` 时，输入给坐标系的是 `series.data[i]` 而非此 `coord`。\n\n`coord` 的具体格式定义，取决于每个坐标系，并且，和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 的第二个参数相同。",
         "children": []
     },
     {

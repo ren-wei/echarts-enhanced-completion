@@ -23,14 +23,14 @@
         "name": "zlevel",
         "type": "number",
         "default": "0",
-        "desc": "`zlevel` value of all graphical elements in .\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
+        "desc": "`zlevel` value of all graphical elements in legend.\n\n`zlevel` is used to make layers with Canvas. Graphical elements with different `zlevel` values will be placed in different Canvases, which is a common optimization technique. We can put those frequently changed elements (like those with animations) to a separate `zlevel`. Notice that too many Canvases will increase memory cost, and should be used carefully on mobile phones to avoid crash.\n\nCanvases with bigger `zlevel` will be placed on Canvases with smaller `zlevel`.",
         "children": []
     },
     {
         "name": "z",
         "type": "number",
         "default": "2",
-        "desc": "`z` value of all graphical elements in , which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
+        "desc": "`z` value of all graphical elements in legend, which controls order of drawing graphical components. Components with smaller `z` values may be overwritten by those with larger `z` values.\n\n`z` has a lower priority to `zlevel`, and will not create new Canvas.",
         "children": []
     },
     {
@@ -40,7 +40,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between null component and the left side of the container.\n\n`left` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
+        "desc": "Distance between legend component and the left side of the container.\n\n`left` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`; and it can also be `'left'`, `'center'`, or `'right'`.\n\nIf the `left` value is set to be `'left'`, `'center'`, or `'right'`, then the component will be aligned automatically based on position.",
         "children": []
     },
     {
@@ -50,7 +50,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between null component and the top side of the container.\n\n`top` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `top` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
+        "desc": "Distance between legend component and the top side of the container.\n\n`top` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`; and it can also be `'top'`, `'middle'`, or `'bottom'`.\n\nIf the `top` value is set to be `'top'`, `'middle'`, or `'bottom'`, then the component will be aligned automatically based on position.",
         "children": []
     },
     {
@@ -60,7 +60,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between null component and the right side of the container.\n\n`right` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`.\n\nAdaptive by default.",
+        "desc": "Distance between legend component and the right side of the container.\n\n`right` can be a pixel value like `20`; it can also be a percentage value relative to the container width like `'20%'`.\n\nAdaptive by default.",
         "children": []
     },
     {
@@ -70,7 +70,7 @@
             "number"
         ],
         "default": "'auto'",
-        "desc": "Distance between null component and the bottom side of the container.\n\n`bottom` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`.\n\nAdaptive by default.",
+        "desc": "Distance between legend component and the bottom side of the container.\n\n`bottom` can be a pixel value like `20`; it can also be a percentage value relative to the container height like `'20%'`.\n\nAdaptive by default.",
         "children": []
     },
     {
@@ -104,7 +104,7 @@
         "name": "coordinateSystemUsage",
         "type": "string",
         "default": "\\'box\\'",
-        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nSpecify how to lay out this `legend` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#legend.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`: **(Not applicable in [legend](https://echarts.apache.org/en/option.html#legend))**\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`:\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [legend.coords](https://echarts.apache.org/en/option.html#legend.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\n\nSee also [legend.coordinateSystem](https://echarts.apache.org/en/option.html#legend.coordinateSystem).",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nSpecify how to lay out this `legend` based on the specified [coordinateSystem](https://echarts.apache.org/en/option.html#legend.coordinateSystem).\n\nIn most cases, there is no need to specify `coordinateSystemUsage`, unless the default behavior is unexpected.\n\nOptions:\n- `'data'`: **(Not applicable in [legend](https://echarts.apache.org/en/option.html#legend))**\n\nEach data item of a series (e.g., each `series.data[i]`) is laid out separately based on the specified coordinate system. Currently no non-series component supports `coordinateSystemUsage: 'data'`.\n\n- `'box'`:\n\nThe entire series or component is laid out as a whole based on the specified coordinate system - that is, the overall bounding rect or basic anchor point is calculated relative to the system.\n\n- For example, a [grid component](https://echarts.apache.org/en/option.html#grid) can be laid out in a [matrix coordinate system](https://echarts.apache.org/en/option.html#matrix) or a [calendar coordinate system](https://echarts.apache.org/en/option.html#calendar), where its layout rectangle is calculated by the specified [legend.coords](https://echarts.apache.org/en/option.html#legend.coords) in that system. See example [sparkline in matrix](matrix-sparkline&edit=1&reset=1).\n- For example, a [pie series](https://echarts.apache.org/en/option.html#series-pie) or a [chord series](https://echarts.apache.org/en/option.html#series-chord) can be laid out in a [geo coordinate system](https://echarts.apache.org/en/option.html#geo) or a [cartesian2d coordinate system](https://echarts.apache.org/en/option.html#grid), where the center is calculated by the specified [series-pie.coords](https://echarts.apache.org/en/option.html#series-pie.coords) or [series-pie.center](https://echarts.apache.org/en/option.html#series-pie.center) in that system. See example [pie in geo](map-iceland-pie&edit=1&reset=1).\n\n\n\nSee also [legend.coordinateSystem](https://echarts.apache.org/en/option.html#legend.coordinateSystem).",
         "children": []
     },
     {
@@ -114,7 +114,7 @@
             "number",
             "string"
         ],
-        "desc": "<div class=\"doc-partial-version\">\n\nSince `v`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#legend.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#legend.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
+        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nWhen [coordinateSystemUsage](https://echarts.apache.org/en/option.html#legend.coordinateSystemUsage) is `'box'`, `coord` is used as the input to the coordinate system and calculate the layout rectangle or anchor point.\n\nExamples: [sparkline in matrix](matrix-sparkline&edit=1&reset=1), [grpah in matrix](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> Note: when [coordinateSystemUsage](https://echarts.apache.org/en/option.html#legend.coordinateSystemUsage) is `'data'`, the input of coordinate system is `series.data[i]` rather than this `coord`.\n\nThe format this `coord` is defined by each coordinate system, and it's the same as the second parameter of [chart.convertToPixel](api.html#echartsInstance.convertToPixel).",
         "children": []
     },
     {
@@ -205,21 +205,21 @@
                 "name": "color",
                 "type": "color",
                 "default": "inherit",
-                "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
+                "desc": "Legend color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
                 "children": []
             },
             {
                 "name": "borderColor",
                 "type": "color",
                 "default": "inherit",
-                "desc": "border color, whose format is similar to that of `color`.",
+                "desc": "Legend border color, whose format is similar to that of `color`.",
                 "children": []
             },
             {
                 "name": "borderWidth",
                 "type": "number",
                 "default": "auto",
-                "desc": "border width. No border when it is set to be 0.\n\nWhen its value is `\"auto\"`, if there is `borderWidth` in series, then it is set to be 2, otherwise, it is set to be 0. If its value is `\"inherit\"`, then the `borderWidth` of the series are always used",
+                "desc": "Legend border width. No border when it is set to be 0.\n\nWhen its value is `\"auto\"`, if there is `borderWidth` in series, then it is set to be 2, otherwise, it is set to be 0. If its value is `\"inherit\"`, then the `borderWidth` of the series are always used",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -227,7 +227,7 @@
             {
                 "name": "borderType",
                 "type": "enum",
-                "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "desc": "Legend border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                 "children": [],
                 "options": "'solid','dashed','dotted'"
             },
@@ -356,7 +356,7 @@
                             "Array"
                         ],
                         "default": "5",
-                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -366,7 +366,7 @@
                             "Array"
                         ],
                         "default": "5",
-                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -403,14 +403,14 @@
                 "name": "color",
                 "type": "color",
                 "default": "inherit",
-                "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
+                "desc": "LegendLine color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
                 "children": []
             },
             {
                 "name": "width",
                 "type": "number",
                 "default": "auto",
-                "desc": "line width.",
+                "desc": "Legend line width.",
                 "children": [],
                 "min": "0",
                 "step": "0.5"
@@ -840,7 +840,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
+                                "default": "'#333'",
                                 "desc": "text color.",
                                 "children": []
                             },
@@ -873,20 +873,6 @@
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
-                            },
-                            {
-                                "name": "align",
-                                "type": "enum",
-                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'left','center','right'"
-                            },
-                            {
-                                "name": "verticalAlign",
-                                "type": "enum",
-                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'top','middle','bottom'"
                             },
                             {
                                 "name": "lineHeight",
@@ -1087,7 +1073,7 @@
     {
         "name": "data",
         "type": "Array",
-        "desc": "Data array of legend. An array item is usually a `name` representing string. (If it is a [pie chart](https://echarts.apache.org/en/option.html#series-pie), it could also be the `name` of a single data in the pie chart) of a series. Legend component would automatically calculate the color and icon according to series. Special string `''` (null string) or `'\\n'` (new line string) can be used for a new line.\n\nIf `data` is not specified, it will be auto collected from series. For most of series, it will be collected from [series.name](https://echarts.apache.org/en/option.html#series.name) or the dimension name specified by `seriesName` of [series.encode](https://echarts.apache.org/en/option.html#series.encode). For some types of series like [pie](https://echarts.apache.org/en/option.html#series-pie) and [funnel](https://echarts.apache.org/en/option.html#series-funnel), it will be collected from the name field of `series.data`.\n\nIf you need to set the style for a single item, you may also set the configuration of it. In this case, `name` attribute is used to represent name of `series`.\n\nExample:\n```\ndata: [{\nname: 'series 1',\n// compulsorily set icon as a circle\nicon: 'circle',\n// set up the text in red\ntextStyle: {\ncolor: 'red'\n}\n}]\n```",
+        "desc": "<br>\n\n**Explicitly Specify `legend.data`:**\n\n`legend.data` is an array. An array item can be a string (representing `name`) or an object (containing a `name` field).\n\nIf the `name` of an array item is a special string `''` or `'\\n'`, this array item is only used to create a line break.\n```js\nlegend: {\ndata: ['a', 'b', '\\n', 'c', 'd']\n// The final displayed items are (line wrapped):\n//  'a' 'b'\n//  'c' 'd'\n}\n```\n\nIf the `name` of an array item dose not match any `LEGEND_TARGET`, this legend item is ignored. (See also the description of `LEGEND_TARGET` below.)\n\n<br>\n\n**Automatically Collect `legend.data`:**\n\nIf `legend.data` is not explicitly specified, it is automatically collected from `series` or `dataset`.\n- It is basically collected from [series.name](https://echarts.apache.org/en/option.html#series.name).\n- It can also collect from `dataset` according to the dimension specified in `seriesName` field in [series.encode](https://echarts.apache.org/en/option.html#series.encode).\n- Some series supports `LEGEND_CONTROL_SERIES_DATA_ITEM` (see details below). It is collected from the `name` field (if present) of each `series.data` item. For a single series, if these `name`s from `series.data` are collected, series name is no longer collected.\n\nSome examples:\n```ts\noption = {\nlegend: {/* No `legend.data` field is specified. */},\nxAxis: {},\nyAxis: {},\nseries: [{\ntype: 'line', name: 'lineA', data: [11, 22]\n}, {\ntype: 'line', name: 'lineB', data: [111, 222]\n}, {\ntype: 'pie', name: 'pieC',\ndata: [\n{name: 'pieItemA', value: 9},\n{name: 'pieItemB', value: 8},\n{name: 'pieItemC', value: 7},\n]\n}],\n}\n// The final displayed legend items are:\n//  'lineA' 'lineB' 'pieItemA' 'pieItemB' 'pieItemC'\n```\n```ts\noption = {\nlegend: {/* No `legend.data` field is specified. */},\ndataset: {\nsource: [\n[null, 'nameH', 'nameI', 'nameJ', 'nameK'],\n['2012-01', 32, 65, 71, 31],\n['2012-02', 41, 67, 89, 23],\n['2012-03', 58, 61, 97, 12],\n['2012-04', 67, 73, 105, 9],\n['2012-05', 72, 67, 122, 18],\n]\n},\nxAxis: {type: 'category'},\nyAxis: {},\nseries: [{\ntype: 'bar',\n// Retrieve `seriesName` from dataset column with index 1; get 'nameH'.\nencode: {x: 0, y: 1, seriesName: 1}\n}, {\ntype: 'bar',\n// Retrieve `seriesName` from dataset column with index 3; get 'nameJ'.\nencode: { x: 0, y: 3, seriesName: 3 }\n}, {\ntype: 'bar',\n// Retrieve `seriesName` from dataset column with index 3; get 'nameI'.\nencode: { x: 0, y: 2, seriesName: 2 }\n}]\n};\n// The final displayed legend items are:\n//  'nameH' 'nameJ' 'nameI'\n```\n\n<br>\n\n**LEGEND_TARGET and LEGEND_MATCHING_RULES:**\n\nA legend item can control the visibility of a entire series or a series data item (see `LEGEND_CONTROL_SERIES_DATA_ITEM` below). They can be called as `LEGEND_TARGET`. A `LEGEND_TARGET` is under control if and only if the `name` from `legend.data` (either explicitly specified or automatically collected) matches the name from `LEGEND_TARGET`, i.e., matches series names or series data item names.\n\nThis mapping is allowed to be many-to-many. For example, if multiple series share the same series name, they can be controlled by a single legend item.\n\n<br>\n\n**LEGEND_CONTROL_SERIES_DATA_ITEM:**\n\nThese series support that legend items control each series data items: [pie](https://echarts.apache.org/en/option.html#series-pie), [funnel](https://echarts.apache.org/en/option.html#series-funnel), [chord](https://echarts.apache.org/en/option.html#series-chord), [graph](https://echarts.apache.org/en/option.html#series-graph), [radar](https://echarts.apache.org/en/option.html#series-radar) and [themeRiver](https://echarts.apache.org/en/option.html#series-themeRiver). They are matched according to `name` fields of legend items and series data items.\n\n<br>\n\n**Legend Item Styles:**\n\nIf you need to set the style for a single item, you may also set the configuration of it.\n\nExample:\n```\ndata: [{\nname: 'series 1',\n// compulsorily set icon as a circle\nicon: 'circle',\n// set up the text in red\ntextStyle: {\ncolor: 'red'\n}\n}]\n```",
         "children": [
             {
                 "name": "name",
@@ -1110,21 +1096,21 @@
                         "name": "color",
                         "type": "color",
                         "default": "inherit",
-                        "desc": "color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
+                        "desc": "Legend Item color.\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
                         "children": []
                     },
                     {
                         "name": "borderColor",
                         "type": "color",
                         "default": "inherit",
-                        "desc": "border color, whose format is similar to that of `color`.",
+                        "desc": "Legend Item border color, whose format is similar to that of `color`.",
                         "children": []
                     },
                     {
                         "name": "borderWidth",
                         "type": "number",
                         "default": "auto",
-                        "desc": "border width. No border when it is set to be 0.\n\nWhen its value is `\"auto\"`, if there is `borderWidth` in series, then it is set to be 2, otherwise, it is set to be 0. If its value is `\"inherit\"`, then the `borderWidth` of the series are always used",
+                        "desc": "Legend Item border width. No border when it is set to be 0.\n\nWhen its value is `\"auto\"`, if there is `borderWidth` in series, then it is set to be 2, otherwise, it is set to be 0. If its value is `\"inherit\"`, then the `borderWidth` of the series are always used",
                         "children": [],
                         "min": "0",
                         "step": "0.5"
@@ -1132,7 +1118,7 @@
                     {
                         "name": "borderType",
                         "type": "enum",
-                        "desc": "border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                        "desc": "Legend Item border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
                         "children": [],
                         "options": "'solid','dashed','dotted'"
                     },
@@ -1261,7 +1247,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -1271,7 +1257,7 @@
                                     "Array"
                                 ],
                                 "default": "5",
-                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                                "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                                 "children": []
                             },
                             {
@@ -1308,14 +1294,14 @@
                         "name": "color",
                         "type": "color",
                         "default": "inherit",
-                        "desc": "Line color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
+                        "desc": "Legend ItemLine color.\n\n\n\n\n\n> Supports setting as solid color using `rgb(255,255,255)`, `rgba(255,255,255,1)`, `#fff`, etc. Also supports setting as gradient color and pattern fill, see [option.color](https://echarts.apache.org/en/option.html#color) for details",
                         "children": []
                     },
                     {
                         "name": "width",
                         "type": "number",
                         "default": "auto",
-                        "desc": "line width.",
+                        "desc": "Legend Item line width.",
                         "children": [],
                         "min": "0",
                         "step": "0.5"

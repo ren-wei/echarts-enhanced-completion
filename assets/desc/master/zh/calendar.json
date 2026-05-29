@@ -9,42 +9,42 @@
         "name": "zlevel",
         "type": "number",
         "default": "0",
-        "desc": "所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "desc": "日历（calendar）所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
         "children": []
     },
     {
         "name": "z",
         "type": "number",
         "default": "2",
-        "desc": "组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "desc": "日历（calendar）组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
         "children": []
     },
     {
         "name": "left",
         "type": "percent",
         "default": "80",
-        "desc": "null组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为 `'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
+        "desc": "日历（calendar）组件离容器左侧的距离。\n\n`left` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比，也可以是 `'left'`, `'center'`, `'right'`。\n\n如果 `left` 的值为 `'left'`, `'center'`, `'right'`，组件会根据相应的位置自动对齐。",
         "children": []
     },
     {
         "name": "top",
         "type": "percent",
         "default": "60",
-        "desc": "null组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为 `'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
+        "desc": "日历（calendar）组件离容器上侧的距离。\n\n`top` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比，也可以是 `'top'`, `'middle'`, `'bottom'`。\n\n如果 `top` 的值为 `'top'`, `'middle'`, `'bottom'`，组件会根据相应的位置自动对齐。",
         "children": []
     },
     {
         "name": "right",
         "type": "percent",
         "default": "'auto'",
-        "desc": "null组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比。\n\n默认自适应。",
+        "desc": "日历（calendar）组件离容器右侧的距离。\n\n`right` 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器宽度的百分比。\n\n默认自适应。",
         "children": []
     },
     {
         "name": "bottom",
         "type": "percent",
         "default": "'auto'",
-        "desc": "null组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比。\n\n默认自适应。",
+        "desc": "日历（calendar）组件离容器下侧的距离。\n\nbottom 的值可以是像 `20` 这样的具体像素值，可以是像 `'20%'` 这样相对于容器高度的百分比。\n\n默认自适应。",
         "children": []
     },
     {
@@ -655,7 +655,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
+                                "default": "'#000'",
                                 "desc": "文字的颜色。",
                                 "children": []
                             },
@@ -889,7 +889,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.6.0` 开始支持\n\n</div>\n\n\n\n图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.6.0` 开始支持\n\n</div>\n\n\n\n图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
                 "children": []
             }
         ]
@@ -1222,7 +1222,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
+                                "default": "'#000'",
                                 "desc": "文字的颜色。",
                                 "children": []
                             },
@@ -1456,7 +1456,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.6.0` 开始支持\n\n</div>\n\n\n\n图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.6.0` 开始支持\n\n</div>\n\n\n\n图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
                 "children": []
             }
         ]
@@ -2009,7 +2009,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.6.0` 开始支持\n\n</div>\n\n\n\n图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.6.0` 开始支持\n\n</div>\n\n\n\n图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
                 "children": []
             }
         ]
@@ -2018,7 +2018,7 @@
         "name": "silent",
         "type": "boolean",
         "default": "false",
-        "desc": "图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件。",
+        "desc": "图形是否不响应和用户交互（鼠标和触摸事件）。\n\n- `true`: 图形不响应用户交互。这导致：\n- 用户交互功能被禁止，例如 `tooltip`、鼠标悬浮时的状态变化（`emphasis`），鼠标悬浮时的联动等。\n- 对外的鼠标和触摸事件不再发送给开发者注册的监听器（`chart.on('xxx', listener)`）。\n- `false`:\n- 用户交互功能不被此配置项禁止，但是是否可交互仍取决于其他相关配置项的设置。\n- 对外的鼠标和触摸事件不被此配置项禁止，但是是否发送仍取决于其他配置项，一般是 `triggerEvent`（如果支持此配置项的话）。",
         "children": []
     }
 ]

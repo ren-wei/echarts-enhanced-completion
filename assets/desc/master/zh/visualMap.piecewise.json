@@ -218,14 +218,14 @@
         "name": "zlevel",
         "type": "number",
         "default": "0",
-        "desc": "所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
+        "desc": "视觉映射（visualMap）所有图形的 zlevel 值。\n\n`zlevel`用于 Canvas 分层，不同`zlevel`值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的`zlevel`。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。\n\n`zlevel` 大的 Canvas 会放在 `zlevel` 小的 Canvas 的上面。",
         "children": []
     },
     {
         "name": "z",
         "type": "number",
         "default": "4",
-        "desc": "组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
+        "desc": "视觉映射（visualMap）组件的所有图形的`z`值。控制图形的前后顺序。`z`值小的图形会被`z`值大的图形覆盖。\n\n`z`相比`zlevel`优先级更低，而且不会创建新的 Canvas。",
         "children": []
     },
     {
@@ -267,7 +267,7 @@
         "name": "coordinateSystemUsage",
         "type": "string",
         "default": "\\'box\\'",
-        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n如何在指定的 [坐标系](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystem) 上布局本 `visualMap-piecewise`。\n\n在大多数情况下，无需显式指定 `coordinateSystemUsage`，除非默认行为不符合预期。\n\n可选值：\n- `'data'`：**（不适用于 [visualMap-piecewise](https://echarts.apache.org/zh/option.html#visualMap-piecewise)）**\n\n此系列的每个数据项（例如，每个 `series.data[i]`）将独立地在指定的坐标系进行布局。\n注：当前没有任何“非系列组件”支持 `coordinateSystemUsage: 'data'`。\n\n- `'box'`：\n\n此系列或组件作为一个整体，在指定的坐标系中进行布局——即根据坐标系计算整体的包围盒或基础锚点。\n\n- 例如，[grid 组件](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [matrix 坐标系](https://echarts.apache.org/zh/option.html#matrix) 或 [calendar 坐标系](https://echarts.apache.org/zh/option.html#calendar) 中，这时其布局矩形是由 [visualMap-piecewise.coords](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coords) 在坐标系中计算出来的。参见示例：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1)。\n- 又如，[饼图系列](https://echarts.apache.org/zh/option.html#series-pie) 或 [和弦图系列](https://echarts.apache.org/zh/option.html#series-chord) 可以布局在 [geo 坐标系](https://echarts.apache.org/zh/option.html#geo) 或 [cartesian2d 坐标系](https://echarts.apache.org/zh/option.html#grid) 中，这时其中心点是由 [series-pie.coords](https://echarts.apache.org/zh/option.html#series-pie.coords) 或 [series-pie.center](https://echarts.apache.org/zh/option.html#series-pie.center) 在坐标系中计算出来的。参见示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)。\n\n\n\n另参考：[visualMap-piecewise.coordinateSystem](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystem)。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n如何在指定的 [坐标系](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystem) 上布局本 `visualMap-piecewise`。\n\n在大多数情况下，无需显式指定 `coordinateSystemUsage`，除非默认行为不符合预期。\n\n可选值：\n- `'data'`：**（不适用于 [visualMap-piecewise](https://echarts.apache.org/zh/option.html#visualMap-piecewise)）**\n\n此系列的每个数据项（例如，每个 `series.data[i]`）将独立地在指定的坐标系进行布局。\n注：当前没有任何“非系列组件”支持 `coordinateSystemUsage: 'data'`。\n\n- `'box'`：\n\n此系列或组件作为一个整体，在指定的坐标系中进行布局——即根据坐标系计算整体的包围盒或基础锚点。\n\n- 例如，[grid 组件](https://echarts.apache.org/zh/option.html#grid) 可以布局在 [matrix 坐标系](https://echarts.apache.org/zh/option.html#matrix) 或 [calendar 坐标系](https://echarts.apache.org/zh/option.html#calendar) 中，这时其布局矩形是由 [visualMap-piecewise.coords](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coords) 在坐标系中计算出来的。参见示例：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1)。\n- 又如，[饼图系列](https://echarts.apache.org/zh/option.html#series-pie) 或 [和弦图系列](https://echarts.apache.org/zh/option.html#series-chord) 可以布局在 [geo 坐标系](https://echarts.apache.org/zh/option.html#geo) 或 [cartesian2d 坐标系](https://echarts.apache.org/zh/option.html#grid) 中，这时其中心点是由 [series-pie.coords](https://echarts.apache.org/zh/option.html#series-pie.coords) 或 [series-pie.center](https://echarts.apache.org/zh/option.html#series-pie.center) 在坐标系中计算出来的。参见示例：[地理坐标系中的饼图](map-iceland-pie&edit=1&reset=1)。\n\n\n\n另参考：[visualMap-piecewise.coordinateSystem](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystem)。",
         "children": []
     },
     {
@@ -277,7 +277,7 @@
             "number",
             "string"
         ],
-        "desc": "<div class=\"doc-partial-version\">\n\n从 `v` 开始支持\n\n</div>\n\n\n当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystemUsage) 为 `'box'` 时, `coord` 被输入给坐标系，计算得到布局位置（布局盒或者中心点）。\n\n例子：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1), [矩阵中的关系图](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> 注：当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystemUsage) 为 `'data'` 时，输入给坐标系的是 `series.data[i]` 而非此 `coord`。\n\n`coord` 的具体格式定义，取决于每个坐标系，并且，和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 的第二个参数相同。",
+        "desc": "<div class=\"doc-partial-version\">\n\n从 `v6.0.0` 开始支持\n\n</div>\n\n\n当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystemUsage) 为 `'box'` 时, `coord` 被输入给坐标系，计算得到布局位置（布局盒或者中心点）。\n\n例子：[矩阵中的微型折线图](matrix-sparkline&edit=1&reset=1), [矩阵中的关系图](doc-example/matrix-graph-box&edit=1&reset=1).\n\n\n\n> 注：当 [coordinateSystemUsage](https://echarts.apache.org/zh/option.html#visualMap-piecewise.coordinateSystemUsage) 为 `'data'` 时，输入给坐标系的是 `series.data[i]` 而非此 `coord`。\n\n`coord` 的具体格式定义，取决于每个坐标系，并且，和 [chart.convertToPixel](api.html#echartsInstance.convertToPixel) 的第二个参数相同。",
         "children": []
     },
     {

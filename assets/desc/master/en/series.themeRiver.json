@@ -166,7 +166,7 @@
             {
                 "name": "position",
                 "type": "enum",
-                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                 "children": [],
                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
             },
@@ -474,7 +474,7 @@
                             {
                                 "name": "color",
                                 "type": "color",
-                                "default": "'#fff'",
+                                "default": "'#000'",
                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                 "children": []
                             },
@@ -502,25 +502,11 @@
                             {
                                 "name": "fontSize",
                                 "type": "number",
-                                "default": "12",
+                                "default": "11",
                                 "desc": "font size.",
                                 "children": [],
                                 "min": "1",
                                 "step": "1"
-                            },
-                            {
-                                "name": "align",
-                                "type": "enum",
-                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'left','center','right'"
-                            },
-                            {
-                                "name": "verticalAlign",
-                                "type": "enum",
-                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                "children": [],
-                                "options": "'top','middle','bottom'"
                             },
                             {
                                 "name": "lineHeight",
@@ -866,13 +852,13 @@
             {
                 "name": "hideOverlap",
                 "type": "boolean",
-                "desc": "If hide the overlapped labels.\n\nThe following example shows how to hide the overlapped labels in graph automatically when zooming.\n\n~[600x400](graph-label-overlap&edit=1&reset=1)",
+                "desc": "If hide the overlapped labels.\n\nThe following example shows how to hide the overlapped labels in graph automatically when zooming.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=graph-label-overlap&edit=1&reset=1)",
                 "children": []
             },
             {
                 "name": "moveOverlap",
                 "type": "string",
-                "desc": "If move the overlapped labels to avoid overlapping.\n\nCurrently supported configurations:\n\n+ `'shiftX'` Place the labels on horizontal direction sequencely, used when aligned horizontally.\n+ `'shiftY'` Place the labels on vertical direction sequencely, used when aligned vertically.\n\nThe following example shows how to use `moverOverlap: 'shiftY'` to place the labels aligned vertically.\n\n~[600x400](scatter-label-align-right&edit=1&reset=1)",
+                "desc": "If move the overlapped labels to avoid overlapping.\n\nCurrently supported configurations:\n\n+ `'shiftX'` Place the labels on horizontal direction sequencely, used when aligned horizontally.\n+ `'shiftY'` Place the labels on vertical direction sequencely, used when aligned vertically.\n\nThe following example shows how to use `moverOverlap: 'shiftY'` to place the labels aligned vertically.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=scatter-label-align-right&edit=1&reset=1)",
                 "children": []
             },
             {
@@ -1114,7 +1100,7 @@
                             "Array"
                         ],
                         "default": "5",
-                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayX` controls the horizontal pattern pattern. When its value is of type `number` or `number[]`, it is similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is of type `number`, it means that the pattern and the blank space are of this value respectively. For example, `5` means the pattern with width 5 is displayed first, then 5 pixels empty, then the pattern with width 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of an array of values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels wide, then 10 pixels empty, then the pattern is 2 pixels wide, then 6 pixels empty, then the pattern is 5 pixels wide...\n\n- If of type `(number | number[])[]`, it means that each row is a loop with an array of values for the pattern and blank space. For example: `[10, [2, 5]]` means that the first line will be 10 pixels by 10 pixels and empty space, the second line will be 2 pixels by 2 pixels and empty space, and the third line will be 10 pixels by 10 pixels and empty space...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -1124,7 +1110,7 @@
                             "Array"
                         ],
                         "default": "5",
-                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](doc-example/aria-decal&edit=1&reset=1)",
+                        "desc": "The basic pattern of the decal pattern is an infinite loop in the form of `Pattern - Blank - Pattern - Blank - Pattern - Blank` both horizontally and vertically, respectively. By setting the length of each pattern and blank, complex pattern effects can be achieved.\n\n`dashArrayY` controls the horizontal pattern pattern. Similar to [SVG stroke-dasharray](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray).\n\n- If it is a `number` type, it means the pattern and the blank are each of this value. For example, `5` means that the pattern with a height of 5 is displayed first, then 5 pixels empty, then the pattern with a height of 5 is displayed...\n\n- In the case of `number[]` type, it means that the pattern and empty space are loops of sequential array values. For example: `[5, 10, 2, 6]` means the pattern is 5 pixels high, then 10 pixels empty, then the pattern is 2 pixels high, then 6 pixels empty, then the pattern is 5 pixels high...\n\nThis interface can be better understood with the following examples.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/aria-decal&edit=1&reset=1)",
                         "children": []
                     },
                     {
@@ -1168,7 +1154,7 @@
                 "name": "focus",
                 "type": "string",
                 "default": "'none'",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\nWhen the data is highlighted, whether to fade out of other data to focus the highlighted. The following configurations are supported:\n\n+ `'none'` Do not fade out other data, it's by default.\n+ `'self'` Only focus (not fade out) the element of the currently highlighted data.\n\n\n+ `'series'` Focus on all elements of the series which the currently highlighted data belongs to.\n\n\n\n\n\n\n**Example: **\n\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](bar-y-category-stack&reset=1&edit=1)",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\nWhen the data is highlighted, whether to fade out of other data to focus the highlighted. The following configurations are supported:\n\n+ `'none'` Do not fade out other data, it's by default.\n+ `'self'` Only focus (not fade out) the element of the currently highlighted data.\n\n\n+ `'series'` Focus on all elements of the series which the currently highlighted data belongs to.\n\n\n\n\n\n\n**Example: **\n\n\n```ts\nemphasis: {\nfocus: 'series',\nblurScope: 'coordinateSystem'\n}\n```\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=bar-y-category-stack&reset=1&edit=1)",
                 "children": []
             },
             {
@@ -1193,7 +1179,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -1486,7 +1472,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "'#fff'",
+                                        "default": "'#000'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -1514,25 +1500,11 @@
                                     {
                                         "name": "fontSize",
                                         "type": "number",
-                                        "default": "12",
+                                        "default": "11",
                                         "desc": "font size.",
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
-                                    },
-                                    {
-                                        "name": "verticalAlign",
-                                        "type": "enum",
-                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'top','middle','bottom'"
                                     },
                                     {
                                         "name": "lineHeight",
@@ -1968,7 +1940,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -2261,7 +2233,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "'#fff'",
+                                        "default": "'#000'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -2289,25 +2261,11 @@
                                     {
                                         "name": "fontSize",
                                         "type": "number",
-                                        "default": "12",
+                                        "default": "11",
                                         "desc": "font size.",
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
-                                    },
-                                    {
-                                        "name": "verticalAlign",
-                                        "type": "enum",
-                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'top','middle','bottom'"
                                     },
                                     {
                                         "name": "lineHeight",
@@ -2750,7 +2708,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -3043,7 +3001,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "'#fff'",
+                                        "default": "'#000'",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -3071,25 +3029,11 @@
                                     {
                                         "name": "fontSize",
                                         "type": "number",
-                                        "default": "12",
+                                        "default": "11",
                                         "desc": "font size.",
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
-                                    },
-                                    {
-                                        "name": "verticalAlign",
-                                        "type": "enum",
-                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'top','middle','bottom'"
                                     },
                                     {
                                         "name": "lineHeight",
@@ -3563,7 +3507,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v5.5.0` `dataIndex` is provided; but not reasonable when `dataZoom` exists, since it is the index after dataZoom filtering.\n\n</div>\n\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v6.1.0` `dataIndex` is corrected to the index before `dataZoom` filtering.\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                 "children": []
             },
             {

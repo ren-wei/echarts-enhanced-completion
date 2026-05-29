@@ -109,7 +109,7 @@
             {
                 "name": "position",
                 "type": "enum",
-                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                 "children": [],
                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
             },
@@ -817,7 +817,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -847,6 +847,21 @@
                         "children": [],
                         "dims": "x,y",
                         "step": "0.5"
+                    },
+                    {
+                        "name": "textMargin",
+                        "type": [
+                            "number",
+                            "Array"
+                        ],
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nThe space around the label to escape from overlapping. The unit is px.\n\nNotice: `textMargin` is applied on the label's local bounding rect, that is, if there is a `rotate` specified on the label, apply `textMargin` on the non-rotated label first, and then apply the rotation.\n\n> The name is `textMargin` because historically the name `margin` has been used for a different purpose.\n\n\nExamples:\n```ts\n// Set margin to be 5, means [5, 5, 5, 5]\ntextMargin: 5\n// Set the top and bottom margin to be 5, and left and right margin to be 10\ntextMargin: [5, 10]\n// Set each of the four margin separately\ntextMargin: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "minMargin",
+                        "type": "number",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).\n\n`minMargin` conveys a similar meaning to `textMargin`, but with a different nuance. If unsure, just use `textMargin`; it basically covers `minMargin` and can provide a more compact layout for rotated labels in some scenarios.\n\n> TL;DR: The difference:\n> + The minimal gap (if applicable) between two labels is `label1.minMargin/2 + label2.minMargin/2`, or `label1.textMargin[number] + label2.textMargin[number]`.\n> + If `rotate` is specified on a label,\n>     + `minMargin`: first rotate the label, forming a new rect by the min/max of x/y from the four corner points (that is a expanded bounding rect), and finally `minMargin` is applied on the new rect.\n>     + `textMargin`: first applied on the label's local bounding rect, and then rotate.\n> + Data type: `minMargin` should be only `number`, `textMargin` can be `number | number[]` (follow CSS margin).",
+                        "children": []
                     },
                     {
                         "name": "formatter",
@@ -1512,7 +1527,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -1542,6 +1557,21 @@
                         "children": [],
                         "dims": "x,y",
                         "step": "0.5"
+                    },
+                    {
+                        "name": "textMargin",
+                        "type": [
+                            "number",
+                            "Array"
+                        ],
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v6.0.0`\n\n</div>\n\n\n\nThe space around the label to escape from overlapping. The unit is px.\n\nNotice: `textMargin` is applied on the label's local bounding rect, that is, if there is a `rotate` specified on the label, apply `textMargin` on the non-rotated label first, and then apply the rotation.\n\n> The name is `textMargin` because historically the name `margin` has been used for a different purpose.\n\n\nExamples:\n```ts\n// Set margin to be 5, means [5, 5, 5, 5]\ntextMargin: 5\n// Set the top and bottom margin to be 5, and left and right margin to be 10\ntextMargin: [5, 10]\n// Set each of the four margin separately\ntextMargin: [\n5,  // up\n10, // right\n5,  // down\n10, // left\n]\n```",
+                        "children": []
+                    },
+                    {
+                        "name": "minMargin",
+                        "type": "number",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\nMinimal margin between labels. Used when label has [layout](https://echarts.apache.org/en/option.html#series.labelLayout).\n\n`minMargin` conveys a similar meaning to `textMargin`, but with a different nuance. If unsure, just use `textMargin`; it basically covers `minMargin` and can provide a more compact layout for rotated labels in some scenarios.\n\n> TL;DR: The difference:\n> + The minimal gap (if applicable) between two labels is `label1.minMargin/2 + label2.minMargin/2`, or `label1.textMargin[number] + label2.textMargin[number]`.\n> + If `rotate` is specified on a label,\n>     + `minMargin`: first rotate the label, forming a new rect by the min/max of x/y from the four corner points (that is a expanded bounding rect), and finally `minMargin` is applied on the new rect.\n>     + `textMargin`: first applied on the label's local bounding rect, and then rotate.\n> + Data type: `minMargin` should be only `number`, `textMargin` can be `number | number[]` (follow CSS margin).",
+                        "children": []
                     },
                     {
                         "name": "formatter",
@@ -2359,13 +2389,13 @@
             {
                 "name": "hideOverlap",
                 "type": "boolean",
-                "desc": "If hide the overlapped labels.\n\nThe following example shows how to hide the overlapped labels in graph automatically when zooming.\n\n~[600x400](graph-label-overlap&edit=1&reset=1)",
+                "desc": "If hide the overlapped labels.\n\nThe following example shows how to hide the overlapped labels in graph automatically when zooming.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=graph-label-overlap&edit=1&reset=1)",
                 "children": []
             },
             {
                 "name": "moveOverlap",
                 "type": "string",
-                "desc": "If move the overlapped labels to avoid overlapping.\n\nCurrently supported configurations:\n\n+ `'shiftX'` Place the labels on horizontal direction sequencely, used when aligned horizontally.\n+ `'shiftY'` Place the labels on vertical direction sequencely, used when aligned vertically.\n\nThe following example shows how to use `moverOverlap: 'shiftY'` to place the labels aligned vertically.\n\n~[600x400](scatter-label-align-right&edit=1&reset=1)",
+                "desc": "If move the overlapped labels to avoid overlapping.\n\nCurrently supported configurations:\n\n+ `'shiftX'` Place the labels on horizontal direction sequencely, used when aligned horizontally.\n+ `'shiftY'` Place the labels on vertical direction sequencely, used when aligned vertically.\n\nThe following example shows how to use `moverOverlap: 'shiftY'` to place the labels aligned vertically.\n\n~[600x400](https://echarts.apache.org/examples/en/view.html?c=scatter-label-align-right&edit=1&reset=1)",
                 "children": []
             },
             {
@@ -2623,7 +2653,7 @@
             {
                 "name": "childGroupId",
                 "type": "string",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.5.0`\n\n</div>\n\n\n\nThe group ID of the child data of a data item. This option is introduced to make multiple levels drilldown and aggregation animation possilbe.\n\n~[700x300](doc-example/bar-multi-drilldown&edit=1&reset=1)\n\nBefore `childGroupId` is introduced, developers actually can use `groupId` to make drilldown and aggregation animation already, but with the limit on the times that a continious drilldown or aggregation can happen, which is only one time.\n\n`childGroupId`, together with `groupId`, help to form \"parent-child\" relationships between data items of different options, such as:\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\nThe 3 groups of data above come from 3 options, and by specifying `groupId` and `childGroupId` for the data items a relationship of \"parent-child-grandChild\" is formed in the 3 options. In this way,  after `setOption` is called, Apache ECharts will try to find the \"parent-child\" or \"child-parent\" relationship of the old option and the new one. If the relationship exists, the matching data items will be applied to a drilldown animation or an aggregation one.\n\nIf a data item has no child data then there is no need to specify a `childGroupId` at all.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent data, you are recommended to use `encode.itemChildGroupId` to specify the dimension that is to be encoded as the child group ID.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.5.0`\n\n</div>\n\n\n\nThe group ID of the child data of a data item. This option is introduced to make multiple levels drilldown and aggregation animation possilbe.\n\n~[700x300](https://echarts.apache.org/examples/en/view.html?c=doc-example/bar-multi-drilldown&edit=1&reset=1)\n\nBefore `childGroupId` is introduced, developers actually can use `groupId` to make drilldown and aggregation animation already, but with the limit on the times that a continious drilldown or aggregation can happen, which is only one time.\n\n`childGroupId`, together with `groupId`, help to form \"parent-child\" relationships between data items of different options, such as:\n\n```text\ndata: [                        data: [                        data: [\n{                              {                              {\nname: 'Animals',               name: 'Dogs',                  name: 'Corgi',\nvalue: 3,                      value: 3,                      value: 5,\ngroupId: 'things',             groupId: 'animals',            groupId: 'dogs'\nchildGroupId: 'animals'        childGroupId: 'dogs'         },\n},                             },                             {\n{                              {                                name: 'Bulldog',\nname: 'Fruits',                name: 'Cats',                  value: 6,\nvalue: 3,                      value: 4,                      groupId: 'dogs'\ngroupId: 'things',             groupId: 'animals',          },\nchildGroupId: 'fruits'         childGroupId: 'cats',        {\n},                             },                               name: 'Shiba Inu',\n{                              {                                value: 7,\nname: 'Cars',                  name: 'Birds',                 groupId: 'dogs'\nvalue: 2,                      value: 3,                    }\ngroupId: 'things',             groupId: 'animals',        ]\nchildGroupId: 'cars'           childGroupId: 'birds'\n}                              }\n]                              ]\n```\n\nThe 3 groups of data above come from 3 options, and by specifying `groupId` and `childGroupId` for the data items a relationship of \"parent-child-grandChild\" is formed in the 3 options. In this way,  after `setOption` is called, Apache ECharts will try to find the \"parent-child\" or \"child-parent\" relationship of the old option and the new one. If the relationship exists, the matching data items will be applied to a drilldown animation or an aggregation one.\n\nIf a data item has no child data then there is no need to specify a `childGroupId` at all.\n\nIf you are using the [dataset](https://echarts.apache.org/en/option.html#dataset) component to represent data, you are recommended to use `encode.itemChildGroupId` to specify the dimension that is to be encoded as the child group ID.",
                 "children": []
             },
             {
@@ -2637,7 +2667,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.6.0`\n\n</div>\n\n\n\n\nWhether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.6.0`\n\n</div>\n\n\n\n\nWhether to ignore user interactions (typically, mouse or touch events).\n\n- `true`: Elements do not respond to mouse and touch interactions. As a result:\n- Interactive features are disabled, such as `tooltip`, hover state changing (i.e., `emphasis`), hover linking, etc.\n- Mouse/touch events are not dispatched to user-registered listeners (i.e., `chart.on('xxx', listener)`).\n- `false`:\n- Interactive features are not disabled by this option, but they still depend on other relevant options to be enabled.\n- Mouse/touch events are not prevented by this option, but they still depend on other relevent options (typically, `triggerEvent`, if supported).",
                 "children": []
             },
             {
@@ -2772,7 +2802,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -3122,20 +3152,6 @@
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
-                                    },
-                                    {
-                                        "name": "verticalAlign",
-                                        "type": "enum",
-                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'top','middle','bottom'"
                                     },
                                     {
                                         "name": "lineHeight",
@@ -3614,7 +3630,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -3949,20 +3965,6 @@
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
-                                            },
-                                            {
-                                                "name": "verticalAlign",
-                                                "type": "enum",
-                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'top','middle','bottom'"
                                             },
                                             {
                                                 "name": "lineHeight",
@@ -4411,7 +4413,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -4748,20 +4750,6 @@
                                                 "step": "1"
                                             },
                                             {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
-                                            },
-                                            {
-                                                "name": "verticalAlign",
-                                                "type": "enum",
-                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'top','middle','bottom'"
-                                            },
-                                            {
                                                 "name": "lineHeight",
                                                 "type": "number",
                                                 "default": "12",
@@ -5090,7 +5078,7 @@
                     {
                         "name": "valueFormatter",
                         "type": "string",
-                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
+                        "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v5.5.0` `dataIndex` is provided; but not reasonable when `dataZoom` exists, since it is the index after dataZoom filtering.\n\n</div>\n\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v6.1.0` `dataIndex` is corrected to the index before `dataZoom` filtering.\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                         "children": []
                     },
                     {
@@ -5351,7 +5339,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+                "desc": "Whether to ignore user interactions (typically, mouse or touch events).\n\n- `true`: Elements do not respond to mouse and touch interactions. As a result:\n- Interactive features are disabled, such as `tooltip`, hover state changing (i.e., `emphasis`), hover linking, etc.\n- Mouse/touch events are not dispatched to user-registered listeners (i.e., `chart.on('xxx', listener)`).\n- `false`:\n- Interactive features are not disabled by this option, but they still depend on other relevant options to be enabled.\n- Mouse/touch events are not prevented by this option, but they still depend on other relevent options (typically, `triggerEvent`, if supported).",
                 "children": []
             },
             {
@@ -5369,7 +5357,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -6055,7 +6043,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -6736,7 +6724,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -7625,7 +7613,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -8200,7 +8188,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -8948,7 +8936,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -9688,7 +9676,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+                "desc": "Whether to ignore user interactions (typically, mouse or touch events).\n\n- `true`: Elements do not respond to mouse and touch interactions. As a result:\n- Interactive features are disabled, such as `tooltip`, hover state changing (i.e., `emphasis`), hover linking, etc.\n- Mouse/touch events are not dispatched to user-registered listeners (i.e., `chart.on('xxx', listener)`).\n- `false`:\n- Interactive features are not disabled by this option, but they still depend on other relevant options to be enabled.\n- Mouse/touch events are not prevented by this option, but they still depend on other relevent options (typically, `triggerEvent`, if supported).",
                 "children": []
             },
             {
@@ -9742,7 +9730,7 @@
                         "name": "position",
                         "type": "string",
                         "default": "'end'",
-                        "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                        "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                         "children": []
                     },
                     {
@@ -10025,7 +10013,7 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "'#fff'",
+                                        "default": "",
                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                         "children": []
                                     },
@@ -10053,25 +10041,11 @@
                                     {
                                         "name": "fontSize",
                                         "type": "number",
-                                        "default": "12",
+                                        "default": "",
                                         "desc": "font size.",
                                         "children": [],
                                         "min": "1",
                                         "step": "1"
-                                    },
-                                    {
-                                        "name": "align",
-                                        "type": "enum",
-                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'left','center','right'"
-                                    },
-                                    {
-                                        "name": "verticalAlign",
-                                        "type": "enum",
-                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                        "children": [],
-                                        "options": "'top','middle','bottom'"
                                     },
                                     {
                                         "name": "lineHeight",
@@ -10399,7 +10373,7 @@
                                 "name": "position",
                                 "type": "string",
                                 "default": "'end'",
-                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                 "children": []
                             },
                             {
@@ -10682,7 +10656,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "'#fff'",
+                                                "default": "",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -10710,25 +10684,11 @@
                                             {
                                                 "name": "fontSize",
                                                 "type": "number",
-                                                "default": "12",
+                                                "default": "",
                                                 "desc": "font size.",
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
-                                            },
-                                            {
-                                                "name": "verticalAlign",
-                                                "type": "enum",
-                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'top','middle','bottom'"
                                             },
                                             {
                                                 "name": "lineHeight",
@@ -11041,7 +11001,7 @@
                                 "name": "position",
                                 "type": "string",
                                 "default": "'end'",
-                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                 "children": []
                             },
                             {
@@ -11324,7 +11284,7 @@
                                             {
                                                 "name": "color",
                                                 "type": "color",
-                                                "default": "'#fff'",
+                                                "default": "",
                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                 "children": []
                                             },
@@ -11352,25 +11312,11 @@
                                             {
                                                 "name": "fontSize",
                                                 "type": "number",
-                                                "default": "12",
+                                                "default": "",
                                                 "desc": "font size.",
                                                 "children": [],
                                                 "min": "1",
                                                 "step": "1"
-                                            },
-                                            {
-                                                "name": "align",
-                                                "type": "enum",
-                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'left','center','right'"
-                                            },
-                                            {
-                                                "name": "verticalAlign",
-                                                "type": "enum",
-                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                "children": [],
-                                                "options": "'top','middle','bottom'"
                                             },
                                             {
                                                 "name": "lineHeight",
@@ -11912,7 +11858,7 @@
                                         "name": "position",
                                         "type": "string",
                                         "default": "'end'",
-                                        "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                        "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                         "children": []
                                     },
                                     {
@@ -12195,7 +12141,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "'#fff'",
+                                                        "default": "",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -12223,25 +12169,11 @@
                                                     {
                                                         "name": "fontSize",
                                                         "type": "number",
-                                                        "default": "12",
+                                                        "default": "",
                                                         "desc": "font size.",
                                                         "children": [],
                                                         "min": "1",
                                                         "step": "1"
-                                                    },
-                                                    {
-                                                        "name": "align",
-                                                        "type": "enum",
-                                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'left','center','right'"
-                                                    },
-                                                    {
-                                                        "name": "verticalAlign",
-                                                        "type": "enum",
-                                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'top','middle','bottom'"
                                                     },
                                                     {
                                                         "name": "lineHeight",
@@ -12569,7 +12501,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -12852,7 +12784,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -12880,25 +12812,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "font size.",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -13221,7 +13139,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -13504,7 +13422,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -13532,25 +13450,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "font size.",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -13985,7 +13889,7 @@
                                         "name": "position",
                                         "type": "string",
                                         "default": "'end'",
-                                        "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                        "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                         "children": []
                                     },
                                     {
@@ -14268,7 +14172,7 @@
                                                     {
                                                         "name": "color",
                                                         "type": "color",
-                                                        "default": "'#fff'",
+                                                        "default": "",
                                                         "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                         "children": []
                                                     },
@@ -14296,25 +14200,11 @@
                                                     {
                                                         "name": "fontSize",
                                                         "type": "number",
-                                                        "default": "12",
+                                                        "default": "",
                                                         "desc": "font size.",
                                                         "children": [],
                                                         "min": "1",
                                                         "step": "1"
-                                                    },
-                                                    {
-                                                        "name": "align",
-                                                        "type": "enum",
-                                                        "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'left','center','right'"
-                                                    },
-                                                    {
-                                                        "name": "verticalAlign",
-                                                        "type": "enum",
-                                                        "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                        "children": [],
-                                                        "options": "'top','middle','bottom'"
                                                     },
                                                     {
                                                         "name": "lineHeight",
@@ -14642,7 +14532,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -14925,7 +14815,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -14953,25 +14843,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "font size.",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -15294,7 +15170,7 @@
                                                 "name": "position",
                                                 "type": "string",
                                                 "default": "'end'",
-                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-.markLine.label.distance).\n\n~[800x500](line-markline&reset=1&edit=1)",
+                                                "desc": "Positions of labels can be:\n+ `'start'` starting point of the line.\n+ `'middle'` middle point of the line.\n+ `'end'` ending point of the line.\n\nSince v4.7.0, more label positions are supported: `'start'`, `'middle'`, `'end'`, `'insideStartTop'`, `'insideStartBottom'`, `'insideMiddleTop'`, `'insideMiddleBottom'`, `'insideEndTop'`, `'insideEndBottom'`.\n\n`'insideMiddleBottom'` is the same as `'middle'`. Position is as the following chart.\n\nThe distance between labels and mark lines can be set with [label.distance](https://echarts.apache.org/en/option.html#series-map.markLine.label.distance).\n\n~[800x500](https://echarts.apache.org/examples/en/view.html?c=line-markline&reset=1&edit=1)",
                                                 "children": []
                                             },
                                             {
@@ -15577,7 +15453,7 @@
                                                             {
                                                                 "name": "color",
                                                                 "type": "color",
-                                                                "default": "'#fff'",
+                                                                "default": "",
                                                                 "desc": "text color.\n\n\n\n\nIf set as `'inherit'`, the color will assigned as visual color, such as series color.",
                                                                 "children": []
                                                             },
@@ -15605,25 +15481,11 @@
                                                             {
                                                                 "name": "fontSize",
                                                                 "type": "number",
-                                                                "default": "12",
+                                                                "default": "",
                                                                 "desc": "font size.",
                                                                 "children": [],
                                                                 "min": "1",
                                                                 "step": "1"
-                                                            },
-                                                            {
-                                                                "name": "align",
-                                                                "type": "enum",
-                                                                "desc": "Horizontal alignment of text, automatic by default.\n\nOptions are:\n+ `'left'`\n+ `'center'`\n+ `'right'`\n\n\n\nIf `align` is not set in `rich`, `align` in parent level will be used. For example:\n\n```ts\n{\nalign: right,\nrich: {\na: {\n// `align` is not set, then it will be right\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'left','center','right'"
-                                                            },
-                                                            {
-                                                                "name": "verticalAlign",
-                                                                "type": "enum",
-                                                                "desc": "Vertical alignment of text, automatic by default.\n\nOptions are:\n+ `'top'`\n+ `'middle'`\n+ `'bottom'`\n\n\n\nIf `verticalAlign` is not set in `rich`, `verticalAlign` in parent level will be used. For example:\n\n```ts\n{\nverticalAlign: bottom,\nrich: {\na: {\n// `verticalAlign` is not set, then it will be bottom\n}\n}\n}\n```",
-                                                                "children": [],
-                                                                "options": "'top','middle','bottom'"
                                                             },
                                                             {
                                                                 "name": "lineHeight",
@@ -15892,7 +15754,7 @@
                 "name": "silent",
                 "type": "boolean",
                 "default": "false",
-                "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+                "desc": "Whether to ignore user interactions (typically, mouse or touch events).\n\n- `true`: Elements do not respond to mouse and touch interactions. As a result:\n- Interactive features are disabled, such as `tooltip`, hover state changing (i.e., `emphasis`), hover linking, etc.\n- Mouse/touch events are not dispatched to user-registered listeners (i.e., `chart.on('xxx', listener)`).\n- `false`:\n- Interactive features are not disabled by this option, but they still depend on other relevant options to be enabled.\n- Mouse/touch events are not prevented by this option, but they still depend on other relevent options (typically, `triggerEvent`, if supported).",
                 "children": []
             },
             {
@@ -15910,7 +15772,7 @@
                     {
                         "name": "position",
                         "type": "enum",
-                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                         "children": [],
                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                     },
@@ -16596,7 +16458,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -17277,7 +17139,7 @@
                             {
                                 "name": "position",
                                 "type": "enum",
-                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                 "children": [],
                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                             },
@@ -18128,7 +17990,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -18814,7 +18676,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -19495,7 +19357,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -20232,7 +20094,7 @@
                                     {
                                         "name": "position",
                                         "type": "enum",
-                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                        "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                         "children": [],
                                         "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                     },
@@ -20918,7 +20780,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -21599,7 +21461,7 @@
                                             {
                                                 "name": "position",
                                                 "type": "enum",
-                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](doc-example/label-position).",
+                                                "desc": "Label position.\n\n**Followings are the options: **\n\n+ [x, y]\n\nUse relative percentage, or absolute pixel values to represent position of label relative to top-left corner of bounding box.\nFor example:\n```ts\n// Absolute pixel values\nposition: [10, 10],\n// Relative percentage\nposition: ['50%', '50%']\n```\n\n+ 'top'\n+ 'left'\n+ 'right'\n+ 'bottom'\n+ 'inside'\n+ 'insideLeft'\n+ 'insideRight'\n+ 'insideTop'\n+ 'insideBottom'\n+ 'insideTopLeft'\n+ 'insideBottomLeft'\n+ 'insideTopRight'\n+ 'insideBottomRight'\n\nSee: [label position](https://echarts.apache.org/examples/en/view.html?c=doc-example/label-position).",
                                                 "children": [],
                                                 "options": "'top','left','right','bottom','inside','insideLeft','insideRight','insideTop','insideBottom','insideTopLeft','insideBottomLeft','insideTopRight','insideBottomRight','outside'"
                                             },
@@ -22225,7 +22087,7 @@
         "name": "silent",
         "type": "boolean",
         "default": "false",
-        "desc": "Whether to ignore mouse events. Default value is false, for triggering and responding to mouse events.",
+        "desc": "Whether to ignore user interactions (typically, mouse or touch events).\n\n- `true`: Elements do not respond to mouse and touch interactions. As a result:\n- Interactive features are disabled, such as `tooltip`, hover state changing (i.e., `emphasis`), hover linking, etc.\n- Mouse/touch events are not dispatched to user-registered listeners (i.e., `chart.on('xxx', listener)`).\n- `false`:\n- Interactive features are not disabled by this option, but they still depend on other relevant options to be enabled.\n- Mouse/touch events are not prevented by this option, but they still depend on other relevent options (typically, `triggerEvent`, if supported).",
         "children": []
     },
     {
@@ -22289,7 +22151,7 @@
             {
                 "name": "valueFormatter",
                 "type": "string",
-                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\n`dataIndex` is provided since `v5.5.0`\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.3.0`\n\n</div>\n\n\n\nCallback function for formatting the value section in tooltip.\n\nInterface:\n```ts\n(value: number | string, dataIndex: number) => string\n```\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v5.5.0` `dataIndex` is provided; but not reasonable when `dataZoom` exists, since it is the index after dataZoom filtering.\n\n</div>\n\n\n\n\n<div class=\"doc-partial-version\">\n\nSince `v6.1.0` `dataIndex` is corrected to the index before `dataZoom` filtering.\n\n</div>\n\n\n\nExample:\n```ts\n// Add $ prefix\nvalueFormatter: (value) => '$' + value.toFixed(2)\n```\n\n> **[NOTE]:** Different from [tooltip.formater](https://echarts.apache.org/en/option.html#tooltip.formatter), raw HTML is NOT accepted in this approach -- the returned content will be escaped internally before rendering.",
                 "children": []
             },
             {
