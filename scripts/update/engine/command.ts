@@ -201,7 +201,8 @@ export class UseCommand implements Command {
                 newVars[k] = v;
             }
         });
-        return newVars;
+        // 合并父级 vars 和 newVars，newVars 优先级更高
+        return { ...vars, ...newVars };
     }
 }
 
@@ -297,8 +298,38 @@ export class IfCommand implements Command {
             if (value.includes('${extra}.hasOwnProperty(${name})')) {
                 return false;
             }
-            // eslint-disable-next-line no-eval
-            return eval(this.engine.compile(value, vars));
+            // 使用 compile 方法，但需要处理字符串值
+            const compiled = this.engine.compile(value, vars);
+            // 将未引号包裹的独立标识符转换为字符串字面量
+            // 例如：xAxis == "xAxis" 转换为 "xAxis" == "xAxis"
+            // 但保留 undefined、true、false、null 等关键字
+            // 以及属性访问中的属性名（如 obj.property 中的 property）
+            const processed = compiled.replace(
+                /(?<!["'\w.])([a-zA-Z_]\w*)(?!["'\w])/g,
+                (match, p1, offset, string) => {
+                    // 保留 JavaScript 关键字和 undefined
+                    if (['undefined', 'true', 'false', 'null', 'NaN', 'Infinity'].includes(match)) {
+                        return match;
+                    }
+                    // 保留数字
+                    if (/^\d+$/.test(match)) {
+                        return match;
+                    }
+                    // 检查是否是属性访问（前面有.）
+                    // 由于我们使用了负向回顾 (?<!...) 来排除 . 开头的情况
+                    // 这里不需要额外处理
+                    // 其他独立标识符转换为字符串
+                    return `"${match}"`;
+                }
+            );
+            // 尝试评估处理后的表达式
+            try {
+                // eslint-disable-next-line no-eval
+                return eval(processed);
+            } catch (evalError) {
+                // 如果评估失败（如包含中文字符等），返回 false
+                return false;
+            }
         }
     }
 }

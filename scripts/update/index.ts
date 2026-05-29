@@ -4,17 +4,25 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { execSync } from 'child_process';
 import Engine from './engine';
 import { TargetCommand, TextNode } from './engine/command';
 import { partials, components, series, partialsV4, componentsV4, seriesV4 } from './config';
 import { DetailTree, NormalTree, Tree, TreeNode } from './types';
-import { getOption } from './option';
 
 // yarn update:assets production master
 // yarn update:assets production v4
 // yarn update:assets test master
 // yarn update:assets test v4
 (async function main() {
+    const env = process.argv.length > 2 && process.argv[2] === 'test' ? 'test' : 'production';
+    const version = process.argv.length > 3 && process.argv[3] === 'v4' ? 'v4' : 'master';
+
+    if (env === 'production') {
+        // 克隆或更新 echarts-doc 仓库
+        await cloneOrUpdateRepo(version);
+    }
+
     ready('master');
     ready('v4');
 
@@ -32,35 +40,32 @@ import { getOption } from './option';
 
         // 添加内置 partial-security-url-common-warning target
         const securityUrlCommonWarningTarget = new TargetCommand('partial-security-url-common-warning', engine);
-        const securityUrlCommonWarningText = new TextNode('> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于“不受信任”的来源，必须考虑 安全风险。文档 [“安全指南”](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。', engine);
+        const securityUrlCommonWarningText = new TextNode('> **警告**: 此 URL 字符串直接被使用，并未在内部做其他净化处理（sanitization） 如果他们来自于"不受信任"的来源，必须考虑 安全风险。文档 ["安全指南"](https://echarts.apache.org/handbook/zh/best-practices/security/) 给出了安全使用建议。', engine);
         securityUrlCommonWarningTarget.addChild(securityUrlCommonWarningText);
         engine.targets['partial-security-url-common-warning'] = securityUrlCommonWarningTarget;
-
-        const env = process.argv.length > 2 && process.argv[2] === 'test' ? 'test' : 'production';
-        const version = process.argv.length > 3 && process.argv[3] === 'v4' ? 'v4' : 'master';
 
         // 编译所有模板
         await Promise.all([
             (async function() {
                 for (const name of version === 'master' ? partials : partialsV4) {
-                    const text = await getOption('partial/' + name, lang, env, version);
+                    const text = await getOptionFromLocal('partial/' + name, lang, version);
                     engine.parseSource(text);
                 }
             })(),
             (async function() {
                 for (const name of version === 'master' ? components : componentsV4) {
-                    const text = await getOption('component/' + name, lang, env, version);
+                    const text = await getOptionFromLocal('component/' + name, lang, version);
                     engine.parseSource(text);
                 }
             })(),
             (async function() {
                 for (const name of version === 'master' ? series : seriesV4) {
-                    const text = await getOption('series/' + name, lang, env, version);
+                    const text = await getOptionFromLocal('series/' + name, lang, version);
                     engine.parseSource(text);
                 }
             })(),
             (async function() {
-                const text = await getOption('option', lang, env, version);
+                const text = await getOptionFromLocal('option', lang, version);
                 engine.parseSource(text);
             })(),
         ]);
@@ -338,3 +343,51 @@ function dealTree(t: TreeNode): Tree {
     t.children.forEach(v => dealTree(v));
     return t as Tree;
 };
+
+/** 克隆或更新 echarts-doc 仓库 */
+async function cloneOrUpdateRepo(version: 'master' | 'v4'): Promise<void> {
+    const repoUrl = 'https://github.com/apache/echarts-doc.git';
+    const repoDir = path.resolve(__dirname, `./source/repo-${version}`);
+    const branch = version === 'v4' ? 'v4' : 'master';
+
+    if (fs.existsSync(repoDir)) {
+        // 如果仓库已存在，执行 git pull 更新
+        // eslint-disable-next-line no-console
+        console.log(`Updating echarts-doc repo (${version})...`);
+        try {
+            execSync('git pull', { cwd: repoDir, stdio: 'inherit' });
+        } catch (e) {
+            // eslint-disable-next-line no-console
+            console.error(`Failed to update repo (${version}):`, e);
+            process.exit(1);
+        }
+    } else {
+        // 如果仓库不存在，使用 git clone --depth 1 克隆
+        // eslint-disable-next-line no-console
+        console.log(`Cloning echarts-doc repo (${version}) with --depth 1...`);
+        try {
+            execSync(`git clone --depth 1 --branch ${branch} ${repoUrl} ${repoDir}`, { stdio: 'inherit' });
+        } catch (e) {
+            // eslint-disable-next-line no-console
+            console.error(`Failed to clone repo (${version}):`, e);
+            process.exit(1);
+        }
+    }
+}
+
+/** 从本地克隆的仓库获取文件内容 */
+async function getOptionFromLocal(name: string, lang: string, version: 'master' | 'v4'): Promise<string> {
+    const repoDir = path.resolve(__dirname, `./source/repo-${version}`);
+    const filePath = path.join(repoDir, lang, 'option', `${name}.md`);
+
+    // eslint-disable-next-line no-console
+    console.log(`Reading local file: ${lang}/option/${name}.md`);
+
+    try {
+        return fs.readFileSync(filePath, { encoding: 'utf8' });
+    } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(`Can't read local file: ${filePath}`);
+        process.exit(1);
+    }
+}
