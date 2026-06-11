@@ -3484,6 +3484,23 @@
         "desc": "本系列特定的 tooltip 设定。",
         "children": [
             {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否显示提示框。",
+                "children": []
+            },
+            {
+                "name": "trigger",
+                "type": [
+                    "string",
+                    "boolean"
+                ],
+                "default": "'item'",
+                "desc": "覆盖本系列的提示框触发类型。\n\n可选值：\n+ `'item'`\n+ `'axis'`\n+ `'none'` 或 `false`：不触发本系列提示框。",
+                "children": []
+            },
+            {
                 "name": "position",
                 "type": [
                     "string",
@@ -3534,7 +3551,7 @@
                 "name": "padding",
                 "type": "vector",
                 "default": "5",
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n\n\n提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```ts\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n\n\n提示框浮层的内边距（内容周围的留白区域），单位为像素 (`px`)。每个方向的默认值为 `5`。支持传入单个数值、双值数组或四值数组来灵活配置。\n\n使用示例：\n```ts\n// 同时应用于上下左右四个方向\npadding: 5\n// [上下, 左右] -> 上下内边距为 5，左右内边距为 10\npadding: [5, 10]\n// 顺时针方向：[上, 右, 下, 左]\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
                 "children": [],
                 "dims": "T,R,B,L"
             },

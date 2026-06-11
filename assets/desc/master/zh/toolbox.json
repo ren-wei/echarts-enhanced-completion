@@ -13,6 +13,47 @@
         "children": []
     },
     {
+        "name": "backgroundColor",
+        "type": "color",
+        "default": "'transparent'",
+        "desc": "工具栏组件的背景色。",
+        "children": []
+    },
+    {
+        "name": "padding",
+        "type": "vector",
+        "default": "15",
+        "desc": "工具栏组件的内边距（内容周围的留白区域），单位为像素 (`px`)。每个方向的默认值为 `5`。支持传入单个数值、双值数组或四值数组来灵活配置。\n\n使用示例：\n```ts\n// 同时应用于上下左右四个方向\npadding: 5\n// [上下, 左右] -> 上下内边距为 5，左右内边距为 10\npadding: [5, 10]\n// 顺时针方向：[上, 右, 下, 左]\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+        "children": [],
+        "min": "0",
+        "dims": "T,R,B,L"
+    },
+    {
+        "name": "borderColor",
+        "type": "color",
+        "default": "'#b7b9be'",
+        "desc": "工具栏组件的边框颜色。",
+        "children": []
+    },
+    {
+        "name": "borderWidth",
+        "type": "number",
+        "default": "0",
+        "desc": "工具栏组件的边框线宽，单位为像素 (`px`)。",
+        "children": [],
+        "min": "0",
+        "step": "0.5"
+    },
+    {
+        "name": "borderRadius",
+        "type": "vector",
+        "default": "0",
+        "desc": "圆角半径，单位为像素 (px)。支持传入单个数值或数组。传入数组时，可按顺时针方向分别指定四个角的半径。\n\n例如：\n```ts\nborderRadius: 5, // 统一设置四个角的圆角大小\nborderRadius: [5, 5, 0, 0] // 顺时针方向：[左上, 右上, 右下, 左下]\n```",
+        "children": [],
+        "min": "0",
+        "dims": "LT,RT,RB,LB"
+    },
+    {
         "name": "orient",
         "type": "enum",
         "desc": "工具栏 icon 的布局朝向。\n\n可选：\n+ 'horizontal'\n+ 'vertical'",
@@ -30,7 +71,7 @@
     {
         "name": "itemGap",
         "type": "number",
-        "default": "8",
+        "default": "10",
         "desc": "工具栏 icon 每项之间的间隔。横向布局时为水平间隔，纵向布局时为纵向间隔。",
         "children": [],
         "min": "0"
@@ -121,7 +162,7 @@
                             {
                                 "name": "borderColor",
                                 "type": "color",
-                                "default": "#666",
+                                "default": "'#6578ba'",
                                 "desc": "保存为图片图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                 "children": []
                             },
@@ -230,21 +271,21 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "null",
+                                        "default": "none",
                                         "desc": "保存为图片图形的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                                         "children": []
                                     },
                                     {
                                         "name": "borderColor",
                                         "type": "color",
-                                        "default": "'#000'",
+                                        "default": "'#404c76'",
                                         "desc": "保存为图片图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                         "children": []
                                     },
                                     {
                                         "name": "borderWidth",
                                         "type": "number",
-                                        "default": "0",
+                                        "default": "1",
                                         "desc": "保存为图片描边线宽。为 0 时无描边。",
                                         "children": [],
                                         "min": "0",
@@ -430,7 +471,7 @@
                             {
                                 "name": "borderColor",
                                 "type": "color",
-                                "default": "#666",
+                                "default": "'#6578ba'",
                                 "desc": "还原图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                 "children": []
                             },
@@ -539,21 +580,21 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "null",
+                                        "default": "none",
                                         "desc": "还原图形的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                                         "children": []
                                     },
                                     {
                                         "name": "borderColor",
                                         "type": "color",
-                                        "default": "'#000'",
+                                        "default": "'#404c76'",
                                         "desc": "还原图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                         "children": []
                                     },
                                     {
                                         "name": "borderWidth",
                                         "type": "number",
-                                        "default": "0",
+                                        "default": "1",
                                         "desc": "还原描边线宽。为 0 时无描边。",
                                         "children": [],
                                         "min": "0",
@@ -729,7 +770,7 @@
                             {
                                 "name": "borderColor",
                                 "type": "color",
-                                "default": "#666",
+                                "default": "'#6578ba'",
                                 "desc": "数据视图图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                 "children": []
                             },
@@ -838,21 +879,21 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "null",
+                                        "default": "none",
                                         "desc": "数据视图图形的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                                         "children": []
                                     },
                                     {
                                         "name": "borderColor",
                                         "type": "color",
-                                        "default": "'#000'",
+                                        "default": "'#404c76'",
                                         "desc": "数据视图图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                         "children": []
                                     },
                                     {
                                         "name": "borderWidth",
                                         "type": "number",
-                                        "default": "0",
+                                        "default": "1",
                                         "desc": "数据视图描边线宽。为 0 时无描边。",
                                         "children": [],
                                         "min": "0",
@@ -1096,7 +1137,7 @@
                             {
                                 "name": "borderColor",
                                 "type": "color",
-                                "default": "#666",
+                                "default": "'#6578ba'",
                                 "desc": "数据区域缩放图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                 "children": []
                             },
@@ -1205,21 +1246,21 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "null",
+                                        "default": "none",
                                         "desc": "数据区域缩放图形的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                                         "children": []
                                     },
                                     {
                                         "name": "borderColor",
                                         "type": "color",
-                                        "default": "'#000'",
+                                        "default": "'#404c76'",
                                         "desc": "数据区域缩放图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                         "children": []
                                     },
                                     {
                                         "name": "borderWidth",
                                         "type": "number",
-                                        "default": "0",
+                                        "default": "1",
                                         "desc": "数据区域缩放描边线宽。为 0 时无描边。",
                                         "children": [],
                                         "min": "0",
@@ -1586,7 +1627,7 @@
                             {
                                 "name": "borderColor",
                                 "type": "color",
-                                "default": "#666",
+                                "default": "'#6578ba'",
                                 "desc": "动态类型切换图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                 "children": []
                             },
@@ -1695,21 +1736,21 @@
                                     {
                                         "name": "color",
                                         "type": "color",
-                                        "default": "null",
+                                        "default": "none",
                                         "desc": "动态类型切换图形的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                                         "children": []
                                     },
                                     {
                                         "name": "borderColor",
                                         "type": "color",
-                                        "default": "'#000'",
+                                        "default": "'#404c76'",
                                         "desc": "动态类型切换图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                                         "children": []
                                     },
                                     {
                                         "name": "borderWidth",
                                         "type": "number",
-                                        "default": "0",
+                                        "default": "1",
                                         "desc": "动态类型切换描边线宽。为 0 时无描边。",
                                         "children": [],
                                         "min": "0",
@@ -2071,7 +2112,7 @@
             {
                 "name": "borderColor",
                 "type": "color",
-                "default": "#666",
+                "default": "'#6578ba'",
                 "desc": "公用的图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                 "children": []
             },
@@ -2180,21 +2221,21 @@
                     {
                         "name": "color",
                         "type": "color",
-                        "default": "null",
+                        "default": "none",
                         "desc": "公用的图形的颜色。\n\n\n\n> 支持使用`rgb(255,255,255)`，`rgba(255,255,255,1)`，`#fff`等方式设置为纯色，也支持设置为渐变色和纹理填充，具体见[option.color](https://echarts.apache.org/zh/option.html#color)",
                         "children": []
                     },
                     {
                         "name": "borderColor",
                         "type": "color",
-                        "default": "'#000'",
+                        "default": "'#404c76'",
                         "desc": "公用的图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                         "children": []
                     },
                     {
                         "name": "borderWidth",
                         "type": "number",
-                        "default": "0",
+                        "default": "1",
                         "desc": "公用的描边线宽。为 0 时无描边。",
                         "children": [],
                         "min": "0",

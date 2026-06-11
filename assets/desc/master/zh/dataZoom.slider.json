@@ -378,7 +378,7 @@
         "name": "borderRadius",
         "type": "vector",
         "default": "3",
-        "desc": "圆角半径，单位px，支持传入数组分别指定 4 个圆角半径。\n如:\n```\nborderRadius: 5, // 统一设置四个角的圆角大小\nborderRadius: [5, 5, 0, 0] //（顺时针左上，右上，右下，左下）\n```",
+        "desc": "圆角半径，单位为像素 (px)。支持传入单个数值或数组。传入数组时，可按顺时针方向分别指定四个角的半径。\n\n例如：\n```ts\nborderRadius: 5, // 统一设置四个角的圆角大小\nborderRadius: [5, 5, 0, 0] // 顺时针方向：[左上, 右上, 右下, 左下]\n```",
         "children": [],
         "min": "0",
         "dims": "LT,RT,RB,LB"
@@ -413,7 +413,7 @@
             {
                 "name": "borderColor",
                 "type": "color",
-                "default": "#ACB8D1",
+                "default": "'#ACB8D1'",
                 "desc": "图形的描边颜色。支持的颜色格式同 `color`，不支持回调函数。",
                 "children": []
             },
@@ -739,6 +739,95 @@
                 "children": [],
                 "min": "0",
                 "step": "1"
+            },
+            {
+                "name": "backgroundColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "文字块背景色。\n\n可以使用颜色值，例如：`'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`。\n\n也可以直接使用图片，例如：\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// 这里可以是图片的 URL，\n// 或者图片的 dataURI，\n// 或者 HTMLImageElement 对象，\n// 或者 HTMLCanvasElement 对象。\n}\n```\n\n当使用图片的时候，可以使用 `width` 或 `height` 指定高宽，也可以不指定自适应。",
+                "children": []
+            },
+            {
+                "name": "borderColor",
+                "type": "color",
+                "default": "'#fff'",
+                "desc": "文字块边框颜色。",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "0",
+                "desc": "文字块边框宽度。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "borderType",
+                "type": "enum",
+                "desc": "文字块边框描边类型。\n\n\n\n可选：\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\n自 `v5.0.0` 开始，也可以是 `number` 或者 `number` 数组，用以指定线条的 [dash array](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dasharray)，配合\n`borderDashOffset`\n可实现更灵活的虚线效果。\n\n例如：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "borderDashOffset",
+                "type": "number",
+                "default": "0",
+                "desc": "<div class=\"doc-partial-version\">\n\n从 `v5.0.0` 开始支持\n\n</div>\n\n\n\n\n用于设置虚线的偏移量，可搭配\n`borderType`\n指定 dash array 实现灵活的虚线效果。\n\n更多详情可以参考 MDN [lineDashOffset](https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/lineDashOffset)。",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "borderRadius",
+                "type": "vector",
+                "default": "0",
+                "desc": "文字块的圆角。",
+                "children": [],
+                "min": "0",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "padding",
+                "type": "vector",
+                "default": "0",
+                "desc": "文字块的内边距。例如：\n\n+ `padding: [3, 4, 5, 6]`：表示 `[上, 右, 下, 左]` 的边距。\n+ `padding: 4`：表示 `padding: [4, 4, 4, 4]`。\n+ `padding: [3, 4]`：表示 `padding: [3, 4, 3, 4]`。\n\n注意，文字块的 `width` 和 `height` 指定的是内容高宽，不包含 `padding`。",
+                "children": [],
+                "min": "0",
+                "dims": "T,R,B,L"
+            },
+            {
+                "name": "shadowColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "文字块的背景阴影颜色。",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "0",
+                "desc": "文字块的背景阴影长度。",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "文字块的背景阴影 X 偏移。",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "文字块的背景阴影 Y 偏移。",
+                "children": [],
+                "step": "0.5"
             },
             {
                 "name": "width",

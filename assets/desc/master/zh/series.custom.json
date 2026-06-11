@@ -2577,7 +2577,13 @@
                             {
                                 "name": "textVerticalAlign",
                                 "type": "string",
-                                "desc": "垂直对齐方式，取值：`'top'`, `'middle'`, `'bottom'`。\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
+                                "desc": "垂直对齐方式，取值：`'top'`, `'middle'`, `'bottom'`。",
+                                "children": []
+                            },
+                            {
+                                "name": "rich",
+                                "type": "Object",
+                                "desc": "富文本样式。键名为样式名，值为对应富文本片段的样式定义。\n\n\n\n注：关于图形元素中更多的样式设置（例如 [富文本标签](tutorial.html#%E5%AF%8C%E6%96%87%E6%9C%AC%E6%A0%87%E7%AD%BE)），参见 [zrender/graphic/Displayable](https://ecomfe.github.io/zrender-doc/public/api.html#zrenderdisplayable) 中的 style 相关属性。\n\n注意，这里图形元素的样式属性名称直接源于 zrender，和 `echarts label`、`echarts itemStyle` 等处同样含义的样式属性名称或有不同。例如，有如下对应：\n\n+ [itemStyle.color](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.color) => `style.fill`\n+ [itemStyle.borderColor](https://echarts.apache.org/zh/option.html#series-scatter.itemStyle.borderColor) => `style.stroke`\n+ [label.color](https://echarts.apache.org/zh/option.html#series-scatter.label.color) => `style.textFill`\n+ [label.textBorderColor](https://echarts.apache.org/zh/option.html#series-scatter.label.textBorderColor) => `style.textStroke`\n+ ...",
                                 "children": []
                             },
                             {
@@ -9082,8 +9088,29 @@
     {
         "name": "encode",
         "type": "Object",
-        "desc": "可以定义 `data` 的哪个维度被编码成什么。比如：\n\n```ts\noption = {\ndataset: {\nsource: [\n// 每一列称为一个『维度』。\n// 这里分别是维度 0、1、2、3、4。\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\nencode: {\nx: [3, 1, 5],      // 表示维度 3、1、5 映射到 x 轴。\ny: 2,              // 表示维度 2 映射到 y 轴。\ntooltip: [3, 2, 4] // 表示维度 3、2、4 会在 tooltip 中显示。\n}\n}\n}\n```\n\n当使用 [dimensions](https://echarts.apache.org/zh/option.html#series.dimensions) 给维度定义名称后，`encode` 中可直接引用名称，例如：\n\n```ts\nseries: {\ntype: 'xxx',\ndimensions: ['date', 'open', 'close', 'highest', 'lowest'],\nencode: {\nx: 'date',\ny: ['open', 'close', 'highest', 'lowest']\n}\n}\n```\n\n`encode` 声明的基本结构如下，其中冒号左边是坐标系、标签等特定名称，如 `'x'`, `'y'`, `'tooltip'` 等，冒号右边是数据中的维度名（string 格式）或者维度的序号（number 格式，从 0 开始计数），可以指定一个或多个维度（使用数组）。通常情况下，下面各种信息不需要所有的都写，按需写即可。\n\n下面是 encode 支持的属性：\n\n```ts\n// 在任何坐标系和系列中，都支持：\nencode: {\n// 使用 “名为 product 的维度” 和 “名为 score 的维度” 的值在 tooltip 中显示\ntooltip: ['product', 'score']\n// 使用第一个维度和第三个维度的维度名连起来作为系列名。（有时候名字比较长，这可以避免在 series.name 重复输入这些名字）\nseriesName: [1, 3],\n// 表示使用第二个维度中的值作为 id。这在使用 setOption 动态更新数据时有用处，可以使新老数据用 id 对应起来，从而能够产生合适的数据更新动画。\nitemId: 2,\n// 指定数据项的名称使用第三个维度在饼图等图表中有用，可以使这个名字显示在图例（legend）中。\nitemName: 3,\n// 指定数据项的组 ID (groupId)。当全局过渡动画功能开启时，setOption 前后拥有相同 groupId 的数据项会进行动画过渡。\nitemGroupId: 4,\n// 指定数据项对应的子数据组 ID (childGroupId)，用于实现多层下钻和聚合。详见 childGroupId。\n// 从 v5.5.0 开始支持\nitemChildGroupId: 5\n}\n\n// 直角坐标系（grid/cartesian）特有的属性：\nencode: {\n// 把 “维度1”、“维度5”、“名为 score 的维度” 映射到 X 轴：\nx: [1, 5, 'score'],\n// 把“维度0”映射到 Y 轴。\ny: 0\n}\n\n// 单轴（singleAxis）特有的属性：\nencode: {\nsingle: 3\n}\n\n// 极坐标系（polar）特有的属性：\nencode: {\nradius: 3,\nangle: 2\n}\n\n// 地理坐标系（geo）特有的属性：\nencode: {\nlng: 3,\nlat: 2\n}\n\n// 对于一些没有坐标系的图表，例如饼图、漏斗图等，可以是：\nencode: {\nvalue: 3\n}\n```\n\n这是个更丰富的 `encode` 的[示例](https://echarts.apache.org/examples/zh/view.html?c=dataset-encode1&edit=1&reset=1)：\n\n\n\n特殊地，在 [自定义系列（custom series）](https://echarts.apache.org/zh/option.html#series-custom) 中，`encode` 中轴可以不指定或设置为 `null/undefined`，从而使系列免于受这个轴控制，也就是说，轴的范围（extent）不会受此系列数值的影响，轴被 [dataZoom](https://echarts.apache.org/zh/option.html#dataZoom) 控制时也不会过滤掉这个系列：\n\n```ts\nvar option = {\nxAxis: {},\nyAxis: {},\ndataZoom: [{\nxAxisIndex: 0\n}, {\nyAxisIndex: 0\n}],\nseries: {\ntype: 'custom',\nrenderItem: function (params, api) {\nreturn {\ntype: 'circle',\nshape: {\ncx: 100, // x 位置永远为 100\ncy: api.coord([0, api.value(0)])[1],\nr: 30\n},\nstyle: {\nfill: 'blue'\n}\n};\n},\nencode: {\n// 这样这个系列就不会被 x 轴以及 x\n// 轴上的 dataZoom 控制了。\nx: -1,\ny: 1\n},\ndata: [ ... ]\n}\n};\n```",
-        "children": []
+        "desc": "可以定义 `data` 的哪个维度被编码成什么。比如：\n\n```ts\noption = {\ndataset: {\nsource: [\n// 每一列称为一个『维度』。\n// 这里分别是维度 0、1、2、3、4。\n[12, 44, 55, 66, 2],\n[23, 6, 16, 23, 1],\n...\n]\n},\nseries: {\ntype: 'xxx',\nencode: {\nx: [3, 1, 5],      // 表示维度 3、1、5 映射到 x 轴。\ny: 2,              // 表示维度 2 映射到 y 轴。\ntooltip: [3, 2, 4] // 表示维度 3、2、4 会在 tooltip 中显示。\n}\n}\n}\n```\n\n当使用 [dimensions](https://echarts.apache.org/zh/option.html#series.dimensions) 给维度定义名称后，`encode` 中可直接引用名称，例如：\n\n```ts\nseries: {\ntype: 'xxx',\ndimensions: ['date', 'open', 'close', 'highest', 'lowest'],\nencode: {\nx: 'date',\ny: ['open', 'close', 'highest', 'lowest']\n}\n}\n```\n\n`encode` 声明的基本结构如下，其中冒号左边是坐标系、标签等特定名称，如 `'x'`, `'y'`, `'tooltip'` 等，冒号右边是数据中的维度名（string 格式）或者维度的序号（number 格式，从 0 开始计数），可以指定一个或多个维度（使用数组）。通常情况下，下面各种信息不需要所有的都写，按需写即可。\n\n下面是 encode 支持的属性：\n\n```ts\n// 在任何坐标系和系列中，都支持：\nencode: {\n// 使用 “名为 product 的维度” 和 “名为 score 的维度” 的值在 tooltip 中显示\ntooltip: ['product', 'score']\n// 使用第一个维度和第三个维度的维度名连起来作为系列名。（有时候名字比较长，这可以避免在 series.name 重复输入这些名字）\nseriesName: [1, 3],\n// 表示使用第二个维度中的值作为 id。这在使用 setOption 动态更新数据时有用处，可以使新老数据用 id 对应起来，从而能够产生合适的数据更新动画。\nitemId: 2,\n// 指定数据项的名称使用第三个维度在饼图等图表中有用，可以使这个名字显示在图例（legend）中。\nitemName: 3,\n// 指定数据项的组 ID (groupId)。当全局过渡动画功能开启时，setOption 前后拥有相同 groupId 的数据项会进行动画过渡。\nitemGroupId: 4,\n// 指定数据项对应的子数据组 ID (childGroupId)，用于实现多层下钻和聚合。详见 childGroupId。\n// 从 v5.5.0 开始支持\nitemChildGroupId: 5\n}\n\n// 直角坐标系（grid/cartesian）特有的属性：\nencode: {\n// 把 “维度1”、“维度5”、“名为 score 的维度” 映射到 X 轴：\nx: [1, 5, 'score'],\n// 把“维度0”映射到 Y 轴。\ny: 0\n}\n\n// 单轴（singleAxis）特有的属性：\nencode: {\nsingle: 3\n}\n\n// 极坐标系（polar）特有的属性：\nencode: {\nradius: 3,\nangle: 2\n}\n\n// 地理坐标系（geo）特有的属性：\nencode: {\nlng: 3,\nlat: 2\n}\n\n// 对于一些没有坐标系的图表，例如饼图、漏斗图等，可以是：\nencode: {\nvalue: 3\n}\n```\n\n这是个更丰富的 `encode` 的[示例](https://echarts.apache.org/examples/zh/view.html?c=dataset-encode1&edit=1&reset=1)：\n\n特殊地，在 [自定义系列（custom series）](https://echarts.apache.org/zh/option.html#series-custom) 中，`encode` 中轴可以不指定或设置为 `null/undefined`，从而使系列免于受这个轴控制，也就是说，轴的范围（extent）不会受此系列数值的影响，轴被 [dataZoom](https://echarts.apache.org/zh/option.html#dataZoom) 控制时也不会过滤掉这个系列：\n\n```ts\nvar option = {\nxAxis: {},\nyAxis: {},\ndataZoom: [{\nxAxisIndex: 0\n}, {\nyAxisIndex: 0\n}],\nseries: {\ntype: 'custom',\nrenderItem: function (params, api) {\nreturn {\ntype: 'circle',\nshape: {\ncx: 100, // x 位置永远为 100\ncy: api.coord([0, api.value(0)])[1],\nr: 30\n},\nstyle: {\nfill: 'blue'\n}\n};\n},\nencode: {\n// 这样这个系列就不会被 x 轴以及 x\n// 轴上的 dataZoom 控制了。\nx: -1,\ny: 1\n},\ndata: [ ... ]\n}\n};\n```",
+        "children": [
+            {
+                "name": "label",
+                "type": [
+                    "string",
+                    "number",
+                    "Array"
+                ],
+                "desc": "指定默认标签内容使用的维度。",
+                "children": []
+            },
+            {
+                "name": "itemName",
+                "type": [
+                    "string",
+                    "number",
+                    "Array"
+                ],
+                "desc": "指定作为数据项名称的维度。该名称会用于默认标签和提示框。对于饼图、漏斗图等图例项表示数据项的系列，该名称也会作为图例项名称。",
+                "children": []
+            }
+        ]
     },
     {
         "name": "seriesLayoutBy",
@@ -9097,6 +9124,15 @@
         "type": "number",
         "default": "0",
         "desc": "如果 [series.data](https://echarts.apache.org/zh/option.html#series.data) 没有指定，并且 [dataset](https://echarts.apache.org/zh/option.html#dataset) 存在，那么就会使用 [dataset](https://echarts.apache.org/zh/option.html#dataset)。`datasetIndex` 指定本系列使用哪个 [dataset](https://echarts.apache.org/zh/option.html#dataset)。",
+        "children": []
+    },
+    {
+        "name": "datasetId",
+        "type": [
+            "string",
+            "number"
+        ],
+        "desc": "如果 [series.data](https://echarts.apache.org/zh/option.html#series.data) 没有指定，并且 [dataset](https://echarts.apache.org/zh/option.html#dataset) 存在，那么就会使用 [dataset](https://echarts.apache.org/zh/option.html#dataset)。`datasetId` 通过 dataset 的 `id` 指定本系列使用哪个 [dataset](https://echarts.apache.org/zh/option.html#dataset)。",
         "children": []
     },
     {
@@ -9455,6 +9491,13 @@
                 "desc": "本系列每个数据项中特定的 tooltip 设定。",
                 "children": [
                     {
+                        "name": "show",
+                        "type": "boolean",
+                        "default": "true",
+                        "desc": "是否显示提示框。",
+                        "children": []
+                    },
+                    {
                         "name": "position",
                         "type": [
                             "string",
@@ -9505,7 +9548,7 @@
                         "name": "padding",
                         "type": "vector",
                         "default": "5",
-                        "desc": "> **注意：**`series.data.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n\n提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```ts\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+                        "desc": "> **注意：**`series.data.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n\n提示框浮层的内边距（内容周围的留白区域），单位为像素 (`px`)。每个方向的默认值为 `5`。支持传入单个数值、双值数组或四值数组来灵活配置。\n\n使用示例：\n```ts\n// 同时应用于上下左右四个方向\npadding: 5\n// [上下, 左右] -> 上下内边距为 5，左右内边距为 10\npadding: [5, 10]\n// 顺时针方向：[上, 右, 下, 左]\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
                         "children": [],
                         "dims": "T,R,B,L"
                     },
@@ -9821,6 +9864,23 @@
         "desc": "本系列特定的 tooltip 设定。",
         "children": [
             {
+                "name": "show",
+                "type": "boolean",
+                "default": "true",
+                "desc": "是否显示提示框。",
+                "children": []
+            },
+            {
+                "name": "trigger",
+                "type": [
+                    "string",
+                    "boolean"
+                ],
+                "default": "'item'",
+                "desc": "覆盖本系列的提示框触发类型。\n\n可选值：\n+ `'item'`\n+ `'axis'`\n+ `'none'` 或 `false`：不触发本系列提示框。",
+                "children": []
+            },
+            {
                 "name": "position",
                 "type": [
                     "string",
@@ -9871,7 +9931,7 @@
                 "name": "padding",
                 "type": "vector",
                 "default": "5",
-                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n\n\n提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。\n\n使用示例：\n```ts\n// 设置内边距为 5\npadding: 5\n// 设置上下的内边距为 5，左右的内边距为 10\npadding: [5, 10]\n// 分别设置四个方向的内边距\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
+                "desc": "<br>\n> **注意：**`series.tooltip` 仅在 [tooltip.trigger](https://echarts.apache.org/zh/option.html#tooltip.trigger) 为 `'item'` 时有效。<br>\n\n\n\n\n\n\n\n\n\n\n\n提示框浮层的内边距（内容周围的留白区域），单位为像素 (`px`)。每个方向的默认值为 `5`。支持传入单个数值、双值数组或四值数组来灵活配置。\n\n使用示例：\n```ts\n// 同时应用于上下左右四个方向\npadding: 5\n// [上下, 左右] -> 上下内边距为 5，左右内边距为 10\npadding: [5, 10]\n// 顺时针方向：[上, 右, 下, 左]\npadding: [\n5,  // 上\n10, // 右\n5,  // 下\n10, // 左\n]\n```",
                 "children": [],
                 "dims": "T,R,B,L"
             },

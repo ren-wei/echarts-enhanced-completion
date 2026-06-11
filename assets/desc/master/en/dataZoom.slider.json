@@ -378,7 +378,7 @@
         "name": "borderRadius",
         "type": "vector",
         "default": "3",
-        "desc": "The radius of rounded corner. Its unit is px. And it supports use array to respectively specify the 4 corner radiuses.\n\nFor example:\n```\nborderRadius: 5, // consistently set the size of 4 rounded corners\nborderRadius: [5, 5, 0, 0] // (clockwise upper left, upper right, bottom right and bottom left)\n```",
+        "desc": "The radius of the rounded corners, specified in pixels (px). Supports an array to define each of the four corners individually.\n\nFor example:\n```ts\nborderRadius: 5, // Applies to all four corners\nborderRadius: [5, 5, 0, 0] // Clockwise from top-left: [top-left, top-right, bottom-right, bottom-left]\n```",
         "children": [],
         "min": "0",
         "dims": "LT,RT,RB,LB"
@@ -413,7 +413,7 @@
             {
                 "name": "borderColor",
                 "type": "color",
-                "default": "#ACB8D1",
+                "default": "'#ACB8D1'",
                 "desc": "border color, whose format is similar to that of `color`.",
                 "children": []
             },
@@ -739,6 +739,95 @@
                 "children": [],
                 "min": "0",
                 "step": "1"
+            },
+            {
+                "name": "backgroundColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "Background color of the text fragment.\n\nCan be color string, like `'#123234'`, `'red'`, `'rgba(0,23,11,0.3)'`.\n\nOr image can be used, for example:\n\n```ts\nbackgroundColor: {\nimage: 'xxx/xxx.png'\n// It can be URL of a image,\n// or dataURI,\n// or HTMLImageElement,\n// or HTMLCanvasElement.\n}\n```\n\n`width` or `height` can be specified when using background image, or\nauto adapted by default.",
+                "children": []
+            },
+            {
+                "name": "borderColor",
+                "type": "color",
+                "default": "'#fff'",
+                "desc": "Border color of the text fragment.",
+                "children": []
+            },
+            {
+                "name": "borderWidth",
+                "type": "number",
+                "default": "0",
+                "desc": "Border width of the text fragment.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "borderType",
+                "type": "enum",
+                "desc": "the text fragment border type.\n\n\n\nPossible values are:\n+ `'solid'`\n+ `'dashed'`\n+ `'dotted'`\n\nSince `v5.0.0`, it can also be a number or a number array to specify the [dash array](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray) of the line. With\n`borderDashOffset`\n, we can make the line style more flexible.\n\nFor example：\n```ts\n{\n\nborderType: [5, 10],\n\nborderDashOffset: 5\n}\n```",
+                "children": [],
+                "options": "'solid','dashed','dotted'"
+            },
+            {
+                "name": "borderDashOffset",
+                "type": "number",
+                "default": "0",
+                "desc": "<div class=\"doc-partial-version\">\n\nSince `v5.0.0`\n\n</div>\n\n\n\n\n\nTo set the line dash offset. With\n`borderType`\n, we can make the line style more flexible.\n\nRefer to MDN [lineDashOffset](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset) for more details.",
+                "children": [],
+                "min": "0",
+                "step": "1"
+            },
+            {
+                "name": "borderRadius",
+                "type": "vector",
+                "default": "0",
+                "desc": "Border radius of the text fragment.",
+                "children": [],
+                "min": "0",
+                "dims": "LT,RT, RB, LB"
+            },
+            {
+                "name": "padding",
+                "type": "vector",
+                "default": "0",
+                "desc": "Padding of the text fragment, for example:\n\n+ `padding: [3, 4, 5, 6]`: represents padding of `[top, right, bottom, left]`.\n+ `padding: 4`: represents `padding: [4, 4, 4, 4]`.\n+ `padding: [3, 4]`: represents `padding: [3, 4, 3, 4]`.\n\nNotice, `width` and `height` specifies the width and height of the content, without `padding`.",
+                "children": [],
+                "min": "0",
+                "dims": "T,R,B,L"
+            },
+            {
+                "name": "shadowColor",
+                "type": "color",
+                "default": "'transparent'",
+                "desc": "Shadow color of the text block.",
+                "children": []
+            },
+            {
+                "name": "shadowBlur",
+                "type": "number",
+                "default": "0",
+                "desc": "Show blur of the text block.",
+                "children": [],
+                "min": "0",
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetX",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow X offset of the text block.",
+                "children": [],
+                "step": "0.5"
+            },
+            {
+                "name": "shadowOffsetY",
+                "type": "number",
+                "default": "0",
+                "desc": "Shadow Y offset of the text block.",
+                "children": [],
+                "step": "0.5"
             },
             {
                 "name": "width",
